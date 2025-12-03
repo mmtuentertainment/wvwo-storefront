@@ -1,0 +1,41 @@
+# Obsidian
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/plugins/
+.obsidian/core-plugins-migration.json
+.obsidian/app.json
+
+# Keep these Obsidian files (for consistent settings across devices)
+# .obsidian/appearance.json
+# .obsidian/community-plugins.json
+# .obsidian/hotkeys.json
+
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Node (for future website build)
+node_modules/
+.next/
+out/
+build/
+dist/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Misc
+*.swp
+*.swo
+*~
