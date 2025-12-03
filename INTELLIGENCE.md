@@ -287,6 +287,68 @@ Each major intent needs its own section:
 
 ---
 
+## Website Build Plan (Finalized Dec 3, 2024)
+
+### Platform Decision
+**Carrd** ($19/year) - Perfect for shed-sized shop, one-pager focus
+
+**Upgrade path:** Squarespace if they want blog/inventory later
+
+### Model Sites to Reference
+| Site | URL | Why It Works |
+|------|-----|--------------|
+| Crossroads General Store | crossroadsgeneral.com | **Gold standard** - warm tone, geographic list, family-owned narrative |
+| Valley Outdoors WV | valleyoutdoorswv.com | Product + service balance |
+| Appalachian Tactical | apptactoutfitters.com | Clean, minimal, fast |
+
+### Page Structure
+
+```
+[HEADER]
+- Store name + phone (clickable)
+
+[HERO]
+- "Ammo, gear, and FFL transfers for Braxton County hunters."
+
+[HOURS & LOCATION]
+- 121 Birch River Rd, Birch River, WV 26610
+- Mon-Sat 10-5, Closed Sunday
+- "Family comes first - call ahead if you're driving far"
+
+[WHAT WE CARRY]
+- Firearms | Ammo | Boots | Camo | Fishing Licenses | Optics
+
+[SERVICES]
+- FFL transfers
+- WVDNR hunting/fishing licenses
+- Vortex Optics dealer
+
+[ABOUT]
+- The flood story (short version)
+
+[SERVING]
+- Birch River, Sutton, Gassaway, Summersville, Burnsville, Frametown...
+
+[EMAIL SIGNUP]
+- "Get stock updates"
+
+[FOOTER]
+- Phone, address, Facebook link
+```
+
+### Common Mistakes to Avoid
+- ❌ No phone above fold → Phone in header, clickable
+- ❌ Vague hours → Exact hours + "call ahead" caveat
+- ❌ Corporate language → Kim's voice: warm, faith-forward
+- ❌ Trying to be ecommerce → Focus on foot traffic
+- ❌ Slow images → One storefront photo, compressed
+
+### Tone Guide
+❌ "We're committed to providing a comprehensive, premium firearms retail experience"
+✅ "We got what you need. Drop by and ask—we hunt and fish here too."
+
+---
+
 ## Other Revenue Streams
 
 | Stream | Details |
