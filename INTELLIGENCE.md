@@ -260,6 +260,33 @@ Birch River sits between two retail hubs with no dedicated outfitter in between:
 
 ---
 
+## SEO Keywords (Verified Dec 3, 2024)
+
+### Primary Long-Tail Targets
+- "gun shop near me in Braxton County WV"
+- "FFL dealer and gun transfers in Sutton WV"
+- "hunting gear near me – boots, camo, ammo"
+- "where to buy fishing license near Sutton Lake WV"
+- "9mm and 12 gauge ammo in stock near Birch River WV"
+
+### Local Modifiers
+Birch River, Sutton, Gassaway, Summersville, Burnsville, Frametown, Duck
+
+### Seasonal Spikes
+- September: archery/crossbow, mast reports
+- November: buck season, rifle ammo
+- Spring: fishing licenses, Sutton Lake
+
+### Page Structure for SEO
+Each major intent needs its own section:
+1. Firearms & FFL
+2. Hunting Gear
+3. Licenses
+4. Ammo (with stock callouts)
+5. About Us
+
+---
+
 ## Other Revenue Streams
 
 | Stream | Details |
