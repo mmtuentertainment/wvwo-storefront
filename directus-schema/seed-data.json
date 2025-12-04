@@ -49,5 +49,70 @@
     "about_short": "Family-owned sporting goods in Braxton County since 2008. Filling freezers, not trophy cases.",
     "flood_story": "We've been here since 2008.\n\nStarted in Fayetteville. Moved to Hico - couldn't make it. Moved to Birch River in 2013. Then June 23, 2016 happened.\n\nThe flood hit Birch River hard. Record water levels. Old Route 19 collapsed. We lost $70,000 in inventory overnight. FEMA said no - Braxton County wasn't on their list. Then someone broke in and took another $10,000.\n\nWe moved to this corner lot, started smaller, and kept going. Today we own this building and every single thing in it. No debt. No landlord. Just us.\n\nWhen a door closes, look for the blessing. God is good.",
     "facebook_url": "https://www.facebook.com/profile.php?id=100063588635941"
-  }
+  },
+  "services": [
+    {
+      "status": "published",
+      "name": "FFL Transfers",
+      "slug": "ffl-transfers",
+      "short_description": "Transfer firearms purchased online to our store",
+      "description": "We're a licensed Type 02 FFL dealer. Bring your online firearm purchase here for legal transfer.\n\n**Process:**\n1. Buy firearm online, ship to our FFL\n2. We notify you when it arrives\n3. Complete ATF Form 4473 in-store\n4. Pass NICS background check\n5. Take your firearm home",
+      "price_info": "$25 per transfer",
+      "sort_order": 1
+    },
+    {
+      "status": "published",
+      "name": "Hunting & Fishing Licenses",
+      "slug": "licenses",
+      "short_description": "WVDNR authorized license agent",
+      "description": "Skip the line at Walmart. We're an authorized WVDNR license agent.\n\n**Available:**\n- Resident/Non-resident hunting\n- Resident/Non-resident fishing\n- Combination licenses\n- Trout stamps\n- National Forest stamps",
+      "price_info": "State prices + $1 processing",
+      "sort_order": 2
+    },
+    {
+      "status": "published",
+      "name": "Buy/Sell/Trade Firearms",
+      "slug": "buy-sell-trade",
+      "short_description": "Fair prices for your used firearms",
+      "description": "As a Type 02 FFL, we can buy and sell used firearms legally. Bring in your firearm for a fair cash offer or trade value. No appointment needed.",
+      "price_info": "Call for quote",
+      "sort_order": 3
+    },
+    {
+      "status": "published",
+      "name": "Scope Mounting & Bore Sighting",
+      "slug": "scope-mounting",
+      "short_description": "Professional scope installation",
+      "description": "Let us mount your new scope properly. We'll bore sight it so you're ready for the range.",
+      "price_info": "$20 mount + sight",
+      "sort_order": 4
+    }
+  ],
+  "announcements": [
+    {
+      "status": "published",
+      "message": "Buck season opens Nov 25 - we have your gear!",
+      "type": "promo",
+      "link": "/products?category=hunting-gear",
+      "sort_order": 1
+    }
+  ],
+  "pages": [
+    {
+      "status": "draft",
+      "title": "About Us",
+      "slug": "about",
+      "content": "[PLACEHOLDER: Story content - gather from Kim]",
+      "meta_title": "About WV Wild Outdoors - Family Owned Since 2008",
+      "meta_description": "Family-owned sporting goods store serving Braxton County since 2008."
+    },
+    {
+      "status": "draft",
+      "title": "FAQ",
+      "slug": "faq",
+      "content": "[PLACEHOLDER: FAQ content]",
+      "meta_title": "FAQ - WV Wild Outdoors",
+      "meta_description": "Common questions about FFL transfers, licenses, and more."
+    }
+  ]
 }

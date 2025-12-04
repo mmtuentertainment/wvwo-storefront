@@ -103,6 +103,59 @@
         { "field": "active", "type": "boolean", "meta": { "interface": "boolean", "default": true, "width": "half" } },
         { "field": "sort_order", "type": "integer", "meta": { "interface": "input", "width": "half" } }
       ]
+    },
+    {
+      "collection": "announcements",
+      "meta": {
+        "icon": "campaign",
+        "note": "Ticker messages for homepage (Bait & Bullet style)",
+        "sort_field": "sort_order"
+      },
+      "fields": [
+        { "field": "id", "type": "integer", "meta": { "hidden": true, "interface": "input", "readonly": true } },
+        { "field": "status", "type": "string", "meta": { "interface": "select-dropdown", "options": { "choices": [{"text": "Published", "value": "published"}, {"text": "Draft", "value": "draft"}] }, "default": "draft", "width": "half" } },
+        { "field": "message", "type": "string", "meta": { "interface": "input", "required": true, "note": "Keep under 100 chars. E.g. 'Live bait in stock!'" } },
+        { "field": "type", "type": "string", "meta": { "interface": "select-dropdown", "options": { "choices": [{"text": "Info", "value": "info"}, {"text": "Alert", "value": "alert"}, {"text": "Promo", "value": "promo"}] }, "default": "info", "width": "half" } },
+        { "field": "link", "type": "string", "meta": { "interface": "input", "note": "Optional click-through URL", "width": "half" } },
+        { "field": "start_date", "type": "timestamp", "meta": { "interface": "datetime", "width": "half", "note": "When to start showing" } },
+        { "field": "end_date", "type": "timestamp", "meta": { "interface": "datetime", "width": "half", "note": "Auto-expire after this" } },
+        { "field": "sort_order", "type": "integer", "meta": { "interface": "input", "width": "half" } }
+      ]
+    },
+    {
+      "collection": "services",
+      "meta": {
+        "icon": "build",
+        "note": "Store services (FFL transfers, licenses, etc.)",
+        "sort_field": "sort_order"
+      },
+      "fields": [
+        { "field": "id", "type": "integer", "meta": { "hidden": true, "interface": "input", "readonly": true } },
+        { "field": "status", "type": "string", "meta": { "interface": "select-dropdown", "options": { "choices": [{"text": "Published", "value": "published"}, {"text": "Draft", "value": "draft"}] }, "default": "draft", "width": "half" } },
+        { "field": "name", "type": "string", "meta": { "interface": "input", "required": true, "width": "half" } },
+        { "field": "slug", "type": "string", "meta": { "interface": "input", "required": true, "options": { "slug": true }, "width": "half" } },
+        { "field": "short_description", "type": "text", "meta": { "interface": "input-multiline", "note": "For cards (150 chars max)" } },
+        { "field": "description", "type": "text", "meta": { "interface": "input-rich-text-md", "note": "Full service details" } },
+        { "field": "image", "type": "uuid", "meta": { "interface": "file-image", "special": ["file"] } },
+        { "field": "price_info", "type": "string", "meta": { "interface": "input", "note": "e.g. '$25 per transfer'", "width": "half" } },
+        { "field": "sort_order", "type": "integer", "meta": { "interface": "input", "width": "half" } }
+      ]
+    },
+    {
+      "collection": "pages",
+      "meta": {
+        "icon": "article",
+        "note": "Custom static pages (About, FAQ, etc.)"
+      },
+      "fields": [
+        { "field": "id", "type": "integer", "meta": { "hidden": true, "interface": "input", "readonly": true } },
+        { "field": "status", "type": "string", "meta": { "interface": "select-dropdown", "options": { "choices": [{"text": "Published", "value": "published"}, {"text": "Draft", "value": "draft"}] }, "default": "draft", "width": "half" } },
+        { "field": "title", "type": "string", "meta": { "interface": "input", "required": true, "width": "half" } },
+        { "field": "slug", "type": "string", "meta": { "interface": "input", "required": true, "options": { "slug": true }, "width": "half", "note": "URL path e.g. 'about'" } },
+        { "field": "content", "type": "text", "meta": { "interface": "input-rich-text-md" } },
+        { "field": "meta_title", "type": "string", "meta": { "interface": "input", "note": "SEO title", "width": "half" } },
+        { "field": "meta_description", "type": "text", "meta": { "interface": "input-multiline", "note": "SEO description", "width": "half" } }
+      ]
     }
   ],
   "relations": [

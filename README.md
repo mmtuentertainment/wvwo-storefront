@@ -1,63 +1,48 @@
-# WV Wild Outdoors - Digital Storefront Project
+# WV Wild Outdoors Storefront
 
-A surprise digital transformation gift for WV Wild Outdoors LLC, a family-owned sporting goods store in Birch River, WV.
+Digital ecosystem for WV Wild Outdoors LLC - a family-owned sporting goods store in Birch River, West Virginia.
+
+## Tech Stack
+
+| Service | Purpose | Production URL |
+|---------|---------|----------------|
+| Astro | Static storefront | wvwildoutdoors.com |
+| Directus | Product CMS | admin.wvwildoutdoors.com |
+| Ghost | Blog (SQLite) | blog.wvwildoutdoors.com |
+| Listmonk | Newsletter | mail.wvwildoutdoors.com |
+| Umami | Analytics | analytics.wvwildoutdoors.com |
+
+## Quick Start (Local)
+
+```bash
+cd infra/docker
+cp .env.example .env
+# Edit .env with your values
+
+docker compose -f docker-compose.yml -f docker-compose.local.yml up -d
+```
+
+**Access:**
+- Directus: http://localhost:8055
+- Ghost: http://localhost:2368
+- Listmonk: http://localhost:9000
+- Umami: http://localhost:3000
+
+## Documentation
+
+- [Complete Blueprint](docs/BLUEPRINT.md)
+- [Directus Schema](directus-schema/schema.json)
+- [Seed Data](directus-schema/seed-data.json)
 
 ## Project Status
 
-- [x] Intelligence gathering (business facts, voice, competitive landscape)
-- [x] Stack research (open-source self-hosted architecture)
-- [ ] Infrastructure setup (Docker, VPS)
-- [ ] Directus schema
+- [x] Schema design (8 collections)
+- [x] Seed data
+- [x] Docker infrastructure
 - [ ] Astro storefront
-- [ ] Ghost blog
-- [ ] Social/email automation
+- [ ] Ghost theme
 - [ ] Production deployment
 
 ---
 
-## The Business
-
-**WV Wild Outdoors LLC**
-- "Sporting goods/country store"
-- 121 Birch River Rd, Birch River, WV 26610
-- (304) 649-2607
-- Est. 2008 | Birch River location since 2013
-
----
-
-## Tech Stack
-- **Storefront:** Astro (static) + Stripe Payment Links
-- **CMS/Admin:** Directus
-- **Blog:** Ghost (SQLite)
-- **Email:** Listmonk
-- **Social:** Mixpost Lite
-- **Database:** PostgreSQL (shared)
-- **Proxy:** Traefik (auto SSL)
-
-## Domains (Planned)
-- wvwildoutdoors.com - Store
-- blog.wvwildoutdoors.com - Hunting tips, news
-- admin.wvwildoutdoors.com - Back office
-
----
-
-## Docs
-- `INTELLIGENCE.md` - Business intel, voice profile, competitive landscape
-- `RESEARCH_LOG.md` - Technical stack research
-- `WVWO_Facebook_Audit.md` - Facebook presence analysis
-- `NEXT_STEPS.md` - Conversation scripts for intel gathering
-- `REMINDERS.md` - Touchpoint tracking
-
----
-
-## Monthly Cost
-~$12/month (2GB VPS + domain + backups)
-
----
-
-## Notes
-
-- This repo doubles as an Obsidian vault
-- Kim communicates via Bryan's Facebook Messenger
-- Intel gathering uses ethical influence techniques
-- The PSYOP scoring framework was used to verify source reliability
+*Private project for WV Wild Outdoors LLC*
