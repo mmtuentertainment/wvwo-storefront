@@ -1,0 +1,573 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+
+# WV Wild Outdoors Storefront - CodeRabbit Configuration
+# Aligned with Constitution v1.1.0 (6 Principles) - Rural West Virginia Family Business
+# This is a surprise gift. No half-baked features. Kim's reputation depends on it.
+
+language: "en-US"
+early_access: false
+
+# Tone: Authentic, family-business focus - Direct and thorough with cultural sensitivity
+tone_instructions: "Review for rural West Virginia family business digital ecosystem. Be direct and thorough. Focus on Owner-First Simplicity (Kim's phone workflow), Heart of West Virginia (authentic voice), Modular Service Architecture (Docker independence), Developer-Managed Infrastructure (Matt-only backend access), Dual-Experience Design (mobile + desktop excellence), and Anti-MVP Bias (ship complete, polished features that honor the business). This is a surprise gift - no half-baked prototypes. Kim's reputation depends on it working right the first time."
+
+reviews:
+  profile: "assertive"  # Owner-First Simplicity + Anti-MVP Bias require thoroughness
+  request_changes_workflow: true  # Block merges until issues resolved (Anti-MVP: no half-done features)
+  high_level_summary: true
+  high_level_summary_instructions: |
+    Generate a structured, machine-readable summary optimized for AI agent consumption:
+
+    ## Constitutional Compliance
+    - [ ] Principle I: Owner-First Simplicity
+      - [ ] Kim can manage this from her phone without technical knowledge
+      - [ ] Form fields used (not code/terminal/config files)
+      - [ ] Error messages are human-readable
+      - [ ] Mobile-responsive and touch-friendly
+      - [ ] Training time ≤15 minutes for any new feature
+    - [ ] Principle II: Heart of West Virginia
+      - [ ] Voice reflects rural WV authenticity
+      - [ ] Real images preferred over stock photography
+      - [ ] Local landmarks/seasons/traditions referenced
+      - [ ] Community trust prioritized over conversion optimization
+    - [ ] Principle III: Modular Service Architecture
+      - [ ] Services remain loosely coupled (Directus, Ghost, Astro, Listmonk, Mixpost)
+      - [ ] Each service deployable/testable in isolation
+      - [ ] Service failures don't cascade
+      - [ ] Data sync through explicit APIs (not shared DB access)
+    - [ ] Principle IV: Developer-Managed Infrastructure
+      - [ ] Kim's access: Directus admin, Ghost editor, Facebook, email only
+      - [ ] Matt's access: Servers, DNS, Docker, backups, monitoring
+      - [ ] Production changes go through Matt
+      - [ ] Documentation distinguishes "Kim does this" vs "Matt does this"
+    - [ ] Principle V: Dual-Experience Design
+      - [ ] Public pages score 90+ on mobile PageSpeed Insights
+      - [ ] Admin interfaces fully functional on desktop
+      - [ ] Kim's workflow optimized for phone-sized screens
+      - [ ] Customer features work identically on mobile + desktop
+      - [ ] No "desktop-only" customer-facing features
+    - [ ] Principle VI: Anti-MVP Bias
+      - [ ] Internal Shipping Criteria (Matt → Kim/Bryan testing):
+        - [ ] Feature works correctly on Matt's machine
+        - [ ] Kim can use from phone without training beyond 15min
+        - [ ] Data persists correctly across service restarts
+        - [ ] Error handling is user-friendly (no stack traces)
+        - [ ] "Would Kim actually use this in the store?" test passes
+      - [ ] External Shipping Criteria (Public launch):
+        - [ ] All 7 services production-ready (Astro, Directus, Ghost, Listmonk, Mixpost, PostgreSQL, Redis)
+        - [ ] SSL certificates working (Traefik + Let's Encrypt)
+        - [ ] Subdomain routing functional (admin.*, blog.*, mail.*, analytics.*)
+        - [ ] Analytics tracking operational (Umami)
+        - [ ] Newsletter system functional end-to-end
+        - [ ] Social media scheduling tested (Mixpost)
+        - [ ] Directus admin fully mobile-responsive
+        - [ ] Ghost blog theme complete and branded
+        - [ ] Backups automated and tested (restoration verified)
+        - [ ] Documentation complete (Kim training guide, Matt runbook)
+        - [ ] Performance validated (90+ mobile PageSpeed)
+        - [ ] Monitoring/alerting configured
+        - [ ] DNS/Cloudflare CDN configured
+
+    ## Anti-MVP Shipping Readiness
+    **Internal Shipping** (Matt → Kim/Bryan): {Ready/Not Ready}
+    - Feature works correctly: {Yes/No}
+    - Kim can use from phone: {Yes/No}
+    - Data persists across restarts: {Yes/No}
+    - Error handling user-friendly: {Yes/No}
+    - "Would Kim use this?" test: {Pass/Fail}
+
+    **External Shipping** (Public Launch): {Blocked - X/13 complete}
+    - Services production-ready: {X/7}
+    - SSL/subdomains working: {Yes/No}
+    - Analytics operational: {Yes/No}
+    - Newsletter functional: {Yes/No}
+    - Social media tested: {Yes/No}
+    - Admin mobile-responsive: {Yes/No}
+    - Blog theme complete: {Yes/No}
+    - Backups automated: {Yes/No}
+    - Documentation complete: {Yes/No}
+    - Performance validated: {Yes/No}
+    - Monitoring configured: {Yes/No}
+    - DNS/CDN configured: {Yes/No}
+
+    **Phase**: {Infrastructure / Development / Testing / Pre-Launch / Production}
+
+    ## Tech Stack Compliance
+    - [ ] Frontend: Astro, Tailwind CSS, Vanilla JS (NO React/Vue/Angular for public pages)
+    - [ ] Backend: Directus 10.x, Ghost 5.x, Listmonk, Mixpost
+    - [ ] Infrastructure: Docker, PostgreSQL 15, Redis 7, Traefik
+    - [ ] Hosting: DigitalOcean, Cloudflare, Backblaze B2
+    - [ ] NO WordPress, Shopify, or monolithic platforms
+    - [ ] NO services requiring Kim to manage credentials/API keys
+
+    ## Role Boundaries Check
+    **Kim's Responsibilities** (Safe to include):
+    - Add/edit products via Directus forms ✓
+    - Write/publish blog posts via Ghost ✓
+    - Respond to Facebook messages ✓
+    - Review monthly newsletter drafts ✓
+
+    **Matt's Responsibilities** (MUST NOT require Kim):
+    - Server administration/deployment ✓
+    - Database management/backups ✓
+    - Security updates/monitoring ✓
+    - Integration development ✓
+
+    ## Changes Summary
+    **Files Modified**: {count}
+    **Lines Added/Removed**: +{added}/-{removed}
+    **Services Affected**: {list: Astro, Directus, Ghost, Listmonk, Mixpost, PostgreSQL, Redis, Traefik}
+    **Documentation Updated**: {Yes/No}
+
+    ## Critical Issues (BLOCKING)
+    - {list any constitution violations, security risks, role boundary violations}
+
+    ## Warnings (SHOULD FIX)
+    - {list infrastructure issues, documentation gaps, cultural authenticity concerns}
+
+    ## Business Context Preservation
+    - {verify Voice profile maintained (rural WV, family-first, authentic hunting culture)}
+    - {check for inappropriate corporate/luxury/paternalistic language}
+    - {validate local terminology (buck season, freezers not trophy cases, etc.)}
+
+    ## Release Notes
+    - {concise bullet-point list for changelog}
+
+    ## Action Required
+    - {specific next steps for PR author}
+  review_status: true
+  commit_status: true
+  fail_commit_status: true  # Hard fail on review errors
+  collapse_walkthrough: false
+  changed_files_summary: true
+  sequence_diagrams: true
+  estimate_code_review_effort: true
+  assess_linked_issues: true
+  related_issues: true
+  related_prs: true
+  suggested_labels: true
+  auto_apply_labels: true
+  suggested_reviewers: true
+  poem: false  # No fluff - family business values efficiency
+
+  # Path filters: Exclude generated/vendor files
+  path_filters:
+    - "!node_modules/**"
+    - "!dist/**"
+    - "!build/**"
+    - "!*.lock"
+    - "!package-lock.json"
+    - "!pnpm-lock.yaml"
+    - "!yarn.lock"
+    - "!.pnpm-store/**"
+    - "!.astro/**"
+    - "!__pycache__/**"
+    - "!*.pyc"
+    - "!.venv/**"
+    - "!venv/**"
+    - "!spec-kit/**"  # Submodule with own review process
+
+  # Path-specific instructions aligned with Constitution
+  path_instructions:
+    # Docker Infrastructure - Principle III (Modular Service Architecture)
+    - path: "docker-compose.yml"
+      instructions: |
+        CRITICAL - Constitution Principle III (Modular Service Architecture):
+        - Services MUST remain loosely coupled and independently deployable
+        - Each service MUST have health checks defined
+        - Service dependencies MUST be explicit (depends_on with conditions)
+        - Named volumes MUST be used for data persistence
+        - NO shared database access between services
+        - Environment variables MUST use .env file (never hardcoded)
+
+        Principle IV (Developer-Managed Infrastructure):
+        - Kim MUST NEVER need to edit this file
+        - All changes MUST be documented in comments
+        - Port mappings MUST be documented with service purpose
+        - Security credentials MUST use environment variables
+
+        Principle VI (Anti-MVP Bias):
+        - Health checks MUST be comprehensive (not just "true" scripts)
+        - Restart policies MUST handle service failures gracefully
+        - Data persistence MUST be validated (no volume mount mistakes)
+        - NO "comment out later" TODOs - either implement or remove
+        - Service configurations MUST be production-grade from day one
+
+        Service Architecture:
+        - Validate all 7+ services present: postgres, redis, directus, ghost, listmonk, mixpost, astro
+        - Check service restart policies (unless-stopped recommended)
+        - Verify network configuration (wvwo-dev bridge network)
+        - Validate volume mounts (bind vs named volumes)
+
+        God File Prevention (INFRASTRUCTURE):
+        - Flag docker-compose.yml >400 lines as BLOCKING
+        - Suggest splitting into docker-compose.override.yml or separate stack files
+        - Recommend service-specific compose files for complex setups
+
+    - path: "infra/docker/**/*.yml"
+      instructions: |
+        Production Infrastructure Configuration:
+        - Traefik MUST be configured for automatic Let's Encrypt SSL
+        - HTTP to HTTPS redirect MUST be enabled
+        - Subdomain routing MUST match production URLs (admin.*, blog.*, mail.*, analytics.*)
+        - All secrets MUST use environment variables (never hardcoded)
+        - Health checks MUST be more aggressive than dev environment
+        - Resource limits MUST be defined for all services
+
+        Principle IV (Developer-Managed Infrastructure):
+        - This file is Matt's exclusive domain
+        - Changes MUST NOT require Kim to modify or understand Docker/Traefik
+
+        Principle VI (Anti-MVP Bias - PRODUCTION):
+        - SSL MUST work end-to-end (no "fix later" placeholders)
+        - Monitoring/alerting MUST be configured (not "nice to have")
+        - Backup automation MUST be tested (restoration verified)
+        - NO "we'll harden this later" security gaps
+        - Resource limits prevent runaway processes (Kim's store depends on uptime)
+
+    # Docker Service Configs
+    - path: "docker/**/*.{Dockerfile,conf,toml,json,sh}"
+      instructions: |
+        Service-Specific Configuration Files:
+        - Dockerfiles MUST use official base images (Alpine preferred for size)
+        - MUST use multi-stage builds where applicable
+        - NO hardcoded credentials (use ARG/ENV)
+        - Shell scripts MUST have proper error handling (set -euo pipefail)
+        - Configuration files MUST have comments explaining non-obvious settings
+
+        Security (Principle IV):
+        - Development credentials are acceptable in .example files
+        - Production credentials MUST NEVER be committed
+        - Validate .gitignore excludes actual .env files
+
+    # Directus Schema - Principle I (Owner-First Simplicity)
+    - path: "directus-schema/**/*.json"
+      instructions: |
+        CRITICAL - Constitution Principle I (Owner-First Simplicity):
+        - All field types MUST be form-friendly (no JSON blobs requiring technical knowledge)
+        - Field labels MUST use plain English (no developer jargon)
+        - Validation rules MUST produce human-readable error messages
+        - Required fields MUST be clearly marked with helpful hints
+
+        Principle II (Heart of West Virginia):
+        - Collection names MUST reflect store terminology (products, services, announcements)
+        - Field descriptions MUST guide Kim with natural language
+        - Dropdown options MUST use local terminology where applicable
+
+        Principle VI (Anti-MVP Bias):
+        - Validation rules MUST be comprehensive (price > 0, SKU unique, etc.)
+        - Default values MUST be sensible (not empty strings or null where avoidable)
+        - Relationships MUST cascade correctly (delete product → delete images)
+        - NO "we'll add validation later" - data integrity from day one
+        - Field interfaces MUST be the BEST for the use case (not just "input")
+
+        Data Model Validation:
+        - Check for proper relationships (M2O, O2M references)
+        - Validate field types match use cases (markdown for long text, date for dates, etc.)
+        - Ensure sort_order fields exist for user-controlled ordering
+        - Verify status fields for draft/published workflows
+
+        God File Prevention (SCHEMA):
+        - Flag schema.json >1500 lines as WARNING (consider splitting collections)
+        - Recommend extracting large enums/options to separate reference files
+
+    - path: "directus-schema/seed-data.json"
+      instructions: |
+        Principle II (Heart of West Virginia):
+        - ALL text content MUST reflect authentic rural WV voice
+        - NO corporate buzzwords, luxury language, or condescending "expert" tone
+        - Product descriptions MUST use hunting/fishing terminology correctly
+        - Store info MUST accurately reflect Birch River, WV location and hours
+
+        Principle VI (Anti-MVP Bias):
+        - Seed data MUST be comprehensive, not "lorem ipsum" placeholders
+        - Product data MUST be REAL (Kim's actual inventory, not generic examples)
+        - Prices MUST match reality (no $99.99 placeholder values)
+        - Categories MUST be complete (all hunting/fishing/outdoor categories covered)
+        - NO "add more later" - seed data should be launch-ready
+
+        Data Quality:
+        - Product data MUST match actual inventory where possible
+        - Brand names MUST be spelled correctly (Remington, Hornady, Vortex, etc.)
+        - Prices MUST be realistic for rural West Virginia market
+        - Categories MUST align with how customers actually shop
+
+    # Astro Frontend (Planned) - Principle V (Dual-Experience Design)
+    - path: "astro/**/*.{astro,ts,js,css}"
+      instructions: |
+        CRITICAL - Constitution Principle V (Dual-Experience Design):
+        - Public pages MUST score 90+ on mobile PageSpeed Insights
+        - NO client-side JavaScript frameworks (React, Vue, etc.) for public pages
+        - Vanilla JavaScript ONLY for interactivity
+        - Mobile-first CSS (mobile base styles, desktop in media queries)
+
+        Principle I (Owner-First Simplicity):
+        - Kim MUST be able to preview changes without terminal/build knowledge
+        - Content MUST come from Directus API (not hardcoded)
+        - Error states MUST show user-friendly messages
+
+        Principle II (Heart of West Virginia):
+        - Design MUST be clean and utilitarian (no luxury aesthetics)
+        - Real store photos prioritized over stock images
+        - Typography/colors MUST reflect outdoor/hunting brand identity
+        - NO "wealth manager" or "premium lifestyle" visual language
+
+        Principle VI (Anti-MVP Bias):
+        - Error handling MUST be comprehensive (network failures, API errors, empty states)
+        - Loading states MUST exist (no flash of unstyled content)
+        - Accessibility MUST be built-in from start (semantic HTML, ARIA, keyboard nav)
+        - NO "TODO: add error handling" comments - handle errors NOW
+        - Performance optimizations MUST be implemented (image optimization, lazy loading, caching)
+        - NO "we'll make it accessible later" - WCAG 2.1 AA from day one
+
+        Tech Stack Compliance:
+        - MUST use Astro static site generation
+        - MUST use Tailwind CSS for styling (NO CSS-in-JS, styled-components)
+        - API calls to Directus for dynamic data
+
+        God File Prevention (FRONTEND):
+        - Flag .astro files >200 lines as BLOCKING
+        - Suggest component extraction for large pages
+        - Max 5 script tags per file
+        - One page/component per file (no inline sub-components)
+
+    # Shell Scripts - Principle IV (Developer-Managed Infrastructure)
+    - path: "scripts/**/*.{sh,ps1}"
+      instructions: |
+        Cross-Platform Script Compatibility:
+        - MUST provide both .sh (Bash) and .ps1 (PowerShell) versions
+        - Bash scripts MUST include shebang: #!/bin/bash
+        - Bash scripts MUST use strict mode: set -euo pipefail
+        - PowerShell scripts MUST use: $ErrorActionPreference = "Stop"
+        - NO platform-specific commands without fallbacks
+
+        Principle IV (Developer-Managed Infrastructure):
+        - These scripts are Matt's tools (Kim never runs them)
+        - BUT must be well-documented for handoff/collaboration
+        - Help text MUST be included (-h or --help flag)
+        - Error messages MUST be descriptive
+
+        Script Quality:
+        - Function names MUST be descriptive (dev-start, dev-stop, dev-logs)
+        - Colors/formatting MUST enhance readability
+        - Exit codes MUST be meaningful (0 = success, non-zero = failure)
+        - Idempotency: scripts should be safe to run multiple times
+
+    # Documentation - Principle II (Heart of West Virginia)
+    - path: "**/*.md"
+      instructions: |
+        CRITICAL - Constitution Principle II (Heart of West Virginia):
+        - Voice MUST reflect rural WV authenticity
+        - NO corporate buzzwords, jargon, or "startup-speak"
+        - Cultural references MUST be accurate (buck season, meat hunters, freezers not trophies)
+        - Faith references MUST be natural, not performative ("Lord willing" is authentic)
+
+        Principle I (Owner-First Simplicity):
+        - Kim-facing docs MUST avoid technical jargon
+        - Matt-facing docs can be technical but clear
+        - MUST explicitly state "Kim does this" vs "Matt does this" where applicable
+
+        Documentation Quality:
+        - Grammar/spelling MUST be correct (languagetool will check)
+        - Code examples MUST be accurate and tested
+        - Links MUST be valid (no broken references)
+        - Markdown formatting MUST be consistent (markdownlint will check)
+
+        Business Intelligence Preservation:
+        - INTELLIGENCE.md MUST remain comprehensive (no deletions without justification)
+        - Voice profiles MUST preserve actual Kim quotes
+        - Conversation scripts MUST remain authentic and non-spoiling
+        - Research findings MUST cite sources with credibility scores
+
+        God File Prevention (DOCS):
+        - Docs are EXPLICITLY EXCLUDED from strict line limits
+        - Comprehensive documentation is valued over brevity
+        - Acceptable sizes: 500-1000 lines for BLUEPRINT.md, INTELLIGENCE.md
+        - Flag >2000 lines as WARNING (consider splitting into sections)
+
+    # Spec Kit directories - Spec-Driven Development
+    - path: "specs/**/*.md"
+      instructions: |
+        Spec-Driven Development Framework:
+        - Every spec directory (specs/NNN-feature/) MUST contain:
+          - spec.md: User stories with acceptance criteria
+          - plan.md: Implementation plan with constitutional checks
+          - data-model.md: Service topology, data flows
+          - tasks.md: Phased task breakdown
+          - quickstart.md: Getting started guide (where applicable)
+          - contracts/: Service interface definitions
+          - checklists/: Requirements validation
+
+        Constitutional Compliance:
+        - spec.md MUST include Constitution Check section verifying all 6 principles (including Anti-MVP)
+        - plan.md MUST explicitly address role boundaries (Kim vs Matt)
+        - data-model.md MUST show service independence (Principle III)
+
+        Principle VI (Anti-MVP Bias):
+        - Acceptance criteria MUST define DONE (not "basic version works")
+        - Tasks.md MUST include validation/testing tasks (not just implementation)
+        - NO "Phase 1: MVP, Phase 2: Real Features" - build it right first time
+        - Spec MUST address error handling, edge cases, and failure modes
+        - "Out of scope" section MUST be justified (not arbitrary cost-cutting)
+
+        Documentation Quality:
+        - User stories MUST use "As a [Kim/Matt/Customer]" format
+        - Acceptance criteria MUST be testable
+        - Tasks MUST be granular enough for single work sessions
+        - Links to roadmap/constitution MUST be valid
+
+    # Environment Files - Security
+    - path: "**/{.env.example,.env.template}"
+      instructions: |
+        CRITICAL - Security & Developer-Managed Infrastructure:
+        - .env.example files MUST use placeholders (CHANGE_ME, generate_random_string, etc.)
+        - MUST include comments explaining each variable
+        - MUST document how to generate secrets (e.g., "openssl rand -hex 32")
+        - MUST NOT contain actual credentials
+
+        Validation:
+        - All services requiring env vars MUST be documented
+        - Variable names MUST be descriptive (DB_PASSWORD, not PASS)
+        - Boolean values MUST use true/false (not 1/0, yes/no)
+
+    # Configuration Files - Tech Stack Compliance
+    - path: "**/{package.json,astro.config.mjs,tailwind.config.mjs}"
+      instructions: |
+        CRITICAL - Constitution Tech Stack Compliance:
+        - Frontend MUST use Astro (NO Next.js, Nuxt, Gatsby substitutions)
+        - Styling MUST use Tailwind CSS (NO Bootstrap, Material UI)
+        - NO client-side frameworks for public pages (React, Vue, Angular)
+        - Vanilla JavaScript ONLY for interactivity
+
+        Dependencies:
+        - MUST document why each dependency is needed
+        - Minimize dependencies (prefer vanilla over libraries)
+        - NO jQuery, Lodash, or utility belt libraries
+        - Flag any React/Vue/Angular dependencies as CONSTITUTIONAL VIOLATION
+
+    # Database Initialization - Data Integrity
+    - path: "**/*.sql"
+      instructions: |
+        Database Scripts - Principle III (Modular Service Architecture):
+        - Multi-database setup MUST create separate databases per service
+        - User permissions MUST be scoped to service-specific databases
+        - NO shared database access patterns
+        - Transaction safety: use BEGIN/COMMIT explicitly
+
+        Schema Validation:
+        - All tables MUST have primary keys
+        - Foreign key constraints MUST be defined
+        - Indexes MUST be added for frequently queried columns
+        - Timestamps (created_at, updated_at) recommended
+
+  # Labeling instructions
+  labeling_instructions:
+    - label: "constitution-violation"
+      instructions: "Apply if PR violates Constitution Principles I-VI (Owner-First, Heart of WV, Modular Services, Developer-Managed, Dual-Experience, Anti-MVP)"
+    - label: "security-risk"
+      instructions: "Apply if PR introduces credential leaks, insecure Docker configs, or authentication bypasses"
+    - label: "owner-first-violation"
+      instructions: "Apply if PR requires Kim to use terminal, edit config files, or exceed 15min training time (Principle I)"
+    - label: "voice-authenticity"
+      instructions: "Apply if PR contains corporate buzzwords, luxury language, or inauthentic WV voice (Principle II)"
+    - label: "service-coupling"
+      instructions: "Apply if PR creates tight coupling between services or shared database access (Principle III)"
+    - label: "role-boundary-violation"
+      instructions: "Apply if PR blurs Kim vs Matt responsibilities (Principle IV)"
+    - label: "mobile-performance"
+      instructions: "Apply if PR degrades mobile PageSpeed score below 90 or breaks Kim's phone workflow (Principle V)"
+    - label: "anti-mvp-violation"
+      instructions: "Apply if PR ships incomplete features, has 'TODO: add later' comments, missing error handling, placeholder data, or defers critical functionality (Principle VI)"
+    - label: "internal-ready"
+      instructions: "Apply if PR passes Internal Shipping criteria (Matt → Kim/Bryan testing): works correctly, Kim can use from phone, data persists, errors user-friendly, would-Kim-use-this test passes"
+    - label: "external-blocked"
+      instructions: "Apply if PR is NOT ready for public launch (missing SSL, incomplete documentation, untested backups, missing monitoring, or any of 13 external checklist items incomplete)"
+    - label: "docker-infrastructure"
+      instructions: "Apply if PR modifies Docker Compose, Dockerfiles, or service orchestration"
+    - label: "directus-schema"
+      instructions: "Apply if PR modifies Directus collections, fields, or relationships"
+    - label: "astro-frontend"
+      instructions: "Apply if PR contains Astro components, pages, or styles"
+    - label: "documentation"
+      instructions: "Apply if PR modifies markdown files, README, or business intelligence docs"
+    - label: "shell-scripts"
+      instructions: "Apply if PR modifies dev-*.sh or dev-*.ps1 helper scripts"
+    - label: "tech-stack-compliance"
+      instructions: "Apply if PR validates or violates approved tech stack (Astro, Directus, Ghost, etc.)"
+    - label: "business-intelligence"
+      instructions: "Apply if PR affects INTELLIGENCE.md, voice profiles, or conversation scripts"
+    - label: "spec-complete"
+      instructions: "Apply if PR includes complete Spec Kit (spec.md, plan.md, data-model.md, contracts/, tasks.md, quickstart.md)"
+
+  auto_review:
+    enabled: true
+    auto_incremental_review: true
+    drafts: false  # No draft reviews - ship complete work (Anti-MVP Bias)
+    ignore_title_keywords: []
+    labels: []
+    base_branches: ["main", "develop"]
+
+  # Finishing touches
+  finishing_touches:
+    docstrings:
+      enabled: true
+    unit_tests:
+      enabled: false  # No formal test framework yet (infrastructure-first project)
+
+  # Pre-merge checks
+  pre_merge_checks:
+    docstrings:
+      mode: "comment"  # Warn but don't block (no code yet)
+    unit_tests:
+      mode: "off"  # Disabled until test framework implemented
+
+  # Tools Configuration - Multi-language stack
+  tools:
+    # JavaScript/TypeScript linters (Astro frontend when implemented)
+    eslint:
+      enabled: false  # Not yet configured (no package.json)
+    biome:
+      enabled: false  # Not using Biome
+
+    # Security scanners
+    gitleaks:
+      enabled: true  # Secret detection (critical for .env files)
+    semgrep:
+      enabled: false  # Requires custom rules
+    checkov:
+      enabled: true  # Docker security, Dockerfile linting
+
+    # Infrastructure linters
+    hadolint:
+      enabled: true  # Dockerfile best practices
+    actionlint:
+      enabled: false  # No GitHub Actions workflows yet
+    shellcheck:
+      enabled: true  # Shell script linting (dev-*.sh scripts)
+    yamllint:
+      enabled: true  # Docker Compose YAML validation
+
+    # Documentation linters
+    markdownlint:
+      enabled: true  # Markdown formatting (extensive docs)
+    languagetool:
+      enabled: true  # Grammar/style checking (critical for voice authenticity)
+      level: "default"  # Use "picky" for customer-facing content
+
+# Knowledge Base - Pro feature for learning from codebase
+knowledge_base:
+  opt_out: false  # Enable data retention for learning
+  web_search:
+    enabled: true  # Allow web search for context (Docker, Directus, Astro docs)
+  code_guidelines:
+    enabled: true
+    file_patterns:
+      - "CLAUDE.md"
+      - ".specify/memory/constitution.md"
+      - "docs/BLUEPRINT.md"
+      - "wv-wild-blueprint.md"
+      - "INTELLIGENCE.md"
+  learnings:
+    scope: "local"  # Repository-specific learnings
+
+chat:
+  auto_reply: true
