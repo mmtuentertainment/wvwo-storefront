@@ -73,6 +73,7 @@ backup/
 
 # Docker local development
 .env
+.env.local
 docker-compose.override.yml
 volumes/
 

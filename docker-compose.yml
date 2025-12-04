@@ -92,7 +92,7 @@ services:
       DB_PORT: 5432
       DB_DATABASE: directus
       DB_USER: directus_user
-      DB_PASSWORD: ${DIRECTUS_DB_PASSWORD}
+      DB_PASSWORD: directuspass123
       REDIS_HOST: redis
       REDIS_PORT: 6379
       CACHE_ENABLED: "true"
@@ -117,7 +117,7 @@ services:
   # Ghost 5 Blog
   # ===========================================
   ghost:
-    image: ghost:5-alpine
+    image: ghost:5.96.0
     container_name: wvwo-ghost-dev
     restart: unless-stopped
     networks:
@@ -132,7 +132,7 @@ services:
       database__connection__host: postgres
       database__connection__port: 5432
       database__connection__user: ghost_user
-      database__connection__password: ${GHOST_DB_PASSWORD}
+      database__connection__password: ghostpass123
       database__connection__database: ghost
     ports:
       - "2368:2368"
@@ -148,42 +148,44 @@ services:
 
   # ===========================================
   # Astro Frontend (Dev Server)
+  # NOTE: Commented out until Astro application is created
+  # Uncomment when astro/ directory exists with package.json
   # ===========================================
-  astro:
-    build:
-      context: ./astro
-      dockerfile: ../docker/astro/Dockerfile
-    container_name: wvwo-astro-dev
-    restart: unless-stopped
-    networks:
-      - wvwo-dev
-    depends_on:
-      directus:
-        condition: service_healthy
-      ghost:
-        condition: service_healthy
-    environment:
-      PUBLIC_DIRECTUS_URL: http://directus:8055
-      PUBLIC_GHOST_URL: http://ghost:2368
-      NODE_ENV: development
-    ports:
-      - "3000:3000"
-    volumes:
-      - ./astro:/app
-      - /app/node_modules
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000/"]
-      interval: 10s
-      timeout: 5s
-      retries: 3
-      start_period: 20s
-    stop_grace_period: 30s
+  # astro:
+  #   build:
+  #     context: ./astro
+  #     dockerfile: ../docker/astro/Dockerfile
+  #   container_name: wvwo-astro-dev
+  #   restart: unless-stopped
+  #   networks:
+  #     - wvwo-dev
+  #   depends_on:
+  #     directus:
+  #       condition: service_healthy
+  #     ghost:
+  #       condition: service_healthy
+  #   environment:
+  #     PUBLIC_DIRECTUS_URL: http://directus:8055
+  #     PUBLIC_GHOST_URL: http://ghost:2368
+  #     NODE_ENV: development
+  #   ports:
+  #     - "3000:3000"
+  #   volumes:
+  #     - ./astro:/app
+  #     - /app/node_modules
+  #   healthcheck:
+  #     test: ["CMD", "curl", "-f", "http://localhost:3000/"]
+  #     interval: 10s
+  #     timeout: 5s
+  #     retries: 3
+  #     start_period: 20s
+  #   stop_grace_period: 30s
 
   # ===========================================
   # Listmonk Email/Newsletter
   # ===========================================
   listmonk:
-    image: listmonk/listmonk:v3.0.0
+    image: listmonk/listmonk:latest
     container_name: wvwo-listmonk-dev
     restart: unless-stopped
     networks:
@@ -197,14 +199,12 @@ services:
       LISTMONK_db__host: postgres
       LISTMONK_db__port: 5432
       LISTMONK_db__user: listmonk_user
-      LISTMONK_db__password: ${LISTMONK_DB_PASSWORD}
+      LISTMONK_db__password: listmonkpass123
       LISTMONK_db__database: listmonk
       LISTMONK_db__ssl_mode: disable
     ports:
       - "9000:9000"
-    volumes:
-      - ./docker/listmonk/config.toml:/listmonk/config.toml:ro
-    command: ["sh", "-c", "./listmonk --install && ./listmonk"]
+    command: ["sh", "-c", "./listmonk --install --yes && ./listmonk"]
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9000/api/health"]
       interval: 15s
@@ -217,7 +217,7 @@ services:
   # Mixpost Social Media Management
   # ===========================================
   mixpost:
-    image: inovector/mixpost:v1.0.0
+    image: inovector/mixpost:latest
     container_name: wvwo-mixpost-dev
     restart: unless-stopped
     networks:
@@ -235,7 +235,7 @@ services:
       DB_PORT: 5432
       DB_DATABASE: mixpost
       DB_USERNAME: mixpost_user
-      DB_PASSWORD: ${MIXPOST_DB_PASSWORD}
+      DB_PASSWORD: mixpostpass123
       REDIS_HOST: redis
       REDIS_PORT: 6379
       FACEBOOK_APP_ID: ${FACEBOOK_APP_ID}
