@@ -40,12 +40,13 @@ reviews:
       - [ ] Matt's access: Servers, DNS, Docker, backups, monitoring
       - [ ] Production changes go through Matt
       - [ ] Documentation distinguishes "Kim does this" vs "Matt does this"
-    - [ ] Principle V: Dual-Experience Design
+    - [ ] Principle V: Dual-Experience Design (Responsive Web)
       - [ ] Public pages score 90+ on mobile PageSpeed Insights
-      - [ ] Admin interfaces fully functional on desktop
-      - [ ] Kim's workflow optimized for phone-sized screens
-      - [ ] Customer features work identically on mobile + desktop
-      - [ ] No "desktop-only" customer-facing features
+      - [ ] Admin interfaces fully functional on desktop web browsers
+      - [ ] Kim's workflow optimized for phone-sized screens (mobile web)
+      - [ ] Customer features work identically on mobile + desktop web browsers
+      - [ ] No "desktop browser-only" customer-facing features
+      - [ ] This is responsive web design, NOT a desktop app
     - [ ] Principle VI: Anti-MVP Bias
       - [ ] Internal Shipping Criteria (Matt → Kim/Bryan testing):
         - [ ] Feature works correctly on Matt's machine
@@ -304,11 +305,13 @@ reviews:
     # Astro Frontend (Planned) - Principle V (Dual-Experience Design)
     - path: "astro/**/*.{astro,ts,js,css}"
       instructions: |
-        CRITICAL - Constitution Principle V (Dual-Experience Design):
+        CRITICAL - Constitution Principle V (Dual-Experience Design - Responsive Web):
+        - This is RESPONSIVE WEB DESIGN (mobile web + desktop web), NOT a desktop app
         - Public pages MUST score 90+ on mobile PageSpeed Insights
         - NO client-side JavaScript frameworks (React, Vue, etc.) for public pages
         - Vanilla JavaScript ONLY for interactivity
-        - Mobile-first CSS (mobile base styles, desktop in media queries)
+        - Mobile-first CSS (mobile base styles, desktop browser breakpoints in media queries)
+        - Test in real browsers: Chrome, Safari, Firefox, Edge (mobile + desktop)
 
         Principle I (Owner-First Simplicity):
         - Kim MUST be able to preview changes without terminal/build knowledge
@@ -453,6 +456,13 @@ reviews:
         - MUST include comments explaining each variable
         - MUST document how to generate secrets (e.g., "openssl rand -hex 32")
         - MUST NOT contain actual credentials
+
+        Anti-MVP Bias EXCEPTION:
+        - Placeholder data IS REQUIRED in .env.example files (security-by-design)
+        - This is NOT a violation of "NO placeholder data" principle
+        - Placeholders prevent accidental secret commits (intentional security practice)
+        - Examples: "REPLACE_WITH_RANDOM_32_CHAR_STRING", "your-secret-here", "CHANGE_ME"
+        - Industry standard practice for environment templates
 
         Validation:
         - All services requiring env vars MUST be documented
