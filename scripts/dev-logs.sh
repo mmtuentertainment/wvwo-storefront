@@ -10,12 +10,12 @@
 #===============================================================================
 
 SERVICE=""
-EXTRA_ARGS=""
+declare -a EXTRA_ARGS=()
 
 # Parse arguments
 for arg in "$@"; do
     if [[ $arg == --* ]]; then
-        EXTRA_ARGS="$EXTRA_ARGS $arg"
+        EXTRA_ARGS+=("$arg")
     else
         SERVICE=$arg
     fi
@@ -28,10 +28,10 @@ NC='\033[0m'
 
 if [ -z "$SERVICE" ]; then
     echo -e "${BLUE}Viewing logs for all services (Ctrl+C to exit)${NC}"
-    docker compose logs -f $EXTRA_ARGS
+    docker compose logs -f "${EXTRA_ARGS[@]}"
 else
     echo -e "${BLUE}Viewing logs for $SERVICE (Ctrl+C to exit)${NC}"
-    docker compose logs -f $EXTRA_ARGS "$SERVICE"
+    docker compose logs -f "${EXTRA_ARGS[@]}" "$SERVICE"
 fi
 
 echo ""

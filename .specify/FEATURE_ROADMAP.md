@@ -3,11 +3,14 @@
 **Spec-Driven Development Sequence**
 
 For each feature below, run the SDD workflow:
+
 ```
+
 /speckit.specify [Feature Description]
 /speckit.plan
 /speckit.tasks
 /speckit.implement
+
 ```
 
 ---
@@ -106,23 +109,35 @@ Final touches before reveal.
 ## Quick Start Commands
 
 **Start with Feature 001:**
+
 ```
+
 /speckit.specify Docker local development stack with PostgreSQL 15, Redis, and container orchestration for WV Wild Outdoors services
+
 ```
 
 **After spec is created:**
+
 ```
+
 /speckit.plan
+
 ```
 
 **After plan is created:**
+
 ```
+
 /speckit.tasks
+
 ```
 
 **Execute the tasks:**
+
 ```
+
 /speckit.implement
+
 ```
 
 ---

@@ -38,7 +38,7 @@ echo ""
 echo -e "${YELLOW}⚠️  WARNING: This will OVERWRITE existing data!${NC}"
 echo "Backup location: $BACKUP_PATH"
 echo ""
-read -p "Are you sure you want to continue? (yes/no): " confirm
+read -r -p "Are you sure you want to continue? (yes/no): " confirm
 
 if [ "$confirm" != "yes" ]; then
     echo -e "${BLUE}Restore cancelled.${NC}"

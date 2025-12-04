@@ -1,7 +1,7 @@
 # Astro Development Container
 # Node.js 18 on Alpine for lightweight WV Wild Outdoors frontend
 
-FROM node:18-alpine
+FROM node:18.19.0-alpine3.19
 
 # Install system dependencies
 RUN apk add --no-cache \
@@ -12,7 +12,7 @@ RUN apk add --no-cache \
 WORKDIR /app
 
 # Install pnpm (faster than npm)
-RUN npm install -g pnpm
+RUN npm install -g pnpm@8.12.1
 
 # Copy package files first (for layer caching)
 COPY package*.json ./

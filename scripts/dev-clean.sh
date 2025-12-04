@@ -26,7 +26,7 @@ echo "  - All Docker volumes will be deleted"
 echo "  - All database data will be lost"
 echo "  - All uploaded files will be lost"
 echo ""
-read -p "Are you sure you want to continue? (yes/no): " confirm
+read -r -p "Are you sure you want to continue? (yes/no): " confirm
 
 if [ "$confirm" != "yes" ]; then
     echo -e "${BLUE}Cleanup cancelled.${NC}"

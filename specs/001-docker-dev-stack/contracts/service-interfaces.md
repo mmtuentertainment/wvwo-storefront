@@ -17,6 +17,7 @@ This document specifies the exact ports, environment variables, volume mounts, a
 Service Name: postgres
 Image: postgres:15-alpine
 Container Name: wvwo-postgres-dev
+
 ```
 
 **Port Mapping**:
@@ -25,24 +26,30 @@ Container Name: wvwo-postgres-dev
 - Protocol: TCP
 
 **Environment Variables** (all required):
+
 ```yaml
 POSTGRES_USER: postgres
 POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}  # from .env
 POSTGRES_DB: postgres                     # default database
+
 ```
 
 **Volume Mounts**:
+
 ```yaml
 - postgres-data:/var/lib/postgresql/data          # Named volume (database files)
 - ./docker/postgres/init-scripts:/docker-entrypoint-initdb.d:ro  # Init scripts (read-only)
+
 ```
 
 **Health Check**:
+
 ```yaml
 test: ["CMD-SHELL", "pg_isready -U postgres"]
 interval: 10s
 timeout: 5s
 retries: 5
+
 ```
 
 **Network**: `wvwo-dev` (bridge)
@@ -59,6 +66,7 @@ retries: 5
 Service Name: redis
 Image: redis:7-alpine
 Container Name: wvwo-redis-dev
+
 ```
 
 **Port Mapping**:
@@ -69,22 +77,28 @@ Container Name: wvwo-redis-dev
 **Environment Variables**: None (default configuration)
 
 **Volume Mounts**:
+
 ```yaml
 - redis-data:/data                          # Named volume (persistence)
 - ./docker/redis/redis.conf:/usr/local/etc/redis/redis.conf:ro  # Config (optional)
+
 ```
 
 **Command Override** (if custom config):
+
 ```yaml
 command: redis-server /usr/local/etc/redis/redis.conf
+
 ```
 
 **Health Check**:
+
 ```yaml
 test: ["CMD", "redis-cli", "ping"]
 interval: 5s
 timeout: 3s
 retries: 3
+
 ```
 
 **Network**: `wvwo-dev` (bridge)
@@ -101,6 +115,7 @@ retries: 3
 Service Name: directus
 Image: directus/directus:10
 Container Name: wvwo-directus-dev
+
 ```
 
 **Port Mapping**:
@@ -109,6 +124,7 @@ Container Name: wvwo-directus-dev
 - Protocol: HTTP
 
 **Environment Variables** (all required):
+
 ```yaml
 KEY: ${DIRECTUS_KEY}                          # Admin token secret (32+ chars)
 SECRET: ${DIRECTUS_SECRET}                    # JWT secret (32+ chars)
@@ -129,32 +145,39 @@ PUBLIC_URL: http://localhost:8055
 STORAGE_LOCATIONS: local
 CORS_ENABLED: true
 CORS_ORIGIN: http://localhost:3000             # Allow Astro frontend
+
 ```
 
 **Volume Mounts**:
+
 ```yaml
 - directus-uploads:/directus/uploads           # Named volume (user uploads)
 - ./docker/directus/extensions:/directus/extensions:ro  # Custom extensions (optional)
+
 ```
 
 **Health Check**:
+
 ```yaml
 test: ["CMD", "curl", "-f", "http://localhost:8055/server/health"]
 interval: 15s
 timeout: 10s
 retries: 3
 start_period: 30s                              # Allow time for DB init
+
 ```
 
 **Network**: `wvwo-dev` (bridge)
 
 **Dependencies**:
+
 ```yaml
 depends_on:
   postgres:
     condition: service_healthy
   redis:
     condition: service_healthy
+
 ```
 
 **Restart Policy**: `unless-stopped`
@@ -167,6 +190,7 @@ depends_on:
 Service Name: ghost
 Image: ghost:5-alpine
 Container Name: wvwo-ghost-dev
+
 ```
 
 **Port Mapping**:
@@ -175,6 +199,7 @@ Container Name: wvwo-ghost-dev
 - Protocol: HTTP
 
 **Environment Variables** (all required):
+
 ```yaml
 database__client: postgres
 database__connection__host: postgres
@@ -185,29 +210,36 @@ database__connection__password: ${GHOST_DB_PASSWORD}
 
 url: http://localhost:2368
 NODE_ENV: development
+
 ```
 
 **Volume Mounts**:
+
 ```yaml
 - ghost-content:/var/lib/ghost/content         # Named volume (themes, images, posts)
+
 ```
 
 **Health Check**:
+
 ```yaml
 test: ["CMD", "curl", "-f", "http://localhost:2368/ghost/api/v3/admin/site/"]
 interval: 15s
 timeout: 10s
 retries: 3
 start_period: 30s
+
 ```
 
 **Network**: `wvwo-dev` (bridge)
 
 **Dependencies**:
+
 ```yaml
 depends_on:
   postgres:
     condition: service_healthy
+
 ```
 
 **Restart Policy**: `unless-stopped`
@@ -220,13 +252,16 @@ depends_on:
 Service Name: astro
 Image: wvwo-astro-dev:latest                   # Custom image (built from Dockerfile)
 Container Name: wvwo-astro-dev
+
 ```
 
 **Build Context**:
+
 ```yaml
 build:
   context: ./frontend
   dockerfile: Dockerfile.dev
+
 ```
 
 **Port Mapping**:
@@ -235,36 +270,44 @@ build:
 - Protocol: HTTP
 
 **Environment Variables** (all required):
+
 ```yaml
 PUBLIC_DIRECTUS_URL: http://directus:8055      # Internal Docker network URL
 PUBLIC_GHOST_URL: http://ghost:2368            # Internal Docker network URL
 NODE_ENV: development
+
 ```
 
 **Volume Mounts**:
+
 ```yaml
 - ./frontend:/app                              # Bind mount (hot reload)
 - /app/node_modules                            # Anonymous volume (prevent overwrite)
+
 ```
 
 **Health Check**:
+
 ```yaml
 test: ["CMD", "curl", "-f", "http://localhost:3000/"]
 interval: 10s
 timeout: 5s
 retries: 3
 start_period: 20s                              # Allow time for npm install
+
 ```
 
 **Network**: `wvwo-dev` (bridge)
 
 **Dependencies**:
+
 ```yaml
 depends_on:
   directus:
     condition: service_healthy
   ghost:
     condition: service_healthy
+
 ```
 
 **Restart Policy**: `unless-stopped`
@@ -277,6 +320,7 @@ depends_on:
 Service Name: listmonk
 Image: listmonk/listmonk:latest
 Container Name: wvwo-listmonk-dev
+
 ```
 
 **Port Mapping**:
@@ -285,6 +329,7 @@ Container Name: wvwo-listmonk-dev
 - Protocol: HTTP
 
 **Environment Variables** (all required):
+
 ```yaml
 LISTMONK_app__address: 0.0.0.0:9000
 LISTMONK_db__host: postgres
@@ -293,31 +338,38 @@ LISTMONK_db__user: listmonk_user
 LISTMONK_db__password: ${LISTMONK_DB_PASSWORD}
 LISTMONK_db__database: listmonk
 LISTMONK_db__ssl_mode: disable
+
 ```
 
 **Volume Mounts**: None (database-backed only)
 
 **Init Command** (first run only):
+
 ```yaml
 command: sh -c "./listmonk --install && ./listmonk"
+
 ```
 
 **Health Check**:
+
 ```yaml
 test: ["CMD", "curl", "-f", "http://localhost:9000/api/health"]
 interval: 15s
 timeout: 10s
 retries: 3
 start_period: 30s
+
 ```
 
 **Network**: `wvwo-dev` (bridge)
 
 **Dependencies**:
+
 ```yaml
 depends_on:
   postgres:
     condition: service_healthy
+
 ```
 
 **Restart Policy**: `unless-stopped`
@@ -330,13 +382,16 @@ depends_on:
 Service Name: mixpost
 Image: wvwo-mixpost-dev:latest                 # Custom image
 Container Name: wvwo-mixpost-dev
+
 ```
 
 **Build Context**:
+
 ```yaml
 build:
   context: ./docker/mixpost
   dockerfile: Dockerfile
+
 ```
 
 **Port Mapping**:
@@ -345,6 +400,7 @@ build:
 - Protocol: HTTP
 
 **Environment Variables** (all required):
+
 ```yaml
 APP_URL: http://localhost:8080
 APP_KEY: ${MIXPOST_APP_KEY}                    # Laravel app key (base64)
@@ -362,31 +418,38 @@ REDIS_PORT: 6379
 # Social credentials (mock for local dev)
 FACEBOOK_APP_ID: local-dev-mock
 FACEBOOK_APP_SECRET: local-dev-mock
+
 ```
 
 **Volume Mounts**:
+
 ```yaml
 - ./docker/mixpost/storage:/var/www/html/storage  # Laravel storage (optional)
+
 ```
 
 **Health Check**:
+
 ```yaml
 test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
 interval: 15s
 timeout: 10s
 retries: 3
 start_period: 30s
+
 ```
 
 **Network**: `wvwo-dev` (bridge)
 
 **Dependencies**:
+
 ```yaml
 depends_on:
   postgres:
     condition: service_healthy
   redis:
     condition: service_healthy
+
 ```
 
 **Restart Policy**: `unless-stopped`
@@ -403,6 +466,7 @@ IPAM:
   Driver: default
   Config:
     - Subnet: 172.28.0.0/16                    # Custom subnet (avoids conflicts)
+
 ```
 
 **DNS Resolution**:
@@ -433,6 +497,7 @@ volumes:
   ghost-content:
     driver: local
     name: wvwo-ghost-content-dev
+
 ```
 
 **Lifecycle**:
@@ -441,13 +506,17 @@ volumes:
 - Removed with `docker compose down -v`
 
 **Backup Command**:
+
 ```bash
 docker run --rm -v wvwo-postgres-data-dev:/data -v $(pwd):/backup alpine tar czf /backup/postgres-backup.tar.gz -C /data .
+
 ```
 
 **Restore Command**:
+
 ```bash
 docker run --rm -v wvwo-postgres-data-dev:/data -v $(pwd):/backup alpine tar xzf /backup/postgres-backup.tar.gz -C /data
+
 ```
 
 ---
@@ -474,6 +543,7 @@ docker run --rm -v wvwo-postgres-data-dev:/data -v $(pwd):/backup alpine tar xzf
 | GET | `/items/store_info` | Store settings | Public token |
 
 **Response Format**:
+
 ```json
 {
   "data": [...],
@@ -482,6 +552,7 @@ docker run --rm -v wvwo-postgres-data-dev:/data -v $(pwd):/backup alpine tar xzf
     "filter_count": 10
   }
 }
+
 ```
 
 ---
@@ -507,6 +578,7 @@ docker run --rm -v wvwo-postgres-data-dev:/data -v $(pwd):/backup alpine tar xzf
 - `include`: Related data (e.g., `authors,tags`)
 
 **Response Format**:
+
 ```json
 {
   "posts": [...],
@@ -519,6 +591,7 @@ docker run --rm -v wvwo-postgres-data-dev:/data -v $(pwd):/backup alpine tar xzf
     }
   }
 }
+
 ```
 
 ---
@@ -540,11 +613,13 @@ docker run --rm -v wvwo-postgres-data-dev:/data -v $(pwd):/backup alpine tar xzf
 | POST | `/api/campaigns` | Create campaign | Admin |
 
 **Response Format**:
+
 ```json
 {
   "data": {...},
   "message": "success"
 }
+
 ```
 
 ---
@@ -594,7 +669,7 @@ LISTMONK_DB_PASSWORD=listmonkpass123
 # Mixpost (Social Media Scheduling)
 # -----------------------------------------------------------------------------
 # Generate with: php artisan key:generate (or use any base64:XXX format)
-MIXPOST_APP_KEY=base64:REPLACE_WITH_LARAVEL_APP_KEY
+MIXPOST_APP_KEY=base64:[INSERT_YOUR_LARAVEL_KEY_HERE]
 
 # Database credentials
 MIXPOST_DB_PASSWORD=mixpostpass123
@@ -608,6 +683,7 @@ FACEBOOK_APP_SECRET=local-dev-mock
 # -----------------------------------------------------------------------------
 ENABLE_SEED_DATA=false                         # Load test data on init
 LOG_LEVEL=info                                 # Logging verbosity
+
 ```
 
 **Validation Rules**:
