@@ -235,8 +235,252 @@ Key references:
 
 ---
 
-## NEXT STEPS (Pending Research)
+## DIRECTUS SCHEMA SPECIFICATION
 
-1. Directus schema spec (exact collections, fields, relationships)
-2. Owner daily workflow mapping
-3. Astro page structure
+### Collections Overview
+
+| Collection | Purpose | Records |
+|------------|---------|---------|
+| categories | Product taxonomy (hierarchical) | ~15-20 |
+| products | All sellable items | ~200 |
+| brands | Manufacturer/brand names | ~20-30 |
+| store_info | Store meta (hours, address, story) | 1 |
+| homepage_features | Hero banners, promos | 3-5 |
+
+### categories
+
+| Field | Type | Required | Notes |
+|-------|------|----------|-------|
+| id | integer | auto | Primary key |
+| name | string | yes | "Rifles", "Boots" |
+| slug | string | yes | URL-safe, unique |
+| parent | relation (self) | no | Allows hierarchy |
+| description | text | no | Category page blurb |
+| sort_order | integer | no | Manual nav ordering |
+
+### products
+
+| Field | Type | Required | Notes |
+|-------|------|----------|-------|
+| id | integer | auto | Primary key |
+| status | status | yes | published/draft |
+| name | string | yes | Product name |
+| slug | string | yes | URL-safe, unique |
+| sku | string | no | Internal code |
+| category | relation | yes | → categories |
+| brand | relation | no | → brands |
+| short_description | text | no | 1-2 sentences for cards |
+| description | rich text | no | Full detail page |
+| price | decimal | yes | Two decimals |
+| on_sale | boolean | no | Default false |
+| sale_price | decimal | no | If on_sale = true |
+| stripe_payment_link | string | no | Stripe URL for checkout |
+| image_main | file | no | Main photo |
+| image_gallery | files | no | Extra angles |
+| is_featured | boolean | no | Homepage section |
+| just_arrived | boolean | no | "New" badge |
+| inventory_quantity | integer | no | Default 0 |
+| low_stock_threshold | integer | no | Default 5 |
+| location_in_store | string | no | "Gun wall, rack 3" |
+| discontinued | boolean | no | Hide from store |
+
+### brands
+
+| Field | Type | Required | Notes |
+|-------|------|----------|-------|
+| id | integer | auto | Primary key |
+| name | string | yes | "Remington", "Muck" |
+| slug | string | yes | URL-safe, unique |
+| logo | file | no | Brand logo |
+| description | text | no | Optional |
+
+### store_info (singleton)
+
+| Field | Type | Required | Notes |
+|-------|------|----------|-------|
+| id | integer | auto | Only 1 record |
+| store_name | string | yes | "WV Wild Outdoors" |
+| address_line1 | string | yes | Street address |
+| address_line2 | string | no | Suite, etc. |
+| city | string | yes | "Birch River" |
+| state | string | yes | "WV" |
+| postal_code | string | yes | "26610" |
+| phone | string | yes | "(304) 649-2607" |
+| email | string | no | Public contact |
+| google_maps_link | string | no | Maps URL |
+| hours_weekday | string | yes | "Mon-Sat: 10am-5pm" |
+| hours_weekend | string | no | If different |
+| holiday_hours | text | no | Special notices |
+| about_short | text | no | Homepage tagline |
+| flood_story | rich text | no | 2016 narrative |
+| facebook_url | string | no | Social link |
+| instagram_url | string | no | Social link |
+
+### homepage_features
+
+| Field | Type | Required | Notes |
+|-------|------|----------|-------|
+| id | integer | auto | Primary key |
+| title | string | yes | "Deer Season Ammo In Stock" |
+| subtitle | string | no | Supporting text |
+| image | file | no | Banner image |
+| cta_label | string | no | "Shop Ammo" |
+| cta_link | string | no | URL to category/product |
+| active | boolean | no | Default true |
+| sort_order | integer | no | Display order |
+
+---
+
+## OWNER WEEKLY WORKFLOW
+
+### Daily / Monday Routine
+**Goal:** Sync website with physical inventory
+
+**Tool: Directus**
+1. Open `products` collection
+2. Use saved view filtered by `inventory_quantity <= low_stock_threshold`
+3. Update quantities for items sold in-store
+4. Toggle `is_featured` / `just_arrived` as needed
+
+**Tool: Astro storefront**
+- Spot-check homepage and categories to verify accuracy
+
+### When New Shipment Arrives
+**Goal:** Add products quickly with minimal friction
+
+**Tool: Directus**
+1. Confirm `brand` and `category` exist (create if needed)
+2. Add new `product`:
+   - name, price, category, brand
+   - inventory_quantity from packing slip
+   - location_in_store
+   - just_arrived = true
+3. Upload phone photo to `image_main`
+4. Paste Stripe Payment Link URL
+
+**Tool: Stripe Dashboard**
+- Create Payment Link for product (one-time per product)
+
+### Weekly: Schedule Facebook Posts
+**Goal:** Keep page active with 2-3 posts/week
+
+**Tool: Mixpost**
+1. Open calendar view
+2. Create posts:
+   - Product announcements with photos
+   - Stock alerts ("Ammo in stock: .270, .30-06")
+   - Links to Astro product/category pages
+3. Schedule for evenings/weekend mornings
+
+### Monthly: Email Newsletter
+**Goal:** One "catch-up" email to subscriber list
+
+**Tool: Listmonk**
+1. Create new campaign
+2. Subject: "December at WV Wild Outdoors"
+3. Body: 3-5 featured products, store updates
+4. Send to main list or segment
+
+**Tool: Ghost**
+- Publish supporting blog post ("Winter Boots Guide")
+- Link from newsletter
+
+---
+
+## ASTRO PAGE STRUCTURE
+
+### Page Map
+
+| Page | Route | Purpose |
+|------|-------|---------|
+| Homepage | `/` | Hero, featured products, categories, hours |
+| Category | `/category/:slug` | Product grid with filters |
+| Product | `/product/:slug` | Full detail, buy button, related |
+| About | `/about` | Flood story, mission |
+| Contact | `/contact` | Hours, map, phone |
+| Just Arrived | `/just-arrived` | New products (optional) |
+
+### Homepage (`/`)
+
+**Sections:**
+1. Hero (from `homepage_features` or featured product)
+2. Featured Products grid (`products` where `is_featured = true`)
+3. Category tiles (top-level `categories`)
+4. Store hours + contact (`store_info`)
+
+**Directus queries:**
+- `store_info` (singleton)
+- `products` filtered by `is_featured`
+- `categories` where `parent` is null
+
+### Category Page (`/category/:slug`)
+
+**Sections:**
+1. Category header (name, description, breadcrumb)
+2. Product grid with filters (brand, in-stock)
+3. Low stock badges
+
+**Directus queries:**
+- `categories` by slug
+- `products` filtered by category
+- `brands` for filter dropdown
+
+### Product Page (`/product/:slug`)
+
+**Sections:**
+1. Image gallery
+2. Name, brand, price (sale badge if applicable)
+3. Description (rich text)
+4. Stock status + location
+5. Buy button (Stripe link) + "Call to reserve"
+6. Related products (same category/brand)
+
+**Directus queries:**
+- Single `product` by slug
+- Related `products` (limit 4)
+- `store_info` for phone number
+
+### About Page (`/about`)
+
+**Sections:**
+1. Store history
+2. Flood story (2016 narrative)
+3. Mission/values
+
+**Directus queries:**
+- `store_info.flood_story`
+- `store_info.about_short`
+
+### Contact Page (`/contact`)
+
+**Sections:**
+1. Full address + embedded map
+2. Phone + email
+3. Business hours (weekday/weekend/holiday)
+4. Optional contact form
+
+**Directus queries:**
+- `store_info` (all contact fields)
+
+---
+
+## NEXT STEPS
+
+### Ready to Build
+- [x] Stack architecture confirmed
+- [x] Domain structure confirmed
+- [x] Directus schema specified
+- [x] Owner workflow mapped
+- [x] Astro pages defined
+
+### Build Order
+1. Docker infrastructure (Postgres, Traefik)
+2. Directus + apply schema
+3. Ghost (SQLite)
+4. Listmonk + Mixpost
+5. Astro storefront
+6. Stripe integration (Payment Links)
+7. Deploy to VPS
+8. DNS + SSL
+9. Seed initial data
+10. Train Kim on workflows
