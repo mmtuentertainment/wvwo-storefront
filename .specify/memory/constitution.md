@@ -1,28 +1,27 @@
 <!--
 SYNC IMPACT REPORT
 ==================
-Version change: 1.0.0 (initial ratification) → 1.1.0 (Anti-MVP Bias added)
+Version change: 1.1.0 (Anti-MVP added) → 1.1.1 (Clarified Principle V: responsive web, not desktop apps)
 
 Modified principles:
-- Added VI. Anti-MVP Bias (surprise gift quality, internal vs external shipping)
+- V. Dual-Experience Design: Clarified "desktop web browsers" and "mobile web" - this is responsive web design, NOT desktop apps
 
 Existing principles (unchanged):
 - I. Owner-First Simplicity
 - II. Heart of West Virginia
 - III. Modular Service Architecture
 - IV. Developer-Managed Infrastructure
-- V. Dual-Experience Design
+- VI. Anti-MVP Bias
 
-Added sections:
-- Principle VI: Anti-MVP Bias with shipping criteria
-
-Removed sections: None
+Previous versions:
+- 1.1.0: Added VI. Anti-MVP Bias (surprise gift quality, internal vs external shipping)
+- 1.0.0: Initial ratification (5 principles)
 
 Templates requiring updates:
 - .specify/templates/plan-template.md ✅ compatible (generic Constitution Check)
 - .specify/templates/spec-template.md ✅ compatible (no constitution refs)
 - .specify/templates/tasks-template.md ✅ compatible (no constitution refs)
-- .coderabbit.yaml ✅ UPDATED (Anti-MVP enforcement added)
+- .coderabbit.yaml ✅ UPDATED (clarified responsive web language)
 
 Follow-up TODOs:
 - Update existing specs to include Principle VI in Constitution Check sections
@@ -96,18 +95,21 @@ on technology. No gray areas, no "just SSH in and fix it" situations for non-tec
 
 ### V. Dual-Experience Design
 
-The system MUST deliver first-class experiences on BOTH desktop and mobile. Desktop
-serves power users and admin (Matt). Mobile serves Kim and on-the-go customers.
+The system MUST deliver first-class web experiences on BOTH desktop browsers and mobile
+browsers. Desktop web serves power users and admin (Matt). Mobile web serves Kim and
+on-the-go customers. This is a responsive web application, NOT a desktop app.
 
 **Non-negotiable rules:**
 - All public pages MUST score 90+ on mobile PageSpeed Insights
-- Admin interfaces MUST be fully functional on desktop browsers
-- Kim's workflow MUST be optimized for phone-sized screens
-- Customer-facing features MUST work identically on mobile and desktop
-- No "desktop-only" features for customer-facing functionality
+- Admin interfaces MUST be fully functional on desktop web browsers
+- Kim's workflow MUST be optimized for phone-sized screens (mobile web)
+- Customer-facing features MUST work identically on mobile and desktop web
+- No "desktop browser-only" features for customer-facing functionality
+- All interactions happen in web browsers (Chrome, Safari, Firefox, Edge)
 
-**Rationale:** Matt manages systems from a desktop. Kim manages inventory between
-customers on her phone. Customers browse on whatever device they have. All are first-class.
+**Rationale:** Matt manages systems from a desktop web browser. Kim manages inventory
+from her phone's web browser between customers. Customers browse on whatever device they
+have — all via web browsers. All experiences are first-class web, no apps to install.
 
 ### VI. Anti-MVP Bias
 
@@ -233,4 +235,4 @@ Storefront project. All specifications, plans, and implementations MUST comply.
 **Guidance File:** See `wv-wild-blueprint.md` for detailed implementation guidance
 and phase-by-phase build instructions.
 
-**Version**: 1.1.0 | **Ratified**: 2025-12-04 | **Last Amended**: 2025-12-04
+**Version**: 1.1.1 | **Ratified**: 2025-12-04 | **Last Amended**: 2025-12-04

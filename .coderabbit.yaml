@@ -1,14 +1,15 @@
 # yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
 
 # WV Wild Outdoors Storefront - CodeRabbit Configuration
-# Aligned with Constitution v1.1.0 (6 Principles) - Rural West Virginia Family Business
+# Aligned with Constitution v1.1.1 (6 Principles) - Rural West Virginia Family Business
+# Responsive web design (mobile + desktop browsers), NOT desktop apps
 # This is a surprise gift. No half-baked features. Kim's reputation depends on it.
 
 language: "en-US"
 early_access: false
 
 # Tone: Authentic, family-business focus - Direct and thorough with cultural sensitivity
-tone_instructions: "Review for rural West Virginia family business digital ecosystem. Be direct and thorough. Focus on Owner-First Simplicity (Kim's phone workflow), Heart of West Virginia (authentic voice), Modular Service Architecture (Docker independence), Developer-Managed Infrastructure (Matt-only backend access), Dual-Experience Design (mobile + desktop excellence), and Anti-MVP Bias (ship complete, polished features that honor the business). This is a surprise gift - no half-baked prototypes. Kim's reputation depends on it working right the first time."
+tone_instructions: "Review for rural West Virginia family business digital ecosystem. Be direct and thorough. Focus on Owner-First Simplicity (Kim's phone workflow), Heart of West Virginia (authentic voice), Modular Service Architecture (Docker independence), Developer-Managed Infrastructure (Matt-only backend access), Dual-Experience Design (mobile web + desktop web excellence - responsive web, NOT desktop apps), and Anti-MVP Bias (ship complete, polished features that honor the business). This is a surprise gift - no half-baked prototypes. Kim's reputation depends on it working right the first time."
 
 reviews:
   profile: "assertive"  # Owner-First Simplicity + Anti-MVP Bias require thoroughness
@@ -39,12 +40,13 @@ reviews:
       - [ ] Matt's access: Servers, DNS, Docker, backups, monitoring
       - [ ] Production changes go through Matt
       - [ ] Documentation distinguishes "Kim does this" vs "Matt does this"
-    - [ ] Principle V: Dual-Experience Design
+    - [ ] Principle V: Dual-Experience Design (Responsive Web)
       - [ ] Public pages score 90+ on mobile PageSpeed Insights
-      - [ ] Admin interfaces fully functional on desktop
-      - [ ] Kim's workflow optimized for phone-sized screens
-      - [ ] Customer features work identically on mobile + desktop
-      - [ ] No "desktop-only" customer-facing features
+      - [ ] Admin interfaces fully functional on desktop web browsers
+      - [ ] Kim's workflow optimized for phone-sized screens (mobile web)
+      - [ ] Customer features work identically on mobile + desktop web browsers
+      - [ ] No "desktop browser-only" customer-facing features
+      - [ ] This is responsive web design, NOT a desktop app
     - [ ] Principle VI: Anti-MVP Bias
       - [ ] Internal Shipping Criteria (Matt → Kim/Bryan testing):
         - [ ] Feature works correctly on Matt's machine
@@ -294,11 +296,13 @@ reviews:
     # Astro Frontend (Planned) - Principle V (Dual-Experience Design)
     - path: "astro/**/*.{astro,ts,js,css}"
       instructions: |
-        CRITICAL - Constitution Principle V (Dual-Experience Design):
+        CRITICAL - Constitution Principle V (Dual-Experience Design - Responsive Web):
+        - This is RESPONSIVE WEB DESIGN (mobile web + desktop web), NOT a desktop app
         - Public pages MUST score 90+ on mobile PageSpeed Insights
         - NO client-side JavaScript frameworks (React, Vue, etc.) for public pages
         - Vanilla JavaScript ONLY for interactivity
-        - Mobile-first CSS (mobile base styles, desktop in media queries)
+        - Mobile-first CSS (mobile base styles, desktop browser breakpoints in media queries)
+        - Test in real browsers: Chrome, Safari, Firefox, Edge (mobile + desktop)
 
         Principle I (Owner-First Simplicity):
         - Kim MUST be able to preview changes without terminal/build knowledge
