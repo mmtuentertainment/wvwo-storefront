@@ -1,0 +1,53 @@
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Claude Code
+.claude/
+
+# Playwright MCP
+.playwright-mcp/
+playwright-profile/
+.auth/
+screenshots/
+
+# Archives
+*.zip
+*.tar.gz
+
+# Temp files
+nul
+.DS_Store
+
+# Node modules
+node_modules/
+.npm/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Build outputs
+dist/
+.astro/
+.output/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Database files (local dev)
+*.db
+*.sqlite
+*.sqlite3
+
+# Backups
+backup/
+*.bak
