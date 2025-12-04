@@ -9,7 +9,7 @@ language: "en-US"
 early_access: false
 
 # Tone: Authentic, family-business focus - Direct and thorough with cultural sensitivity
-tone_instructions: "Review for rural West Virginia family business digital ecosystem. Be direct and thorough. Focus on Owner-First Simplicity (Kim's phone workflow), Heart of West Virginia (authentic voice), Modular Service Architecture (Docker independence), Developer-Managed Infrastructure (Matt-only backend access), Dual-Experience Design (mobile web + desktop web excellence - responsive web, NOT desktop apps), and Anti-MVP Bias (ship complete, polished features that honor the business). This is a surprise gift - no half-baked prototypes. Kim's reputation depends on it working right the first time."
+tone_instructions: "Rural WV family business. Focus: Owner-First Simplicity, Heart of WV, Modular Services, Developer-Managed Infrastructure, Dual-Experience Design, Anti-MVP Bias. Surprise gift - no half-baked features. Kim's reputation depends on it."
 
 reviews:
   profile: "assertive"  # Owner-First Simplicity + Anti-MVP Bias require thoroughness
@@ -90,6 +90,15 @@ reviews:
     - Performance validated: {Yes/No}
     - Monitoring configured: {Yes/No}
     - DNS/CDN configured: {Yes/No}
+
+    **Spec Kit Completeness** (for specs/NNN-feature/ PRs): {Complete/Incomplete}
+    - spec.md: {Exists/Missing} (user stories with acceptance criteria)
+    - plan.md: {Exists/Missing} (implementation plan with constitutional checks)
+    - data-model.md: {Exists/Missing} (service topology, data flows)
+    - contracts/: {Exists/Missing} (service interface definitions)
+    - tasks.md: {Exists/Missing} (phased task breakdown)
+    - quickstart.md: {Exists/Missing} (getting started guide, if applicable)
+    - See [FEATURE_ROADMAP.md](.specify/FEATURE_ROADMAP.md) for feature priority
 
     **Phase**: {Infrastructure / Development / Testing / Pre-Launch / Production}
 
@@ -413,6 +422,26 @@ reviews:
         - Spec MUST address error handling, edge cases, and failure modes
         - "Out of scope" section MUST be justified (not arbitrary cost-cutting)
 
+        Spec Kit Completeness Check:
+        - If this PR is for a spec (specs/NNN-feature/), verify:
+          - spec.md exists with user stories and acceptance criteria
+          - plan.md exists with constitutional checks for all 6 principles
+          - data-model.md exists with service topology and data flows
+          - contracts/ directory exists with service interface definitions
+          - tasks.md exists with phased breakdown and validation tasks
+          - quickstart.md exists (if feature requires setup instructions)
+          - checklists/ directory exists with requirements validation
+
+        Roadmap Integration:
+        - Check against FEATURE_ROADMAP.md (.specify/FEATURE_ROADMAP.md)
+        - Verify spec is listed in roadmap with correct priority
+        - Verify phase alignment (Infrastructure / Development / Testing / Pre-Launch / Production)
+        - Update roadmap progress when marking spec complete
+
+        Internal vs External Readiness:
+        - Internal Shipping: Can ship with partial Spec Kit if feature works, Kim can use from phone, data persists, errors user-friendly, would-Kim-use-this passes
+        - External Shipping: MUST have complete Spec Kit before public launch
+
         Documentation Quality:
         - User stories MUST use "As a [Kim/Matt/Customer]" format
         - Acceptance criteria MUST be testable
@@ -527,7 +556,7 @@ reviews:
   # Pre-merge checks
   pre_merge_checks:
     docstrings:
-      mode: "comment"  # Warn but don't block (no code yet)
+      mode: "warning"  # Warn but don't block (no code yet)
     unit_tests:
       mode: "off"  # Disabled until test framework implemented
 
@@ -574,6 +603,7 @@ knowledge_base:
     file_patterns:
       - "CLAUDE.md"
       - ".specify/memory/constitution.md"
+      - ".specify/FEATURE_ROADMAP.md"
       - "docs/BLUEPRINT.md"
       - "wv-wild-blueprint.md"
       - "INTELLIGENCE.md"
