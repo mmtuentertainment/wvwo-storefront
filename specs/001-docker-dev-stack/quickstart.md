@@ -1,7 +1,9 @@
 # Quickstart Guide: Docker Local Development Stack
 
 **Feature**: 001-docker-dev-stack | **Date**: 2024-12-04
-**Audience**: Developers setting up WV Wild Outdoors local environment for the first time
+**Audience**: Developers (Matt) - This is developer-only infrastructure
+
+> **Role Boundaries**: This guide covers Matt's local development environment setup. Kim never interacts with Docker, terminals, or configuration files. Kim's workflows happen exclusively in production admin interfaces (Directus CMS at admin.wvwildoutdoors.com and Ghost blog editor at blog.wvwildoutdoors.com). Per Constitutional Principle IV: If it requires a terminal, it's Matt's responsibility.
 
 ## Overview
 

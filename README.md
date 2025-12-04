@@ -14,6 +14,8 @@ Digital ecosystem for WV Wild Outdoors LLC - a family-owned sporting goods store
 
 ## Quick Start (Local Development)
 
+> **Developer Infrastructure**: This local development stack is Matt's responsibility. Kim accesses production admin panels only (Directus CMS, Ghost editor). Per Constitutional Principle IV: If it requires a terminal, it's Matt's domain.
+
 **Prerequisites**: Docker Desktop (Windows/macOS) or Docker Engine + Docker Compose (Linux)
 
 ```bash
