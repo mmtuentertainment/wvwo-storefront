@@ -1,3 +1,15 @@
+# Obsidian
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/plugins/
+.obsidian/core-plugins-migration.json
+.obsidian/app.json
+
+# Keep these Obsidian files (for consistent settings across devices)
+# .obsidian/appearance.json
+# .obsidian/community-plugins.json
+# .obsidian/hotkeys.json
+
 # IDE and editor files
 .vscode/
 .idea/
@@ -14,27 +26,34 @@ playwright-profile/
 .auth/
 screenshots/
 
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
 # Archives
 *.zip
 *.tar.gz
 
 # Temp files
 nul
-.DS_Store
 
 # Node modules
 node_modules/
 .npm/
 
+# Build outputs
+.next/
+out/
+build/
+dist/
+.astro/
+.output/
+
 # Environment files
 .env
 .env.local
 .env.*.local
-
-# Build outputs
-dist/
-.astro/
-.output/
 
 # Logs
 logs/
