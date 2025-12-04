@@ -1,0 +1,125 @@
+{
+  "version": 1,
+  "directus": "10.x",
+  "collections": [
+    {
+      "collection": "categories",
+      "meta": {
+        "icon": "folder",
+        "note": "Product taxonomy - hierarchical"
+      },
+      "fields": [
+        { "field": "id", "type": "integer", "meta": { "hidden": true, "interface": "input", "readonly": true } },
+        { "field": "name", "type": "string", "meta": { "interface": "input", "required": true, "width": "half" } },
+        { "field": "slug", "type": "string", "meta": { "interface": "input", "required": true, "width": "half", "options": { "slug": true } } },
+        { "field": "parent", "type": "integer", "meta": { "interface": "select-dropdown-m2o", "special": ["m2o"], "options": { "template": "{{name}}" } } },
+        { "field": "description", "type": "text", "meta": { "interface": "input-multiline" } },
+        { "field": "sort_order", "type": "integer", "meta": { "interface": "input", "width": "half" } }
+      ]
+    },
+    {
+      "collection": "brands",
+      "meta": {
+        "icon": "local_offer",
+        "note": "Product brands/manufacturers"
+      },
+      "fields": [
+        { "field": "id", "type": "integer", "meta": { "hidden": true, "interface": "input", "readonly": true } },
+        { "field": "name", "type": "string", "meta": { "interface": "input", "required": true, "width": "half" } },
+        { "field": "slug", "type": "string", "meta": { "interface": "input", "required": true, "width": "half" } },
+        { "field": "logo", "type": "uuid", "meta": { "interface": "file-image", "special": ["file"] } },
+        { "field": "description", "type": "text", "meta": { "interface": "input-multiline" } }
+      ]
+    },
+    {
+      "collection": "products",
+      "meta": {
+        "icon": "inventory_2",
+        "note": "All sellable items"
+      },
+      "fields": [
+        { "field": "id", "type": "integer", "meta": { "hidden": true, "interface": "input", "readonly": true } },
+        { "field": "status", "type": "string", "meta": { "interface": "select-dropdown", "options": { "choices": [{"text": "Published", "value": "published"}, {"text": "Draft", "value": "draft"}] }, "default": "draft", "width": "half" } },
+        { "field": "name", "type": "string", "meta": { "interface": "input", "required": true } },
+        { "field": "slug", "type": "string", "meta": { "interface": "input", "required": true, "options": { "slug": true } } },
+        { "field": "sku", "type": "string", "meta": { "interface": "input", "width": "half" } },
+        { "field": "category", "type": "integer", "meta": { "interface": "select-dropdown-m2o", "special": ["m2o"], "required": true, "options": { "template": "{{name}}" } } },
+        { "field": "brand", "type": "integer", "meta": { "interface": "select-dropdown-m2o", "special": ["m2o"], "options": { "template": "{{name}}" } } },
+        { "field": "short_description", "type": "text", "meta": { "interface": "input-multiline", "note": "1-2 sentences for product cards" } },
+        { "field": "description", "type": "text", "meta": { "interface": "input-rich-text-md", "note": "Full product details" } },
+        { "field": "price", "type": "decimal", "meta": { "interface": "input", "required": true, "width": "half", "options": { "min": 0 } } },
+        { "field": "on_sale", "type": "boolean", "meta": { "interface": "boolean", "width": "quarter", "default": false } },
+        { "field": "sale_price", "type": "decimal", "meta": { "interface": "input", "width": "quarter", "options": { "min": 0 } } },
+        { "field": "stripe_payment_link", "type": "string", "meta": { "interface": "input", "note": "Paste Stripe Payment Link URL" } },
+        { "field": "image_main", "type": "uuid", "meta": { "interface": "file-image", "special": ["file"] } },
+        { "field": "is_featured", "type": "boolean", "meta": { "interface": "boolean", "width": "quarter", "default": false } },
+        { "field": "just_arrived", "type": "boolean", "meta": { "interface": "boolean", "width": "quarter", "default": false } },
+        { "field": "inventory_quantity", "type": "integer", "meta": { "interface": "input", "width": "third", "default": 0 } },
+        { "field": "low_stock_threshold", "type": "integer", "meta": { "interface": "input", "width": "third", "default": 5 } },
+        { "field": "location_in_store", "type": "string", "meta": { "interface": "input", "width": "third", "note": "e.g. Gun wall, rack 3" } },
+        { "field": "discontinued", "type": "boolean", "meta": { "interface": "boolean", "default": false } }
+      ]
+    },
+    {
+      "collection": "store_info",
+      "meta": {
+        "icon": "store",
+        "note": "Store metadata - single record",
+        "singleton": true
+      },
+      "fields": [
+        { "field": "id", "type": "integer", "meta": { "hidden": true } },
+        { "field": "store_name", "type": "string", "meta": { "interface": "input", "required": true } },
+        { "field": "address_line1", "type": "string", "meta": { "interface": "input", "required": true } },
+        { "field": "address_line2", "type": "string", "meta": { "interface": "input" } },
+        { "field": "city", "type": "string", "meta": { "interface": "input", "required": true, "width": "third" } },
+        { "field": "state", "type": "string", "meta": { "interface": "input", "required": true, "width": "third" } },
+        { "field": "postal_code", "type": "string", "meta": { "interface": "input", "required": true, "width": "third" } },
+        { "field": "phone", "type": "string", "meta": { "interface": "input", "required": true, "width": "half" } },
+        { "field": "email", "type": "string", "meta": { "interface": "input", "width": "half" } },
+        { "field": "google_maps_link", "type": "string", "meta": { "interface": "input" } },
+        { "field": "hours_weekday", "type": "string", "meta": { "interface": "input", "required": true, "note": "e.g. Mon-Sat: 10am-5pm" } },
+        { "field": "hours_weekend", "type": "string", "meta": { "interface": "input" } },
+        { "field": "holiday_hours", "type": "text", "meta": { "interface": "input-multiline" } },
+        { "field": "about_short", "type": "text", "meta": { "interface": "input-multiline", "note": "Homepage tagline" } },
+        { "field": "flood_story", "type": "text", "meta": { "interface": "input-rich-text-md", "note": "2016 flood narrative for About page" } },
+        { "field": "facebook_url", "type": "string", "meta": { "interface": "input", "width": "half" } },
+        { "field": "instagram_url", "type": "string", "meta": { "interface": "input", "width": "half" } }
+      ]
+    },
+    {
+      "collection": "homepage_features",
+      "meta": {
+        "icon": "featured_play_list",
+        "note": "Hero banners and promotional content"
+      },
+      "fields": [
+        { "field": "id", "type": "integer", "meta": { "hidden": true } },
+        { "field": "title", "type": "string", "meta": { "interface": "input", "required": true } },
+        { "field": "subtitle", "type": "string", "meta": { "interface": "input" } },
+        { "field": "image", "type": "uuid", "meta": { "interface": "file-image", "special": ["file"] } },
+        { "field": "cta_label", "type": "string", "meta": { "interface": "input", "width": "half", "note": "Button text" } },
+        { "field": "cta_link", "type": "string", "meta": { "interface": "input", "width": "half", "note": "URL to link to" } },
+        { "field": "active", "type": "boolean", "meta": { "interface": "boolean", "default": true, "width": "half" } },
+        { "field": "sort_order", "type": "integer", "meta": { "interface": "input", "width": "half" } }
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "collection": "categories",
+      "field": "parent",
+      "related_collection": "categories"
+    },
+    {
+      "collection": "products",
+      "field": "category",
+      "related_collection": "categories"
+    },
+    {
+      "collection": "products",
+      "field": "brand",
+      "related_collection": "brands"
+    }
+  ]
+}

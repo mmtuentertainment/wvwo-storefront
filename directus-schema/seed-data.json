@@ -1,0 +1,53 @@
+{
+  "categories": [
+    { "name": "Firearms", "slug": "firearms", "parent": null, "sort_order": 1 },
+    { "name": "Rifles", "slug": "rifles", "parent": "firearms", "sort_order": 1 },
+    { "name": "Handguns", "slug": "handguns", "parent": "firearms", "sort_order": 2 },
+    { "name": "Shotguns", "slug": "shotguns", "parent": "firearms", "sort_order": 3 },
+    { "name": "Ammunition", "slug": "ammunition", "parent": null, "sort_order": 2 },
+    { "name": "Rifle Ammo", "slug": "rifle-ammo", "parent": "ammunition", "sort_order": 1 },
+    { "name": "Handgun Ammo", "slug": "handgun-ammo", "parent": "ammunition", "sort_order": 2 },
+    { "name": "Shotgun Ammo", "slug": "shotgun-ammo", "parent": "ammunition", "sort_order": 3 },
+    { "name": "Footwear", "slug": "footwear", "parent": null, "sort_order": 3 },
+    { "name": "Hunting Boots", "slug": "hunting-boots", "parent": "footwear", "sort_order": 1 },
+    { "name": "Rubber Boots", "slug": "rubber-boots", "parent": "footwear", "sort_order": 2 },
+    { "name": "Optics", "slug": "optics", "parent": null, "sort_order": 4 },
+    { "name": "Rifle Scopes", "slug": "rifle-scopes", "parent": "optics", "sort_order": 1 },
+    { "name": "Binoculars", "slug": "binoculars", "parent": "optics", "sort_order": 2 },
+    { "name": "Hunting Gear", "slug": "hunting-gear", "parent": null, "sort_order": 5 },
+    { "name": "Camo & Apparel", "slug": "camo-apparel", "parent": "hunting-gear", "sort_order": 1 },
+    { "name": "Tree Stands", "slug": "tree-stands", "parent": "hunting-gear", "sort_order": 2 },
+    { "name": "Deer Feed", "slug": "deer-feed", "parent": "hunting-gear", "sort_order": 3 },
+    { "name": "Fishing", "slug": "fishing", "parent": null, "sort_order": 6 },
+    { "name": "Licenses", "slug": "licenses", "parent": null, "description": "WVDNR Hunting & Fishing Licenses", "sort_order": 7 }
+  ],
+  "brands": [
+    { "name": "Remington", "slug": "remington", "description": "Ammunition and firearms" },
+    { "name": "Hornady", "slug": "hornady", "description": "Premium ammunition" },
+    { "name": "Danner", "slug": "danner", "description": "Hunting boots 400g-1200g insulation" },
+    { "name": "LaCrosse", "slug": "lacrosse", "description": "Alpha Burly and rubber boots" },
+    { "name": "Muck", "slug": "muck", "description": "Rubber hunting boots" },
+    { "name": "Vortex Optics", "slug": "vortex", "description": "Authorized dealer - scopes and binoculars" },
+    { "name": "Savage", "slug": "savage", "description": "Rifles - Axis series" },
+    { "name": "Ruger", "slug": "ruger", "description": "American series rifles and handguns" },
+    { "name": "Marlin", "slug": "marlin", "description": "Lever-action rifles - 30-30" },
+    { "name": "Mossy Oak", "slug": "mossy-oak", "description": "Camo patterns" },
+    { "name": "Realtree", "slug": "realtree", "description": "Camo patterns" }
+  ],
+  "store_info": {
+    "store_name": "WV Wild Outdoors LLC",
+    "address_line1": "121 Birch River Rd",
+    "address_line2": "",
+    "city": "Birch River",
+    "state": "WV",
+    "postal_code": "26610",
+    "phone": "(304) 649-2607",
+    "email": "bkutt1@yahoo.com",
+    "hours_weekday": "Mon-Sat: 10am-5pm",
+    "hours_weekend": "Sunday: Closed",
+    "holiday_hours": "Family comes first - call ahead if you're driving far",
+    "about_short": "Family-owned sporting goods in Braxton County since 2008. Filling freezers, not trophy cases.",
+    "flood_story": "We've been here since 2008.\n\nStarted in Fayetteville. Moved to Hico - couldn't make it. Moved to Birch River in 2013. Then June 23, 2016 happened.\n\nThe flood hit Birch River hard. Record water levels. Old Route 19 collapsed. We lost $70,000 in inventory overnight. FEMA said no - Braxton County wasn't on their list. Then someone broke in and took another $10,000.\n\nWe moved to this corner lot, started smaller, and kept going. Today we own this building and every single thing in it. No debt. No landlord. Just us.\n\nWhen a door closes, look for the blessing. God is good.",
+    "facebook_url": "https://www.facebook.com/profile.php?id=100063588635941"
+  }
+}
