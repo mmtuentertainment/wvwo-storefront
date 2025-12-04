@@ -130,6 +130,8 @@ faith perspective)
 
 - [ ] Create `/wv-wild-outdoors` project directory
 - [ ] Initialize Git repo: `git init`
+- [ ] Initialize Specify project: `specify init wvwo-storefront`
+- [ ] Run Specify validation: `specify check`
 - [ ] Create `.env.local` file (never commit):
   ```
   # Database

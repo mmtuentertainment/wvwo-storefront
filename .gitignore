@@ -79,3 +79,6 @@ volumes/
 # Docker artifacts
 *.tar
 *.tar.gz
+
+# Spec-kit (separate git repository)
+spec-kit/
