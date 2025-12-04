@@ -1,0 +1,32 @@
+{
+  "url": "http://localhost:2368",
+  "server": {
+    "port": 2368,
+    "host": "0.0.0.0"
+  },
+  "database": {
+    "client": "postgres",
+    "connection": {
+      "host": "postgres",
+      "port": 5432,
+      "user": "ghost_user",
+      "password": "ghostpass123",
+      "database": "ghost"
+    }
+  },
+  "mail": {
+    "transport": "Direct",
+    "options": {
+      "host": "localhost",
+      "port": 25
+    }
+  },
+  "logging": {
+    "transports": ["stdout"],
+    "level": "info"
+  },
+  "process": "local",
+  "paths": {
+    "contentPath": "/var/lib/ghost/content"
+  }
+}

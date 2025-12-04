@@ -12,21 +12,48 @@ Digital ecosystem for WV Wild Outdoors LLC - a family-owned sporting goods store
 | Listmonk | Newsletter | mail.wvwildoutdoors.com |
 | Umami | Analytics | analytics.wvwildoutdoors.com |
 
-## Quick Start (Local)
+## Quick Start (Local Development)
+
+**Prerequisites**: Docker Desktop (Windows/macOS) or Docker Engine + Docker Compose (Linux)
 
 ```bash
-cd infra/docker
+# Copy environment template
 cp .env.example .env
-# Edit .env with your values
+# Edit .env with generated secrets (see .env.example for instructions)
 
-docker compose -f docker-compose.yml -f docker-compose.local.yml up -d
+# Start all services
+./scripts/dev-start.sh       # Unix/macOS/Linux
+./scripts/dev-start.ps1      # Windows PowerShell
+
+# Or use Docker Compose directly
+docker compose up -d
 ```
 
-**Access:**
-- Directus: http://localhost:8055
-- Ghost: http://localhost:2368
-- Listmonk: http://localhost:9000
-- Umami: http://localhost:3000
+**Access Services:**
+- **Astro Frontend**: http://localhost:3000
+- **Directus CMS**: http://localhost:8055
+- **Ghost Blog**: http://localhost:2368
+- **Listmonk Email**: http://localhost:9000
+- **Mixpost Social**: http://localhost:8080
+- **PostgreSQL**: localhost:5432
+- **Redis**: localhost:6379
+
+**Other Commands:**
+```bash
+# Stop services (keep data)
+./scripts/dev-stop.sh
+
+# Clean environment (remove all data)
+./scripts/dev-clean.sh
+
+# View logs
+./scripts/dev-logs.sh [service-name]
+
+# View status
+./scripts/dev-status.sh
+```
+
+For detailed setup instructions, see [specs/001-docker-dev-stack/quickstart.md](specs/001-docker-dev-stack/quickstart.md)
 
 ## Documentation
 
