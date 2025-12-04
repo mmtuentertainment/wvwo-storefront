@@ -1,19 +1,22 @@
 <!--
 SYNC IMPACT REPORT
 ==================
-Version change: 1.1.0 (Anti-MVP added) → 1.1.1 (Clarified Principle V: responsive web, not desktop apps)
+Version change: 1.1.1 (Responsive web clarified) → 1.1.2 (Anti-MVP exception for .env.example)
 
-Modified principles:
-- V. Dual-Experience Design: Clarified "desktop web browsers" and "mobile web" - this is responsive web design, NOT desktop apps
+Modified sections:
+- Principle VI Code Quality Requirements: Clarified "NO placeholder data in seed files, schemas, or UI"
+- Added explicit Exception: .env.example files MUST use placeholders for security
 
 Existing principles (unchanged):
 - I. Owner-First Simplicity
 - II. Heart of West Virginia
 - III. Modular Service Architecture
 - IV. Developer-Managed Infrastructure
+- V. Dual-Experience Design (Responsive Web)
 - VI. Anti-MVP Bias
 
 Previous versions:
+- 1.1.1: Clarified Principle V - responsive web design, not desktop apps
 - 1.1.0: Added VI. Anti-MVP Bias (surprise gift quality, internal vs external shipping)
 - 1.0.0: Initial ratification (5 principles)
 
@@ -21,7 +24,7 @@ Templates requiring updates:
 - .specify/templates/plan-template.md ✅ compatible (generic Constitution Check)
 - .specify/templates/spec-template.md ✅ compatible (no constitution refs)
 - .specify/templates/tasks-template.md ✅ compatible (no constitution refs)
-- .coderabbit.yaml ✅ UPDATED (clarified responsive web language)
+- .coderabbit.yaml ✅ UPDATED (added Anti-MVP exception for .env.example files)
 
 Follow-up TODOs:
 - Update existing specs to include Principle VI in Constitution Check sections
@@ -143,11 +146,14 @@ content. Kim's store reputation depends on this working right the first time.
 
 **Code Quality Requirements:**
 - NO "TODO: add later" comments (either implement now or remove)
-- NO placeholder data ("lorem ipsum", "$99.99", "Test Product")
+- NO placeholder data in seed files, schemas, or UI ("lorem ipsum", "$99.99", "Test Product")
 - NO missing error handling ("we'll add validation later")
 - NO deferred accessibility ("we'll make it WCAG compliant in v2")
 - NO partial features ("basic version works, we'll polish later")
 - NO commented-out code waiting for "the right time"
+
+**Exception**: Environment template files (`.env.example`, `.env.template`) MUST use
+placeholders for security - this is intentional and required to prevent accidental secret commits.
 
 **Rationale:** This digital ecosystem represents Kim and Bryan's business to the
 Birch River community and beyond. A buggy website damages their hard-earned
@@ -235,4 +241,4 @@ Storefront project. All specifications, plans, and implementations MUST comply.
 **Guidance File:** See `wv-wild-blueprint.md` for detailed implementation guidance
 and phase-by-phase build instructions.
 
-**Version**: 1.1.1 | **Ratified**: 2025-12-04 | **Last Amended**: 2025-12-04
+**Version**: 1.1.2 | **Ratified**: 2025-12-04 | **Last Amended**: 2025-12-04

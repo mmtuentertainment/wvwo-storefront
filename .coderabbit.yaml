@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
 
 # WV Wild Outdoors Storefront - CodeRabbit Configuration
-# Aligned with Constitution v1.1.1 (6 Principles) - Rural West Virginia Family Business
+# Aligned with Constitution v1.1.2 (6 Principles) - Rural West Virginia Family Business
 # Responsive web design (mobile + desktop browsers), NOT desktop apps
 # This is a surprise gift. No half-baked features. Kim's reputation depends on it.
 
@@ -427,6 +427,13 @@ reviews:
         - MUST include comments explaining each variable
         - MUST document how to generate secrets (e.g., "openssl rand -hex 32")
         - MUST NOT contain actual credentials
+
+        Anti-MVP Bias EXCEPTION:
+        - Placeholder data IS REQUIRED in .env.example files (security-by-design)
+        - This is NOT a violation of "NO placeholder data" principle
+        - Placeholders prevent accidental secret commits (intentional security practice)
+        - Examples: "REPLACE_WITH_RANDOM_32_CHAR_STRING", "your-secret-here", "CHANGE_ME"
+        - Industry standard practice for environment templates
 
         Validation:
         - All services requiring env vars MUST be documented
