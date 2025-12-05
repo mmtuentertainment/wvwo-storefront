@@ -6,7 +6,16 @@
 # Usage: ./scripts/dev-start.sh
 #===============================================================================
 
-set -e  # Exit on error
+set -euo pipefail  # Exit on error, unset vars, and pipeline failures
+
+# Help flag for discoverability
+if [[ "${1:-}" == "-h" || "${1:-}" == "--help" ]]; then
+    echo "Usage: ./scripts/dev-start.sh"
+    echo ""
+    echo "Starts the WV Wild Outdoors Docker dev stack, checks basic resources,"
+    echo "and waits for services with health checks to become healthy."
+    exit 0
+fi
 
 # Colors for output
 RED='\033[0;31m'
@@ -46,8 +55,8 @@ if [ "$AVAILABLE_DISK" -lt 10 ] 2>/dev/null; then
 fi
 
 # Check Docker memory (cross-platform)
-DOCKER_MEM=$(docker info --format '{{.MemTotal}}' 2>/dev/null)
-if [ -n "$DOCKER_MEM" ]; then
+DOCKER_MEM=$(docker info --format '{{.MemTotal}}' 2>/dev/null || echo "")
+if [[ "$DOCKER_MEM" =~ ^[0-9]+$ ]]; then
     # Convert bytes to GB
     DOCKER_MEM_GB=$((DOCKER_MEM / 1024 / 1024 / 1024))
     if [ "$DOCKER_MEM_GB" -lt 4 ]; then
@@ -96,10 +105,16 @@ while [ $ELAPSED -lt $MAX_WAIT ]; do
     EXPECTED_HEALTHY=$((RUNNING_COUNT - NO_HEALTHCHECK))
 
     if [ "$RUNNING_COUNT" -gt 0 ]; then
+        if [ "$EXPECTED_HEALTHY" -eq 0 ]; then
+            echo ""
+            echo -e "${BLUE}No container health checks defined; continuing without health wait.${NC}"
+            break
+        fi
+
         echo -ne "  ${BLUE}[$ELAPSED/$MAX_WAIT s]${NC} Healthy: $HEALTHY_COUNT / $EXPECTED_HEALTHY services\r"
 
         # All services with health checks are healthy
-        if [ "$HEALTHY_COUNT" -ge "$EXPECTED_HEALTHY" ] && [ "$EXPECTED_HEALTHY" -gt 0 ]; then
+        if [ "$HEALTHY_COUNT" -ge "$EXPECTED_HEALTHY" ]; then
             echo ""
             echo -e "${GREEN}✓ All services are healthy${NC}"
             break

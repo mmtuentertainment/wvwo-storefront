@@ -5,7 +5,19 @@
 # Usage: .\scripts\dev-start.ps1
 #===============================================================================
 
+param(
+    [switch]$Help
+)
+
 $ErrorActionPreference = "Stop"
+
+if ($Help -or $args -contains "-h" -or $args -contains "--help") {
+    Write-Host "Usage: .\scripts\dev-start.ps1" -ForegroundColor Cyan
+    Write-Host
+    Write-Host "Starts the WV Wild Outdoors Docker dev stack, checks basic resources," -ForegroundColor Cyan
+    Write-Host "and waits for services with health checks to become healthy." -ForegroundColor Cyan
+    exit 0
+}
 
 Write-Host "==================================================================" -ForegroundColor Blue
 Write-Host "  WV Wild Outdoors - Starting Local Development Environment" -ForegroundColor Blue
@@ -91,11 +103,17 @@ while ($Elapsed -lt $MaxWait) {
     $expectedHealthy = $runningCount - $noHealthCheck
 
     if ($runningCount -gt 0) {
+        if ($expectedHealthy -eq 0) {
+            Write-Host ""
+            Write-Host "No container health checks defined; continuing without health wait." -ForegroundColor Blue
+            break
+        }
+
         Write-Host "  [$Elapsed/$MaxWait s] Healthy: $healthyCount / $expectedHealthy services" -ForegroundColor Blue -NoNewline
         Write-Host "`r" -NoNewline
 
         # All services with health checks are healthy
-        if ($healthyCount -ge $expectedHealthy -and $expectedHealthy -gt 0) {
+        if ($healthyCount -ge $expectedHealthy) {
             Write-Host ""
             Write-Host "✓ All services are healthy" -ForegroundColor Green
             break
