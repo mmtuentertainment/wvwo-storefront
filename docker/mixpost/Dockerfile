@@ -4,7 +4,8 @@
 
 FROM php:8.4-fpm-alpine
 
-# Install system dependencies
+# Install system dependencies and PHP extensions in single layer
+# Note: Not pinning apk versions - Alpine rotates packages frequently
 RUN apk add --no-cache \
     git \
     curl \
@@ -14,10 +15,9 @@ RUN apk add --no-cache \
     unzip \
     nginx \
     supervisor \
-    postgresql-dev
-
-# Install PHP extensions
-RUN docker-php-ext-install \
+    postgresql-dev \
+    fcgi && \
+    docker-php-ext-install \
     pdo \
     pdo_pgsql \
     pgsql \
@@ -42,7 +42,12 @@ ENV TZ=America/New_York
 # Expose port
 EXPOSE 8080
 
+# Health check - verify PHP-FPM is responding
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+    CMD SCRIPT_NAME=/ping SCRIPT_FILENAME=/ping REQUEST_METHOD=GET cgi-fcgi -bind -connect 127.0.0.1:9000 || exit 1
+
 # Default command (override in docker-compose if needed)
+# PHP-FPM runs as www-data user by default
 CMD ["php-fpm"]
 
 # Notes:

@@ -4,13 +4,11 @@
 
 For each feature below, run the SDD workflow:
 
-```
-
+```bash
 /speckit.specify [Feature Description]
 /speckit.plan
 /speckit.tasks
 /speckit.implement
-
 ```
 
 ---
@@ -110,34 +108,26 @@ Final touches before reveal.
 
 **Start with Feature 001:**
 
-```
-
+```bash
 /speckit.specify Docker local development stack with PostgreSQL 17, Redis 8, and container orchestration for WV Wild Outdoors services
-
 ```
 
 **After spec is created:**
 
-```
-
+```bash
 /speckit.plan
-
 ```
 
 **After plan is created:**
 
-```
-
+```bash
 /speckit.tasks
-
 ```
 
 **Execute the tasks:**
 
-```
-
+```bash
 /speckit.implement
-
 ```
 
 ---
