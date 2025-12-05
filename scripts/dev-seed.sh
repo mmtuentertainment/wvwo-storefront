@@ -40,7 +40,7 @@ SHOW_HELP=false
 
 #===============================================================================
 # Functions
-#===============================================================================
+# show_help prints the usage, available options, prerequisites, and examples for the development seed loader script.
 
 show_help() {
     echo -e "${BLUE}WV Wild Outdoors - Seed Data Loader${NC}"
@@ -63,6 +63,7 @@ show_help() {
     echo ""
 }
 
+# check_services checks that Docker is running and that the PostgreSQL container reports healthy; it prints an error and exits with a non-zero status if either check fails.
 check_services() {
     echo -e "${BLUE}Checking services...${NC}"
 
@@ -82,6 +83,8 @@ check_services() {
     echo -e "${GREEN}✓ PostgreSQL is running and healthy${NC}"
 }
 
+# seed_directus seeds sample Directus products and categories into the development Directus PostgreSQL database.
+# It verifies the presence of the seed SQL file, prompts for user confirmation, copies and executes the SQL inside the `wvwo-postgres-dev` container as `directus_user`, cleans up the temporary file, and prints a completion message with the admin URL.
 seed_directus() {
     echo ""
     echo -e "${BLUE}==================================================================${NC}"
@@ -127,6 +130,7 @@ seed_directus() {
     echo "  View products at: http://localhost:8055/admin/content/products"
 }
 
+# seed_ghost displays instructions for populating the Ghost blog in development, describing manual creation, JSON import, and Admin API options and pointing to the sample content file.
 seed_ghost() {
     echo ""
     echo -e "${BLUE}==================================================================${NC}"
@@ -158,6 +162,7 @@ seed_ghost() {
     echo ""
 }
 
+# show_summary prints a summary of the seeded Directus and Ghost content, including expected Directus collections and products, Ghost seeding notes, and example WV-themed names and places.
 show_summary() {
     echo ""
     echo -e "${GREEN}==================================================================${NC}"
