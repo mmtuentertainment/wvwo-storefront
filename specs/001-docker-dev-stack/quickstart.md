@@ -40,7 +40,6 @@ Before you begin, ensure you have:
    # In PowerShell (Admin):
    wsl --install
    wsl --set-default-version 2
-
    ```
 
 3. **Clone repo in WSL filesystem** (important for performance):
@@ -49,7 +48,6 @@ Before you begin, ensure you have:
    # Inside WSL terminal:
    cd ~/projects
    git clone <repo-url>
-
    ```
 
 4. **Resource Allocation**:
@@ -81,21 +79,18 @@ Before you begin, ensure you have:
    curl -fsSL https://get.docker.com | sh
    sudo usermod -aG docker $USER
    # Log out and back in for group changes
-
    ```
 
 2. **Install Docker Compose Plugin**:
 
    ```bash
    sudo apt-get install docker-compose-plugin
-
    ```
 
 3. **Verify Installation**:
 
    ```bash
    docker compose version  # Should show v2.20 or higher
-
    ```
 
 ### System Resources
@@ -120,7 +115,6 @@ cd wvwo-storefront
 
 # Checkout the Docker stack branch (if not merged to main)
 git checkout 001-docker-dev-stack
-
 ```
 
 ---
@@ -137,7 +131,6 @@ cp .env.example .env
 # Windows: notepad .env
 # macOS: open -e .env
 # Linux: nano .env  (or vim, emacs, etc.)
-
 ```
 
 ### Fill Required Values
@@ -175,7 +168,6 @@ MIXPOST_APP_KEY=base64:YourBase64EncodedKeyHere
 # Social Credentials (mock for local dev)
 FACEBOOK_APP_ID=local-dev-mock
 FACEBOOK_APP_SECRET=local-dev-mock
-
 ```
 
 **Security Tips**:
@@ -195,7 +187,6 @@ python3 -c "import secrets; print(secrets.token_urlsafe(32))"
 
 # For MIXPOST_APP_KEY, prefix with "base64:"
 echo "base64:$(openssl rand -base64 32)"
-
 ```
 
 ---
@@ -211,7 +202,6 @@ docker compose up -d
 # Watch logs to see services starting
 docker compose logs -f
 # Press Ctrl+C to stop watching (services keep running)
-
 ```
 
 **What's Happening**:
@@ -238,7 +228,6 @@ docker compose ps
 # wvwo-astro-dev      Up (healthy)
 # wvwo-listmonk-dev   Up (healthy)
 # wvwo-mixpost-dev    Up (healthy)
-
 ```
 
 **Troubleshooting** (if services show "unhealthy" or "restarting"):
@@ -254,7 +243,6 @@ docker compose logs directus
 # - "Connection refused": Service can't reach database (check health checks)
 # - "Authentication failed": Check .env passwords match
 # - "Port already in use": Another process using the port (stop it or change port in docker-compose.yml)
-
 ```
 
 ---
@@ -331,7 +319,6 @@ docker exec -it wvwo-redis-dev redis-cli
 PING                    # Should return "PONG"
 KEYS *                  # List all keys (may be empty on first run)
 exit
-
 ```
 
 ### Test Astro → Directus Integration
@@ -346,7 +333,6 @@ docker compose logs astro
 # If errors appear:
 # - Check Directus is healthy: docker compose ps directus
 # - Verify PUBLIC_DIRECTUS_URL in docker-compose.yml matches internal URL
-
 ```
 
 ---
@@ -362,7 +348,6 @@ docker compose up -d
 # Or use helper script (once implemented):
 ./scripts/dev-start.sh      # Unix/macOS/Linux
 ./scripts/dev-start.ps1     # Windows PowerShell
-
 ```
 
 ### Viewing Logs
@@ -379,7 +364,6 @@ docker compose logs --tail=50 astro
 
 # Since specific time
 docker compose logs --since 10m ghost
-
 ```
 
 ### Stopping Work
@@ -391,7 +375,6 @@ docker compose down
 # Or use helper script:
 ./scripts/dev-stop.sh       # Unix/macOS/Linux
 ./scripts/dev-stop.ps1      # Windows PowerShell
-
 ```
 
 **Note**: `docker compose down` stops containers but keeps volumes. Your data (database, uploads, content) remains intact for next startup.
@@ -404,7 +387,6 @@ docker compose restart astro
 
 # Rebuild and restart (e.g., after Dockerfile change)
 docker compose up -d --build astro
-
 ```
 
 ---
@@ -420,7 +402,6 @@ docker compose up -d --build astro
 
 # Or manually:
 docker compose exec postgres psql -U postgres -d directus -f /seed-data/01-products.sql
-
 ```
 
 ### Full Reset (Clean Slate)
@@ -437,7 +418,6 @@ docker compose down -v --remove-orphans
 
 # Start again (will re-initialize databases)
 docker compose up -d
-
 ```
 
 ### Backup Data
@@ -454,7 +434,6 @@ docker run --rm \
   -v wvwo-postgres-data-dev:/data \
   -v $(pwd):/backup \
   alpine tar czf /backup/postgres-backup.tar.gz -C /data .
-
 ```
 
 ### Restore Data
@@ -468,7 +447,6 @@ docker run --rm \
   -v wvwo-postgres-data-dev:/data \
   -v $(pwd):/backup \
   alpine tar xzf /backup/postgres-backup.tar.gz -C /data
-
 ```
 
 ---
@@ -486,7 +464,6 @@ docker run --rm \
    ```bash
    docker info
    # If error, start Docker Desktop
-
    ```
 
 2. **Check port conflicts**:
@@ -501,21 +478,18 @@ docker run --rm \
    # If port is occupied, either:
    # - Stop the conflicting process
    # - Change port in docker-compose.yml
-
    ```
 
 3. **Check disk space**:
 
    ```bash
    df -h  # Ensure you have at least 10 GB free
-
    ```
 
 4. **View detailed logs**:
 
    ```bash
    docker compose logs <failing-service>
-
    ```
 
 ---
@@ -532,7 +506,6 @@ sudo usermod -aG docker $USER
 
 # Log out and back in, then verify:
 groups  # Should show "docker"
-
 ```
 
 ---
@@ -568,7 +541,6 @@ groups  # Should show "docker"
    ```bash
    docker compose ps postgres
    # Should show "Up (healthy)"
-
    ```
 
 2. Check `.env` passwords match `docker-compose.yml`:
@@ -576,7 +548,6 @@ groups  # Should show "docker"
    ```bash
    grep POSTGRES_PASSWORD .env
    # Verify value matches what services expect
-
    ```
 
 3. Test connection manually:
@@ -584,7 +555,6 @@ groups  # Should show "docker"
    ```bash
    docker exec -it wvwo-postgres-dev psql -U directus_user -d directus
    # If this works, issue is in service config
-
    ```
 
 4. View service logs for connection details:
@@ -592,7 +562,6 @@ groups  # Should show "docker"
    ```bash
    docker compose logs directus
    # Look for "connection refused" or "authentication failed"
-
    ```
 
 ---
@@ -607,7 +576,6 @@ groups  # Should show "docker"
 
    ```bash
    docker compose ps directus ghost
-
    ```
 
 2. Check Astro environment variables:
@@ -615,7 +583,6 @@ groups  # Should show "docker"
    ```bash
    docker compose exec astro env | grep PUBLIC_
    # Should show internal URLs: http://directus:8055, http://ghost:2368
-
    ```
 
 3. Test connectivity from Astro container:
@@ -623,7 +590,6 @@ groups  # Should show "docker"
    ```bash
    docker compose exec astro curl -v http://directus:8055/server/health
    # Should return 200 OK
-
    ```
 
 ---
@@ -676,7 +642,6 @@ docker compose exec directus sh                # Shell into Directus container
 docker system prune                # Remove unused images/containers
 docker volume prune                # Remove unused volumes (careful!)
 docker system df                   # Show Docker disk usage
-
 ```
 
 ---
