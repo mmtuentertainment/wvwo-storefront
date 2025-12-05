@@ -1,0 +1,28 @@
+# Listmonk Configuration for WV Wild Outdoors Local Development
+# Newsletter and mailing list management
+
+[app]
+address = "0.0.0.0:9000"
+admin_username = "admin"
+admin_password = "listmonk"
+
+# Database
+[db]
+host = "postgres"
+port = 5432
+user = "listmonk_user"
+password = "listmonkpass123"
+database = "listmonk"
+ssl_mode = "disable"
+max_open = 25
+max_idle = 25
+max_lifetime = "300s"
+
+# Privacy
+[privacy]
+individual_tracking = false
+unsubscribe_header = true
+
+# Security
+[security]
+enable_captcha = false

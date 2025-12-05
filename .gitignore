@@ -70,3 +70,16 @@ yarn-error.log*
 # Backups
 backup/
 *.bak
+
+# Docker local development
+.env
+.env.local
+docker-compose.override.yml
+volumes/
+
+# Docker artifacts
+*.tar
+*.tar.gz
+
+# Spec-kit (separate git repository)
+spec-kit/

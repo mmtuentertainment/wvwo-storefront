@@ -1117,7 +1117,7 @@ services:
 
   # Ghost
   ghost:
-    image: ghost:5.0
+    image: ghost:6-alpine
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.ghost.rule=Host(`blog.wvwildoutdoors.com`)"
