@@ -265,13 +265,13 @@ Once all services show "Up (healthy)", access them in your browser:
 
 | Service | URL | Credentials | Purpose | Status |
 |---------|-----|-------------|---------|--------|
-| **Directus** | http://localhost:8055/admin | Email/Password from `.env` | CMS admin panel | ✅ Active |
-| **Ghost** | http://localhost:2368/ghost/ | Setup on first visit | Blog editor | ✅ Active |
-| **Listmonk** | http://localhost:9000/admin | Setup on first visit | Email management | ✅ Active |
+| **Directus** | <http://localhost:8055/admin> | Email/Password from `.env` | CMS admin panel | ✅ Active |
+| **Ghost** | <http://localhost:2368/ghost/> | Setup on first visit | Blog editor | ✅ Active |
+| **Listmonk** | <http://localhost:9000/admin> | Setup on first visit | Email management | ✅ Active |
 | **PostgreSQL** | localhost:5432 | `postgres` / `.env password` | Database (via client) | ✅ Active |
 | **Redis** | localhost:6379 | None | Cache (via client) | ✅ Active |
-| **Astro** | http://localhost:3000/ | None (public site) | Frontend preview | ⏸️ Disabled |
-| **Mixpost** | http://localhost:8080/ | Setup on first visit | Social scheduling | ⏸️ Disabled |
+| **Astro** | <http://localhost:3000/> | None (public site) | Frontend preview | ⏸️ Disabled |
+| **Mixpost** | <http://localhost:8080/> | Setup on first visit | Social scheduling | ⏸️ Disabled |
 
 ### Initial Setup for Each Service
 
