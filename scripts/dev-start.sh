@@ -6,7 +6,16 @@
 # Usage: ./scripts/dev-start.sh
 #===============================================================================
 
-set -e  # Exit on error
+set -euo pipefail  # Exit on error, unset vars, and pipeline failures
+
+# Help flag for discoverability
+if [[ "${1:-}" == "-h" || "${1:-}" == "--help" ]]; then
+    echo "Usage: ./scripts/dev-start.sh"
+    echo ""
+    echo "Starts the WV Wild Outdoors Docker dev stack, checks basic resources,"
+    echo "and waits for services with health checks to become healthy."
+    exit 0
+fi
 
 # Colors for output
 RED='\033[0;31m'
@@ -29,6 +38,35 @@ fi
 
 echo -e "${GREEN}✓ Docker is running${NC}"
 
+# Check Docker resource availability
+echo -e "${BLUE}Checking Docker resources...${NC}"
+
+# Check available disk space (at least 10 GB recommended)
+if [[ "$(uname)" == "Darwin" ]]; then
+    # macOS uses BSD df with -g flag
+    AVAILABLE_DISK=$(df -g . 2>/dev/null | awk 'NR==2 {print $4}' || echo "999")
+else
+    # Linux uses GNU df with -BG flag
+    AVAILABLE_DISK=$(df -BG . 2>/dev/null | awk 'NR==2 {print $4}' | sed 's/G//' || echo "999")
+fi
+
+if [[ "$AVAILABLE_DISK" =~ ^[0-9]+$ ]] && [ "$AVAILABLE_DISK" -lt 10 ]; then
+    echo -e "${YELLOW}Warning: Low disk space (${AVAILABLE_DISK}GB available, 10GB+ recommended)${NC}"
+fi
+
+# Check Docker memory (cross-platform)
+DOCKER_MEM=$(docker info --format '{{.MemTotal}}' 2>/dev/null || echo "")
+if [[ "$DOCKER_MEM" =~ ^[0-9]+$ ]]; then
+    # Convert bytes to GB
+    DOCKER_MEM_GB=$((DOCKER_MEM / 1024 / 1024 / 1024))
+    if [ "$DOCKER_MEM_GB" -lt 4 ]; then
+        echo -e "${YELLOW}Warning: Docker has ${DOCKER_MEM_GB}GB RAM (4GB+ recommended)${NC}"
+        echo "Increase Docker resources: Docker Desktop → Settings → Resources"
+    fi
+fi
+
+echo -e "${GREEN}✓ Resources checked${NC}"
+
 # Check if .env file exists
 if [ ! -f .env ]; then
     echo -e "${RED}ERROR: .env file not found!${NC}"
@@ -45,8 +83,53 @@ echo ""
 echo -e "${YELLOW}Starting all services...${NC}"
 docker compose up -d
 
-# Wait a moment for services to initialize
-sleep 3
+# Wait for services to become healthy
+echo ""
+echo -e "${YELLOW}Waiting for services to become healthy...${NC}"
+MAX_WAIT=120  # Maximum 2 minutes
+ELAPSED=0
+INTERVAL=5
+
+while [ $ELAPSED -lt $MAX_WAIT ]; do
+    # Get service status
+    PS_JSON=$(docker compose ps --format json 2>/dev/null || echo "[]")
+
+    # Count running services and healthy services
+    RUNNING_COUNT=$(echo "$PS_JSON" | grep -c '"State":"running"' || echo "0")
+    HEALTHY_COUNT=$(echo "$PS_JSON" | grep -c '"Health":"healthy"' || echo "0")
+
+    # Count services with no health check defined (running but no Health field)
+    NO_HEALTHCHECK=$(echo "$PS_JSON" | grep '"State":"running"' | grep -cv '"Health":' || echo "0")
+
+    # Services that need to be healthy = running - no_healthcheck
+    EXPECTED_HEALTHY=$((RUNNING_COUNT - NO_HEALTHCHECK))
+
+    if [ "$RUNNING_COUNT" -gt 0 ]; then
+        if [ "$EXPECTED_HEALTHY" -eq 0 ]; then
+            echo ""
+            echo -e "${BLUE}No container health checks defined; continuing without health wait.${NC}"
+            break
+        fi
+
+        echo -ne "  ${BLUE}[$ELAPSED/$MAX_WAIT s]${NC} Healthy: $HEALTHY_COUNT / $EXPECTED_HEALTHY services\r"
+
+        # All services with health checks are healthy
+        if [ "$HEALTHY_COUNT" -ge "$EXPECTED_HEALTHY" ]; then
+            echo ""
+            echo -e "${GREEN}✓ All services are healthy${NC}"
+            break
+        fi
+    fi
+
+    sleep $INTERVAL
+    ELAPSED=$((ELAPSED + INTERVAL))
+done
+
+if [ $ELAPSED -ge $MAX_WAIT ]; then
+    echo ""
+    echo -e "${YELLOW}Warning: Some services may not be healthy yet${NC}"
+    echo "Run './scripts/dev-logs.sh' to check service logs"
+fi
 
 # Show service status
 echo ""
