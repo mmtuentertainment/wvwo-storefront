@@ -41,12 +41,12 @@ This is an infrastructure project at repository root:
 
 - [x] T004 Create docker-compose.yml at repository root with version 3.8, networks, and volumes definitions
 - [x] T005 [P] Create .env.example at repository root with all required environment variables
-- [x] T006 [P] Create docker/postgres/Dockerfile for PostgreSQL 15 with Alpine base
+- [x] T006 [P] Create docker/postgres/Dockerfile for PostgreSQL 17 with Alpine base
 - [x] T007 [P] Create docker/postgres/init-scripts/01-create-databases.sql for database initialization
 - [x] T008 [P] Create docker/redis/redis.conf with persistence and memory settings
-- [x] T009 [P] Create docker/directus/Dockerfile based on directus/directus:10
+- [x] T009 [P] Create docker/directus/Dockerfile based on directus/directus:11
 - [x] T010 [P] Create docker/ghost/config.json template for Ghost configuration
-- [x] T011 [P] Create docker/astro/Dockerfile based on node:18-alpine
+- [x] T011 [P] Create docker/astro/Dockerfile based on node:22-alpine (LTS)
 - [x] T012 [P] Create docker/listmonk/config.toml template for Listmonk configuration
 - [x] T013 [P] Create docker/mixpost/Dockerfile based on Laravel/PHP image
 

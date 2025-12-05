@@ -215,7 +215,7 @@ docker compose logs -f
 ```
 
 **What's Happening**:
-1. Docker pulls images (postgres:15-alpine, redis:7-alpine, directus/directus:10, etc.)
+1. Docker pulls images (postgres:17-alpine, redis:8-alpine, directus/directus:11, etc.)
 2. Creates custom network (`wvwo-dev`)
 3. Creates named volumes for data persistence
 4. Starts services in dependency order:

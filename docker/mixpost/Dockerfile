@@ -1,7 +1,8 @@
 # Mixpost - Social Media Management for WV Wild Outdoors
 # Laravel-based application for scheduling social posts
+# Updated: December 2025
 
-FROM php:8.2.14-fpm-alpine3.19
+FROM php:8.4-fpm-alpine
 
 # Install system dependencies
 RUN apk add --no-cache \

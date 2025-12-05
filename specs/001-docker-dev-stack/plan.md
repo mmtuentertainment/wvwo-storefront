@@ -7,7 +7,7 @@
 
 ## Summary
 
-Create a Docker-based local development environment orchestrating all WV Wild Outdoors services (Directus CMS, Ghost Blog, Astro Frontend, Listmonk Email, Mixpost Social) alongside PostgreSQL 15 and Redis. Developers start the complete stack with a single command, supporting individual service management, data persistence, health monitoring, and clean teardown. Environment configuration uses `.env` template files, database initializes with empty schema, and optional seed scripts provide test data.
+Create a Docker-based local development environment orchestrating all WV Wild Outdoors services (Directus CMS, Ghost Blog, Astro Frontend, Listmonk Email, Mixpost Social) alongside PostgreSQL 17 and Redis 8. Developers start the complete stack with a single command, supporting individual service management, data persistence, health monitoring, and clean teardown. Environment configuration uses `.env` template files, database initializes with empty schema, and optional seed scripts provide test data.
 
 ## Technical Context
 
@@ -58,7 +58,7 @@ docker-compose.yml          # Main orchestration file
 .env.example               # Template for developer configuration
 docker/                    # Service-specific configurations
 ├── postgres/
-│   ├── Dockerfile         # PostgreSQL 15 with extensions
+│   ├── Dockerfile         # PostgreSQL 17 with extensions
 │   └── init-scripts/      # Schema initialization
 ├── redis/
 │   └── redis.conf         # Redis configuration

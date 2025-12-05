@@ -65,7 +65,7 @@ This feature is infrastructure-focused, so the "data model" describes service ar
 **Purpose**: Centralized relational database for all services
 
 **Container Details**:
-- Image: `postgres:15-alpine`
+- Image: `postgres:17-alpine`
 - Internal port: 5432
 - Host port: 5432
 - Network: `wvwo-dev`
@@ -96,7 +96,7 @@ This feature is infrastructure-focused, so the "data model" describes service ar
 **Purpose**: In-memory cache and session store for application services
 
 **Container Details**:
-- Image: `redis:7-alpine`
+- Image: `redis:8-alpine`
 - Internal port: 6379
 - Host port: 6379
 - Network: `wvwo-dev`
@@ -120,7 +120,7 @@ This feature is infrastructure-focused, so the "data model" describes service ar
 **Purpose**: Headless CMS for products, categories, FAQs, store information
 
 **Container Details**:
-- Image: `directus/directus:10`
+- Image: `directus/directus:11`
 - Internal port: 8055
 - Host port: 8055
 - Network: `wvwo-dev`
@@ -151,7 +151,7 @@ This feature is infrastructure-focused, so the "data model" describes service ar
 **Purpose**: Blog and content publishing platform
 
 **Container Details**:
-- Image: `ghost:5-alpine`
+- Image: `ghost:6-alpine`
 - Internal port: 2368
 - Host port: 2368
 - Network: `wvwo-dev`
@@ -168,10 +168,10 @@ This feature is infrastructure-focused, so the "data model" describes service ar
 
 **API Endpoints**:
 - Admin UI: `http://localhost:2368/ghost/`
-- Content API: `http://localhost:2368/ghost/api/v3/content/`
-- Admin API: `http://localhost:2368/ghost/api/v3/admin/`
+- Content API: `http://localhost:2368/ghost/api/content/`
+- Admin API: `http://localhost:2368/ghost/api/admin/`
 
-**Health Check**: `GET /ghost/api/v3/admin/site/`
+**Health Check**: `GET /ghost/api/admin/site/`
 
 ---
 
@@ -180,7 +180,7 @@ This feature is infrastructure-focused, so the "data model" describes service ar
 **Purpose**: Static site generator for public-facing website
 
 **Container Details**:
-- Image: Custom (Node.js 18 + Astro dev server)
+- Image: Custom (Node.js 22 LTS + Astro dev server)
 - Internal port: 3000
 - Host port: 3000
 - Network: `wvwo-dev`
@@ -210,7 +210,7 @@ This feature is infrastructure-focused, so the "data model" describes service ar
 **Purpose**: Newsletter and mailing list management
 
 **Container Details**:
-- Image: `listmonk/listmonk:latest`
+- Image: `listmonk/listmonk:v5.1.0`
 - Internal port: 9000
 - Host port: 9000
 - Network: `wvwo-dev`
@@ -374,8 +374,8 @@ This feature is infrastructure-focused, so the "data model" describes service ar
 - **Protocol**: HTTP REST API (Ghost Content API)
 - **Authentication**: Ghost Content API key
 - **Endpoints Used**:
-  - `GET /ghost/api/v3/content/posts/?key={key}&limit=all`
-  - `GET /ghost/api/v3/content/pages/?key={key}`
+  - `GET /ghost/api/content/posts/?key={key}&limit=all`
+  - `GET /ghost/api/content/pages/?key={key}`
 - **Data Format**: JSON
 - **Frequency**: On-demand during Astro build
 
@@ -427,7 +427,7 @@ All services expose health endpoints for container orchestration:
 | PostgreSQL | `pg_isready -U postgres` | `accepting connections` |
 | Redis | `redis-cli ping` | `PONG` |
 | Directus | `curl http://localhost:8055/server/health` | `200 OK` |
-| Ghost | `curl http://localhost:2368/ghost/api/v3/admin/site/` | `200 OK` |
+| Ghost | `curl http://localhost:2368/ghost/api/admin/site/` | `200 OK` |
 | Astro | `curl http://localhost:3000/` | `200 OK` |
 | Listmonk | `curl http://localhost:9000/api/health` | `200 OK` |
 | Mixpost | `curl http://localhost:8080/health` | `200 OK` |

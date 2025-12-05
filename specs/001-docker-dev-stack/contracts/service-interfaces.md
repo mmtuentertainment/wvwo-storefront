@@ -15,7 +15,7 @@ This document specifies the exact ports, environment variables, volume mounts, a
 
 ```yaml
 Service Name: postgres
-Image: postgres:15-alpine
+Image: postgres:17-alpine
 Container Name: wvwo-postgres-dev
 
 ```
@@ -64,7 +64,7 @@ retries: 5
 
 ```yaml
 Service Name: redis
-Image: redis:7-alpine
+Image: redis:8-alpine
 Container Name: wvwo-redis-dev
 
 ```
@@ -113,7 +113,7 @@ retries: 3
 
 ```yaml
 Service Name: directus
-Image: directus/directus:10
+Image: directus/directus:11
 Container Name: wvwo-directus-dev
 
 ```
@@ -188,7 +188,7 @@ depends_on:
 
 ```yaml
 Service Name: ghost
-Image: ghost:5-alpine
+Image: ghost:6-alpine
 Container Name: wvwo-ghost-dev
 
 ```
@@ -223,7 +223,7 @@ NODE_ENV: development
 **Health Check**:
 
 ```yaml
-test: ["CMD", "curl", "-f", "http://localhost:2368/ghost/api/v3/admin/site/"]
+test: ["CMD", "curl", "-f", "http://localhost:2368/ghost/api/admin/site/"]
 interval: 15s
 timeout: 10s
 retries: 3
@@ -318,7 +318,7 @@ depends_on:
 
 ```yaml
 Service Name: listmonk
-Image: listmonk/listmonk:latest
+Image: listmonk/listmonk:v5.1.0
 Container Name: wvwo-listmonk-dev
 
 ```
@@ -567,10 +567,10 @@ docker run --rm -v wvwo-postgres-data-dev:/data -v $(pwd):/backup alpine tar xzf
 
 | Method | Path | Description | Auth |
 |--------|------|-------------|------|
-| GET | `/ghost/api/v3/content/posts/` | List posts | API key |
-| GET | `/ghost/api/v3/content/posts/slug/:slug/` | Get post by slug | API key |
-| GET | `/ghost/api/v3/content/pages/` | List pages | API key |
-| GET | `/ghost/api/v3/content/tags/` | List tags | API key |
+| GET | `/ghost/api/content/posts/` | List posts | API key |
+| GET | `/ghost/api/content/posts/slug/:slug/` | Get post by slug | API key |
+| GET | `/ghost/api/content/pages/` | List pages | API key |
+| GET | `/ghost/api/content/tags/` | List tags | API key |
 
 **Query Parameters**:
 - `key`: Content API key (required)

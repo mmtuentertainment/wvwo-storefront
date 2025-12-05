@@ -1,11 +1,15 @@
 <!--
 SYNC IMPACT REPORT
 ==================
-Version change: 1.1.1 (Responsive web clarified) → 1.1.2 (Anti-MVP exception for .env.example)
+Version change: 1.1.2 (Anti-MVP exception) → 1.1.3 (December 2025 dependency updates)
 
 Modified sections:
-- Principle VI Code Quality Requirements: Clarified "NO placeholder data in seed files, schemas, or UI"
-- Added explicit Exception: .env.example files MUST use placeholders for security
+- Technology Stack: Updated all service versions to December 2025 current
+  - Directus 10.x → 11.x
+  - Ghost 5.x → 6.x
+  - Listmonk → 5.x (pinned)
+  - PostgreSQL 15 → 17
+  - Redis → 8
 
 Existing principles (unchanged):
 - I. Owner-First Simplicity
@@ -16,6 +20,7 @@ Existing principles (unchanged):
 - VI. Anti-MVP Bias
 
 Previous versions:
+- 1.1.2: Added Anti-MVP exception for .env.example placeholder files
 - 1.1.1: Clarified Principle V - responsive web design, not desktop apps
 - 1.1.0: Added VI. Anti-MVP Bias (surprise gift quality, internal vs external shipping)
 - 1.0.0: Initial ratification (5 principles)
@@ -24,11 +29,11 @@ Templates requiring updates:
 - .specify/templates/plan-template.md ✅ compatible (generic Constitution Check)
 - .specify/templates/spec-template.md ✅ compatible (no constitution refs)
 - .specify/templates/tasks-template.md ✅ compatible (no constitution refs)
-- .coderabbit.yaml ✅ UPDATED (added Anti-MVP exception for .env.example files)
+- .coderabbit.yaml ✅ compatible (no version refs)
 
 Follow-up TODOs:
-- Update existing specs to include Principle VI in Constitution Check sections
-- Verify all current work meets Internal Shipping criteria before Kim reveal
+- Update existing specs to reflect new dependency versions
+- Verify Docker stack works with updated images
 -->
 
 # WV Wild Outdoors Storefront Constitution
@@ -172,15 +177,15 @@ amendment.
 - Vanilla JavaScript (interactivity, minimal dependencies)
 
 **Backend Services:**
-- Directus 10.x (headless CMS for products, FAQs, store info)
-- Ghost 5.x (blog and content publishing)
-- Listmonk (email newsletter management)
+- Directus 11.x (headless CMS for products, FAQs, store info)
+- Ghost 6.x (blog and content publishing)
+- Listmonk 5.x (email newsletter management)
 - Mixpost (social media scheduling)
 
 **Infrastructure:**
 - Docker & Docker Compose (containerization)
-- PostgreSQL 15 (database)
-- Redis (caching)
+- PostgreSQL 17 (database)
+- Redis 8 (caching)
 - Traefik (reverse proxy)
 - DigitalOcean (hosting)
 - Cloudflare (DNS, CDN)
@@ -241,4 +246,4 @@ Storefront project. All specifications, plans, and implementations MUST comply.
 **Guidance File:** See `wv-wild-blueprint.md` for detailed implementation guidance
 and phase-by-phase build instructions.
 
-**Version**: 1.1.2 | **Ratified**: 2025-12-04 | **Last Amended**: 2025-12-04
+**Version**: 1.1.3 | **Ratified**: 2025-12-04 | **Last Amended**: 2025-12-05

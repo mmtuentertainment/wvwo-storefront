@@ -3,7 +3,7 @@
 **Feature Branch**: `001-docker-dev-stack`
 **Created**: 2024-12-04
 **Status**: Draft
-**Input**: User description: "Docker local development stack with PostgreSQL 15, Redis, and container orchestration for WV Wild Outdoors services"
+**Input**: User description: "Docker local development stack with PostgreSQL 17, Redis 8, and container orchestration for WV Wild Outdoors services"
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -17,7 +17,7 @@ As a developer (Matt), I want to start all WV Wild Outdoors services with a sing
 
 **Acceptance Scenarios**:
 
-1. **Given** a fresh checkout of the repository with container tools installed, **When** the developer runs the start command, **Then** PostgreSQL 15, Redis, and all application services start and become accessible within 2 minutes
+1. **Given** a fresh checkout of the repository with container tools installed, **When** the developer runs the start command, **Then** PostgreSQL 17, Redis 8, and all application services start and become accessible within 2 minutes
 2. **Given** the development environment is already running, **When** the developer runs the start command again, **Then** the system recognizes existing containers and does not duplicate services
 3. **Given** a partial environment failure (one service crashed), **When** the developer runs the start command, **Then** only the failed service restarts while healthy services continue uninterrupted
 
@@ -102,7 +102,7 @@ As a developer, I want database and cache data to persist between environment re
 
 ### Functional Requirements
 
-- **FR-001**: System MUST orchestrate PostgreSQL 15, Redis, and WV Wild Outdoors application services in isolated containers
+- **FR-001**: System MUST orchestrate PostgreSQL 17, Redis 8, and WV Wild Outdoors application services in isolated containers
 - **FR-002**: System MUST provide a single command to start all services in the correct dependency order
 - **FR-003**: System MUST provide a command to stop all services gracefully
 - **FR-004**: System MUST allow starting, stopping, and restarting individual services independently
@@ -121,7 +121,7 @@ As a developer, I want database and cache data to persist between environment re
 
 ### Key Entities
 
-- **Database Service**: PostgreSQL 15 instance providing persistent relational data storage for all WV Wild Outdoors services
+- **Database Service**: PostgreSQL 17 instance providing persistent relational data storage for all WV Wild Outdoors services
 - **Cache Service**: Redis instance providing in-memory caching and session storage capabilities
 - **Application Services**: The WV Wild Outdoors platform services that depend on database and cache:
   - Directus (CMS) - Content management system

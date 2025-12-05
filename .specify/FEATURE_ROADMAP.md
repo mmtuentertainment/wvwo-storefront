@@ -21,7 +21,7 @@ These establish the base that all other features depend on.
 
 | # | Feature | Description | Dependencies |
 |---|---------|-------------|--------------|
-| 001 | **Docker Local Stack** | PostgreSQL 15, Redis, and base container orchestration for local development | None |
+| 001 | **Docker Local Stack** | PostgreSQL 17, Redis 8, and base container orchestration for local development | None |
 | 002 | **Directus CMS Setup** | Directus container with Products, Categories, FAQs, StoreInfo collections and API permissions | 001 |
 | 003 | **Ghost Blog Setup** | Ghost container with blog categories (Hunting, Fishing, Gear, Licenses, Stories) and editor role | 001 |
 | 004 | **Astro Project Scaffold** | Base Astro project with layouts, design system (colors, typography), and API client libraries | None |
@@ -112,7 +112,7 @@ Final touches before reveal.
 
 ```
 
-/speckit.specify Docker local development stack with PostgreSQL 15, Redis, and container orchestration for WV Wild Outdoors services
+/speckit.specify Docker local development stack with PostgreSQL 17, Redis 8, and container orchestration for WV Wild Outdoors services
 
 ```
 
@@ -147,7 +147,7 @@ Final touches before reveal.
 - **One feature at a time** - Complete the full SDD cycle before starting the next
 - **Dependencies matter** - Don't skip ahead; later features assume earlier ones exist
 - **Kim checkpoints** - After 005, 006, 007 she can see real progress
-- **Constitution compliance** - Every spec will be checked against the 5 principles
+- **Constitution compliance** - Every spec will be checked against the 6 principles
 - **No e-commerce** - This is a showroom, not a shopping cart
 
 ---

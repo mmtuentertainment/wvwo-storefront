@@ -83,7 +83,7 @@ This document consolidates research findings for creating a production-like loca
 
 ### Directus (CMS)
 
-**Image**: `directus/directus:10` (official)
+**Image**: `directus/directus:11` (official)
 
 **Environment Variables**:
 ```
@@ -113,7 +113,7 @@ STORAGE_LOCATIONS=local              # Local file storage
 
 ### Ghost (Blog)
 
-**Image**: `ghost:5-alpine` (official, Alpine for smaller size)
+**Image**: `ghost:6-alpine` (official, Alpine for smaller size)
 
 **Environment Variables**:
 ```
@@ -129,7 +129,7 @@ NODE_ENV=development
 **Volumes**:
 - `ghost-content:/var/lib/ghost/content` (posts, themes, images)
 
-**Health Check**: `curl -f http://localhost:2368/ghost/api/v3/admin/site/ || exit 1`
+**Health Check**: `curl -f http://localhost:2368/ghost/api/admin/site/ || exit 1`
 
 **Dependencies**: PostgreSQL
 
@@ -137,13 +137,13 @@ NODE_ENV=development
 
 ### Astro (Frontend)
 
-**Image**: Custom Dockerfile based on `node:18-alpine`
+**Image**: Custom Dockerfile based on `node:22-alpine` (LTS)
 
 **Purpose**: Run Astro dev server with hot reload
 
 **Dockerfile**:
 ```dockerfile
-FROM node:18-alpine
+FROM node:22-alpine
 WORKDIR /app
 COPY frontend/package*.json ./
 RUN npm ci
@@ -169,7 +169,7 @@ PUBLIC_GHOST_URL=http://ghost:2368
 
 ### Listmonk (Email)
 
-**Image**: `listmonk/listmonk:latest` (official)
+**Image**: `listmonk/listmonk:v5.1.0` (official)
 
 **Environment Variables**:
 ```

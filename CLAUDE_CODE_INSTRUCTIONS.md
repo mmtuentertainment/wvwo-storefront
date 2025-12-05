@@ -178,7 +178,7 @@ services:
       - proxy
 
   postgres:
-    image: postgres:15-alpine
+    image: postgres:17-alpine
     container_name: wvwo-db
     restart: unless-stopped
     environment:
@@ -197,14 +197,14 @@ services:
       retries: 5
 
   redis:
-    image: redis:7-alpine
+    image: redis:8-alpine
     container_name: wvwo-redis
     restart: unless-stopped
     networks:
       - internal
 
   directus:
-    image: directus/directus:latest
+    image: directus/directus:11
     container_name: directus
     restart: unless-stopped
     depends_on:
@@ -238,7 +238,7 @@ services:
       - "traefik.http.services.directus.loadbalancer.server.port=8055"
 
   ghost:
-    image: ghost:5-alpine
+    image: ghost:6-alpine
     container_name: ghost
     restart: unless-stopped
     environment:
@@ -298,7 +298,7 @@ services:
       - "traefik.http.services.umami.loadbalancer.server.port=3000"
 
   umami-db:
-    image: postgres:15-alpine
+    image: postgres:17-alpine
     container_name: umami-db
     restart: unless-stopped
     environment:

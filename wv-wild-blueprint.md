@@ -171,7 +171,7 @@ faith perspective)
   ```
 
 - [ ] Create `docker-compose.yml` for local stack (Postgres, Redis, containers below)
-- [ ] Spin up PostgreSQL 15 container with 3 databases (Directus, Ghost, Listmonk)
+- [ ] Spin up PostgreSQL 17 container with 3 databases (Directus, Ghost, Listmonk)
 - [ ] Spin up Redis container for caching
 - [ ] Test connectivity to all databases
 
@@ -1119,7 +1119,7 @@ services:
 
   # Ghost
   ghost:
-    image: ghost:5.0
+    image: ghost:6-alpine
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.ghost.rule=Host(`blog.wvwildoutdoors.com`)"

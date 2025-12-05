@@ -1,7 +1,8 @@
-# PostgreSQL 15 with Alpine Linux
+# PostgreSQL 17 with Alpine Linux
 # Optimized for WV Wild Outdoors local development
+# Updated: December 2025
 
-FROM postgres:15.5-alpine3.19
+FROM postgres:17-alpine
 
 # Install PostgreSQL extensions commonly needed
 RUN apk add --no-cache \

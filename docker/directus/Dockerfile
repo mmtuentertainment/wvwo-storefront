@@ -1,7 +1,8 @@
-# Directus 10 - Headless CMS for WV Wild Outdoors
+# Directus 11 - Headless CMS for WV Wild Outdoors
 # Based on official Directus image with custom extensions support
+# Updated: December 2025 - New policies-based access control system
 
-FROM directus/directus:10
+FROM directus/directus:11
 
 # Set working directory
 WORKDIR /directus
