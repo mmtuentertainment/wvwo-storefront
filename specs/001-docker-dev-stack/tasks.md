@@ -168,22 +168,24 @@ This is an infrastructure project at repository root:
 - [x] T056 [P] Create scripts/dev-seed.ps1 (PowerShell version) with seed data loading
 - [x] T057 Create seed data documentation in quickstart.md explaining how to load test data
 
+**Checkpoint**: Phase 8 complete - seed data infrastructure ready with 15 WV-themed products, cross-platform scripts, and comprehensive documentation (PR #2 merged)
+
 ---
 
 ## Phase 9: Polish & Cross-Cutting Concerns
 
 **Purpose**: Documentation, validation, and improvements affecting multiple user stories
 
-- [ ] T058 [P] Update README.md with quick start instructions referencing quickstart.md
-- [ ] T059 [P] Add troubleshooting section to quickstart.md covering common Docker issues
-- [ ] T060 [P] Document platform-specific setup (WSL2 for Windows, VirtioFS for macOS) in quickstart.md
-- [ ] T061 [P] Create .gitattributes to enforce LF line endings for .sh files
-- [ ] T062 [P] Add health check validation to dev-start scripts (wait for all services healthy)
-- [ ] T063 [P] Document port conflict resolution in quickstart.md troubleshooting
-- [ ] T064 [P] Add resource requirement checks to dev-start scripts (Docker memory/disk)
+- [x] T058 [P] Update README.md with quick start instructions referencing quickstart.md
+- [x] T059 [P] Add troubleshooting section to quickstart.md covering common Docker issues (completed in PR #1)
+- [x] T060 [P] Document platform-specific setup (WSL2 for Windows, VirtioFS for macOS) in quickstart.md (completed in PR #1)
+- [x] T061 [P] Create .gitattributes to enforce LF line endings for .sh files
+- [x] T062 [P] Add health check validation to dev-start scripts (wait for all services healthy)
+- [x] T063 [P] Document port conflict resolution in quickstart.md troubleshooting (completed in PR #1)
+- [x] T064 [P] Add resource requirement checks to dev-start scripts (Docker memory/disk)
 - [ ] T065 Validate quickstart.md steps on Windows, macOS, and Linux
 - [ ] T066 Create architecture diagram showing service dependencies for README.md
-- [ ] T067 Document .env.example variable generation process with concrete commands
+- [x] T067 Document .env.example variable generation process with concrete commands (completed in PR #1)
 
 ---
 

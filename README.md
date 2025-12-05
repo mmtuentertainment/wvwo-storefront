@@ -48,14 +48,25 @@ docker compose up -d
 # Clean environment (remove all data)
 ./scripts/dev-clean.sh
 
+# Load seed data (15 WV-themed products)
+./scripts/dev-seed.sh
+
 # View logs
 ./scripts/dev-logs.sh [service-name]
 
 # View status
 ./scripts/dev-status.sh
+
+# Restart a service
+./scripts/dev-restart.sh [service-name]
+
+# Rebuild a service
+./scripts/dev-rebuild.sh [service-name]
 ```
 
-For detailed setup instructions, see [specs/001-docker-dev-stack/quickstart.md](specs/001-docker-dev-stack/quickstart.md)
+**Complete Documentation:**
+- [Quickstart Guide](specs/001-docker-dev-stack/quickstart.md) - Detailed setup, troubleshooting, daily workflow
+- [Spec & Architecture](specs/001-docker-dev-stack/) - Full technical specifications
 
 ## Documentation
 

@@ -1,0 +1,46 @@
+# =============================================================================
+# WV Wild Outdoors Storefront - Git Attributes
+# =============================================================================
+# Enforce consistent line endings across platforms
+# Critical for shell scripts that run on Unix/Linux/macOS
+# =============================================================================
+
+# Default: Normalize line endings to LF in repository, auto-detect on checkout
+* text=auto
+
+# Shell scripts MUST use LF (required for Unix/Linux/macOS execution)
+*.sh text eol=lf
+
+# PowerShell scripts can use CRLF (Windows native)
+*.ps1 text eol=crlf
+
+# SQL scripts should use LF (consistent with PostgreSQL/psql)
+*.sql text eol=lf
+
+# Config files use LF (Docker, YAML, TOML are cross-platform)
+*.yml text eol=lf
+*.yaml text eol=lf
+*.toml text eol=lf
+*.conf text eol=lf
+*.json text eol=lf
+
+# Markdown uses LF
+*.md text eol=lf
+
+# Dockerfile uses LF
+Dockerfile text eol=lf
+*.dockerfile text eol=lf
+
+# Binary files (do not normalize)
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.svg binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary
+*.db binary
+*.sqlite binary
