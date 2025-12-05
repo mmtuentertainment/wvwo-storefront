@@ -395,7 +395,7 @@ docker compose up -d --build astro
 
 ### Loading Seed Data
 
-Seed data provides sample content for local development testing. The seed data includes WV Wild Outdoors themed products and blog post templates.
+Seed data provides sample content for local development testing. The seed data includes WV Wild Outdoors-themed products and blog post templates.
 
 #### Prerequisites for Directus Seed Data
 

@@ -148,6 +148,13 @@ BEGIN
         SELECT id INTO cat_apparel_id FROM categories WHERE slug = 'apparel';
         SELECT id INTO cat_accessories_id FROM categories WHERE slug = 'accessories';
 
+        -- Verify all category IDs were found
+        IF cat_hunting_id IS NULL OR cat_fishing_id IS NULL OR cat_camping_id IS NULL
+           OR cat_apparel_id IS NULL OR cat_accessories_id IS NULL THEN
+            RAISE NOTICE 'Warning: Some categories not found. Run categories seed first.';
+            RETURN;
+        END IF;
+
         -- Clear existing relationships for seed products
         DELETE FROM products_categories
         WHERE products_id IN (SELECT id FROM products WHERE sku LIKE 'WVWO-%');

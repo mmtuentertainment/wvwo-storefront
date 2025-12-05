@@ -19,7 +19,7 @@
 #      - products_categories (many-to-many junction)
 #===============================================================================
 
-set -e  # Exit on error
+set -euo pipefail  # Exit on error, unset vars, pipeline failures
 
 # Colors for output
 RED='\033[0;31m'
