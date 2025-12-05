@@ -34,7 +34,7 @@ echo ""
 echo -e "${GREEN}Resource Usage:${NC}"
 containers=$(docker compose ps -q)
 if [ -n "$containers" ]; then
-    docker stats --no-stream --format "table {{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}" $containers
+    docker stats --no-stream --format "table {{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}" "$containers"
 else
     echo "No running containers to display"
 fi
