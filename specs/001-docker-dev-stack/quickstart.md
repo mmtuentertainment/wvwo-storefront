@@ -7,7 +7,18 @@
 
 ## Overview
 
-This guide walks you through setting up a complete local development environment for the WV Wild Outdoors platform. You'll have all 5 services (Directus, Ghost, Astro, Listmonk, Mixpost) plus PostgreSQL and Redis running locally with a single command.
+This guide walks you through setting up a complete local development environment for the WV Wild Outdoors platform. The core stack includes PostgreSQL, Redis, Directus CMS, Ghost Blog, and Listmonk email management.
+
+**Currently Active Services** (5 of 7):
+- PostgreSQL 17 (database)
+- Redis 8 (cache)
+- Directus 11 (CMS)
+- Ghost 6 (blog)
+- Listmonk v5.1.0 (email/newsletter)
+
+**Future Services** (currently commented out in docker-compose.yml):
+- Astro (frontend) - Enable when `astro/` directory with package.json exists
+- Mixpost (social) - Requires MySQL; enable when MySQL adapter is added
 
 **Expected Time**: 15 minutes (first-time setup)
 
@@ -225,9 +236,10 @@ docker compose ps
 # wvwo-redis-dev      Up (healthy)
 # wvwo-directus-dev   Up (healthy)
 # wvwo-ghost-dev      Up (healthy)
-# wvwo-astro-dev      Up (healthy)
 # wvwo-listmonk-dev   Up (healthy)
-# wvwo-mixpost-dev    Up (healthy)
+#
+# Note: Astro and Mixpost are commented out in docker-compose.yml
+# Enable them when their prerequisites are met (see Overview section)
 ```
 
 **Troubleshooting** (if services show "unhealthy" or "restarting"):
@@ -251,15 +263,15 @@ docker compose logs directus
 
 Once all services show "Up (healthy)", access them in your browser:
 
-| Service | URL | Credentials | Purpose |
-|---------|-----|-------------|---------|
-| **Directus** | http://localhost:8055/admin | Email/Password from `.env` | CMS admin panel |
-| **Ghost** | http://localhost:2368/ghost/ | Setup on first visit | Blog editor |
-| **Astro** | http://localhost:3000/ | None (public site) | Frontend preview |
-| **Listmonk** | http://localhost:9000/admin | Setup on first visit | Email management |
-| **Mixpost** | http://localhost:8080/ | Setup on first visit | Social scheduling |
-| **PostgreSQL** | localhost:5432 | `postgres` / `.env password` | Database (via client) |
-| **Redis** | localhost:6379 | None | Cache (via client) |
+| Service | URL | Credentials | Purpose | Status |
+|---------|-----|-------------|---------|--------|
+| **Directus** | <http://localhost:8055/admin> | Email/Password from `.env` | CMS admin panel | ✅ Active |
+| **Ghost** | <http://localhost:2368/ghost/> | Setup on first visit | Blog editor | ✅ Active |
+| **Listmonk** | <http://localhost:9000/admin> | Setup on first visit | Email management | ✅ Active |
+| **PostgreSQL** | localhost:5432 | `postgres` / `.env password` | Database (via client) | ✅ Active |
+| **Redis** | localhost:6379 | None | Cache (via client) | ✅ Active |
+| **Astro** | <http://localhost:3000/> | None (public site) | Frontend preview | ⏸️ Disabled |
+| **Mixpost** | <http://localhost:8080/> | Setup on first visit | Social scheduling | ⏸️ Disabled |
 
 ### Initial Setup for Each Service
 
@@ -290,11 +302,15 @@ Once all services show "Up (healthy)", access them in your browser:
 3. Configure SMTP (optional for local testing):
    - Skip or use MailHog if you add it to the stack
 
-#### Mixpost (Social)
+#### Mixpost (Social) - Currently Disabled
 
-1. Navigate to http://localhost:8080/
-2. Follow on-screen prompts to create admin account
-3. Skip social platform connections (use mock credentials for local dev)
+> **Note**: Mixpost is commented out in docker-compose.yml because it requires MySQL, not PostgreSQL.
+> To enable Mixpost, add a MySQL service or configure MySQL adapter. See the comments in docker-compose.yml.
+
+#### Astro (Frontend) - Currently Disabled
+
+> **Note**: Astro is commented out in docker-compose.yml pending creation of the astro/ directory with package.json.
+> To enable Astro, create the Astro project in `./astro/` directory, then uncomment the service in docker-compose.yml.
 
 ---
 
@@ -323,6 +339,8 @@ exit
 
 ### Test Astro → Directus Integration
 
+> **Note**: This section applies when Astro service is enabled.
+
 ```bash
 # View Astro logs (should show API requests to Directus)
 docker compose logs astro
@@ -333,6 +351,18 @@ docker compose logs astro
 # If errors appear:
 # - Check Directus is healthy: docker compose ps directus
 # - Verify PUBLIC_DIRECTUS_URL in docker-compose.yml matches internal URL
+```
+
+### Test Directus API (Available Now)
+
+```bash
+# Test Directus health endpoint
+docker exec wvwo-directus-dev wget -q -O - http://127.0.0.1:8055/server/health
+# Should return: {"status":"ok"}
+
+# Test Ghost health endpoint
+docker exec wvwo-ghost-dev wget -q -O - http://127.0.0.1:2368/ghost/api/admin/site/
+# Should return site configuration JSON
 ```
 
 ---
@@ -737,4 +767,37 @@ docker system df                   # Show Docker disk usage
 
 ---
 
-**That's it!** You now have a fully functional local development environment for WV Wild Outdoors. Happy coding! 🎉
+## Platform Validation Status
+
+This section tracks validation of quickstart.md steps across platforms.
+
+| Platform | Validated | Docker Version | Notes |
+|----------|-----------|---------------|-------|
+| **Windows** | ✅ 2025-12-05 | Docker 29.0.1, Compose v2.40.3 | All 5 active services healthy. PowerShell scripts work. |
+| **macOS** | ⏳ Pending | - | Untested - expected to work with Docker Desktop |
+| **Linux** | ⏳ Pending | - | Untested - expected to work with Docker Engine |
+
+### Windows Validation Details
+
+**Environment**:
+- Windows 10/11 with Docker Desktop
+- Docker Engine 29.0.1
+- Docker Compose v2.40.3-desktop.1
+
+**Verified Steps**:
+1. ✅ Docker and Compose version check commands work
+2. ✅ `.env.example` copy and configuration
+3. ✅ `docker compose up -d` starts all 5 services
+4. ✅ All services report "healthy" status
+5. ✅ PowerShell scripts (dev-status.ps1, dev-seed.ps1, dev-start.ps1) execute correctly
+6. ✅ Service endpoints accessible (Directus, Ghost, Listmonk)
+7. ✅ Database connectivity verified (PostgreSQL, Redis)
+
+**Known Platform Considerations**:
+- WSL 2 backend recommended for best performance
+- Store project in WSL filesystem (`~/projects/`) for faster volume mounts
+- PowerShell ExecutionPolicy may need adjustment: `Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned`
+
+---
+
+**That's it!** You now have a fully functional local development environment for WV Wild Outdoors. Happy coding!
