@@ -50,7 +50,7 @@ else
     AVAILABLE_DISK=$(df -BG . 2>/dev/null | awk 'NR==2 {print $4}' | sed 's/G//' || echo "999")
 fi
 
-if [ "$AVAILABLE_DISK" -lt 10 ] 2>/dev/null; then
+if [[ "$AVAILABLE_DISK" =~ ^[0-9]+$ ]] && [ "$AVAILABLE_DISK" -lt 10 ]; then
     echo -e "${YELLOW}Warning: Low disk space (${AVAILABLE_DISK}GB available, 10GB+ recommended)${NC}"
 fi
 
