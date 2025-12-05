@@ -395,13 +395,104 @@ docker compose up -d --build astro
 
 ### Loading Seed Data
 
-```bash
-# Load test data (products, blog posts, subscribers)
-./scripts/dev-seed.sh       # Unix/macOS/Linux
-./scripts/dev-seed.ps1      # Windows PowerShell
+Seed data provides sample content for local development testing. The seed data includes WV Wild Outdoors-themed products and blog post templates.
 
-# Or manually:
-docker compose exec postgres psql -U postgres -d directus -f /seed-data/01-products.sql
+#### Prerequisites for Directus Seed Data
+
+Before loading Directus seed data, you must create the required collections in Directus Admin:
+
+1. **Navigate to Directus**: <http://localhost:8055/admin>
+2. **Create Collections** (Settings > Data Model > Create Collection):
+
+   **categories** collection:
+   - `name` (String, required)
+   - `slug` (String, required, unique)
+   - `description` (Text)
+
+   **products** collection:
+   - `name` (String, required)
+   - `slug` (String, required, unique)
+   - `description` (Text)
+   - `price` (Decimal)
+   - `sku` (String, unique)
+   - `in_stock` (Boolean, default: true)
+   - `featured` (Boolean, default: false)
+
+   **products_categories** (Many-to-Many junction):
+   - Junction between products and categories
+
+#### Running the Seed Script
+
+```bash
+# Load all seed data (with prompts)
+./scripts/dev-seed.sh       # Unix/macOS/Linux
+.\scripts\dev-seed.ps1      # Windows PowerShell
+
+# Load Directus only
+./scripts/dev-seed.sh --directus
+.\scripts\dev-seed.ps1 -Directus
+
+# Show Ghost seeding instructions
+./scripts/dev-seed.sh --ghost
+.\scripts\dev-seed.ps1 -Ghost
+
+# View help
+./scripts/dev-seed.sh --help
+.\scripts\dev-seed.ps1 -Help
+```
+
+#### What's Included
+
+**Directus Seed Data** (`docker/postgres/seed-data/01-directus-products.sql`):
+- **5 Categories**: Hunting, Fishing, Camping, Apparel, Accessories
+- **15 Products** with WV-themed names and descriptions:
+  - Hunting: Appalachian Hunter's Pack, WV Whitetail Deer Call, Mountain State Hunting Blind
+  - Fishing: Elk River Fly Rod Combo, New River Smallmouth Tackle Box, WV Native Trout Flies
+  - Camping: Dolly Sods Expedition Tent, Allegheny Mountain Sleeping Bag, Birch River Camp Cookset
+  - Apparel: Almost Heaven Flannel Shirt, Mountain State Wader Boots, Hillbilly Highway Hiking Socks
+  - Accessories: Coal Country Headlamp, Gauley River Dry Bag, Wild Wonderful Multitool
+
+**Ghost Blog Posts** (`docker/postgres/seed-data/02-ghost-posts.sql`):
+- Ghost uses SQLite by default (not PostgreSQL)
+- File contains sample post content for manual creation
+- Includes: Welcome post, Fall Hunting Preview, Elk River Fly Fishing Guide, Dolly Sods Camping Tips
+
+#### Ghost Seeding (Manual Process)
+
+Since Ghost uses SQLite, seed content must be added manually:
+
+1. **Via Ghost Editor** (Recommended):
+   - Visit <http://localhost:2368/ghost/>
+   - Complete setup wizard if prompted
+   - Create posts using sample content from `02-ghost-posts.sql`
+
+2. **Via JSON Import**:
+   - Export from another Ghost instance
+   - Ghost Admin > Settings > Labs > Import Content
+
+3. **Via Ghost Admin API**:
+
+   ```javascript
+   const GhostAdminAPI = require('@tryghost/admin-api');
+   const api = new GhostAdminAPI({
+       url: 'http://localhost:2368',
+       key: 'YOUR_ADMIN_API_KEY',  // From Ghost Admin > Integrations
+       version: 'v5.0'
+   });
+
+   await api.posts.add({
+       title: 'Welcome to WV Wild Outdoors',
+       html: '<p>Your content here...</p>',
+       status: 'published'
+   });
+   ```
+
+#### Manual SQL Execution
+
+```bash
+# Copy and execute Directus seed data manually
+docker cp docker/postgres/seed-data/01-directus-products.sql wvwo-postgres-dev:/tmp/seed.sql
+docker exec wvwo-postgres-dev psql -U directus_user -d directus -f /tmp/seed.sql
 ```
 
 ### Full Reset (Clean Slate)

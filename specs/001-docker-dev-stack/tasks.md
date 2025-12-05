@@ -162,11 +162,11 @@ This is an infrastructure project at repository root:
 
 **Goal**: Provide optional seed data script for loading test data
 
-- [ ] T053 [P] Create docker/postgres/seed-data/01-directus-products.sql with sample WV Wild products
-- [ ] T054 [P] Create docker/postgres/seed-data/02-ghost-posts.sql with sample blog posts
-- [ ] T055 [P] Create scripts/dev-seed.sh that checks services are running, then loads seed SQL files
-- [ ] T056 [P] Create scripts/dev-seed.ps1 (PowerShell version) with seed data loading
-- [ ] T057 Create seed data documentation in quickstart.md explaining how to load test data
+- [x] T053 [P] Create docker/postgres/seed-data/01-directus-products.sql with sample WV Wild products
+- [x] T054 [P] Create docker/postgres/seed-data/02-ghost-posts.sql with sample blog posts
+- [x] T055 [P] Create scripts/dev-seed.sh that checks services are running, then loads seed SQL files
+- [x] T056 [P] Create scripts/dev-seed.ps1 (PowerShell version) with seed data loading
+- [x] T057 Create seed data documentation in quickstart.md explaining how to load test data
 
 ---
 

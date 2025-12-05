@@ -510,6 +510,15 @@ reviews:
         - Indexes MUST be added for frequently queried columns
         - Timestamps (created_at, updated_at) recommended
 
+    # PR Approval - Morale and Progress Tracking
+    - path: "**/*"
+      instructions: |
+        When approving PRs (manual or upon request), provide an encouraging summary including:
+        - What constitutional principles were followed well
+        - Specific features/improvements that stood out
+        - How this moves the project closer to launch readiness
+        - A morale-boosting closing statement reflecting the rural WV family business voice
+
   # Labeling instructions
   labeling_instructions:
     - label: "constitution-violation"
