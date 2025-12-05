@@ -401,7 +401,7 @@ Seed data provides sample content for local development testing. The seed data i
 
 Before loading Directus seed data, you must create the required collections in Directus Admin:
 
-1. **Navigate to Directus**: http://localhost:8055/admin
+1. **Navigate to Directus**: <http://localhost:8055/admin>
 2. **Create Collections** (Settings > Data Model > Create Collection):
 
    **categories** collection:
@@ -462,7 +462,7 @@ Before loading Directus seed data, you must create the required collections in D
 Since Ghost uses SQLite, seed content must be added manually:
 
 1. **Via Ghost Editor** (Recommended):
-   - Visit http://localhost:2368/ghost/
+   - Visit <http://localhost:2368/ghost/>
    - Complete setup wizard if prompted
    - Create posts using sample content from `02-ghost-posts.sql`
 
@@ -471,6 +471,7 @@ Since Ghost uses SQLite, seed content must be added manually:
    - Ghost Admin > Settings > Labs > Import Content
 
 3. **Via Ghost Admin API**:
+
    ```javascript
    const GhostAdminAPI = require('@tryghost/admin-api');
    const api = new GhostAdminAPI({

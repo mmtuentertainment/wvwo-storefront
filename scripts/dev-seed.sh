@@ -73,7 +73,7 @@ check_services() {
     fi
 
     # Check if PostgreSQL is healthy
-    if ! docker compose ps postgres 2>/dev/null | grep -q "healthy"; then
+    if ! docker compose ps postgres 2>/dev/null | grep -q "(healthy)"; then
         echo -e "${RED}ERROR: PostgreSQL is not running or healthy!${NC}"
         echo "Start services first: ./scripts/dev-start.sh"
         exit 1
