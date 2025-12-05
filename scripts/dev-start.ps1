@@ -76,21 +76,28 @@ $Elapsed = 0
 $Interval = 5
 
 while ($Elapsed -lt $MaxWait) {
-    # Check how many services are healthy
+    # Get service status
     $psOutput = docker compose ps --format json 2>&1
-    $healthyCount = ($psOutput | Select-String -Pattern '"Health":"healthy"' -AllMatches).Matches.Count
+
+    # Count running services and healthy services
     $runningCount = ($psOutput | Select-String -Pattern '"State":"running"' -AllMatches).Matches.Count
+    $healthyCount = ($psOutput | Select-String -Pattern '"Health":"healthy"' -AllMatches).Matches.Count
+
+    # Count services with no health check defined (running but no Health field)
+    $runningLines = $psOutput | Select-String -Pattern '"State":"running"'
+    $noHealthCheck = ($runningLines | Select-String -Pattern '"Health":' -NotMatch).Count
+
+    # Services that need to be healthy = running - no_healthcheck
+    $expectedHealthy = $runningCount - $noHealthCheck
 
     if ($runningCount -gt 0) {
-        Write-Host "  [$Elapsed/$MaxWait s] Healthy: $healthyCount / $runningCount services" -ForegroundColor Blue -NoNewline
+        Write-Host "  [$Elapsed/$MaxWait s] Healthy: $healthyCount / $expectedHealthy services" -ForegroundColor Blue -NoNewline
         Write-Host "`r" -NoNewline
 
-        # Check if all running services are healthy
-        $unhealthyCount = $runningCount - $healthyCount
-
-        if ($unhealthyCount -eq 0 -and $runningCount -gt 0) {
+        # All services with health checks are healthy
+        if ($healthyCount -ge $expectedHealthy -and $expectedHealthy -gt 0) {
             Write-Host ""
-            Write-Host "All services are healthy" -ForegroundColor Green
+            Write-Host "✓ All services are healthy" -ForegroundColor Green
             break
         }
     }

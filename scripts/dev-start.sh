@@ -33,7 +33,14 @@ echo -e "${GREEN}✓ Docker is running${NC}"
 echo -e "${BLUE}Checking Docker resources...${NC}"
 
 # Check available disk space (at least 10 GB recommended)
-AVAILABLE_DISK=$(df -BG . 2>/dev/null | awk 'NR==2 {print $4}' | sed 's/G//' || echo "999")
+if [[ "$(uname)" == "Darwin" ]]; then
+    # macOS uses BSD df with -g flag
+    AVAILABLE_DISK=$(df -g . 2>/dev/null | awk 'NR==2 {print $4}' || echo "999")
+else
+    # Linux uses GNU df with -BG flag
+    AVAILABLE_DISK=$(df -BG . 2>/dev/null | awk 'NR==2 {print $4}' | sed 's/G//' || echo "999")
+fi
+
 if [ "$AVAILABLE_DISK" -lt 10 ] 2>/dev/null; then
     echo -e "${YELLOW}Warning: Low disk space (${AVAILABLE_DISK}GB available, 10GB+ recommended)${NC}"
 fi
@@ -75,17 +82,24 @@ ELAPSED=0
 INTERVAL=5
 
 while [ $ELAPSED -lt $MAX_WAIT ]; do
-    # Check how many services are healthy
-    HEALTHY_COUNT=$(docker compose ps --format json 2>/dev/null | grep -c '"Health":"healthy"' || echo "0")
-    TOTAL_SERVICES=$(docker compose ps --format json 2>/dev/null | grep -c '"State":"running"' || echo "0")
+    # Get service status
+    PS_JSON=$(docker compose ps --format json 2>/dev/null || echo "[]")
 
-    if [ "$TOTAL_SERVICES" -gt 0 ]; then
-        echo -ne "  ${BLUE}[$ELAPSED/$MAX_WAIT s]${NC} Healthy: $HEALTHY_COUNT / $TOTAL_SERVICES services\r"
+    # Count running services and healthy services
+    RUNNING_COUNT=$(echo "$PS_JSON" | grep -c '"State":"running"' || echo "0")
+    HEALTHY_COUNT=$(echo "$PS_JSON" | grep -c '"Health":"healthy"' || echo "0")
 
-        # Check if all running services are healthy
-        UNHEALTHY=$(docker compose ps --format json 2>/dev/null | grep '"State":"running"' | grep -cv '"Health":"healthy"' || echo "0")
+    # Count services with no health check defined (running but no Health field)
+    NO_HEALTHCHECK=$(echo "$PS_JSON" | grep '"State":"running"' | grep -cv '"Health":' || echo "0")
 
-        if [ "$UNHEALTHY" -eq 0 ] && [ "$TOTAL_SERVICES" -gt 0 ]; then
+    # Services that need to be healthy = running - no_healthcheck
+    EXPECTED_HEALTHY=$((RUNNING_COUNT - NO_HEALTHCHECK))
+
+    if [ "$RUNNING_COUNT" -gt 0 ]; then
+        echo -ne "  ${BLUE}[$ELAPSED/$MAX_WAIT s]${NC} Healthy: $HEALTHY_COUNT / $EXPECTED_HEALTHY services\r"
+
+        # All services with health checks are healthy
+        if [ "$HEALTHY_COUNT" -ge "$EXPECTED_HEALTHY" ] && [ "$EXPECTED_HEALTHY" -gt 0 ]; then
             echo ""
             echo -e "${GREEN}✓ All services are healthy${NC}"
             break
