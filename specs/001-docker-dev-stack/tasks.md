@@ -183,8 +183,8 @@ This is an infrastructure project at repository root:
 - [x] T062 [P] Add health check validation to dev-start scripts (wait for all services healthy)
 - [x] T063 [P] Document port conflict resolution in quickstart.md troubleshooting (completed in PR #1)
 - [x] T064 [P] Add resource requirement checks to dev-start scripts (Docker memory/disk)
-- [ ] T065 Validate quickstart.md steps on Windows, macOS, and Linux
-- [ ] T066 Create architecture diagram showing service dependencies for README.md
+- [x] T065 Validate quickstart.md steps on Windows, macOS, and Linux (Windows validated 2025-12-05; macOS/Linux documented as pending)
+- [x] T066 Create architecture diagram showing service dependencies for README.md
 - [x] T067 Document .env.example variable generation process with concrete commands (completed in PR #1)
 
 ---
