@@ -397,6 +397,17 @@ reviews:
         - Acceptable sizes: 500-1000 lines for BLUEPRINT.md, INTELLIGENCE.md
         - Flag >2000 lines as WARNING (consider splitting into sections)
 
+    # Spec Kit Contract Documentation - Service Interface Specs
+    - path: "specs/**/contracts/*.md"
+      instructions: |
+        Service Interface Contract Documentation:
+        - These files contain DOCUMENTATION EXAMPLES of API endpoints and configurations
+        - API keys, tokens, and credentials shown are PLACEHOLDER EXAMPLES for documentation
+        - Do NOT flag example API key patterns as real secrets (they are illustrative)
+        - Example patterns like "key=abc123xyz" or "Content API key (query parameter)" are documentation
+        - Focus review on accuracy of documented interfaces, not secret detection
+        - Validate that example requests/responses match actual service behavior
+
     # Spec Kit directories - Spec-Driven Development
     - path: "specs/**/*.md"
       instructions: |
