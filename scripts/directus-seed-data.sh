@@ -29,7 +29,7 @@ if [ -z "$ACCESS_TOKEN" ]; then
 fi
 echo "✓ Authenticated"
 
-# Function to insert item
+# insert_item posts the given JSON payload to the specified Directus collection's items endpoint using $ACCESS_TOKEN and suppresses output on failure.
 insert_item() {
     local collection=$1
     local data=$2
@@ -41,7 +41,7 @@ insert_item() {
         "http://127.0.0.1:8055/items/$collection" > /dev/null 2>&1 || true
 }
 
-# Function to update singleton (uses Node.js for PATCH support)
+# update_singleton updates the singleton collection named by `collection` by sending a JSON PATCH request with `data` to the Directus instance from inside the wvwo-directus-dev container, using the stored access token; network errors and stderr are suppressed.
 update_singleton() {
     local collection=$1
     local data=$2
