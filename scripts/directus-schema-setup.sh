@@ -40,7 +40,7 @@ if [ -z "$ACCESS_TOKEN" ]; then
 fi
 echo "✓ Authenticated successfully"
 
-# Function to create collection
+# create_collection creates a Directus collection by POSTing the given collection name, JSON schema, and JSON meta to /collections inside the wvwo-directus-dev container; it uses $ACCESS_TOKEN for authorization and suppresses output and errors.
 create_collection() {
     local collection=$1
     local schema=$2
@@ -55,7 +55,7 @@ create_collection() {
         "http://127.0.0.1:8055/collections" > /dev/null 2>&1 || true
 }
 
-# Function to create field
+# create_field adds a field to a Directus collection by sending an authenticated request to the Directus API.
 create_field() {
     local collection=$1
     local field=$2
@@ -72,7 +72,8 @@ create_field() {
         "http://127.0.0.1:8055/fields/$collection" > /dev/null 2>&1 || true
 }
 
-# Get Public policy ID (Directus 11.x uses policies, not roles for permissions)
+# get_public_policy_id gets the ID of the Directus "Public" policy and echoes it to stdout.
+# Requires a valid ACCESS_TOKEN and a running Docker container named `wvwo-directus-dev`; prints the policy ID or nothing if not found.
 get_public_policy_id() {
     docker exec wvwo-directus-dev wget -q -O - \
         --header="Authorization: Bearer $ACCESS_TOKEN" \
@@ -81,7 +82,8 @@ get_public_policy_id() {
         grep -o '"id":"[^"]*"' | cut -d'"' -f4
 }
 
-# Function to set public permission
+# set_public_permission sets public READ permission for the given Directus collection using the pre-fetched public policy ID.
+# It accepts `collection` (collection name) and an optional `filter` (JSON object string to apply as permission filters, default `"{}"`).
 set_public_permission() {
     local collection=$1
     local filter=${2:-"{}"}
