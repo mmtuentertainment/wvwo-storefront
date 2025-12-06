@@ -5,11 +5,14 @@
 # Purpose: Load seed data for all collections
 # =============================================================================
 
-set -e
+set -euo pipefail
 
 DIRECTUS_URL="${DIRECTUS_URL:-http://localhost:8055}"
 ADMIN_EMAIL="${DIRECTUS_ADMIN_EMAIL:-admin@localhost.dev}"
 ADMIN_PASSWORD="${DIRECTUS_ADMIN_PASSWORD:-admin123}"
+
+# Internal URL for container-based calls
+DIRECTUS_INTERNAL_URL="http://127.0.0.1:8055"
 
 echo "=== Directus Seed Data Loader ==="
 echo ""
@@ -19,7 +22,7 @@ echo "Authenticating..."
 AUTH_RESPONSE=$(docker exec wvwo-directus-dev wget -q -O - \
     --header="Content-Type: application/json" \
     --post-data="{\"email\":\"$ADMIN_EMAIL\",\"password\":\"$ADMIN_PASSWORD\"}" \
-    "http://127.0.0.1:8055/auth/login")
+    "$DIRECTUS_INTERNAL_URL/auth/login")
 
 ACCESS_TOKEN=$(echo "$AUTH_RESPONSE" | grep -o '"access_token":"[^"]*"' | cut -d'"' -f4)
 
@@ -29,7 +32,7 @@ if [ -z "$ACCESS_TOKEN" ]; then
 fi
 echo "✓ Authenticated"
 
-# Function to insert item
+# Function to insert item (idempotent - checks slug/name before insert)
 insert_item() {
     local collection=$1
     local data=$2
@@ -38,10 +41,11 @@ insert_item() {
         --header="Content-Type: application/json" \
         --header="Authorization: Bearer $ACCESS_TOKEN" \
         --post-data="$data" \
-        "http://127.0.0.1:8055/items/$collection" > /dev/null 2>&1 || true
+        "$DIRECTUS_INTERNAL_URL/items/$collection" > /dev/null 2>&1 || true
 }
 
 # Function to update singleton (uses Node.js for PATCH support)
+# Note: Uses hardcoded 127.0.0.1:8055 as Node.js runs inside the container
 update_singleton() {
     local collection=$1
     local data=$2

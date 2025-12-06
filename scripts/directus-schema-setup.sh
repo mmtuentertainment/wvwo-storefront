@@ -5,12 +5,15 @@
 # Purpose: Create all 8 collections and configure public permissions
 # =============================================================================
 
-set -e
+set -euo pipefail
 
 # Configuration
 DIRECTUS_URL="${DIRECTUS_URL:-http://localhost:8055}"
 ADMIN_EMAIL="${DIRECTUS_ADMIN_EMAIL:-admin@localhost.dev}"
 ADMIN_PASSWORD="${DIRECTUS_ADMIN_PASSWORD:-admin123}"
+
+# Extract host:port for internal container calls
+DIRECTUS_INTERNAL_URL="http://127.0.0.1:8055"
 
 echo "=== Directus Schema Setup ==="
 echo "URL: $DIRECTUS_URL"
@@ -18,7 +21,7 @@ echo ""
 
 # Check if Directus is accessible
 echo "Checking Directus health..."
-if ! docker exec wvwo-directus-dev wget -q -O - http://127.0.0.1:8055/server/health > /dev/null 2>&1; then
+if ! docker exec wvwo-directus-dev wget -q -O - "$DIRECTUS_INTERNAL_URL/server/health" > /dev/null 2>&1; then
     echo "ERROR: Directus is not accessible. Make sure Docker services are running."
     exit 1
 fi
@@ -29,7 +32,7 @@ echo "Authenticating..."
 AUTH_RESPONSE=$(docker exec wvwo-directus-dev wget -q -O - \
     --header="Content-Type: application/json" \
     --post-data="{\"email\":\"$ADMIN_EMAIL\",\"password\":\"$ADMIN_PASSWORD\"}" \
-    "http://127.0.0.1:8055/auth/login")
+    "$DIRECTUS_INTERNAL_URL/auth/login")
 
 ACCESS_TOKEN=$(echo "$AUTH_RESPONSE" | grep -o '"access_token":"[^"]*"' | cut -d'"' -f4)
 
@@ -40,11 +43,24 @@ if [ -z "$ACCESS_TOKEN" ]; then
 fi
 echo "✓ Authenticated successfully"
 
-# Function to create collection
+# Function to check if collection exists
+collection_exists() {
+    local collection=$1
+    docker exec wvwo-directus-dev wget -q -O - \
+        --header="Authorization: Bearer $ACCESS_TOKEN" \
+        "$DIRECTUS_INTERNAL_URL/collections/$collection" 2>/dev/null | grep -q '"collection"' 2>/dev/null
+}
+
+# Function to create collection (idempotent)
 create_collection() {
     local collection=$1
     local schema=$2
     local meta=$3
+
+    if collection_exists "$collection"; then
+        echo "Collection already exists: $collection (skipping)"
+        return 0
+    fi
 
     echo "Creating collection: $collection"
 
@@ -52,10 +68,19 @@ create_collection() {
         --header="Content-Type: application/json" \
         --header="Authorization: Bearer $ACCESS_TOKEN" \
         --post-data="{\"collection\":\"$collection\",\"schema\":$schema,\"meta\":$meta}" \
-        "http://127.0.0.1:8055/collections" > /dev/null 2>&1 || true
+        "$DIRECTUS_INTERNAL_URL/collections" > /dev/null 2>&1 || true
 }
 
-# Function to create field
+# Function to check if field exists
+field_exists() {
+    local collection=$1
+    local field=$2
+    docker exec wvwo-directus-dev wget -q -O - \
+        --header="Authorization: Bearer $ACCESS_TOKEN" \
+        "$DIRECTUS_INTERNAL_URL/fields/$collection/$field" 2>/dev/null | grep -q '"field"' 2>/dev/null
+}
+
+# Function to create field (idempotent)
 create_field() {
     local collection=$1
     local field=$2
@@ -63,28 +88,47 @@ create_field() {
     local meta=$4
     local schema=${5:-"{}"}
 
+    if field_exists "$collection" "$field"; then
+        echo "  Field already exists: $field (skipping)"
+        return 0
+    fi
+
     echo "  Adding field: $field"
 
     docker exec wvwo-directus-dev wget -q -O - \
         --header="Content-Type: application/json" \
         --header="Authorization: Bearer $ACCESS_TOKEN" \
         --post-data="{\"field\":\"$field\",\"type\":\"$type\",\"meta\":$meta,\"schema\":$schema}" \
-        "http://127.0.0.1:8055/fields/$collection" > /dev/null 2>&1 || true
+        "$DIRECTUS_INTERNAL_URL/fields/$collection" > /dev/null 2>&1 || true
 }
 
 # Get Public policy ID (Directus 11.x uses policies, not roles for permissions)
 get_public_policy_id() {
     docker exec wvwo-directus-dev wget -q -O - \
         --header="Authorization: Bearer $ACCESS_TOKEN" \
-        "http://127.0.0.1:8055/policies" 2>/dev/null | \
+        "$DIRECTUS_INTERNAL_URL/policies" 2>/dev/null | \
         grep -o '"id":"[^"]*","name":"\$t:public_label"' | \
         grep -o '"id":"[^"]*"' | cut -d'"' -f4
 }
 
-# Function to set public permission
+# Function to check if permission exists
+permission_exists() {
+    local collection=$1
+    docker exec wvwo-directus-dev wget -q -O - \
+        --header="Authorization: Bearer $ACCESS_TOKEN" \
+        "$DIRECTUS_INTERNAL_URL/permissions?filter[collection][_eq]=$collection&filter[policy][_eq]=$PUBLIC_POLICY_ID&filter[action][_eq]=read" 2>/dev/null | \
+        grep -q '"id"' 2>/dev/null
+}
+
+# Function to set public permission (idempotent)
 set_public_permission() {
     local collection=$1
     local filter=${2:-"{}"}
+
+    if permission_exists "$collection"; then
+        echo "Permission already exists for: $collection (skipping)"
+        return 0
+    fi
 
     echo "Setting public READ permission for: $collection"
 
@@ -93,7 +137,7 @@ set_public_permission() {
         --header="Content-Type: application/json" \
         --header="Authorization: Bearer $ACCESS_TOKEN" \
         --post-data="{\"policy\":\"$PUBLIC_POLICY_ID\",\"collection\":\"$collection\",\"action\":\"read\",\"permissions\":$filter,\"fields\":[\"*\"]}" \
-        "http://127.0.0.1:8055/permissions" > /dev/null 2>&1 || true
+        "$DIRECTUS_INTERNAL_URL/permissions" > /dev/null 2>&1 || true
 }
 
 echo ""
@@ -192,31 +236,43 @@ create_field "products" "low_stock_threshold" "integer" '{"interface":"input","w
 create_field "products" "location_in_store" "string" '{"interface":"input","width":"third"}'
 create_field "products" "discontinued" "boolean" '{"interface":"boolean","default":false}'
 
-# Add parent field to categories (self-reference)
-echo "Adding parent field to categories..."
-docker exec wvwo-directus-dev wget -q -O - \
-    --header="Content-Type: application/json" \
-    --header="Authorization: Bearer $ACCESS_TOKEN" \
-    --post-data='{"field":"parent","type":"integer","meta":{"interface":"select-dropdown-m2o","special":["m2o"],"options":{"template":"{{name}}"}}}' \
-    "http://127.0.0.1:8055/fields/categories" > /dev/null 2>&1 || true
+# Add parent field to categories (self-reference) - use create_field for idempotency
+if ! field_exists "categories" "parent"; then
+    echo "Adding parent field to categories..."
+    docker exec wvwo-directus-dev wget -q -O - \
+        --header="Content-Type: application/json" \
+        --header="Authorization: Bearer $ACCESS_TOKEN" \
+        --post-data='{"field":"parent","type":"integer","meta":{"interface":"select-dropdown-m2o","special":["m2o"],"options":{"template":"{{name}}"}}}' \
+        "$DIRECTUS_INTERNAL_URL/fields/categories" > /dev/null 2>&1 || true
+else
+    echo "  Field already exists: parent (skipping)"
+fi
 
 # Add category relationship to products
-echo "Adding category relationship to products..."
-docker exec wvwo-directus-dev wget -q -O - \
-    --header="Content-Type: application/json" \
-    --header="Authorization: Bearer $ACCESS_TOKEN" \
-    --post-data='{"field":"category","type":"integer","meta":{"interface":"select-dropdown-m2o","special":["m2o"],"required":true,"options":{"template":"{{name}}"}}}' \
-    "http://127.0.0.1:8055/fields/products" > /dev/null 2>&1 || true
+if ! field_exists "products" "category"; then
+    echo "Adding category relationship to products..."
+    docker exec wvwo-directus-dev wget -q -O - \
+        --header="Content-Type: application/json" \
+        --header="Authorization: Bearer $ACCESS_TOKEN" \
+        --post-data='{"field":"category","type":"integer","meta":{"interface":"select-dropdown-m2o","special":["m2o"],"required":true,"options":{"template":"{{name}}"}}}' \
+        "$DIRECTUS_INTERNAL_URL/fields/products" > /dev/null 2>&1 || true
+else
+    echo "  Field already exists: category (skipping)"
+fi
 
 # Add brand relationship to products
-echo "Adding brand relationship to products..."
-docker exec wvwo-directus-dev wget -q -O - \
-    --header="Content-Type: application/json" \
-    --header="Authorization: Bearer $ACCESS_TOKEN" \
-    --post-data='{"field":"brand","type":"integer","meta":{"interface":"select-dropdown-m2o","special":["m2o"],"options":{"template":"{{name}}"}}}' \
-    "http://127.0.0.1:8055/fields/products" > /dev/null 2>&1 || true
+if ! field_exists "products" "brand"; then
+    echo "Adding brand relationship to products..."
+    docker exec wvwo-directus-dev wget -q -O - \
+        --header="Content-Type: application/json" \
+        --header="Authorization: Bearer $ACCESS_TOKEN" \
+        --post-data='{"field":"brand","type":"integer","meta":{"interface":"select-dropdown-m2o","special":["m2o"],"options":{"template":"{{name}}"}}}' \
+        "$DIRECTUS_INTERNAL_URL/fields/products" > /dev/null 2>&1 || true
+else
+    echo "  Field already exists: brand (skipping)"
+fi
 
-# Create relations
+# Create relations (idempotent - Directus ignores duplicates)
 echo ""
 echo "=== Creating Relations ==="
 
@@ -224,19 +280,19 @@ docker exec wvwo-directus-dev wget -q -O - \
     --header="Content-Type: application/json" \
     --header="Authorization: Bearer $ACCESS_TOKEN" \
     --post-data='{"collection":"categories","field":"parent","related_collection":"categories"}' \
-    "http://127.0.0.1:8055/relations" > /dev/null 2>&1 || true
+    "$DIRECTUS_INTERNAL_URL/relations" > /dev/null 2>&1 || true
 
 docker exec wvwo-directus-dev wget -q -O - \
     --header="Content-Type: application/json" \
     --header="Authorization: Bearer $ACCESS_TOKEN" \
     --post-data='{"collection":"products","field":"category","related_collection":"categories"}' \
-    "http://127.0.0.1:8055/relations" > /dev/null 2>&1 || true
+    "$DIRECTUS_INTERNAL_URL/relations" > /dev/null 2>&1 || true
 
 docker exec wvwo-directus-dev wget -q -O - \
     --header="Content-Type: application/json" \
     --header="Authorization: Bearer $ACCESS_TOKEN" \
     --post-data='{"collection":"products","field":"brand","related_collection":"brands"}' \
-    "http://127.0.0.1:8055/relations" > /dev/null 2>&1 || true
+    "$DIRECTUS_INTERNAL_URL/relations" > /dev/null 2>&1 || true
 
 echo ""
 echo "=== Configuring Public Role Permissions ==="
@@ -267,5 +323,5 @@ echo "Collections created: categories, brands, store_info, homepage_features, an
 echo "Public permissions configured for all collections"
 echo ""
 echo "Next steps:"
-echo "1. Load seed data: ./scripts/directus-seed.sh"
-echo "2. Verify in Directus Admin: http://localhost:8055/admin"
+echo "1. Load seed data: ./scripts/directus-seed-data.sh"
+echo "2. Verify in Directus Admin: $DIRECTUS_URL/admin"

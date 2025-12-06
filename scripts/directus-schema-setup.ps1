@@ -16,6 +16,9 @@ param(
 
 $ErrorActionPreference = "Stop"
 
+# Internal URL for container-based calls (always localhost from inside container)
+$DirectusInternalUrl = "http://127.0.0.1:8055"
+
 Write-Host "=== Directus Schema Setup ===" -ForegroundColor Cyan
 Write-Host "URL: $DirectusUrl"
 Write-Host ""
@@ -23,7 +26,7 @@ Write-Host ""
 # Check if Directus is accessible
 Write-Host "Checking Directus health..."
 try {
-    $health = docker exec wvwo-directus-dev wget -q -O - http://127.0.0.1:8055/server/health 2>$null
+    $health = docker exec wvwo-directus-dev wget -q -O - "$DirectusInternalUrl/server/health" 2>$null
     if (-not $health) {
         throw "Empty response"
     }
@@ -40,7 +43,7 @@ $authBody = "{`"email`":`"$AdminEmail`",`"password`":`"$AdminPassword`"}"
 $authResponse = docker exec wvwo-directus-dev wget -q -O - `
     --header="Content-Type: application/json" `
     --post-data="$authBody" `
-    "http://127.0.0.1:8055/auth/login" 2>$null
+    "$DirectusInternalUrl/auth/login" 2>$null
 
 if ($authResponse -match '"access_token":"([^"]+)"') {
     $accessToken = $matches[1]
@@ -52,9 +55,24 @@ else {
     exit 1
 }
 
-# Function to create collection
+# Function to check if collection exists
+function Test-DirectusCollection {
+    param($Collection)
+
+    $result = docker exec wvwo-directus-dev wget -q -O - `
+        --header="Authorization: Bearer $accessToken" `
+        "$DirectusInternalUrl/collections/$Collection" 2>$null
+    return $result -match '"collection"'
+}
+
+# Function to create collection (idempotent)
 function New-DirectusCollection {
     param($Collection, $Schema, $Meta)
+
+    if (Test-DirectusCollection -Collection $Collection) {
+        Write-Host "Collection already exists: $Collection (skipping)"
+        return
+    }
 
     Write-Host "Creating collection: $Collection"
     $body = "{`"collection`":`"$Collection`",`"schema`":$Schema,`"meta`":$Meta}"
@@ -62,12 +80,27 @@ function New-DirectusCollection {
         --header="Content-Type: application/json" `
         --header="Authorization: Bearer $accessToken" `
         --post-data="$body" `
-        "http://127.0.0.1:8055/collections" 2>$null | Out-Null
+        "$DirectusInternalUrl/collections" 2>$null | Out-Null
 }
 
-# Function to create field
+# Function to check if field exists
+function Test-DirectusField {
+    param($Collection, $Field)
+
+    $result = docker exec wvwo-directus-dev wget -q -O - `
+        --header="Authorization: Bearer $accessToken" `
+        "$DirectusInternalUrl/fields/$Collection/$Field" 2>$null
+    return $result -match '"field"'
+}
+
+# Function to create field (idempotent)
 function New-DirectusField {
     param($Collection, $Field, $Type, $Meta, $Schema = "{}")
+
+    if (Test-DirectusField -Collection $Collection -Field $Field) {
+        Write-Host "  Field already exists: $Field (skipping)"
+        return
+    }
 
     Write-Host "  Adding field: $Field"
     $body = "{`"field`":`"$Field`",`"type`":`"$Type`",`"meta`":$Meta,`"schema`":$Schema}"
@@ -75,10 +108,10 @@ function New-DirectusField {
         --header="Content-Type: application/json" `
         --header="Authorization: Bearer $accessToken" `
         --post-data="$body" `
-        "http://127.0.0.1:8055/fields/$Collection" 2>$null | Out-Null
+        "$DirectusInternalUrl/fields/$Collection" 2>$null | Out-Null
 }
 
-# Function to set public permission
+# Function to set public permission (idempotent)
 function Set-PublicPermission {
     param($Collection, $Filter = "null")
 
@@ -88,7 +121,7 @@ function Set-PublicPermission {
         --header="Content-Type: application/json" `
         --header="Authorization: Bearer $accessToken" `
         --post-data="$body" `
-        "http://127.0.0.1:8055/permissions" 2>$null | Out-Null
+        "$DirectusInternalUrl/permissions" 2>$null | Out-Null
 }
 
 Write-Host ""
@@ -187,32 +220,44 @@ New-DirectusField "products" "low_stock_threshold" "integer" '{"interface":"inpu
 New-DirectusField "products" "location_in_store" "string" '{"interface":"input","width":"third"}'
 New-DirectusField "products" "discontinued" "boolean" '{"interface":"boolean","default":false}'
 
-# Add parent field to categories (self-reference)
-Write-Host "Adding parent field to categories..."
-$body = '{"field":"parent","type":"integer","meta":{"interface":"select-dropdown-m2o","special":["m2o"],"options":{"template":"{{name}}"}}}'
-docker exec wvwo-directus-dev wget -q -O - `
-    --header="Content-Type: application/json" `
-    --header="Authorization: Bearer $accessToken" `
-    --post-data="$body" `
-    "http://127.0.0.1:8055/fields/categories" 2>$null | Out-Null
+# Add parent field to categories (self-reference) with idempotency check
+if (-not (Test-DirectusField -Collection "categories" -Field "parent")) {
+    Write-Host "Adding parent field to categories..."
+    $body = '{"field":"parent","type":"integer","meta":{"interface":"select-dropdown-m2o","special":["m2o"],"options":{"template":"{{name}}"}}}'
+    docker exec wvwo-directus-dev wget -q -O - `
+        --header="Content-Type: application/json" `
+        --header="Authorization: Bearer $accessToken" `
+        --post-data="$body" `
+        "$DirectusInternalUrl/fields/categories" 2>$null | Out-Null
+} else {
+    Write-Host "  Field already exists: parent (skipping)"
+}
 
 # Add category relationship to products
-Write-Host "Adding category relationship to products..."
-$body = '{"field":"category","type":"integer","meta":{"interface":"select-dropdown-m2o","special":["m2o"],"required":true,"options":{"template":"{{name}}"}}}'
-docker exec wvwo-directus-dev wget -q -O - `
-    --header="Content-Type: application/json" `
-    --header="Authorization: Bearer $accessToken" `
-    --post-data="$body" `
-    "http://127.0.0.1:8055/fields/products" 2>$null | Out-Null
+if (-not (Test-DirectusField -Collection "products" -Field "category")) {
+    Write-Host "Adding category relationship to products..."
+    $body = '{"field":"category","type":"integer","meta":{"interface":"select-dropdown-m2o","special":["m2o"],"required":true,"options":{"template":"{{name}}"}}}'
+    docker exec wvwo-directus-dev wget -q -O - `
+        --header="Content-Type: application/json" `
+        --header="Authorization: Bearer $accessToken" `
+        --post-data="$body" `
+        "$DirectusInternalUrl/fields/products" 2>$null | Out-Null
+} else {
+    Write-Host "  Field already exists: category (skipping)"
+}
 
 # Add brand relationship to products
-Write-Host "Adding brand relationship to products..."
-$body = '{"field":"brand","type":"integer","meta":{"interface":"select-dropdown-m2o","special":["m2o"],"options":{"template":"{{name}}"}}}'
-docker exec wvwo-directus-dev wget -q -O - `
-    --header="Content-Type: application/json" `
-    --header="Authorization: Bearer $accessToken" `
-    --post-data="$body" `
-    "http://127.0.0.1:8055/fields/products" 2>$null | Out-Null
+if (-not (Test-DirectusField -Collection "products" -Field "brand")) {
+    Write-Host "Adding brand relationship to products..."
+    $body = '{"field":"brand","type":"integer","meta":{"interface":"select-dropdown-m2o","special":["m2o"],"options":{"template":"{{name}}"}}}'
+    docker exec wvwo-directus-dev wget -q -O - `
+        --header="Content-Type: application/json" `
+        --header="Authorization: Bearer $accessToken" `
+        --post-data="$body" `
+        "$DirectusInternalUrl/fields/products" 2>$null | Out-Null
+} else {
+    Write-Host "  Field already exists: brand (skipping)"
+}
 
 Write-Host ""
 Write-Host "=== Creating Relations ===" -ForegroundColor Cyan
@@ -223,12 +268,13 @@ $relations = @(
     '{"collection":"products","field":"brand","related_collection":"brands"}'
 )
 
+# Relations are idempotent - Directus ignores duplicates
 foreach ($rel in $relations) {
     docker exec wvwo-directus-dev wget -q -O - `
         --header="Content-Type: application/json" `
         --header="Authorization: Bearer $accessToken" `
         --post-data="$rel" `
-        "http://127.0.0.1:8055/relations" 2>$null | Out-Null
+        "$DirectusInternalUrl/relations" 2>$null | Out-Null
 }
 
 Write-Host ""
@@ -250,5 +296,5 @@ Write-Host "Collections created: categories, brands, store_info, homepage_featur
 Write-Host "Public permissions configured for all collections"
 Write-Host ""
 Write-Host "Next steps:" -ForegroundColor Yellow
-Write-Host "1. Load seed data: .\scripts\directus-seed.ps1"
-Write-Host "2. Verify in Directus Admin: http://localhost:8055/admin"
+Write-Host "1. Load seed data: bash ./scripts/directus-seed-data.sh"
+Write-Host "2. Verify in Directus Admin: $DirectusUrl/admin"
