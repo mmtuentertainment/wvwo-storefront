@@ -8,6 +8,9 @@
     .\scripts\directus-schema-setup.ps1
 #>
 
+# Note: Using plain strings for credentials is intentional for local dev scripts.
+# These values come from .env which is already plaintext. SecureString would add
+# complexity without security benefit in this context.
 param(
     [string]$DirectusUrl = "http://localhost:8055",
     [string]$AdminEmail = "admin@localhost.dev",
