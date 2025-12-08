@@ -41,38 +41,68 @@ echo ""
 
 # Authenticate and get access token
 echo "Authenticating..."
-AUTH_RESPONSE=$(docker exec wvwo-directus-dev wget -q -O - \
+AUTH_RESPONSE=$(docker exec wvwo-directus-dev wget -qO - \
     --header="Content-Type: application/json" \
     --post-data="{\"email\":\"$ADMIN_EMAIL\",\"password\":\"$ADMIN_PASSWORD\"}" \
-    "$DIRECTUS_INTERNAL_URL/auth/login")
+    "$DIRECTUS_INTERNAL_URL/auth/login" || echo "failed")
+
+if [[ "$AUTH_RESPONSE" == "failed" ]]; then
+    echo "❌ ERROR: Failed to authenticate with Directus." >&2
+    echo "response: $AUTH_RESPONSE" >&2
+    exit 1
+fi
 
 ACCESS_TOKEN=$(echo "$AUTH_RESPONSE" | grep -o '"access_token":"[^"]*"' | cut -d'"' -f4)
 
 if [ -z "$ACCESS_TOKEN" ]; then
-    echo "ERROR: Failed to authenticate."
+    echo "❌ ERROR: Could not extract access token from response." >&2
     exit 1
 fi
 echo "✓ Authenticated"
 
-# Function to insert item (idempotent - checks slug/name before insert)
+# Function to insert item (simple POST)
 insert_item() {
     local collection=$1
     local data=$2
 
-    docker exec wvwo-directus-dev wget -q -O - \
+    if ! docker exec wvwo-directus-dev wget -qO - \
         --header="Content-Type: application/json" \
         --header="Authorization: Bearer $ACCESS_TOKEN" \
         --post-data="$data" \
-        "$DIRECTUS_INTERNAL_URL/items/$collection" > /dev/null 2>&1 || true
+        "$DIRECTUS_INTERNAL_URL/items/$collection" > /dev/null 2>&1; then
+        echo "❌ WARNING: Failed to insert into $collection" >&2
+        return 1
+    fi
+}
+
+# Function to check if item exists, then inset if not (IDEMPOTENT)
+check_or_insert_item() {
+    local collection=$1
+    local slug=$2
+    local data=$3
+
+    # Check existence using Directus filter
+    # Uses 'grep -c' to count occurrences of "id" in the response (simple verification)
+    local exists=$(docker exec wvwo-directus-dev wget -qO - \
+        --header="Authorization: Bearer $ACCESS_TOKEN" \
+        "$DIRECTUS_INTERNAL_URL/items/$collection?filter[slug][_eq]=$slug&limit=1" 2>/dev/null | grep -c '"id"' || true)
+
+    if [ "$exists" -gt 0 ]; then
+        echo "  (skipped: $slug already exists)"
+        return 0
+    fi
+
+    echo "  Inserting: $slug"
+    insert_item "$collection" "$data"
 }
 
 # Function to update singleton (uses Node.js for PATCH support)
-# Note: Uses hardcoded 127.0.0.1:8055 as Node.js runs inside the container
 update_singleton() {
     local collection=$1
     local data=$2
 
-    docker exec wvwo-directus-dev node -e "
+    echo "  Updating singleton: $collection"
+    if ! docker exec wvwo-directus-dev node -e "
 const http = require('http');
 const data = JSON.stringify($data);
 const req = http.request({
@@ -91,20 +121,23 @@ const req = http.request({
 });
 req.write(data);
 req.end();
-" 2>/dev/null || true
+" > /dev/null 2>&1; then
+        echo "❌ WARNING: Failed to update $collection" >&2
+        return 1
+    fi
 }
 
 echo ""
 echo "=== Loading Categories ==="
 
 # Top-level categories first
-insert_item "categories" '{"name":"Firearms","slug":"firearms","sort_order":1}'
-insert_item "categories" '{"name":"Ammunition","slug":"ammunition","sort_order":2}'
-insert_item "categories" '{"name":"Footwear","slug":"footwear","sort_order":3}'
-insert_item "categories" '{"name":"Optics","slug":"optics","sort_order":4}'
-insert_item "categories" '{"name":"Hunting Gear","slug":"hunting-gear","sort_order":5}'
-insert_item "categories" '{"name":"Fishing","slug":"fishing","sort_order":6}'
-insert_item "categories" '{"name":"Licenses","slug":"licenses","description":"WVDNR Hunting & Fishing Licenses","sort_order":7}'
+check_or_insert_item "categories" "firearms" '{"name":"Firearms","slug":"firearms","sort_order":1}'
+check_or_insert_item "categories" "ammunition" '{"name":"Ammunition","slug":"ammunition","sort_order":2}'
+check_or_insert_item "categories" "footwear" '{"name":"Footwear","slug":"footwear","sort_order":3}'
+check_or_insert_item "categories" "optics" '{"name":"Optics","slug":"optics","sort_order":4}'
+check_or_insert_item "categories" "hunting-gear" '{"name":"Hunting Gear","slug":"hunting-gear","sort_order":5}'
+check_or_insert_item "categories" "fishing" '{"name":"Fishing","slug":"fishing","sort_order":6}'
+check_or_insert_item "categories" "licenses" '{"name":"Licenses","slug":"licenses","description":"WVDNR Hunting & Fishing Licenses","sort_order":7}'
 
 echo "✓ Top-level categories loaded"
 
@@ -113,36 +146,36 @@ echo "Loading subcategories..."
 
 # Subcategories (parent IDs will need to be looked up)
 # For simplicity, we'll load them without parent references first
-insert_item "categories" '{"name":"Rifles","slug":"rifles","sort_order":1}'
-insert_item "categories" '{"name":"Handguns","slug":"handguns","sort_order":2}'
-insert_item "categories" '{"name":"Shotguns","slug":"shotguns","sort_order":3}'
-insert_item "categories" '{"name":"Rifle Ammo","slug":"rifle-ammo","sort_order":1}'
-insert_item "categories" '{"name":"Handgun Ammo","slug":"handgun-ammo","sort_order":2}'
-insert_item "categories" '{"name":"Shotgun Ammo","slug":"shotgun-ammo","sort_order":3}'
-insert_item "categories" '{"name":"Hunting Boots","slug":"hunting-boots","sort_order":1}'
-insert_item "categories" '{"name":"Rubber Boots","slug":"rubber-boots","sort_order":2}'
-insert_item "categories" '{"name":"Rifle Scopes","slug":"rifle-scopes","sort_order":1}'
-insert_item "categories" '{"name":"Binoculars","slug":"binoculars","sort_order":2}'
-insert_item "categories" '{"name":"Camo & Apparel","slug":"camo-apparel","sort_order":1}'
-insert_item "categories" '{"name":"Tree Stands","slug":"tree-stands","sort_order":2}'
-insert_item "categories" '{"name":"Deer Feed","slug":"deer-feed","sort_order":3}'
+check_or_insert_item "categories" "rifles" '{"name":"Rifles","slug":"rifles","sort_order":1}'
+check_or_insert_item "categories" "handguns" '{"name":"Handguns","slug":"handguns","sort_order":2}'
+check_or_insert_item "categories" "shotguns" '{"name":"Shotguns","slug":"shotguns","sort_order":3}'
+check_or_insert_item "categories" "rifle-ammo" '{"name":"Rifle Ammo","slug":"rifle-ammo","sort_order":1}'
+check_or_insert_item "categories" "handgun-ammo" '{"name":"Handgun Ammo","slug":"handgun-ammo","sort_order":2}'
+check_or_insert_item "categories" "shotgun-ammo" '{"name":"Shotgun Ammo","slug":"shotgun-ammo","sort_order":3}'
+check_or_insert_item "categories" "hunting-boots" '{"name":"Hunting Boots","slug":"hunting-boots","sort_order":1}'
+check_or_insert_item "categories" "rubber-boots" '{"name":"Rubber Boots","slug":"rubber-boots","sort_order":2}'
+check_or_insert_item "categories" "rifle-scopes" '{"name":"Rifle Scopes","slug":"rifle-scopes","sort_order":1}'
+check_or_insert_item "categories" "binoculars" '{"name":"Binoculars","slug":"binoculars","sort_order":2}'
+check_or_insert_item "categories" "camo-apparel" '{"name":"Camo & Apparel","slug":"camo-apparel","sort_order":1}'
+check_or_insert_item "categories" "tree-stands" '{"name":"Tree Stands","slug":"tree-stands","sort_order":2}'
+check_or_insert_item "categories" "deer-feed" '{"name":"Deer Feed","slug":"deer-feed","sort_order":3}'
 
 echo "✓ Subcategories loaded"
 
 echo ""
 echo "=== Loading Brands ==="
 
-insert_item "brands" '{"name":"Remington","slug":"remington","description":"Ammunition and firearms"}'
-insert_item "brands" '{"name":"Hornady","slug":"hornady","description":"Premium ammunition"}'
-insert_item "brands" '{"name":"Danner","slug":"danner","description":"Hunting boots 400g-1200g insulation"}'
-insert_item "brands" '{"name":"LaCrosse","slug":"lacrosse","description":"Alpha Burly and rubber boots"}'
-insert_item "brands" '{"name":"Muck","slug":"muck","description":"Rubber hunting boots"}'
-insert_item "brands" '{"name":"Vortex Optics","slug":"vortex","description":"Authorized dealer - scopes and binoculars"}'
-insert_item "brands" '{"name":"Savage","slug":"savage","description":"Rifles - Axis series"}'
-insert_item "brands" '{"name":"Ruger","slug":"ruger","description":"American series rifles and handguns"}'
-insert_item "brands" '{"name":"Marlin","slug":"marlin","description":"Lever-action rifles - 30-30"}'
-insert_item "brands" '{"name":"Mossy Oak","slug":"mossy-oak","description":"Camo patterns"}'
-insert_item "brands" '{"name":"Realtree","slug":"realtree","description":"Camo patterns"}'
+check_or_insert_item "brands" "remington" '{"name":"Remington","slug":"remington","description":"Ammunition and firearms"}'
+check_or_insert_item "brands" "hornady" '{"name":"Hornady","slug":"hornady","description":"Premium ammunition"}'
+check_or_insert_item "brands" "danner" '{"name":"Danner","slug":"danner","description":"Hunting boots 400g-1200g insulation"}'
+check_or_insert_item "brands" "lacrosse" '{"name":"LaCrosse","slug":"lacrosse","description":"Alpha Burly and rubber boots"}'
+check_or_insert_item "brands" "muck" '{"name":"Muck","slug":"muck","description":"Rubber hunting boots"}'
+check_or_insert_item "brands" "vortex" '{"name":"Vortex Optics","slug":"vortex","description":"Authorized dealer - scopes and binoculars"}'
+check_or_insert_item "brands" "savage" '{"name":"Savage","slug":"savage","description":"Rifles - Axis series"}'
+check_or_insert_item "brands" "ruger" '{"name":"Ruger","slug":"ruger","description":"American series rifles and handguns"}'
+check_or_insert_item "brands" "marlin" '{"name":"Marlin","slug":"marlin","description":"Lever-action rifles - 30-30"}'
+check_or_insert_item "brands" "mossy-oak" '{"name":"Mossy Oak","slug":"mossy-oak","description":"Camo patterns"}'
+check_or_insert_item "brands" "realtree" '{"name":"Realtree","slug":"realtree","description":"Camo patterns"}'
 
 echo "✓ Brands loaded"
 
@@ -172,7 +205,7 @@ echo "✓ Store info loaded"
 echo ""
 echo "=== Loading Services ==="
 
-insert_item "services" '{
+check_or_insert_item "services" "ffl-transfers" '{
     "status":"published",
     "name":"FFL Transfers",
     "slug":"ffl-transfers",
@@ -182,7 +215,7 @@ insert_item "services" '{
     "sort_order":1
 }'
 
-insert_item "services" '{
+check_or_insert_item "services" "licenses" '{
     "status":"published",
     "name":"Hunting & Fishing Licenses",
     "slug":"licenses",
@@ -192,7 +225,7 @@ insert_item "services" '{
     "sort_order":2
 }'
 
-insert_item "services" '{
+check_or_insert_item "services" "buy-sell-trade" '{
     "status":"published",
     "name":"Buy/Sell/Trade Firearms",
     "slug":"buy-sell-trade",
@@ -202,7 +235,7 @@ insert_item "services" '{
     "sort_order":3
 }'
 
-insert_item "services" '{
+check_or_insert_item "services" "scope-mounting" '{
     "status":"published",
     "name":"Scope Mounting & Bore Sighting",
     "slug":"scope-mounting",
@@ -217,6 +250,16 @@ echo "✓ Services loaded"
 echo ""
 echo "=== Loading Announcements ==="
 
+# Announcements don't have slugs usually, but we need a unique key if we want idempotency.
+# We will use the 'message' or 'type' as a quasi-key in our thoughts, but here we might just have to skip idempotency safely or add a Title field?
+# Actually T056 says "Announcements list". They usually have IDs.
+# For simplicity, we will stick to insert_item for announcements effectively, or just skip if any exist?
+# Let's just use insert_item for announcements as they are temporal updates, unless we add a unique field.
+# Recommendation: Skip check for announcements to avoid complexity, or check by "message".
+# Let's check by message content.
+# Filter: ?filter[message][_contains]=Buck...
+
+# Just use insert_item for now to avoid complexity with long strings in URL params
 insert_item "announcements" '{
     "status":"published",
     "message":"Buck season opens Nov 25 - we have your gear!",
@@ -230,7 +273,7 @@ echo "✓ Announcements loaded"
 echo ""
 echo "=== Loading Pages ==="
 
-insert_item "pages" '{
+check_or_insert_item "pages" "about" '{
     "status":"draft",
     "title":"About Us",
     "slug":"about",
@@ -239,7 +282,7 @@ insert_item "pages" '{
     "meta_description":"Family-owned sporting goods store serving Braxton County since 2008."
 }'
 
-insert_item "pages" '{
+check_or_insert_item "pages" "faq" '{
     "status":"draft",
     "title":"FAQ",
     "slug":"faq",
@@ -254,4 +297,4 @@ echo ""
 echo "=== Seed Data Complete ==="
 echo "Loaded: categories, brands, store_info, services, announcements, pages"
 echo ""
-echo "Verify at: http://localhost:8055/admin"
+echo "Verify at: $BASE_URL/admin"
