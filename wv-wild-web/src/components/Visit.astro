@@ -30,15 +30,16 @@ import { SITE_CONTACT } from '../config/siteContact';
         <div class="space-y-2">
             <h3 class="font-display text-2xl text-brand-brown">Hours</h3>
             <ul class="text-brand-mud font-body space-y-1">
-                <li>Mon–Fri: 9:00am–5:00pm <!-- TODO: confirm exact hours --></li>
-                <li>Sat: 9:00am–2:00pm <!-- TODO: confirm exact hours --></li>
-                <li>Sun: Closed <!-- TODO: confirm exact hours --></li>
+                <li>Mon–Fri: 9:00am–5:00pm</li>
+                <li>Sat: 9:00am–2:00pm</li>
+                <li>Sun: Closed</li>
+                <li class="italic text-brand-mud/60 text-sm mt-2">Call ahead for current hours</li>
             </ul>
         </div>
       </div>
 
       <div>
-        <!-- TODO: update SITE_CONTACT.mapsUrl with real Google Maps link -->
+        <!-- Maps link (update SITE_CONTACT.mapsUrl when ready) -->
         <a href={SITE_CONTACT.mapsUrl} class="inline-flex items-center justify-center px-8 py-3 border-2 border-brand-brown text-brand-brown font-bold rounded hover:bg-brand-brown hover:text-white transition-colors">
             Open in Maps
         </a>

@@ -36,7 +36,7 @@ import Footer from '../components/Footer.astro';
         </figure>
         
         <!-- Text Column -->
-        <div class="prose prose-lg text-stone-700 font-body">
+        <div class="prose prose-lg text-brand-mud font-body">
           <h2 class="text-brand-brown font-display font-bold text-3xl mb-6">
             From a small shop on the back roads
           </h2>
@@ -53,7 +53,7 @@ import Footer from '../components/Footer.astro';
       <!-- SECTION 2: Text LEFT, Image RIGHT -->
       <section class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center fade-in-section">
         <!-- Text Column (Order 2 on mobile, Order 1 on desktop) -->
-        <div class="prose prose-lg text-stone-700 font-body order-2 md:order-1">
+        <div class="prose prose-lg text-brand-mud font-body order-2 md:order-1">
           <h2 class="text-brand-brown font-display font-bold text-3xl mb-6">
             Rising above the flood
           </h2>
@@ -73,7 +73,7 @@ import Footer from '../components/Footer.astro';
 
         <!-- Image Column (Order 1 on mobile, Order 2 on desktop) -->
         <figure class="relative group order-1 md:order-2">
-          <div class="absolute inset-0 bg-stone-200 -translate-x-3 translate-y-3 rounded-sm -z-10 group-hover:-translate-x-2 group-hover:translate-y-2 transition-transform duration-500"></div>
+          <div class="absolute inset-0 bg-brand-cream -translate-x-3 translate-y-3 rounded-sm -z-10 group-hover:-translate-x-2 group-hover:translate-y-2 transition-transform duration-500"></div>
           <img
             src="/story-old-shop-flood.jpg"
             alt="Old sporting goods storefront with mud, puddles, and flood marks along the porch and walls."
@@ -89,7 +89,7 @@ import Footer from '../components/Footer.astro';
           <h2 class="text-brand-brown font-display font-bold text-3xl md:text-4xl mb-6">
             Still here for the next season
           </h2>
-          <p class="text-stone-700 font-body text-lg leading-relaxed max-w-2xl mx-auto">
+          <p class="text-brand-mud font-body text-lg leading-relaxed max-w-2xl mx-auto">
             Today, WV Wild Outdoors continues in that newer corner-lot location
             as a straightforward, local shop run by people who know the area they
             serve. Whether it’s getting sighted in for buck season, stocking up on
@@ -143,6 +143,11 @@ import Footer from '../components/Footer.astro';
   initAnimations();
 
   function initAnimations() {
+    // Respect users who prefer reduced motion
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return;
+    }
+    
     const hiddenElements = document.querySelectorAll('.fade-in-section');
     hiddenElements.forEach((el) => {
       el.classList.add('transition-all', 'duration-1000', 'ease-out', 'opacity-0', 'translate-y-12');
