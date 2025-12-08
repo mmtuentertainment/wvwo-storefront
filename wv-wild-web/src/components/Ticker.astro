@@ -24,4 +24,12 @@
     0% { transform: translateX(0); }
     100% { transform: translateX(-50%); }
   }
+  @media (prefers-reduced-motion: reduce) {
+    .animate-marquee {
+      animation: none;
+      white-space: normal;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  }
 </style>

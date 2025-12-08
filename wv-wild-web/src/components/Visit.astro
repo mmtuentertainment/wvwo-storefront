@@ -10,7 +10,7 @@ import { SITE_CONTACT } from '../config/siteContact';
         <h2 class="text-brand-brown font-display font-bold text-4xl md:text-5xl mb-4">
           Visit WV Wild Outdoors
         </h2>
-        <p class="text-stone-700 text-lg font-body leading-relaxed max-w-prose">
+        <p class="text-brand-mud/80 text-lg font-body leading-relaxed max-w-prose">
           Drop by our shop in Birch River / Little Birch, WV to get ready for your next season in the woods, on the farm, or in the garden.
         </p>
       </div>
@@ -18,7 +18,7 @@ import { SITE_CONTACT } from '../config/siteContact';
       <div class="space-y-6">
         <div class="space-y-2">
             <h3 class="font-display text-2xl text-brand-brown">Location</h3>
-            <div class="text-stone-700 font-body">
+            <div class="text-brand-mud font-body">
               <address class="not-italic">
                 {SITE_CONTACT.addressLines.map((line) => (
                   <div>{line}</div>
@@ -29,25 +29,29 @@ import { SITE_CONTACT } from '../config/siteContact';
 
         <div class="space-y-2">
             <h3 class="font-display text-2xl text-brand-brown">Hours</h3>
-            <ul class="text-stone-700 font-body space-y-1">
-                <li>Mon–Fri: 9:00am–5:00pm <!-- TODO: confirm exact hours --></li>
-                <li>Sat: 9:00am–2:00pm <!-- TODO: confirm exact hours --></li>
-                <li>Sun: Closed <!-- TODO: confirm exact hours --></li>
+            <ul class="text-brand-mud font-body space-y-1">
+                <li>Mon–Fri: 9:00am–5:00pm</li>
+                <li>Sat: 9:00am–2:00pm</li>
+                <li>Sun: Closed</li>
+                <li class="italic text-brand-mud/85 text-sm mt-2">Call ahead for current hours</li>
             </ul>
         </div>
       </div>
 
       <div>
-        <!-- TODO: update SITE_CONTACT.mapsUrl with real Google Maps link -->
-        <a href={SITE_CONTACT.mapsUrl} class="inline-flex items-center justify-center px-8 py-3 border-2 border-brand-brown text-brand-brown font-bold rounded hover:bg-brand-brown hover:text-white transition-colors">
+        <!-- Maps link (update SITE_CONTACT.mapsUrl when ready) -->
+        <a href={SITE_CONTACT.mapsUrl} class="inline-flex items-center justify-center px-8 py-3 border-2 border-brand-brown text-brand-brown font-bold rounded hover:bg-brand-brown hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange transition-colors">
             Open in Maps
         </a>
       </div>
     </div>
 
-    <!-- Right Column: Map Placeholder -->
-    <div class="bg-stone-200 border-2 border-stone-300 rounded-xl min-h-[400px] flex items-center justify-center">
-        <span class="text-stone-500 font-display text-xl">Map placeholder</span>
+    <!-- Right Column: Map Area -->
+    <div class="bg-brand-cream/50 border-2 border-brand-mud/10 rounded-xl min-h-[400px] flex items-center justify-center text-center p-8">
+        <div class="space-y-4">
+          <span class="text-brand-mud/80 font-display text-xl block">Map coming soon</span>
+          <p class="text-brand-mud/85 font-body text-sm">Use the address above and "Open in Maps" button to find us.</p>
+        </div>
     </div>
   </div>
 </section>

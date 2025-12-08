@@ -7,87 +7,179 @@ import Footer from '../components/Footer.astro';
 <Layout title="Our Story | WV Wild Outdoors" description="From a small shop on the back roads to a new corner lot. The story of WV Wild Outdoors.">
   <Header />
   
-  <main>
-    <section class="max-w-4xl mx-auto px-4 py-12 md:py-20" aria-labelledby="our-story-heading">
+  <main class="overflow-x-hidden">
+    <!-- HERO SECTION -->
+    <section class="max-w-4xl mx-auto px-4 py-12 md:py-20 text-center fade-in-section" aria-labelledby="our-story-heading">
       <h1
         id="our-story-heading"
-        class="text-brand-brown font-display font-black text-4xl md:text-6xl mb-8 leading-tight"
+        class="text-brand-brown font-display font-black text-4xl md:text-6xl mb-4 leading-tight"
       >
         Our Story
       </h1>
-  
-      <div class="prose prose-lg md:prose-xl text-stone-700 font-body max-w-none">
-        <!-- BEGINNING SECTION -->
-        <h2 class="text-brand-brown font-display font-bold text-2xl md:text-3xl mt-12 mb-4">
-          From a small shop on the back roads to a new corner lot
-        </h2>
-        <p class="mb-6 leading-relaxed">
-          WV Wild Outdoors is a small, family-run hunting and outdoor shop
-          serving Birch River, Little Birch, and the back roads in between.
-          Over the years, the shop has become a practical waypoint where locals
-          pick up firearms, ammo, hunting gear, and the everyday odds and ends
-          that keep farms, camps, and seasons running.
-        </p>
-  
-        <!-- BEGINNING ILLUSTRATION: BRIDGE -->
-        <figure class="mt-8 mb-10">
+      <p class="text-brand-orange font-hand text-2xl md:text-3xl -rotate-2 mb-6">Since 2008</p>
+      <div class="h-1 w-24 bg-brand-orange mx-auto rounded-full"></div>
+    </section>
+
+    <div class="max-w-7xl mx-auto px-4 pb-24 space-y-24 md:space-y-32">
+      
+      <!-- SECTION 1: Image LEFT, Text RIGHT -->
+      <section class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center fade-in-section">
+        <!-- Image Column -->
+        <figure class="relative group">
+          <div class="absolute inset-0 bg-brand-brown translate-x-3 translate-y-3 rounded-sm -z-10 group-hover:translate-x-2 group-hover:translate-y-2 transition-transform duration-500"></div>
           <img
             src="/story-bridge-beginning.jpg"
             alt="A small car driving across a high bridge over a forested gorge, heading toward the hills."
-            class="w-full max-w-5xl mx-auto block rounded-sm shadow-sm"
+            width="800"
+            height="600"
+            class="w-full block rounded-sm shadow-md sepia-[.15]"
             loading="lazy"
           />
         </figure>
-  
-        <!-- FLOOD SECTION -->
-        <h2 class="text-brand-brown font-display font-bold text-2xl md:text-3xl mt-12 mb-4">
-          Through the 2016 flood and a move down the road
-        </h2>
-        <p class="mb-6 leading-relaxed">
-          In June 2016, severe flooding hit this part of West Virginia,
-          including communities in and around Birch River and Nicholas County.
-          The family’s original Little Birch shop building next door took on
-          damage in that flood. Rather than close the doors for good, they
-          bought the corner lot just down the road and moved WV Wild Outdoors
-          there, keeping the shop close to the same neighbors, hunters, and
-          families who had always depended on it.
-        </p>
-  
-        <!-- FLOOD ILLUSTRATION: OLD SHOP -->
-        <figure class="mt-8 mb-10">
+        
+        <!-- Text Column -->
+        <div class="prose prose-lg text-brand-mud font-body">
+          <h2 class="text-brand-brown font-display font-bold text-3xl mb-6">
+            From a small shop on the back roads
+          </h2>
+          <p class="leading-relaxed text-lg">
+            WV Wild Outdoors is a small, family-run hunting and outdoor shop
+            serving Birch River, Little Birch, and the back roads in between.
+            Over the years, the shop has become a practical waypoint where locals
+            pick up firearms, ammo, hunting gear, and the everyday odds and ends
+            that keep farms, camps, and seasons running.
+          </p>
+        </div>
+      </section>
+
+      <!-- SECTION 2: Text LEFT, Image RIGHT -->
+      <section class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center fade-in-section">
+        <!-- Text Column (Order 2 on mobile, Order 1 on desktop) -->
+        <div class="prose prose-lg text-brand-mud font-body order-2 md:order-1">
+          <h2 class="text-brand-brown font-display font-bold text-3xl mb-6">
+            Rising above the flood
+          </h2>
+          <p class="leading-relaxed text-lg mb-4">
+            In June 2016, severe flooding hit this part of West Virginia,
+            including communities in and around Birch River and Nicholas County.
+            The family’s original Little Birch shop building next door took on
+            damage in that flood. 
+          </p>
+          <p class="leading-relaxed text-lg">
+            Rather than close the doors for good, they
+            bought the corner lot just down the road and moved WV Wild Outdoors
+            there, keeping the shop close to the same neighbors, hunters, and
+            families who had always depended on it.
+          </p>
+        </div>
+
+        <!-- Image Column (Order 1 on mobile, Order 2 on desktop) -->
+        <figure class="relative group order-1 md:order-2">
+          <div class="absolute inset-0 bg-brand-cream -translate-x-3 translate-y-3 rounded-sm -z-10 group-hover:-translate-x-2 group-hover:translate-y-2 transition-transform duration-500"></div>
           <img
             src="/story-old-shop-flood.jpg"
             alt="Old sporting goods storefront with mud, puddles, and flood marks along the porch and walls."
-            class="w-full max-w-5xl mx-auto block rounded-sm shadow-sm"
+            width="800"
+            height="600"
+            class="w-full block rounded-sm shadow-md grayscale-[.2] contrast-[1.1]"
             loading="lazy"
           />
         </figure>
-  
-        <!-- NEW BEGINNING SECTION -->
-        <h2 class="text-brand-brown font-display font-bold text-2xl md:text-3xl mt-12 mb-4">
-          Still here for the next season
-        </h2>
-        <p class="mb-6 leading-relaxed">
-          Today, WV Wild Outdoors continues in that newer corner-lot location
-          as a straightforward, local shop run by people who know the area they
-          serve. Whether it’s getting sighted in for buck season, stocking up on
-          feed, or grabbing gear before a weekend in the woods, the goal is the
-          same: make it easy for locals to get what they need without leaving
-          the hills and hollows they call home.
-        </p>
-  
-        <!-- NEW BEGINNING ILLUSTRATION: NEW SHOP -->
-        <figure class="mt-8 mb-4">
-          <img
+      </section>
+
+      <!-- SECTION 3: Full Width Drama -->
+      <section class="fade-in-section">
+        <div class="max-w-3xl mx-auto text-center mb-12">
+          <h2 class="text-brand-brown font-display font-bold text-3xl md:text-4xl mb-6">
+            Still here for the next season
+          </h2>
+          <p class="text-brand-mud font-body text-lg leading-relaxed max-w-2xl mx-auto">
+            Today, WV Wild Outdoors continues in that newer corner-lot location
+            as a straightforward, local shop run by people who know the area they
+            serve. Whether it's getting sighted in for buck season, stocking up on
+            feed, or grabbing gear before a weekend in the woods — we're here to help.
+          </p>
+        </div>
+
+        <!-- Breakout Image -->
+        <figure class="relative w-screen left-1/2 -translate-x-1/2 md:w-full md:left-auto md:translate-x-0 md:-mx-12 overflow-hidden shadow-xl">
+           <img
             src="/story-new-shop-family.jpg"
             alt="New metal-sided sporting goods shop with a large SPORTING GOODS sign and a family standing at the steps."
-            class="w-full max-w-5xl mx-auto block rounded-sm shadow-sm"
+            width="1600"
+            height="900"
+            class="w-full h-[60vh] object-cover object-center"
             loading="lazy"
           />
+          <figcaption class="absolute bottom-0 right-0 bg-black/60 text-white px-4 py-2 font-display text-sm uppercase tracking-widest backdrop-blur-sm">
+            The New Shop Corner
+          </figcaption>
         </figure>
-      </div>
-    </section>
+      </section>
+
+    </div>
   </main>
 
   <Footer />
 </Layout>
+
+<script>
+  let initialized = false;
+  let observer: IntersectionObserver | null = null;
+
+  // Feature detection for IntersectionObserver
+  if (typeof IntersectionObserver !== 'undefined') {
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.1
+    };
+
+    observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('opacity-100', 'translate-y-0');
+          entry.target.classList.remove('opacity-0', 'translate-y-12');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    // Cleanup observer on page navigation (ViewTransitions)
+    document.addEventListener('astro:before-swap', () => {
+      observer?.disconnect();
+      initialized = false;
+    });
+  }
+
+  document.addEventListener('astro:page-load', () => {
+    initAnimations();
+  });
+
+  // Also run on immediate load
+  if (!initialized) {
+    initAnimations();
+  }
+
+  function initAnimations() {
+    if (initialized) return;
+    initialized = true;
+
+    // Respect users who prefer reduced motion
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches) {
+      return;
+    }
+
+    // Graceful degradation if IntersectionObserver not supported
+    if (!observer) {
+      console.info('[Story] Scroll animations disabled: IntersectionObserver not supported');
+      return;
+    }
+
+    const hiddenElements = document.querySelectorAll('.fade-in-section');
+    hiddenElements.forEach((el) => {
+      el.classList.add('transition-all', 'duration-1000', 'ease-out', 'opacity-0', 'translate-y-12');
+      observer!.observe(el); // Safe: guarded by line 174
+    });
+  }
+</script>
