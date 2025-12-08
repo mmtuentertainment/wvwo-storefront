@@ -1,0 +1,45 @@
+---
+import { SITE_CONTACT } from '../config/siteContact';
+
+// Pure Storefront Layout
+// Goal: 100% focus on the visual identity and the "Who", not the "What".
+---
+
+<section class="relative h-[85vh] min-h-[600px] w-full overflow-hidden" aria-labelledby="hero-heading">
+  <!-- Background Image -->
+  <div 
+    class="absolute inset-0 bg-[url('/og-wvwo-storefront.jpg')] bg-cover bg-center"
+    aria-hidden="true"
+  ></div>
+
+  <!-- Stronger Gradient for Readability -->
+  <div class="absolute inset-0 bg-gradient-to-r from-stone-900/90 via-stone-900/40 to-transparent pointer-events-none"></div>
+
+  <!-- Main Content Container -->
+  <div class="relative h-full max-w-7xl mx-auto px-4 py-12 flex flex-col justify-center">
+    
+    <!-- Intro & Actions -->
+    <div class="w-full max-w-2xl">
+      <p class="text-brand-cream/90 font-display font-bold tracking-widest uppercase text-sm mb-4 drop-shadow-md border-l-4 border-brand-orange pl-4">
+        Birch River / Little Birch, WV
+      </p>
+      <h1 id="hero-heading" class="text-white font-display font-black text-5xl md:text-8xl leading-[0.9] drop-shadow-2xl mb-8">
+        WV Wild Outdoors
+      </h1>
+      <p class="text-stone-100 text-lg md:text-2xl font-body leading-relaxed max-w-prose drop-shadow-md opacity-95 mb-10 text-pretty">
+        Your local headquarters for hunting, fishing, and the back roads. 
+        From rifles and ammo to deer feed and boots, we’ve got you covered for every season.
+      </p>
+      
+      <div class="flex flex-wrap gap-4">
+        <a href={SITE_CONTACT.phoneHref} class="px-8 py-4 bg-sign-green text-white font-bold rounded shadow-xl hover:bg-green-700 hover:-translate-y-1 transition-all uppercase tracking-wide text-sm md:text-base">
+          Call the Shop
+        </a>
+        <a href="#visit" class="px-8 py-4 bg-white/10 backdrop-blur-md border border-white/30 text-white font-bold rounded shadow-xl hover:bg-white/20 hover:-translate-y-1 transition-all uppercase tracking-wide text-sm md:text-base">
+          Hours & Directions
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>

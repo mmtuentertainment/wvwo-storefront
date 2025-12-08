@@ -1,0 +1,104 @@
+{
+    "categories": [
+        {
+            "id": "ammo",
+            "name": "Ammunition",
+            "tagline": "The WV Staple",
+            "items": [
+                {
+                    "id": "hornady-red",
+                    "brand": "Hornady",
+                    "name": "Precision Hunter",
+                    "visual_cue": "Red Box",
+                    "context": "Premium loading for the serious hills.",
+                    "in_stock": true
+                },
+                {
+                    "id": "remington-core-lokt",
+                    "brand": "Remington",
+                    "name": "Core-Lokt",
+                    "visual_cue": "Green/Orange Box",
+                    "context": "The Deadliest Mushroom in the Woods. A West Virginia staple.",
+                    "in_stock": true
+                }
+            ]
+        },
+        {
+            "id": "fishing-creek",
+            "name": "Trout (Creeks)",
+            "tagline": "For the Tributaries",
+            "items": [
+                {
+                    "id": "powerbait",
+                    "brand": "Berkley",
+                    "name": "PowerBait",
+                    "visual_cue": "Small Jars (Yellow/Green)",
+                    "context": "Essential for the stocked streams.",
+                    "in_stock": true
+                },
+                {
+                    "id": "trout-magnet",
+                    "brand": "Trout Magnet",
+                    "name": "Original Kit",
+                    "visual_cue": "Pegboard Packs",
+                    "context": "Finesse fishing for wary trout.",
+                    "in_stock": true
+                }
+            ]
+        },
+        {
+            "id": "fishing-lake",
+            "name": "Trophy (Lakes)",
+            "tagline": "For Sutton & Burnsville",
+            "items": [
+                {
+                    "id": "spinnerbait",
+                    "brand": "Strike King/Generic",
+                    "name": "Spinnerbaits",
+                    "visual_cue": "White/Chartreuse Skirts",
+                    "context": "Reaction baits for bass in the timber.",
+                    "in_stock": true
+                },
+                {
+                    "id": "crankbait-deep",
+                    "brand": "Bandit/Rapala",
+                    "name": "Deep Diving Cranks",
+                    "visual_cue": "Hard Body Lures",
+                    "context": "Dredging the ledges at Summersville.",
+                    "in_stock": true
+                },
+                {
+                    "id": "catfish-rigs",
+                    "brand": "Eagle Claw",
+                    "name": "Catfish Trebles",
+                    "visual_cue": "Large Hooks",
+                    "context": "For the big flatheads at night.",
+                    "in_stock": true
+                }
+            ]
+        },
+        {
+            "id": "firearms",
+            "name": "Firearms",
+            "tagline": "Tools for the Woods",
+            "items": [
+                {
+                    "id": "rifle-wood",
+                    "brand": "Winchester/Remington",
+                    "name": "Bolt Action Wood Stock",
+                    "visual_cue": "Wood Stock, Blued Steel",
+                    "context": "Classic deer rifles. Often sold with scopes mounted.",
+                    "in_stock": true
+                },
+                {
+                    "id": "shotgun-pump",
+                    "brand": "Mossberg/Remington",
+                    "name": "pump-action Shotgun",
+                    "visual_cue": "Black/Camo Synthetic",
+                    "context": "Reliable turkey and home defense tools.",
+                    "in_stock": true
+                }
+            ]
+        }
+    ]
+}

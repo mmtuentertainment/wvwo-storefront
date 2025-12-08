@@ -1,0 +1,108 @@
+---
+import { Image } from 'astro:assets';
+// Import Assets
+import imgFlood1 from '../assets/flood_1_correct_1764941381960.png';
+import imgFlood2 from '../assets/flood_2_correct_1764941383146.png';
+import imgFlood3 from '../assets/flood_3_correct_1764941384257.png';
+import imgChapel from '../assets/story-chapel.png';
+
+// Narrative Content (Verified)
+const locations = {
+  home: "Sutton",
+  faith: "Tesla",
+  store: "Little Birch"
+};
+---
+
+<section id="about" class="py-20 bg-stone-900 text-brand-cream overflow-hidden relative">
+  <!-- Background Texture -->
+  <div class="absolute inset-0 opacity-10 pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/wood-pattern.png')]"></div>
+
+  <div class="container mx-auto px-4 relative z-10">
+    
+    <div class="text-center mb-16">
+      <h2 class="text-brand-cream font-display font-bold text-4xl mb-2">Our Story</h2>
+      <p class="text-sign-green font-hand text-3xl">God is Indeed Good All the Time</p>
+    </div>
+
+    <div class="space-y-24">
+
+      <!-- Chapter 1: 2008 - The Start (Fayetteville) -->
+      <div class="flex flex-col md:flex-row items-center gap-12">
+        <div class="md:w-1/2">
+          <div class="relative transform rotate-2 border-4 border-brand-cream/20 shadow-2xl p-2 bg-white/5">
+            <Image src={imgChapel} alt="Early Days" class="w-full sepia opacity-90" />
+            <div class="absolute -bottom-4 -right-4 bg-brand-brown px-4 py-2 text-white font-hand text-xl rotate-[-2deg]">
+              Fayetteville, 2008
+            </div>
+          </div>
+        </div>
+        <div class="md:w-1/2 space-y-4">
+          <h3 class="text-3xl font-display font-bold text-sign-green">The Beginning</h3>
+          <p class="text-stone-300 text-lg leading-relaxed">
+            We started back in 2008 in the New River Gorge area. Just a sporting goods store for "all sports." 
+            We worked hard, but that location... well, we couldn't make it there. 
+            Sometimes the Lord closes a door so you have to move.
+          </p>
+        </div>
+      </div>
+
+      <!-- Chapter 2: 2013 - The Homecoming (Sutton -> Little Birch) -->
+      <div class="flex flex-col md:flex-row-reverse items-center gap-12">
+        <div class="md:w-1/2 text-right md:text-left">
+             <div class="bg-brand-cream/10 p-6 rounded-lg border border-brand-cream/20">
+                <p class="font-hand text-2xl text-sign-green mb-2">"Closer to Home"</p>
+                <p class="text-stone-300 italic">
+                    We live in <strong>{locations.home}</strong>, our church is down the road in <strong>{locations.faith}</strong>, and in 2013 we settled the business right here in <strong>{locations.store}</strong>.
+                    <br/><br/>
+                    We aren't just a store off the highway. We are your neighbors. We drive these roads every day, same as you.
+                </p>
+             </div>
+        </div>
+        <div class="md:w-1/2 space-y-4 text-right">
+          <h3 class="text-3xl font-display font-bold text-brand-cream">The Move Home (2013)</h3>
+          <p class="text-stone-300 text-lg leading-relaxed">
+             We brought the business to the people we knew. 
+             It was humble, but it was ours. We were ready to work.
+          </p>
+        </div>
+      </div>
+
+      <!-- Chapter 3: 2016 - The Flood (The Quiet Witness) -->
+      <div class="flex flex-col md:flex-row items-center gap-12">
+        <div class="md:w-1/2 grid grid-cols-2 gap-2 transform -rotate-1">
+           <Image src={imgFlood1} alt="2016 Flood Damage" class="w-full h-48 object-cover border-2 border-red-900/50 grayscale hover:grayscale-0 transition-all rounded" />
+           <Image src={imgFlood2} alt="Devastation" class="w-full h-48 object-cover border-2 border-red-900/50 grayscale hover:grayscale-0 transition-all rounded translate-y-4" />
+           <Image src={imgFlood3} alt="Recovery" class="w-full h-48 object-cover col-span-2 border-2 border-red-900/50 grayscale hover:grayscale-0 transition-all rounded" />
+        </div>
+        <div class="md:w-1/2 space-y-4">
+          <h3 class="text-3xl font-display font-bold text-red-500">The Trial (June 2016)</h3>
+          <p class="text-stone-300 text-lg leading-relaxed">
+            When the waters rose in 2016, our region was devastated. Roads were cut. Neighbors were isolated.
+            <br/><br/>
+            We didn't post about it online. We didn't look for praise.
+            We just did what folks in Braxton County do: we checked on our neighbors, we prayed, and we dug out the mud.
+            <br/><br/>
+            The store took a hit—over <strong>$70,000</strong> in inventory gone. FEMA denied us. Then a theft.
+            But we kept the doors open because this community isn't just a market to us. It's home.
+          </p>
+        </div>
+      </div>
+
+      <!-- Chapter 4: 2025 - The Miracle -->
+      <div class="flex flex-col md:flex-row items-center gap-12 text-center w-full">
+        <div class="w-full max-w-4xl mx-auto border-t-4 border-sign-green pt-12 mt-12">
+           <p class="text-5xl font-hand text-brand-cream mb-6 leading-tight">
+            "We own the building. We own every single thing in it.<br/> That's God."
+           </p>
+           <h3 class="text-3xl font-display font-bold text-white mb-4">We Are Still Here.</h3>
+           <p class="text-stone-400 max-w-2xl mx-auto">
+             Powered by prayer, and a family that doesn't quit. 
+             If in the Lord's will, we'll be here for years to come.
+           </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

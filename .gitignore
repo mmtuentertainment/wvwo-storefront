@@ -83,3 +83,5 @@ volumes/
 
 # Spec-kit (separate git repository)
 spec-kit/
+.vercel
+.env*.local

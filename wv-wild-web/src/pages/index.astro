@@ -1,0 +1,43 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+
+import Hero from '../components/Hero.astro';
+import Visit from '../components/Visit.astro';
+import InventoryGrid from '../components/InventoryGrid.astro';
+import ContactStrip from '../components/ContactStrip.astro';
+import CategoryGrid from '../components/CategoryGrid.astro';
+import Ticker from '../components/Ticker.astro';
+import Services from '../components/Services.astro';
+import StorySection from '../components/StorySection.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout 
+  title="WV Wild Outdoors | Birch River, WV"
+  description="WV Wild Outdoors — family-run hunting and outdoor shop in Birch River, WV with firearms, ammo, hunting gear, feed and hunting & fishing licenses."
+>
+	<Header />
+	<main>
+		<Hero />
+		<Visit />
+        
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="border-t border-stone-200"></div>
+        </div>
+
+        <InventoryGrid />
+        <ContactStrip />
+        <Ticker />
+        <CategoryGrid />
+        <Services />
+        <StorySection />
+		<!-- Future sections: About -->
+		<section class="py-20 bg-brand-cream text-center">
+			<p class="text-brand-brown font-display text-2xl">
+				The woods are calling.
+			</p>
+		</section>
+	</main>
+    <Footer />
+</Layout>

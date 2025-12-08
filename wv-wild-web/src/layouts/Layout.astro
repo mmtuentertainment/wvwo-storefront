@@ -1,0 +1,47 @@
+---
+import '../styles/global.css';
+
+interface Props {
+	title: string;
+    description?: string;
+}
+
+const { 
+  title, 
+  description 
+} = Astro.props;
+
+const defaultDescription = "WV Wild Outdoors — family-run hunting and outdoor shop in Birch River, WV with firearms, ammo, hunting gear, feed and hunting & fishing licenses.";
+
+const ogTitle = title;
+const ogDescription = description ?? defaultDescription;
+
+const defaultOgImage = "/og-wvwo-storefront.jpg"; // TODO: change to full absolute URL after deploy
+
+const ogImage = defaultOgImage;
+
+const ogUrl = Astro.url?.href ?? ""; // use the current page URL as canonical
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content={description ?? defaultDescription} />
+
+		<!-- Open Graph tags -->
+		<meta property="og:title" content={ogTitle} />
+		<meta property="og:description" content={ogDescription} />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={ogUrl} />
+		<meta property="og:image" content={ogImage} />
+		<meta property="og:image:alt" content="WV Wild Outdoors hunting and outdoor shop in Birch River, WV" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+	</head>
+	<body class="bg-brand-cream text-stone-900 font-body min-h-screen selection:bg-brand-brown selection:text-brand-cream">
+		<slot />
+	</body>
+</html>

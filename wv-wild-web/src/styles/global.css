@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Roboto+Slab:wght@100..900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  /* Brand Colors - Verified from Design Plan */
+  --color-brand-brown: #3E2723;
+  --color-sign-green: #2E7D32;
+  --color-brand-cream: #FFF8E1; /* Soft background paper tone */
+  --color-brand-mud: #5D4037; /* For the flood context */
+  
+  /* Typography */
+  --font-display: 'Roboto Slab', serif;
+  --font-hand: 'Caveat', cursive;
+  --font-body: 'Inter', sans-serif; /* Clean readable body */
+}

@@ -1,0 +1,62 @@
+---
+import { SITE_CONTACT } from '../config/siteContact';
+---
+<footer id="contact" class="bg-brand-mud text-brand-cream pt-16 pb-8 border-t-8 border-sign-green">
+  <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+    
+    <!-- Contact Info -->
+    <div>
+      <h4 class="font-display font-bold text-2xl text-white mb-6">Visit Us</h4>
+      <p class="font-bold text-lg mb-2">WV Wild Outdoors</p>
+      <address class="not-italic text-brand-cream/80 mb-4 space-y-1">
+        {SITE_CONTACT.addressLines.slice(1).map((line) => <p>{line}</p>)}
+      </address>
+      <a href={SITE_CONTACT.phoneHref} class="block text-sign-green font-bold text-xl hover:text-white transition-colors">
+        {SITE_CONTACT.phoneDisplay}
+      </a>
+      <div class="mt-4 text-sm text-brand-cream/60">
+        <p class="font-bold text-white mb-1">Hours:</p>
+        <p>Mon-Sat: 10:00 AM - 5:00 PM*</p>
+        <p>Sun: Closed (Church)</p>
+        <p class="italic mt-2 text-xs opacity-75">
+          *Unless we're cleaning parks or at a family event. <br/>
+          (You know how it is!)
+        </p>
+      </div>
+    </div>
+
+    <!-- Quick Links -->
+    <div>
+       <h4 class="font-display font-bold text-xl text-white mb-6">Departments</h4>
+       <ul class="space-y-2 text-brand-cream/80">
+         <li><a href="#" class="hover:text-sign-green">Firearms & Optics</a></li>
+         <li><a href="#" class="hover:text-sign-green">Ammunition</a></li>
+         <li><a href="#" class="hover:text-sign-green">Live Bait & Tackle</a></li>
+         <li><a href="#" class="hover:text-sign-green">Hunting Licenses</a></li>
+       </ul>
+    </div>
+
+    <!-- Legal / FFL -->
+    <div class="bg-black/20 p-6 rounded border border-brand-cream/10">
+      <h4 class="font-display font-bold text-xl text-white mb-4">FFL Disclaimer</h4>
+      <p class="text-xs text-brand-cream/60 leading-relaxed text-justify">
+        All firearm sales are final and subject to federal background checks (NICS). 
+        You must be a West Virginia resident with valid ID to purchase handguns. 
+        Long gun sales available to out-of-state residents from contiguous states per federal law. 
+        We reserve the right to refuse sale to anyone.
+      </p>
+      <div class="mt-4 flex items-center gap-2 opacity-50">
+        <span class="text-xs uppercase tracking-widest border border-brand-cream/30 px-2 py-1">Type 02 FFL</span>
+        <span class="text-xs uppercase tracking-widest border border-brand-cream/30 px-2 py-1">SOT Class 3</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="container mx-auto px-4 text-center border-t border-brand-cream/10 pt-8">
+     <p class="font-hand text-brand-cream/40 text-lg">
+       &copy; {new Date().getFullYear()} WV Wild Outdoors. <br/>
+       <span class="text-sm">"Grand love ya."</span>
+     </p>
+  </div>
+</footer>

@@ -1,0 +1,27 @@
+---
+---
+<div class="bg-black text-brand-cream py-2 overflow-hidden border-b-2 border-brand-brown z-40 relative">
+  <div class="animate-marquee whitespace-nowrap flex space-x-12 font-body font-bold tracking-widest uppercase text-sm">
+    <span>★ New Hornady Shipment Just Landed</span>
+    <span>★ Archery Season Starts Oct 1</span>
+    <span>★ We Buy Used Guns - Top Dollar Paid</span>
+    <span>★ Fresh Trout Bait in Stock</span>
+    <span>★ FFL Transfers $25</span>
+    <!-- Repeat for seamless loop -->
+    <span>★ New Hornady Shipment Just Landed</span>
+    <span>★ Archery Season Starts Oct 1</span>
+    <span>★ We Buy Used Guns - Top Dollar Paid</span>
+    <span>★ Fresh Trout Bait in Stock</span>
+    <span>★ FFL Transfers $25</span>
+  </div>
+</div>
+
+<style>
+  .animate-marquee {
+    animation: marquee 25s linear infinite;
+  }
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+</style>
