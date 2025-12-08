@@ -73,6 +73,10 @@
 
     if (!btn || !menu) return;
 
+    // Idempotency guard: skip if already initialized
+    if (btn.dataset.menuInit === 'true') return;
+    btn.dataset.menuInit = 'true';
+
     btn.addEventListener('click', () => {
       const isExpanded = btn.getAttribute('aria-expanded') === 'true';
       btn.setAttribute('aria-expanded', String(!isExpanded));
