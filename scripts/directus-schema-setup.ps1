@@ -8,9 +8,6 @@
     .\scripts\directus-schema-setup.ps1
 #>
 
-# Note: Using plain strings for credentials is intentional for local dev scripts.
-# These values come from .env which is already plaintext. SecureString would add
-# complexity without security benefit in this context.
 param(
     [string]$DirectusUrl = "http://localhost:8055",
     [string]$AdminEmail = "admin@localhost.dev",
@@ -19,9 +16,6 @@ param(
 
 $ErrorActionPreference = "Stop"
 
-# Internal URL for container-based calls (always localhost from inside container)
-$DirectusInternalUrl = "http://127.0.0.1:8055"
-
 Write-Host "=== Directus Schema Setup ===" -ForegroundColor Cyan
 Write-Host "URL: $DirectusUrl"
 Write-Host ""
@@ -29,43 +23,50 @@ Write-Host ""
 # Check if Directus is accessible
 Write-Host "Checking Directus health..."
 try {
-    $health = docker exec wvwo-directus-dev wget -q -O - "$DirectusInternalUrl/server/health" 2>$null
-    if (-not $health) {
-        throw "Empty response"
+    $health = Invoke-RestMethod -Uri "$DirectusUrl/server/health" -Method Get -ErrorAction Stop
+    if ($health.status -ne "ok") {
+        throw "Status not OK"
     }
     Write-Host "$(([char]0x2713)) Directus is healthy" -ForegroundColor Green
 }
 catch {
-    Write-Host "ERROR: Directus is not accessible. Make sure Docker services are running." -ForegroundColor Red
+    Write-Host "ERROR: Directus is not accessible at $DirectusUrl. Make sure Docker services are running." -ForegroundColor Red
     exit 1
 }
 
 # Authenticate and get access token
 Write-Host "Authenticating..."
-$authBody = "{`"email`":`"$AdminEmail`",`"password`":`"$AdminPassword`"}"
-$authResponse = docker exec wvwo-directus-dev wget -q -O - `
-    --header="Content-Type: application/json" `
-    --post-data="$authBody" `
-    "$DirectusInternalUrl/auth/login" 2>$null
+$authBody = @{
+    email    = $AdminEmail
+    password = $AdminPassword
+} | ConvertTo-Json
 
-if ($authResponse -match '"access_token":"([^"]+)"') {
-    $accessToken = $matches[1]
+try {
+    $authResponse = Invoke-RestMethod -Uri "$DirectusUrl/auth/login" -Method Post -Body $authBody -ContentType "application/json"
+    $accessToken = $authResponse.data.access_token
     Write-Host "$(([char]0x2713)) Authenticated successfully" -ForegroundColor Green
 }
-else {
+catch {
     Write-Host "ERROR: Failed to authenticate. Check credentials." -ForegroundColor Red
-    Write-Host "Response: $authResponse"
+    Write-Host $_.Exception.Message
     exit 1
+}
+
+$headers = @{
+    "Authorization" = "Bearer $accessToken"
 }
 
 # Function to check if collection exists
 function Test-DirectusCollection {
     param($Collection)
 
-    $result = docker exec wvwo-directus-dev wget -q -O - `
-        --header="Authorization: Bearer $accessToken" `
-        "$DirectusInternalUrl/collections/$Collection" 2>$null
-    return $result -match '"collection"'
+    try {
+        Invoke-RestMethod -Uri "$DirectusUrl/collections/$Collection" -Method Get -Headers $headers -ErrorAction Stop | Out-Null
+        return $true
+    }
+    catch {
+        return $false
+    }
 }
 
 # Function to create collection (idempotent)
@@ -78,22 +79,32 @@ function New-DirectusCollection {
     }
 
     Write-Host "Creating collection: $Collection"
-    $body = "{`"collection`":`"$Collection`",`"schema`":$Schema,`"meta`":$Meta}"
-    docker exec wvwo-directus-dev wget -q -O - `
-        --header="Content-Type: application/json" `
-        --header="Authorization: Bearer $accessToken" `
-        --post-data="$body" `
-        "$DirectusInternalUrl/collections" 2>$null | Out-Null
+    $body = @{
+        collection = $Collection
+        schema     = $Schema | ConvertFrom-Json
+        meta       = $Meta | ConvertFrom-Json
+    } | ConvertTo-Json -Depth 10
+
+    try {
+        Invoke-RestMethod -Uri "$DirectusUrl/collections" -Method Post -Body $body -ContentType "application/json" -Headers $headers | Out-Null
+    }
+    catch {
+        Write-Host "Error creating collection $Collection" -ForegroundColor Red
+        Write-Host $_.Exception.Message
+    }
 }
 
 # Function to check if field exists
 function Test-DirectusField {
     param($Collection, $Field)
 
-    $result = docker exec wvwo-directus-dev wget -q -O - `
-        --header="Authorization: Bearer $accessToken" `
-        "$DirectusInternalUrl/fields/$Collection/$Field" 2>$null
-    return $result -match '"field"'
+    try {
+        Invoke-RestMethod -Uri "$DirectusUrl/fields/$Collection/$Field" -Method Get -Headers $headers -ErrorAction Stop | Out-Null
+        return $true
+    }
+    catch {
+        return $false
+    }
 }
 
 # Function to create field (idempotent)
@@ -106,12 +117,20 @@ function New-DirectusField {
     }
 
     Write-Host "  Adding field: $Field"
-    $body = "{`"field`":`"$Field`",`"type`":`"$Type`",`"meta`":$Meta,`"schema`":$Schema}"
-    docker exec wvwo-directus-dev wget -q -O - `
-        --header="Content-Type: application/json" `
-        --header="Authorization: Bearer $accessToken" `
-        --post-data="$body" `
-        "$DirectusInternalUrl/fields/$Collection" 2>$null | Out-Null
+    $body = @{
+        field  = $Field
+        type   = $Type
+        meta   = $Meta | ConvertFrom-Json
+        schema = $Schema | ConvertFrom-Json
+    } | ConvertTo-Json -Depth 10
+
+    try {
+        Invoke-RestMethod -Uri "$DirectusUrl/fields/$Collection" -Method Post -Body $body -ContentType "application/json" -Headers $headers | Out-Null
+    }
+    catch {
+        Write-Host "  Error creating field $Field" -ForegroundColor Red
+        Write-Host $_.Exception.Message
+    }
 }
 
 # Function to set public permission (idempotent)
@@ -119,12 +138,24 @@ function Set-PublicPermission {
     param($Collection, $Filter = "null")
 
     Write-Host "Setting public READ permission for: $Collection"
-    $body = "{`"role`":null,`"collection`":`"$Collection`",`"action`":`"read`",`"permissions`":$Filter,`"fields`":[`"*`"]}"
-    docker exec wvwo-directus-dev wget -q -O - `
-        --header="Content-Type: application/json" `
-        --header="Authorization: Bearer $accessToken" `
-        --post-data="$body" `
-        "$DirectusInternalUrl/permissions" 2>$null | Out-Null
+    
+    # Check existing permissions first to handle updates better? 
+    # For now, simplistic creation which might error if unique constraint hit, but API usually handles it.
+    
+    $body = @{
+        role        = $null
+        collection  = $Collection
+        action      = "read"
+        permissions = if ($Filter -ne "null") { $Filter | ConvertFrom-Json } else { $null }
+        fields      = @("*")
+    } | ConvertTo-Json -Depth 10
+
+    try {
+        Invoke-RestMethod -Uri "$DirectusUrl/permissions" -Method Post -Body $body -ContentType "application/json" -Headers $headers | Out-Null
+    }
+    catch {
+        # Ignore 400/Conflicts for permissions as they might exist
+    }
 }
 
 Write-Host ""
@@ -226,39 +257,76 @@ New-DirectusField "products" "discontinued" "boolean" '{"interface":"boolean","d
 # Add parent field to categories (self-reference) with idempotency check
 if (-not (Test-DirectusField -Collection "categories" -Field "parent")) {
     Write-Host "Adding parent field to categories..."
-    $body = '{"field":"parent","type":"integer","meta":{"interface":"select-dropdown-m2o","special":["m2o"],"options":{"template":"{{name}}"}}}'
-    docker exec wvwo-directus-dev wget -q -O - `
-        --header="Content-Type: application/json" `
-        --header="Authorization: Bearer $accessToken" `
-        --post-data="$body" `
-        "$DirectusInternalUrl/fields/categories" 2>$null | Out-Null
-} else {
+    $body = @{
+        field = "parent"
+        type  = "integer"
+        meta  = @{
+            interface = "select-dropdown-m2o"
+            special   = @("m2o")
+            options   = @{ template = "{{name}}" }
+        }
+    } | ConvertTo-Json -Depth 10
+
+    try {
+        Invoke-RestMethod -Uri "$DirectusUrl/fields/categories" -Method Post -Body $body -ContentType "application/json" -Headers $headers | Out-Null
+    }
+    catch { 
+        Write-Host "Error adding parent field" -ForegroundColor Red
+        Write-Host $_.Exception.Message
+    }
+}
+else {
     Write-Host "  Field already exists: parent (skipping)"
 }
 
 # Add category relationship to products
 if (-not (Test-DirectusField -Collection "products" -Field "category")) {
     Write-Host "Adding category relationship to products..."
-    $body = '{"field":"category","type":"integer","meta":{"interface":"select-dropdown-m2o","special":["m2o"],"required":true,"options":{"template":"{{name}}"}}}'
-    docker exec wvwo-directus-dev wget -q -O - `
-        --header="Content-Type: application/json" `
-        --header="Authorization: Bearer $accessToken" `
-        --post-data="$body" `
-        "$DirectusInternalUrl/fields/products" 2>$null | Out-Null
-} else {
+    $body = @{
+        field = "category"
+        type  = "integer"
+        meta  = @{
+            interface = "select-dropdown-m2o"
+            special   = @("m2o")
+            required  = $true
+            options   = @{ template = "{{name}}" }
+        }
+    } | ConvertTo-Json -Depth 10
+
+    try {
+        Invoke-RestMethod -Uri "$DirectusUrl/fields/products" -Method Post -Body $body -ContentType "application/json" -Headers $headers | Out-Null
+    }
+    catch {
+        Write-Host "Error adding category field" -ForegroundColor Red
+        Write-Host $_.Exception.Message
+    }
+}
+else {
     Write-Host "  Field already exists: category (skipping)"
 }
 
 # Add brand relationship to products
 if (-not (Test-DirectusField -Collection "products" -Field "brand")) {
     Write-Host "Adding brand relationship to products..."
-    $body = '{"field":"brand","type":"integer","meta":{"interface":"select-dropdown-m2o","special":["m2o"],"options":{"template":"{{name}}"}}}'
-    docker exec wvwo-directus-dev wget -q -O - `
-        --header="Content-Type: application/json" `
-        --header="Authorization: Bearer $accessToken" `
-        --post-data="$body" `
-        "$DirectusInternalUrl/fields/products" 2>$null | Out-Null
-} else {
+    $body = @{
+        field = "brand"
+        type  = "integer"
+        meta  = @{
+            interface = "select-dropdown-m2o"
+            special   = @("m2o")
+            options   = @{ template = "{{name}}" }
+        }
+    } | ConvertTo-Json -Depth 10
+    
+    try {
+        Invoke-RestMethod -Uri "$DirectusUrl/fields/products" -Method Post -Body $body -ContentType "application/json" -Headers $headers | Out-Null
+    }
+    catch {
+        Write-Host "Error adding brand field" -ForegroundColor Red
+        Write-Host $_.Exception.Message
+    }
+}
+else {
     Write-Host "  Field already exists: brand (skipping)"
 }
 
@@ -266,18 +334,19 @@ Write-Host ""
 Write-Host "=== Creating Relations ===" -ForegroundColor Cyan
 
 $relations = @(
-    '{"collection":"categories","field":"parent","related_collection":"categories"}',
-    '{"collection":"products","field":"category","related_collection":"categories"}',
-    '{"collection":"products","field":"brand","related_collection":"brands"}'
+    @{ collection = "categories"; field = "parent"; related_collection = "categories" },
+    @{ collection = "products"; field = "category"; related_collection = "categories" },
+    @{ collection = "products"; field = "brand"; related_collection = "brands" }
 )
 
 # Relations are idempotent - Directus ignores duplicates
 foreach ($rel in $relations) {
-    docker exec wvwo-directus-dev wget -q -O - `
-        --header="Content-Type: application/json" `
-        --header="Authorization: Bearer $accessToken" `
-        --post-data="$rel" `
-        "$DirectusInternalUrl/relations" 2>$null | Out-Null
+    try {
+        Invoke-RestMethod -Uri "$DirectusUrl/relations" -Method Post -Body ($rel | ConvertTo-Json) -ContentType "application/json" -Headers $headers | Out-Null
+    }
+    catch {
+        # Ignore relation creation errors (likely already exists)
+    }
 }
 
 Write-Host ""
@@ -286,11 +355,11 @@ Write-Host "=== Configuring Public Role Permissions ===" -ForegroundColor Cyan
 Set-PublicPermission "categories"
 Set-PublicPermission "brands"
 Set-PublicPermission "store_info"
-Set-PublicPermission "homepage_features" '{"active":{"_eq":true}}'
-Set-PublicPermission "announcements" '{"status":{"_eq":"published"}}'
-Set-PublicPermission "services" '{"status":{"_eq":"published"}}'
-Set-PublicPermission "pages" '{"status":{"_eq":"published"}}'
-Set-PublicPermission "products" '{"status":{"_eq":"published"}}'
+Set-PublicPermission "homepage_features" (@{ active = @{ _eq = $true } } | ConvertTo-Json)
+Set-PublicPermission "announcements" (@{ status = @{ _eq = "published" } } | ConvertTo-Json)
+Set-PublicPermission "services" (@{ status = @{ _eq = "published" } } | ConvertTo-Json)
+Set-PublicPermission "pages" (@{ status = @{ _eq = "published" } } | ConvertTo-Json)
+Set-PublicPermission "products" (@{ status = @{ _eq = "published" } } | ConvertTo-Json)
 Set-PublicPermission "directus_files"
 
 Write-Host ""
