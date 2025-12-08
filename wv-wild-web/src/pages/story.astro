@@ -178,7 +178,7 @@ import Footer from '../components/Footer.astro';
     const hiddenElements = document.querySelectorAll('.fade-in-section');
     hiddenElements.forEach((el) => {
       el.classList.add('transition-all', 'duration-1000', 'ease-out', 'opacity-0', 'translate-y-12');
-      observer.observe(el);
+      observer!.observe(el); // Safe: guarded by line 174
     });
   }
 </script>
