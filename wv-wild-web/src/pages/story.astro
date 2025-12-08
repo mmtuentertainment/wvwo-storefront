@@ -4,73 +4,87 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 ---
 
-<Layout title="Our Story | WV Wild Outdoors">
+<Layout title="Our Story | WV Wild Outdoors" description="From a small shop on the back roads to a new corner lot. The story of WV Wild Outdoors.">
   <Header />
   
   <main>
     <section class="max-w-4xl mx-auto px-4 py-12 md:py-20" aria-labelledby="our-story-heading">
-      <h1 id="our-story-heading" class="text-brand-brown font-display font-black text-4xl md:text-6xl mb-12 leading-tight text-center md:text-left">
+      <h1
+        id="our-story-heading"
+        class="text-brand-brown font-display font-black text-4xl md:text-6xl mb-8 leading-tight"
+      >
         Our Story
       </h1>
-
+  
       <div class="prose prose-lg md:prose-xl text-stone-700 font-body max-w-none">
-        
-        <!-- Chapter 1: The Beginning -->
-        <figure class="my-12 -mx-4 md:-mx-12">
-            <img
-            src="/story-sketch-old-store.png"
-            alt="Pencil sketch of the original WV Wild Outdoors shop with its stepped roof and red truck parked front."
-            class="w-full h-auto rounded-none md:rounded-xl shadow-lg border-4 border-white transform rotate-1"
-            loading="lazy"
-            />
-        </figure>
-
-        <h2 class="text-brand-brown font-display font-bold text-2xl md:text-3xl mt-8 mb-4">
-          From a small shop on the back roads
+        <!-- BEGINNING SECTION -->
+        <h2 class="text-brand-brown font-display font-bold text-2xl md:text-3xl mt-12 mb-4">
+          From a small shop on the back roads to a new corner lot
         </h2>
         <p class="mb-6 leading-relaxed">
-          WV Wild Outdoors is a small, family-run hunting and outdoor shop serving Birch River, Little Birch, and the back roads in between. Over the years, the shop became a practical waypoint where locals picked up firearms, ammo, hunting gear, and the everyday odds and ends that keep farms, camps, and seasons running.
+          WV Wild Outdoors is a small, family-run hunting and outdoor shop
+          serving Birch River, Little Birch, and the back roads in between.
+          Over the years, the shop has become a practical waypoint where locals
+          pick up firearms, ammo, hunting gear, and the everyday odds and ends
+          that keep farms, camps, and seasons running.
         </p>
-
-        <!-- Chapter 2: The Flood -->
-        <figure class="my-12 -mx-4 md:-mx-12">
-            <img
-            src="/story-sketch-flood.png"
-            alt="Artistic sketch of the 2016 flood aftermath, showing mud and debris but with hopeful lighting breaking through."
-            class="w-full h-auto rounded-none md:rounded-xl shadow-lg border-4 border-white transform -rotate-1 grayscale-[20%] sepia-[30%]"
+  
+        <!-- BEGINNING ILLUSTRATION: BRIDGE -->
+        <figure class="mt-8 mb-10">
+          <img
+            src="/story-bridge-beginning.jpg"
+            alt="A small car driving across a high bridge over a forested gorge, heading toward the hills."
+            class="w-full max-w-5xl mx-auto block rounded-sm shadow-sm"
             loading="lazy"
-            />
-            <figcaption class="mt-2 text-center text-sm md:text-base italic text-stone-500 font-serif">
-                "Muddy water, clear spirit."
-            </figcaption>
+          />
         </figure>
-
-        <h2 class="text-brand-brown font-display font-bold text-2xl md:text-3xl mt-8 mb-4">
-          Through the 2016 flood
+  
+        <!-- FLOOD SECTION -->
+        <h2 class="text-brand-brown font-display font-bold text-2xl md:text-3xl mt-12 mb-4">
+          Through the 2016 flood and a move down the road
         </h2>
         <p class="mb-6 leading-relaxed">
-          In June 2016, severe flooding hit this part of West Virginia, including communities in and around Birch River and Nicholas County. The family’s original Little Birch shop building next door took on damage in that flood. But in these hills, mud cleans off.
+          In June 2016, severe flooding hit this part of West Virginia,
+          including communities in and around Birch River and Nicholas County.
+          The family’s original Little Birch shop building next door took on
+          damage in that flood. Rather than close the doors for good, they
+          bought the corner lot just down the road and moved WV Wild Outdoors
+          there, keeping the shop close to the same neighbors, hunters, and
+          families who had always depended on it.
         </p>
-        <p class="mb-6 leading-relaxed">
-          Rather than close the doors for good, they bought the corner lot just down the road and moved WV Wild Outdoors there—mud and all—keeping the shop close to the same neighbors, hunters, and families who had always depended on it.
-        </p>
-
-        <!-- Chapter 3: The Rebuild -->
-        <figure class="my-12 -mx-4 md:-mx-12">
-            <img
-            src="/story-sketch-rebuild.png"
-            alt="Pencil sketch of the new, current WV Wild Outdoors location. A tidy brown building with a welcoming porch."
-            class="w-full h-auto rounded-none md:rounded-xl shadow-lg border-4 border-white transform rotate-1"
+  
+        <!-- FLOOD ILLUSTRATION: OLD SHOP -->
+        <figure class="mt-8 mb-10">
+          <img
+            src="/story-old-shop-flood.jpg"
+            alt="Old sporting goods storefront with mud, puddles, and flood marks along the porch and walls."
+            class="w-full max-w-5xl mx-auto block rounded-sm shadow-sm"
             loading="lazy"
-            />
+          />
         </figure>
-
-        <h2 class="text-brand-brown font-display font-bold text-2xl md:text-3xl mt-8 mb-4">
+  
+        <!-- NEW BEGINNING SECTION -->
+        <h2 class="text-brand-brown font-display font-bold text-2xl md:text-3xl mt-12 mb-4">
           Still here for the next season
         </h2>
         <p class="mb-6 leading-relaxed">
-          Today, WV Wild Outdoors continues in that newer corner-lot location as a straightforward, local shop run by people who know the area they serve. Whether it’s getting sighted in for buck season, grabbing a bag of deer corn, or just stopping by to talk shop, the goal is the same: make it easy for locals to get what they need without leaving the hills and hollows they call home.
+          Today, WV Wild Outdoors continues in that newer corner-lot location
+          as a straightforward, local shop run by people who know the area they
+          serve. Whether it’s getting sighted in for buck season, stocking up on
+          feed, or grabbing gear before a weekend in the woods, the goal is the
+          same: make it easy for locals to get what they need without leaving
+          the hills and hollows they call home.
         </p>
+  
+        <!-- NEW BEGINNING ILLUSTRATION: NEW SHOP -->
+        <figure class="mt-8 mb-4">
+          <img
+            src="/story-new-shop-family.jpg"
+            alt="New metal-sided sporting goods shop with a large SPORTING GOODS sign and a family standing at the steps."
+            class="w-full max-w-5xl mx-auto block rounded-sm shadow-sm"
+            loading="lazy"
+          />
+        </figure>
       </div>
     </section>
   </main>
