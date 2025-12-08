@@ -32,7 +32,7 @@ if [ -z "$ACCESS_TOKEN" ]; then
 fi
 echo "✓ Authenticated"
 
-# Function to insert item (idempotent - checks slug/name before insert)
+# insert_item posts JSON data to a Directus collection from inside the container using the current access token and suppresses output and errors.
 insert_item() {
     local collection=$1
     local data=$2
@@ -45,7 +45,7 @@ insert_item() {
 }
 
 # Function to update singleton (uses Node.js for PATCH support)
-# Note: Uses hardcoded 127.0.0.1:8055 as Node.js runs inside the container
+# update_singleton updates a singleton collection in the Directus instance running inside the container by PATCHing the provided JSON data to /items/<collection> using the container's Node.js and the ACCESS_TOKEN.
 update_singleton() {
     local collection=$1
     local data=$2

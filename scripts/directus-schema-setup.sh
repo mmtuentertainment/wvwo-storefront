@@ -43,7 +43,7 @@ if [ -z "$ACCESS_TOKEN" ]; then
 fi
 echo "✓ Authenticated successfully"
 
-# Function to check if collection exists
+# collection_exists checks if the specified Directus collection exists; returns exit status 0 when it does and non-zero when it does not.
 collection_exists() {
     local collection=$1
     docker exec wvwo-directus-dev wget -q -O - \
@@ -51,7 +51,11 @@ collection_exists() {
         "$DIRECTUS_INTERNAL_URL/collections/$collection" 2>/dev/null | grep -q '"collection"' 2>/dev/null
 }
 
-# Function to create collection (idempotent)
+# create_collection idempotently creates a Directus collection if it does not already exist.
+# Posts the collection definition to Directus using the global DIRECTUS_INTERNAL_URL and ACCESS_TOKEN.
+# collection: name of the collection to create.
+# schema: JSON string for the collection schema (e.g., fields/settings).
+# meta: JSON string for collection meta/metadata.
 create_collection() {
     local collection=$1
     local schema=$2
@@ -71,7 +75,7 @@ create_collection() {
         "$DIRECTUS_INTERNAL_URL/collections" > /dev/null 2>&1 || true
 }
 
-# Function to check if field exists
+# field_exists checks whether a field exists on a Directus collection by querying the Directus API and signalling result via exit status.
 field_exists() {
     local collection=$1
     local field=$2
@@ -80,7 +84,7 @@ field_exists() {
         "$DIRECTUS_INTERNAL_URL/fields/$collection/$field" 2>/dev/null | grep -q '"field"' 2>/dev/null
 }
 
-# Function to create field (idempotent)
+# create_field idempotently creates a field on a Directus collection via the API and skips creation if the field already exists.
 create_field() {
     local collection=$1
     local field=$2
@@ -102,7 +106,7 @@ create_field() {
         "$DIRECTUS_INTERNAL_URL/fields/$collection" > /dev/null 2>&1 || true
 }
 
-# Get Public policy ID (Directus 11.x uses policies, not roles for permissions)
+# get_public_policy_id retrieves the Directus "Public" policy ID from the /policies endpoint and echoes it (prints nothing if not found).
 get_public_policy_id() {
     docker exec wvwo-directus-dev wget -q -O - \
         --header="Authorization: Bearer $ACCESS_TOKEN" \
@@ -111,7 +115,7 @@ get_public_policy_id() {
         grep -o '"id":"[^"]*"' | cut -d'"' -f4
 }
 
-# Function to check if permission exists
+# permission_exists checks whether a public read permission exists for the given collection in Directus and returns success (0) if found, failure (non‑zero) otherwise.
 permission_exists() {
     local collection=$1
     docker exec wvwo-directus-dev wget -q -O - \
@@ -120,7 +124,7 @@ permission_exists() {
         grep -q '"id"' 2>/dev/null
 }
 
-# Function to set public permission (idempotent)
+# set_public_permission idempotently assigns the public READ permission to a Directus collection using $PUBLIC_POLICY_ID and $ACCESS_TOKEN; accepts an optional JSON filter as the second argument (defaults to '{}').
 set_public_permission() {
     local collection=$1
     local filter=${2:-"{}"}
