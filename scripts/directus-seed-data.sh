@@ -314,3 +314,4 @@ echo "=== Seed Data Complete ==="
 echo "Loaded: categories, brands, store_info, services, announcements, pages"
 echo ""
 echo "Verify at: $BASE_URL/admin"
+exit 0
