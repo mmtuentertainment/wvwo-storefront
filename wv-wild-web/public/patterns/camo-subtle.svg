@@ -1,0 +1,13 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="blur">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2" />
+    </filter>
+  </defs>
+  <rect width="200" height="200" fill="transparent"/>
+  <!-- Organic Shapes (Greens/Browns) -->
+  <path d="M20,20 Q50,5 80,40 T120,60 T160,30" fill="#2E7D32" opacity="0.4" filter="url(#blur)"/>
+  <path d="M10,100 Q40,80 70,120 T110,150 T180,110" fill="#3E2723" opacity="0.4" filter="url(#blur)"/>
+  <path d="M120,10 Q150,50 180,20" fill="#5D4037" opacity="0.4" filter="url(#blur)"/>
+  <path d="M50,160 Q90,140 130,180 T190,150" fill="#2E7D32" opacity="0.3" filter="url(#blur)"/>
+</svg>
