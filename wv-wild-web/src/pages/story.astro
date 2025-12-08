@@ -172,6 +172,7 @@ import Footer from '../components/Footer.astro';
 
     // Graceful degradation if IntersectionObserver not supported
     if (!observer) {
+      console.info('[Story] Scroll animations disabled: IntersectionObserver not supported');
       return;
     }
 
