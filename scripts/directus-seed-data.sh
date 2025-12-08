@@ -7,6 +7,25 @@
 
 set -euo pipefail
 
+# Help / Usage
+if [[ "${1:-}" == "-h" || "${1:-}" == "--help" ]]; then
+    cat <<EOF
+Directus Seed Data Script
+
+Usage: $(basename "$0") [-h|--help]
+
+Env vars:
+  DIRECTUS_URL            External Directus URL (default: http://localhost:8055)
+  DIRECTUS_ADMIN_EMAIL    Admin email (default: admin@localhost.dev)
+  DIRECTUS_ADMIN_PASSWORD Admin password (default: admin123)
+
+Description:
+  Loads initial seed data (categories, brands, singleton content) into the running
+  Directus instance. Assumes 'wvwo-directus-dev' container is active.
+EOF
+    exit 0
+fi
+
 DIRECTUS_URL="${DIRECTUS_URL:-http://localhost:8055}"
 ADMIN_EMAIL="${DIRECTUS_ADMIN_EMAIL:-admin@localhost.dev}"
 ADMIN_PASSWORD="${DIRECTUS_ADMIN_PASSWORD:-admin123}"

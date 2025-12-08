@@ -11,17 +11,33 @@ Write-Host ""
 
 # Stop non-WVWO containers
 Write-Host "Stopping extra containers (MCP servers)..." -ForegroundColor Yellow
-docker stop tender_jepsen adoring_keldysh 2>$null
-docker rm tender_jepsen adoring_keldysh 2>$null
+try {
+    docker stop tender_jepsen adoring_keldysh 2>$null
+    docker rm tender_jepsen adoring_keldysh 2>$null
+}
+catch {
+    Write-Host "No extra containers found or error stopping them (ignoring)." -ForegroundColor DarkGray
+}
 
 # Remove old/unused images
 Write-Host "Removing old unused images..." -ForegroundColor Yellow
-docker rmi postgres:15-alpine 2>$null
-docker rmi redis:7-alpine 2>$null
-docker rmi directus/directus:10 2>$null
-docker rmi ghost:5.96.0 2>$null
-docker rmi ghost:5-alpine 2>$null
-docker rmi inovector/mixpost:latest 2>$null
+$imagesToRemove = @(
+    "postgres:15-alpine",
+    "redis:7-alpine",
+    "directus/directus:10",
+    "ghost:5.96.0",
+    "ghost:5-alpine",
+    "inovector/mixpost:latest"
+)
+
+foreach ($image in $imagesToRemove) {
+    try {
+        docker rmi $image 2>$null
+    }
+    catch {
+        # Ignore errors if image doesn't exist
+    }
+}
 
 # Clean build cache
 Write-Host "Cleaning build cache..." -ForegroundColor Yellow

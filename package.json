@@ -2,7 +2,7 @@
     "name": "wvwo-storefront-root",
     "private": true,
     "scripts": {
-        "build": "cd wv-wild-web && npm install && npm run build && cd .. && rm -rf dist && cp -r wv-wild-web/dist dist",
+        "build": "node scripts/build.js",
         "dev": "cd wv-wild-web && npm install && npm run dev",
         "preview": "cd wv-wild-web && npm run preview"
     }
