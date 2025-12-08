@@ -221,7 +221,7 @@ The following tasks require manual browser testing in Directus Admin UI:
 - T031 [US1] Test product image upload (5MB limit)
 - T033 [US1] Test product search functionality
 - T034 [US1] Test mobile responsiveness (375px width)
-- T042 [US2] Test file asset access (requires uploaded files)
+- T042 [US2] Test file asset access (to be uploaded)
 - T045-T047 [US3] Test store_info editing workflows
 - T049 [US3] Test mobile responsiveness of store_info form
 - T051-T056 [US4] Test announcement CRUD and date filtering

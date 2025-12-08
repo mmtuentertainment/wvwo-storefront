@@ -15,12 +15,15 @@
 - Snapshot approach allows version-controlled schema changes
 
 **Alternatives Considered**:
+
 | Approach | Pros | Cons | Rejected Because |
 |----------|------|------|------------------|
 | Direct API calls | Scriptable | Complex, error-prone for relations | Too brittle for 8 collections |
 | Schema migration files | Version controlled | Directus doesn't use traditional migrations | Not native to Directus |
 | Admin UI only | Simple | Not reproducible | Need automation for clean installs |
 | **Snapshot + Apply** | Reproducible, simple | Requires running Directus | Best balance of simplicity and automation |
+
+
 
 **Implementation**:
 1. Create collections via Admin UI using `schema.json` as reference
@@ -49,12 +52,15 @@
 3. For directus_files: Enable READ for public file access
 
 **API Access Pattern**:
-```
+
+```http
 GET /items/products?filter[status][_eq]=published
 GET /items/categories
 GET /items/store_info  (singleton)
 GET /items/announcements?filter[status][_eq]=published&filter[start_date][_lte]=$NOW&filter[end_date][_gte]=$NOW
 ```
+
+
 
 ---
 
@@ -73,13 +79,16 @@ GET /items/announcements?filter[status][_eq]=published&filter[start_date][_lte]=
 - Verify in Admin UI: Settings > Data Model > store_info > Singleton toggle
 
 **API Behavior**:
-```
+
+```http
 # Regular collection returns array:
 GET /items/products → [{ id: 1, ... }, { id: 2, ... }]
 
 # Singleton returns object:
 GET /items/store_info → { id: 1, store_name: "WV Wild Outdoors", ... }
 ```
+
+
 
 ---
 
@@ -97,6 +106,8 @@ Add to `docker-compose.yml` Directus environment:
 ```yaml
 FILE_MAX_SIZE: "5mb"
 ```
+
+
 
 **Current docker-compose.yml Check**:
 - Not currently set - defaults to Directus internal limit
@@ -123,7 +134,7 @@ FILE_MAX_SIZE: "5mb"
 3. POST seed data to each collection endpoint
 4. Verify via API responses
 
-**Script Location**: `scripts/directus-seed.sh` / `scripts/directus-seed.ps1`
+**Script Location**: `scripts/directus-seed-data.sh`
 
 ---
 

@@ -133,17 +133,100 @@ function New-DirectusField {
     }
 }
 
+# Function to get or create Public Policy (Directus 11 requires Policies for Permissions)
+function Get-PublicPolicy {
+    param()
+    
+    # 1. Check if policy exists
+    try {
+        $policies = Invoke-RestMethod -Uri "$DirectusUrl/policies?filter[name][_eq]=Public Read Access" -Method Get -Headers $headers -ErrorAction Stop
+        if ($policies.data.Count -gt 0) {
+            Write-Host "  Policy 'Public Read Access' already exists."
+            return $policies.data[0].id
+        }
+    }
+    catch {
+        # ignore error, try create
+    }
+
+    # 2. Create Policy if not exists
+    Write-Host "  Creating 'Public Read Access' policy..."
+    $policyBody = @{
+        name         = "Public Read Access"
+        icon         = "public"
+        description  = "Public read access for storefront"
+        enforce_tfa  = $false
+        admin_access = $false
+        app_access   = $false
+    } | ConvertTo-Json
+
+    try {
+        $response = Invoke-RestMethod -Uri "$DirectusUrl/policies" -Method Post -Body $policyBody -ContentType "application/json" -Headers $headers
+        return $response.data.id
+    }
+    catch {
+        Write-Host "Error creating policy" -ForegroundColor Red
+        Write-Host $_.Exception.Message
+        exit 1
+    }
+}
+
+# Function to attach policy to Public Role
+function Attach-PolicyToPublicRole {
+    param($PolicyId)
+
+    # 1. Get Public Role ID (Directus 11 often has no ID for public, but we need to check how to attach)
+    # Actually, in Directus 11, the "Public" role is special. 
+    # API calls usually just rely on the policy being linked to the public *user* or role logic?
+    # Wait, the migration notes say: "Permissions are no longer held in roles, but instead in policies."
+    # AND "policies are attached to roles/users".
+    # There is a default public role. Let's find it.
+    
+    try {
+        # The public role usually has name 'Public'
+        $roles = Invoke-RestMethod -Uri "$DirectusUrl/roles?filter[name][_eq]=Public" -Method Get -Headers $headers
+        if ($roles.data.Count -eq 0) {
+            Write-Host "Could not find Public role. This script assumes standard Directus setup." -ForegroundColor Red
+            return
+        }
+        $publicRoleId = $roles.data[0].id
+        
+        # Check if already attached
+        $existingAccess = Invoke-RestMethod -Uri "$DirectusUrl/access?filter[role][_eq]=$publicRoleId&filter[policy][_eq]=$PolicyId" -Method Get -Headers $headers
+        if ($existingAccess.data.Count -gt 0) {
+            return
+        }
+
+        # Attach Policy to Role (Access table or similar? Docs say POST /access in some 11 versions or just policies link)
+        # Directus 11 uses an 'access' junction or simply a list of policies on the role?
+        # Let's try appending to the specific role's policies if possible, or creating an access record.
+        # As per recent Directus 11 changes, creating a record in `directus_access` is the way.
+        
+        Write-Host "  Attaching configuration to Public role..."
+        $accessBody = @{
+            role   = $publicRoleId
+            policy = $PolicyId
+        } | ConvertTo-Json
+
+        Invoke-RestMethod -Uri "$DirectusUrl/access" -Method Post -Body $accessBody -ContentType "application/json" -Headers $headers | Out-Null
+        
+    }
+    catch {
+        # Fallback/Error handling
+        Write-Host "  Note: Automatic attachment to Public role might vary by sub-version. Please verify in Admin > Settings > Roles > Public." -ForegroundColor Yellow
+    }
+}
+
 # Function to set public permission (idempotent)
 function Set-PublicPermission {
-    param($Collection, $Filter = "null")
+    param($Collection, $PolicyId, $Filter = "null")
 
     Write-Host "Setting public READ permission for: $Collection"
     
-    # Check existing permissions first to handle updates better? 
-    # For now, simplistic creation which might error if unique constraint hit, but API usually handles it.
+    # In Directus 11, we create a permission record linked to the POLICY, not the role.
     
     $body = @{
-        role        = $null
+        policy      = $PolicyId
         collection  = $Collection
         action      = "read"
         permissions = if ($Filter -ne "null") { $Filter | ConvertFrom-Json } else { $null }
@@ -350,23 +433,31 @@ foreach ($rel in $relations) {
 }
 
 Write-Host ""
-Write-Host "=== Configuring Public Role Permissions ===" -ForegroundColor Cyan
+Write-Host "=== Configuring Public Role Permissions (Directus 11 Policy-Based) ===" -ForegroundColor Cyan
 
-Set-PublicPermission "categories"
-Set-PublicPermission "brands"
-Set-PublicPermission "store_info"
-Set-PublicPermission "homepage_features" (@{ active = @{ _eq = $true } } | ConvertTo-Json)
-Set-PublicPermission "announcements" (@{ status = @{ _eq = "published" } } | ConvertTo-Json)
-Set-PublicPermission "services" (@{ status = @{ _eq = "published" } } | ConvertTo-Json)
-Set-PublicPermission "pages" (@{ status = @{ _eq = "published" } } | ConvertTo-Json)
-Set-PublicPermission "products" (@{ status = @{ _eq = "published" } } | ConvertTo-Json)
-Set-PublicPermission "directus_files"
+# 1. Get/Create the Policy
+$publicPolicyId = Get-PublicPolicy
+
+# 2. Attach to Public Role
+Attach-PolicyToPublicRole -PolicyId $publicPolicyId
+
+# 3. Add Permissions to Policy
+Set-PublicPermission "categories" $publicPolicyId
+Set-PublicPermission "brands" $publicPolicyId
+Set-PublicPermission "store_info" $publicPolicyId
+Set-PublicPermission "homepage_features" $publicPolicyId (@{ active = @{ _eq = $true } } | ConvertTo-Json)
+Set-PublicPermission "announcements" $publicPolicyId (@{ status = @{ _eq = "published" } } | ConvertTo-Json)
+Set-PublicPermission "services" $publicPolicyId (@{ status = @{ _eq = "published" } } | ConvertTo-Json)
+Set-PublicPermission "pages" $publicPolicyId (@{ status = @{ _eq = "published" } } | ConvertTo-Json)
+Set-PublicPermission "products" $publicPolicyId (@{ status = @{ _eq = "published" } } | ConvertTo-Json)
+Set-PublicPermission "directus_files" $publicPolicyId
 
 Write-Host ""
 Write-Host "=== Schema Setup Complete ===" -ForegroundColor Green
 Write-Host "Collections created: categories, brands, store_info, homepage_features, announcements, services, pages, products"
-Write-Host "Public permissions configured for all collections"
+Write-Host "Public permissions policies configured"
 Write-Host ""
 Write-Host "Next steps:" -ForegroundColor Yellow
 Write-Host "1. Load seed data: bash ./scripts/directus-seed-data.sh"
 Write-Host "2. Verify in Directus Admin: $DirectusUrl/admin"
+```

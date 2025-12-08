@@ -12,7 +12,10 @@ ADMIN_EMAIL="${DIRECTUS_ADMIN_EMAIL:-admin@localhost.dev}"
 ADMIN_PASSWORD="${DIRECTUS_ADMIN_PASSWORD:-admin123}"
 
 # Internal URL for container-based calls
-DIRECTUS_INTERNAL_URL="http://127.0.0.1:8055"
+# Internal URL (derived from env var to allow overrides, e.g. http://directus:8055)
+# Strip trailing slash from DIRECTUS_URL
+BASE_URL="${DIRECTUS_URL%/}"
+DIRECTUS_INTERNAL_URL="$BASE_URL"
 
 echo "=== Directus Seed Data Loader ==="
 echo ""

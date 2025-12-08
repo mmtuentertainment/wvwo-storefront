@@ -13,7 +13,10 @@ ADMIN_EMAIL="${DIRECTUS_ADMIN_EMAIL:-admin@localhost.dev}"
 ADMIN_PASSWORD="${DIRECTUS_ADMIN_PASSWORD:-admin123}"
 
 # Extract host:port for internal container calls
-DIRECTUS_INTERNAL_URL="http://127.0.0.1:8055"
+# Extract host:port for internal container calls
+# Strip trailing slash from DIRECTUS_URL
+BASE_URL="${DIRECTUS_URL%/}"
+DIRECTUS_INTERNAL_URL="$BASE_URL"
 
 echo "=== Directus Schema Setup ==="
 echo "URL: $DIRECTUS_URL"

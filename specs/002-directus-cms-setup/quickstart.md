@@ -9,14 +9,14 @@ Before starting, ensure:
 
 - [x] Feature 001 (Docker Local Stack) is complete
 - [x] Docker services are running: `docker compose ps` shows all healthy
-- [x] Directus is accessible at http://localhost:8055
+- [x] Directus is accessible at <http://localhost:8055>
 - [x] Admin credentials are set in `.env`
 
 ---
 
 ## Step 1: Access Directus Admin
 
-1. Open http://localhost:8055/admin
+1. Open <http://localhost:8055/admin>
 2. Log in with credentials from `.env`:
    - Email: `DIRECTUS_ADMIN_EMAIL`
    - Password: `DIRECTUS_ADMIN_PASSWORD`
@@ -86,7 +86,7 @@ Create each collection following the schema in `directus-schema/schema.json`.
 | pages | All fields | `status = 'published'` |
 | directus_files | id, filename_download, type, filesize | None |
 
-4. Ensure CREATE, UPDATE, DELETE are **disabled** for Public role
+1. Ensure CREATE, UPDATE, DELETE are **disabled** for Public role
 
 ---
 
@@ -190,19 +190,23 @@ docker exec wvwo-directus-dev npx directus schema apply /directus/snapshot.yaml
 
 ## Troubleshooting
 
+
 ### "Collection not found" error
 - Verify collection name matches exactly (case-sensitive)
 - Check Directus logs: `docker compose logs directus`
+
 
 ### Public API returns empty array
 - Verify records have `status: published`
 - Check Public role permissions include READ
 - Verify filter conditions in permissions
 
+
 ### Image upload fails
 - Check file size (max 5MB)
 - Verify `directus-uploads` volume is mounted
 - Check Directus logs for storage errors
+
 
 ### Relationships not working
 - Ensure related collection exists before creating relationship

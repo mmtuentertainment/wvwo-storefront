@@ -58,8 +58,9 @@ directus-schema/
 └── seed-data.json       # Initial content (EXISTS)
 
 scripts/
-├── directus-setup.sh    # Schema application script (TO CREATE)
-└── directus-setup.ps1   # Windows equivalent (TO CREATE)
+├── directus-schema-setup.sh   # Schema application script (EXISTS)
+└── directus-schema-setup.ps1  # Windows equivalent (EXISTS)
+└── directus-seed-data.sh      # Seed data loader (EXISTS)
 ```
 
 **Structure Decision**: This feature is configuration-only. No `src/` directory needed. Schema already exists in `directus-schema/`. Scripts directory extends existing dev scripts from Feature 001.
