@@ -138,6 +138,64 @@ btn.dataset.menuInit = 'true';
 | Config | camelCase.ts | `siteContact.ts` |
 | Images | kebab-case.jpg | `story-old-shop-flood.jpg` |
 
+## CI/CD Pipeline
+
+Hosted on **Netlify** with GitHub Actions for validation.
+
+### Why Netlify?
+
+- **Built-in form handling** - Contact forms work with zero backend code
+- **100GB bandwidth/mo** - Plenty for a small business site
+- **Deploy previews** - Test PRs before merging
+- **Zero lock-in** - Static `dist/` folder works on any host
+- **Commercial use allowed** - Unlike GitHub Pages
+
+### Workflows
+
+| Workflow | Trigger | Purpose |
+|----------|---------|---------|
+| `ci.yml` | PRs to main | Build validation |
+| `deploy.yml` | Push to main | Deploy to Netlify |
+
+### Setup Requirements
+
+1. Create a Netlify site (import from GitHub or create blank)
+2. Add repository secrets in GitHub:
+   - `NETLIFY_AUTH_TOKEN` - Personal access token
+   - `NETLIFY_SITE_ID` - Your site's API ID
+
+### Getting Netlify Credentials
+
+1. Go to [Netlify](https://app.netlify.com)
+2. **Site ID**:
+   - Site Settings → General → Site ID (API ID)
+3. **Auth Token**:
+   - User Settings → Applications → Personal access tokens
+   - Generate new token with descriptive name
+
+### Manual Deploy
+
+```bash
+cd wv-wild-web
+npm run build
+npx netlify deploy --prod --dir=dist
+```
+
+### Form Handling
+
+Netlify automatically detects forms with the `data-netlify="true"` attribute:
+
+```html
+<form name="contact" method="POST" data-netlify="true">
+  <input type="text" name="name" required />
+  <input type="email" name="email" required />
+  <textarea name="message" required></textarea>
+  <button type="submit">Send</button>
+</form>
+```
+
+Submissions appear in Netlify dashboard → Forms.
+
 ## Related Documentation
 
 - [mission.md](./mission.md) - Project requirements and business context
