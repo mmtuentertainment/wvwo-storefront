@@ -3,7 +3,7 @@
 <header class="sticky top-0 z-50 bg-brand-brown text-white shadow-lg border-b-4 border-sign-green">
   <div class="container mx-auto px-4 py-3 flex justify-between items-center">
     <!-- Logo / Brand Name -->
-    <a href="/" class="group flex flex-col md:block">
+    <a href="/" class="group flex flex-col md:block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange rounded">
       <span class="text-2xl md:text-3xl font-display font-bold text-white tracking-wide uppercase group-hover:text-brand-cream transition-colors">
         WV Wild Outdoors
       </span>
@@ -21,20 +21,95 @@
        </div>
 
       <nav class="flex space-x-6 items-center" aria-label="Main">
-        <a href="#products" class="text-brand-cream font-medium hover:text-white transition-colors">Products</a>
-        <a href="#services" class="text-brand-cream font-medium hover:text-white transition-colors">Services</a>
-        <a href="/story" class="text-brand-cream font-medium hover:text-white transition-colors">Our Story</a>
-        <a href="#contact" class="px-4 py-2 bg-sign-green text-white font-bold rounded hover:bg-green-800 transition-colors">
+        <a href="#products" class="text-brand-cream font-medium hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange rounded px-1 transition-colors">Products</a>
+        <a href="#services" class="text-brand-cream font-medium hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange rounded px-1 transition-colors">Services</a>
+        <a href="/story" class="text-brand-cream font-medium hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange rounded px-1 transition-colors">Our Story</a>
+        <a href="#contact" class="px-4 py-2 bg-sign-green text-white font-bold rounded hover:bg-green-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 focus-visible:ring-offset-brand-brown transition-colors">
           Contact
         </a>
       </nav>
     </div>
 
-    <!-- Mobile Menu Button (Hamburger placeholder) -->
-    <button class="md:hidden text-white focus:outline-none" aria-label="Open menu">
-      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <!-- Mobile Menu Button -->
+    <button
+      id="mobile-menu-btn"
+      class="md:hidden text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange rounded p-1"
+      aria-label="Open menu"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
       </svg>
     </button>
   </div>
+
+  <!-- Mobile Menu Panel -->
+  <div
+    id="mobile-menu"
+    class="md:hidden hidden bg-brand-brown border-t border-brand-cream/20"
+    aria-label="Mobile navigation"
+  >
+    <nav class="container mx-auto px-4 py-4 flex flex-col space-y-4">
+      <a href="#products" class="text-brand-cream font-medium hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange rounded px-2 py-2 transition-colors">Products</a>
+      <a href="#services" class="text-brand-cream font-medium hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange rounded px-2 py-2 transition-colors">Services</a>
+      <a href="/story" class="text-brand-cream font-medium hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange rounded px-2 py-2 transition-colors">Our Story</a>
+      <a href="#contact" class="px-4 py-3 bg-sign-green text-white font-bold rounded hover:bg-green-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange text-center transition-colors">
+        Contact
+      </a>
+      <!-- Trust Badges (Mobile) -->
+      <div class="flex items-center justify-center space-x-4 pt-4 border-t border-brand-cream/20">
+        <img src="/badges/ffl.svg" alt="Federal Firearms License Dealer" width="40" height="32" class="h-8 opacity-80" />
+        <img src="/badges/wvdnr.svg" alt="WV DNR License Agent" width="32" height="32" class="h-8 opacity-80" />
+      </div>
+    </nav>
+  </div>
 </header>
+
+<script>
+  function initMobileMenu() {
+    const btn = document.getElementById('mobile-menu-btn');
+    const menu = document.getElementById('mobile-menu');
+
+    if (!btn || !menu) return;
+
+    btn.addEventListener('click', () => {
+      const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!isExpanded));
+      menu.classList.toggle('hidden');
+
+      // Update button icon
+      const svg = btn.querySelector('svg');
+      if (svg) {
+        if (!isExpanded) {
+          // Show X icon
+          svg.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>';
+          btn.setAttribute('aria-label', 'Close menu');
+        } else {
+          // Show hamburger icon
+          svg.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>';
+          btn.setAttribute('aria-label', 'Open menu');
+        }
+      }
+    });
+
+    // Close menu when clicking a link
+    menu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        menu.classList.add('hidden');
+        btn.setAttribute('aria-expanded', 'false');
+        btn.setAttribute('aria-label', 'Open menu');
+        const svg = btn.querySelector('svg');
+        if (svg) {
+          svg.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>';
+        }
+      });
+    });
+  }
+
+  // Run on page load
+  initMobileMenu();
+
+  // Re-init on Astro page transitions
+  document.addEventListener('astro:page-load', initMobileMenu);
+</script>

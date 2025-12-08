@@ -30,6 +30,8 @@ import Footer from '../components/Footer.astro';
           <img
             src="/story-bridge-beginning.jpg"
             alt="A small car driving across a high bridge over a forested gorge, heading toward the hills."
+            width="800"
+            height="600"
             class="w-full block rounded-sm shadow-md sepia-[.15]"
             loading="lazy"
           />
@@ -77,6 +79,8 @@ import Footer from '../components/Footer.astro';
           <img
             src="/story-old-shop-flood.jpg"
             alt="Old sporting goods storefront with mud, puddles, and flood marks along the porch and walls."
+            width="800"
+            height="600"
             class="w-full block rounded-sm shadow-md grayscale-[.2] contrast-[1.1]"
             loading="lazy"
           />
@@ -102,6 +106,8 @@ import Footer from '../components/Footer.astro';
            <img
             src="/story-new-shop-family.jpg"
             alt="New metal-sided sporting goods shop with a large SPORTING GOODS sign and a family standing at the steps."
+            width="1600"
+            height="900"
             class="w-full h-[60vh] object-cover object-center"
             loading="lazy"
           />
@@ -119,33 +125,37 @@ import Footer from '../components/Footer.astro';
 
 <script>
   let initialized = false;
-  
-  const observerOptions = {
-    root: null,
-    rootMargin: '0px',
-    threshold: 0.1
-  };
+  let observer: IntersectionObserver | null = null;
 
-  const observer = new IntersectionObserver((entries, obs) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('opacity-100', 'translate-y-0');
-        entry.target.classList.remove('opacity-0', 'translate-y-12');
-        obs.unobserve(entry.target);
-      }
+  // Feature detection for IntersectionObserver
+  if (typeof IntersectionObserver !== 'undefined') {
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.1
+    };
+
+    observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('opacity-100', 'translate-y-0');
+          entry.target.classList.remove('opacity-0', 'translate-y-12');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    // Cleanup observer on page navigation (ViewTransitions)
+    document.addEventListener('astro:before-swap', () => {
+      observer?.disconnect();
+      initialized = false;
     });
-  }, observerOptions);
-
-  // Cleanup observer on page navigation (ViewTransitions)
-  document.addEventListener('astro:before-swap', () => {
-    observer.disconnect();
-    initialized = false;
-  });
+  }
 
   document.addEventListener('astro:page-load', () => {
     initAnimations();
   });
-  
+
   // Also run on immediate load
   if (!initialized) {
     initAnimations();
@@ -154,12 +164,17 @@ import Footer from '../components/Footer.astro';
   function initAnimations() {
     if (initialized) return;
     initialized = true;
-    
+
     // Respect users who prefer reduced motion
-    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches) {
       return;
     }
-    
+
+    // Graceful degradation if IntersectionObserver not supported
+    if (!observer) {
+      return;
+    }
+
     const hiddenElements = document.querySelectorAll('.fade-in-section');
     hiddenElements.forEach((el) => {
       el.classList.add('transition-all', 'duration-1000', 'ease-out', 'opacity-0', 'translate-y-12');
