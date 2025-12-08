@@ -31,10 +31,12 @@ ADMIN_EMAIL="${DIRECTUS_ADMIN_EMAIL:-admin@localhost.dev}"
 ADMIN_PASSWORD="${DIRECTUS_ADMIN_PASSWORD:-admin123}"
 
 # Internal URL for container-based calls
-# Internal URL (derived from env var to allow overrides, e.g. http://directus:8055)
-# Strip trailing slash from DIRECTUS_URL
+# BASE_URL: Public-facing URL (used for the footer verification link)
 BASE_URL="${DIRECTUS_URL%/}"
-DIRECTUS_INTERNAL_URL="$BASE_URL"
+
+# DIRECTUS_INTERNAL_URL: Used for container-to-container calls.
+# Defaults to $BASE_URL but can be overridden if internal Docker networking requires a different host (e.g. http://directus:8055)
+DIRECTUS_INTERNAL_URL="${DIRECTUS_INTERNAL_URL:-$BASE_URL}"
 
 echo "=== Directus Seed Data Loader ==="
 echo ""
@@ -83,7 +85,9 @@ check_or_insert_item() {
 
     # Check existence using Directus filter
     # Uses 'grep -c' to count occurrences of "id" in the response (simple verification)
-    local exists=$(docker exec wvwo-directus-dev wget -qO - \
+    # Split declaration to avoid masking return values (ShellCheck SC2155)
+    local exists
+    exists=$(docker exec wvwo-directus-dev wget -qO - \
         --header="Authorization: Bearer $ACCESS_TOKEN" \
         "$DIRECTUS_INTERNAL_URL/items/$collection?filter[slug][_eq]=$slug&limit=1" 2>/dev/null | grep -c '"id"' || true)
 
@@ -102,9 +106,15 @@ update_singleton() {
     local data=$2
 
     echo "  Updating singleton: $collection"
-    if ! docker exec wvwo-directus-dev node -e "
+    # Pass data via stdin to avoid JSON injection/escaping issues in the script string
+    # Using 'docker exec -i' to accept stdin
+    if ! echo "$data" | docker exec -i wvwo-directus-dev node -e "
 const http = require('http');
-const data = JSON.stringify($data);
+const fs = require('fs');
+
+// Read JSON data from stdin
+const data = fs.readFileSync(0, 'utf-8');
+
 const req = http.request({
   hostname: '127.0.0.1',
   port: 8055,
@@ -112,13 +122,19 @@ const req = http.request({
   method: 'PATCH',
   headers: {
     'Content-Type': 'application/json',
-    'Content-Length': data.length,
+    'Content-Length': Buffer.byteLength(data),
     'Authorization': 'Bearer $ACCESS_TOKEN'
   }
 }, (res) => {
   res.on('data', () => {});
   res.on('end', () => process.exit(res.statusCode < 400 ? 0 : 1));
 });
+
+req.on('error', (e) => {
+  console.error(e);
+  process.exit(1);
+});
+
 req.write(data);
 req.end();
 " > /dev/null 2>&1; then
