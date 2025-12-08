@@ -114,7 +114,7 @@
     });
 
     // Close menu on Escape key (WCAG accessibility)
-    document.addEventListener('keydown', (e) => {
+    const handleKeydown = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && !menu.classList.contains('hidden')) {
         menu.classList.add('hidden');
         btn.setAttribute('aria-expanded', 'false');
@@ -125,7 +125,18 @@
         }
         btn.focus(); // Return focus to trigger button
       }
-    });
+    };
+    document.addEventListener('keydown', handleKeydown);
+
+    // Cleanup on ViewTransitions to prevent listener stacking
+    document.addEventListener(
+      'astro:before-swap',
+      () => {
+        document.removeEventListener('keydown', handleKeydown);
+        btn.dataset.menuInit = 'false';
+      },
+      { once: true }
+    );
   }
 
   // Run on page load
