@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import { SITE_CONTACT } from '../config/siteContact';
+import StickyPhone from '../components/StickyPhone.astro';
 
 interface Props {
 	title: string;
@@ -102,5 +103,6 @@ const schemaData = {
 	</head>
 	<body class="bg-brand-cream text-brand-brown min-h-screen flex flex-col font-body bg-noise selection:bg-brand-brown selection:text-brand-cream">
 		<slot />
+		<StickyPhone />
 	</body>
 </html>
