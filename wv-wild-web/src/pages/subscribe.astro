@@ -1,0 +1,167 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout
+  title="Subscribe to Updates | WV Wild Outdoors"
+  description="Get hunting season alerts, ammo restocks, and local outdoor news from WV Wild Outdoors."
+>
+  <Header />
+
+  <main class="bg-brand-cream min-h-screen">
+
+    <!-- Hero -->
+    <section class="bg-brand-brown text-white py-16 md:py-24">
+      <div class="container mx-auto px-4 text-center">
+        <span class="font-hand text-brand-orange text-2xl -rotate-2 inline-block mb-4">
+          Stay in the Loop
+        </span>
+        <h1 class="font-display font-black text-4xl md:text-5xl mb-4">
+          Get Updates from the Shop
+        </h1>
+        <p class="text-xl text-brand-cream/80 max-w-2xl mx-auto">
+          Hunting season alerts, ammo restocks, local fishing reports,
+          and news from WV Wild Outdoors — right to your inbox.
+        </p>
+      </div>
+    </section>
+
+    <!-- Signup Form -->
+    <section class="py-12 md:py-16">
+      <div class="container mx-auto px-4">
+        <div class="max-w-lg mx-auto bg-white rounded-lg shadow-lg p-8 -mt-12 relative">
+
+          <form
+            action="https://buttondown.com/api/emails/embed-subscribe/wvwildoutdoors"
+            method="post"
+            target="popupwindow"
+            class="space-y-6"
+          >
+            <div>
+              <label for="email" class="block text-sm font-medium text-stone-700 mb-2">
+                Email Address
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                required
+                placeholder="your@email.com"
+                class="w-full px-4 py-3 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sign-green/50 focus:border-sign-green text-lg"
+              />
+            </div>
+
+            <!-- Optional: Interest Selection -->
+            <fieldset>
+              <legend class="text-sm font-medium text-stone-700 mb-3">
+                What are you interested in? (optional)
+              </legend>
+              <div class="space-y-2">
+                <label class="flex items-center gap-3 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    name="interests[]"
+                    value="hunting"
+                    class="w-4 h-4 rounded border-stone-300 text-sign-green focus:ring-sign-green"
+                  />
+                  <span class="text-stone-700">Hunting (deer, turkey, small game)</span>
+                </label>
+                <label class="flex items-center gap-3 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    name="interests[]"
+                    value="fishing"
+                    class="w-4 h-4 rounded border-stone-300 text-sign-green focus:ring-sign-green"
+                  />
+                  <span class="text-stone-700">Fishing (trout, bass, catfish)</span>
+                </label>
+                <label class="flex items-center gap-3 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    name="interests[]"
+                    value="firearms"
+                    class="w-4 h-4 rounded border-stone-300 text-sign-green focus:ring-sign-green"
+                  />
+                  <span class="text-stone-700">Firearms & Ammo restocks</span>
+                </label>
+                <label class="flex items-center gap-3 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    name="interests[]"
+                    value="store-news"
+                    class="w-4 h-4 rounded border-stone-300 text-sign-green focus:ring-sign-green"
+                  />
+                  <span class="text-stone-700">Store news & events</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <button
+              type="submit"
+              class="w-full bg-sign-green text-white font-bold py-4 rounded-lg hover:bg-green-800 transition-colors text-lg"
+            >
+              Subscribe
+            </button>
+          </form>
+
+          <p class="text-xs text-stone-400 text-center mt-4">
+            No spam. Unsubscribe anytime. We send maybe 2-4 emails per month.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- What You'll Get -->
+    <section class="py-12 bg-stone-50">
+      <div class="container mx-auto px-4">
+        <h2 class="font-display font-bold text-2xl text-brand-brown text-center mb-10">
+          What You'll Get
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+          <div class="text-center">
+            <div class="w-12 h-12 bg-brand-orange/10 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-6 h-6 text-brand-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+              </svg>
+            </div>
+            <h3 class="font-bold text-brand-brown mb-2">Season Alerts</h3>
+            <p class="text-stone-600 text-sm">
+              Get reminders before deer season, turkey season, and trout stocking dates.
+            </p>
+          </div>
+
+          <div class="text-center">
+            <div class="w-12 h-12 bg-brand-orange/10 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-6 h-6 text-brand-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path>
+              </svg>
+            </div>
+            <h3 class="font-bold text-brand-brown mb-2">Restock Notices</h3>
+            <p class="text-stone-600 text-sm">
+              Hard-to-find ammo back in stock? You'll be the first to know.
+            </p>
+          </div>
+
+          <div class="text-center">
+            <div class="w-12 h-12 bg-brand-orange/10 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-6 h-6 text-brand-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              </svg>
+            </div>
+            <h3 class="font-bold text-brand-brown mb-2">Local Reports</h3>
+            <p class="text-stone-600 text-sm">
+              What's biting at Sutton Lake? Where are the deer moving? Local intel from the community.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Layout>

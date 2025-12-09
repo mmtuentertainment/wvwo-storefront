@@ -1,0 +1,66 @@
+---
+// Email Capture Component
+// Buttondown newsletter signup form
+
+interface Props {
+  variant?: 'inline' | 'card' | 'hero';
+  heading?: string;
+  subheading?: string;
+}
+
+const {
+  variant = 'inline',
+  heading = 'Get Hunting Season Alerts',
+  subheading = 'Be the first to know about new inventory, seasonal specials, and local hunting updates.'
+} = Astro.props;
+
+const baseClasses = {
+  inline: 'py-8',
+  card: 'bg-white rounded-lg shadow-sm border border-stone-100 p-6 md:p-8',
+  hero: 'bg-brand-brown text-white py-12 md:py-16'
+};
+
+const inputClasses = variant === 'hero'
+  ? 'bg-white/10 border-white/30 text-white placeholder-white/60 focus:border-brand-orange'
+  : 'bg-white border-stone-300 text-brand-brown placeholder-stone-400 focus:border-sign-green';
+---
+
+<div class={baseClasses[variant]}>
+  <div class={variant === 'hero' ? 'container mx-auto px-4 max-w-2xl text-center' : ''}>
+
+    <h3 class={`font-display font-bold ${variant === 'hero' ? 'text-2xl md:text-3xl mb-3' : 'text-xl mb-2'} ${variant === 'hero' ? 'text-white' : 'text-brand-brown'}`}>
+      {heading}
+    </h3>
+
+    <p class={`mb-6 ${variant === 'hero' ? 'text-white/80' : 'text-stone-600'}`}>
+      {subheading}
+    </p>
+
+    <!-- Buttondown Form -->
+    <form
+      action="https://buttondown.com/api/emails/embed-subscribe/wvwildoutdoors"
+      method="post"
+      target="popupwindow"
+      class={`flex flex-col sm:flex-row gap-3 ${variant === 'hero' ? 'max-w-lg mx-auto' : ''}`}
+    >
+      <input
+        type="email"
+        name="email"
+        placeholder="Enter your email"
+        required
+        class={`flex-1 px-4 py-3 rounded border ${inputClasses} focus:outline-none focus:ring-2 focus:ring-sign-green/50`}
+      />
+      <button
+        type="submit"
+        class="px-6 py-3 bg-sign-green text-white font-bold rounded hover:bg-green-800 transition-colors whitespace-nowrap"
+      >
+        Subscribe
+      </button>
+    </form>
+
+    <p class={`text-xs mt-4 ${variant === 'hero' ? 'text-white/50' : 'text-stone-400'}`}>
+      No spam. Unsubscribe anytime. We respect your inbox.
+    </p>
+
+  </div>
+</div>

@@ -1,0 +1,126 @@
+---
+// Quote Request Form Component
+// Web3Forms integration for FFL transfer quotes and inquiries
+
+interface Props {
+  formType?: 'ffl-transfer' | 'general';
+  heading?: string;
+}
+
+const {
+  formType = 'general',
+  heading = 'Request a Quote'
+} = Astro.props;
+
+// Web3Forms access key - will be configured in production
+const WEB3FORMS_KEY = 'YOUR_ACCESS_KEY_HERE'; // TODO: Replace with actual key
+---
+
+<div class="bg-white rounded-lg shadow-sm border border-stone-100 p-6 md:p-8">
+
+  <h3 class="font-display font-bold text-xl text-brand-brown mb-2">
+    {heading}
+  </h3>
+
+  <p class="text-stone-600 text-sm mb-6">
+    {formType === 'ffl-transfer'
+      ? 'Planning an online purchase? Let us know and we\'ll provide transfer details.'
+      : 'Have a question? Fill out the form and we\'ll get back to you.'
+    }
+  </p>
+
+  <form
+    action="https://api.web3forms.com/submit"
+    method="POST"
+    class="space-y-4"
+  >
+    <!-- Web3Forms Access Key -->
+    <input type="hidden" name="access_key" value={WEB3FORMS_KEY} />
+    <input type="hidden" name="subject" value={formType === 'ffl-transfer' ? 'FFL Transfer Request' : 'Website Inquiry'} />
+    <input type="hidden" name="from_name" value="WV Wild Outdoors Website" />
+
+    <!-- Honeypot for spam prevention -->
+    <input type="checkbox" name="botcheck" class="hidden" style="display:none" />
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label for="name" class="block text-sm font-medium text-stone-700 mb-1">
+          Your Name *
+        </label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          required
+          class="w-full px-4 py-2 border border-stone-300 rounded focus:outline-none focus:ring-2 focus:ring-sign-green/50 focus:border-sign-green"
+        />
+      </div>
+
+      <div>
+        <label for="phone" class="block text-sm font-medium text-stone-700 mb-1">
+          Phone Number *
+        </label>
+        <input
+          type="tel"
+          id="phone"
+          name="phone"
+          required
+          class="w-full px-4 py-2 border border-stone-300 rounded focus:outline-none focus:ring-2 focus:ring-sign-green/50 focus:border-sign-green"
+        />
+      </div>
+    </div>
+
+    <div>
+      <label for="email" class="block text-sm font-medium text-stone-700 mb-1">
+        Email (optional)
+      </label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        class="w-full px-4 py-2 border border-stone-300 rounded focus:outline-none focus:ring-2 focus:ring-sign-green/50 focus:border-sign-green"
+      />
+    </div>
+
+    {formType === 'ffl-transfer' && (
+      <div>
+        <label for="firearm-info" class="block text-sm font-medium text-stone-700 mb-1">
+          Firearm Details (make/model, where purchasing from)
+        </label>
+        <input
+          type="text"
+          id="firearm-info"
+          name="firearm_info"
+          placeholder="e.g., Glock 19 from Palmetto State Armory"
+          class="w-full px-4 py-2 border border-stone-300 rounded focus:outline-none focus:ring-2 focus:ring-sign-green/50 focus:border-sign-green"
+        />
+      </div>
+    )}
+
+    <div>
+      <label for="message" class="block text-sm font-medium text-stone-700 mb-1">
+        {formType === 'ffl-transfer' ? 'Additional Notes' : 'Your Message *'}
+      </label>
+      <textarea
+        id="message"
+        name="message"
+        rows="4"
+        required={formType !== 'ffl-transfer'}
+        class="w-full px-4 py-2 border border-stone-300 rounded focus:outline-none focus:ring-2 focus:ring-sign-green/50 focus:border-sign-green resize-none"
+        placeholder={formType === 'ffl-transfer' ? 'Any questions or timing preferences...' : 'How can we help?'}
+      ></textarea>
+    </div>
+
+    <button
+      type="submit"
+      class="w-full bg-sign-green text-white font-bold py-3 rounded hover:bg-green-800 transition-colors"
+    >
+      {formType === 'ffl-transfer' ? 'Request Transfer Info' : 'Send Message'}
+    </button>
+
+    <p class="text-xs text-stone-400 text-center">
+      We typically respond within 1 business day.
+    </p>
+  </form>
+
+</div>
