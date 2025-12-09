@@ -2,8 +2,8 @@
     "name": "wvwo-storefront-root",
     "private": true,
     "scripts": {
-        "build": "node scripts/build.js",
         "dev": "cd wv-wild-web && npm install && npm run dev",
+        "build": "cd wv-wild-web && npm run build",
         "preview": "cd wv-wild-web && npm run preview"
     }
 }
