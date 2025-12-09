@@ -111,3 +111,10 @@ coordination/orchestration/*
 claude-flow
 # Removed Windows wrapper files per user request
 hive-mind-prompt-*.txt
+
+# Local dev files
+claude-flow.cmd
+old session.txt
+
+# Source images (processed versions in public/)
+docs/store pictures/
