@@ -83,7 +83,6 @@ volumes/
 
 # Spec-kit (separate git repository)
 spec-kit/
-.vercel
 
 # Claude Flow generated files
 .claude/settings.local.json

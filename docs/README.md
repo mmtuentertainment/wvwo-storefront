@@ -140,53 +140,37 @@ btn.dataset.menuInit = 'true';
 
 ## CI/CD Pipeline
 
-Hosted on **Netlify** with GitHub Actions for validation.
+Hosted on **Cloudflare Pages** with GitHub Actions for validation.
 
-### Why Netlify?
+### Why Cloudflare Pages?
 
-- **Built-in form handling** - Contact forms work with zero backend code
-- **100GB bandwidth/mo** - Plenty for a small business site
+- **Unlimited bandwidth** - No caps or overage charges
+- **Global edge network** - Fast worldwide delivery
 - **Deploy previews** - Test PRs before merging
 - **Zero lock-in** - Static `dist/` folder works on any host
-- **Commercial use allowed** - Unlike GitHub Pages
+- **Free SSL** - Automatic HTTPS
 
 ### Workflows
 
 | Workflow | Trigger | Purpose |
 |----------|---------|---------|
 | `ci.yml` | PRs to main | Build validation |
-| `deploy.yml` | Push to main | Deploy to Netlify |
+| `deploy.yml` | Push to main | Deploy to Cloudflare Pages |
 
 ### Setup Requirements
 
-1. Create a Netlify site (import from GitHub or create blank)
+1. Create a Cloudflare Pages project
 2. Add repository secrets in GitHub:
-   - `NETLIFY_AUTH_TOKEN` - Personal access token
-   - `NETLIFY_SITE_ID` - Your site's API ID
-
-### Getting Netlify Credentials
-
-1. Go to [Netlify](https://app.netlify.com)
-2. **Site ID**:
-   - Site Settings → General → Site ID (API ID)
-3. **Auth Token**:
-   - User Settings → Applications → Personal access tokens
-   - Generate new token with descriptive name
-
-### Manual Deploy
-
-```bash
-cd wv-wild-web
-npm run build
-npx netlify deploy --prod --dir=dist
-```
+   - `CLOUDFLARE_API_TOKEN` - API token with Pages permissions
+   - `CLOUDFLARE_ACCOUNT_ID` - Your account ID
 
 ### Form Handling
 
-Netlify automatically detects forms with the `data-netlify="true"` attribute:
+Forms use [Web3Forms](https://web3forms.com) for email delivery:
 
 ```html
-<form name="contact" method="POST" data-netlify="true">
+<form action="https://api.web3forms.com/submit" method="POST">
+  <input type="hidden" name="access_key" value="YOUR_KEY" />
   <input type="text" name="name" required />
   <input type="email" name="email" required />
   <textarea name="message" required></textarea>
@@ -194,7 +178,7 @@ Netlify automatically detects forms with the `data-netlify="true"` attribute:
 </form>
 ```
 
-Submissions appear in Netlify dashboard → Forms.
+Submissions are emailed to the address registered with Web3Forms.
 
 ## Related Documentation
 
