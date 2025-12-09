@@ -142,7 +142,7 @@ Framework: Astro
 Styling: Tailwind CSS
 Components: Astro components (no heavy JS framework needed)
 Images: Optimized WebP, lazy loaded
-Hosting: Static (Netlify, Vercel, or VPS)
+Hosting: Cloudflare Pages (static)
 CMS: Directus (headless, for owner content updates)
 ```
 
