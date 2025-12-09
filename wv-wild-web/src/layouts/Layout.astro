@@ -1,14 +1,15 @@
 ---
 import '../styles/global.css';
+import { SITE_CONTACT } from '../config/siteContact';
 
 interface Props {
 	title: string;
     description?: string;
 }
 
-const { 
-  title, 
-  description 
+const {
+  title,
+  description
 } = Astro.props;
 
 const defaultDescription = "WV Wild Outdoors — family-run hunting and outdoor shop in Birch River, WV with firearms, ammo, hunting gear, feed and hunting & fishing licenses.";
@@ -16,11 +17,66 @@ const defaultDescription = "WV Wild Outdoors — family-run hunting and outdoor 
 const ogTitle = title;
 const ogDescription = description ?? defaultDescription;
 
-const defaultOgImage = "/og-wvwo-storefront.jpg"; // TODO: change to full absolute URL after deploy
+const defaultOgImage = "/og-wvwo-storefront.png"; // TODO: change to full absolute URL after deploy
 
 const ogImage = defaultOgImage;
 
 const ogUrl = Astro.url?.href ?? ""; // use the current page URL as canonical
+
+// Schema.org LocalBusiness structured data
+const schemaData = {
+  "@context": "https://schema.org",
+  "@type": "SportingGoodsStore",
+  "name": "WV Wild Outdoors",
+  "description": defaultDescription,
+  "url": "https://wvwildoutdoors.com",
+  "telephone": SITE_CONTACT.phone,
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "121 Birch River Rd",
+    "addressLocality": "Birch River",
+    "addressRegion": "WV",
+    "postalCode": "26610",
+    "addressCountry": "US"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 38.4876,
+    "longitude": -80.7073
+  },
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+      "opens": "10:00",
+      "closes": "17:00"
+    }
+  ],
+  "priceRange": "$$",
+  "image": "https://wvwildoutdoors.com/og-wvwo-storefront.png",
+  "sameAs": [],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Products",
+    "itemListElement": [
+      { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Firearms" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Ammunition" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Fishing Tackle" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Hunting Gear" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Animal Feed" } }
+    ]
+  },
+  "additionalType": "https://schema.org/GunStore",
+  "areaServed": {
+    "@type": "GeoCircle",
+    "geoMidpoint": {
+      "@type": "GeoCoordinates",
+      "latitude": 38.4876,
+      "longitude": -80.7073
+    },
+    "geoRadius": "50 mi"
+  }
+};
 ---
 
 <!doctype html>
@@ -40,6 +96,9 @@ const ogUrl = Astro.url?.href ?? ""; // use the current page URL as canonical
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
+
+		<!-- Schema.org LocalBusiness structured data -->
+		<script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
 	</head>
 	<body class="bg-brand-cream text-brand-brown min-h-screen flex flex-col font-body bg-noise selection:bg-brand-brown selection:text-brand-cream">
 		<slot />
