@@ -1,25 +1,30 @@
 <!--
 SYNC IMPACT REPORT
 ==================
-Version change: 1.1.2 (Anti-MVP exception) → 1.1.3 (December 2025 dependency updates)
+Version change: 1.1.3 (December 2025 dependency updates) → 2.0.0 (Simple Static Approach)
+
+MAJOR VERSION BUMP - Architecture pivot from enterprise to simple static site.
 
 Modified sections:
-- Technology Stack: Updated all service versions to December 2025 current
-  - Directus 10.x → 11.x
-  - Ghost 5.x → 6.x
-  - Listmonk → 5.x (pinned)
-  - PostgreSQL 15 → 17
-  - Redis → 8
+- Technology Stack: Complete overhaul for static site approach
+  - Removed: Directus, Ghost, Listmonk, Mixpost, Docker, PostgreSQL, Redis, DigitalOcean, Traefik, Backblaze B2
+  - Kept: Astro, Tailwind CSS, Vanilla JavaScript, Cloudflare
+  - Added: Web3Forms (forms), Buttondown (newsletter), YouTube (video embeds)
+- Principle III: Updated services list for static approach
+- Principle IV: Updated Kim's access (website only, Matt manages all backend)
+- Principle VI: Simplified External Shipping from 13 items to practical checklist
+- Roles & Responsibilities: Simplified for static site workflow
 
-Existing principles (unchanged):
+Existing principles (unchanged in spirit):
 - I. Owner-First Simplicity
 - II. Heart of West Virginia
-- III. Modular Service Architecture
-- IV. Developer-Managed Infrastructure
+- III. Modular Service Architecture (updated services list)
+- IV. Developer-Managed Infrastructure (updated access)
 - V. Dual-Experience Design (Responsive Web)
-- VI. Anti-MVP Bias
+- VI. Anti-MVP Bias (simplified external shipping)
 
 Previous versions:
+- 1.1.3: December 2025 dependency updates
 - 1.1.2: Added Anti-MVP exception for .env.example placeholder files
 - 1.1.1: Clarified Principle V - responsive web design, not desktop apps
 - 1.1.0: Added VI. Anti-MVP Bias (surprise gift quality, internal vs external shipping)
@@ -32,8 +37,8 @@ Templates requiring updates:
 - .coderabbit.yaml ✅ compatible (no version refs)
 
 Follow-up TODOs:
-- Update existing specs to reflect new dependency versions
-- Verify Docker stack works with updated images
+- Archive old specs (001-docker-dev-stack, 002-directus-cms-setup)
+- Update CLAUDE.md to remove Docker/Directus references
 -->
 
 # WV Wild Outdoors Storefront Constitution
@@ -73,15 +78,14 @@ who know their customers by name. The digital presence must amplify this, not re
 
 ### III. Modular Service Architecture
 
-The system MUST be composed of loosely coupled services that can be replaced
-independently. Each service owns its domain and communicates through well-defined APIs.
+The system MUST be composed of loosely coupled components that can be replaced
+independently. Each component owns its domain and integrates through well-defined patterns.
 
 **Non-negotiable rules:**
-- Services: Directus (CMS), Ghost (Blog), Astro (Frontend), Listmonk (Email), Mixpost (Social)
-- Each service MUST be deployable and testable in isolation
-- Service failure MUST NOT cascade to unrelated functionality
-- Data synchronization MUST happen through explicit integration points, not shared databases
-- New services MUST integrate via documented APIs, not direct database access
+- Components: Astro (static site), Buttondown (newsletter), Web3Forms (forms), YouTube (videos)
+- Each component MUST be replaceable without rebuilding the entire system
+- Component failure MUST NOT cascade to unrelated functionality
+- New components MUST integrate via documented patterns (embeds, APIs, webhooks)
 
 **Rationale:** Small business technology needs change. Vendor lock-in kills flexibility.
 Any component can be swapped without rebuilding the entire system.
@@ -92,8 +96,8 @@ Matt owns ALL backend systems, deployment, updates, security, and configuration.
 Kim MUST NEVER need to access servers, databases, or configuration files.
 
 **Non-negotiable rules:**
-- Kim's access: Directus admin panel, Ghost editor, Facebook, email review
-- Matt's access: Everything else (servers, DNS, Docker, backups, monitoring)
+- Kim's access: Website viewing, Facebook page, email review
+- Matt's access: Everything else (GitHub, Cloudflare, DNS, deployments, all configs)
 - All production changes MUST go through Matt
 - Emergency procedures MUST have Matt as primary contact
 - Documentation MUST distinguish "Kim does this" vs "Matt does this"
@@ -130,28 +134,25 @@ content. Kim's store reputation depends on this working right the first time.
 **Internal Shipping** (Matt → Kim/Bryan testing):
 - Feature MUST work correctly on Matt's development environment
 - Kim MUST be able to use it from her phone without training beyond 15 minutes
-- Data MUST persist correctly across service restarts (no data loss)
+- Data MUST persist correctly across page refreshes
 - Error handling MUST be user-friendly (no stack traces or technical jargon)
 - "Would Kim actually use this in the store?" test MUST pass
 
-**External Shipping** (Public launch — ALL 13 items MUST be complete):
-1. All 7 services production-ready (Astro, Directus, Ghost, Listmonk, Mixpost, PostgreSQL, Redis)
-2. SSL certificates working (Traefik + Let's Encrypt automated renewal)
-3. Subdomain routing functional (admin.*, blog.*, mail.*, analytics.*)
-4. Analytics tracking operational (Umami fully configured)
-5. Newsletter system functional end-to-end (Listmonk tested with real emails)
-6. Social media scheduling tested (Mixpost Facebook integration verified)
-7. Directus admin fully mobile-responsive (Kim's phone workflow validated)
-8. Ghost blog theme complete and branded (WVWO visual identity applied)
-9. Backups automated and tested (restoration procedure verified and documented)
-10. Documentation complete (Kim training guide + Matt operations runbook)
-11. Performance validated (90+ mobile PageSpeed on all public pages)
-12. Monitoring/alerting configured (uptime checks, error notifications to Matt)
-13. DNS/Cloudflare CDN configured (domain propagated, CDN caching optimized)
+**External Shipping** (Public launch checklist):
+1. All pages render correctly on mobile and desktop
+2. Contact info confirmed and accurate (phone, address, hours)
+3. SSL certificate working (https://)
+4. Mobile PageSpeed score 90+
+5. All forms submit successfully (tested with real submissions)
+6. All links work (no 404s)
+7. Images optimized and loading
+8. SEO basics complete (meta tags, schema markup)
+9. Domain connected and propagated
+10. Analytics tracking operational
 
 **Code Quality Requirements:**
 - NO "TODO: add later" comments (either implement now or remove)
-- NO placeholder data in seed files, schemas, or UI ("lorem ipsum", "$99.99", "Test Product")
+- NO placeholder data in UI ("lorem ipsum", "$99.99", "Test Product")
 - NO missing error handling ("we'll add validation later")
 - NO deferred accessibility ("we'll make it WCAG compliant in v2")
 - NO partial features ("basic version works, we'll polish later")
@@ -176,49 +177,48 @@ amendment.
 - Tailwind CSS (styling)
 - Vanilla JavaScript (interactivity, minimal dependencies)
 
-**Backend Services:**
-- Directus 11.x (headless CMS for products, FAQs, store info)
-- Ghost 6.x (blog and content publishing)
-- Listmonk 5.x (email newsletter management)
-- Mixpost (social media scheduling)
+**Services (External, Free Tier):**
+- Buttondown (email newsletter - free up to 100 subscribers)
+- Web3Forms (contact/quote forms - free tier)
+- YouTube (video hosting - embedded)
+- Cloudflare Analytics (traffic tracking - free)
 
 **Infrastructure:**
-- Docker & Docker Compose (containerization)
-- PostgreSQL 17 (database)
-- Redis 8 (caching)
-- Traefik (reverse proxy)
-- DigitalOcean (hosting)
-- Cloudflare (DNS, CDN)
-- Backblaze B2 (backups, media storage)
+- Cloudflare Pages (static hosting - free)
+- Cloudflare (DNS, CDN - free tier)
+- GitHub (version control, CI/CD - free)
 
 **Constraints:**
 - No client-side JavaScript frameworks (React, Vue, etc.) for public pages
 - No WordPress, Shopify, or monolithic platforms
 - No services requiring Kim to manage credentials or API keys
+- No databases or servers to maintain
+- No Docker or containerization (static files only)
 
 ## Roles & Responsibilities
 
 ### Kim (Store Owner)
-- Add/edit products via Directus forms
-- Write/publish blog posts via Ghost
+- Review website content for accuracy
+- Provide photos of store, products, and events
 - Respond to Facebook messages
-- Review monthly newsletter drafts
-- Collect customer emails at checkout
+- Collect customer emails at checkout (for newsletter)
+- Review monthly newsletter drafts before send
 
 ### Matt (Developer/Administrator)
-- All server administration and deployment
-- Database management and backups
-- Security updates and monitoring
-- Integration development and maintenance
-- Training and documentation for Kim
+- All website updates and deployment
+- Content changes (edit store.json, pages)
+- Domain and hosting management
+- Newsletter setup and sending (via Buttondown)
+- Form configuration (Web3Forms)
+- Google Business Profile management
 - Monthly system health reviews
 - Emergency response and incident management
 
 ### Boundary Rules
-- If it requires a terminal: Matt's responsibility
-- If it requires a password Kim doesn't have: Matt's responsibility
-- If it involves customer-facing content: Kim's responsibility (Matt supports)
-- If it involves money/transactions: Discuss together, Matt implements
+- If it requires GitHub: Matt's responsibility
+- If it requires any login Kim doesn't have: Matt's responsibility
+- If it involves customer-facing content accuracy: Kim's responsibility (Matt supports)
+- If it involves money/transactions: Not in scope (no e-commerce)
 
 ## Governance
 
@@ -243,7 +243,4 @@ Storefront project. All specifications, plans, and implementations MUST comply.
 - Anti-MVP Bias checklist (Internal + External shipping criteria) MUST be completed before merge
 - Violations MUST be documented with explicit justification in Complexity Tracking
 
-**Guidance File:** See `wv-wild-blueprint.md` for detailed implementation guidance
-and phase-by-phase build instructions.
-
-**Version**: 1.1.3 | **Ratified**: 2025-12-04 | **Last Amended**: 2025-12-05
+**Version**: 2.0.0 | **Ratified**: 2025-12-04 | **Last Amended**: 2025-12-09
