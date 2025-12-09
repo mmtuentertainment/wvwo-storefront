@@ -1,0 +1,92 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import QuoteForm from '../components/QuoteForm.astro';
+import { SITE_CONTACT } from '../config/siteContact';
+---
+
+<Layout
+  title="Contact Us | WV Wild Outdoors"
+  description="Get in touch with WV Wild Outdoors in Birch River, WV. Questions about firearms, fishing gear, or hunting licenses? We're here to help."
+>
+  <Header />
+
+  <main class="bg-brand-cream min-h-screen">
+
+    <!-- Hero Section -->
+    <section class="bg-brand-brown text-white py-12 md:py-16">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl">
+          <h1 class="font-display font-black text-4xl md:text-5xl mb-4">
+            Contact Us
+          </h1>
+          <p class="text-xl text-brand-cream/80">
+            Have a question? We'd love to hear from you.
+            Send us a message and we'll respond as soon as we can.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="py-12 md:py-16">
+      <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
+
+          <!-- Contact Form -->
+          <div>
+            <QuoteForm formType="general" heading="Send Us a Message" />
+          </div>
+
+          <!-- Contact Info -->
+          <div class="space-y-8">
+
+            <!-- Visit Us -->
+            <div class="bg-white rounded-lg shadow-sm border border-stone-100 p-6">
+              <h3 class="font-display font-bold text-xl text-brand-brown mb-4">Visit Us</h3>
+              <p class="font-bold text-lg mb-2">WV Wild Outdoors</p>
+              <address class="not-italic text-stone-600 mb-4 space-y-1">
+                {SITE_CONTACT.addressLines.slice(1).map((line) => <p>{line}</p>)}
+              </address>
+              <a href={SITE_CONTACT.mapsUrl} target="_blank" rel="noopener" class="text-sign-green hover:underline text-sm">
+                Get Directions &rarr;
+              </a>
+            </div>
+
+            <!-- Call Us -->
+            <div class="bg-white rounded-lg shadow-sm border border-stone-100 p-6">
+              <h3 class="font-display font-bold text-xl text-brand-brown mb-4">Call Us</h3>
+              <a href={SITE_CONTACT.phoneHref} class="block text-sign-green font-bold text-2xl hover:text-brand-brown transition-colors">
+                {SITE_CONTACT.phoneDisplay}
+              </a>
+              <p class="text-stone-500 text-sm mt-2">We might be helping another customer, so leave a message if we don't answer!</p>
+            </div>
+
+            <!-- Hours -->
+            <div class="bg-white rounded-lg shadow-sm border border-stone-100 p-6">
+              <h3 class="font-display font-bold text-xl text-brand-brown mb-4">Store Hours</h3>
+              <div class="space-y-2 text-stone-600">
+                <div class="flex justify-between">
+                  <span>Monday - Saturday</span>
+                  <span class="font-medium">10:00 AM - 5:00 PM</span>
+                </div>
+                <div class="flex justify-between">
+                  <span>Sunday</span>
+                  <span class="font-medium">Closed</span>
+                </div>
+              </div>
+              <p class="text-stone-400 text-xs mt-4 italic">
+                *Hours may vary for family events and community service days.
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Layout>
