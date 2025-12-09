@@ -6,180 +6,259 @@ import Footer from '../components/Footer.astro';
 
 <Layout title="Our Story | WV Wild Outdoors" description="From a small shop on the back roads to a new corner lot. The story of WV Wild Outdoors.">
   <Header />
-  
-  <main class="overflow-x-hidden">
-    <!-- HERO SECTION -->
-    <section class="max-w-4xl mx-auto px-4 py-12 md:py-20 text-center fade-in-section" aria-labelledby="our-story-heading">
-      <h1
-        id="our-story-heading"
-        class="text-brand-brown font-display font-black text-4xl md:text-6xl mb-4 leading-tight"
-      >
-        Our Story
-      </h1>
-      <p class="text-brand-orange font-hand text-2xl md:text-3xl -rotate-2 mb-6">Since 2008</p>
-      <div class="h-1 w-24 bg-brand-orange mx-auto rounded-full"></div>
-    </section>
 
-    <div class="max-w-7xl mx-auto px-4 pb-24 space-y-24 md:space-y-32">
-      
-      <!-- SECTION 1: Image LEFT, Text RIGHT -->
-      <section class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center fade-in-section">
-        <!-- Image Column -->
-        <figure class="relative group">
-          <div class="absolute inset-0 bg-brand-brown translate-x-3 translate-y-3 rounded-sm -z-10 group-hover:translate-x-2 group-hover:translate-y-2 transition-transform duration-500"></div>
+  <main class="bg-brand-cream">
+
+    <!-- Storybook Container -->
+    <article class="max-w-4xl mx-auto px-6 py-12 md:py-20">
+
+      <!-- Title Page -->
+      <header class="text-center mb-16 pb-12 border-b-2 border-brand-brown/20">
+        <p class="font-hand text-brand-orange text-2xl -rotate-1 mb-4">A West Virginia Story</p>
+        <h1 class="font-display font-black text-4xl md:text-6xl text-brand-brown leading-tight mb-6">
+          WV Wild Outdoors
+        </h1>
+        <p class="text-brand-mud/60 font-hand text-xl">Since 2008</p>
+      </header>
+
+      <!-- Page 1: The Journey Begins - Bridge -->
+      <section class="storybook-page mb-20">
+        <div class="storybook-full-bleed -mx-6 md:-mx-12 mb-8">
           <img
             src="/story-bridge-beginning.jpg"
-            alt="A small car driving across a high bridge over a forested gorge, heading toward the hills."
-            width="800"
-            height="600"
-            class="w-full block rounded-sm shadow-md sepia-[.15]"
-            loading="lazy"
+            alt="The bridge on Old Route 19, the road that leads to where it all started"
+            class="w-full rounded shadow-2xl"
+            loading="eager"
           />
-        </figure>
-        
-        <!-- Text Column -->
-        <div class="prose prose-lg text-brand-mud font-body">
-          <h2 class="text-brand-brown font-display font-bold text-3xl mb-6">
-            From a small shop on the back roads
-          </h2>
-          <p class="leading-relaxed text-lg">
-            WV Wild Outdoors is a small, family-run hunting and outdoor shop
-            serving Birch River, Little Birch, and the back roads in between.
-            Over the years, the shop has become a practical waypoint where locals
-            pick up firearms, ammo, hunting gear, and the everyday odds and ends
-            that keep farms, camps, and seasons running.
+        </div>
+        <div class="max-w-2xl mx-auto text-center">
+          <p class="font-hand text-xl text-brand-mud/50 mb-6">Old Route 19</p>
+          <p class="text-xl md:text-2xl text-brand-mud leading-relaxed">
+            This bridge takes you down the back roads to where it all started. Past the hollers, through the hills, into the heart of West Virginia.
           </p>
         </div>
       </section>
 
-      <!-- SECTION 2: Text LEFT, Image RIGHT -->
-      <section class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center fade-in-section">
-        <!-- Text Column (Order 2 on mobile, Order 1 on desktop) -->
-        <div class="prose prose-lg text-brand-mud font-body order-2 md:order-1">
-          <h2 class="text-brand-brown font-display font-bold text-3xl mb-6">
-            Rising above the flood
-          </h2>
-          <p class="leading-relaxed text-lg mb-4">
-            In June 2016, severe flooding hit this part of West Virginia,
-            including communities in and around Birch River and Nicholas County.
-            The family’s original Little Birch shop building next door took on
-            damage in that flood. 
-          </p>
-          <p class="leading-relaxed text-lg">
-            Rather than close the doors for good, they
-            bought the corner lot just down the road and moved WV Wild Outdoors
-            there, keeping the shop close to the same neighbors, hunters, and
-            families who had always depended on it.
-          </p>
-        </div>
+      <!-- Page 2: Finding Home -->
+      <section class="storybook-page mb-20 text-center py-8">
+        <p class="text-xl md:text-2xl text-brand-mud leading-relaxed max-w-2xl mx-auto mb-8">
+          We live in <strong class="text-brand-brown">Sutton</strong>, our church is down the road in <strong class="text-brand-brown">Tesla</strong>, and in <strong class="text-brand-brown">2013</strong> we settled the business right here in Little Birch.
+        </p>
+        <p class="text-2xl md:text-3xl font-display text-brand-brown mb-4">
+          We aren't just a store off the highway.
+        </p>
+        <p class="text-2xl md:text-3xl font-hand text-brand-orange -rotate-1">
+          We are your neighbors.
+        </p>
+      </section>
 
-        <!-- Image Column (Order 1 on mobile, Order 2 on desktop) -->
-        <figure class="relative group order-1 md:order-2">
-          <div class="absolute inset-0 bg-brand-cream -translate-x-3 translate-y-3 rounded-sm -z-10 group-hover:-translate-x-2 group-hover:translate-y-2 transition-transform duration-500"></div>
+      <!-- Page 3: The Little Birch Shop - Old Store Sketch -->
+      <section class="storybook-page mb-20">
+        <div class="storybook-spread md:flex md:items-center md:gap-10">
+
+          <div class="storybook-image md:w-1/2 mb-8 md:mb-0">
+            <img
+              src="/story-sketch-old-store.jpg"
+              alt="Pencil sketch of the original WV Wild Outdoors store in Little Birch"
+              class="w-full rounded-lg shadow-xl"
+              loading="lazy"
+            />
+            <p class="text-center font-hand text-brand-mud/50 mt-3">The Little Birch shop</p>
+          </div>
+
+          <div class="storybook-text md:w-1/2">
+            <p class="text-xl md:text-2xl text-brand-mud leading-relaxed mb-6">
+              <span class="font-display font-bold text-brand-brown text-3xl">W</span>e started back in <strong class="text-brand-brown">2008</strong> out in the New River Gorge area.
+            </p>
+            <p class="text-lg md:text-xl text-brand-mud leading-relaxed mb-6">
+              Just a sporting goods store for "all sports." We worked hard, but that location... well, we couldn't make it there.
+            </p>
+            <p class="text-lg md:text-xl text-brand-mud/80 italic">
+              Sometimes the Lord closes a door so you have to move.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Page 4: The Flood - Full Illustration -->
+      <section class="storybook-page mb-20">
+
+        <h2 class="font-display font-bold text-3xl md:text-4xl text-brand-brown text-center mb-8">
+          The Flood
+        </h2>
+
+        <div class="storybook-full-bleed -mx-6 md:-mx-12 mb-8">
           <img
-            src="/story-old-shop-flood.jpg"
-            alt="Old sporting goods storefront with mud, puddles, and flood marks along the porch and walls."
-            width="800"
-            height="600"
-            class="w-full block rounded-sm shadow-md grayscale-[.2] contrast-[1.1]"
+            src="/story-sketch-flood.jpg"
+            alt="Pencil sketch depicting the June 2016 flood waters devastating the shop"
+            class="w-full shadow-2xl"
             loading="lazy"
           />
-        </figure>
-      </section>
+        </div>
 
-      <!-- SECTION 3: Full Width Drama -->
-      <section class="fade-in-section">
-        <div class="max-w-3xl mx-auto text-center mb-12">
-          <h2 class="text-brand-brown font-display font-bold text-3xl md:text-4xl mb-6">
-            Still here for the next season
-          </h2>
-          <p class="text-brand-mud font-body text-lg leading-relaxed max-w-2xl mx-auto">
-            Today, WV Wild Outdoors continues in that newer corner-lot location
-            as a straightforward, local shop run by people who know the area they
-            serve. Whether it's getting sighted in for buck season, stocking up on
-            feed, or grabbing gear before a weekend in the woods — we're here to help.
+        <div class="max-w-2xl mx-auto text-center">
+          <p class="font-hand text-2xl text-brand-mud/60 mb-4">June 23, 2016</p>
+          <p class="text-lg md:text-xl text-brand-mud leading-relaxed mb-4">
+            A thousand-year storm. Eight inches of rain in twelve hours. The Elk River rose higher than it had since 1888. Twenty-three souls lost across West Virginia.
+          </p>
+          <p class="text-lg md:text-xl text-brand-mud leading-relaxed">
+            The Little Birch shop took on water. Over <strong class="text-brand-brown text-2xl">$70,000</strong> in inventory — gone.
           </p>
         </div>
 
-        <!-- Breakout Image -->
-        <figure class="relative w-screen left-1/2 -translate-x-1/2 md:w-full md:left-auto md:translate-x-0 md:-mx-12 overflow-hidden shadow-xl">
-           <img
-            src="/story-new-shop-family.jpg"
-            alt="New metal-sided sporting goods shop with a large SPORTING GOODS sign and a family standing at the steps."
-            width="1600"
-            height="900"
-            class="w-full h-[60vh] object-cover object-center"
-            loading="lazy"
-          />
-          <figcaption class="absolute bottom-0 right-0 bg-black/60 text-white px-4 py-2 font-display text-sm uppercase tracking-widest backdrop-blur-sm">
-            The New Shop Corner
-          </figcaption>
-        </figure>
       </section>
 
-    </div>
+      <!-- Page 5: The Cleanup -->
+      <section class="storybook-page mb-20">
+
+        <div class="storybook-full-bleed -mx-6 md:-mx-12 mb-8">
+          <img
+            src="/story-sketch-cleanup.jpg"
+            alt="Pencil sketch showing the lot covered in debris after the flood waters receded"
+            class="w-full shadow-2xl"
+            loading="lazy"
+          />
+        </div>
+
+        <div class="max-w-2xl mx-auto text-center">
+          <p class="font-hand text-xl text-brand-mud/50 mb-6">The Aftermath</p>
+          <p class="text-lg md:text-xl text-brand-mud leading-relaxed mb-6">
+            When the waters finally went down, we saw what was left. Debris everywhere. Mud caked on everything we'd built.
+          </p>
+          <blockquote class="bg-brand-brown/5 p-6 rounded-lg border-l-4 border-brand-orange mb-6">
+            <p class="font-hand text-xl text-brand-mud leading-relaxed">
+              We didn't post about it online. We didn't look for praise. We just did what folks in Braxton County do...
+            </p>
+          </blockquote>
+          <p class="text-lg md:text-xl text-brand-mud leading-relaxed">
+            FEMA denied us. <span class="text-brand-mud/70">Commercial business, they said.</span> Then came a theft — another ten thousand gone. No insurance to cover it.
+          </p>
+        </div>
+
+      </section>
+
+      <!-- Page 6: Community Rises -->
+      <section class="storybook-page mb-20">
+
+        <h2 class="font-display font-bold text-3xl md:text-4xl text-brand-brown text-center mb-8">
+          Community Rises
+        </h2>
+
+        <div class="storybook-full-bleed -mx-6 md:-mx-12 mb-8">
+          <img
+            src="/story-sketch-community.jpg"
+            alt="Pencil sketch showing church community members helping to rebuild after the flood"
+            class="w-full shadow-2xl"
+            loading="lazy"
+          />
+          <p class="text-center font-hand text-brand-mud/50 mt-4 text-lg">Our church family from Tesla came to help</p>
+        </div>
+
+        <div class="max-w-2xl mx-auto">
+          <p class="text-lg md:text-xl text-brand-mud leading-relaxed text-center mb-6">
+            We checked on our neighbors first. We prayed. And we dug out the mud — together.
+          </p>
+          <p class="text-lg md:text-xl text-brand-mud leading-relaxed text-center mb-6">
+            Even while digging out our own mess, Bryan was up on ladders fixing roofs for elderly neighbors and the church. That's just what you do.
+          </p>
+          <p class="text-lg md:text-xl text-brand-mud leading-relaxed text-center mb-6">
+            We kept the doors open because this community isn't just a market to us.
+          </p>
+          <p class="text-2xl font-display text-brand-brown text-center">
+            It's home.
+          </p>
+        </div>
+
+      </section>
+
+      <!-- Page 7: The New Beginning - Rebuild Sketch + Family Photo -->
+      <section class="storybook-page mb-20">
+
+        <h2 class="font-display font-bold text-3xl md:text-4xl text-brand-brown text-center mb-8">
+          A New Beginning
+        </h2>
+
+        <div class="storybook-full-bleed -mx-6 md:-mx-12 mb-8">
+          <img
+            src="/story-sketch-rebuild.jpg"
+            alt="Pencil sketch of the new WV Wild Outdoors building on the corner lot"
+            class="w-full shadow-2xl"
+            loading="lazy"
+          />
+        </div>
+
+        <div class="max-w-2xl mx-auto">
+          <p class="text-lg md:text-xl text-brand-mud leading-relaxed text-center mb-6">
+            Then came the blessing we didn't expect — a federal contract. Enough to rebuild. Enough to start fresh.
+          </p>
+          <p class="text-lg md:text-xl text-brand-mud leading-relaxed text-center mb-10">
+            Rather than close the doors for good, we bought the <strong class="text-brand-brown">corner lot</strong> just down the road and moved WV Wild Outdoors there — keeping the shop close to the same neighbors, hunters, and families who had always depended on it.
+          </p>
+        </div>
+
+        <!-- The Family at the New Shop -->
+        <div class="storybook-full-bleed -mx-6 md:-mx-12">
+          <img
+            src="/story-new-shop-family.jpg"
+            alt="Kim and Bryan standing proudly at their new WV Wild Outdoors building"
+            class="w-full rounded shadow-2xl"
+            loading="lazy"
+          />
+          <p class="text-center font-hand text-brand-mud/50 mt-4 text-lg">Kim & Bryan at the new corner lot — still standing</p>
+        </div>
+
+      </section>
+
+      <!-- Page 8: Today -->
+      <section class="storybook-page mb-20 text-center">
+        <p class="text-xl md:text-2xl text-brand-mud leading-relaxed max-w-2xl mx-auto mb-8">
+          Today, WV Wild Outdoors continues in that newer corner-lot location as a straightforward, local shop run by people who know the area they serve.
+        </p>
+        <p class="text-lg text-brand-mud/70 max-w-xl mx-auto">
+          Whether it's getting sighted in for buck season, stocking up on feed, or grabbing gear before a weekend in the woods — we're here to help.
+        </p>
+      </section>
+
+      <!-- The Big Quote - Full Page -->
+      <section class="storybook-page py-16 border-y-4 border-brand-orange/30 mb-20 text-center">
+        <p class="font-hand text-3xl md:text-5xl text-brand-brown leading-relaxed max-w-3xl mx-auto">
+          "We own the building. We own every single thing in it. That's God."
+        </p>
+      </section>
+
+      <!-- Final Page -->
+      <footer class="text-center">
+        <p class="text-lg md:text-xl text-brand-mud/70 max-w-2xl mx-auto mb-10 italic leading-relaxed">
+          "When things are rough, you still praise God Almighty. When a door closes, definitely look for the blessing — because it indeed will come."
+        </p>
+        <p class="font-display font-bold text-2xl md:text-3xl text-sign-green mb-4">
+          God is Indeed Good All the Time
+        </p>
+        <div class="h-1 w-24 bg-brand-orange mx-auto rounded-full mb-8"></div>
+        <p class="font-hand text-brand-mud/50 text-xl">— Kim & Bryan Utt</p>
+      </footer>
+
+    </article>
+
   </main>
 
   <Footer />
 </Layout>
 
-<script>
-  let initialized = false;
-  let observer: IntersectionObserver | null = null;
-
-  // Feature detection for IntersectionObserver
-  if (typeof IntersectionObserver !== 'undefined') {
-    const observerOptions = {
-      root: null,
-      rootMargin: '0px',
-      threshold: 0.1
-    };
-
-    observer = new IntersectionObserver((entries, obs) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('opacity-100', 'translate-y-0');
-          entry.target.classList.remove('opacity-0', 'translate-y-12');
-          obs.unobserve(entry.target);
-        }
-      });
-    }, observerOptions);
-
-    // Cleanup observer on page navigation (ViewTransitions)
-    document.addEventListener('astro:before-swap', () => {
-      observer?.disconnect();
-      initialized = false;
-    });
+<style>
+  /* Storybook page styling */
+  .storybook-page {
+    transition: transform 0.3s ease;
   }
 
-  document.addEventListener('astro:page-load', () => {
-    initAnimations();
-  });
-
-  // Also run on immediate load
-  if (!initialized) {
-    initAnimations();
+  .storybook-spread {
+    position: relative;
   }
 
-  function initAnimations() {
-    if (initialized) return;
-    initialized = true;
-
-    // Respect users who prefer reduced motion
-    if (window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches) {
-      return;
-    }
-
-    // Graceful degradation if IntersectionObserver not supported
-    if (!observer) {
-      console.info('[Story] Scroll animations disabled: IntersectionObserver not supported');
-      return;
-    }
-
-    const hiddenElements = document.querySelectorAll('.fade-in-section');
-    hiddenElements.forEach((el) => {
-      el.classList.add('transition-all', 'duration-1000', 'ease-out', 'opacity-0', 'translate-y-12');
-      observer!.observe(el); // Safe: guarded by line 174
-    });
+  /* Image frame styling */
+  .storybook-image img,
+  .storybook-full-bleed img {
+    border: 1px solid rgba(139, 90, 43, 0.1);
   }
-</script>
+</style>
