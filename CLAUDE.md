@@ -497,6 +497,12 @@ npx agentdb@latest learner run 3 0.6 0.7
 - **ALWAYS** match Kim's authentic voice
 - **ALWAYS** prefer free-tier solutions
 
+## WORKFLOW RULES (Token Efficiency)
+
+- **ASK, DON'T DECIDE**: When encountering risk/uncertainty, ask "Should I test this?" instead of deciding it can't be done
+- **PR AWARENESS**: Code review feedback implies PR context. After fixing, ask "Commit to PR?" instead of summarizing
+- **SHORT QUESTIONS > LONG EXPLANATIONS**: Ask first, explain only if asked
+
 ## Semantic Code Search (Find by Meaning)
 
 Claude can search the indexed codebase by meaning, not just keywords:
