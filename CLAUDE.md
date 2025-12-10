@@ -398,4 +398,151 @@ npm run preview  # Preview production build
 - Added: Web3Forms (forms), Buttondown (newsletter), YouTube (embeds)
 
 <!-- MANUAL ADDITIONS START -->
+
+---
+
+# WVWO Intelligence System (AgentDB + ReasoningBank)
+
+## MANDATORY: Session Protocol
+
+Claude MUST follow this protocol for every WVWO session:
+
+### SESSION START (Do this FIRST)
+
+1. **Load Context** - Read the memory file:
+```
+Read .agentdb/wvwo-context.json
+```
+
+2. **Recall Learned Patterns** - Check what worked before:
+```bash
+npx agentdb@latest reflexion retrieve "WVWO" --k 5 --synthesize-context
+```
+
+3. **Acknowledge Context** - Briefly confirm to user:
+> "Loaded WVWO context: Kim & Bryan's shop, Astro+Tailwind, vanilla JS only, faith-forward voice."
+
+### DURING WORK (Semi-Auto)
+
+**Before implementing any approach**, check verdict:
+- REJECT if: React, Vue, Angular, Svelte, Next.js, corporate tone
+- APPROVE if: Astro component, Tailwind CSS, vanilla JS, Kim's voice
+- REVIEW if: New pattern, complex feature, third-party integration
+
+**After completing each task**, ask user:
+> "Task complete. Did this work correctly? (y/n) - I'll log the pattern."
+
+If YES - store success:
+```bash
+npx agentdb@latest reflexion store "wvwo-session" "<task_name>" 1.0 true "<what_worked>"
+```
+
+If NO - store failure:
+```bash
+npx agentdb@latest reflexion store "wvwo-session" "<task_name>" 0.0 false "<what_to_avoid>"
+```
+
+### SESSION END (Wrap-Up)
+
+1. **Summarize learnings**:
+> "This session: X tasks completed, Y patterns learned."
+
+2. **Consolidate if 3+ new patterns**:
+```bash
+npx agentdb@latest skill consolidate 3 0.8 7 true
+```
+
+3. **Discover new causal patterns**:
+```bash
+npx agentdb@latest learner run 3 0.6 0.7
+```
+
+---
+
+## WVWO Core Context (Always Remember)
+
+| Key | Value |
+|-----|-------|
+| **PROJECT** | WV Wild Outdoors - Kim & Bryan's hunting/outdoor shop, Birch River WV |
+| **IDENTITY** | FFL dealer, DNR agent, family-owned since 2008 |
+| **TECH** | Astro 5.x + Tailwind CSS 4.x + vanilla JS ONLY |
+| **HOSTING** | Cloudflare Pages |
+| **VOICE** | Faith-forward, humble, rural WV authentic, "Grand love ya" |
+| **DESIGN** | brand-brown, brand-orange, brand-cream, sign-green |
+| **FORMS** | Web3Forms (key: 30e563a3...) |
+| **NEWSLETTER** | Buttondown |
+
+## WVWO Strategic Principles (Check Before Suggesting Features)
+
+| Principle | Meaning | Example |
+|-----------|---------|---------|
+| **SIMPLICITY > COMPLEXITY** | We pivoted from Docker/Directus to static Astro. Simpler is better for small business. | Don't suggest databases, CMSs, or complex architectures |
+| **AUTHENTIC > CORPORATE** | Kim's real voice, not marketing speak. Rural WV culture, not Silicon Valley. | Don't use buzzwords, "solutions", or slick copy |
+| **FREE > EXPENSIVE** | Cloudflare Pages free tier. Web3Forms free tier. No monthly costs for Kim. | Don't suggest paid services or subscriptions |
+| **LOCAL > ONLINE** | Kim's customers are neighbors, not internet strangers. Foot traffic > web traffic. | Don't over-invest in SEO, e-commerce, or online marketing |
+
+**When suggesting features, Claude MUST check:**
+> "Does this add complexity? Does it cost money? Does it sound corporate? Is it optimizing for online over local?"
+> If YES to any → Reconsider or explain tradeoff to user.
+
+## HARD RULES (Never Violate)
+
+- **NEVER** suggest React, Vue, Angular, Svelte, or any JS framework
+- **NEVER** use corporate marketing tone
+- **NEVER** over-engineer - keep it simple
+- **NEVER** suggest paid services without explicit user request
+- **ALWAYS** use Astro components with frontmatter
+- **ALWAYS** use Tailwind design system classes
+- **ALWAYS** write vanilla JS for interactivity
+- **ALWAYS** match Kim's authentic voice
+- **ALWAYS** prefer free-tier solutions
+
+## Semantic Code Search (Find by Meaning)
+
+Claude can search the indexed codebase by meaning, not just keywords:
+
+```bash
+# Find form-related code
+npx agentdb@latest skill search "form handling contact submission" 5
+
+# Find navigation code
+npx agentdb@latest skill search "navigation menu header" 5
+
+# Find about/story content
+npx agentdb@latest skill search "Kim Bryan family business" 5
+
+# Find seasonal/hunting content
+npx agentdb@latest skill search "hunting season deer buck" 5
+
+# Find config/settings
+npx agentdb@latest skill search "API key config settings" 5
+```
+
+**28 files indexed**: 15 components, 10 pages, 1 layout, 1 config, 1 data file
+
+## Quick Commands Reference
+
+```bash
+# Recall all WVWO context
+npx agentdb@latest skill search "wvwo" 5
+
+# Semantic code search
+npx agentdb@latest skill search "<what you're looking for>" 5
+
+# Check learned patterns
+npx agentdb@latest reflexion retrieve "<topic>" --k 5 --synthesize-context
+
+# Store success pattern
+npx agentdb@latest reflexion store "wvwo-session" "<task>" 1.0 true "<approach>"
+
+# Store failure pattern
+npx agentdb@latest reflexion store "wvwo-session" "<task>" 0.0 false "<what_failed>"
+
+# View critique summary (learn from failures)
+npx agentdb@latest reflexion critique-summary "WVWO"
+
+# Discover new patterns
+npx agentdb@latest learner run 3 0.6 0.7
+```
+
 <!-- MANUAL ADDITIONS END -->

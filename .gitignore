@@ -117,3 +117,8 @@ old session.txt
 
 # Source images (processed versions in public/)
 docs/store pictures/
+
+# Claude Intelligence System (local memory)
+.agentdb/
+docs/CLAUDE_INTELLIGENCE_ENHANCEMENT_ANALYSIS.md
+docs/WVWO-INTELLIGENCE-CHEATSHEET.md
