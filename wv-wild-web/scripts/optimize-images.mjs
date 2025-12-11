@@ -69,11 +69,15 @@ async function optimizeImage(filePath, maxWidth, maxHeight, quality) {
     const tempPath = filePath + '.tmp';
     await writeFile(tempPath, buffer);
     await rename(tempPath, filePath);
+    const savings = originalSize > 0
+      ? Math.round((1 - buffer.length / originalSize) * 100)
+      : 0;
+
     return {
       file: basename(filePath),
       originalSize,
       newSize: buffer.length,
-      savings: Math.round((1 - buffer.length / originalSize) * 100)
+      savings
     };
   }
 
@@ -99,18 +103,22 @@ async function optimizeDirectory(name, config) {
       const fileStat = await stat(filePath);
 
       if (fileStat.isFile()) {
-        const result = await optimizeImage(
-          filePath,
-          config.maxWidth,
-          config.maxHeight,
-          config.quality
-        );
+        try {
+          const result = await optimizeImage(
+            filePath,
+            config.maxWidth,
+            config.maxHeight,
+            config.quality
+          );
 
-        if (result) {
-          results.push(result);
-          const sizeStr = `${(result.originalSize / 1024).toFixed(0)}KB → ${(result.newSize / 1024).toFixed(0)}KB`;
-          const status = result.skipped ? '⏭️  (already small)' : `✅ -${result.savings}%`;
-          console.log(`   ${result.file}: ${sizeStr} ${status}`);
+          if (result) {
+            results.push(result);
+            const sizeStr = `${(result.originalSize / 1024).toFixed(0)}KB → ${(result.newSize / 1024).toFixed(0)}KB`;
+            const status = result.skipped ? '⏭️  (already small)' : `✅ -${result.savings}%`;
+            console.log(`   ${result.file}: ${sizeStr} ${status}`);
+          }
+        } catch (err) {
+          console.error(`   ❌ ${file}: ${err.message}`);
         }
       }
     }
