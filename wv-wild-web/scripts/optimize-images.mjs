@@ -51,10 +51,17 @@ async function optimizeImage(filePath, maxWidth, maxHeight, quality) {
     });
   }
 
-  // Convert to JPEG with compression
-  const buffer = await resized
-    .jpeg({ quality, mozjpeg: true })
-    .toBuffer();
+  // Re-encode using the existing format so file contents match extension
+  let pipeline = resized;
+  if (ext === '.jpg' || ext === '.jpeg') {
+    pipeline = pipeline.jpeg({ quality, mozjpeg: true });
+  } else if (ext === '.png') {
+    pipeline = pipeline.png({ quality, compressionLevel: 9 });
+  } else if (ext === '.webp') {
+    pipeline = pipeline.webp({ quality });
+  }
+
+  const buffer = await pipeline.toBuffer();
 
   // Only save if smaller than original
   if (buffer.length < originalSize) {
@@ -111,9 +118,15 @@ async function optimizeDirectory(name, config) {
 
     const totalOriginal = results.reduce((sum, r) => sum + r.originalSize, 0);
     const totalNew = results.reduce((sum, r) => sum + r.newSize, 0);
-    const totalSavings = Math.round((1 - totalNew / totalOriginal) * 100);
 
-    console.log(`\n   Total: ${(totalOriginal / 1024 / 1024).toFixed(2)}MB → ${(totalNew / 1024 / 1024).toFixed(2)}MB (-${totalSavings}%)`);
+    if (totalOriginal > 0) {
+      const totalSavings = Math.round((1 - totalNew / totalOriginal) * 100);
+      console.log(
+        `\n   Total: ${(totalOriginal / 1024 / 1024).toFixed(2)}MB → ${(totalNew / 1024 / 1024).toFixed(2)}MB (-${totalSavings}%)`
+      );
+    } else {
+      console.log('\n   Total: 0.00MB → 0.00MB (-0%)');
+    }
 
     return results;
   } catch (err) {
