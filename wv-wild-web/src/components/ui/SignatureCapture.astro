@@ -34,6 +34,8 @@ const {
         id={`${componentId}-canvas`}
         class="w-full h-32 border-2 border-stone-300 rounded-lg bg-white cursor-crosshair touch-none"
         data-signature-canvas
+        aria-label="Signature canvas - draw your signature here"
+        role="img"
       ></canvas>
       <button
         type="button"
@@ -67,6 +69,7 @@ const {
       name="typed_signature"
       placeholder="John A. Smith"
       autocomplete="name"
+      aria-describedby={`${componentId}-validation`}
       class="w-full px-4 py-3 border-2 border-stone-300 rounded-lg font-hand text-2xl text-stone-800 placeholder:text-stone-400 placeholder:font-sans placeholder:text-base focus:outline-none focus:ring-2 focus:ring-sign-green/50 focus:border-sign-green"
       data-typed-signature
     />
@@ -82,8 +85,10 @@ const {
   <label class="flex items-start gap-3 cursor-pointer select-none mt-6 p-4 bg-stone-50 rounded-lg border border-stone-200">
     <input
       type="checkbox"
+      id={`${componentId}-consent`}
       class="mt-1 w-5 h-5 rounded border-stone-300 text-sign-green focus:ring-sign-green"
       data-consent-checkbox
+      aria-required={required ? 'true' : 'false'}
       {required ? 'required' : ''}
     />
     <span class="text-sm text-stone-700">
@@ -93,7 +98,13 @@ const {
   </label>
 
   <!-- Validation message -->
-  <p class="text-sm text-red-600 hidden" data-validation-message>
+  <p
+    id={`${componentId}-validation`}
+    class="text-sm text-red-600 hidden"
+    role="alert"
+    aria-live="polite"
+    data-validation-message
+  >
     Please provide a signature (draw or type) and check the consent box.
   </p>
 </div>

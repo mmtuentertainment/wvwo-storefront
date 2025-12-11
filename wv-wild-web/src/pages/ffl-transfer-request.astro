@@ -189,7 +189,6 @@ const TERMS_VERSION = '2025-12-v1';
               id="open-terms-btn"
               class="mt-4 w-full bg-brand-brown text-white font-bold py-3 rounded hover:bg-brand-brown/90 transition-colors"
               data-scrollwrap-trigger
-              onclick="openScrollwrapModal('scrollwrap-modal')"
             >
               Read & Agree to Terms
             </button>
@@ -353,6 +352,13 @@ const TERMS_VERSION = '2025-12-v1';
       signatureCapture.addEventListener('change', checkSubmitReady);
       signatureCapture.addEventListener('click', () => setTimeout(checkSubmitReady, 100));
     }
+
+    // Open terms modal button
+    openTermsBtn?.addEventListener('click', () => {
+      if (typeof (window as any).openScrollwrapModal === 'function') {
+        (window as any).openScrollwrapModal('scrollwrap-modal');
+      }
+    });
 
     // Cleanup
     document.addEventListener('astro:before-swap', () => {
