@@ -1,0 +1,301 @@
+---
+// ScrollwrapModal.astro
+// Scroll-to-agree legal acknowledgment modal
+// Legal basis: Specht v. Netscape, ESIGN Act compliance
+
+interface Props {
+  modalId?: string;
+  termsVersion?: string;
+}
+
+const {
+  modalId = 'scrollwrap-modal',
+  termsVersion = '2025-12-v1'
+} = Astro.props;
+---
+
+<div
+  id={modalId}
+  class="fixed inset-0 z-50 hidden"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby={`${modalId}-title`}
+  data-terms-version={termsVersion}
+>
+  <!-- Backdrop -->
+  <div class="fixed inset-0 bg-black/60 backdrop-blur-sm" data-modal-backdrop></div>
+
+  <!-- Modal Container -->
+  <div class="fixed inset-0 overflow-y-auto">
+    <div class="flex min-h-full items-center justify-center p-4">
+      <div class="relative bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] flex flex-col">
+
+        <!-- Header -->
+        <div class="flex items-center justify-between p-4 border-b border-stone-200">
+          <h2 id={`${modalId}-title`} class="font-display font-bold text-xl text-brand-brown">
+            FFL Transfer Agreement
+          </h2>
+          <button
+            type="button"
+            class="text-stone-400 hover:text-stone-600 transition-colors p-1 rounded focus:outline-none focus:ring-2 focus:ring-brand-orange"
+            data-modal-close
+            aria-label="Close"
+          >
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Scroll Container -->
+        <div
+          class="flex-1 overflow-y-auto p-6 text-stone-700"
+          data-scroll-container
+          tabindex="0"
+        >
+          <!-- Terms Content -->
+          <div class="prose prose-stone prose-sm max-w-none">
+            <h3 class="text-brand-brown font-display">Terms of Service</h3>
+            <p class="text-sm text-stone-500 mb-4">Last updated: December 11, 2025</p>
+
+            <h4>Welcome to WV Wild Outdoors</h4>
+            <p>By using this website and our FFL transfer services, you agree to these terms. WV Wild Outdoors operates a physical retail store in Birch River, West Virginia.</p>
+
+            <h4>Firearm Sales & Transfers</h4>
+            <p>WV Wild Outdoors is a licensed Federal Firearms Licensee (FFL). All firearm sales and transfers are conducted in accordance with federal firearms laws, ATF regulations, West Virginia state firearms laws, required NICS background check procedures, and proper identification requirements.</p>
+            <p>We reserve the right to refuse any sale or transfer at our discretion.</p>
+
+            <h4>Age Requirements</h4>
+            <p>Federal law requires: <strong>18 years or older</strong> for rifles and shotguns (long guns), <strong>21 years or older</strong> for handguns. Valid government-issued photo ID required for all purchases.</p>
+
+            <h4>Prohibited Persons</h4>
+            <p>Under federal law (<a href="https://www.law.cornell.edu/uscode/text/18/922" class="text-brand-orange hover:underline">18 U.S.C. § 922(g)</a>), certain individuals are prohibited from purchasing or possessing firearms. You must certify that you are not a prohibited person when completing ATF Form 4473.</p>
+
+            <h4>Straw Purchases Are Illegal</h4>
+            <p>A "straw purchase" is when you buy a firearm for someone else who cannot legally purchase it themselves. Straw purchases are a federal crime under 18 U.S.C. § 922(a)(6) and can result in up to 10 years in prison and a $250,000 fine.</p>
+
+            <h4>What to Bring</h4>
+            <p>To complete your FFL transfer, bring: valid government-issued photo ID with current address, ability to complete ATF Form 4473 in person, and time to wait for NICS background check.</p>
+
+            <h4>Returns & Refunds - Firearms</h4>
+            <p>All firearm sales at WV Wild Outdoors are final once the transfer is complete. Please inspect your firearm before paperwork begins. Background check fees are non-refundable once initiated.</p>
+
+            <h4>Out-of-State Buyers</h4>
+            <p>Handguns cannot be transferred to out-of-state residents; we can ship to an FFL in your home state. Long guns may be transferred directly if compliant with both states' laws.</p>
+
+            <hr class="my-6" />
+
+            <h3 class="text-brand-brown font-display">Privacy Policy</h3>
+            <p class="text-sm text-stone-500 mb-4">Last updated: December 2025</p>
+
+            <h4>Information We Collect</h4>
+            <p>When you visit our website, we may collect basic analytics data through Cloudflare Analytics, email address if you subscribe to our newsletter, and information provided through contact forms.</p>
+
+            <h4>In-Store Firearm Purchases</h4>
+            <p>For firearm purchases, we collect information required by federal law for ATF Form 4473 and NICS background checks. This information is stored securely per ATF regulations (27 CFR § 478.129), retained for 20 years as required, and never sold or shared except as required by law.</p>
+
+            <h4>Data Security</h4>
+            <p>Under West Virginia law (W. Va. Code § 46A-2A-101), we will notify you if we experience a data breach compromising your personal information.</p>
+
+            <h4>Contact Us</h4>
+            <address class="not-italic">
+              <strong>WV Wild Outdoors</strong><br />
+              121 Birch River Rd<br />
+              Birch River, WV 26610<br />
+              Phone: (304) 649-2607
+            </address>
+          </div>
+
+          <!-- Scroll Indicator (shown until user scrolls to bottom) -->
+          <div class="mt-6 text-center text-sm text-stone-500" data-scroll-indicator>
+            <svg class="w-5 h-5 mx-auto mb-1 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+            Scroll to continue
+          </div>
+        </div>
+
+        <!-- Footer with Checkbox -->
+        <div class="p-4 border-t border-stone-200 bg-stone-50">
+          <!-- Progress indicator -->
+          <div class="mb-4">
+            <div class="flex justify-between text-xs text-stone-500 mb-1">
+              <span>Reading progress</span>
+              <span data-scroll-percent>0%</span>
+            </div>
+            <div class="h-2 bg-stone-200 rounded-full overflow-hidden">
+              <div
+                class="h-full bg-sign-green transition-all duration-150"
+                style="width: 0%"
+                data-scroll-progress
+                role="progressbar"
+                aria-valuenow="0"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              ></div>
+            </div>
+          </div>
+
+          <!-- Checkbox (disabled until scrolled) -->
+          <label class="flex items-start gap-3 cursor-pointer select-none">
+            <input
+              type="checkbox"
+              class="mt-1 w-5 h-5 rounded border-stone-300 text-sign-green focus:ring-sign-green disabled:opacity-50 disabled:cursor-not-allowed"
+              data-agree-checkbox
+              disabled
+            />
+            <span class="text-sm text-stone-700">
+              I have read and agree to the
+              <strong>Terms of Service</strong> and <strong>Privacy Policy</strong>.
+              I understand my obligations for this FFL transfer.
+            </span>
+          </label>
+
+          <!-- Continue Button -->
+          <button
+            type="button"
+            class="mt-4 w-full bg-sign-green text-white font-bold py-3 rounded hover:bg-green-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-sign-green"
+            data-continue-btn
+            disabled
+          >
+            Continue to Signature
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function initScrollwrapModal() {
+    const modals = document.querySelectorAll('[role="dialog"][id^="scrollwrap"]');
+
+    modals.forEach((modal) => {
+      const modalEl = modal as HTMLElement;
+
+      // Idempotency guard
+      if (modalEl.dataset.scrollwrapInit === 'true') return;
+      modalEl.dataset.scrollwrapInit = 'true';
+
+      const backdrop = modalEl.querySelector('[data-modal-backdrop]') as HTMLElement;
+      const closeBtn = modalEl.querySelector('[data-modal-close]') as HTMLElement;
+      const scrollContainer = modalEl.querySelector('[data-scroll-container]') as HTMLElement;
+      const scrollIndicator = modalEl.querySelector('[data-scroll-indicator]') as HTMLElement;
+      const scrollProgress = modalEl.querySelector('[data-scroll-progress]') as HTMLElement;
+      const scrollPercent = modalEl.querySelector('[data-scroll-percent]') as HTMLElement;
+      const agreeCheckbox = modalEl.querySelector('[data-agree-checkbox]') as HTMLInputElement;
+      const continueBtn = modalEl.querySelector('[data-continue-btn]') as HTMLButtonElement;
+
+      let hasScrolledToBottom = false;
+
+      // Track scroll position
+      const handleScroll = () => {
+        const scrollTop = scrollContainer.scrollTop;
+        const scrollHeight = scrollContainer.scrollHeight - scrollContainer.clientHeight;
+        const percent = Math.min(100, Math.round((scrollTop / scrollHeight) * 100));
+
+        // Update progress bar
+        scrollProgress.style.width = `${percent}%`;
+        scrollProgress.setAttribute('aria-valuenow', String(percent));
+        scrollPercent.textContent = `${percent}%`;
+
+        // Hide scroll indicator at bottom
+        if (percent >= 95) {
+          scrollIndicator.classList.add('hidden');
+          hasScrolledToBottom = true;
+          agreeCheckbox.disabled = false;
+        }
+      };
+
+      scrollContainer.addEventListener('scroll', handleScroll);
+
+      // Handle checkbox change
+      agreeCheckbox.addEventListener('change', () => {
+        continueBtn.disabled = !agreeCheckbox.checked;
+      });
+
+      // Handle continue button
+      continueBtn.addEventListener('click', () => {
+        if (!hasScrolledToBottom || !agreeCheckbox.checked) return;
+
+        // Record consent timestamp
+        const consentData = {
+          scrolled_to_bottom: true,
+          checkbox_checked: true,
+          checkbox_timestamp: new Date().toISOString(),
+          terms_version: modalEl.dataset.termsVersion || '2025-12-v1'
+        };
+
+        // Store in hidden input on parent form
+        const form = document.querySelector('[data-ffl-form]') as HTMLFormElement;
+        if (form) {
+          let consentInput = form.querySelector('[name="consent_data"]') as HTMLInputElement;
+          if (!consentInput) {
+            consentInput = document.createElement('input');
+            consentInput.type = 'hidden';
+            consentInput.name = 'consent_data';
+            form.appendChild(consentInput);
+          }
+          consentInput.value = JSON.stringify(consentData);
+        }
+
+        // Dispatch event for parent page to handle
+        modalEl.dispatchEvent(new CustomEvent('scrollwrap:agreed', {
+          detail: consentData,
+          bubbles: true
+        }));
+
+        // Close modal
+        closeModal();
+      });
+
+      // Close modal functions
+      const closeModal = () => {
+        modalEl.classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+
+        // Return focus to trigger element
+        const trigger = document.querySelector('[data-scrollwrap-trigger]') as HTMLElement;
+        if (trigger) trigger.focus();
+      };
+
+      // Close on backdrop click
+      backdrop?.addEventListener('click', closeModal);
+
+      // Close on X button
+      closeBtn?.addEventListener('click', closeModal);
+
+      // Close on Escape key
+      const handleKeydown = (e: KeyboardEvent) => {
+        if (e.key === 'Escape' && !modalEl.classList.contains('hidden')) {
+          closeModal();
+        }
+      };
+      document.addEventListener('keydown', handleKeydown);
+
+      // Open modal function (exposed globally)
+      (window as any).openScrollwrapModal = (id: string) => {
+        const targetModal = document.getElementById(id);
+        if (targetModal) {
+          targetModal.classList.remove('hidden');
+          document.body.classList.add('overflow-hidden');
+
+          // Focus the scroll container for keyboard users
+          const container = targetModal.querySelector('[data-scroll-container]') as HTMLElement;
+          if (container) container.focus();
+        }
+      };
+
+      // Cleanup on ViewTransitions
+      document.addEventListener('astro:before-swap', () => {
+        document.removeEventListener('keydown', handleKeydown);
+        modalEl.dataset.scrollwrapInit = 'false';
+      }, { once: true });
+    });
+  }
+
+  // Initialize
+  initScrollwrapModal();
+  document.addEventListener('astro:page-load', initScrollwrapModal);
+</script>
