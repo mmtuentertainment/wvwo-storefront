@@ -5,7 +5,7 @@
 
 ---
 
-```
+```text
 WVWO_FRONTEND_AESTHETICS = """
 <wvwo_frontend_aesthetics>
 
@@ -333,7 +333,7 @@ NEVER USE:
 - Lifestyle shots with pristine outdoor gear
 ```
 
-### USE INSTEAD
+### USE INSTEAD (Image Styles)
 - **Real photos** of Kim and Bryan's actual shop
 - **Flood damage photos** (raw, unedited testimony)
 - **Grayscale treatments** (not trying to be glossy)
