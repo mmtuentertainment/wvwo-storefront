@@ -104,10 +104,11 @@ async function optimizeDirectory(name, config) {
 
     for (const file of files) {
       const filePath = join(config.dir, file);
-      const fileStat = await stat(filePath);
 
-      if (fileStat.isFile()) {
-        try {
+      try {
+        const fileStat = await stat(filePath);
+
+        if (fileStat.isFile()) {
           const result = await optimizeImage(
             filePath,
             config.maxWidth,
@@ -121,9 +122,9 @@ async function optimizeDirectory(name, config) {
             const status = result.skipped ? '⏭️  (already small)' : `✅ -${result.savings}%`;
             console.log(`   ${result.file}: ${sizeStr} ${status}`);
           }
-        } catch (err) {
-          console.error(`   ❌ ${file}: ${err.message}`);
         }
+      } catch (err) {
+        console.error(`   ❌ ${file}: ${err.message}`);
       }
     }
 
