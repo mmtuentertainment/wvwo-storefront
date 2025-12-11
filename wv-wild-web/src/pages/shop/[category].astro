@@ -1,0 +1,252 @@
+---
+/**
+ * /shop/[category] - Dynamic category page
+ */
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import ProductCard from '../../components/shop/ProductCard.astro';
+import { SITE_CONTACT } from '../../config/siteContact';
+import storeData from '../../data/store.json';
+
+export function getStaticPaths() {
+  return storeData.categories.map(cat => ({
+    params: { category: cat.slug },
+    props: { category: cat }
+  }));
+}
+
+const { category } = Astro.props;
+const products = storeData.products.filter(p => p.categoryId === category.id);
+
+// Get unique brands in this category
+const brands = [...new Set(products.map(p => p.brand))].sort();
+---
+
+<Layout
+  title={`${category.name} | WV Wild Outdoors`}
+  description={category.description}
+>
+  <Header />
+
+  <main class="bg-brand-cream min-h-screen">
+    <!-- Hero -->
+    <section class="bg-brand-brown text-white py-10 md:py-14">
+      <div class="container mx-auto px-4">
+        <!-- Breadcrumb -->
+        <nav class="text-sm text-brand-cream/60 mb-3" aria-label="Breadcrumb">
+          <ol class="flex items-center gap-2">
+            <li><a href="/shop" class="hover:text-white transition-colors">Shop</a></li>
+            <li aria-hidden="true">/</li>
+            <li class="text-white">{category.name}</li>
+          </ol>
+        </nav>
+
+        <div class="flex items-baseline gap-4">
+          <h1 class="font-display font-black text-4xl md:text-5xl">{category.name}</h1>
+          <span class="font-hand text-brand-orange text-xl -rotate-2">{category.tagline}</span>
+        </div>
+        <p class="text-brand-cream/80 text-lg mt-3 max-w-2xl">
+          {category.description}
+        </p>
+      </div>
+    </section>
+
+    <!-- Products -->
+    <section class="py-8 md:py-12">
+      <div class="container mx-auto px-4">
+        <div class="flex flex-col md:flex-row gap-8">
+
+          <!-- Filters (Mobile Toggle) -->
+          <aside class="md:w-56 flex-shrink-0">
+            <div class="bg-white rounded-lg shadow-sm border border-stone-100 p-5">
+              <h2 class="font-display font-bold text-lg text-brand-brown mb-4">Filter</h2>
+
+              <!-- Brand Filter -->
+              {brands.length > 1 && (
+                <div class="mb-6">
+                  <h3 class="text-sm font-medium text-stone-700 mb-2">Brand</h3>
+                  <select
+                    id="brand-filter"
+                    class="w-full px-3 py-2 border border-stone-300 rounded focus:outline-none focus:ring-2 focus:ring-sign-green/50 focus:border-sign-green text-sm"
+                    data-filter-brand
+                  >
+                    <option value="">All Brands</option>
+                    {brands.map(brand => (
+                      <option value={brand}>{brand}</option>
+                    ))}
+                  </select>
+                </div>
+              )}
+
+              <!-- In Stock Only -->
+              <div class="mb-4">
+                <label class="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    class="rounded text-sign-green focus:ring-sign-green"
+                    data-filter-instock
+                  />
+                  <span class="text-sm text-stone-600">In Stock Only</span>
+                </label>
+              </div>
+
+              <!-- Back to Shop -->
+              <a
+                href="/shop"
+                class="inline-flex items-center gap-1 text-sm text-brand-orange hover:underline mt-4"
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+                All Products
+              </a>
+            </div>
+          </aside>
+
+          <!-- Products Grid -->
+          <div class="flex-1">
+            <!-- Results Count -->
+            <div class="flex items-center justify-between mb-6">
+              <p class="text-stone-600">
+                <span data-results-count>{products.length}</span> products in {category.name}
+              </p>
+            </div>
+
+            <!-- Product Grid -->
+            <div
+              class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+              id="products-grid"
+            >
+              {products.map(product => (
+                <div
+                  data-product
+                  data-brand={product.brand}
+                  data-instock={product.inStock}
+                >
+                  <ProductCard product={product} categorySlug={category.slug} />
+                </div>
+              ))}
+            </div>
+
+            <!-- Empty State -->
+            <div class="hidden text-center py-12" data-empty-state>
+              <p class="text-stone-600 mb-4">No products match your filters.</p>
+              <button
+                type="button"
+                class="text-brand-orange hover:underline"
+                data-clear-filters
+              >
+                Clear Filters
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Other Categories -->
+    <section class="py-12 bg-white">
+      <div class="container mx-auto px-4">
+        <h2 class="font-display font-bold text-xl text-brand-brown text-center mb-6">
+          Other Categories
+        </h2>
+        <div class="flex flex-wrap justify-center gap-4">
+          {storeData.categories.filter(c => c.id !== category.id).map(cat => (
+            <a
+              href={`/shop/${cat.slug}`}
+              class="bg-stone-100 hover:bg-stone-200 rounded-lg px-5 py-3 transition-colors"
+            >
+              <span class="font-medium text-brand-brown">{cat.name}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- FFL Notice (for firearms/ammo categories) -->
+    {(category.id === 'firearms' || category.id === 'ammo') && (
+      <section class="bg-brand-mud text-brand-cream py-6">
+        <div class="container mx-auto px-4 text-center">
+          <p class="text-sm text-brand-cream/70">
+            <strong class="text-white">Note:</strong> {category.id === 'firearms' ? 'Firearms' : 'Ammunition'} cannot be shipped.
+            Call <a href={SITE_CONTACT.phoneHref} class="text-sign-green hover:underline">{SITE_CONTACT.phoneDisplay}</a> to order.
+            {category.id === 'firearms' && 'All sales require federal background check (NICS). Must be 18+ for long guns, 21+ for handguns.'}
+          </p>
+        </div>
+      </section>
+    )}
+  </main>
+
+  <Footer />
+</Layout>
+
+<script>
+  function initCategoryFilters() {
+    const grid = document.getElementById('products-grid');
+    const brandSelect = document.querySelector('[data-filter-brand]') as HTMLSelectElement;
+    const instockCheckbox = document.querySelector('[data-filter-instock]') as HTMLInputElement;
+    const clearButtons = document.querySelectorAll('[data-clear-filters]');
+    const resultsCount = document.querySelector('[data-results-count]');
+    const emptyState = document.querySelector('[data-empty-state]');
+
+    if (!grid) return;
+
+    // Idempotency guard
+    if (grid.dataset.filtersInit === 'true') return;
+    grid.dataset.filtersInit = 'true';
+
+    const products = grid.querySelectorAll('[data-product]') as NodeListOf<HTMLElement>;
+
+    function applyFilters() {
+      const selectedBrand = brandSelect?.value || '';
+      const instockOnly = instockCheckbox?.checked || false;
+
+      let visibleCount = 0;
+
+      products.forEach(product => {
+        const brand = product.dataset.brand || '';
+        const instock = product.dataset.instock === 'true';
+
+        let show = true;
+
+        if (selectedBrand && brand !== selectedBrand) {
+          show = false;
+        }
+
+        if (instockOnly && !instock) {
+          show = false;
+        }
+
+        product.style.display = show ? '' : 'none';
+        if (show) visibleCount++;
+      });
+
+      if (resultsCount) {
+        resultsCount.textContent = visibleCount.toString();
+      }
+
+      if (emptyState) {
+        emptyState.classList.toggle('hidden', visibleCount > 0);
+      }
+    }
+
+    function clearFilters() {
+      if (brandSelect) brandSelect.value = '';
+      if (instockCheckbox) instockCheckbox.checked = false;
+      applyFilters();
+    }
+
+    brandSelect?.addEventListener('change', applyFilters);
+    instockCheckbox?.addEventListener('change', applyFilters);
+    clearButtons.forEach(btn => btn.addEventListener('click', clearFilters));
+
+    // Cleanup for ViewTransitions
+    document.addEventListener('astro:before-swap', () => {
+      grid.dataset.filtersInit = 'false';
+    }, { once: true });
+  }
+
+  initCategoryFilters();
+  document.addEventListener('astro:page-load', initCategoryFilters);
+</script>
