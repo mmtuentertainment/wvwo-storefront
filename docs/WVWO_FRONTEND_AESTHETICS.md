@@ -56,7 +56,7 @@ Your designs must feel like they came from Kim and Bryan, not from a model train
 ### PAIRING PRINCIPLE
 **High contrast = warmth.** Slab serif + humanist sans, handwritten breaks the grid.
 
-```
+```text
 CORRECT PAIRING:
   Bitter (slab serif, authoritative) + Noto Sans (humanist, warm) + Permanent Marker (breaks formality)
 
@@ -88,7 +88,7 @@ h2 { font-weight: 500; font-size: 1.25rem; } /* No hierarchy */
 - **Body (Noto Sans)**: 20% - carries the story without shouting
 
 ### FORBIDDEN FONTS (AI Slop Indicators)
-```
+```text
 NEVER USE: Inter, DM Sans, Space Grotesk, Poppins, Outfit, Montserrat, Raleway, Open Sans, system-ui stack
 ```
 **Why**: These fonts scream "SaaS startup" or "VC pitch deck." They communicate coastal tech, not Appalachian storefront.
@@ -124,7 +124,7 @@ NEVER USE: Inter, DM Sans, Space Grotesk, Poppins, Outfit, Montserrat, Raleway, 
 ```
 
 ### FORBIDDEN COLOR SCHEMES
-```
+```text
 NEVER USE:
 - Purple gradients (every AI tool landing page since 2022)
 - Hot pink (#ec4899) - DTC beauty brands, not gun shops
@@ -241,7 +241,7 @@ a:not(.btn):hover {
 ```
 
 ### FORBIDDEN ANIMATIONS
-```
+```text
 NEVER USE:
 - Parallax scrolling (tech conference websites)
 - Bouncy button animations (mobile app aesthetic)
@@ -266,7 +266,7 @@ NEVER USE:
 ## LAYOUT: HANDMADE, NOT TEMPLATE
 
 ### FORBIDDEN LAYOUT PATTERNS
-```
+```text
 NEVER USE:
 - Center-aligned hero with "Revolutionize Your [Noun]" (Y Combinator default)
 - 3-column icon grid with pastel circles (SaaS feature comparison)
@@ -296,7 +296,7 @@ padding: 4rem 1rem; /* Not everything needs perfect ratios */
 ## VOICE: KIM'S CLIPBOARD, NOT MARKETING DECK
 
 ### FORBIDDEN PHRASES (Silicon Valley Speak)
-```
+```text
 NEVER USE:
 "Unlock your potential" | "Seamless experience" | "Cutting-edge solutions"
 "Empower your journey" | "Transform the way you [verb]" | "All-in-one platform"
@@ -305,7 +305,7 @@ NEVER USE:
 ```
 
 ### USE INSTEAD (Kim's Voice)
-```
+```text
 "Don't trust a laser bore sight alone. We mount it level, torque it right, and get you on paper."
 "If we don't have it, you probably don't need it."
 "We aren't just a store off the highway. We are your neighbors."
@@ -321,7 +321,7 @@ NEVER USE:
 ## IMAGERY: REAL, NOT STAGED
 
 ### FORBIDDEN IMAGE STYLES
-```
+```text
 NEVER USE:
 - Diverse coworkers high-fiving in modern office
 - Person smiling at MacBook with coffee
@@ -393,7 +393,7 @@ If yes = violates simplicity principle.
 ## ENFORCEMENT CHECKLIST
 
 Before merging ANY design change:
-```
+```text
 [ ] Zero SaaS marketing language
 [ ] Zero trendy fonts (Inter, DM Sans, Poppins, Space Grotesk)
 [ ] Zero purple/pink gradients or neon colors

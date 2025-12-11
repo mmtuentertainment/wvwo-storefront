@@ -551,6 +551,62 @@ npx agentdb@latest reflexion critique-summary "WVWO"
 npx agentdb@latest learner run 3 0.6 0.7
 ```
 
+---
+
+## Web Content Summarizer Skill
+
+A project-wide skill for fetching and summarizing web content. Adapted from Anthropic's web summarization cookbook.
+
+**Location**: `.claude/skills/wvwo-web-research/SKILL.md`
+
+### When to Use
+- Researching framework documentation (Astro, Tailwind, etc.)
+- Finding design inspiration and analyzing patterns
+- Debugging - searching for error solutions
+- Competitive analysis and design research
+- Gathering content and information for any task
+
+### Quick Usage
+
+**Documentation Lookup**:
+```
+WebFetch("https://docs.astro.build/en/guides/content-collections/",
+         "Summarize how to set up content collections in Astro 5.x")
+```
+
+**Design Research**:
+```
+WebSearch("outdoor store website design inspiration")
+// Then WebFetch promising results
+```
+
+**Debugging**:
+```
+WebSearch("Tailwind CSS 4.0 @theme not working")
+// WebFetch Stack Overflow or relevant results
+```
+
+### Output Formats
+```
+// Quick summary
+WebFetch(url, "Summarize in 3-5 bullet points")
+
+// Detailed breakdown
+WebFetch(url, "Break down into: Overview, Key Points, Examples, Gotchas")
+
+// Code extraction
+WebFetch(url, "Extract all code examples with brief explanations")
+```
+
+### WVWO Context
+When researching for WVWO specifically:
+- **Design**: Look for rural, authentic, handmade aesthetics
+- **Tech**: Prioritize Astro, Tailwind, vanilla JS solutions
+- **Voice**: Summarize in conversational tone, avoid marketing speak
+
+See full skill: `.claude/skills/wvwo-web-research/SKILL.md`
+See templates: `.claude/skills/wvwo-web-research/resources/templates/`
+
 <!-- MANUAL ADDITIONS END -->
 
 ---
@@ -748,7 +804,7 @@ Before merging ANY design:
 Use these when you need focused control over a single dimension:
 
 ### Typography-Only (Fast)
-```
+```text
 <wvwo_typography>
 Use Bitter (display), Permanent Marker (hand), Noto Sans (body).
 Bold weights 700-900 for headings. Size jumps 2.5x+.
@@ -758,7 +814,7 @@ Rural signage energy, not SaaS dashboard.
 ```
 
 ### Color-Only (Fast)
-```
+```text
 <wvwo_color>
 Brown #3E2723, Green #2E7D32, Cream #FFF8E1, Orange #FF6F00.
 Orange <5% of screen (CTAs only). Weathered variations for depth.
@@ -768,7 +824,7 @@ Colors tied to real WV objects: barn wood, forest, blaze orange.
 ```
 
 ### Voice-Only (Fast)
-```
+```text
 <wvwo_voice>
 Write like Kim, not a marketing agency.
 USE: "We handle the paperwork legally and quickly." / "Grand love ya"
@@ -778,7 +834,7 @@ Faith-forward, humble, rural WV authentic. Zero buzzwords.
 ```
 
 ### WVWO Theme Lock (Full Constraint)
-```
+```text
 <wvwo_theme_lock>
 Always design with WVWO aesthetic:
 - Weathered earth palette (browns, forest greens, cream, blaze orange accents)
