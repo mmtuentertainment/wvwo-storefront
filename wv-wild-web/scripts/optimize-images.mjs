@@ -5,7 +5,7 @@
  * Usage: node scripts/optimize-images.mjs
  */
 import sharp from 'sharp';
-import { readdir, stat, mkdir, writeFile, unlink, rename } from 'fs/promises';
+import { readdir, stat, mkdir, writeFile, rename } from 'fs/promises';
 import { join, extname, basename } from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
@@ -65,10 +65,9 @@ async function optimizeImage(filePath, maxWidth, maxHeight, quality) {
 
   // Only save if smaller than original
   if (buffer.length < originalSize) {
-    // Write to temp file first to avoid Windows lock issues
+    // Write to temp file, then atomic rename (overwrites original)
     const tempPath = filePath + '.tmp';
     await writeFile(tempPath, buffer);
-    await unlink(filePath);
     await rename(tempPath, filePath);
     return {
       file: basename(filePath),
@@ -148,4 +147,7 @@ async function main() {
   console.log(`   ${categoryResults.length} category images processed`);
 }
 
-main().catch(console.error);
+main().catch(err => {
+  console.error(err);
+  process.exit(1);
+});

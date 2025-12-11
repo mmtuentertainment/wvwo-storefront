@@ -151,7 +151,7 @@ const brands = [...new Set(products.map(p => p.brand))].sort();
                     data-brand={product.brand}
                     data-instock={product.inStock}
                     data-name={product.name.toLowerCase()}
-                    data-tags={product.tags.join(' ')}
+                    data-tags={(product.tags || []).join(' ')}
                   >
                     <ProductCard product={product} categorySlug={category?.slug || product.categoryId} />
                   </div>
@@ -325,7 +325,7 @@ const brands = [...new Set(products.map(p => p.brand))].sort();
       }
       if (brand && brandSelect) brandSelect.value = brand;
       if (instock === 'true' && instockCheckbox) instockCheckbox.checked = true;
-      if (search && searchInput) searchInput.value = search;
+      if (search && searchInput) searchInput.value = search.replace(/[<>]/g, '');
 
       applyFilters();
     }
