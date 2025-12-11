@@ -1,0 +1,247 @@
+---
+/**
+ * /shop/[category]/[product] - Product detail page
+ */
+import Layout from '../../../layouts/Layout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import ProductCard from '../../../components/shop/ProductCard.astro';
+import { SITE_CONTACT } from '../../../config/siteContact';
+import storeData from '../../../data/store.json';
+
+export function getStaticPaths() {
+  const paths = [];
+
+  for (const category of storeData.categories) {
+    const categoryProducts = storeData.products.filter(p => p.categoryId === category.id);
+
+    for (const product of categoryProducts) {
+      paths.push({
+        params: {
+          category: category.slug,
+          product: product.slug
+        },
+        props: {
+          product,
+          category
+        }
+      });
+    }
+  }
+
+  return paths;
+}
+
+const { product, category } = Astro.props;
+
+// Get related products (same category, excluding current)
+const relatedProducts = storeData.products
+  .filter(p => p.categoryId === product.categoryId && p.id !== product.id)
+  .slice(0, 3);
+
+// Format specs for display
+const specsEntries = Object.entries(product.specs || {});
+---
+
+<Layout
+  title={`${product.name} | WV Wild Outdoors`}
+  description={product.description}
+>
+  <Header />
+
+  <main class="bg-brand-cream min-h-screen">
+    <!-- Breadcrumb -->
+    <nav class="bg-white border-b border-stone-100 py-3" aria-label="Breadcrumb">
+      <div class="container mx-auto px-4">
+        <ol class="flex items-center gap-2 text-sm text-stone-500">
+          <li><a href="/shop" class="hover:text-brand-orange transition-colors">Shop</a></li>
+          <li aria-hidden="true">/</li>
+          <li><a href={`/shop/${category.slug}`} class="hover:text-brand-orange transition-colors">{category.name}</a></li>
+          <li aria-hidden="true">/</li>
+          <li class="text-brand-brown font-medium truncate max-w-[200px]">{product.shortName || product.name}</li>
+        </ol>
+      </div>
+    </nav>
+
+    <!-- Product Detail -->
+    <section class="py-8 md:py-12">
+      <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+
+          <!-- Product Image -->
+          <div class="aspect-square bg-white rounded-lg shadow-sm border border-stone-100 overflow-hidden">
+            {product.images[0] ? (
+              <img
+                src={product.images[0]}
+                alt={product.name}
+                class="w-full h-full object-contain"
+              />
+            ) : (
+              <div class="w-full h-full flex items-center justify-center bg-stone-100">
+                <svg class="w-24 h-24 text-stone-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+              </div>
+            )}
+          </div>
+
+          <!-- Product Info -->
+          <div>
+            <!-- Brand -->
+            <span class="text-sm text-brand-orange font-medium uppercase tracking-wide">
+              {product.brand}
+            </span>
+
+            <!-- Name -->
+            <h1 class="font-display font-bold text-2xl md:text-3xl text-brand-brown mt-2">
+              {product.name}
+            </h1>
+
+            <!-- SKU -->
+            <p class="text-sm text-stone-400 mt-1">SKU: {product.sku}</p>
+
+            <!-- Price -->
+            <div class="mt-4 flex items-baseline gap-3">
+              <span class="text-3xl font-bold text-brand-brown">
+                {product.priceDisplay}
+              </span>
+              {product.priceUnit && product.priceUnit !== 'each' && (
+                <span class="text-stone-500">
+                  {product.priceUnit}
+                </span>
+              )}
+            </div>
+
+            <!-- Stock Status -->
+            <div class="mt-4">
+              {product.inStock ? (
+                <span class="inline-flex items-center gap-2 text-sign-green font-medium">
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                  </svg>
+                  In Stock
+                </span>
+              ) : (
+                <span class="inline-flex items-center gap-2 text-stone-500 font-medium">
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
+                  </svg>
+                  Call for Availability
+                </span>
+              )}
+            </div>
+
+            <!-- CTA Buttons -->
+            <div class="mt-6 space-y-3">
+              {product.shippable ? (
+                <!-- Future: Add to Cart button for shippable items (Phase 3) -->
+                <p class="text-stone-600 text-sm italic">
+                  Online ordering coming soon.
+                  <a href={SITE_CONTACT.phoneHref} class="text-brand-orange hover:underline font-medium">
+                    Call {SITE_CONTACT.phoneDisplay}
+                  </a> to order today.
+                </p>
+              ) : (
+                <a
+                  href={SITE_CONTACT.phoneHref}
+                  class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-sign-green text-white font-bold px-8 py-4 rounded hover:bg-sign-green/90 transition-colors text-lg"
+                >
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                  </svg>
+                  Call to Order: {SITE_CONTACT.phoneDisplay}
+                </a>
+              )}
+            </div>
+
+            <!-- FFL Notice -->
+            {product.fflRequired && (
+              <div class="mt-6 p-4 bg-stone-100 rounded-lg border border-stone-200">
+                <p class="text-sm text-stone-600">
+                  <strong class="text-brand-brown">
+                    {product.categoryId === 'firearms' ? 'Firearms Notice' : 'FFL Required'}:
+                  </strong>
+                  {' '}This item cannot be shipped and must be picked up in-store.
+                  {product.categoryId === 'firearms' && ' Federal background check (NICS) required. Must be 18+ for long guns, 21+ for handguns.'}
+                </p>
+              </div>
+            )}
+
+            <!-- Description -->
+            <div class="mt-8">
+              <h2 class="font-display font-bold text-lg text-brand-brown mb-3">Description</h2>
+              <p class="text-stone-600 leading-relaxed">
+                {product.description}
+              </p>
+            </div>
+
+            <!-- Specifications -->
+            {specsEntries.length > 0 && (
+              <div class="mt-8">
+                <h2 class="font-display font-bold text-lg text-brand-brown mb-3">Specifications</h2>
+                <dl class="grid grid-cols-2 gap-x-4 gap-y-2">
+                  {specsEntries.map(([key, value]) => (
+                    <>
+                      <dt class="text-sm text-stone-500 capitalize">
+                        {key.replace(/([A-Z])/g, ' $1').trim()}
+                      </dt>
+                      <dd class="text-sm text-stone-700 font-medium">
+                        {value}
+                      </dd>
+                    </>
+                  ))}
+                </dl>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Products -->
+    {relatedProducts.length > 0 && (
+      <section class="py-12 bg-white">
+        <div class="container mx-auto px-4">
+          <h2 class="font-display font-bold text-xl text-brand-brown mb-6">
+            More in {category.name}
+          </h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {relatedProducts.map(p => (
+              <ProductCard product={p} categorySlug={category.slug} />
+            ))}
+          </div>
+          <div class="text-center mt-8">
+            <a
+              href={`/shop/${category.slug}`}
+              class="inline-flex items-center gap-2 text-brand-orange hover:underline font-medium"
+            >
+              View all {category.name}
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- Browse Other Categories -->
+    <section class="py-8 bg-stone-50 border-t border-stone-200">
+      <div class="container mx-auto px-4">
+        <div class="flex flex-wrap items-center justify-center gap-4">
+          <span class="text-stone-500 text-sm">Browse:</span>
+          {storeData.categories.map(cat => (
+            <a
+              href={`/shop/${cat.slug}`}
+              class={`text-sm font-medium px-3 py-1 rounded ${cat.id === category.id ? 'bg-brand-brown text-white' : 'text-brand-brown hover:bg-stone-200'} transition-colors`}
+            >
+              {cat.name}
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

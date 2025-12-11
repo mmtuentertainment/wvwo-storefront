@@ -1,0 +1,125 @@
+{
+  "timestamp": "2025-12-11T15:58:33.392477",
+  "tests": [
+    {
+      "name": "Homepage loads",
+      "status": "PASS",
+      "details": "Page loaded successfully"
+    },
+    {
+      "name": "Page title",
+      "status": "PASS",
+      "details": "Title: WV Wild Outdoors | Birch River, WV"
+    },
+    {
+      "name": "Hero section",
+      "status": "PASS",
+      "details": "Hero section found"
+    },
+    {
+      "name": "H1 heading",
+      "status": "PASS",
+      "details": "H1: \nWV Wild Outdoors\n..."
+    },
+    {
+      "name": "Navigation links",
+      "status": "PASS",
+      "details": "Found 8 nav links"
+    },
+    {
+      "name": "Anchor links",
+      "status": "PASS",
+      "details": "Found 6 anchor links"
+    },
+    {
+      "name": "Shop section exists",
+      "status": "PASS",
+      "details": "Shop section found"
+    },
+    {
+      "name": "Product images",
+      "status": "WARN",
+      "details": "Found 0 product-related images"
+    },
+    {
+      "name": "Contact section",
+      "status": "PASS",
+      "details": "Contact section found"
+    },
+    {
+      "name": "Phone link",
+      "status": "PASS",
+      "details": "Phone link found: tel:+13046492607"
+    },
+    {
+      "name": "FFL page loads",
+      "status": "PASS",
+      "details": "FFL transfer page accessible"
+    },
+    {
+      "name": "FFL form exists",
+      "status": "PASS",
+      "details": "Form found on FFL page"
+    },
+    {
+      "name": "Name field",
+      "status": "PASS",
+      "details": "Found 2 name fields"
+    },
+    {
+      "name": "Email field",
+      "status": "PASS",
+      "details": "Found 1 email fields"
+    },
+    {
+      "name": "Aria-hidden usage",
+      "status": "PASS",
+      "details": "Found 11 elements with aria-hidden"
+    },
+    {
+      "name": "Image alt text",
+      "status": "PASS",
+      "details": "All 15 images have alt text"
+    },
+    {
+      "name": "Interactive elements",
+      "status": "PASS",
+      "details": "Found 45 interactive elements"
+    },
+    {
+      "name": "Viewport Mobile",
+      "status": "PASS",
+      "details": "375x812 rendered"
+    },
+    {
+      "name": "Viewport Tablet",
+      "status": "PASS",
+      "details": "768x1024 rendered"
+    },
+    {
+      "name": "Viewport Desktop",
+      "status": "PASS",
+      "details": "1280x800 rendered"
+    },
+    {
+      "name": "Footer exists",
+      "status": "PASS",
+      "details": "Footer found"
+    },
+    {
+      "name": "FFL disclaimer",
+      "status": "PASS",
+      "details": "FFL disclaimer in footer"
+    },
+    {
+      "name": "Address in footer",
+      "status": "PASS",
+      "details": "Address elements found: 2"
+    }
+  ],
+  "summary": {
+    "passed": 22,
+    "failed": 0,
+    "warnings": 1
+  }
+}

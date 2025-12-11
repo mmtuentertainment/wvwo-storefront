@@ -1,22 +1,23 @@
-@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400..700&family=Caveat:wght@400..700&family=Roboto+Slab:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bitter:wght@400;600;700;800&family=Permanent+Marker&family=Noto+Sans:wght@400;500;600&display=swap');
 @import "tailwindcss";
 
 @theme {
-  /* Brand Colors - Verified from Design Plan */
-  --color-brand-brown: #3E2723;
-  --color-sign-green: #2E7D32;
-  --color-brand-cream: #FFF8E1;
-  /* Soft background paper tone */
-  --color-brand-mud: #5D4037;
-  /* For the flood context */
-  --color-brand-orange: #FF6F00;
-  /* Blaze Orange (Hunter Safety) */
+  /* Brand Colors - Tied to Physical WV Objects */
+  --color-brand-brown: #3E2723;    /* Rifle stocks, barn wood */
+  --color-sign-green: #2E7D32;     /* Forest, old metal signs */
+  --color-brand-cream: #FFF8E1;    /* Aged paper, deer hide */
+  --color-brand-mud: #5D4037;      /* 2016 flood mud */
+  --color-brand-orange: #FF6F00;   /* Blaze Orange (Hunter Safety) */
 
-  /* Typography */
-  --font-display: 'Roboto Slab', serif;
-  --font-hand: 'Caveat', cursive;
-  --font-body: 'Archivo', sans-serif;
-  /* Technical/Utilitarian for rural aesthetic */
+  /* Weathered Variations */
+  --color-brand-brown-faded: #6D4C41;  /* Sun-bleached */
+  --color-sign-green-muted: #558B2F;   /* Olive vintage */
+  --color-brand-orange-muted: #E65100; /* Rust-toned */
+
+  /* Typography - Hivemind Recommended Stack */
+  --font-display: 'Bitter', serif;           /* General store signage */
+  --font-hand: 'Permanent Marker', cursive;  /* Kim's Sharpie energy */
+  --font-body: 'Noto Sans', sans-serif;      /* Warm, conversational */
 }
 
 @layer utilities {

@@ -1,104 +1,430 @@
 {
-    "categories": [
-        {
-            "id": "ammo",
-            "name": "Ammunition",
-            "tagline": "The WV Staple",
-            "items": [
-                {
-                    "id": "hornady-red",
-                    "brand": "Hornady",
-                    "name": "Precision Hunter",
-                    "visual_cue": "Red Box",
-                    "context": "Premium loading for the serious hills.",
-                    "in_stock": true
-                },
-                {
-                    "id": "remington-core-lokt",
-                    "brand": "Remington",
-                    "name": "Core-Lokt",
-                    "visual_cue": "Green/Orange Box",
-                    "context": "The Deadliest Mushroom in the Woods. A West Virginia staple.",
-                    "in_stock": true
-                }
-            ]
-        },
-        {
-            "id": "fishing-creek",
-            "name": "Trout (Creeks)",
-            "tagline": "For the Tributaries",
-            "items": [
-                {
-                    "id": "powerbait",
-                    "brand": "Berkley",
-                    "name": "PowerBait",
-                    "visual_cue": "Small Jars (Yellow/Green)",
-                    "context": "Essential for the stocked streams.",
-                    "in_stock": true
-                },
-                {
-                    "id": "trout-magnet",
-                    "brand": "Trout Magnet",
-                    "name": "Original Kit",
-                    "visual_cue": "Pegboard Packs",
-                    "context": "Finesse fishing for wary trout.",
-                    "in_stock": true
-                }
-            ]
-        },
-        {
-            "id": "fishing-lake",
-            "name": "Trophy (Lakes)",
-            "tagline": "For Sutton & Burnsville",
-            "items": [
-                {
-                    "id": "spinnerbait",
-                    "brand": "Strike King/Generic",
-                    "name": "Spinnerbaits",
-                    "visual_cue": "White/Chartreuse Skirts",
-                    "context": "Reaction baits for bass in the timber.",
-                    "in_stock": true
-                },
-                {
-                    "id": "crankbait-deep",
-                    "brand": "Bandit/Rapala",
-                    "name": "Deep Diving Cranks",
-                    "visual_cue": "Hard Body Lures",
-                    "context": "Dredging the ledges at Summersville.",
-                    "in_stock": true
-                },
-                {
-                    "id": "catfish-rigs",
-                    "brand": "Eagle Claw",
-                    "name": "Catfish Trebles",
-                    "visual_cue": "Large Hooks",
-                    "context": "For the big flatheads at night.",
-                    "in_stock": true
-                }
-            ]
-        },
-        {
-            "id": "firearms",
-            "name": "Firearms",
-            "tagline": "Tools for the Woods",
-            "items": [
-                {
-                    "id": "rifle-wood",
-                    "brand": "Winchester/Remington",
-                    "name": "Bolt Action Wood Stock",
-                    "visual_cue": "Wood Stock, Blued Steel",
-                    "context": "Classic deer rifles. Often sold with scopes mounted.",
-                    "in_stock": true
-                },
-                {
-                    "id": "shotgun-pump",
-                    "brand": "Mossberg/Remington",
-                    "name": "pump-action Shotgun",
-                    "visual_cue": "Black/Camo Synthetic",
-                    "context": "Reliable turkey and home defense tools.",
-                    "in_stock": true
-                }
-            ]
-        }
-    ]
+  "categories": [
+    {
+      "id": "ammo",
+      "name": "Ammunition",
+      "slug": "ammunition",
+      "tagline": "The WV Staple",
+      "description": "Premium rifle and shotgun ammunition for hunting and sport shooting. We stock the brands West Virginia hunters trust.",
+      "image": "/images/categories/ammo.jpg"
+    },
+    {
+      "id": "fishing-creek",
+      "name": "Trout Fishing",
+      "slug": "trout-fishing",
+      "tagline": "For the Tributaries",
+      "description": "Everything you need for the stocked streams and native brook trout of the WV highlands.",
+      "image": "/images/categories/trout.jpg"
+    },
+    {
+      "id": "fishing-lake",
+      "name": "Lake Fishing",
+      "slug": "lake-fishing",
+      "tagline": "For Sutton & Burnsville",
+      "description": "Bass, catfish, and walleye tackle for the big water. Rigged and ready for Sutton Lake and beyond.",
+      "image": "/images/categories/lake.jpg"
+    },
+    {
+      "id": "firearms",
+      "name": "Firearms",
+      "slug": "firearms",
+      "tagline": "Tools for the Woods",
+      "description": "Rifles, shotguns, and handguns from trusted manufacturers. All sales require federal background check.",
+      "image": "/images/categories/firearms.jpg"
+    }
+  ],
+  "products": [
+    {
+      "id": "hornady-precision-hunter-308",
+      "sku": "AMMO-HORN-PH-308",
+      "slug": "hornady-precision-hunter-308",
+      "categoryId": "ammo",
+      "brand": "Hornady",
+      "name": "Precision Hunter .308 Win 178gr ELD-X",
+      "shortName": "Precision Hunter .308",
+      "description": "Hornady's Precision Hunter line delivers match-grade accuracy with terminal performance. The 178gr ELD-X bullet is engineered for consistent expansion at all practical ranges. Premium loading for the serious WV hills.",
+      "price": 4299,
+      "priceDisplay": "$42.99/box",
+      "priceUnit": "box of 20",
+      "images": ["/images/products/hornady-precision-hunter.jpg"],
+      "shippable": false,
+      "fflRequired": true,
+      "inStock": true,
+      "specs": {
+        "caliber": ".308 Winchester",
+        "bulletWeight": "178 grain",
+        "bulletType": "ELD-X",
+        "muzzleVelocity": "2,600 fps",
+        "boxCount": "20 rounds"
+      },
+      "tags": ["rifle", "hunting", "premium", "deer"]
+    },
+    {
+      "id": "remington-core-lokt-3006",
+      "sku": "AMMO-REM-CL-3006",
+      "slug": "remington-core-lokt-30-06",
+      "categoryId": "ammo",
+      "brand": "Remington",
+      "name": "Core-Lokt .30-06 Springfield 150gr PSP",
+      "shortName": "Core-Lokt .30-06",
+      "description": "The Deadliest Mushroom in the Woods. Remington Core-Lokt has been a West Virginia staple for over 80 years. Reliable expansion and proven performance on whitetail.",
+      "price": 2899,
+      "priceDisplay": "$28.99/box",
+      "priceUnit": "box of 20",
+      "images": ["/images/products/remington-core-lokt.jpg"],
+      "shippable": false,
+      "fflRequired": true,
+      "inStock": true,
+      "specs": {
+        "caliber": ".30-06 Springfield",
+        "bulletWeight": "150 grain",
+        "bulletType": "Pointed Soft Point",
+        "muzzleVelocity": "2,910 fps",
+        "boxCount": "20 rounds"
+      },
+      "tags": ["rifle", "hunting", "deer", "classic"]
+    },
+    {
+      "id": "winchester-deer-season-270",
+      "sku": "AMMO-WIN-DS-270",
+      "slug": "winchester-deer-season-270",
+      "categoryId": "ammo",
+      "brand": "Winchester",
+      "name": "Deer Season XP .270 Win 130gr",
+      "shortName": "Deer Season .270",
+      "description": "Purpose-built for deer hunting. The Extreme Point tip creates a large impact diameter for rapid trauma and shorter tracking distances.",
+      "price": 2699,
+      "priceDisplay": "$26.99/box",
+      "priceUnit": "box of 20",
+      "images": ["/images/products/winchester-deer-season.jpg"],
+      "shippable": false,
+      "fflRequired": true,
+      "inStock": true,
+      "specs": {
+        "caliber": ".270 Winchester",
+        "bulletWeight": "130 grain",
+        "bulletType": "Extreme Point",
+        "muzzleVelocity": "3,060 fps",
+        "boxCount": "20 rounds"
+      },
+      "tags": ["rifle", "hunting", "deer"]
+    },
+    {
+      "id": "federal-premium-12ga-turkey",
+      "sku": "AMMO-FED-TKY-12",
+      "slug": "federal-premium-turkey-12ga",
+      "categoryId": "ammo",
+      "brand": "Federal",
+      "name": "Premium Turkey Load 12ga 3\" #5",
+      "shortName": "Turkey Load 12ga",
+      "description": "Federal's legendary turkey loads with FLITECONTROL FLEX wad. Devastating patterns out to 50+ yards for those long-beard gobblers.",
+      "price": 2199,
+      "priceDisplay": "$21.99/box",
+      "priceUnit": "box of 10",
+      "images": ["/images/products/federal-turkey.jpg"],
+      "shippable": false,
+      "fflRequired": true,
+      "inStock": true,
+      "specs": {
+        "gauge": "12 Gauge",
+        "length": "3 inch",
+        "shotSize": "#5",
+        "payload": "1-3/4 oz",
+        "boxCount": "10 shells"
+      },
+      "tags": ["shotgun", "hunting", "turkey", "spring"]
+    },
+    {
+      "id": "berkley-powerbait-chartreuse",
+      "sku": "FISH-BPB-CHART",
+      "slug": "berkley-powerbait-chartreuse",
+      "categoryId": "fishing-creek",
+      "brand": "Berkley",
+      "name": "PowerBait Trout Dough - Chartreuse",
+      "shortName": "PowerBait Chartreuse",
+      "description": "The original and still the best. PowerBait's exclusive scent formula is irresistible to hatchery trout. Essential for the stocked streams.",
+      "price": 699,
+      "priceDisplay": "$6.99",
+      "priceUnit": "1.75oz jar",
+      "images": ["/images/products/powerbait-chartreuse.jpg"],
+      "shippable": true,
+      "fflRequired": false,
+      "inStock": true,
+      "specs": {
+        "weight": "1.75 oz",
+        "color": "Chartreuse",
+        "scent": "Original Formula",
+        "targetSpecies": "Stocked Trout"
+      },
+      "tags": ["trout", "bait", "stocked", "beginners"]
+    },
+    {
+      "id": "berkley-powerbait-rainbow",
+      "sku": "FISH-BPB-RAIN",
+      "slug": "berkley-powerbait-rainbow",
+      "categoryId": "fishing-creek",
+      "brand": "Berkley",
+      "name": "PowerBait Trout Dough - Rainbow",
+      "shortName": "PowerBait Rainbow",
+      "description": "Multi-color swirl pattern that drives trout crazy. Same proven scent formula in a flashier package.",
+      "price": 699,
+      "priceDisplay": "$6.99",
+      "priceUnit": "1.75oz jar",
+      "images": ["/images/products/powerbait-rainbow.jpg"],
+      "shippable": true,
+      "fflRequired": false,
+      "inStock": true,
+      "specs": {
+        "weight": "1.75 oz",
+        "color": "Rainbow",
+        "scent": "Original Formula",
+        "targetSpecies": "Stocked Trout"
+      },
+      "tags": ["trout", "bait", "stocked", "beginners"]
+    },
+    {
+      "id": "trout-magnet-kit-original",
+      "sku": "FISH-TM-KIT",
+      "slug": "trout-magnet-original-kit",
+      "categoryId": "fishing-creek",
+      "brand": "Trout Magnet",
+      "name": "Trout Magnet Original 85-Piece Kit",
+      "shortName": "Trout Magnet Kit",
+      "description": "The complete finesse system for wary trout. Includes 70 bodies in 7 colors and 15 1/64oz jigheads. Deadly on pressured streams.",
+      "price": 1499,
+      "priceDisplay": "$14.99",
+      "priceUnit": "85-piece kit",
+      "images": ["/images/products/trout-magnet-kit.jpg"],
+      "shippable": true,
+      "fflRequired": false,
+      "inStock": true,
+      "specs": {
+        "pieces": "85",
+        "bodies": "70 (7 colors)",
+        "jigheads": "15 (1/64 oz)",
+        "targetSpecies": "Trout, Panfish"
+      },
+      "tags": ["trout", "finesse", "lures", "kit"]
+    },
+    {
+      "id": "panther-martin-spinner-gold",
+      "sku": "FISH-PM-GOLD",
+      "slug": "panther-martin-spinner-gold",
+      "categoryId": "fishing-creek",
+      "brand": "Panther Martin",
+      "name": "Classic Spinner 1/8oz - Gold",
+      "shortName": "Panther Martin Gold",
+      "description": "The inline spinner that started it all. Sonic blade design creates vibration fish can't resist. Perfect for native brookies.",
+      "price": 549,
+      "priceDisplay": "$5.49",
+      "priceUnit": "each",
+      "images": ["/images/products/panther-martin-gold.jpg"],
+      "shippable": true,
+      "fflRequired": false,
+      "inStock": true,
+      "specs": {
+        "weight": "1/8 oz",
+        "bladeColor": "Gold",
+        "hookSize": "#6",
+        "targetSpecies": "Trout"
+      },
+      "tags": ["trout", "spinner", "lures", "native"]
+    },
+    {
+      "id": "strike-king-spinnerbait-white",
+      "sku": "FISH-SK-SB-WHT",
+      "slug": "strike-king-spinnerbait-white",
+      "categoryId": "fishing-lake",
+      "brand": "Strike King",
+      "name": "KVD Finesse Spinnerbait 3/8oz - White",
+      "shortName": "KVD Spinnerbait White",
+      "description": "Kevin VanDam's tournament-winning design. Perfect for Sutton Lake's stained water and submerged timber. Reaction bait for aggressive bass.",
+      "price": 899,
+      "priceDisplay": "$8.99",
+      "priceUnit": "each",
+      "images": ["/images/products/strike-king-spinnerbait.jpg"],
+      "shippable": true,
+      "fflRequired": false,
+      "inStock": true,
+      "specs": {
+        "weight": "3/8 oz",
+        "skirtColor": "White/Chartreuse",
+        "bladeConfig": "Tandem Willow",
+        "targetSpecies": "Largemouth Bass"
+      },
+      "tags": ["bass", "spinnerbait", "lures", "lake"]
+    },
+    {
+      "id": "bandit-crankbait-chartreuse-shad",
+      "sku": "FISH-BAN-CB-CS",
+      "slug": "bandit-crankbait-chartreuse-shad",
+      "categoryId": "fishing-lake",
+      "brand": "Bandit",
+      "name": "Series 200 Crankbait - Chartreuse Shad",
+      "shortName": "Bandit 200 Chartreuse",
+      "description": "The ledge-fishing legend. Dives 6-8 feet to dredge bass off the structure at Summersville and Burnsville. Proven producer.",
+      "price": 649,
+      "priceDisplay": "$6.49",
+      "priceUnit": "each",
+      "images": ["/images/products/bandit-crankbait.jpg"],
+      "shippable": true,
+      "fflRequired": false,
+      "inStock": true,
+      "specs": {
+        "diveDepth": "6-8 feet",
+        "length": "2 inches",
+        "color": "Chartreuse Shad",
+        "targetSpecies": "Bass, Walleye"
+      },
+      "tags": ["bass", "crankbait", "lures", "lake", "walleye"]
+    },
+    {
+      "id": "eagle-claw-catfish-rig",
+      "sku": "FISH-EC-CAT-RIG",
+      "slug": "eagle-claw-catfish-rig",
+      "categoryId": "fishing-lake",
+      "brand": "Eagle Claw",
+      "name": "Catfish Rig Double Hook 3/0",
+      "shortName": "Catfish Rig",
+      "description": "Pre-tied and ready to fish. Dual treble hooks hold cut bait secure for those big flatheads that prowl Sutton Lake at night.",
+      "price": 399,
+      "priceDisplay": "$3.99",
+      "priceUnit": "pack of 2",
+      "images": ["/images/products/eagle-claw-catfish.jpg"],
+      "shippable": true,
+      "fflRequired": false,
+      "inStock": true,
+      "specs": {
+        "hookSize": "3/0",
+        "quantity": "2 rigs",
+        "style": "Treble",
+        "targetSpecies": "Catfish"
+      },
+      "tags": ["catfish", "rigs", "terminal", "lake", "night"]
+    },
+    {
+      "id": "zoom-brush-hog-green-pumpkin",
+      "sku": "FISH-ZM-BH-GP",
+      "slug": "zoom-brush-hog-green-pumpkin",
+      "categoryId": "fishing-lake",
+      "brand": "Zoom",
+      "name": "Brush Hog 6\" - Green Pumpkin",
+      "shortName": "Brush Hog",
+      "description": "The original creature bait. Multiple appendages create irresistible action. Texas rig it through the timber at Burnsville for big fish.",
+      "price": 499,
+      "priceDisplay": "$4.99",
+      "priceUnit": "pack of 8",
+      "images": ["/images/products/zoom-brush-hog.jpg"],
+      "shippable": true,
+      "fflRequired": false,
+      "inStock": true,
+      "specs": {
+        "length": "6 inches",
+        "color": "Green Pumpkin",
+        "quantity": "8 per pack",
+        "targetSpecies": "Largemouth Bass"
+      },
+      "tags": ["bass", "soft plastic", "lures", "lake", "creature"]
+    },
+    {
+      "id": "winchester-sxp-pump-12ga",
+      "sku": "GUN-WIN-SXP-12",
+      "slug": "winchester-sxp-pump-shotgun",
+      "categoryId": "firearms",
+      "brand": "Winchester",
+      "name": "SXP Pump-Action Shotgun 12ga 28\"",
+      "shortName": "Winchester SXP",
+      "description": "Fast-cycling inertia-assisted action makes follow-up shots a breeze. The workhorse shotgun for waterfowl, turkey, and home defense. Synthetic stock handles WV weather.",
+      "price": 34999,
+      "priceDisplay": "$349.99",
+      "priceUnit": "each",
+      "images": ["/images/products/winchester-sxp.jpg"],
+      "shippable": false,
+      "fflRequired": true,
+      "inStock": true,
+      "specs": {
+        "gauge": "12 Gauge",
+        "chamber": "3 inch",
+        "barrelLength": "28 inches",
+        "capacity": "4+1",
+        "stock": "Black Synthetic"
+      },
+      "tags": ["shotgun", "pump", "hunting", "waterfowl", "turkey"]
+    },
+    {
+      "id": "ruger-1022-carbine",
+      "sku": "GUN-RUG-1022",
+      "slug": "ruger-10-22-carbine",
+      "categoryId": "firearms",
+      "brand": "Ruger",
+      "name": "10/22 Carbine .22 LR",
+      "shortName": "Ruger 10/22",
+      "description": "America's favorite .22 rifle. Perfect for plinking, small game, and teaching new shooters. Over 7 million sold for good reason.",
+      "price": 29999,
+      "priceDisplay": "$299.99",
+      "priceUnit": "each",
+      "images": ["/images/products/ruger-1022.jpg"],
+      "shippable": false,
+      "fflRequired": true,
+      "inStock": true,
+      "specs": {
+        "caliber": ".22 LR",
+        "barrelLength": "18.5 inches",
+        "capacity": "10-round rotary",
+        "stock": "Hardwood",
+        "weight": "5 lbs"
+      },
+      "tags": ["rifle", "22lr", "small game", "beginners", "plinking"]
+    },
+    {
+      "id": "savage-axis-ii-308",
+      "sku": "GUN-SAV-AXIS-308",
+      "slug": "savage-axis-ii-308",
+      "categoryId": "firearms",
+      "brand": "Savage",
+      "name": "Axis II .308 Win with Scope",
+      "shortName": "Savage Axis II",
+      "description": "Affordable accuracy with Savage's user-adjustable AccuTrigger. Comes topped with a Bushnell 3-9x40 scope. Ready to hunt out of the box.",
+      "price": 44999,
+      "priceDisplay": "$449.99",
+      "priceUnit": "each",
+      "images": ["/images/products/savage-axis.jpg"],
+      "shippable": false,
+      "fflRequired": true,
+      "inStock": true,
+      "specs": {
+        "caliber": ".308 Winchester",
+        "barrelLength": "22 inches",
+        "capacity": "4-round",
+        "scope": "Bushnell 3-9x40",
+        "stock": "Black Synthetic"
+      },
+      "tags": ["rifle", "bolt-action", "hunting", "deer", "scope"]
+    },
+    {
+      "id": "mossberg-500-combo-12ga",
+      "sku": "GUN-MOSS-500-CMB",
+      "slug": "mossberg-500-combo",
+      "categoryId": "firearms",
+      "brand": "Mossberg",
+      "name": "500 Combo 12ga Field/Security",
+      "shortName": "Mossberg 500 Combo",
+      "description": "Two barrels, endless possibilities. Swap between 28\" vent rib for hunting and 18.5\" cylinder bore for home defense. The pump that does it all.",
+      "price": 44999,
+      "priceDisplay": "$449.99",
+      "priceUnit": "each",
+      "images": ["/images/products/mossberg-500.jpg"],
+      "shippable": false,
+      "fflRequired": true,
+      "inStock": true,
+      "specs": {
+        "gauge": "12 Gauge",
+        "chamber": "3 inch",
+        "barrels": "28\" + 18.5\"",
+        "capacity": "5+1",
+        "stock": "Black Synthetic"
+      },
+      "tags": ["shotgun", "pump", "hunting", "home defense", "combo"]
+    }
+  ]
 }
