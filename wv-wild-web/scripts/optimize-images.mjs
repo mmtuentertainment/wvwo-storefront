@@ -95,6 +95,9 @@ async function optimizeDirectory(name, config) {
   console.log(`   Max: ${config.maxWidth}x${config.maxHeight}, Quality: ${config.quality}%\n`);
 
   try {
+    // Ensure directory exists (creates if missing, no-op if exists)
+    await mkdir(config.dir, { recursive: true });
+
     const files = await readdir(config.dir);
     const results = [];
 
