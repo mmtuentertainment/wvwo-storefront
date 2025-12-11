@@ -136,7 +136,10 @@ const specsEntries = Object.entries(product.specs || {});
               {product.shippable ? (
                 <!-- Future: Add to Cart button for shippable items (Phase 3) -->
                 <p class="text-stone-600 text-sm italic">
-                  Online ordering coming soon. Call to order today.
+                  Online ordering coming soon.
+                  <a href={SITE_CONTACT.phoneHref} class="text-brand-orange hover:underline font-medium">
+                    Call {SITE_CONTACT.phoneDisplay}
+                  </a> to order today.
                 </p>
               ) : (
                 <a

@@ -56,7 +56,8 @@ async function optimizeImage(filePath, maxWidth, maxHeight, quality) {
   if (ext === '.jpg' || ext === '.jpeg') {
     pipeline = pipeline.jpeg({ quality, mozjpeg: true });
   } else if (ext === '.png') {
-    pipeline = pipeline.png({ quality, compressionLevel: 9 });
+    // Note: quality only affects palette quantization; compressionLevel handles lossless compression
+    pipeline = pipeline.png({ compressionLevel: 9 });
   } else if (ext === '.webp') {
     pipeline = pipeline.webp({ quality });
   }
@@ -147,7 +148,7 @@ async function optimizeDirectory(name, config) {
 
 async function main() {
   console.log('🖼️  WV Wild Outdoors Image Optimizer\n');
-  console.log('=' .repeat(50));
+  console.log('='.repeat(50));
 
   const productResults = await optimizeDirectory('products', CONFIG.products);
   const categoryResults = await optimizeDirectory('categories', CONFIG.categories);
