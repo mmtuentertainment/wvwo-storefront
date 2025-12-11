@@ -1,8 +1,9 @@
 # WV Wild Outdoors - Intelligence File
 
-> **Last Updated:** December 3, 2024
-> **Status:** Active intel gathering
+> **Last Updated:** December 11, 2024
+> **Status:** Website development IN PROGRESS
 > **Project:** Surprise digital storefront gift for family
+> **Website Permission:** Granted Dec 7, 2024
 
 ---
 
@@ -46,6 +47,7 @@
 | **June 23, 2016** | Flood - Lost $70,000 wholesale inventory | Stucco building flooded |
 | 2016+ | Theft - Lost $10,000, no insurance | Same period |
 | After 2016 | Relocated to corner lot | **Current location** (121 Birch River Rd) |
+| **After recovery** | Landlord told them "Move out!" | Forced to find new building |
 | **Now** | Debt-free, own building + all inventory | Small storefront (~shed-sized) |
 
 ### Physical Store Context
@@ -54,6 +56,12 @@
 - **Previous location:** Stucco building next door (now neighbor's property)
 - **The $70k flood loss:** Was likely their ENTIRE inventory at the time
 - **"Country store" positioning:** Accurate and intentional - small is the point
+
+### The Eviction Detail
+After recovering from the flood and theft, the landlord told them to leave. As Kim put it:
+> "I told Bryan then that (giggling) to shut up and get ready for a blessing."
+
+This led them to buy their own building - turning what felt like another disaster into debt-free ownership.
 
 ---
 
@@ -230,6 +238,13 @@ Birch River sits between two retail hubs with no dedicated outfitter in between:
 - "Grand love ya"
 - "Keep your chin up"
 - "When a door closes, look for the blessing"
+- "Shut up and get ready for a blessing" (when facing setbacks)
+
+### The Blessing Mindset
+When the landlord told them to move out after the flood/theft recovery, Kim's response to Bryan:
+> "I told Bryan then that (giggling) to shut up and get ready for a blessing."
+
+This captures her faith-forward resilience perfectly - every setback is reframed as God making room for something better.
 
 ### Copy Should Feel
 - Warm, not corporate
@@ -254,7 +269,9 @@ Birch River sits between two retail hubs with no dedicated outfitter in between:
 >
 > The flood hit Birch River hard. Record water levels. Old Route 19 collapsed. We lost $70,000 in inventory overnight. FEMA said no - Braxton County wasn't on their list. Then someone broke in and took another $10,000.
 >
-> We moved to this corner lot, started smaller, and kept going. Today we own this building and every single thing in it. No debt. No landlord. Just us.
+> After we rebuilt, the landlord told us to move out. We could have given up. Instead, we bought our own building.
+>
+> Today we own this place and every single thing in it. No debt. No landlord. Just us.
 >
 > When a door closes, look for the blessing. God is good.
 
@@ -390,7 +407,7 @@ Each major intent needs its own section:
 | Facebook | Active (~700 followers) | Primary presence, sporadic posts |
 | Google Business | **MISSING** | Critical gap - invisible to travelers |
 | Yelp | Wrong address (506 Fire House Rd) | Needs claim + fix |
-| Website | **NONE** | This project |
+| Website | **IN PROGRESS** | Permission granted Dec 7, 2024 |
 | Instagram | None | Future phase |
 
 ---
@@ -405,6 +422,29 @@ Each major intent needs its own section:
 | "Garden hub" dual identity | Wrong - hunting store + spring potato sales only |
 | Onion sets, tomatoes, perennials | None observed - seed potatoes only |
 | Complex "seasonal chameleon" | Simple: hunting primary, potatoes secondary |
+
+---
+
+## Messenger Conversation Log (Dec 4-11)
+
+### Dec 4, 2024
+- Initial outreach about website idea
+- Kim expressed interest but cautious
+
+### Dec 7, 2024
+- **Permission granted** for website development
+- Kim: "That would be amazing if you could do that"
+- Discussed keeping it simple, focusing on foot traffic
+
+### Dec 8-10, 2024
+- Shared progress updates on design
+- Kim provided feedback on colors and tone
+- Confirmed hours and contact info accuracy
+
+### Dec 11, 2024
+- Kim shared landlord eviction story detail
+- "I told Bryan then that (giggling) to shut up and get ready for a blessing"
+- This context added to Timeline and Voice Profile sections
 
 ---
 
