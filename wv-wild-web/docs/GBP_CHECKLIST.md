@@ -1,6 +1,8 @@
 # Google Business Profile Optimization Checklist
 
-**For Kim at WV Wild Outdoors**
+## For Kim at WV Wild Outdoors
+
+_Kim updates the Google Business Profile. Matt updates the website._
 
 This checklist helps you optimize your Google Business Profile to capture hunters traveling the I-79 corridor.
 
@@ -27,7 +29,7 @@ Make sure this matches your website footer EXACTLY (Google penalizes mismatches)
 | **Address** | 121 Birch River Rd, Birch River, WV 26610 |
 | **Phone** | (304) 649-2607 |
 | **Hours** | Mon-Sat 10am-5pm, Sun Closed |
-| **Website** | https://wvwildoutdoors.com |
+| **Website** | [wvwildoutdoors.com](https://wvwildoutdoors.com) |
 
 ### Business Description (750 characters max)
 
@@ -72,7 +74,7 @@ Check all that apply:
 - [ ] Cash payments accepted
 - [ ] Credit cards accepted
 - [ ] Debit cards accepted
-- [ ] Wheelchair accessible entrance (if true)
+- [ ] Wheelchair-accessible entrance (if true)
 
 ---
 
@@ -109,7 +111,8 @@ Keep your profile active (Google rewards active businesses):
 - [ ] **Respond to ALL reviews within 48 hours** — Thank positive reviews, address concerns professionally
 - [ ] **Update photos monthly** — Add new inventory, seasonal displays
 
-### Post Ideas:
+### Post Ideas
+
 - "Buck season opens [date]! Stop by for last-minute supplies"
 - "New [product] just arrived"
 - "Fishing report: [local conditions]"
@@ -122,19 +125,22 @@ Keep your profile active (Google rewards active businesses):
 
 Reviews are critical for local SEO. Goal: **50+ reviews with 4.5+ stars**
 
-### How to Get Reviews:
+### How to Get Reviews
+
 1. **Ask satisfied FFL transfer customers** — "If you had a good experience, we'd appreciate a Google review!"
 2. **Create a QR code** that links directly to your Google review page
 3. **Print QR codes on receipts** or have a small sign at checkout
 4. **Follow up with FFL customers** via email (if you have their email)
 
-### Getting Your Review Link:
+### Getting Your Review Link
+
 1. Go to your Google Business Profile
 2. Click "Get more reviews"
 3. Copy the link — this is your direct review URL
 4. Use a free QR code generator to create a scannable code
 
-### Responding to Reviews:
+### Responding to Reviews
+
 - **Positive reviews**: Thank them personally, mention something specific
 - **Negative reviews**: Apologize, offer to make it right, take it offline if needed
 

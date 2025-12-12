@@ -24,7 +24,8 @@ const defaultOgImage = "https://wvwildoutdoors.com/og-wvwo-storefront.png";
 
 const ogImage = defaultOgImage;
 
-const ogUrl = Astro.url?.href ?? ""; // use the current page URL as canonical
+// Canonical URL - use origin+pathname only (no query/hash)
+const ogUrl = Astro.url ? `${Astro.url.origin}${Astro.url.pathname}` : "";
 
 // Schema.org LocalBusiness structured data
 const schemaData = {
@@ -80,7 +81,7 @@ const schemaData = {
       "latitude": 38.4876,
       "longitude": -80.7073
     },
-    "geoRadius": "80467"
+    "geoRadius": 80467
   },
   "knowsAbout": ["FFL transfers", "WV hunting licenses", "firearms", "ammunition", "I-79 corridor hunting supplies"],
   "paymentAccepted": "Cash, Credit Card, Debit Card",
