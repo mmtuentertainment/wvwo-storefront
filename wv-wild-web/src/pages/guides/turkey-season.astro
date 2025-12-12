@@ -52,13 +52,13 @@ const articleSchema = {
           <div class="flex flex-wrap gap-4">
             <a
               href={SITE_CONTACT.phoneHref}
-              class="inline-flex items-center gap-2 bg-brand-orange text-white font-bold px-8 py-4 rounded hover:bg-orange-700 transition-colors text-lg"
+              class="inline-flex items-center gap-2 bg-brand-orange text-white font-bold px-8 py-4 rounded-sm hover:bg-brand-orange/90 transition-colors text-lg"
             >
               Call Now: {SITE_CONTACT.phoneDisplay}
             </a>
             <a
               href="/shop"
-              class="inline-flex items-center gap-2 bg-white/10 border border-white/30 text-white font-bold px-8 py-4 rounded hover:bg-white/20 transition-colors"
+              class="inline-flex items-center gap-2 bg-white/10 border border-white/30 text-white font-bold px-8 py-4 rounded-sm hover:bg-white/20 transition-colors"
             >
               Browse Gear
             </a>
@@ -76,12 +76,12 @@ const articleSchema = {
           </h2>
 
           <div class="grid md:grid-cols-2 gap-6">
-            <div class="bg-brand-cream p-6 rounded-lg border-l-4 border-brand-orange">
+            <div class="bg-brand-cream p-6 rounded-sm border-l-4 border-brand-orange">
               <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Spring Gobbler Season</h3>
               <p class="text-stone-600 mb-2">April 21 - May 18, 2025</p>
               <p class="text-sm text-stone-500">Bearded turkeys only. 2 birds max.</p>
             </div>
-            <div class="bg-brand-cream p-6 rounded-lg border-l-4 border-sign-green">
+            <div class="bg-brand-cream p-6 rounded-sm border-l-4 border-sign-green">
               <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Youth/Class Q/XS Season</h3>
               <p class="text-stone-600 mb-2">April 12 - 13, 2025</p>
               <p class="text-sm text-stone-500">Special weekend for youth hunters.</p>
@@ -121,7 +121,7 @@ const articleSchema = {
               { item: "Seat cushion or portable chair", tip: "You'll be sitting a while" },
               { item: "Headnet and gloves", tip: "Face and hands give you away first" },
             ].map((check) => (
-              <label class="flex items-start gap-4 bg-white p-4 rounded-lg shadow-sm border border-stone-100 cursor-pointer hover:border-sign-green/30 transition-colors group">
+              <label class="flex items-start gap-4 bg-white p-4 rounded-sm border border-stone-200 cursor-pointer hover:border-sign-green/30 transition-colors group">
                 <input
                   type="checkbox"
                   class="mt-1 w-5 h-5 rounded border-stone-300 text-sign-green focus:ring-sign-green"
@@ -182,7 +182,7 @@ const articleSchema = {
           href={SITE_CONTACT.mapsUrl}
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 bg-white text-sign-green font-bold px-6 py-3 rounded hover:bg-brand-cream transition-colors"
+          class="inline-flex items-center gap-2 bg-white text-sign-green font-bold px-6 py-3 rounded-sm hover:bg-brand-cream transition-colors"
         >
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>

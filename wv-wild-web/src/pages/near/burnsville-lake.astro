@@ -7,6 +7,7 @@ import { SITE_CONTACT } from '../../config/siteContact';
 
 // Place schema for geographic SEO
 const placeSchema = {
+  "@context": "https://schema.org",
   "@type": "Place",
   "name": "Burnsville Lake Wildlife Management Area",
   "description": "Over 12,000 acres of public hunting land in Braxton County, West Virginia. 20 minutes from WV Wild Outdoors.",
@@ -17,8 +18,10 @@ const placeSchema = {
   },
   "address": {
     "@type": "PostalAddress",
+    "streetAddress": "2550 S Main St",
     "addressLocality": "Burnsville",
     "addressRegion": "WV",
+    "postalCode": "26335",
     "addressCountry": "US"
   }
 };
@@ -94,7 +97,7 @@ const placeSchema = {
           </h2>
 
           <div class="space-y-6">
-            <div class="bg-white p-6 rounded-lg shadow-sm border border-stone-100">
+            <div class="bg-white p-6 rounded-sm border border-stone-200">
               <h3 class="font-display font-bold text-lg text-brand-brown mb-2">White-tailed Deer</h3>
               <p class="text-stone-600 mb-3">
                 Good deer population in the hardwood ridges. Buck firearms season in November/December
@@ -105,7 +108,7 @@ const placeSchema = {
               </p>
             </div>
 
-            <div class="bg-white p-6 rounded-lg shadow-sm border border-stone-100">
+            <div class="bg-white p-6 rounded-sm border border-stone-200">
               <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Wild Turkey</h3>
               <p class="text-stone-600 mb-3">
                 Spring gobbler season is excellent here. Birds roost in the mature timber and
@@ -116,7 +119,7 @@ const placeSchema = {
               </p>
             </div>
 
-            <div class="bg-white p-6 rounded-lg shadow-sm border border-stone-100">
+            <div class="bg-white p-6 rounded-sm border border-stone-200">
               <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Small Game</h3>
               <p class="text-stone-600 mb-3">
                 Squirrel hunting is underrated here — lots of hickory and oak producing good mast.
@@ -139,7 +142,7 @@ const placeSchema = {
             Getting There
           </h2>
 
-          <div class="bg-brand-cream p-6 rounded-lg border-l-4 border-sign-green mb-6">
+          <div class="bg-brand-cream p-6 rounded-sm border-l-4 border-sign-green mb-6">
             <h3 class="font-bold text-brand-brown mb-2">From Our Shop</h3>
             <ol class="text-stone-600 space-y-2 list-decimal list-inside">
               <li>Head north on US-19 toward I-79</li>
@@ -149,7 +152,7 @@ const placeSchema = {
             </ol>
           </div>
 
-          <div class="bg-brand-cream p-6 rounded-lg border-l-4 border-brand-orange">
+          <div class="bg-brand-cream p-6 rounded-sm border-l-4 border-brand-orange">
             <h3 class="font-bold text-brand-brown mb-2">From I-79</h3>
             <ol class="text-stone-600 space-y-2 list-decimal list-inside">
               <li>Take Exit 67 (Burnsville)</li>
@@ -179,7 +182,7 @@ const placeSchema = {
           </p>
 
           <div class="grid md:grid-cols-2 gap-6">
-            <div class="bg-white p-6 rounded-lg shadow-sm border border-stone-100">
+            <div class="bg-white p-6 rounded-sm border border-stone-200">
               <h3 class="font-bold text-brand-brown mb-3">For Deer Hunting</h3>
               <ul class="space-y-2 text-stone-600 text-sm">
                 <li class="flex items-center gap-2">
@@ -209,7 +212,7 @@ const placeSchema = {
               </ul>
             </div>
 
-            <div class="bg-white p-6 rounded-lg shadow-sm border border-stone-100">
+            <div class="bg-white p-6 rounded-sm border border-stone-200">
               <h3 class="font-bold text-brand-brown mb-3">For Turkey Hunting</h3>
               <ul class="space-y-2 text-stone-600 text-sm">
                 <li class="flex items-center gap-2">
@@ -243,7 +246,7 @@ const placeSchema = {
           <div class="mt-8 text-center">
             <a
               href="/shop"
-              class="inline-flex items-center gap-2 bg-sign-green text-white font-bold px-6 py-3 rounded hover:bg-green-700 transition-colors"
+              class="inline-flex items-center gap-2 bg-sign-green text-white font-bold px-6 py-3 rounded-sm hover:bg-sign-green/90 transition-colors"
             >
               Browse Our Gear
             </a>
@@ -267,7 +270,7 @@ const placeSchema = {
             href={SITE_CONTACT.mapsUrl}
             target="_blank"
             rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 bg-white text-sign-green font-bold px-6 py-3 rounded hover:bg-brand-cream transition-colors"
+            class="inline-flex items-center gap-2 bg-white text-sign-green font-bold px-6 py-3 rounded-sm hover:bg-brand-cream transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
           >
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
@@ -277,7 +280,7 @@ const placeSchema = {
           </a>
           <a
             href={SITE_CONTACT.phoneHref}
-            class="inline-flex items-center gap-2 bg-white/10 border border-white/30 text-white font-bold px-6 py-3 rounded hover:bg-white/20 transition-colors"
+            class="inline-flex items-center gap-2 bg-white/10 border border-white/30 text-white font-bold px-6 py-3 rounded-sm hover:bg-white/20 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
           >
             {SITE_CONTACT.phoneDisplay}
           </a>
