@@ -67,14 +67,14 @@ def test_homepage_aesthetics(page):
 
     # Check hero section exists
     hero = page.locator('section').first
-    if hero:
+    if hero.count() > 0:
         log_result("Hero section", "PASS", "Hero section found")
     else:
         log_result("Hero section", "FAIL", "Hero section missing")
 
     # Check h1 exists and has proper text
     h1 = page.locator('h1').first
-    if h1:
+    if h1.count() > 0:
         h1_text = h1.text_content()
         log_result("H1 heading", "PASS", f"H1: {h1_text[:50]}...")
     else:
@@ -245,14 +245,14 @@ def test_footer(page):
         log_result("Footer exists", "PASS", "Footer found")
 
         # Check for required legal content
-        ffl_text = page.locator('footer:has-text("FFL"), footer:has-text("firearm")')
+        ffl_text = footer.filter(has_text="FFL").filter(has_text="firearm")
         if ffl_text.count() > 0:
             log_result("FFL disclaimer", "PASS", "FFL disclaimer in footer")
         else:
             log_result("FFL disclaimer", "WARN", "FFL disclaimer not found in footer")
 
         # Check for address
-        address = page.locator('footer address, footer:has-text("WV"), footer:has-text("Candy")')
+        address = footer.locator('address, :has-text("Candy")')
         log_result("Address in footer", "PASS" if address.count() > 0 else "WARN",
                    f"Address elements found: {address.count()}")
     else:

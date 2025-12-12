@@ -7,6 +7,7 @@ export const SITE_CONTACT = {
         '14 Candy St',
         'Birch River, WV 26610',
     ],
+    hours: 'Mon-Sat 10am-5pm',                 // Store hours (single source of truth)
     mapsUrl: 'https://www.google.com/maps/place/14+Candy+St,+Birch+River,+WV+26610',
     // Highway positioning for out-of-state hunters (Phase 3A)
     highway: {

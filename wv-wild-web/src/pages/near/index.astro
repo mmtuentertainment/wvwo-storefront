@@ -25,7 +25,7 @@ const outdoorAreas = [
     description: "Hardwood ridges and creek bottoms along the Elk River. Excellent turkey hunting in spring. Over 18,000 acres.",
     hunting: ["Deer", "Turkey", "Bear", "Grouse"],
     fishing: ["Trout", "Smallmouth Bass"],
-    hasDetailPage: false
+    hasDetailPage: true
   },
   {
     name: "Stonewall Jackson Lake WMA",
@@ -286,7 +286,7 @@ const outdoorAreas = [
     <section class="py-12 bg-white">
       <div class="container mx-auto px-4 text-center">
         <p class="text-stone-600">
-          <strong class="text-brand-brown">Hours:</strong> Mon-Sat 10am-5pm &nbsp;|&nbsp;
+          <strong class="text-brand-brown">Hours:</strong> {SITE_CONTACT.hours} &nbsp;|&nbsp;
           <strong class="text-brand-brown">Location:</strong> {SITE_CONTACT.addressLines.join(", ")}
         </p>
       </div>
