@@ -20,7 +20,7 @@ const faqs = [
       },
       {
         q: "How old do I need to be for an FFL transfer?",
-        a: "You must be 21+ for handguns, 18+ for long guns. West Virginia residents only for handgun transfers. Out-of-state residents from contiguous states may transfer long guns per federal law."
+        a: "You must be 21+ for handguns, 18+ for long guns. West Virginia residents only for handgun transfers. Out-of-state residents from contiguous states may transfer long guns per federal law. Requirements can vary — call to confirm."
       },
       {
         q: "What's your transfer fee?",
@@ -139,20 +139,20 @@ const faqSchema = {
 
           {faqs.map((category, catIndex) => (
             <div>
-              <h2 class="font-display font-bold text-xl text-brand-brown mb-6 pb-2 border-b border-stone-200">
+              <h2 class="font-display font-bold text-xl text-brand-brown mb-6 pb-2 border-b border-brand-brown/15">
                 {category.category}
               </h2>
 
               <div class="space-y-4">
                 {category.questions.map((faq, qIndex) => (
-                  <details class="group bg-white rounded-sm border border-stone-200">
+                  <details class="group bg-white rounded-sm border border-brand-brown/15">
                     <summary class="flex items-center justify-between cursor-pointer p-5 list-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange">
                       <span class="font-medium text-brand-brown group-hover:text-sign-green motion-safe:transition-colors motion-reduce:transition-none pr-4">
                         {faq.q}
                       </span>
                       <svg
                         aria-hidden="true"
-                        class="w-5 h-5 text-stone-400 group-open:rotate-180 motion-safe:transition-transform motion-reduce:transition-none flex-shrink-0"
+                        class="w-5 h-5 text-brand-brown/75 group-open:rotate-180 motion-safe:transition-transform motion-reduce:transition-none flex-shrink-0"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -160,7 +160,7 @@ const faqSchema = {
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                       </svg>
                     </summary>
-                    <div class="px-5 pb-5 text-stone-600">
+                    <div class="px-5 pb-5 text-brand-brown/75">
                       <p>{faq.a}</p>
                     </div>
                   </details>
@@ -206,7 +206,7 @@ const faqSchema = {
     <!-- Hours -->
     <section class="py-8 bg-white">
       <div class="container mx-auto px-4 text-center">
-        <p class="text-stone-600">
+        <p class="text-brand-brown/75">
           <strong class="text-brand-brown">Hours:</strong> Mon-Sat 10am-5pm &nbsp;|&nbsp;
           <strong class="text-brand-brown">Location:</strong> {SITE_CONTACT.addressLines.join(", ")}
         </p>
