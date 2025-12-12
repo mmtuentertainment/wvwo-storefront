@@ -6,14 +6,16 @@ import StickyPhone from '../components/StickyPhone.astro';
 interface Props {
 	title: string;
     description?: string;
+    additionalSchemas?: object[];
 }
 
 const {
   title,
-  description
+  description,
+  additionalSchemas = []
 } = Astro.props;
 
-const defaultDescription = "WV Wild Outdoors — family-run hunting and outdoor shop in Birch River, WV with firearms, ammo, hunting gear, feed and hunting & fishing licenses.";
+const defaultDescription = "WV Wild Outdoors — family-run FFL dealer and hunting shop near I-79 Exit 57 in Birch River, WV. Firearms, ammo, hunting gear, and WV hunting licenses.";
 
 const ogTitle = title;
 const ogDescription = description ?? defaultDescription;
@@ -22,7 +24,8 @@ const defaultOgImage = "https://wvwildoutdoors.com/og-wvwo-storefront.png";
 
 const ogImage = defaultOgImage;
 
-const ogUrl = Astro.url?.href ?? ""; // use the current page URL as canonical
+// Canonical URL - use origin+pathname only (no query/hash)
+const ogUrl = Astro.url ? `${Astro.url.origin}${Astro.url.pathname}` : "";
 
 // Schema.org LocalBusiness structured data
 const schemaData = {
@@ -58,13 +61,16 @@ const schemaData = {
   "sameAs": [],
   "hasOfferCatalog": {
     "@type": "OfferCatalog",
-    "name": "Products",
+    "name": "Products & Services",
     "itemListElement": [
       { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Firearms" } },
       { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Ammunition" } },
       { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Fishing Tackle" } },
       { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Hunting Gear" } },
-      { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Animal Feed" } }
+      { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Animal Feed" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "FFL Transfers" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "WV Hunting Licenses" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "WV Fishing Licenses" } }
     ]
   },
   "additionalType": "https://schema.org/GunStore",
@@ -75,8 +81,11 @@ const schemaData = {
       "latitude": 38.4876,
       "longitude": -80.7073
     },
-    "geoRadius": "50 mi"
-  }
+    "geoRadius": 80467
+  },
+  "knowsAbout": ["FFL transfers", "WV hunting licenses", "firearms", "ammunition", "I-79 corridor hunting supplies"],
+  "paymentAccepted": "Cash, Credit Card, Debit Card",
+  "currenciesAccepted": "USD"
 };
 ---
 
@@ -93,6 +102,16 @@ const schemaData = {
 		<meta property="og:url" content={ogUrl} />
 		<meta property="og:image" content={ogImage} />
 		<meta property="og:image:alt" content="WV Wild Outdoors hunting and outdoor shop in Birch River, WV" />
+
+		<!-- Twitter Card -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={ogTitle} />
+		<meta name="twitter:description" content={ogDescription} />
+		<meta name="twitter:image" content={ogImage} />
+
+		<!-- Canonical URL -->
+		<link rel="canonical" href={ogUrl} />
+
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
@@ -100,6 +119,11 @@ const schemaData = {
 
 		<!-- Schema.org LocalBusiness structured data -->
 		<script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
+
+		<!-- Additional page-specific schemas (Product, Breadcrumb, etc.) -->
+		{additionalSchemas.map(schema => (
+			<script type="application/ld+json" set:html={JSON.stringify(schema)} />
+		))}
 	</head>
 	<body class="bg-brand-cream text-brand-brown min-h-screen flex flex-col font-body bg-noise selection:bg-brand-brown selection:text-brand-cream">
 		<slot />
