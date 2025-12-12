@@ -1,0 +1,226 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_CONTACT } from '../config/siteContact';
+
+// FAQ data organized by category
+const faqs = [
+  // FFL & Firearms
+  {
+    category: "FFL Transfers",
+    questions: [
+      {
+        q: "How do FFL transfers work?",
+        a: "Contact us first before you purchase online. We'll provide our FFL info to give to the seller. They ship to us, we call you when it arrives (usually 3-7 business days), then you come in, complete the ATF 4473, pass the NICS background check, pay the transfer fee, and you're done. Requirements can vary — call to confirm."
+      },
+      {
+        q: "What do I need to bring for an FFL transfer?",
+        a: "You'll need a valid government-issued photo ID (WV Driver's License or ID), proof of current WV address if different from your ID (like a utility bill), and payment for the transfer fee. Cash or card accepted. Requirements can vary — call to confirm."
+      },
+      {
+        q: "How old do I need to be for an FFL transfer?",
+        a: "You must be 21+ for handguns, 18+ for long guns. West Virginia residents only for handgun transfers. Out-of-state residents from contiguous states may transfer long guns per federal law. Requirements can vary — call to confirm."
+      },
+      {
+        q: "What's your transfer fee?",
+        a: "Give us a call at " + SITE_CONTACT.phoneDisplay + " for current pricing. Fees vary based on the type of firearm."
+      }
+    ]
+  },
+  // Licenses
+  {
+    category: "Hunting & Fishing Licenses",
+    questions: [
+      {
+        q: "Can I buy my hunting license at your shop?",
+        a: "Yes! We're an official WV DNR License Agent. We can issue hunting licenses, fishing licenses, deer tags, turkey stamps, and trout stamps right here in the shop."
+      },
+      {
+        q: "Do I need a separate stamp for deer/turkey?",
+        a: "Yes. In addition to your base hunting license, you'll need a deer stamp for deer hunting and a turkey stamp for spring gobbler season. We can set you up with everything you need."
+      },
+      {
+        q: "Can out-of-state hunters buy licenses here?",
+        a: "Yes, we can issue non-resident hunting and fishing licenses. Bring a valid ID. Non-resident license fees are higher than resident fees."
+      }
+    ]
+  },
+  // Hours & Location
+  {
+    category: "Hours & Location",
+    questions: [
+      {
+        q: "What are your hours?",
+        a: "We're open Monday through Saturday, 10am to 5pm. Closed on Sundays."
+      },
+      {
+        q: "Where exactly are you located?",
+        a: `We're at ${SITE_CONTACT.addressLines.slice(1).join(", ")}. ${SITE_CONTACT.highway.directions}`
+      },
+      {
+        q: "Do you have parking?",
+        a: "Yes, we have a parking lot right in front of the shop. Easy in and out."
+      }
+    ]
+  },
+  // Products & Services
+  {
+    category: "Products & Services",
+    questions: [
+      {
+        q: "Do you sell ammunition?",
+        a: "Yes, we stock rifle ammo, shotgun shells, and handgun ammunition. Popular calibers like .30-06, .308, .270, 12 gauge, and common handgun calibers. If we don't have what you need, we can often order it."
+      },
+      {
+        q: "Do you sell fishing tackle?",
+        a: "Yes! We carry tackle for trout fishing in the local streams and lake fishing at Sutton Lake and Burnsville Lake. Lures, baits, line, and basic gear."
+      },
+      {
+        q: "Can I order something you don't have in stock?",
+        a: "Often, yes. Give us a call at " + SITE_CONTACT.phoneDisplay + " and let us know what you're looking for. We'll see what we can do."
+      },
+      {
+        q: "Do you buy used guns?",
+        a: "Sometimes. It depends on what you have. Bring it by or give us a call to discuss."
+      }
+    ]
+  }
+];
+
+// Flatten for FAQPage schema
+const allQuestions = faqs.flatMap(cat => cat.questions);
+
+// FAQPage schema for rich results
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": allQuestions.map(faq => ({
+    "@type": "Question",
+    "name": faq.q,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.a
+    }
+  }))
+};
+---
+
+<Layout
+  title="FAQ | WV Wild Outdoors"
+  description="Frequently asked questions about FFL transfers, hunting licenses, fishing licenses, hours, and services at WV Wild Outdoors in Birch River, WV."
+  additionalSchemas={[faqSchema]}
+>
+  <Header />
+
+  <main class="bg-brand-cream min-h-screen">
+
+    <!-- Hero -->
+    <section class="bg-brand-brown text-white py-12 md:py-16 relative overflow-hidden">
+      <div class="absolute inset-0 bg-camo opacity-5 pointer-events-none"></div>
+
+      <div class="container mx-auto px-4 relative">
+        <div class="max-w-3xl">
+          <h1 class="font-display font-black text-4xl md:text-5xl mb-4">
+            Frequently Asked Questions
+          </h1>
+          <p class="text-xl text-brand-cream/80">
+            Got questions? We've got answers. If you don't see what you're looking for,
+            give us a call at <a href={SITE_CONTACT.phoneHref} class="underline hover:text-white">{SITE_CONTACT.phoneDisplay}</a>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Accordion -->
+    <section class="py-12 md:py-16">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto space-y-12">
+
+          {faqs.map((category, catIndex) => (
+            <div>
+              <h2 class="font-display font-bold text-xl text-brand-brown mb-6 pb-2 border-b border-brand-brown/15">
+                {category.category}
+              </h2>
+
+              <div class="space-y-4">
+                {category.questions.map((faq, qIndex) => (
+                  <details class="group bg-white rounded-sm border border-brand-brown/15">
+                    <summary class="flex items-center justify-between cursor-pointer p-5 list-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange">
+                      <span class="font-medium text-brand-brown group-hover:text-sign-green motion-safe:transition-colors motion-reduce:transition-none pr-4">
+                        {faq.q}
+                      </span>
+                      <svg
+                        aria-hidden="true"
+                        class="w-5 h-5 text-brand-brown/75 group-open:rotate-180 motion-safe:transition-transform motion-reduce:transition-none flex-shrink-0"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                      </svg>
+                    </summary>
+                    <div class="px-5 pb-5 text-brand-brown/75">
+                      <p>{faq.a}</p>
+                    </div>
+                  </details>
+                ))}
+              </div>
+            </div>
+          ))}
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Still Have Questions CTA -->
+    <section class="bg-sign-green text-white py-12">
+      <div class="container mx-auto px-4 text-center">
+        <h2 class="font-display font-bold text-2xl mb-4">
+          Still Have Questions?
+        </h2>
+        <p class="text-white/80 mb-6 max-w-xl mx-auto">
+          Don't see your question here? Give us a call or stop by the shop.
+          We're always happy to help.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a
+            href={SITE_CONTACT.phoneHref}
+            class="inline-flex items-center gap-2 bg-white text-sign-green font-bold px-6 py-3 rounded-sm hover:bg-brand-cream transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+          >
+            <svg aria-hidden="true" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+            </svg>
+            {SITE_CONTACT.phoneDisplay}
+          </a>
+          <a
+            href="/contact"
+            class="inline-flex items-center gap-2 bg-white/10 border border-white/30 text-white font-bold px-6 py-3 rounded-sm hover:bg-white/20 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+          >
+            Contact Form
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Hours -->
+    <section class="py-8 bg-white">
+      <div class="container mx-auto px-4 text-center">
+        <p class="text-brand-brown/75">
+          <strong class="text-brand-brown">Hours:</strong> {SITE_CONTACT.hours} &nbsp;|&nbsp;
+          <strong class="text-brand-brown">Location:</strong> {SITE_CONTACT.addressLines.join(", ")}
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  /* Remove default marker from details/summary */
+  details summary::-webkit-details-marker {
+    display: none;
+  }
+</style>

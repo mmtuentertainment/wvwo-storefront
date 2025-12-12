@@ -1,0 +1,231 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import EmailCapture from '../../components/EmailCapture.astro';
+import { SITE_CONTACT } from '../../config/siteContact';
+
+// Article schema for SEO
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "West Virginia Spring Turkey Season Guide",
+  "description": "Get ready for WV spring gobbler season. Calls, decoys, camo, and local tips from your neighbors in Birch River.",
+  "author": {
+    "@type": "Organization",
+    "name": "WV Wild Outdoors",
+    "url": "https://wvwildoutdoors.com"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "WV Wild Outdoors"
+  },
+  "datePublished": "2025-12-12",
+  "dateModified": "2025-12-12"
+};
+---
+
+<Layout
+  title="Turkey Season Guide | WV Wild Outdoors"
+  description="Get ready for West Virginia spring gobbler season. Turkey calls, decoys, camo, and local tips from WV Wild Outdoors in Birch River."
+  additionalSchemas={[articleSchema]}
+>
+  <Header />
+
+  <main class="bg-brand-cream min-h-screen">
+
+    <!-- Hero -->
+    <section class="bg-brand-brown text-white py-16 md:py-24 relative overflow-hidden">
+      <div class="absolute inset-0 bg-camo opacity-5 pointer-events-none"></div>
+
+      <div class="container mx-auto px-4 relative">
+        <div class="max-w-3xl">
+          <span class="inline-block bg-brand-orange text-white px-4 py-1 rounded-sm font-bold text-sm mb-4">
+            Spring Season
+          </span>
+          <h1 class="font-display font-black text-4xl md:text-6xl mb-4">
+            Turkey Season Guide
+          </h1>
+          <p class="text-xl md:text-2xl text-brand-cream/80 mb-8">
+            Spring gobbler season is special around here. Here's what you need to know
+            before you head into the woods around Braxton County.
+          </p>
+          <div class="flex flex-wrap gap-4">
+            <a
+              href={SITE_CONTACT.phoneHref}
+              class="inline-flex items-center gap-2 bg-brand-orange text-white font-bold px-8 py-4 rounded-sm hover:bg-brand-orange/90 transition-colors text-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+            >
+              Call Now: {SITE_CONTACT.phoneDisplay}
+            </a>
+            <a
+              href="/shop"
+              class="inline-flex items-center gap-2 bg-white/10 border border-white/30 text-white font-bold px-8 py-4 rounded-sm hover:bg-white/20 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+            >
+              Browse Gear
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Season Dates -->
+    <section class="py-12 md:py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown text-center mb-8">
+            WV Turkey Season Dates
+          </h2>
+
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="bg-brand-cream p-6 rounded-sm border-l-4 border-brand-orange">
+              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Spring Gobbler Season</h3>
+              <p class="text-stone-600 mb-2">Late April - Mid May (typically 4 weeks)</p>
+              <p class="text-sm text-stone-500">Bearded turkeys only. 2 birds max.</p>
+            </div>
+            <div class="bg-brand-cream p-6 rounded-sm border-l-4 border-sign-green">
+              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Youth/Class Q/XS Season</h3>
+              <p class="text-stone-600 mb-2">Weekend before regular season opens</p>
+              <p class="text-sm text-stone-500">Special weekend for youth hunters.</p>
+            </div>
+          </div>
+
+          <p class="mt-6 text-sm text-stone-500 text-center">
+            Dates are approximate. Always verify with
+            <a href="https://wvdnr.gov/hunting/turkey-hunting/" target="_blank" rel="noopener" class="underline hover:text-sign-green">WV DNR</a>
+            before heading out.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Checklist -->
+    <section class="py-12 md:py-16">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown text-center mb-4">
+            Your Turkey Season Checklist
+          </h2>
+          <p class="text-center text-stone-600 mb-10">
+            Everything you need before you set up on those ridges.
+          </p>
+
+          <div class="space-y-4">
+            {[
+              { item: "Shotgun cleaned and pattern-tested", tip: "Know your spread at 20, 30, and 40 yards" },
+              { item: "Turkey loads — #4, #5, or #6 shot", tip: "We stock Winchester, Federal, and Remington" },
+              { item: "Box call or slate call", tip: "Practice before the season — we can help you pick one" },
+              { item: "Diaphragm calls for hands-free work", tip: "Takes practice but worth it" },
+              { item: "Full camo — head to toe", tip: "Turkeys have incredible eyesight" },
+              { item: "Decoys — hen and/or jake", tip: "Optional but effective early season" },
+              { item: "WV hunting license current", tip: "We're a license agent — get it here" },
+              { item: "Spring turkey stamp", tip: "Required in addition to your license" },
+              { item: "Seat cushion or portable chair", tip: "You'll be sitting a while" },
+              { item: "Headnet and gloves", tip: "Face and hands give you away first" },
+            ].map((check) => (
+              <label class="flex items-start gap-4 bg-white p-4 rounded-sm border border-brand-brown/15 cursor-pointer hover:border-sign-green/30 motion-safe:transition-colors motion-reduce:transition-none group">
+                <input
+                  type="checkbox"
+                  class="mt-1 w-5 h-5 rounded-sm border-brand-brown/20 text-sign-green focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sign-green"
+                />
+                <div class="flex-1">
+                  <span class="font-medium text-brand-brown group-hover:text-sign-green motion-safe:transition-colors motion-reduce:transition-none">
+                    {check.item}
+                  </span>
+                  <p class="text-sm text-brand-brown/60 mt-0.5">{check.tip}</p>
+                </div>
+              </label>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Local Tips -->
+    <section class="py-12 md:py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown text-center mb-8">
+            Local Tips from Braxton County
+          </h2>
+
+          <div class="prose prose-stone max-w-none prose-headings:text-brand-brown prose-p:text-brand-brown/75">
+            <p>
+              Around here, the turkeys tend to roost in the hardwood ridges above the
+              hollows. Get in early — we're talking before first light — and set up where
+              you can hear them gobble on the roost.
+            </p>
+            <p>
+              The Elk River WMA (15 minutes) and Burnsville Lake WMA (20 minutes) are
+              both close to the shop. Good public land if you don't have private ground to hunt.
+              Stop in and we can point you to some access points.
+            </p>
+            <p>
+              Early season, those gobblers are henned up pretty good. Be patient.
+              Later in May, when the hens are nesting, the toms get lonely and come
+              to calls a lot easier.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services CTA -->
+    <section class="bg-sign-green text-white py-12">
+      <div class="container mx-auto px-4 text-center">
+        <h2 class="font-display font-bold text-2xl mb-4">
+          Need Calls, Camo, or Ammo?
+        </h2>
+        <p class="text-white/80 mb-6 max-w-xl mx-auto">
+          We stock turkey loads, calls, and camo. Stop by the shop before the season
+          opens and we'll make sure you're set.
+        </p>
+        <a
+          href={SITE_CONTACT.mapsUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 bg-white text-sign-green font-bold px-6 py-3 rounded-sm hover:bg-brand-cream motion-safe:transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+        >
+          <svg aria-hidden="true" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+          </svg>
+          Get Directions
+        </a>
+      </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="py-12 md:py-16">
+      <div class="container mx-auto px-4">
+        <div class="max-w-xl mx-auto">
+          <EmailCapture
+            variant="card"
+            heading="Get Season Updates"
+            subheading="Turkey loads in stock, season reminders, and local hunting reports delivered to your inbox."
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- WV DNR Badge -->
+    <section class="bg-brand-mud text-brand-cream py-6">
+      <div class="container mx-auto px-4 text-center">
+        <div class="inline-flex items-center gap-3">
+          <img src="/badges/wvdnr.svg" alt="WV DNR License Agent" width="32" height="32" class="h-8 opacity-80" />
+          <span class="text-sm">Official WV DNR License Agent — Get your license and turkey stamp here</span>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  /* Interactive checkbox animation */
+  input[type="checkbox"]:checked + div span {
+    text-decoration: line-through;
+    opacity: 0.6;
+  }
+</style>

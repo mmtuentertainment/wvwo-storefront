@@ -26,7 +26,7 @@ Make sure this matches your website footer EXACTLY (Google penalizes mismatches)
 | Field | Value |
 |-------|-------|
 | **Name** | WV Wild Outdoors |
-| **Address** | 121 Birch River Rd, Birch River, WV 26610 |
+| **Address** | 14 Candy St, Birch River, WV 26610 |
 | **Phone** | (304) 649-2607 |
 | **Hours** | Mon-Sat 10am-5pm, Sun Closed |
 | **Website** | [wvwildoutdoors.com](https://wvwildoutdoors.com) |
