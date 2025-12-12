@@ -7,7 +7,7 @@ export const SITE_CONTACT = {
         '14 Candy St',
         'Birch River, WV 26610',
     ],
-    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=WV+Wild+Outdoors+14+Candy+St+Birch+River+WV',
+    mapsUrl: 'https://www.google.com/maps/place/14+Candy+St,+Birch+River,+WV+26610',
     // Highway positioning for out-of-state hunters (Phase 3A)
     highway: {
         interstate: 'I-79',
