@@ -56,7 +56,7 @@ const faqs = [
       },
       {
         q: "Where exactly are you located?",
-        a: `We're at ${SITE_CONTACT.addressLines[1]}, ${SITE_CONTACT.addressLines[2]}. ${SITE_CONTACT.highway.directions}`
+        a: `We're at ${SITE_CONTACT.addressLines.slice(1).join(", ")}. ${SITE_CONTACT.highway.directions}`
       },
       {
         q: "Do you have parking?",
@@ -146,12 +146,13 @@ const faqSchema = {
               <div class="space-y-4">
                 {category.questions.map((faq, qIndex) => (
                   <details class="group bg-white rounded-sm border border-stone-200">
-                    <summary class="flex items-center justify-between cursor-pointer p-5 list-none">
-                      <span class="font-medium text-brand-brown group-hover:text-sign-green transition-colors pr-4">
+                    <summary class="flex items-center justify-between cursor-pointer p-5 list-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange">
+                      <span class="font-medium text-brand-brown group-hover:text-sign-green motion-safe:transition-colors motion-reduce:transition-none pr-4">
                         {faq.q}
                       </span>
                       <svg
-                        class="w-5 h-5 text-stone-400 group-open:rotate-180 transition-transform flex-shrink-0"
+                        aria-hidden="true"
+                        class="w-5 h-5 text-stone-400 group-open:rotate-180 motion-safe:transition-transform motion-reduce:transition-none flex-shrink-0"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"

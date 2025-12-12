@@ -4,11 +4,31 @@ import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import EmailCapture from '../../components/EmailCapture.astro';
 import { SITE_CONTACT } from '../../config/siteContact';
+
+// Article schema for SEO
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "West Virginia Buck Season Prep Guide",
+  "description": "Get ready for WV deer season. Rifles, ammo, optics, and everything you need at WV Wild Outdoors in Birch River.",
+  "author": {
+    "@type": "Organization",
+    "name": "WV Wild Outdoors",
+    "url": "https://wvwildoutdoors.com"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "WV Wild Outdoors"
+  },
+  "datePublished": "2025-12-12",
+  "dateModified": "2025-12-12"
+};
 ---
 
 <Layout
   title="Buck Season Prep | WV Wild Outdoors"
   description="Get ready for West Virginia deer season. Rifles, ammo, optics, and everything you need at WV Wild Outdoors in Birch River."
+  additionalSchemas={[articleSchema]}
 >
   <Header />
 
@@ -34,13 +54,13 @@ import { SITE_CONTACT } from '../../config/siteContact';
           <div class="flex flex-wrap gap-4">
             <a
               href={SITE_CONTACT.phoneHref}
-              class="inline-flex items-center gap-2 bg-brand-orange text-white font-bold px-8 py-4 rounded-sm hover:bg-brand-orange/90 transition-colors text-lg"
+              class="inline-flex items-center gap-2 bg-brand-orange text-white font-bold px-8 py-4 rounded-sm hover:bg-brand-orange/90 motion-safe:transition-colors motion-reduce:transition-none text-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
             >
               Call Now: {SITE_CONTACT.phoneDisplay}
             </a>
             <a
               href="/shop"
-              class="inline-flex items-center gap-2 bg-white/10 border border-white/30 text-white font-bold px-8 py-4 rounded-sm hover:bg-white/20 transition-colors"
+              class="inline-flex items-center gap-2 bg-white/10 border border-white/30 text-white font-bold px-8 py-4 rounded-sm hover:bg-white/20 motion-safe:transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
             >
               Browse Gear
             </a>
@@ -72,10 +92,10 @@ import { SITE_CONTACT } from '../../config/siteContact';
               { item: "Boots broken in", tip: "Blisters ruin hunts" },
               { item: "Know your zone regulations", tip: "Rules vary by county" },
             ].map((check) => (
-              <label class="flex items-start gap-4 bg-white p-4 rounded-sm border border-stone-200 cursor-pointer hover:border-sign-green/30 transition-colors group">
+              <label class="flex items-start gap-4 bg-white p-4 rounded-sm border border-stone-200 cursor-pointer hover:border-sign-green/30 motion-safe:transition-colors motion-reduce:transition-none group">
                 <input
                   type="checkbox"
-                  class="mt-1 w-5 h-5 rounded border-stone-300 text-sign-green focus:ring-sign-green"
+                  class="mt-1 w-5 h-5 rounded-sm border-stone-300 text-sign-green focus:ring-sign-green"
                 />
                 <div class="flex-1">
                   <span class="font-medium text-brand-brown group-hover:text-sign-green transition-colors">
@@ -104,9 +124,9 @@ import { SITE_CONTACT } from '../../config/siteContact';
           href={SITE_CONTACT.mapsUrl}
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 bg-white text-sign-green font-bold px-6 py-3 rounded-sm hover:bg-brand-cream transition-colors"
+          class="inline-flex items-center gap-2 bg-white text-sign-green font-bold px-6 py-3 rounded-sm hover:bg-brand-cream motion-safe:transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
         >
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg aria-hidden="true" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
           </svg>

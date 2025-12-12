@@ -7,6 +7,7 @@ import { SITE_CONTACT } from '../../config/siteContact';
 
 // Article schema for SEO
 const articleSchema = {
+  "@context": "https://schema.org",
   "@type": "Article",
   "headline": "West Virginia Spring Turkey Season Guide",
   "description": "Get ready for WV spring gobbler season. Calls, decoys, camo, and local tips from your neighbors in Birch River.",
@@ -72,18 +73,18 @@ const articleSchema = {
       <div class="container mx-auto px-4">
         <div class="max-w-3xl mx-auto">
           <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown text-center mb-8">
-            2025 WV Turkey Season Dates
+            WV Turkey Season Dates
           </h2>
 
           <div class="grid md:grid-cols-2 gap-6">
             <div class="bg-brand-cream p-6 rounded-sm border-l-4 border-brand-orange">
               <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Spring Gobbler Season</h3>
-              <p class="text-stone-600 mb-2">April 21 - May 18, 2025</p>
+              <p class="text-stone-600 mb-2">Late April - Mid May (typically 4 weeks)</p>
               <p class="text-sm text-stone-500">Bearded turkeys only. 2 birds max.</p>
             </div>
             <div class="bg-brand-cream p-6 rounded-sm border-l-4 border-sign-green">
               <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Youth/Class Q/XS Season</h3>
-              <p class="text-stone-600 mb-2">April 12 - 13, 2025</p>
+              <p class="text-stone-600 mb-2">Weekend before regular season opens</p>
               <p class="text-sm text-stone-500">Special weekend for youth hunters.</p>
             </div>
           </div>
@@ -121,10 +122,10 @@ const articleSchema = {
               { item: "Seat cushion or portable chair", tip: "You'll be sitting a while" },
               { item: "Headnet and gloves", tip: "Face and hands give you away first" },
             ].map((check) => (
-              <label class="flex items-start gap-4 bg-white p-4 rounded-sm border border-stone-200 cursor-pointer hover:border-sign-green/30 transition-colors group">
+              <label class="flex items-start gap-4 bg-white p-4 rounded-sm border border-stone-200 cursor-pointer hover:border-sign-green/30 motion-safe:transition-colors motion-reduce:transition-none group">
                 <input
                   type="checkbox"
-                  class="mt-1 w-5 h-5 rounded border-stone-300 text-sign-green focus:ring-sign-green"
+                  class="mt-1 w-5 h-5 rounded-sm border-stone-300 text-sign-green focus:ring-sign-green"
                 />
                 <div class="flex-1">
                   <span class="font-medium text-brand-brown group-hover:text-sign-green transition-colors">
@@ -184,7 +185,7 @@ const articleSchema = {
           rel="noopener noreferrer"
           class="inline-flex items-center gap-2 bg-white text-sign-green font-bold px-6 py-3 rounded-sm hover:bg-brand-cream transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
         >
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg aria-hidden="true" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
           </svg>
