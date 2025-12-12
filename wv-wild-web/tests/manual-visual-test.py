@@ -252,7 +252,7 @@ def test_footer(page):
             log_result("FFL disclaimer", "WARN", "FFL disclaimer not found in footer")
 
         # Check for address
-        address = page.locator('footer address, footer:has-text("WV"), footer:has-text("Birch")')
+        address = page.locator('footer address, footer:has-text("WV"), footer:has-text("Candy")')
         log_result("Address in footer", "PASS" if address.count() > 0 else "WARN",
                    f"Address elements found: {address.count()}")
     else:
