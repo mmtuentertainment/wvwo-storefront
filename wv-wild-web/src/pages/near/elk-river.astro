@@ -1,0 +1,416 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import EmailCapture from '../../components/EmailCapture.astro';
+import { SITE_CONTACT } from '../../config/siteContact';
+
+// Place schema for geographic SEO
+// GPS: Approximate center of Elk River WMA, east of Sutton
+const placeSchema = {
+  "@context": "https://schema.org",
+  "@type": "Place",
+  "name": "Elk River Wildlife Management Area",
+  "description": "Nearly 20,000 acres of public hunting land in Braxton County, West Virginia. 15 minutes from WV Wild Outdoors.",
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 38.6833,
+    "longitude": -80.5833
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Airport Rd & Bee Run Rd",
+    "addressLocality": "Sutton",
+    "addressRegion": "WV",
+    "postalCode": "26601",
+    "addressCountry": "US"
+  }
+};
+---
+
+<Layout
+  title="Elk River WMA Hunting & Fishing Guide | WV Wild Outdoors"
+  description="Hunting and fishing guide for Elk River Wildlife Management Area. Nearly 20,000 acres of public land, 15 minutes from our shop. Deer, turkey, smallmouth bass, and more."
+  additionalSchemas={[placeSchema]}
+>
+  <Header />
+
+  <main class="bg-brand-cream min-h-screen">
+
+    <!-- Hero -->
+    <section class="bg-brand-brown text-white py-16 md:py-24 relative overflow-hidden">
+      <div class="absolute inset-0 bg-camo opacity-5 pointer-events-none"></div>
+
+      <div class="container mx-auto px-4 relative">
+        <div class="max-w-3xl">
+          <div class="flex flex-wrap items-center gap-3 mb-4">
+            <span class="inline-block bg-sign-green text-white px-4 py-1 rounded-sm font-bold text-sm">
+              15 min from shop
+            </span>
+            <span class="inline-block bg-brand-orange text-white px-4 py-1 rounded-sm font-bold text-sm">
+              19,646 Acres
+            </span>
+          </div>
+          <h1 class="font-display font-black text-4xl md:text-6xl mb-4">
+            Elk River WMA
+          </h1>
+          <p class="text-xl md:text-2xl text-brand-cream/80 mb-6">
+            West Virginia's oldest wildlife management area. Nearly 20,000 acres of
+            mature hardwoods, steep ridges, and plenty of deer and turkey.
+          </p>
+          <p class="text-brand-cream/60">
+            Stop by the shop before you head out — we'll get you set up with licenses, ammo, and local tips.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Info -->
+    <section class="py-8 bg-white border-b border-brand-brown/15">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+          <div>
+            <span class="block text-2xl font-bold text-brand-brown">19,646</span>
+            <span class="text-sm text-brand-brown/60">Acres</span>
+          </div>
+          <div>
+            <span class="block text-2xl font-bold text-brand-brown">15 min</span>
+            <span class="text-sm text-brand-brown/60">From Shop</span>
+          </div>
+          <div>
+            <span class="block text-2xl font-bold text-brand-brown">Braxton Co.</span>
+            <span class="text-sm text-brand-brown/60">Location</span>
+          </div>
+          <div>
+            <span class="block text-2xl font-bold text-brand-brown">Year-Round</span>
+            <span class="text-sm text-brand-brown/60">Access</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- What to Hunt -->
+    <section class="py-12 md:py-16">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-8">
+            What to Hunt
+          </h2>
+
+          <div class="space-y-6">
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">White-tailed Deer</h3>
+              <p class="text-brand-brown/75 mb-3">
+                Brushlands and mixed timber provide excellent deer hunting here. Buck firearms
+                season runs November through December. Archery opens in late September.
+              </p>
+              <p class="text-sm text-brand-brown/60">
+                <strong>Best areas:</strong> Brushland edges and regenerating cuts. Creek bottoms when the rut kicks in.
+                Wind can be tricky in the steep terrain — play it carefully.
+              </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Wild Turkey</h3>
+              <p class="text-brand-brown/75 mb-3">
+                The mature hardwood forests make turkey hunting particularly good here.
+                Spring gobbler season brings birds working the ridges at dawn.
+              </p>
+              <p class="text-sm text-brand-brown/60">
+                <strong>Best areas:</strong> Ridge tops in mature timber for roosting birds. Old logging roads and field edges for strutting.
+              </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Small Game</h3>
+              <p class="text-brand-brown/75 mb-3">
+                Squirrel hunting is excellent in the mature hardwoods — all that oak and hickory
+                produces good mast. Grouse in the younger timber, plus dove and woodcock.
+              </p>
+              <p class="text-sm text-brand-brown/60">
+                <strong>Best areas:</strong> Oak flats for squirrel. Regenerating cuts and creek edges for grouse.
+              </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Waterfowl</h3>
+              <p class="text-brand-brown/75 mb-3">
+                Habitat improvements have increased waterfowl potential. The area borders
+                Sutton Lake and has multiple water sources throughout.
+              </p>
+              <p class="text-sm text-brand-brown/60">
+                <strong>Best areas:</strong> Beaver ponds and backwaters. Sutton Lake edges during migration.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- What to Fish -->
+    <section class="py-12 md:py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-8">
+            Fishing Waters
+          </h2>
+
+          <div class="space-y-6">
+            <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Elk River & Holly River</h3>
+              <p class="text-brand-brown/75 mb-3">
+                Good smallmouth bass fishing in the river sections running through the WMA.
+                Also largemouth, spotted bass, and channel catfish. Bring waders for creek fishing.
+              </p>
+              <p class="text-sm text-brand-brown/60">
+                <strong>Species:</strong> Smallmouth bass, largemouth bass, spotted bass, channel catfish, trout
+              </p>
+            </div>
+
+            <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Sutton Lake</h3>
+              <p class="text-brand-brown/75 mb-3">
+                The WMA borders Sutton Lake — good for bass, crappie, walleye, and muskie.
+                Multiple access points along the lake edges within the management area.
+              </p>
+              <p class="text-sm text-brand-brown/60">
+                <strong>Species:</strong> Largemouth bass, crappie, bluegill, walleye, muskellunge
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Getting There -->
+    <section class="py-12 md:py-16">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-8">
+            Getting There
+          </h2>
+
+          <div class="bg-white p-6 rounded-sm border-l-4 border-sign-green mb-6">
+            <h3 class="font-bold text-brand-brown mb-2">From Our Shop</h3>
+            <ol class="text-brand-brown/75 space-y-2 list-decimal list-inside">
+              <li>Head north on US-19 toward Sutton</li>
+              <li>Turn east on WV-17 (about 3.7 miles southeast of Sutton)</li>
+              <li>Follow DNR signs to Elk River section</li>
+              <li>About 15 minutes total drive time</li>
+            </ol>
+          </div>
+
+          <div class="bg-white p-6 rounded-sm border-l-4 border-brand-orange">
+            <h3 class="font-bold text-brand-brown mb-2">From I-79</h3>
+            <ol class="text-brand-brown/75 space-y-2 list-decimal list-inside">
+              <li>Take Exit 67 (Flatwoods)</li>
+              <li>Follow WV-4 south about 2 miles to WV-19/40</li>
+              <li>Turn east on WV-17, follow DNR signs</li>
+              <li>Stop by our shop on your way — we're at Exit 57 on US-19</li>
+            </ol>
+          </div>
+
+          <p class="mt-6 text-sm text-brand-brown/60">
+            Multiple access points throughout the WMA. Holly River section accessible via Secondary Route 15.
+            DNR office: (304) 924-6211
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Facilities -->
+    <section class="py-12 md:py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-8">
+            Facilities
+          </h2>
+
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-bold text-brand-brown mb-3">Camping</h3>
+              <ul class="space-y-2 text-brand-brown/75 text-sm">
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  240+ tent and trailer sites
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  12 primitive camping sites
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Open year-round
+                </li>
+              </ul>
+            </div>
+
+            <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-bold text-brand-brown mb-3">Other Facilities</h3>
+              <ul class="space-y-2 text-brand-brown/75 text-sm">
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  100-yard shooting range
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  175-yard shooting range
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Class-Q accessible areas
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- What to Bring -->
+    <section class="py-12 md:py-16">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-4">
+            What to Bring
+          </h2>
+          <p class="text-brand-brown/75 mb-8">
+            We've got most of this in stock. Stop by before you head out.
+          </p>
+
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-bold text-brand-brown mb-3">For Deer Hunting</h3>
+              <ul class="space-y-2 text-brand-brown/75 text-sm">
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Rifle and appropriate ammo
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Blaze orange (500 sq in required)
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  WV hunting license + deer stamp
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Knife and game bags
+                </li>
+              </ul>
+            </div>
+
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-bold text-brand-brown mb-3">For Turkey Hunting</h3>
+              <ul class="space-y-2 text-brand-brown/75 text-sm">
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Shotgun + turkey loads
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Full camo (head to toe)
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Turkey calls (box/slate/diaphragm)
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  WV license + turkey stamp
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="mt-8 text-center">
+            <a
+              href="/shop"
+              class="inline-flex items-center gap-2 bg-sign-green text-white font-bold px-6 py-3 rounded-sm hover:bg-sign-green/90 motion-safe:transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange"
+            >
+              Browse Our Gear
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="bg-sign-green text-white py-12">
+      <div class="container mx-auto px-4 text-center">
+        <h2 class="font-display font-bold text-2xl mb-4">
+          Stop By Before You Head Out
+        </h2>
+        <p class="text-white/80 mb-6 max-w-xl mx-auto">
+          We're on your way. Grab your license, stock up on ammo, and we'll point you
+          to the best spots on the WMA.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a
+            href={SITE_CONTACT.mapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 bg-white text-sign-green font-bold px-6 py-3 rounded-sm hover:bg-brand-cream motion-safe:transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+          >
+            <svg aria-hidden="true" focusable="false" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            </svg>
+            Get Directions to Shop
+          </a>
+          <a
+            href={SITE_CONTACT.phoneHref}
+            class="inline-flex items-center gap-2 bg-white/10 border border-white/30 text-white font-bold px-6 py-3 rounded-sm hover:bg-white/20 motion-safe:transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+          >
+            {SITE_CONTACT.phoneDisplay}
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="py-12 md:py-16">
+      <div class="container mx-auto px-4">
+        <div class="max-w-xl mx-auto">
+          <EmailCapture
+            variant="card"
+            heading="Get Local Hunting Updates"
+            subheading="Season reminders, what's hitting where, and gear restocks delivered to your inbox."
+          />
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Layout>
