@@ -41,11 +41,70 @@ const relatedProducts = storeData.products
 
 // Format specs for display
 const specsEntries = Object.entries(product.specs || {});
+
+// Schema.org Product structured data (Phase 3A SEO)
+const productSchema = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": product.name,
+  "description": product.description,
+  "sku": product.sku,
+  "brand": {
+    "@type": "Brand",
+    "name": product.brand
+  },
+  "image": product.images[0] ? `https://wvwildoutdoors.com${product.images[0]}` : undefined,
+  "offers": {
+    "@type": "Offer",
+    "url": `https://wvwildoutdoors.com/shop/${category.slug}/${product.slug}`,
+    "priceCurrency": "USD",
+    "price": (product.price / 100).toFixed(2),
+    "priceValidUntil": new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+    "availability": product.inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+    "itemCondition": "https://schema.org/NewCondition",
+    "seller": {
+      "@type": "Organization",
+      "name": "WV Wild Outdoors"
+    }
+  },
+  "category": category.name,
+  "additionalProperty": specsEntries.map(([key, value]) => ({
+    "@type": "PropertyValue",
+    "name": key.replace(/([A-Z])/g, ' $1').trim(),
+    "value": value
+  }))
+};
+
+// Schema.org BreadcrumbList structured data
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Shop",
+      "item": "https://wvwildoutdoors.com/shop"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": category.name,
+      "item": `https://wvwildoutdoors.com/shop/${category.slug}`
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": product.shortName || product.name
+    }
+  ]
+};
 ---
 
 <Layout
   title={`${product.name} | WV Wild Outdoors`}
   description={product.description}
+  additionalSchemas={[productSchema, breadcrumbSchema]}
 >
   <Header />
 

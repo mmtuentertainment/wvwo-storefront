@@ -21,11 +21,31 @@ const products = storeData.products.filter(p => p.categoryId === category.id);
 
 // Get unique brands in this category
 const brands = [...new Set(products.map(p => p.brand))].sort();
+
+// Schema.org BreadcrumbList structured data (Phase 3A SEO)
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Shop",
+      "item": "https://wvwildoutdoors.com/shop"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": category.name
+    }
+  ]
+};
 ---
 
 <Layout
   title={`${category.name} | WV Wild Outdoors`}
   description={category.description}
+  additionalSchemas={[breadcrumbSchema]}
 >
   <Header />
 
