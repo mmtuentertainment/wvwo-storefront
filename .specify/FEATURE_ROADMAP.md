@@ -1,21 +1,35 @@
 # WV Wild Outdoors - Feature Roadmap
 
-**A gift website for Kim & Bryan's family hunting shop**
+**Full digital footprint for Kim & Bryan's family hunting shop on US 19 in Birch River, WV**
 
 ---
 
-## Current Status: Nearly Complete
+## Strategic Position
 
-The static Astro site is built and ready. Just need confirmed contact info before deploy.
+WV Wild Outdoors sits at the heart of West Virginia's hunting corridor:
+- **US 19 (Old Turnpike)** between Sutton and Summersville
+- **I-79 Exit 57** access (5 miles south of Sutton)
+- Gateway to **Elk River WMA** and central WV public hunting land
+- Serving **350,000+ annual hunters** from PA, OH, MD, and beyond
 
 ---
 
-## What's Done
+## Phase Status
+
+| Phase | Status | Description |
+|-------|--------|-------------|
+| Phase 1: Foundation | ✅ Complete | Static Astro site, brand identity, core pages |
+| Phase 2: Shop Display | ✅ Complete | Online inventory display, product catalog |
+| Phase 3: Highway Hunter Capture | 🔄 Active | Geographic SEO, hunter content hub, e-commerce |
+
+---
+
+## Phase 1: Foundation (Complete)
 
 | Feature | Status | Notes |
 |---------|--------|-------|
-| Homepage | ✅ Done | Hero, inventory grid, services, visit section, footer |
-| Story Page | ✅ Done | Editorial flow with flood narrative, family photos |
+| Homepage | ✅ Done | Hero, inventory grid, services, visit section |
+| Our Story Page | ✅ Done | Editorial flow, flood narrative, family photos |
 | Design System | ✅ Done | Brand colors, fonts, camo patterns, authentic feel |
 | Mobile Responsive | ✅ Done | Works on all devices |
 | Accessibility | ✅ Done | Proper headings, alt text, keyboard nav |
@@ -23,41 +37,74 @@ The static Astro site is built and ready. Just need confirmed contact info befor
 
 ---
 
-## What's Left
+## Phase 2: Shop Display (Complete)
 
-| Task | Status | Blocker |
-|------|--------|---------|
-| Confirm contact info | ⏳ Waiting | Need Kim's response on phone/address/hours |
-| Update siteContact.ts | Pending | Depends on above |
-| Deploy to Cloudflare Pages | Pending | Free static hosting, connect domain |
-| Reveal to Kim | Pending | The fun part |
+| Feature | Status | Notes |
+|---------|--------|-------|
+| Product Catalog | ✅ Done | store.json data, category pages, product pages |
+| Inventory Grid | ✅ Done | Homepage featured products |
+| FFL Transfer Form | ✅ Done | Digital transfer request with scrollwrap agreement |
+| Contact Integration | ✅ Done | Web3Forms, phone, hours |
 
 ---
 
-## Tech Stack (Simple)
+## Phase 3: Highway Hunter Capture (Active)
 
-- **Framework**: Astro 5.x (static site generator)
+**Goal:** Capture out-of-state hunters traveling the I-79 corridor who need:
+- Last-minute supplies before hitting public land
+- FFL transfers from online purchases
+- Local knowledge (WMAs, seasons, regulations)
+
+### 3A: Geographic SEO Foundation
+| Task | Status | Notes |
+|------|--------|-------|
+| Google Business Profile optimization | 🔄 Planned | Hours, photos, services, Q&A |
+| Local schema markup | 🔄 Planned | Store, products, FFL services |
+| "Near I-79" content positioning | 🔄 Planned | Exit 57 directions, travel context |
+| WMA proximity content | 🔄 Planned | Elk River, Burnsville Lake access |
+
+### 3B: Hunter Content Hub
+| Task | Status | Notes |
+|------|--------|-------|
+| Season guides (deer, turkey, bear) | 🔄 Planned | WV-specific regulations, dates |
+| WMA maps and access guides | 🔄 Planned | Public land near Birch River |
+| Pre-trip checklists | 🔄 Planned | What to bring, license requirements |
+| Local knowledge blog | 🔄 Planned | Kim's expertise, customer stories |
+
+### 3C: E-Commerce Foundation
+| Task | Status | Notes |
+|------|--------|-------|
+| Shopping cart implementation | 🔄 Planned | For shippable items only |
+| Payment integration | 🔄 Planned | Stripe or similar |
+| Order management | 🔄 Planned | Simple workflow for Kim |
+| FFL-compliant restrictions | 🔄 Planned | Firearms pickup only, no shipping |
+
+---
+
+## Tech Stack
+
+- **Framework**: Astro 5.x (static site generation)
 - **Styling**: Tailwind CSS 4.x
 - **Hosting**: Cloudflare Pages (free, unlimited bandwidth)
 - **Forms**: Web3Forms (free contact form)
 - **Domain**: wvwildoutdoors.com
 
-No databases. No Docker. No CMS. No servers to maintain.
-
-Matthew manages updates directly in the code when needed.
+No unnecessary complexity. Matt manages updates directly in the code.
 
 ---
 
-## Future Ideas (Only If Wanted)
+## Quality Commitment
 
-These are NOT planned - just possibilities if Kim ever asks:
+This is NOT an MVP. This is Kim and Bryan's business presence to the world.
 
-- Product catalog page (static, updated by Matthew)
-- Blog/news section (static markdown posts)
-- Newsletter signup (Buttondown or similar)
+**Every feature ships complete:**
+- No placeholder content
+- No "we'll fix it later" promises
+- No half-baked implementations
+- No artificial deadlines
 
-But honestly? The site does what it needs to do. Don't over-engineer a family gift.
+Development proceeds at the pace of quality, not velocity metrics.
 
 ---
 
-**Version**: 2.0.0 | **Updated**: 2025-12-09
+**Version**: 3.0.0 | **Updated**: 2025-12-11

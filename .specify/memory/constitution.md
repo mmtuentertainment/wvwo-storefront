@@ -1,29 +1,19 @@
 <!--
 SYNC IMPACT REPORT
 ==================
-Version change: 1.1.3 (December 2025 dependency updates) → 2.0.0 (Simple Static Approach)
+Version change: 2.0.0 (Simple Static Approach) → 2.1.0 (Phase 3 Strategy & Geographic Positioning)
 
-MAJOR VERSION BUMP - Architecture pivot from enterprise to simple static site.
+MINOR VERSION BUMP - New principle added, scope expanded.
 
 Modified sections:
-- Technology Stack: Complete overhaul for static site approach
-  - Removed: Directus, Ghost, Listmonk, Mixpost, Docker, PostgreSQL, Redis, DigitalOcean, Traefik, Backblaze B2
-  - Kept: Astro, Tailwind CSS, Vanilla JavaScript, Cloudflare
-  - Added: Web3Forms (forms), Buttondown (newsletter), YouTube (video embeds)
-- Principle III: Updated services list for static approach
-- Principle IV: Updated Kim's access (website only, Matt manages all backend)
-- Principle VI: Simplified External Shipping from 13 items to practical checklist
-- Roles & Responsibilities: Simplified for static site workflow
-
-Existing principles (unchanged in spirit):
-- I. Owner-First Simplicity
-- II. Heart of West Virginia
-- III. Modular Service Architecture (updated services list)
-- IV. Developer-Managed Infrastructure (updated access)
-- V. Dual-Experience Design (Responsive Web)
-- VI. Anti-MVP Bias (simplified external shipping)
+- Principle II: Added US 19/I-79 Exit 57 geographic positioning, expanded non-negotiables
+- Principle VI: Added Anti-Speed Clause (no artificial deadlines)
+- NEW Principle VII: Appalachian Gateway Positioning (geographic strategy)
+- Boundary Rules: E-commerce now IN scope (Phase 3C)
+- Compliance Review: Updated to reference 7 principles
 
 Previous versions:
+- 2.0.0: Simple Static Approach - architecture pivot from enterprise to static
 - 1.1.3: December 2025 dependency updates
 - 1.1.2: Added Anti-MVP exception for .env.example placeholder files
 - 1.1.1: Clarified Principle V - responsive web design, not desktop apps
@@ -35,10 +25,7 @@ Templates requiring updates:
 - .specify/templates/spec-template.md ✅ compatible (no constitution refs)
 - .specify/templates/tasks-template.md ✅ compatible (no constitution refs)
 - .coderabbit.yaml ✅ compatible (no version refs)
-
-Follow-up TODOs:
-- Archive old specs (001-docker-dev-stack, 002-directus-cms-setup)
-- Update CLAUDE.md to remove Docker/Directus references
+- CLAUDE.md - needs Phase 3 and geographic context updates
 -->
 
 # WV Wild Outdoors Storefront Constitution
@@ -62,19 +49,23 @@ Every minute spent fighting technology is a minute not spent growing the busines
 
 ### II. Heart of West Virginia
 
-Braxton County sits at the geographic center of West Virginia — a gateway to everything
-the Mountain State offers. All content MUST celebrate this heritage: hunting, fishing,
-outdoor culture, and the tight-knit community of Birch River. Authenticity over corporate
-polish.
+Braxton County sits at the geographic center of West Virginia — and WV Wild Outdoors
+sits on **US 19 in Birch River** (I-79 Exit 57 access), the natural gateway for
+350,000+ annual hunters traveling the corridor from PA, OH, and MD. All content MUST
+celebrate this heritage: hunting, fishing, outdoor culture, and the tight-knit community
+of Birch River. Authenticity over corporate polish.
 
 **Non-negotiable rules:**
 - Voice and tone MUST reflect rural West Virginia authenticity
 - Stock photography MUST NOT replace real store/product/people images
 - Content MUST reference local landmarks, seasons, and traditions
 - Marketing MUST prioritize community trust over conversion optimization
+- Homepage MUST emphasize US 19 location and I-79 Exit 57 access
+- Content MUST serve both local customers AND highway travelers
 
 **Rationale:** WV Wild Outdoors succeeds because it's a real store run by real people
 who know their customers by name. The digital presence must amplify this, not replace it.
+Kim sees out-of-state hunters walk in daily — the website must capture the same traffic.
 
 ### III. Modular Service Architecture
 
@@ -161,11 +152,37 @@ content. Kim's store reputation depends on this working right the first time.
 **Exception**: Environment template files (`.env.example`, `.env.template`) MUST use
 placeholders for security - this is intentional and required to prevent accidental secret commits.
 
+**Anti-Speed Clause:**
+- NO artificial deadlines or "ship it" pressure
+- NO cutting features to meet arbitrary timelines
+- NO "good enough for now" compromises
+- Development proceeds at quality pace, not velocity metrics
+- User explicitly stated: "I have time to do this, there is not a time constraint"
+
 **Rationale:** This digital ecosystem represents Kim and Bryan's business to the
 Birch River community and beyond. A buggy website damages their hard-earned
 reputation. In a small town (population ~500), word spreads fast. There's no tech
 support hotline for Kim to call — it must simply work. This project is Matt's gift
 of empowerment, not a burden of maintenance. Ship it complete or don't ship it at all.
+
+### VII. Appalachian Gateway Positioning
+
+WV Wild Outdoors sits at the strategic heart of West Virginia's hunting economy:
+- **US 19 (Old Turnpike)** between Sutton and Summersville
+- **I-79 Exit 57** → south on US 19 → Birch River
+- **Gateway to Elk River WMA** and central WV public hunting land
+- **Central WV hub** for PA/OH/MD hunters traveling the I-79 corridor
+
+**Non-negotiable rules:**
+- Homepage MUST emphasize US 19 location and I-79 Exit 57 access
+- All marketing MUST position as "gateway to central WV hunting"
+- Content MUST serve both local customers AND highway travelers
+- SEO MUST target out-of-state hunter searches
+- Geographic positioning MUST appear in schema markup and metadata
+
+**Rationale:** Kim sees out-of-state hunters walk in daily. The digital presence
+must capture the same traffic the physical location does. The I-79 corridor is
+WV's hunting highway — we position accordingly.
 
 ## Technology Stack
 
@@ -218,7 +235,8 @@ amendment.
 - If it requires GitHub: Matt's responsibility
 - If it requires any login Kim doesn't have: Matt's responsibility
 - If it involves customer-facing content accuracy: Kim's responsibility (Matt supports)
-- If it involves money/transactions: Not in scope (no e-commerce)
+- If it involves money/transactions: E-commerce IS in scope (Phase 3C, with proper
+  FFL compliance and security measures)
 
 ## Governance
 
@@ -238,9 +256,9 @@ Storefront project. All specifications, plans, and implementations MUST comply.
 - PATCH: Clarifications, typo fixes, non-semantic refinements
 
 **Compliance Review:**
-- All feature specifications MUST include Constitution Check section verifying all 6 principles
+- All feature specifications MUST include Constitution Check section verifying all 7 principles
 - All implementation plans MUST verify principle alignment before coding
 - Anti-MVP Bias checklist (Internal + External shipping criteria) MUST be completed before merge
 - Violations MUST be documented with explicit justification in Complexity Tracking
 
-**Version**: 2.0.0 | **Ratified**: 2025-12-04 | **Last Amended**: 2025-12-09
+**Version**: 2.1.0 | **Ratified**: 2025-12-04 | **Last Amended**: 2025-12-12

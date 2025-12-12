@@ -355,7 +355,7 @@ Never save working files, text/mds and tests to the root folder.
 
 # wvwo-storefront Development Guidelines
 
-Auto-generated from constitution v2.0.0. Last updated: 2025-12-09
+Auto-generated from constitution v2.1.0. Last updated: 2025-12-12
 
 ## Active Technologies
 - Astro 5.x (static site generation)
@@ -393,9 +393,19 @@ npm run preview  # Preview production build
 - Mobile-first responsive design
 
 ## Recent Changes
+- 2025-12-12: Constitution v2.1.0 - Phase 3 Strategy & Geographic Positioning
+  - Added Principle VII: Appalachian Gateway Positioning (US 19 / I-79 Exit 57)
+  - E-commerce now IN SCOPE (Phase 3C)
+  - Anti-Speed Clause added (no artificial deadlines)
 - 2025-12-09: Constitution v2.0.0 - Pivoted to simple static site approach
 - Removed: Docker, Directus, Ghost, Listmonk, Mixpost, PostgreSQL, Redis
 - Added: Web3Forms (forms), Buttondown (newsletter), YouTube (embeds)
+
+## Current Phase: 3 - Highway Hunter Capture
+**Goal:** Capture out-of-state hunters traveling the I-79 corridor
+- Phase 3A: Geographic SEO Foundation (GBP, schema, "near I-79" content)
+- Phase 3B: Hunter Content Hub (season guides, WMA maps, local knowledge)
+- Phase 3C: E-Commerce Foundation (cart for shippable items, Stripe, FFL compliance)
 
 <!-- MANUAL ADDITIONS START -->
 
@@ -463,8 +473,10 @@ npx agentdb@latest learner run 3 0.6 0.7
 
 | Key | Value |
 |-----|-------|
-| **PROJECT** | WV Wild Outdoors - Kim & Bryan's hunting/outdoor shop, Birch River WV |
+| **PROJECT** | WV Wild Outdoors - Kim & Bryan's hunting/outdoor shop |
+| **LOCATION** | **US 19 in Birch River, WV** (I-79 Exit 57 access) |
 | **IDENTITY** | FFL dealer, DNR agent, family-owned since 2008 |
+| **PHASE** | Phase 3: Highway Hunter Capture (SEO + Content Hub + E-Commerce) |
 | **TECH** | Astro 5.x + Tailwind CSS 4.x + vanilla JS ONLY |
 | **HOSTING** | Cloudflare Pages |
 | **VOICE** | Faith-forward, humble, rural WV authentic, "Grand love ya" |
@@ -478,12 +490,13 @@ npx agentdb@latest learner run 3 0.6 0.7
 |-----------|---------|---------|
 | **SIMPLICITY > COMPLEXITY** | We pivoted from Docker/Directus to static Astro. Simpler is better for small business. | Don't suggest databases, CMSs, or complex architectures |
 | **AUTHENTIC > CORPORATE** | Kim's real voice, not marketing speak. Rural WV culture, not Silicon Valley. | Don't use buzzwords, "solutions", or slick copy |
-| **FREE > EXPENSIVE** | Cloudflare Pages free tier. Web3Forms free tier. No monthly costs for Kim. | Don't suggest paid services or subscriptions |
-| **LOCAL > ONLINE** | Kim's customers are neighbors, not internet strangers. Foot traffic > web traffic. | Don't over-invest in SEO, e-commerce, or online marketing |
+| **FREE > EXPENSIVE** | Cloudflare Pages free tier. Web3Forms free tier. Minimize monthly costs for Kim. | Don't suggest expensive paid services without justification |
+| **LOCAL + HIGHWAY** | Kim's customers are neighbors AND out-of-state hunters on I-79. Serve both. | SEO and e-commerce ARE in scope for Phase 3 |
+| **QUALITY > SPEED** | This is NOT an MVP. No artificial deadlines. Do it RIGHT, not fast. | Never rush, never cut corners, never "ship it" |
 
 **When suggesting features, Claude MUST check:**
-> "Does this add complexity? Does it cost money? Does it sound corporate? Is it optimizing for online over local?"
-> If YES to any → Reconsider or explain tradeoff to user.
+> "Does this add unnecessary complexity? Does it sound corporate? Does it serve both local AND highway customers?"
+> E-commerce and SEO are now IN SCOPE (Phase 3). Quality over speed, always.
 
 ## HARD RULES (Never Violate)
 
