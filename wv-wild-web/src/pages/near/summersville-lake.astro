@@ -1,0 +1,527 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import EmailCapture from '../../components/EmailCapture.astro';
+import { SITE_CONTACT } from '../../config/siteContact';
+
+// Place schema for geographic SEO
+// GPS: Battle Run / Summersville Lake dam area
+const placeSchema = {
+  "@context": "https://schema.org",
+  "@type": "Place",
+  "name": "Summersville Lake",
+  "description": "2,790-acre Army Corps lake known as the 'Little Bahamas of the East.' Crystal clear water with 20-45 feet visibility, premier bass fishing, and scuba diving. 45 minutes from WV Wild Outdoors.",
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 38.2217,
+    "longitude": -80.9097
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "2981 Summersville Lake Road",
+    "addressLocality": "Summersville",
+    "addressRegion": "WV",
+    "postalCode": "26651",
+    "addressCountry": "US"
+  }
+};
+---
+
+<Layout
+  title="Summersville Lake Fishing & Diving Guide | WV Wild Outdoors"
+  description="Fishing and diving guide for Summersville Lake, the 'Little Bahamas of the East.' 2,790 acres with smallmouth bass, walleye, and crystal clear water for scuba diving. 45 minutes from our shop."
+  additionalSchemas={[placeSchema]}
+>
+  <Header />
+
+  <main class="bg-brand-cream min-h-screen">
+
+    <!-- Hero -->
+    <section class="bg-brand-brown text-white py-16 md:py-24 relative overflow-hidden">
+      <div class="absolute inset-0 bg-camo opacity-5 pointer-events-none"></div>
+
+      <div class="container mx-auto px-4 relative">
+        <div class="max-w-3xl">
+          <div class="flex flex-wrap items-center gap-3 mb-4">
+            <span class="inline-block bg-sign-green text-white px-4 py-1 rounded-sm font-bold text-sm">
+              45 min from shop
+            </span>
+            <span class="inline-block bg-brand-orange text-white px-4 py-1 rounded-sm font-bold text-sm">
+              2,790 Acres
+            </span>
+          </div>
+          <h1 class="font-display font-black text-4xl md:text-6xl mb-4">
+            Summersville Lake
+          </h1>
+          <p class="text-xl md:text-2xl text-brand-cream/80 mb-6">
+            They call it the Little Bahamas of the East for good reason.
+            Crystal clear water, world-class smallmouth fishing, and some of the best freshwater diving east of the Mississippi.
+          </p>
+          <p class="text-brand-cream/60">
+            Stop by the shop before you head out — we'll get you set up with tackle, bait, and local tips.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Info -->
+    <section class="py-8 bg-white border-b border-brand-brown/15">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+          <div>
+            <span class="block text-2xl font-bold text-brand-brown">2,790</span>
+            <span class="text-sm text-brand-brown/60">Acres</span>
+          </div>
+          <div>
+            <span class="block text-2xl font-bold text-brand-brown">45 min</span>
+            <span class="text-sm text-brand-brown/60">From Shop</span>
+          </div>
+          <div>
+            <span class="block text-2xl font-bold text-brand-brown">Nicholas Co.</span>
+            <span class="text-sm text-brand-brown/60">Location</span>
+          </div>
+          <div>
+            <span class="block text-2xl font-bold text-brand-brown">Year-Round</span>
+            <span class="text-sm text-brand-brown/60">Access</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- What to Fish -->
+    <section class="py-12 md:py-16">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-8">
+            What to Fish
+          </h2>
+
+          <div class="space-y-6">
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Smallmouth Bass</h3>
+              <p class="text-brand-brown/75 mb-3">
+                Summersville is smallmouth country. The clear, deep water and rocky structure
+                make this lake one of the best smallmouth fisheries in the state. Some folks say
+                the smallmouth here rival anything in West Virginia.
+              </p>
+              <p class="text-sm text-brand-brown/60">
+                <strong>Tips:</strong> The water's gin-clear, so downsize your line and go with natural
+                colors. Tube jigs and drop shot rigs with soft plastics work well. Target rocky points
+                and ledges — the smallmouth stack up on structure.
+              </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Largemouth Bass</h3>
+              <p class="text-brand-brown/75 mb-3">
+                Don't overlook the largemouth. They hold around cover near the bank and in the
+                backs of coves. Early morning and late evening are your best windows.
+              </p>
+              <p class="text-sm text-brand-brown/60">
+                <strong>Tips:</strong> Work shallow cover with spinnerbaits and soft plastics.
+                The clear water means bass can see you coming, so keep your distance and make long casts.
+              </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Walleye</h3>
+              <p class="text-brand-brown/75 mb-3">
+                Walleye are present throughout the lake and follow baitfish around points
+                and ledges. The deep, clear water suits them well. Some years produce better
+                than others, but they're worth targeting.
+              </p>
+              <p class="text-sm text-brand-brown/60">
+                <strong>Tips:</strong> Troll crankbaits along points or jig with live bait near
+                the dam. Low-light periods — dawn, dusk, and overcast days — are your best bet.
+              </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Catfish & Panfish</h3>
+              <p class="text-brand-brown/75 mb-3">
+                Channel catfish and flatheads lurk in the deeper holes. Crappie, bluegill,
+                and yellow perch round out the options — the lake holds the state record
+                for yellow perch.
+              </p>
+              <p class="text-sm text-brand-brown/60">
+                <strong>Tips:</strong> For catfish, fish cut bait or chicken liver near the dam.
+                Crappie and panfish hold around submerged structure and brush piles.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Where to Fish -->
+    <section class="py-12 md:py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-8">
+            Where to Fish
+          </h2>
+
+          <div class="space-y-6">
+            <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Points & Ledges Near Dam</h3>
+              <p class="text-brand-brown/75 mb-3">
+                The area between the marina and Summersville Dam holds consistent fish.
+                Work the points and ledges to establish what depth is productive for the day.
+                Smallmouth and walleye push baitfish up against these structures.
+              </p>
+            </div>
+
+            <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Long Point</h3>
+              <p class="text-brand-brown/75 mb-3">
+                The signature rock formation at Long Point isn't just for divers. The rocky
+                structure extends underwater and holds bass year-round. Fish the transition
+                zones where rock meets deeper water.
+              </p>
+            </div>
+
+            <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Salmon Run Area</h3>
+              <p class="text-brand-brown/75 mb-3">
+                The boat ramp area at Salmon Run provides access to productive water.
+                Rocky banks and submerged structure nearby make this a good starting point,
+                especially for bank anglers.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Crystal Clear Waters -->
+    <section class="py-12 md:py-16">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-4">
+            Crystal Clear Waters
+          </h2>
+          <p class="text-brand-brown/75 mb-8">
+            Skin Diver Magazine called it the cleanest, clearest freshwater lake east of the
+            Mississippi. On a good day, you can see 30-45 feet down. That's why folks come
+            from all over for the scuba diving.
+          </p>
+
+          <div class="space-y-6">
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Scuba Diving</h3>
+              <p class="text-brand-brown/75 mb-3">
+                Long Point Cliff is the signature dive site — a towering rock formation that plunges
+                40+ feet underwater. The Overlook site offers more diversity with fish viewing,
+                a ledge at 52 feet, tree stumps, and boulders. There's even a small boat that
+                was intentionally sunk for divers to explore.
+              </p>
+              <p class="text-sm text-brand-brown/60">
+                <strong>Note:</strong> Sarge's Dive Shop near the lake offers rentals and certification.
+                Summer water temps run 68-80°F.
+              </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Swimming & Cliff Jumping</h3>
+              <p class="text-brand-brown/75 mb-3">
+                Battle Run Beach offers swimming access. Long Point has a pyramid-shaped rock
+                formation that's popular for jumping into the water below. Several rock formations
+                around Long Point make for good swim-around areas.
+              </p>
+              <p class="text-sm text-brand-brown/60">
+                <strong>Safety note:</strong> Jumping from the surrounding sandstone cliffs is prohibited
+                due to past accidents. Stick to designated areas.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Campgrounds -->
+    <section class="py-12 md:py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-8">
+            Camping
+          </h2>
+
+          <div class="space-y-6">
+            <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
+              <div class="flex justify-between items-start mb-3">
+                <h3 class="font-display font-bold text-lg text-brand-brown">Battle Run Campground</h3>
+                <span class="text-sm text-sign-green font-bold">Reservable</span>
+              </div>
+              <p class="text-brand-brown/75 mb-3">
+                The main campground sits on a peninsula with water on three sides. Right by the
+                dam with easy lake access. Large waterfront sites, boat ramp, and fishing dock
+                on site.
+              </p>
+              <ul class="text-sm text-brand-brown/60 space-y-1">
+                <li>• 110 electric hookup sites + 7 walk-in tent sites</li>
+                <li>• Showers, flush toilets, laundry, dump station</li>
+                <li>• Fees: $24+/night</li>
+                <li>• No pets permitted</li>
+                <li>• Reserve at Recreation.gov or call 304-872-3459</li>
+              </ul>
+            </div>
+
+            <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
+              <div class="flex justify-between items-start mb-3">
+                <h3 class="font-display font-bold text-lg text-brand-brown">Summersville Lake State Park</h3>
+                <span class="text-sm text-brand-orange font-bold">New in 2023</span>
+              </div>
+              <p class="text-brand-brown/75 mb-3">
+                177 acres on the northern shore became West Virginia's newest state park in 2023.
+                Focus on rock climbing, hiking, and biking trails. Water activities and camping areas
+                are being developed.
+              </p>
+              <ul class="text-sm text-brand-brown/60 space-y-1">
+                <li>• Technical rock climbing emphasis</li>
+                <li>• Hiking and biking trails</li>
+                <li>• Check WV State Parks for current availability</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- On the Water -->
+    <section class="py-12 md:py-16">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-8">
+            On the Water
+          </h2>
+
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-bold text-brand-brown mb-3">Boat Ramps</h3>
+              <ul class="space-y-2 text-brand-brown/75 text-sm">
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Battle Run (paved, accessible)
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Salmon Run
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Long Point
+                </li>
+              </ul>
+            </div>
+
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-bold text-brand-brown mb-3">Marina & Services</h3>
+              <ul class="space-y-2 text-brand-brown/75 text-sm">
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Summersville Lake Marina
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Kayak & pontoon rentals
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Sarge's Dive Shop (scuba gear)
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Battle Run Beach (swimming)
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Getting There -->
+    <section class="py-12 md:py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-8">
+            Getting There
+          </h2>
+
+          <div class="bg-brand-cream p-6 rounded-sm border-l-4 border-sign-green mb-6">
+            <h3 class="font-bold text-brand-brown mb-2">From Our Shop</h3>
+            <ol class="text-brand-brown/75 space-y-2 list-decimal list-inside">
+              <li>Head south on US-19 from Birch River</li>
+              <li>Continue through Summersville (~40 miles)</li>
+              <li>Turn right on WV-129 toward the lake</li>
+              <li>Follow signs to Battle Run or your destination (~45 minutes total)</li>
+            </ol>
+          </div>
+
+          <div class="bg-brand-cream p-6 rounded-sm border-l-4 border-brand-orange">
+            <h3 class="font-bold text-brand-brown mb-2">From I-79 (Northbound)</h3>
+            <ol class="text-brand-brown/75 space-y-2 list-decimal list-inside">
+              <li>Take I-79 to US-19 South (Beckley direction)</li>
+              <li>Follow US-19 through Summersville</li>
+              <li>Turn right on WV-129</li>
+              <li>Stop by our shop on your way back — we're at Exit 57 on US-19</li>
+            </ol>
+          </div>
+
+          <p class="mt-6 text-sm text-brand-brown/60">
+            U.S. Army Corps of Engineers - Battle Run: (304) 872-3459
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- What to Bring -->
+    <section class="py-12 md:py-16">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-4">
+            What to Bring
+          </h2>
+          <p class="text-brand-brown/75 mb-8">
+            We've got most of this in stock. Stop by before you head out.
+          </p>
+
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-bold text-brand-brown mb-3">For Fishing</h3>
+              <ul class="space-y-2 text-brand-brown/75 text-sm">
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  WV fishing license
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Light line (clear water needs finesse)
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Tube jigs, soft plastics
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Drop shot rigs (smallmouth love them)
+                </li>
+              </ul>
+            </div>
+
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-bold text-brand-brown mb-3">For Swimming & Diving</h3>
+              <ul class="space-y-2 text-brand-brown/75 text-sm">
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Snorkel gear (worth it here)
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Water shoes (rocky shoreline)
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Sunscreen and towels
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Cooler and drinks
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="mt-8 text-center">
+            <a
+              href="/shop"
+              class="inline-flex items-center gap-2 bg-sign-green text-white font-bold px-6 py-3 rounded-sm hover:bg-sign-green/90 motion-safe:transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange"
+            >
+              Browse Our Gear
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="bg-sign-green text-white py-12">
+      <div class="container mx-auto px-4 text-center">
+        <h2 class="font-display font-bold text-2xl mb-4">
+          Stop By Before You Head Out
+        </h2>
+        <p class="text-white/80 mb-6 max-w-xl mx-auto">
+          We're on US-19 between the interstate and the lake. Grab your fishing license,
+          stock up on tackle, and we'll point you to what's been biting.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a
+            href={SITE_CONTACT.mapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 bg-white text-sign-green font-bold px-6 py-3 rounded-sm hover:bg-brand-cream motion-safe:transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+          >
+            <svg aria-hidden="true" focusable="false" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            </svg>
+            Get Directions to Shop
+          </a>
+          <a
+            href={SITE_CONTACT.phoneHref}
+            class="inline-flex items-center gap-2 bg-white/10 border border-white/30 text-white font-bold px-6 py-3 rounded-sm hover:bg-white/20 motion-safe:transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+          >
+            {SITE_CONTACT.phoneDisplay}
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="py-12 md:py-16">
+      <div class="container mx-auto px-4">
+        <div class="max-w-xl mx-auto">
+          <EmailCapture
+            variant="card"
+            heading="Get Fishing & Lake Updates"
+            subheading="What's biting, campground openings, and gear restocks delivered to your inbox."
+          />
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Layout>
