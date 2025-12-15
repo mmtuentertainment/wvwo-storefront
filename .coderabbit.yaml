@@ -9,7 +9,7 @@ language: "en-US"
 early_access: false
 
 # Tone: Authentic, family-business focus - Direct and thorough with cultural sensitivity
-tone_instructions: "Rural WV family business on US 19 near I-79 Exit 57. Focus: Owner-First Simplicity, Heart of WV (geographic positioning), Modular Services (free-tier), Developer-Managed, Dual-Experience (responsive web), Anti-MVP Bias, Appalachian Gateway Positioning. Surprise gift - no half-baked features. Kim's reputation depends on it."
+tone_instructions: "Rural WV hunting/fishing shop on US 19 (I-79 Exit 57). Simple static Astro site. Anti-MVP: no half-done features. Owner-first simplicity. Kim's authentic voice, not corporate speak. Quality over speed."
 
 reviews:
   profile: "assertive"  # Owner-First Simplicity + Anti-MVP Bias require thoroughness
