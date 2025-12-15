@@ -92,7 +92,7 @@ const outdoorAreas = [
     hunting: ["Deer", "Turkey", "Bear", "Grouse", "Squirrel"],
     fishing: ["Trout", "Smallmouth Bass"],
     camping: true,
-    hasDetailPage: false
+    hasDetailPage: true
   }
 ];
 ---
@@ -262,6 +262,17 @@ const outdoorAreas = [
                   <span class="text-stone-700 ml-1">{area.fishing.join(", ")}</span>
                 </div>
               </div>
+              {area.hasDetailPage && (
+                <a
+                  href={`/near/${area.slug}`}
+                  class="inline-flex items-center text-sign-green font-medium text-sm mt-4 motion-safe:hover:gap-2 motion-safe:transition-[gap] motion-reduce:transition-none"
+                >
+                  Full Guide
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                  </svg>
+                </a>
+              )}
             </div>
           ))}
         </div>
