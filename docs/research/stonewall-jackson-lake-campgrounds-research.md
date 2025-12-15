@@ -295,11 +295,9 @@ Perfect for easy-in/easy-out overnight stays close to I-79. Clean, well-maintain
 - **Off-Season:** October – early April (some loops close, remaining sites first-come, first-served via self-service kiosks)
 
 ### Fees (2024-2025)
-- **Range:** $28 - $46 per night
-  - $34 - $46 per night (The Dyrt)
-  - $28 - $40 per night (PerfectCamp)
-  - Older sources show $20-26 (may be outdated)
-- **Verify current rates:** Call 1-877-444-6777 or check Recreation.gov
+- **Range:** $20-40 per night (varies by site type and season)
+  - Third-party sources show varying ranges ($28-46 on The Dyrt, $28-40 on PerfectCamp)
+  - **Fees subject to change** — verify current rates at Recreation.gov or call 1-877-444-6777
 
 ### Stay Limit
 - **Maximum:** 14 days in any 30-day consecutive period at Burnsville Lake
@@ -324,7 +322,7 @@ Perfect for easy-in/easy-out overnight stays close to I-79. Clean, well-maintain
 ### Historical Significance
 - **Bulltown Historic Area:** Adjacent to campground
 - **Civil War Site:** Site of a Civil War battle
-- **Reenactments:** Twice yearly Civil War battle reenactments
+- **Reenactments:** Annual Battle of Bulltown reenactment (October)
 
 ### Distance from Stonewall Jackson Lake
 - Approximately 30-35 miles south via US-19 (parallel to I-79)
@@ -342,7 +340,7 @@ Perfect for easy-in/easy-out overnight stays close to I-79. Clean, well-maintain
 | **Leisure Time** | Private | 42 | Year-round | $20 | 6-8 mi | (304) 269-1084 |
 | **Flatwoods KOA** | Private KOA | Multiple | Year-round | Variable | 25-30 mi | (304) 765-5055 |
 | **Audra State Park** | State Park | 65 | Spring-Fall | Call | 16-20 mi | 304-457-1162 |
-| **Bulltown (Burnsville)** | USACE | 204 | Apr-Nov | $28-46 | 30-35 mi | 1-877-444-6777 |
+| **Bulltown (Burnsville)** | USACE | 204 | Apr-Nov | $20-40 | 30-35 mi | 1-877-444-6777 |
 
 ---
 

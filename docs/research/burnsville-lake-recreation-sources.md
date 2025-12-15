@@ -33,7 +33,7 @@
 - GPS: 38.7916667, -80.5663889
 - Address: 1183 Bulltown Campground Rd, Napier, WV 26631
 - Phone: (304) 452-8006
-- Season: Late April - Thanksgiving
+- Season: Late April – Thanksgiving
 - Amenities: Electric (30/50 amp), water, sewer, showers, laundry, WiFi, playground, boat ramp
 
 ### Fish Species (VERIFIED)
