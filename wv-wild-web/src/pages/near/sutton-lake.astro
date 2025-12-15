@@ -6,7 +6,10 @@ import EmailCapture from '../../components/EmailCapture.astro';
 import { SITE_CONTACT } from '../../config/siteContact';
 
 // Place schema for geographic SEO
-// GPS: Sutton Lake dam area
+// LOCATION: Sutton Lake, Braxton Co., WV
+// TRAVEL TIME: 25 min from shop (US-19 north to I-79 Exit 62)
+// COORDINATES: 38.6620, -80.6932 (Sutton Dam area, approximate)
+// ACCESS: Bee Run Recreation Area (primary); Gerald Freeman, Bakers Run (secondary)
 const placeSchema = {
   "@context": "https://schema.org",
   "@type": "Place",
@@ -24,7 +27,19 @@ const placeSchema = {
     "addressRegion": "WV",
     "postalCode": "26601",
     "addressCountry": "US"
-  }
+  },
+  "containedInPlace": {
+    "@type": "City",
+    "name": "Sutton",
+    "address": { "addressRegion": "WV" }
+  },
+  "amenityFeature": [
+    { "@type": "LocationFeatureSpecification", "name": "Fishing", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Boat Ramps", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Camping", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Swimming Beach", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Marina", "value": true }
+  ]
 };
 ---
 
@@ -214,7 +229,7 @@ const placeSchema = {
                 <li>• 113 electric sites (20/30/50 amp) + 37 full hookups</li>
                 <li>• Season: May - early December</li>
                 <li>• Fees: $22-$40/night</li>
-                <li>• Reserve at Recreation.gov</li>
+                <li>• Reserve at <a href="https://www.recreation.gov/camping/campgrounds/232492" target="_blank" rel="noopener noreferrer" class="text-sign-green hover:underline">Recreation.gov</a></li>
               </ul>
             </div>
 
@@ -358,7 +373,7 @@ const placeSchema = {
           </div>
 
           <p class="mt-6 text-sm text-brand-brown/60">
-            U.S. Army Corps of Engineers Office: (304) 765-2816
+            U.S. Army Corps of Engineers Office: <a href="tel:+13047652816" class="text-sign-green hover:underline">(304) 765-2816</a>
           </p>
         </div>
       </div>
