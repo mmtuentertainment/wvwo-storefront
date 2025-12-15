@@ -1,0 +1,616 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import EmailCapture from '../../components/EmailCapture.astro';
+import { SITE_CONTACT } from '../../config/siteContact';
+
+// Place schema for geographic SEO
+// LOCATION: Stonewall Jackson Lake, Lewis Co., WV
+// TRAVEL TIME: 40 min from shop (I-79 N to Exit 91)
+// COORDINATES: 38.8697, -80.4585 (Stonewall Resort area)
+// ACCESS: I-79 Exit 91 (Roanoke), 2-3 miles to resort
+const placeSchema = {
+  "@context": "https://schema.org",
+  "@type": "Place",
+  "name": "Stonewall Jackson Lake",
+  "description": "2,650-acre lake in Lewis County, WV. West Virginia's #1 bass lake with trophy musky fishing, 370-slip marina, state park camping, and Arnold Palmer golf course. 40 minutes from WV Wild Outdoors.",
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 38.8697,
+    "longitude": -80.4585
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "940 Resort Drive",
+    "addressLocality": "Roanoke",
+    "addressRegion": "WV",
+    "postalCode": "26447",
+    "addressCountry": "US"
+  },
+  "containedInPlace": {
+    "@type": "City",
+    "name": "Roanoke",
+    "address": { "addressRegion": "WV" }
+  },
+  "amenityFeature": [
+    { "@type": "LocationFeatureSpecification", "name": "Fishing", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Marina", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Camping", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Golf", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Hiking", "value": true }
+  ]
+};
+---
+
+<Layout
+  title="Stonewall Jackson Lake Fishing & Recreation Guide | WV Wild Outdoors"
+  description="Fishing and recreation guide for Stonewall Jackson Lake - West Virginia's #1 bass lake. 2,650 acres with trophy musky, 370-slip marina, state park camping, and Arnold Palmer golf. 40 minutes from our shop."
+  additionalSchemas={[placeSchema]}
+>
+  <Header />
+
+  <main class="bg-brand-cream min-h-screen">
+
+    <!-- Hero -->
+    <section class="bg-brand-brown text-white py-16 md:py-24 relative overflow-hidden">
+      <div class="absolute inset-0 bg-camo opacity-5 pointer-events-none"></div>
+
+      <div class="container mx-auto px-4 relative">
+        <div class="max-w-3xl">
+          <div class="flex flex-wrap items-center gap-3 mb-4">
+            <span class="inline-block bg-sign-green text-white px-4 py-1 rounded-sm font-bold text-sm">
+              40 min from shop
+            </span>
+            <span class="inline-block bg-brand-orange text-white px-4 py-1 rounded-sm font-bold text-sm">
+              2,650 Acres
+            </span>
+          </div>
+          <h1 class="font-display font-black text-4xl md:text-6xl mb-4">
+            Stonewall Jackson Lake
+          </h1>
+          <p class="text-xl md:text-2xl text-brand-cream/80 mb-6">
+            West Virginia's #1 bass lake for over a decade. Trophy musky, a 370-slip marina,
+            and state park camping make this a full-weekend destination. Stop by the shop
+            before you head up I-79.
+          </p>
+          <p class="text-brand-cream/60">
+            Stop by the shop before you head out — we'll get you set up with tackle, bait, and local tips.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Info -->
+    <section class="py-8 bg-white border-b border-brand-brown/15">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+          <div>
+            <span class="block text-2xl font-bold text-brand-brown">2,650</span>
+            <span class="text-sm text-brand-brown/60">Acres</span>
+          </div>
+          <div>
+            <span class="block text-2xl font-bold text-brand-brown">40 min</span>
+            <span class="text-sm text-brand-brown/60">From Shop</span>
+          </div>
+          <div>
+            <span class="block text-2xl font-bold text-brand-brown">Lewis Co.</span>
+            <span class="text-sm text-brand-brown/60">Location</span>
+          </div>
+          <div>
+            <span class="block text-2xl font-bold text-brand-brown">Year-Round</span>
+            <span class="text-sm text-brand-brown/60">Access</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- What to Fish -->
+    <section class="py-12 md:py-16">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-8">
+            What to Fish
+          </h2>
+
+          <div class="space-y-6">
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Largemouth Bass</h3>
+              <p class="text-brand-brown/75 mb-3">
+                The DNR doesn't hand out #1 rankings lightly. Stonewall Jackson has held that
+                title for bass fishing for over 10 years. The lake is full catch-and-release
+                for black bass, which keeps the population healthy and the fishing excellent.
+              </p>
+              <p class="text-sm text-brand-brown/60">
+                <strong>Tips:</strong> Work the standing timber and submerged roadbeds at 8-15 feet.
+                Soft plastics and crankbaits produce year-round. Spring spawn brings fish shallow
+                into the coves.
+              </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Muskellunge</h3>
+              <p class="text-brand-brown/75 mb-3">
+                If you're after musky, this lake ranks among the best in the state. Fish over
+                50 inches are caught here regularly. The 52-inch minimum harvest means most
+                go back, which is fine by us — they're more fun to catch than to clean anyway.
+              </p>
+              <p class="text-sm text-brand-brown/60">
+                <strong>Tips:</strong> Spring and fall are prime. Cast shallow-running plugs in upper
+                tributaries or troll deep-diving crankbaits in the main lake. Target bridge abutments
+                and underwater structure.
+              </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Crappie</h3>
+              <p class="text-brand-brown/75 mb-3">
+                Both black and white crappie are present and stack up around the standing timber
+                during spring spawn. Good numbers with decent size.
+              </p>
+              <p class="text-sm text-brand-brown/60">
+                <strong>Tips:</strong> Jigs and minnows around submerged timber at 8-15 feet.
+                Spring and early summer are best. Fish the backs of coves during spawn.
+              </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Walleye, Catfish & More</h3>
+              <p class="text-brand-brown/75 mb-3">
+                Walleye are present throughout the lake. Channel catfish, bluegill, white bass,
+                and yellow perch round out the options. Something biting for everyone.
+              </p>
+              <p class="text-sm text-brand-brown/60">
+                <strong>Tips:</strong> Walleye hold on points and ledges — troll or jig. Bluegill
+                stack up in shallow coves year-round. Catfish respond to cut bait in deeper holes.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Where to Fish -->
+    <section class="py-12 md:py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-8">
+            Where to Fish
+          </h2>
+
+          <div class="space-y-6">
+            <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Main Lake Points & Ledges</h3>
+              <p class="text-brand-brown/75 mb-3">
+                The main lake offers consistent structure fishing. Points dropping into deeper
+                water hold bass, walleye, and musky year-round. Electronics help here — find
+                the baitfish and the predators follow.
+              </p>
+            </div>
+
+            <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Upper Tributaries</h3>
+              <p class="text-brand-brown/75 mb-3">
+                The upper arms of the lake offer shallower water and excellent spring fishing.
+                Musky push up here in cooler months. Bass spawn in the back coves. Good bank
+                fishing access in some areas.
+              </p>
+            </div>
+
+            <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Standing Timber & Roadbeds</h3>
+              <p class="text-brand-brown/75 mb-3">
+                The 1988 impoundment left plenty of submerged structure. Standing timber and
+                old roadbeds at 8-15 feet hold crappie, bass, and panfish. Mark these spots
+                on your GPS and work them methodically.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Marina & Boat Access -->
+    <section class="py-12 md:py-16">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-8">
+            Marina & Boat Access
+          </h2>
+
+          <div class="bg-white p-6 rounded-sm border border-brand-brown/15 mb-6">
+            <div class="flex justify-between items-start mb-3">
+              <h3 class="font-display font-bold text-lg text-brand-brown">Stonewall Resort Marina</h3>
+              <span class="text-sm text-brand-orange font-bold">370+ Slips</span>
+            </div>
+            <p class="text-brand-brown/75 mb-3">
+              The largest marina in West Virginia. Full-service facility with boat rentals,
+              fuel, and seasonal slip rentals. Pontoons and CraigCats available for day rental.
+            </p>
+            <ul class="text-sm text-brand-brown/60 space-y-1 mb-4">
+              <li>• Pontoon rentals: $300-490/day</li>
+              <li>• CraigCat rentals: $216-350/day</li>
+              <li>• Season: April - November</li>
+              <li>• Fuel dock and boat supplies</li>
+            </ul>
+            <div class="flex flex-wrap gap-3">
+              <a href="tel:+13042698895" class="text-sign-green hover:underline text-sm font-medium">
+                (304) 269-8895
+              </a>
+            </div>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-bold text-brand-brown mb-3">Boat Ramps</h3>
+              <ul class="space-y-2 text-brand-brown/75 text-sm">
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  State Park ramp (paved, accessible)
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Marina launch
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Multiple WMA access points
+                </li>
+              </ul>
+            </div>
+
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-bold text-brand-brown mb-3">Lake Details</h3>
+              <ul class="space-y-2 text-brand-brown/75 text-sm">
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  2,650 surface acres
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  82 miles of shoreline
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  USACE dam (Pittsburgh District)
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  No horsepower limit
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Where to Stay -->
+    <section class="py-12 md:py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-8">
+            Where to Stay
+          </h2>
+
+          <!-- State Park Camping -->
+          <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15 mb-6">
+            <div class="flex justify-between items-start mb-3">
+              <h3 class="font-display font-bold text-lg text-brand-brown">Briar Point Campground</h3>
+              <span class="text-sm text-sign-green font-bold">State Park</span>
+            </div>
+            <p class="text-brand-brown/75 mb-3">
+              Lakeside camping right at the resort. Full hookups for RVs, tent platforms in the woods.
+              Year-round operation with WiFi and boat mooring posts.
+            </p>
+            <ul class="text-sm text-brand-brown/60 space-y-1 mb-4">
+              <li>• 40 RV sites (full hookups, 30/50 amp)</li>
+              <li>• 6 tent sites (wooden platforms)</li>
+              <li>• Fees: $63-75/night</li>
+              <li>• Season: Year-round</li>
+            </ul>
+            <div class="flex flex-wrap gap-3">
+              <a href="tel:+13042697400" class="text-sign-green hover:underline text-sm font-medium">
+                (304) 269-7400
+              </a>
+              <a href="https://wvstateparks.com/parks/stonewall-resort-state-park/lodging/camping-at-stonewall-resort-state-park/"
+                 target="_blank" rel="noopener noreferrer"
+                 class="text-sign-green hover:underline text-sm font-medium">
+                Reserve Campsite
+                <svg aria-hidden="true" focusable="false" class="w-3 h-3 inline ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Resort Lodging -->
+          <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15 mb-6">
+            <div class="flex justify-between items-start mb-3">
+              <h3 class="font-display font-bold text-lg text-brand-brown">Stonewall Resort Lodge & Cottages</h3>
+              <span class="text-sm text-brand-orange font-bold">Resort</span>
+            </div>
+            <p class="text-brand-brown/75 mb-3">
+              AAA Four Diamond lodge on the lake. Choose from hotel rooms, cottages with kitchens,
+              or luxury lake houses for groups. Pool, spa, and restaurant on site.
+            </p>
+            <ul class="text-sm text-brand-brown/60 space-y-1 mb-4">
+              <li>• Lodge Rooms - Adirondack-style with modern amenities</li>
+              <li>• Cottages - Full kitchens, fireplaces, outdoor areas</li>
+              <li>• Lake Houses - Multi-bedroom luxury rentals</li>
+            </ul>
+            <div class="flex flex-wrap gap-3">
+              <a href="tel:+18882788150" class="text-sign-green hover:underline text-sm font-medium">
+                (888) 278-8150
+              </a>
+              <a href="https://book.wvstateparks.com/Ecomm/Shop/Lodging/7816932/en-US/"
+                 target="_blank" rel="noopener noreferrer"
+                 class="text-sign-green hover:underline text-sm font-medium">
+                Book Online
+                <svg aria-hidden="true" focusable="false" class="w-3 h-3 inline ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Private Campgrounds (Budget Options) -->
+          <h3 class="font-display font-bold text-lg text-brand-brown mt-8 mb-4">Budget Camping Nearby</h3>
+
+          <div class="grid md:grid-cols-2 gap-4">
+            <div class="bg-white p-4 rounded-sm border border-brand-brown/15">
+              <h4 class="font-bold text-brand-brown mb-1">Broken Wheel Campground</h4>
+              <p class="text-sm text-brand-brown/60 mb-2">53 sites, $30/night, 8-10 mi from lake</p>
+              <a href="tel:+13042696097" class="text-sign-green hover:underline text-sm">
+                (304) 269-6097
+              </a>
+            </div>
+
+            <div class="bg-white p-4 rounded-sm border border-brand-brown/15">
+              <h4 class="font-bold text-brand-brown mb-1">Leisure Time Campground</h4>
+              <p class="text-sm text-brand-brown/60 mb-2">42 sites, $20/night, 6-8 mi from lake</p>
+              <a href="tel:+13042691084" class="text-sign-green hover:underline text-sm">
+                (304) 269-1084
+              </a>
+            </div>
+
+            <div class="bg-white p-4 rounded-sm border border-brand-brown/15">
+              <h4 class="font-bold text-brand-brown mb-1">Hefners RV Park</h4>
+              <p class="text-sm text-brand-brown/60 mb-2">9 RV sites, $30/night, 10-15 mi from lake</p>
+              <a href="tel:+13042039033" class="text-sign-green hover:underline text-sm">
+                (304) 203-9033
+              </a>
+            </div>
+          </div>
+
+          <!-- Fee Disclaimer -->
+          <p class="text-sm text-brand-brown/50 mt-6 text-center">
+            Fees and availability subject to change — check
+            <a href="https://wvstateparks.com/parks/stonewall-resort-state-park/"
+               target="_blank" rel="noopener noreferrer"
+               class="text-sign-green hover:underline">WV State Parks</a> before you go.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- More to Do -->
+    <section class="py-12 md:py-16">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-8">
+            More to Do
+          </h2>
+
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-bold text-brand-brown mb-3">Arnold Palmer Golf Course</h3>
+              <p class="text-brand-brown/75 text-sm mb-3">
+                18-hole championship course designed by Arnold Palmer. 7,149 yards, par 72.
+                Multiple awards including Golfweek Top 100 Resort Courses.
+              </p>
+              <a href="tel:+13042698885" class="text-sign-green hover:underline text-sm">
+                (304) 269-8885
+              </a>
+            </div>
+
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-bold text-brand-brown mb-3">Hiking Trails</h3>
+              <p class="text-brand-brown/75 text-sm mb-3">
+                7 miles of trails in the state park. Lakeside Nature Trail (3.3 mi, easy),
+                Hevener's Orchard (6.5 mi, challenging), and Overlook Trail with stone viewpoint.
+              </p>
+              <p class="text-sm text-brand-brown/60">
+                Adjacent WMA offers 62+ miles of backcountry trails.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Getting There -->
+    <section class="py-12 md:py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-8">
+            Getting There
+          </h2>
+
+          <div class="bg-brand-cream p-6 rounded-sm border-l-4 border-sign-green mb-6">
+            <h3 class="font-bold text-brand-brown mb-2">From Our Shop</h3>
+            <ol class="text-brand-brown/75 space-y-2 list-decimal list-inside">
+              <li>Head north on US-19 to I-79</li>
+              <li>Take I-79 North for 34 miles</li>
+              <li>Exit 91 (Roanoke)</li>
+              <li>Turn right, follow signs to Stonewall Resort (~3 miles)</li>
+              <li>Total: ~40 minutes</li>
+            </ol>
+          </div>
+
+          <div class="bg-brand-cream p-6 rounded-sm border-l-4 border-brand-orange">
+            <h3 class="font-bold text-brand-brown mb-2">From I-79 (Southbound from Clarksburg)</h3>
+            <ol class="text-brand-brown/75 space-y-2 list-decimal list-inside">
+              <li>Take I-79 South to Exit 91 (Roanoke)</li>
+              <li>Turn left, follow signs to Stonewall Resort</li>
+              <li>Resort is 2-3 miles from the exit</li>
+              <li>Stop by our shop on your way home — we're at Exit 57</li>
+            </ol>
+          </div>
+
+          <p class="mt-6 text-sm text-brand-brown/60">
+            Stonewall Resort State Park: <a href="tel:+13042697400" class="text-sign-green hover:underline">(304) 269-7400</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- What to Bring -->
+    <section class="py-12 md:py-16">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-4">
+            What to Bring
+          </h2>
+          <p class="text-brand-brown/75 mb-8">
+            We've got most of this in stock. Stop by before you head out.
+          </p>
+
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-bold text-brand-brown mb-3">For Bass Fishing</h3>
+              <ul class="space-y-2 text-brand-brown/75 text-sm">
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  WV fishing license
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Soft plastics and crankbaits
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Medium-heavy rod (catch-and-release)
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Electronics help (structure fishing)
+                </li>
+              </ul>
+            </div>
+
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-bold text-brand-brown mb-3">For Musky Fishing</h3>
+              <ul class="space-y-2 text-brand-brown/75 text-sm">
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Heavy rod and reel
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Large bucktails and spinners
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Deep-diving plugs (trolling)
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Release tools (quick release critical)
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="mt-8 text-center">
+            <a
+              href="/shop"
+              class="inline-flex items-center gap-2 bg-sign-green text-white font-bold px-6 py-3 rounded-sm hover:bg-sign-green/90 motion-safe:transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange"
+            >
+              Browse Our Gear
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="bg-sign-green text-white py-12">
+      <div class="container mx-auto px-4 text-center">
+        <h2 class="font-display font-bold text-2xl mb-4">
+          Stop By Before You Head Out
+        </h2>
+        <p class="text-white/80 mb-6 max-w-xl mx-auto">
+          We're on US-19 just off I-79 Exit 57. Grab your fishing license,
+          stock up on tackle, and we'll point you to what's been biting.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a
+            href={SITE_CONTACT.mapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 bg-white text-sign-green font-bold px-6 py-3 rounded-sm hover:bg-brand-cream motion-safe:transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+          >
+            <svg aria-hidden="true" focusable="false" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            </svg>
+            Get Directions to Shop
+          </a>
+          <a
+            href={SITE_CONTACT.phoneHref}
+            class="inline-flex items-center gap-2 bg-white/10 border border-white/30 text-white font-bold px-6 py-3 rounded-sm hover:bg-white/20 motion-safe:transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+          >
+            {SITE_CONTACT.phoneDisplay}
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="py-12 md:py-16">
+      <div class="container mx-auto px-4">
+        <div class="max-w-xl mx-auto">
+          <EmailCapture
+            variant="card"
+            heading="Get Fishing & Lake Updates"
+            subheading="What's biting, campground openings, and gear restocks delivered to your inbox."
+          />
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Layout>
