@@ -23,7 +23,7 @@
 | Campground | Sites | Fees | Recreation.gov ID | Source |
 |------------|-------|------|-------------------|--------|
 | Bulltown Camp | ~200 | $34/night | 233443 | [Recreation.gov](https://www.recreation.gov/camping/campgrounds/233443) |
-| Riffle Run | 60 (54 hookup + 6 primitive) | Varies | N/A (FCFS) | [Recreation.gov Gateway](https://www.recreation.gov/gateways/315) |
+| Riffle Run | 60 (54 hookup + 6 primitive) | Varies | 10234906 | [Recreation.gov](https://www.recreation.gov/camping/campgrounds/10234906) |
 | Shelters (6) | Day use | Varies | 234232 | [Recreation.gov](https://www.recreation.gov/camping/campgrounds/234232) |
 
 **Bulltown Campground Details:**
