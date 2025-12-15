@@ -30,7 +30,7 @@ Research completed: 2025-12-15
 
 | Campground | Recreation.gov ID | Sites | Fees | Season |
 |------------|-------------------|-------|------|--------|
-| Bulltown Camp | [233443](https://www.recreation.gov/camping/campgrounds/233443) | 204 (134 full + 70 elec) | $20-34 | Apr-Nov |
+| Bulltown Camp | [233443](https://www.recreation.gov/camping/campgrounds/233443) | 204 (134 full + 70 elec) | $20-40 | Apr-Nov |
 | Riffle Run | [10234906](https://www.recreation.gov/camping/campgrounds/10234906) | 60 (54 full + 6 prim) | $12-28 | Apr-Nov |
 | Picnic Shelters | [234232](https://www.recreation.gov/camping/campgrounds/234232) | Day-use | - | - |
 

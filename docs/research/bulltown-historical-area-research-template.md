@@ -132,18 +132,21 @@ if you've got kids who need a break from the boat. [HOURS/ACCESS INFO].
 ## Competitive Analysis
 
 ### What Summersville Lake Has
+
 - Bridge Day proximity
 - Rock climbing / rappelling
 - Dramatic canyon views
 - **NO historical sites mentioned**
 
 ### What Sutton Lake Has
+
 - Elk River WMA proximity
 - Multiple campgrounds
 - Family fishing focus
 - **NO historical sites mentioned**
 
 ### What Burnsville Lake Uniquely Offers
+
 - ✅ Civil War historical site ON THE LAKE
 - ✅ Education + recreation combo
 - ✅ Unique content angle for SEO
@@ -156,9 +159,11 @@ if you've got kids who need a break from the boat. [HOURS/ACCESS INFO].
 ## Integration Points on Website
 
 ### Current Mentions
+
 - Line 167 of `burnsville-lake.astro`: "Main access via Bulltown Historical Area off I-79"
 
 ### Expansion Opportunities
+
 1. **Hero Section**: Add "Civil War History" badge alongside "20 min from shop" and "12,000+ Acres"
 2. **New Section**: "Between Fishing Sessions" (historical site + hiking + other non-fishing activities)
 3. **Getting There**: Expand Bulltown mention with "Historic Civil War site at main entrance"

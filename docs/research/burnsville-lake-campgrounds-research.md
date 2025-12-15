@@ -16,7 +16,7 @@
 | **Site Types** | 134 full hookup + 70 electric | USACE campground data |
 | **Amenities** | Full hookups (water/electric/sewer on 134 sites), Electric hookups (70 sites), Modern restrooms, Showers, Dump station, Boat ramp access | Recreation.gov facility details |
 | **Season** | April - November | USACE seasonal schedule |
-| **Nightly Fees** | $20-34 (varies by site type and season) | Recreation.gov current rates |
+| **Nightly Fees** | $20-40 (varies by site type and season) | Recreation.gov current rates |
 | **Pets** | Allowed (leashed) | USACE pet policy |
 | **Reservations** | Required (book via Recreation.gov) | Recreation.gov booking system |
 | **Direct Booking URL** | https://www.recreation.gov/camping/campgrounds/233443 | Recreation.gov |

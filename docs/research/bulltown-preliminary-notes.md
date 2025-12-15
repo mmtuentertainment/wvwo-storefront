@@ -67,6 +67,7 @@
 ## Competitive Differentiation Analysis
 
 ### Summersville Lake Page (Existing)
+
 **Unique Angles Used**:
 - Bridge Day (world's largest BASE jumping event)
 - Rock climbing destination
@@ -74,6 +75,7 @@
 - **NO historical/cultural content**
 
 ### Sutton Lake Page (Existing)
+
 **Unique Angles Used**:
 - Elk River WMA access
 - Family fishing focus
@@ -81,6 +83,7 @@
 - **NO historical/cultural content**
 
 ### Burnsville Lake Opportunity
+
 **Untapped Unique Angle**:
 - ✅ Civil War battlefield preservation
 - ✅ Educational + recreational combo
@@ -111,6 +114,7 @@
 ### Proposed Additions (Pending Research)
 
 **1. Quick Info Grid Addition**:
+
 ```astro
 <div>
   <span class="block text-2xl font-bold text-brand-brown">1863</span>
@@ -119,6 +123,7 @@
 ```
 
 **2. New Section: "More Than Fishing"** (After "What to Hunt", Before "Getting There"):
+
 ```astro
 <section class="py-12 md:py-16 bg-white">
   <div class="container mx-auto px-4">
@@ -144,6 +149,7 @@
 
 **3. Enhanced "Getting There" Section**:
 Update line 167-168 from:
+
 ```astro
 <p class="mt-6 text-sm text-brand-brown/60">
   Multiple parking areas and access points throughout the WMA. Main access via
@@ -152,6 +158,7 @@ Update line 167-168 from:
 ```
 
 To (pending research):
+
 ```astro
 <p class="mt-6 text-sm text-brand-brown/60">
   Multiple parking areas and access points throughout the WMA. Main access via
