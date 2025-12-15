@@ -74,7 +74,7 @@ Monongahela National Forest is nearly a MILLION acres - the largest public land 
 - Various wilderness study areas
 
 ### Getting There
-Directions from shop (14 Candy St):
+Directions from shop (121 WV-82):
 1. Head south/east via Richwood
 2. Multiple access points depending on destination
 3. ~1 hour to nearest access

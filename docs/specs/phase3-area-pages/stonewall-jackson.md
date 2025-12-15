@@ -77,7 +77,7 @@ Stonewall Jackson Lake has BOTH a large WMA (18,289 acres) AND a lake (2,650 acr
 - Hiking trails
 
 ### Getting There
-Directions from shop (14 Candy St):
+Directions from shop (121 WV-82):
 1. Head north on I-79
 2. Take Exit 91 or 96 (Weston area)
 3. Follow signs to Stonewall Jackson Lake

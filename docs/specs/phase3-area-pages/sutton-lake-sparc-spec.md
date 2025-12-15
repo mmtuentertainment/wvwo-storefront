@@ -91,7 +91,7 @@ HARD FACTS (Must Source):
 [ ] Swimming areas
 [ ] Dam/spillway info
 [ ] Year-round vs seasonal access
-[ ] Directions from shop (14 Candy St via I-79)
+[ ] Directions from shop (121 WV-82 via I-79)
 
 SOFT FACTS (Attempt to Source):
 [ ] Best fishing spots (if in public forums)
