@@ -17,7 +17,7 @@ Build a lean, verified Sutton Lake detail page that drives anglers and campers t
 | Field | Value |
 |-------|-------|
 | **Target File** | `wv-wild-web/src/pages/near/sutton-lake.astro` |
-| **Priority** | HIGH - Closest recreational area to shop (10 min) |
+| **Priority** | HIGH - Close recreational area to shop (25 min) |
 | **Managing Agency** | US Army Corps of Engineers |
 | **Lake Size** | 1,440 acres |
 | **I-79 Exit** | Exit 62 (Sutton) - 5 exits north of shop |
@@ -47,7 +47,8 @@ Build a lean, verified Sutton Lake detail page that drives anglers and campers t
 ## 2. PSEUDOCODE (Research Plan)
 
 ### 2.1 Source Hierarchy
-```
+
+```text
 PRIMARY (Official - Required):
 ├── US Army Corps of Engineers - Sutton Lake
 │   ├── Facilities list (boat ramps, campgrounds)
@@ -71,7 +72,8 @@ TERTIARY (Historical Context):
 ```
 
 ### 2.2 Data Collection Checklist
-```
+
+```text
 HARD FACTS (Must Source):
 [ ] Acreage - verify 1,440 acres (USACE)
 [ ] GPS coordinates for schema.org
@@ -129,7 +131,8 @@ def research_sutton_lake():
 ## 3. ARCHITECTURE (Page Structure)
 
 ### 3.1 Component Layout
-```
+
+```text
 sutton-lake.astro (~350 lines)
 ├── IMPORTS
 │   ├── Layout, Header, Footer
@@ -143,7 +146,7 @@ sutton-lake.astro (~350 lines)
 │   └── directions object
 │
 ├── HERO SECTION
-│   ├── "10 min from shop" badge
+│   ├── "25 min from shop" badge
 │   ├── "1,440 Acres" badge
 │   ├── H1: "Sutton Lake"
 │   ├── Tagline: closest lake context
@@ -151,7 +154,7 @@ sutton-lake.astro (~350 lines)
 │
 ├── QUICK INFO BAR (4-column grid)
 │   ├── Acres: 1,440
-│   ├── Distance: 10 min
+│   ├── Distance: 25 min
 │   ├── County: Braxton
 │   └── Access: Year-round (verify)
 │
@@ -195,7 +198,7 @@ sutton-lake.astro (~350 lines)
   "@context": "https://schema.org",
   "@type": "Place",
   "name": "Sutton Lake",
-  "description": "1,440-acre Army Corps lake with fishing, camping, and swimming. 10 minutes from WV Wild Outdoors.",
+  "description": "1,440-acre Army Corps lake with fishing, camping, and swimming. 25 minutes from WV Wild Outdoors.",
   "geo": {
     "@type": "GeoCoordinates",
     "latitude": "TBD - verify with USACE",
@@ -223,15 +226,17 @@ sutton-lake.astro (~350 lines)
 ### 4.1 Voice Guidelines
 
 **DO (Kim's Voice)**:
-```
-"Sutton Lake's just up the road - about 10 minutes north on I-79."
+
+```text
+"Sutton Lake's just up the road - about 25 minutes north on I-79."
 "The bass fishing is solid and we can get you set up with the right tackle."
 "Stop by the shop on your way - we'll point you to the best ramps."
 "If you're camping for the weekend, swing by first for licenses and supplies."
 ```
 
 **DON'T (Corporate Speak)**:
-```
+
+```text
 ❌ "Experience premier angling at this convenient recreational destination."
 ❌ "Unlock your outdoor adventure at Sutton Lake."
 ❌ "World-class fishing awaits you."
@@ -246,7 +251,8 @@ Sutton Lake is different from WMA pages:
 - CTAs: Tackle + camping supplies + licenses
 
 ### 4.3 Local Wisdom Handling
-```
+
+```text
 IF found + verified (2+ sources):
   → Include as fact
 
@@ -285,10 +291,11 @@ npm run preview    # Visual check
 - [ ] Shop CTAs link correctly
 
 ### 5.4 Commit Format
-```
+
+```text
 feat(near): add Sutton Lake recreation area page
 
-- Add detail page for Sutton Lake (closest to shop - 10 min)
+- Add detail page for Sutton Lake (25 min from shop)
 - Include verified fish species and facilities from USACE/WV DNR
 - Add Schema.org Place markup for SEO
 - Update index.astro with hasDetailPage: true
@@ -305,7 +312,7 @@ Sources:
 
 Use this prompt to execute the research and build:
 
-```
+```markdown
 ## TASK: Build Sutton Lake Recreation Area Page
 
 ### METHODOLOGY: Lean + Verified + Authentic Local
@@ -386,7 +393,7 @@ After research, document sources here:
 
 ## 8. NOTES
 
-- Sutton Lake is CLOSEST to shop - emphasize this in copy
+- Sutton Lake is 25 min from shop (Elk River WMA is closer at 20 min)
 - Focus shift: Fishing + Camping (vs hunting for WMAs)
 - Family-friendly vibe (USACE lakes attract different crowd than WMAs)
 - Dam/spillway area may have specific regulations - verify
