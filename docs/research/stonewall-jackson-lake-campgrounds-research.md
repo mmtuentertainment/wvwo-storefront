@@ -326,11 +326,6 @@ Perfect for easy-in/easy-out overnight stays close to I-79. Clean, well-maintain
 - **Civil War Site:** Site of a Civil War battle
 - **Reenactments:** Twice yearly Civil War battle reenactments
 
-### Additional Facility: Riffle Run Campground
-- **Also at Burnsville Lake:** 60 sites (non-electric & electric)
-- **Reservations:** Non-reservable (first-come, first-served)
-- **Contact same as Bulltown**
-
 ### Distance from Stonewall Jackson Lake
 - Approximately 30-35 miles south via US-19 (parallel to I-79)
 - Good overflow option for hunters/campers in the region

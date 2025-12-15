@@ -67,12 +67,14 @@
 ---
 
 ## Search Queries Used
+
 1. "Burnsville Lake Army Corps of Engineers West Virginia recreation"
 2. "Bulltown Campground Recreation.gov Burnsville Lake WV"
 3. "Burnsville Lake WV fishing species bass catfish crappie"
 4. "Bulltown Historical Area Civil War West Virginia 1863"
 
 ## Key Differentiators (vs Summersville/Sutton)
+
 1. **State-record musky water** - unique selling point
 2. **Bulltown Historical Area** - Civil War history on-site
 3. **Civil War reenactments** - twice yearly events

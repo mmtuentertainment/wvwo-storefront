@@ -15,7 +15,7 @@ reviews:
   profile: "assertive"  # Owner-First Simplicity + Anti-MVP Bias require thoroughness
   request_changes_workflow: true  # Block merges until issues resolved (Anti-MVP: no half-done features)
   high_level_summary: true
-  high_level_summary_placeholder: "Generate a concise PR summary with: (1) What changed, (2) Why it matters for hunters/anglers, (3) Constitutional compliance status, (4) Files modified count"
+  high_level_summary_placeholder: "@coderabbit wvwo-summary"
   high_level_summary_instructions: |
     Generate a structured summary for WV Wild Outdoors PRs. This is a simple static Astro site for a hunting/fishing shop on US 19 near I-79 Exit 57 in Birch River, WV.
 
@@ -410,8 +410,7 @@ reviews:
   pre_merge_checks:
     docstrings:
       mode: "warning"  # Warn but don't block (no code yet)
-    unit_tests:
-      mode: "off"  # Disabled until test framework implemented
+    # Note: unit_tests removed - not in CodeRabbit schema; rely on CI instead
 
   # Tools Configuration - Simple static site stack
   tools:
@@ -453,7 +452,7 @@ knowledge_base:
     enabled: true  # Search for Astro, Tailwind, WV DNR docs
   code_guidelines:
     enabled: true
-    file_patterns:
+    filePatterns:
       - "CLAUDE.md"
       - ".specify/memory/constitution.md"
       - "docs/BLUEPRINT.md"

@@ -7,7 +7,7 @@ Research completed: 2025-12-15
 ### Sutton Lake (25 min from shop)
 | Campground | Recreation.gov ID | Sites | Fees | Season |
 |------------|-------------------|-------|------|--------|
-| Gerald Freeman | [233678](https://www.recreation.gov/camping/campgrounds/233678) | 156 (113 elec + 37 full) | $28-46 | Apr-Nov |
+| Gerald Freeman | [233678](https://www.recreation.gov/camping/campgrounds/233678) | 156 (113 elec + 37 full) | $22-40 | Apr-Nov |
 | Bakers Run | [10122583](https://www.recreation.gov/camping/campgrounds/10122583) | 77 (8 full + 26 elec + 44 prim) | $28 | May-Oct |
 | Bee Run | [10086085](https://www.recreation.gov/camping/campgrounds/10086085) | 12 primitive | $18 | May-Dec |
 | Picnic Shelters | [234244](https://www.recreation.gov/camping/campgrounds/234244) | Day-use | - | - |

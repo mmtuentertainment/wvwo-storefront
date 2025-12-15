@@ -92,7 +92,8 @@
 - [ ] Add photo opportunity mention (historic structures)
 
 **Sample Content Block** (to be customized with real data):
-```
+
+```markdown
 ## More Than Just Fishing
 
 Burnsville Lake is the only WV lake with Civil War history right on the shore.
@@ -190,7 +191,7 @@ Research is COMPLETE when you can answer:
 
 ## Output Format (When Research Complete)
 
-```markdown
+```text
 ## Bulltown Historical Area - Verified Research Findings
 
 ### Executive Summary
