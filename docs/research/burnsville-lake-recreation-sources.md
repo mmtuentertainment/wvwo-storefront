@@ -9,6 +9,7 @@
 ## Verified Data Sources
 
 ### USACE / Lake Specifications
+
 | Data Point | Value | Source |
 |------------|-------|--------|
 | Lake Acreage | 968 acres | [Recreation.gov Gateway](https://www.recreation.gov/gateways/315) |
@@ -20,13 +21,15 @@
 | Swimming Beach | Yes (no lifeguards) | Recreation.gov |
 
 ### Campgrounds
+
 | Campground | Sites | Fees | Recreation.gov ID | Source |
 |------------|-------|------|-------------------|--------|
-| Bulltown Camp | ~200 | $34/night | 233443 | [Recreation.gov](https://www.recreation.gov/camping/campgrounds/233443) |
-| Riffle Run | 60 (54 hookup + 6 primitive) | Varies | 10234906 | [Recreation.gov](https://www.recreation.gov/camping/campgrounds/10234906) |
+| Bulltown Camp | ~200 | $20-40/night | 233443 | [Recreation.gov](https://www.recreation.gov/camping/campgrounds/233443) |
+| Riffle Run | 60 (54 hookup + 6 primitive) | $12-28 | 10234906 | [Recreation.gov](https://www.recreation.gov/camping/campgrounds/10234906) |
 | Shelters (6) | Day use | Varies | 234232 | [Recreation.gov](https://www.recreation.gov/camping/campgrounds/234232) |
 
 **Bulltown Campground Details:**
+
 - GPS: 38.7916667, -80.5663889
 - Address: 1183 Bulltown Campground Rd, Napier, WV 26631
 - Phone: (304) 452-8006
@@ -34,6 +37,7 @@
 - Amenities: Electric (30/50 amp), water, sewer, showers, laundry, WiFi, playground, boat ramp
 
 ### Fish Species (VERIFIED)
+
 | Species | Notes | Source |
 |---------|-------|--------|
 | Musky | **STATE RECORD WATER** - Last 3 state records, 50+ lbs | [AA-Fishing](https://www.aa-fishing.com/wv/wv-fishing-lake-burnsville.html) |
@@ -49,6 +53,7 @@
 | Trout | Stocked Feb-May | [WV Tourism](https://wvtourism.com/company/burnsville-lake/) |
 
 ### Bulltown Historical Area
+
 | Data Point | Value | Source |
 |------------|-------|--------|
 | Battle Date | October 13, 1863 | [WV Encyclopedia](https://www.wvencyclopedia.org/entries/676) |
@@ -56,9 +61,10 @@
 | Outcome | Union victory - last Confederate offensive in WV | [American Battlefield Trust](https://www.battlefields.org/visit/heritage-sites/bulltown-historic-area) |
 | NRHP Status | Listed 1984 | [Wikipedia](https://en.wikipedia.org/wiki/Bulltown,_West_Virginia) |
 | Features | Visitor center, log homes, Cunningham House, fortifications | Multiple sources |
-| Reenactments | Twice yearly | [WV Tourism](https://wvtourism.com/company/bulltown-historic-district/) |
+| Reenactments | Often hosted (check locally) | [WV Tourism](https://wvtourism.com/company/bulltown-historic-district/) |
 
 ### Directions from Shop (I-79 Exit 57)
+
 | Destination | Route | Source |
 |-------------|-------|--------|
 | Bulltown | I-79 Exit 67 → US-19 North ~10 mi | [Recreation.gov](https://www.recreation.gov/gateways/315) |
@@ -77,9 +83,9 @@
 
 1. **State-record musky water** - unique selling point
 2. **Bulltown Historical Area** - Civil War history on-site
-3. **Civil War reenactments** - twice yearly events
+3. **Civil War reenactments** - hosted regularly
 4. **Excellent crappie fishing** - 40-60 fish evenings reported
 
 ---
 
-*Research conducted 2025-12-15 for WV Wild Outdoors website*
+> Research conducted 2025-12-15 for WV Wild Outdoors website

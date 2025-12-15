@@ -292,7 +292,7 @@ Perfect for easy-in/easy-out overnight stays close to I-79. Clean, well-maintain
 ### Season & Reservations
 - **Open:** Late April through Thanksgiving weekend
 - **Peak Reservations:** Memorial Day through Labor Day (reservations highly recommended)
-- **Off-Season:** October - early April (some loops close, remaining sites first-come, first-served via self-service kiosks)
+- **Off-Season:** October – early April (some loops close, remaining sites first-come, first-served via self-service kiosks)
 
 ### Fees (2024-2025)
 - **Range:** $28 - $46 per night
@@ -343,7 +343,6 @@ Perfect for easy-in/easy-out overnight stays close to I-79. Clean, well-maintain
 | **Flatwoods KOA** | Private KOA | Multiple | Year-round | Variable | 25-30 mi | (304) 765-5055 |
 | **Audra State Park** | State Park | 65 | Spring-Fall | Call | 16-20 mi | 304-457-1162 |
 | **Bulltown (Burnsville)** | USACE | 204 | Apr-Nov | $28-46 | 30-35 mi | 1-877-444-6777 |
-| **Riffle Run (Burnsville)** | USACE | 60 | Apr-Nov | Variable | 30-35 mi | 1-877-444-6777 |
 
 ---
 
