@@ -14,13 +14,14 @@ const placeSchema = {
   "description": "Nearly a million acres of public land across eastern West Virginia. Premier trout fishing, black bear and deer hunting, and backcountry camping.",
   "geo": {
     "@type": "GeoCoordinates",
-    "latitude": 38.88,
-    "longitude": -79.75
+    "latitude": 38.92917,
+    "longitude": -79.84778
   },
   "address": {
     "@type": "PostalAddress",
     "addressRegion": "WV",
-    "addressCountry": "US"
+    "addressCountry": "US",
+    "postalCode": "26241"
   },
   "url": "https://www.fs.usda.gov/mnf"
 };
@@ -196,8 +197,8 @@ const placeSchema = {
               <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Williams River</h3>
               <p class="text-brand-brown/75 mb-3">
                 Considered one of the five best trout streams in West Virginia. Cold water,
-                low turbidity, and 22 miles of stocked water receiving 27,000 pounds of trout
-                annually. Rainbow, golden rainbow, brown, and brook trout.
+                low turbidity, and 22 miles of stocked water. Rainbow, golden rainbow, brown,
+                and brook trout. Check the stocking hotline for current poundage.
               </p>
               <p class="text-sm text-brand-brown/60">
                 <strong>Best spots:</strong> Between Tea Creek Campground and Three Forks. The
@@ -208,8 +209,8 @@ const placeSchema = {
             <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
               <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Cranberry River</h3>
               <p class="text-brand-brown/75 mb-3">
-                41 miles of stream running through some of the most scenic country in the state.
-                Wild brook trout in the backcountry section (16 miles, no vehicle access).
+                About 24 miles of stream running through some of the most scenic country in the state.
+                Wild brook trout in the remote backcountry sections with limited vehicle access.
                 Stocked sections hold rainbow, golden rainbow, and brown trout.
               </p>
               <p class="text-sm text-brand-brown/60">
@@ -289,7 +290,7 @@ const placeSchema = {
             <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
               <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Cranberry Wilderness</h3>
               <p class="text-brand-brown/75 mb-3">
-                35,864 acres of remote backcountry. No roads, no motorized access. Wild brook
+                47,815 acres of remote backcountry. No roads, no motorized access. Wild brook
                 trout fishing in the headwaters. Some of the most remote country in the eastern US.
               </p>
               <p class="text-sm text-brand-orange font-medium">
@@ -366,11 +367,14 @@ const placeSchema = {
                 </li>
                 <li>
                   <strong>Gauley Ranger District</strong><br>
-                  932 Northfork Cherry Road, Richwood, WV
+                  932 Northfork Cherry Road, Richwood, WV<br>
+                  <a href="tel:304-846-2695" class="text-sign-green">304-846-2695</a>
                 </li>
                 <li>
                   <strong>Cranberry Mountain Nature Center</strong><br>
-                  Junction of Route 150 and Route 39/55
+                  Hillsboro, WV 24946<br>
+                  <a href="tel:304-653-4826" class="text-sign-green">304-653-4826</a><br>
+                  <span class="text-brand-brown/60">Seasonal: mid-April through mid-October</span>
                 </li>
               </ul>
             </div>
@@ -460,7 +464,7 @@ const placeSchema = {
             <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
               <h3 class="font-bold text-brand-brown mb-3">USFS Campgrounds</h3>
               <p class="text-brand-brown/75 text-sm mb-3">
-                21 developed campgrounds throughout the forest, from primitive sites to
+                22 developed campgrounds throughout the forest, from primitive sites to
                 facilities with restrooms. Most are seasonal (April-October).
               </p>
               <ul class="space-y-2 text-brand-brown/75 text-sm">
@@ -490,7 +494,7 @@ const placeSchema = {
                 </li>
               </ul>
               <a href="https://www.recreation.gov/camping/gateways/1090" target="_blank" rel="noopener noreferrer" class="inline-block mt-4 text-sign-green text-sm font-medium hover:underline">
-                View all 21 campgrounds →
+                View all 22 campgrounds →
               </a>
             </div>
 
@@ -562,7 +566,7 @@ const placeSchema = {
                   <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                   </svg>
-                  Blaze orange (500 sq in)
+                  Blaze orange (400 sq in)
                 </li>
                 <li class="flex items-center gap-2">
                   <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
