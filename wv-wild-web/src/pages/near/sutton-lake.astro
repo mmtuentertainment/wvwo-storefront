@@ -1,0 +1,501 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import EmailCapture from '../../components/EmailCapture.astro';
+import { SITE_CONTACT } from '../../config/siteContact';
+
+// Place schema for geographic SEO
+// GPS: Sutton Lake dam area
+const placeSchema = {
+  "@context": "https://schema.org",
+  "@type": "Place",
+  "name": "Sutton Lake",
+  "description": "1,440-acre Army Corps lake with excellent bass fishing, three campgrounds, and swimming beach. 10 minutes from WV Wild Outdoors.",
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 38.6620,
+    "longitude": -80.6932
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Route 4 North",
+    "addressLocality": "Sutton",
+    "addressRegion": "WV",
+    "postalCode": "26601",
+    "addressCountry": "US"
+  }
+};
+---
+
+<Layout
+  title="Sutton Lake Fishing & Camping Guide | WV Wild Outdoors"
+  description="Fishing and camping guide for Sutton Lake. 1,440 acres with bass, crappie, and catfish. Three campgrounds, swimming beach, and boat ramps. 10 minutes from our shop."
+  additionalSchemas={[placeSchema]}
+>
+  <Header />
+
+  <main class="bg-brand-cream min-h-screen">
+
+    <!-- Hero -->
+    <section class="bg-brand-brown text-white py-16 md:py-24 relative overflow-hidden">
+      <div class="absolute inset-0 bg-camo opacity-5 pointer-events-none"></div>
+
+      <div class="container mx-auto px-4 relative">
+        <div class="max-w-3xl">
+          <div class="flex flex-wrap items-center gap-3 mb-4">
+            <span class="inline-block bg-sign-green text-white px-4 py-1 rounded-sm font-bold text-sm">
+              10 min from shop
+            </span>
+            <span class="inline-block bg-brand-orange text-white px-4 py-1 rounded-sm font-bold text-sm">
+              1,440 Acres
+            </span>
+          </div>
+          <h1 class="font-display font-black text-4xl md:text-6xl mb-4">
+            Sutton Lake
+          </h1>
+          <p class="text-xl md:text-2xl text-brand-cream/80 mb-6">
+            Army Corps lake with some of the best bass fishing in the state.
+            Over 400 bass per acre, three campgrounds, and a swimming beach.
+          </p>
+          <p class="text-brand-cream/60">
+            Stop by the shop before you head out — we'll get you set up with tackle, bait, and local tips.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Info -->
+    <section class="py-8 bg-white border-b border-brand-brown/15">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+          <div>
+            <span class="block text-2xl font-bold text-brand-brown">1,440</span>
+            <span class="text-sm text-brand-brown/60">Acres</span>
+          </div>
+          <div>
+            <span class="block text-2xl font-bold text-brand-brown">10 min</span>
+            <span class="text-sm text-brand-brown/60">From Shop</span>
+          </div>
+          <div>
+            <span class="block text-2xl font-bold text-brand-brown">Braxton Co.</span>
+            <span class="text-sm text-brand-brown/60">Location</span>
+          </div>
+          <div>
+            <span class="block text-2xl font-bold text-brand-brown">Spring-Fall</span>
+            <span class="text-sm text-brand-brown/60">Best Season</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- What to Fish -->
+    <section class="py-12 md:py-16">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-8">
+            What to Fish
+          </h2>
+
+          <div class="space-y-6">
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Bass</h3>
+              <p class="text-brand-brown/75 mb-3">
+                Sutton Lake holds over 400 bass per acre — two to three times more than most
+                West Virginia reservoirs. The lake hosts 60+ bass tournaments every year.
+                You'll find spotted bass (65% of the population), largemouth (30%), and smallmouth (5%).
+              </p>
+              <p class="text-sm text-brand-brown/60">
+                <strong>Tips:</strong> Old-timers will tell you the bass move shallow once water warms up.
+                The water's clear here, so downsize your line. Tube jigs in watermelon or motor oil
+                colors work well. Target larger downed timber with V-shaped limbs.
+              </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Crappie</h3>
+              <p class="text-brand-brown/75 mb-3">
+                Crappie are plentiful throughout the lake. They hold around fallen trees
+                and submerged structure. Minnows, jigs, and small crankbaits all produce.
+              </p>
+              <p class="text-sm text-brand-brown/60">
+                <strong>Tips:</strong> Some folks say crappie stack up near the dam come fall.
+                Look for natural downed trees with the tree-top still present.
+              </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Catfish</h3>
+              <p class="text-brand-brown/75 mb-3">
+                Channel catfish are common throughout the lake. The dam area and deeper
+                drop-offs are productive spots. Cut bait, chicken liver, and nightcrawlers all work.
+              </p>
+              <p class="text-sm text-brand-brown/60">
+                <strong>Tips:</strong> Fish the drop-offs near the dam. Early morning (4-8 AM)
+                can be particularly productive for larger fish.
+              </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Below the Dam</h3>
+              <p class="text-brand-brown/75 mb-3">
+                The Elk River tailwaters below Sutton Dam offer walleye, muskie, and stocked trout.
+                Trout are stocked in spring and fall. This stretch is well-known among local anglers.
+              </p>
+              <p class="text-sm text-brand-brown/60">
+                <strong>Walleye regulations:</strong> 20-30" slot limit — all walleye in that range
+                must be released. Daily limit is 2, only one over 30".
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Where to Fish -->
+    <section class="py-12 md:py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-8">
+            Where to Fish
+          </h2>
+
+          <div class="space-y-6">
+            <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Holly Point</h3>
+              <p class="text-brand-brown/75 mb-3">
+                Where Holly River and Laurel Creek merge with the Elk River at the upper end
+                of the lake. Tournament anglers say this spot produces good numbers of bass
+                regardless of the time of year.
+              </p>
+            </div>
+
+            <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Stony Point</h3>
+              <p class="text-brand-brown/75 mb-3">
+                Downstream from the mouth of Stony Creek on the main lake. Popular with
+                tournament anglers in summer. Good structure and consistent action.
+              </p>
+            </div>
+
+            <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Fish Attractors</h3>
+              <p class="text-brand-brown/75 mb-3">
+                The Corps of Engineers has placed fish attractors at several locations, marked
+                with buoys. Look for them at Bakers Run, Tunnel Road jetty, Wolf Fork head,
+                and near the handicapped-fishing pier by the dam.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Campgrounds -->
+    <section class="py-12 md:py-16">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-8">
+            Campgrounds
+          </h2>
+
+          <div class="space-y-6">
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+              <div class="flex justify-between items-start mb-3">
+                <h3 class="font-display font-bold text-lg text-brand-brown">Gerald Freeman Campground</h3>
+                <span class="text-sm text-sign-green font-bold">Reservable</span>
+              </div>
+              <p class="text-brand-brown/75 mb-3">
+                The largest campground on the lake with 156 sites. Located in the headwaters
+                of Sutton Lake, about 70 miles north of Charleston. Full amenities including
+                hot showers, flush toilets, and dump stations.
+              </p>
+              <ul class="text-sm text-brand-brown/60 space-y-1">
+                <li>• 113 electric sites (20/30/50 amp) + 37 full hookups</li>
+                <li>• Season: May - early December</li>
+                <li>• Fees: $22-$40/night</li>
+                <li>• Reserve at Recreation.gov</li>
+              </ul>
+            </div>
+
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+              <div class="flex justify-between items-start mb-3">
+                <h3 class="font-display font-bold text-lg text-brand-brown">Bakers Run Campground</h3>
+                <span class="text-sm text-brand-orange font-bold">First-Come</span>
+              </div>
+              <p class="text-brand-brown/75 mb-3">
+                Nestled among shady forests along the Elk River. Surrounded by the Elk River
+                Wildlife Management Area — you'll likely see deer and hear turkeys gobbling.
+              </p>
+              <ul class="text-sm text-brand-brown/60 space-y-1">
+                <li>• 79 sites: 8 full hookup, 26 electric, 44 primitive</li>
+                <li>• Season: Late May - mid October</li>
+                <li>• Shower house, playground, boat ramp</li>
+                <li>• First-come, first-served</li>
+              </ul>
+            </div>
+
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+              <div class="flex justify-between items-start mb-3">
+                <h3 class="font-display font-bold text-lg text-brand-brown">Bee Run Campground</h3>
+                <span class="text-sm text-brand-orange font-bold">First-Come</span>
+              </div>
+              <p class="text-brand-brown/75 mb-3">
+                Primitive camping near the Bee Run Recreation Area. Walking distance to the
+                swimming beach, marina, and picnic shelters. Great for a weekend getaway.
+              </p>
+              <ul class="text-sm text-brand-brown/60 space-y-1">
+                <li>• Primitive sites</li>
+                <li>• Near beach and marina</li>
+                <li>• Playground, picnic shelters</li>
+                <li>• First-come, first-served</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- On the Water -->
+    <section class="py-12 md:py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-8">
+            On the Water
+          </h2>
+
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-bold text-brand-brown mb-3">Boat Ramps</h3>
+              <ul class="space-y-2 text-brand-brown/75 text-sm">
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Bee Run (main ramp, wide concrete)
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Day-use area behind dam
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Bakers Run Campground
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Gerald Freeman Campground
+                </li>
+              </ul>
+            </div>
+
+            <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-bold text-brand-brown mb-3">Marina & Beach</h3>
+              <ul class="space-y-2 text-brand-brown/75 text-sm">
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Sutton Lake Marina (boat rentals)
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Snack bar and supplies
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Free swimming beach at Bee Run
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Showers and restrooms
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Getting There -->
+    <section class="py-12 md:py-16">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-8">
+            Getting There
+          </h2>
+
+          <div class="bg-white p-6 rounded-sm border-l-4 border-sign-green mb-6">
+            <h3 class="font-bold text-brand-brown mb-2">From Our Shop</h3>
+            <ol class="text-brand-brown/75 space-y-2 list-decimal list-inside">
+              <li>Head north on US-19 toward Sutton</li>
+              <li>Take I-79 North to Exit 62 (Sutton/Gassaway)</li>
+              <li>Turn left on Route 4, follow signs to Sutton Dam</li>
+              <li>Bee Run Recreation Area on right (~10 minutes total)</li>
+            </ol>
+          </div>
+
+          <div class="bg-white p-6 rounded-sm border-l-4 border-brand-orange">
+            <h3 class="font-bold text-brand-brown mb-2">From I-79</h3>
+            <ol class="text-brand-brown/75 space-y-2 list-decimal list-inside">
+              <li>Take Exit 62 (Sutton/Gassaway)</li>
+              <li>Turn onto Route 4 North</li>
+              <li>Follow signs to Sutton Dam (~2 miles)</li>
+              <li>Stop by our shop on your way — we're at Exit 57 on US-19</li>
+            </ol>
+          </div>
+
+          <p class="mt-6 text-sm text-brand-brown/60">
+            U.S. Army Corps of Engineers Office: (304) 765-2816
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- What to Bring -->
+    <section class="py-12 md:py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-4">
+            What to Bring
+          </h2>
+          <p class="text-brand-brown/75 mb-8">
+            We've got most of this in stock. Stop by before you head out.
+          </p>
+
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-bold text-brand-brown mb-3">For Fishing</h3>
+              <ul class="space-y-2 text-brand-brown/75 text-sm">
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  WV fishing license
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Light line (clear water)
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Tube jigs, soft plastics
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Live bait (minnows, crawlers)
+                </li>
+              </ul>
+            </div>
+
+            <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-bold text-brand-brown mb-3">For Camping</h3>
+              <ul class="space-y-2 text-brand-brown/75 text-sm">
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Tent and sleeping gear
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Cooler and ice
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Bug spray and sunscreen
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Firewood (or buy locally)
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="mt-8 text-center">
+            <a
+              href="/shop"
+              class="inline-flex items-center gap-2 bg-sign-green text-white font-bold px-6 py-3 rounded-sm hover:bg-sign-green/90 motion-safe:transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange"
+            >
+              Browse Our Gear
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="bg-sign-green text-white py-12">
+      <div class="container mx-auto px-4 text-center">
+        <h2 class="font-display font-bold text-2xl mb-4">
+          Stop By Before You Head Out
+        </h2>
+        <p class="text-white/80 mb-6 max-w-xl mx-auto">
+          We're on your way. Grab your fishing license, stock up on tackle and bait,
+          and we'll point you to what's been biting.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a
+            href={SITE_CONTACT.mapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 bg-white text-sign-green font-bold px-6 py-3 rounded-sm hover:bg-brand-cream motion-safe:transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+          >
+            <svg aria-hidden="true" focusable="false" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            </svg>
+            Get Directions to Shop
+          </a>
+          <a
+            href={SITE_CONTACT.phoneHref}
+            class="inline-flex items-center gap-2 bg-white/10 border border-white/30 text-white font-bold px-6 py-3 rounded-sm hover:bg-white/20 motion-safe:transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+          >
+            {SITE_CONTACT.phoneDisplay}
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="py-12 md:py-16">
+      <div class="container mx-auto px-4">
+        <div class="max-w-xl mx-auto">
+          <EmailCapture
+            variant="card"
+            heading="Get Fishing & Lake Updates"
+            subheading="What's biting, campground openings, and gear restocks delivered to your inbox."
+          />
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Layout>
