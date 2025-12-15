@@ -81,8 +81,17 @@ reviews:
   suggested_reviewers: true
   poem: false  # No fluff - family business values efficiency
 
-  # Path filters: Exclude generated/vendor files
+  # Path filters: Include source files, exclude generated/vendor
   path_filters:
+    # Explicit includes (required for CodeRabbit to review)
+    - "wv-wild-web/src/**/*.astro"
+    - "wv-wild-web/src/**/*.ts"
+    - "wv-wild-web/src/**/*.js"
+    - "wv-wild-web/src/**/*.json"
+    - "docs/**/*.md"
+    - "*.yaml"
+    - "*.yml"
+    # Exclusions
     - "!node_modules/**"
     - "!dist/**"
     - "!build/**"
