@@ -6,46 +6,46 @@ import EmailCapture from '../../components/EmailCapture.astro';
 import { SITE_CONTACT } from '../../config/siteContact';
 
 // Place schema for geographic SEO
-// LOCATION: Summersville Lake, Nicholas Co., WV
-// TRAVEL TIME: 30 min from shop (US-19 south through Summersville to WV-129)
-// COORDINATES: 38.2217, -80.9097 (Battle Run area, approximate)
-// ACCESS: Battle Run boat ramp (primary); Salmon Run, Long Point (secondary)
+// LOCATION: Burnsville Lake, Braxton Co., WV
+// TRAVEL TIME: 45 min from shop (I-79 Exit 57 to Exit 67, then US-19 north)
+// COORDINATES: 38.84543, -80.617343 (Recreation.gov gateway)
+// ACCESS: Bulltown boat ramp (primary); Riffle Run (secondary)
 const placeSchema = {
   "@context": "https://schema.org",
   "@type": "Place",
-  "name": "Summersville Lake",
-  "description": "2,790-acre Army Corps lake known as the 'Little Bahamas of the East.' Crystal clear water with 20-45 feet visibility, excellent bass fishing, and scuba diving. 30 minutes from WV Wild Outdoors.",
+  "name": "Burnsville Lake",
+  "description": "968-acre Army Corps lake with state-record musky fishing, Bulltown Historical Area, and camping. 45 minutes from WV Wild Outdoors.",
   "geo": {
     "@type": "GeoCoordinates",
-    "latitude": 38.2217,
-    "longitude": -80.9097
+    "latitude": 38.84543,
+    "longitude": -80.617343
   },
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": "2981 Summersville Lake Road",
-    "addressLocality": "Summersville",
+    "streetAddress": "1494 S. Main Street",
+    "addressLocality": "Burnsville",
     "addressRegion": "WV",
-    "postalCode": "26651",
+    "postalCode": "26335",
     "addressCountry": "US"
   },
   "containedInPlace": {
     "@type": "City",
-    "name": "Summersville",
+    "name": "Burnsville",
     "address": { "addressRegion": "WV" }
   },
   "amenityFeature": [
     { "@type": "LocationFeatureSpecification", "name": "Fishing", "value": true },
     { "@type": "LocationFeatureSpecification", "name": "Boat Ramps", "value": true },
     { "@type": "LocationFeatureSpecification", "name": "Camping", "value": true },
-    { "@type": "LocationFeatureSpecification", "name": "Scuba Diving", "value": true },
-    { "@type": "LocationFeatureSpecification", "name": "Swimming", "value": true }
+    { "@type": "LocationFeatureSpecification", "name": "Swimming", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Historic Site", "value": true }
   ]
 };
 ---
 
 <Layout
-  title="Summersville Lake Fishing & Diving Guide | WV Wild Outdoors"
-  description="Fishing and diving guide for Summersville Lake, the 'Little Bahamas of the East.' 2,790 acres with smallmouth bass, walleye, and crystal clear water for scuba diving. 30 minutes from our shop."
+  title="Burnsville Lake Fishing & Camping Guide | WV Wild Outdoors"
+  description="Fishing and camping guide for Burnsville Lake — home of state-record musky. 968 acres with excellent crappie, bass, and catfish. Bulltown Historical Area and campgrounds. 45 minutes from our shop."
   additionalSchemas={[placeSchema]}
 >
   <Header />
@@ -60,21 +60,21 @@ const placeSchema = {
         <div class="max-w-3xl">
           <div class="flex flex-wrap items-center gap-3 mb-4">
             <span class="inline-block bg-sign-green text-white px-4 py-1 rounded-sm font-bold text-sm">
-              30 min from shop
+              45 min from shop
             </span>
             <span class="inline-block bg-brand-orange text-white px-4 py-1 rounded-sm font-bold text-sm">
-              2,790 Acres
+              968 Acres
             </span>
           </div>
           <h1 class="font-display font-black text-4xl md:text-6xl mb-4">
-            Summersville Lake
+            Burnsville Lake
           </h1>
           <p class="text-xl md:text-2xl text-brand-cream/80 mb-6">
-            They call it the Little Bahamas of the East for good reason.
-            Crystal clear water, some of the best smallmouth fishing in West Virginia, and freshwater diving that rivals anywhere east of the Mississippi.
+            State-record musky water with some of the best crappie fishing in central West Virginia.
+            Plus Civil War history right on the shore if you need a break from catching fish.
           </p>
           <p class="text-brand-cream/60">
-            Stop by the shop before you head out — we'll get you set up with tackle, bait, and local tips.
+            Stop by the shop before you head out — we'll get you set up with licenses, tackle, and tips on what's hitting.
           </p>
         </div>
       </div>
@@ -85,15 +85,15 @@ const placeSchema = {
       <div class="container mx-auto px-4">
         <div class="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
           <div>
-            <span class="block text-2xl font-bold text-brand-brown">2,790</span>
+            <span class="block text-2xl font-bold text-brand-brown">968</span>
             <span class="text-sm text-brand-brown/60">Acres</span>
           </div>
           <div>
-            <span class="block text-2xl font-bold text-brand-brown">30 min</span>
+            <span class="block text-2xl font-bold text-brand-brown">45 min</span>
             <span class="text-sm text-brand-brown/60">From Shop</span>
           </div>
           <div>
-            <span class="block text-2xl font-bold text-brand-brown">Nicholas Co.</span>
+            <span class="block text-2xl font-bold text-brand-brown">Braxton Co.</span>
             <span class="text-sm text-brand-brown/60">Location</span>
           </div>
           <div>
@@ -114,54 +114,55 @@ const placeSchema = {
 
           <div class="space-y-6">
             <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
-              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Smallmouth Bass</h3>
+              <div class="flex justify-between items-start mb-2">
+                <h3 class="font-display font-bold text-lg text-brand-brown">Musky</h3>
+                <span class="text-sm text-brand-orange font-bold">State Record Water</span>
+              </div>
               <p class="text-brand-brown/75 mb-3">
-                Summersville is smallmouth country. The clear, deep water and rocky structure
-                make this lake one of the best smallmouth fisheries in the state. Some folks say
-                the smallmouth here rival anything in West Virginia.
+                This lake has produced the last three state-record musky — the biggest over 50 pounds.
+                If you're serious about trophy musky, Burnsville should be on your list.
               </p>
               <p class="text-sm text-brand-brown/60">
-                <strong>Tips:</strong> The water's gin-clear, so downsize your line and go with natural
-                colors. Tube jigs and drop shot rigs with soft plastics work well. Target rocky points
-                and ledges — the smallmouth stack up on structure.
+                <strong>Tips:</strong> Fall is prime time. Big swimbaits and jerkbaits worked along
+                points and drop-offs. Be patient — you might fish all day for one shot, but it could
+                be the fish of a lifetime.
               </p>
             </div>
 
             <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
-              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Largemouth Bass</h3>
+              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Crappie</h3>
               <p class="text-brand-brown/75 mb-3">
-                Don't overlook the largemouth. They hold around cover near the bank and in the
-                backs of coves. Early morning and late evening are your best windows.
+                Some folks say Burnsville is one of the best crappie lakes in central West Virginia.
+                According to the marina, it's nothing to go out and catch forty to sixty fish in an evening.
+                They don't get huge, but you can catch them in bunches.
               </p>
               <p class="text-sm text-brand-brown/60">
-                <strong>Tips:</strong> Work shallow cover with spinnerbaits and soft plastics.
-                The clear water means bass can see you coming, so keep your distance and make long casts.
+                <strong>Tips:</strong> Jigs and minnows around brush piles and submerged structure.
+                Spring spawning season brings them shallow. Evening bites can be especially good.
               </p>
             </div>
 
             <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
-              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Walleye</h3>
+              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Bass</h3>
               <p class="text-brand-brown/75 mb-3">
-                Walleye are present throughout the lake and follow baitfish around points
-                and ledges. The deep, clear water suits them well. Some years produce better
-                than others, but they're worth targeting.
+                Largemouth, smallmouth, and spotted bass all swim here. Largemouth reach up to 5 pounds,
+                and recent tournament results show the bass fishing has been very good lately.
               </p>
               <p class="text-sm text-brand-brown/60">
-                <strong>Tips:</strong> Troll crankbaits along points or jig with live bait near
-                the dam. Low-light periods — dawn, dusk, and overcast days — are your best bet.
+                <strong>Tips:</strong> Work the banks and coves for largemouth. Smallmouth hold on
+                rocky points and ledges. Soft plastics, spinnerbaits, and crankbaits all produce.
               </p>
             </div>
 
             <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
-              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Catfish & Panfish</h3>
+              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Catfish & Walleye</h3>
               <p class="text-brand-brown/75 mb-3">
-                Channel catfish and flatheads lurk in the deeper holes. Crappie, bluegill,
-                and yellow perch round out the options — the lake holds the state record
-                for yellow perch.
+                Channel catfish, flatheads, and blue catfish lurk in the deeper holes. Walleye and
+                saugeye add variety — worth targeting at dawn and dusk around points.
               </p>
               <p class="text-sm text-brand-brown/60">
-                <strong>Tips:</strong> For catfish, fish cut bait or chicken liver near the dam.
-                Crappie and panfish hold around submerged structure and brush piles.
+                <strong>Tips:</strong> Cut bait and chicken liver for catfish near the dam. Jigs and
+                live bait for walleye in low-light conditions. The lake is stocked February through May.
               </p>
             </div>
           </div>
@@ -169,93 +170,50 @@ const placeSchema = {
       </div>
     </section>
 
-    <!-- Where to Fish -->
+    <!-- Bulltown Historical Area -->
     <section class="py-12 md:py-16 bg-white">
-      <div class="container mx-auto px-4">
-        <div class="max-w-3xl mx-auto">
-          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-8">
-            Where to Fish
-          </h2>
-
-          <div class="space-y-6">
-            <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
-              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Points & Ledges Near Dam</h3>
-              <p class="text-brand-brown/75 mb-3">
-                The area between the marina and Summersville Dam holds consistent fish.
-                Work the points and ledges to establish what depth is productive for the day.
-                Smallmouth and walleye push baitfish up against these structures.
-              </p>
-            </div>
-
-            <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
-              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Long Point</h3>
-              <p class="text-brand-brown/75 mb-3">
-                The signature rock formation at Long Point isn't just for divers. The rocky
-                structure extends underwater and holds bass year-round. Fish the transition
-                zones where rock meets deeper water.
-              </p>
-            </div>
-
-            <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
-              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Salmon Run Area</h3>
-              <p class="text-brand-brown/75 mb-3">
-                The boat ramp area at Salmon Run provides access to productive water.
-                Rocky banks and submerged structure nearby make this a good starting point,
-                especially for bank anglers.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Crystal Clear Waters -->
-    <section class="py-12 md:py-16">
       <div class="container mx-auto px-4">
         <div class="max-w-3xl mx-auto">
           <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-4">
-            Crystal Clear Waters
+            Bulltown Historical Area
           </h2>
           <p class="text-brand-brown/75 mb-8">
-            Skin Diver Magazine called it the cleanest, clearest freshwater lake east of the
-            Mississippi. On a good day, you can see 30-45 feet down. That's why folks come
-            from all over for the scuba diving.
+            Fish in the morning, explore some Civil War history in the afternoon. The Bulltown
+            Historic Area sits right next to the campground — makes for a good break when
+            the fish aren't biting.
           </p>
 
           <div class="space-y-6">
-            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
-              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Scuba Diving</h3>
+            <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">The Battle of Bulltown</h3>
               <p class="text-brand-brown/75 mb-3">
-                Long Point Cliff is the signature dive site — a towering rock formation that plunges
-                40+ feet underwater. The Overlook site offers more diversity with fish viewing,
-                a ledge at 52 feet, tree stumps, and boulders. There's even a small boat that
-                was intentionally sunk for divers to explore.
+                On October 13, 1863, Colonel "Mudwall" Jackson (cousin of Stonewall) led 800
+                Confederate soldiers against 400 Union troops defending the covered bridge here.
+                It was the Confederacy's last major offensive in West Virginia — and they lost.
               </p>
               <p class="text-sm text-brand-brown/60">
-                <strong>Note:</strong> Sarge's Dive Shop near the lake offers rentals and certification.
-                Summer water temps run 68-80°F.
+                The site is on the National Register of Historic Places. They do Civil War
+                reenactments twice a year if you time it right.
               </p>
             </div>
 
-            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
-              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Swimming & Cliff Jumping</h3>
-              <p class="text-brand-brown/75 mb-3">
-                Battle Run Beach offers swimming access. Long Point has a pyramid-shaped rock
-                formation that's popular for jumping into the water below. Several rock formations
-                around Long Point make for good swim-around areas.
-              </p>
-              <p class="text-sm text-brand-brown/60">
-                <strong>Safety note:</strong> Jumping from the surrounding sandstone cliffs is prohibited
-                due to past accidents. Stick to designated areas.
-              </p>
+            <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">What to See</h3>
+              <ul class="text-brand-brown/75 space-y-2">
+                <li>• Visitor center with exhibits about the battle and pioneer life</li>
+                <li>• 19th century log homes and the Cunningham House</li>
+                <li>• Union fortifications still visible on the hillside</li>
+                <li>• Burial site of seven unknown Confederate soldiers</li>
+                <li>• Sections of the original Weston-Gauley Turnpike</li>
+              </ul>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Campgrounds -->
-    <section class="py-12 md:py-16 bg-white">
+    <!-- Camping -->
+    <section class="py-12 md:py-16">
       <div class="container mx-auto px-4">
         <div class="max-w-3xl mx-auto">
           <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-8">
@@ -263,88 +221,40 @@ const placeSchema = {
           </h2>
 
           <div class="space-y-6">
-            <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
               <div class="flex justify-between items-start mb-3">
-                <h3 class="font-display font-bold text-lg text-brand-brown">Battle Run Campground</h3>
+                <h3 class="font-display font-bold text-lg text-brand-brown">Bulltown Campground</h3>
                 <span class="text-sm text-sign-green font-bold">Reservable</span>
               </div>
               <p class="text-brand-brown/75 mb-3">
-                The main campground sits on a peninsula with water on three sides. Right by the
-                dam with easy lake access. Large waterfront sites, boat ramp, and fishing dock
-                on site.
+                The big campground right next to the historical area. Nearly 200 sites spread across
+                multiple loops, with a boat ramp in the campground and beach about a mile away.
+                Good mix of full hookups and electric-only sites.
               </p>
               <ul class="text-sm text-brand-brown/60 space-y-1">
-                <li>• 110 electric hookup sites + 7 walk-in tent sites</li>
-                <li>• Showers, flush toilets, laundry, dump station</li>
-                <li>• Fees: $24+/night</li>
-                <li>• No pets permitted</li>
-                <li>• Reserve at <a href="https://www.recreation.gov/camping/campgrounds/233422" target="_blank" rel="noopener noreferrer" class="text-sign-green hover:underline">Recreation.gov</a> or call <a href="tel:+13048723459" class="text-sign-green hover:underline">304-872-3459</a></li>
+                <li>• Electric (30/50 amp), water, and sewer hookups available</li>
+                <li>• Showers, restrooms, laundry, dump station</li>
+                <li>• WiFi, playground, basketball court, horseshoe pit</li>
+                <li>• Season: Late April through Thanksgiving</li>
+                <li>• Fees: Starting at $34/night</li>
+                <li>• Reserve at <a href="https://www.recreation.gov/camping/campgrounds/233443" target="_blank" rel="noopener noreferrer" class="text-sign-green hover:underline">Recreation.gov</a> or call <a href="tel:+13044528006" class="text-sign-green hover:underline">(304) 452-8006</a></li>
               </ul>
             </div>
 
-            <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
               <div class="flex justify-between items-start mb-3">
-                <h3 class="font-display font-bold text-lg text-brand-brown">Summersville Lake State Park</h3>
-                <span class="text-sm text-brand-orange font-bold">State Park</span>
+                <h3 class="font-display font-bold text-lg text-brand-brown">Riffle Run Campground</h3>
+                <span class="text-sm text-brand-orange font-bold">Near Dam</span>
               </div>
               <p class="text-brand-brown/75 mb-3">
-                177 acres on the northern shore became West Virginia's newest state park in 2023.
-                Focus on rock climbing, hiking, and biking trails. Water activities and camping areas
-                are being developed.
+                Smaller campground near the dam with 60 sites — 54 full hookups and 6 primitive.
+                Wooded and quiet, with a shower house and laundry facility on site.
               </p>
               <ul class="text-sm text-brand-brown/60 space-y-1">
-                <li>• Technical rock climbing emphasis</li>
-                <li>• Hiking and biking trails</li>
-                <li>• Call <a href="tel:+16813550328" class="text-sign-green hover:underline">681-355-0328</a> for availability</li>
-              </ul>
-            </div>
-
-            <h3 class="font-display font-bold text-lg text-brand-brown mt-8 mb-4">Private Campgrounds</h3>
-
-            <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
-              <div class="flex justify-between items-start mb-3">
-                <h3 class="font-display font-bold text-lg text-brand-brown">Mountain Lake Campground</h3>
-                <span class="text-sm text-sign-green font-bold">250+ Sites</span>
-              </div>
-              <p class="text-brand-brown/75 mb-3">
-                Large family campground with lakefront sites, seasonal pool, mini golf, and on-site
-                restaurant. Themed weekends throughout the season.
-              </p>
-              <ul class="text-sm text-brand-brown/60 space-y-1">
-                <li>• RV sites (30/50 amp), tent sites, cabins, yurts</li>
-                <li>• Season: April 15 - October 31</li>
-                <li>• Call <a href="tel:+13048726222" class="text-sign-green hover:underline">304-872-6222</a></li>
-              </ul>
-            </div>
-
-            <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
-              <div class="flex justify-between items-start mb-3">
-                <h3 class="font-display font-bold text-lg text-brand-brown">Long Point Cabins & RV</h3>
-                <span class="text-sm text-sign-green font-bold">Year-Round</span>
-              </div>
-              <p class="text-brand-brown/75 mb-3">
-                Located on the lake rim near Long Point overlook. Minutes from public beach and boat ramps.
-              </p>
-              <ul class="text-sm text-brand-brown/60 space-y-1">
-                <li>• 10 cabins + 20 RV sites with full hookups</li>
-                <li>• High-speed internet, 50/30-amp service</li>
-                <li>• Call <a href="tel:+13042463146" class="text-sign-green hover:underline">304-246-3146</a></li>
-              </ul>
-            </div>
-
-            <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
-              <div class="flex justify-between items-start mb-3">
-                <h3 class="font-display font-bold text-lg text-brand-brown">Summersville Lake Retreat</h3>
-                <span class="text-sm text-brand-orange font-bold">Glamping</span>
-              </div>
-              <p class="text-brand-brown/75 mb-3">
-                Award-winning glamping destination with iconic lighthouse. Cabins, tiny homes, and
-                premium RV sites. Note: 1.2 miles from nearest lake access.
-              </p>
-              <ul class="text-sm text-brand-brown/60 space-y-1">
-                <li>• Chalet cabins, tiny cabins, premium RV pull-throughs</li>
-                <li>• Dog park, playground, gift shop</li>
-                <li>• Call <a href="tel:+13048725975" class="text-sign-green hover:underline">304-872-5975</a></li>
+                <li>• Full hookup and primitive sites</li>
+                <li>• Shower house and laundry</li>
+                <li>• Boat ramp and day use area</li>
+                <li>• Non-reservable (first-come, first-served)</li>
               </ul>
             </div>
           </div>
@@ -353,7 +263,7 @@ const placeSchema = {
     </section>
 
     <!-- On the Water -->
-    <section class="py-12 md:py-16">
+    <section class="py-12 md:py-16 bg-white">
       <div class="container mx-auto px-4">
         <div class="max-w-3xl mx-auto">
           <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-8">
@@ -361,56 +271,56 @@ const placeSchema = {
           </h2>
 
           <div class="grid md:grid-cols-2 gap-6">
-            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+            <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
               <h3 class="font-bold text-brand-brown mb-3">Boat Ramps</h3>
               <ul class="space-y-2 text-brand-brown/75 text-sm">
                 <li class="flex items-center gap-2">
                   <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                   </svg>
-                  Battle Run (paved, accessible)
+                  Bulltown (paved, accessible)
                 </li>
                 <li class="flex items-center gap-2">
                   <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                   </svg>
-                  Salmon Run
+                  Riffle Run (near dam)
                 </li>
                 <li class="flex items-center gap-2">
                   <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                   </svg>
-                  Long Point
+                  All wheelchair accessible
                 </li>
               </ul>
             </div>
 
-            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
-              <h3 class="font-bold text-brand-brown mb-3">Marina & Services</h3>
+            <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-bold text-brand-brown mb-3">Other Facilities</h3>
               <ul class="space-y-2 text-brand-brown/75 text-sm">
                 <li class="flex items-center gap-2">
                   <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                   </svg>
-                  Summersville Lake Marina
+                  Swimming beach (no lifeguard)
                 </li>
                 <li class="flex items-center gap-2">
                   <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                   </svg>
-                  Kayak & pontoon rentals
+                  Marina with boat rentals
                 </li>
                 <li class="flex items-center gap-2">
                   <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                   </svg>
-                  Sarge's Dive Shop (scuba gear)
+                  6 reservable picnic shelters
                 </li>
                 <li class="flex items-center gap-2">
                   <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                   </svg>
-                  Battle Run Beach (swimming)
+                  88 miles of trails
                 </li>
               </ul>
             </div>
@@ -420,42 +330,42 @@ const placeSchema = {
     </section>
 
     <!-- Getting There -->
-    <section class="py-12 md:py-16 bg-white">
+    <section class="py-12 md:py-16">
       <div class="container mx-auto px-4">
         <div class="max-w-3xl mx-auto">
           <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-8">
             Getting There
           </h2>
 
-          <div class="bg-brand-cream p-6 rounded-sm border-l-4 border-sign-green mb-6">
-            <h3 class="font-bold text-brand-brown mb-2">From Our Shop</h3>
+          <div class="bg-white p-6 rounded-sm border-l-4 border-sign-green mb-6">
+            <h3 class="font-bold text-brand-brown mb-2">To Bulltown (From Our Shop)</h3>
             <ol class="text-brand-brown/75 space-y-2 list-decimal list-inside">
-              <li>Head south on US-19 from Birch River</li>
-              <li>Continue through Summersville (~40 miles)</li>
-              <li>Turn right on WV-129 toward the lake</li>
-              <li>Follow signs to Battle Run or your destination (~30 minutes total)</li>
+              <li>Head north on I-79 from Exit 57 (Frametown)</li>
+              <li>Take Exit 67 (Flatwoods)</li>
+              <li>Head north on US-19 for about 10 miles</li>
+              <li>Follow signs to Bulltown Campground (~45 minutes total)</li>
             </ol>
           </div>
 
-          <div class="bg-brand-cream p-6 rounded-sm border-l-4 border-brand-orange">
-            <h3 class="font-bold text-brand-brown mb-2">From I-79 (Northbound)</h3>
+          <div class="bg-white p-6 rounded-sm border-l-4 border-brand-orange">
+            <h3 class="font-bold text-brand-brown mb-2">To Riffle Run / Dam Area</h3>
             <ol class="text-brand-brown/75 space-y-2 list-decimal list-inside">
-              <li>Take I-79 to US-19 South (Beckley direction)</li>
-              <li>Follow US-19 through Summersville</li>
-              <li>Turn right on WV-129</li>
-              <li>Stop by our shop on your way back — we're at I-79 Exit 57 (Frametown)</li>
+              <li>Head north on I-79 from Exit 57</li>
+              <li>Take Exit 79</li>
+              <li>Follow old Route 5 east for about 3 miles</li>
+              <li>Stop by our shop on your way back — we're right off Exit 57</li>
             </ol>
           </div>
 
           <p class="mt-6 text-sm text-brand-brown/60">
-            U.S. Army Corps of Engineers - Battle Run: <a href="tel:+13048723459" class="text-sign-green hover:underline">(304) 872-3459</a>
+            U.S. Army Corps of Engineers - Burnsville Lake: <a href="tel:+13048532371" class="text-sign-green hover:underline">(304) 853-2371</a>
           </p>
         </div>
       </div>
     </section>
 
     <!-- What to Bring -->
-    <section class="py-12 md:py-16">
+    <section class="py-12 md:py-16 bg-white">
       <div class="container mx-auto px-4">
         <div class="max-w-3xl mx-auto">
           <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-4">
@@ -466,7 +376,7 @@ const placeSchema = {
           </p>
 
           <div class="grid md:grid-cols-2 gap-6">
-            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+            <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
               <h3 class="font-bold text-brand-brown mb-3">For Fishing</h3>
               <ul class="space-y-2 text-brand-brown/75 text-sm">
                 <li class="flex items-center gap-2">
@@ -479,49 +389,49 @@ const placeSchema = {
                   <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                   </svg>
-                  Light line (clear water needs finesse)
+                  Crappie jigs and minnows
                 </li>
                 <li class="flex items-center gap-2">
                   <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                   </svg>
-                  Tube jigs, soft plastics
+                  Bass tackle (soft plastics, spinnerbaits)
                 </li>
                 <li class="flex items-center gap-2">
                   <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                   </svg>
-                  Drop shot rigs (smallmouth love them)
+                  Heavy gear for musky (if you're serious)
                 </li>
               </ul>
             </div>
 
-            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
-              <h3 class="font-bold text-brand-brown mb-3">For Swimming & Diving</h3>
+            <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-bold text-brand-brown mb-3">For Camping</h3>
               <ul class="space-y-2 text-brand-brown/75 text-sm">
                 <li class="flex items-center gap-2">
                   <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                   </svg>
-                  Snorkel gear (worth it here)
+                  Tent or RV (hookups available)
                 </li>
                 <li class="flex items-center gap-2">
                   <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                   </svg>
-                  Water shoes (rocky shoreline)
+                  Cooler and provisions
                 </li>
                 <li class="flex items-center gap-2">
                   <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                   </svg>
-                  Sunscreen and towels
+                  Firewood (or buy at campground)
                 </li>
                 <li class="flex items-center gap-2">
                   <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                   </svg>
-                  Cooler and drinks
+                  Bug spray and sunscreen
                 </li>
               </ul>
             </div>
@@ -546,8 +456,8 @@ const placeSchema = {
           Stop By Before You Head Out
         </h2>
         <p class="text-white/80 mb-6 max-w-xl mx-auto">
-          We're on US-19 between the interstate and the lake. Grab your fishing license,
-          stock up on tackle, and we'll point you to what's been biting.
+          We're right off I-79 at Exit 57 — on your way to the lake.
+          Grab your fishing license, stock up on tackle, and we'll tell you what's been hitting.
         </p>
         <div class="flex flex-wrap justify-center gap-4">
           <a
