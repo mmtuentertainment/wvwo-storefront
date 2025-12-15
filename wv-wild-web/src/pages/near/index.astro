@@ -11,7 +11,7 @@ const outdoorAreas = [
     name: "Burnsville Lake WMA",
     slug: "burnsville-lake",
     type: "WMA",
-    driveTime: "20 min",
+    driveTime: "45 min",
     description: "Over 12,000 acres of public hunting land surrounding Burnsville Lake. Great for deer, turkey, and small game.",
     hunting: ["Deer", "Turkey", "Squirrel", "Grouse"],
     fishing: ["Bass", "Catfish", "Crappie"],
@@ -21,7 +21,7 @@ const outdoorAreas = [
     name: "Elk River WMA",
     slug: "elk-river",
     type: "WMA",
-    driveTime: "15 min",
+    driveTime: "20 min",
     description: "West Virginia's oldest WMA. Nearly 20,000 acres of mature hardwoods, steep ridges, and creek bottoms. Excellent turkey and squirrel hunting.",
     hunting: ["Deer", "Turkey", "Squirrel", "Grouse"],
     fishing: ["Smallmouth Bass", "Trout", "Walleye"],
@@ -42,7 +42,7 @@ const outdoorAreas = [
     name: "Sutton Lake",
     slug: "sutton-lake",
     type: "Lake",
-    driveTime: "10 min",
+    driveTime: "25 min",
     description: "1,440-acre Army Corps lake with great fishing and camping. Boat ramps, campgrounds, and swimming areas.",
     hunting: [],
     fishing: ["Largemouth Bass", "Smallmouth Bass", "Catfish", "Crappie", "Walleye"],
@@ -53,18 +53,18 @@ const outdoorAreas = [
     name: "Summersville Lake",
     slug: "summersville-lake",
     type: "Lake",
-    driveTime: "45 min",
-    description: "The 'Little Bahamas of the East' - 2,700 acres of crystal clear water. Premier bass fishing and scuba diving.",
+    driveTime: "30 min",
+    description: "The 'Little Bahamas of the East' - 2,790 acres of crystal clear water. Great bass fishing and scuba diving.",
     hunting: [],
     fishing: ["Smallmouth Bass", "Largemouth Bass", "Walleye", "Catfish"],
     camping: true,
-    hasDetailPage: false
+    hasDetailPage: true
   },
   {
     name: "Burnsville Lake",
     slug: "burnsville-lake-recreation",
     type: "Lake",
-    driveTime: "20 min",
+    driveTime: "45 min",
     description: "968-acre lake with campgrounds, boat ramps, and great fishing. Bulltown Historical Area nearby.",
     hunting: [],
     fishing: ["Bass", "Catfish", "Crappie", "Musky"],
@@ -88,7 +88,7 @@ const outdoorAreas = [
 
 <Layout
   title="Hunt Near Us | Wildlife Management Areas | WV Wild Outdoors"
-  description="Public hunting and fishing areas near I-79 Exit 57 (Frametown), WV. Our shop is about 1,500 feet from the ramp. Burnsville Lake, Elk River, and Stonewall Jackson WMAs all within 40 minutes."
+  description="Public hunting and fishing areas near I-79 Exit 57 (Frametown), WV. Our shop is about 1,500 feet from the ramp. Burnsville Lake, Elk River, and Stonewall Jackson WMAs all within 45 minutes."
 >
   <Header />
 
@@ -107,7 +107,7 @@ const outdoorAreas = [
             Hunt Near Us
           </h1>
           <p class="text-xl md:text-2xl text-brand-cream/80 mb-6">
-            Three Wildlife Management Areas within 40 minutes of our door.
+            Three Wildlife Management Areas within 45 minutes of our door.
             Stop in for licenses, ammo, and local tips before you head out.
           </p>
           <p class="text-brand-cream/60">
@@ -206,6 +206,17 @@ const outdoorAreas = [
                     </svg>
                     Camping Available
                   </div>
+                )}
+                {area.hasDetailPage && (
+                  <a
+                    href={`/near/${area.slug}`}
+                    class="inline-flex items-center text-sign-green font-medium text-sm mt-4 motion-safe:hover:gap-2 motion-safe:transition-[gap] motion-reduce:transition-none"
+                  >
+                    Full Guide
+                    <svg aria-hidden="true" focusable="false" class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                  </a>
                 )}
               </div>
             ))}
