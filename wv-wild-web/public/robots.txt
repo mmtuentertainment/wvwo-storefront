@@ -1,11 +1,12 @@
 # robots.txt for WV Wild Outdoors
-# https://wvwildoutdoors.com
+# TODO: Update to wvwildoutdoors.com when domain is purchased
+# https://wvwildoutdoors.pages.dev
 
 User-agent: *
 Allow: /
 
-# Sitemap location
-Sitemap: https://wvwildoutdoors.com/sitemap.xml
+# Sitemap location (Astro generates sitemap-index.xml)
+Sitemap: https://wvwildoutdoors.pages.dev/sitemap-index.xml
 
 # Block common bot patterns for privacy
 User-agent: GPTBot
