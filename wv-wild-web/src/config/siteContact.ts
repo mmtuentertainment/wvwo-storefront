@@ -8,7 +8,7 @@ export const SITE_CONTACT = {
         'Birch River, WV 26610',
     ],
     hours: 'Mon-Sat 10am-5pm',                 // Store hours (single source of truth)
-    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=WV+Wild+Outdoors+121+WV-82+Birch+River+WV+26610',
+    mapsUrl: 'https://www.google.com/maps?q=38.499062065971785,-80.75460796564259',
     // Highway positioning for out-of-state hunters (Phase 3A)
     highway: {
         interstate: 'I-79',
