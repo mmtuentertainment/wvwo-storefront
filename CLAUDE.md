@@ -474,7 +474,7 @@ npx agentdb@latest learner run 3 0.6 0.7
 | Key | Value |
 |-----|-------|
 | **PROJECT** | WV Wild Outdoors - Kim & Bryan's hunting/outdoor shop |
-| **LOCATION** | **US 19 in Birch River, WV** (I-79 Exit 57 access) |
+| **LOCATION** | **121 WV-82 (Birch River Rd), Birch River, WV 26610** (I-79 Exit 57 access) |
 | **IDENTITY** | FFL dealer, DNR agent, family-owned since 2008 |
 | **PHASE** | Phase 3: Highway Hunter Capture (SEO + Content Hub + E-Commerce) |
 | **TECH** | Astro 5.x + Tailwind CSS 4.x + vanilla JS ONLY |
