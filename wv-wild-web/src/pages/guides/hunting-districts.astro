@@ -1,0 +1,551 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import EmailCapture from '../../components/EmailCapture.astro';
+import { SITE_CONTACT } from '../../config/siteContact';
+
+// Article schema for SEO
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "WV Hunting Regulations Explained: A Plain-English Guide",
+  "description": "Understanding West Virginia hunting regulations by county. Deer bag limits, antler restrictions, bear seasons, and what hunters visiting central WV need to know.",
+  "author": {
+    "@type": "Organization",
+    "name": "WV Wild Outdoors",
+    "url": "https://wvwildoutdoors.com"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "WV Wild Outdoors"
+  },
+  "datePublished": "2025-12-16",
+  "dateModified": "2025-12-16",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://wvwildoutdoors.com/guides/hunting-districts"
+  }
+};
+
+// Last updated for display
+const lastUpdated = "December 2025";
+---
+
+<Layout
+  title="WV Hunting Regulations Explained | WV Wild Outdoors"
+  description="Plain-English guide to West Virginia hunting regulations by county. Deer bag limits, antler restrictions, bear seasons, and what visiting hunters need to know."
+  additionalSchemas={[articleSchema]}
+>
+  <Header />
+
+  <main class="bg-brand-cream min-h-screen">
+
+    <!-- Hero -->
+    <section class="bg-brand-brown text-white py-16 md:py-24 relative overflow-hidden">
+      <div class="absolute inset-0 bg-camo opacity-5 pointer-events-none"></div>
+
+      <div class="container mx-auto px-4 relative">
+        <div class="max-w-3xl">
+          <div class="flex flex-wrap items-center gap-3 mb-4">
+            <span class="inline-block bg-sign-green text-white px-4 py-1 rounded-sm font-bold text-sm">
+              Know Before You Go
+            </span>
+            <span class="inline-block bg-brand-mud text-brand-cream px-3 py-1 rounded-sm text-sm">
+              Updated {lastUpdated}
+            </span>
+          </div>
+          <h1 class="font-display font-black text-4xl md:text-6xl mb-4">
+            WV Hunting Regulations Explained
+          </h1>
+          <p class="text-xl md:text-2xl text-brand-cream/80 mb-6">
+            Coming from out of state? West Virginia doesn't use numbered "hunting districts"
+            like some states. Here's how our system actually works.
+          </p>
+          <div class="bg-brand-orange/20 border border-brand-orange/40 rounded-sm p-4">
+            <p class="text-brand-cream text-sm flex items-start gap-2">
+              <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+              </svg>
+              <span>
+                <strong>Regulations change yearly.</strong> This guide explains how WV organizes hunting rules.
+                Always verify current season dates and bag limits at
+                <a href="https://wvdnr.gov/hunting/hunting-regulations/" target="_blank" rel="noopener noreferrer" class="underline hover:text-white">wvdnr.gov</a>
+                before you hunt.
+              </span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why This Matters -->
+    <section class="py-12 md:py-16 bg-white border-b border-brand-brown/15">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-4">
+            Why This Matters If You're Visiting
+          </h2>
+          <p class="text-brand-brown/80 mb-4">
+            If you're used to hunting in states with numbered hunting districts or zones,
+            West Virginia might seem confusing at first. We don't have District 1, District 2, etc.
+          </p>
+          <p class="text-brand-brown/80">
+            Instead, <strong>WV organizes hunting regulations by county</strong>. Different counties
+            have different bag limits, season dates, and special requirements. Some Wildlife Management
+            Areas have their own rules on top of that.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- How WV Organizes Regulations -->
+    <section class="py-12 md:py-16">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown text-center mb-4">
+            How WV Organizes Hunting Rules
+          </h2>
+          <p class="text-center text-brand-brown/75 mb-10">
+            Three main systems to understand.
+          </p>
+
+          <div class="space-y-6">
+            <!-- Deer -->
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-display font-bold text-xl text-brand-brown mb-3 flex items-center gap-2">
+                <span class="w-8 h-8 bg-brand-brown text-white rounded-sm flex items-center justify-center text-sm font-bold">1</span>
+                Deer: County Categories
+              </h3>
+              <p class="text-brand-brown/75 mb-3">
+                WV groups counties into categories based on deer population. This determines how many
+                antlerless deer you can take and whether you need a permit or can just buy stamps.
+              </p>
+              <ul class="space-y-2 text-brand-brown/75 text-sm">
+                <li class="flex items-start gap-2">
+                  <span class="text-sign-green font-bold">•</span>
+                  <span><strong>"Unlimited Stamp" counties</strong> — Buy Class N/NN stamps, take up to 3 antlerless total</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-sign-green font-bold">•</span>
+                  <span><strong>"Limited Permit" counties</strong> — Must apply ahead of time for a permit</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-sign-green font-bold">•</span>
+                  <span><strong>"Earn-a-Buck" counties</strong> — Must harvest an antlerless deer before taking a second buck</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Bear -->
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-display font-bold text-xl text-brand-brown mb-3 flex items-center gap-2">
+                <span class="w-8 h-8 bg-brand-brown text-white rounded-sm flex items-center justify-center text-sm font-bold">2</span>
+                Bear: Counties + Season Dates
+              </h3>
+              <p class="text-brand-brown/75 mb-3">
+                Bear hunting isn't organized by zones. Instead, different counties open at different times.
+                Southern coalfield counties open earliest (late August), then others open through fall.
+              </p>
+              <ul class="space-y-2 text-brand-brown/75 text-sm">
+                <li class="flex items-start gap-2">
+                  <span class="text-sign-green font-bold">•</span>
+                  <span><strong>Early August:</strong> Mingo, Logan, Wyoming, McDowell</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-sign-green font-bold">•</span>
+                  <span><strong>October:</strong> Boone, Fayette, Kanawha, Nicholas, Raleigh</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-sign-green font-bold">•</span>
+                  <span><strong>Bag limit:</strong> 1 per day, 2 per season (with conditions)</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Turkey -->
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-display font-bold text-xl text-brand-brown mb-3 flex items-center gap-2">
+                <span class="w-8 h-8 bg-brand-brown text-white rounded-sm flex items-center justify-center text-sm font-bold">3</span>
+                Turkey: Statewide Spring, Split Fall
+              </h3>
+              <p class="text-brand-brown/75 mb-3">
+                Spring gobbler season is statewide — all 55 counties. Fall is different: it's split into
+                segments where different counties open at different times based on turkey population.
+              </p>
+              <ul class="space-y-2 text-brand-brown/75 text-sm">
+                <li class="flex items-start gap-2">
+                  <span class="text-sign-green font-bold">•</span>
+                  <span><strong>Spring:</strong> All counties, bearded turkeys only, 2 bird limit</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-sign-green font-bold">•</span>
+                  <span><strong>Fall:</strong> 3 segments — check which counties are open when</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Our Area Section -->
+    <section class="py-12 md:py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown text-center mb-4">
+            Hunting Around Our Area
+          </h2>
+          <p class="text-center text-brand-brown/75 mb-10">
+            We're in Braxton County, right off I-79 Exit 57. Here's what that means for regulations.
+          </p>
+
+          <!-- Location Info -->
+          <div class="bg-brand-cream p-6 rounded-sm border-l-4 border-sign-green mb-8">
+            <h3 class="font-bold text-brand-brown mb-2">Braxton County (Our County)</h3>
+            <ul class="space-y-2 text-brand-brown/75 text-sm">
+              <li>• <strong>Deer:</strong> Generally in the "unlimited stamp" category for antlerless</li>
+              <li>• <strong>Bear:</strong> Open for firearms season (west of I-79)</li>
+              <li>• <strong>Turkey:</strong> Spring statewide; check fall segment dates</li>
+              <li>• <strong>DNR District:</strong> District 3 (call 304-924-6211 for questions)</li>
+            </ul>
+          </div>
+
+          <!-- Nearby WMAs -->
+          <h3 class="font-display font-bold text-lg text-brand-brown mb-4">
+            Nearby Wildlife Management Areas
+          </h3>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b-2 border-brand-brown/20">
+                  <th class="text-left py-3 px-2 font-bold text-brand-brown">WMA</th>
+                  <th class="text-left py-3 px-2 font-bold text-brand-brown">From Shop</th>
+                  <th class="text-left py-3 px-2 font-bold text-brand-brown">County</th>
+                  <th class="text-left py-3 px-2 font-bold text-brand-brown">Special Rules</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-brand-brown/10">
+                <tr>
+                  <td class="py-3 px-2 text-brand-brown font-medium">
+                    <a href="/near/elk-river" class="text-sign-green hover:underline">Elk River WMA</a>
+                  </td>
+                  <td class="py-3 px-2 text-brand-brown/75">15 min</td>
+                  <td class="py-3 px-2 text-brand-brown/75">Braxton</td>
+                  <td class="py-3 px-2 text-brand-brown/75">—</td>
+                </tr>
+                <tr>
+                  <td class="py-3 px-2 text-brand-brown font-medium">
+                    <a href="/near/burnsville-lake" class="text-sign-green hover:underline">Burnsville Lake WMA</a>
+                  </td>
+                  <td class="py-3 px-2 text-brand-brown/75">20 min</td>
+                  <td class="py-3 px-2 text-brand-brown/75">Braxton</td>
+                  <td class="py-3 px-2">
+                    <span class="text-brand-orange font-medium">14" antler spread</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="py-3 px-2 text-brand-brown font-medium">
+                    <a href="/near/stonewall-jackson-lake" class="text-sign-green hover:underline">Stonewall Jackson Lake WMA</a>
+                  </td>
+                  <td class="py-3 px-2 text-brand-brown/75">40 min</td>
+                  <td class="py-3 px-2 text-brand-brown/75">Lewis</td>
+                  <td class="py-3 px-2 text-brand-brown/75">—</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Antler Restrictions -->
+    <section class="py-12 md:py-16">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown text-center mb-4">
+            14-Inch Antler Spread Requirement
+          </h2>
+          <p class="text-center text-brand-brown/75 mb-8">
+            Some WMAs and State Forests have a special rule to grow bigger bucks.
+          </p>
+
+          <div class="bg-brand-orange/10 border border-brand-orange/30 rounded-sm p-6 mb-6">
+            <h3 class="font-bold text-brand-brown mb-3 flex items-center gap-2">
+              <svg class="w-5 h-5 text-brand-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              What This Means
+            </h3>
+            <p class="text-brand-brown/75 mb-3">
+              On these areas, any buck you harvest during archery/crossbow season must have an
+              <strong>outside antler spread of at least 14 inches</strong> (ear tip to ear tip).
+              Also, you can only take <strong>one antlered deer total</strong> on these areas
+              across all seasons combined.
+            </p>
+            <p class="text-brand-brown/75 text-sm">
+              <strong>Tip:</strong> An adult buck's ears are about 14-15 inches apart when alert.
+              If the antlers don't extend past the ears, it's probably not legal on these areas.
+            </p>
+          </div>
+
+          <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+            <h3 class="font-bold text-brand-brown mb-3">Areas with 14" Spread Requirement</h3>
+            <div class="grid md:grid-cols-2 gap-4">
+              <div>
+                <h4 class="text-sm font-bold text-brand-brown/60 uppercase tracking-wide mb-2">WMAs</h4>
+                <ul class="space-y-1 text-brand-brown/75 text-sm">
+                  <li>• Beech Fork Lake WMA</li>
+                  <li>• Bluestone Lake WMA</li>
+                  <li class="text-brand-orange font-medium">• Burnsville Lake WMA ★</li>
+                  <li>• Little Kanawha River WMA</li>
+                  <li>• McClintic WMA</li>
+                </ul>
+              </div>
+              <div>
+                <h4 class="text-sm font-bold text-brand-brown/60 uppercase tracking-wide mb-2">State Forests</h4>
+                <ul class="space-y-1 text-brand-brown/75 text-sm">
+                  <li>• Coopers Rock State Forest</li>
+                  <li>• Calvin Price State Forest</li>
+                </ul>
+              </div>
+            </div>
+            <p class="text-sm text-brand-brown/60 mt-4">
+              ★ Burnsville Lake WMA is 20 minutes from our shop
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Deer Bag Limits Overview -->
+    <section class="py-12 md:py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown text-center mb-4">
+            Deer Bag Limits (Quick Overview)
+          </h2>
+          <p class="text-center text-brand-brown/75 mb-8">
+            The basics — check the DNR for your specific county.
+          </p>
+
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-bold text-brand-brown mb-3">Antlered (Bucks)</h3>
+              <p class="text-4xl font-display font-black text-sign-green mb-2">2</p>
+              <p class="text-brand-brown/75 text-sm">
+                Annual limit for all regular deer seasons combined. (Changed from 3 starting 2024-25 season)
+              </p>
+            </div>
+            <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-bold text-brand-brown mb-3">Antlerless (Does)</h3>
+              <p class="text-4xl font-display font-black text-sign-green mb-2">3</p>
+              <p class="text-brand-brown/75 text-sm">
+                Annual statewide limit. Actual limit per county varies (1-3) depending on county category.
+              </p>
+            </div>
+          </div>
+
+          <div class="mt-8 text-center">
+            <a
+              href="https://wvdnr.gov/hunting/hunting-regulations/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 text-sign-green font-medium hover:underline"
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+              </svg>
+              Full Deer Regulations at WVDNR.gov
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How to Look Up Your County -->
+    <section class="py-12 md:py-16">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown text-center mb-4">
+            How to Look Up Your County's Rules
+          </h2>
+          <p class="text-center text-brand-brown/75 mb-10">
+            Three ways to find what you need.
+          </p>
+
+          <div class="space-y-4">
+            <div class="bg-white p-5 rounded-sm border border-brand-brown/15 flex items-start gap-4">
+              <span class="w-10 h-10 bg-sign-green text-white rounded-sm flex items-center justify-center text-lg font-bold flex-shrink-0">1</span>
+              <div>
+                <h3 class="font-bold text-brand-brown mb-1">Download the Regulations Booklet</h3>
+                <p class="text-brand-brown/75 text-sm mb-2">
+                  The WV DNR publishes a free PDF every year with county-by-county breakdowns.
+                </p>
+                <a
+                  href="https://wvdnr.gov/hunting/hunting-regulations/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-sign-green text-sm font-medium hover:underline"
+                >
+                  Download at wvdnr.gov →
+                </a>
+              </div>
+            </div>
+
+            <div class="bg-white p-5 rounded-sm border border-brand-brown/15 flex items-start gap-4">
+              <span class="w-10 h-10 bg-sign-green text-white rounded-sm flex items-center justify-center text-lg font-bold flex-shrink-0">2</span>
+              <div>
+                <h3 class="font-bold text-brand-brown mb-1">Use the Interactive Map</h3>
+                <p class="text-brand-brown/75 text-sm mb-2">
+                  The WV Hunting & Fishing Interactive Map lets you click on any area to see regulations.
+                </p>
+                <a
+                  href="https://www.mapwv.gov/huntfish/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-sign-green text-sm font-medium hover:underline"
+                >
+                  mapwv.gov/huntfish →
+                </a>
+              </div>
+            </div>
+
+            <div class="bg-white p-5 rounded-sm border border-brand-brown/15 flex items-start gap-4">
+              <span class="w-10 h-10 bg-brand-orange text-white rounded-sm flex items-center justify-center text-lg font-bold flex-shrink-0">3</span>
+              <div>
+                <h3 class="font-bold text-brand-brown mb-1">Ask Us</h3>
+                <p class="text-brand-brown/75 text-sm mb-2">
+                  We're a DNR license agent. Stop by, call, or just walk in — we'll help you figure out
+                  what you need for wherever you're hunting.
+                </p>
+                <a
+                  href={SITE_CONTACT.phoneHref}
+                  class="text-sign-green text-sm font-medium hover:underline"
+                >
+                  Call {SITE_CONTACT.phoneDisplay} →
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Common Questions -->
+    <section class="py-12 md:py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown text-center mb-10">
+            Common Questions
+          </h2>
+
+          <div class="space-y-6">
+            <div class="border-b border-brand-brown/15 pb-6">
+              <h3 class="font-bold text-brand-brown mb-2">
+                "I'm hunting two different counties on my trip. Do I need separate stamps?"
+              </h3>
+              <p class="text-brand-brown/75">
+                For antlerless deer, yes — you need a Class N or NN stamp for each county you want to
+                harvest antlerless deer in. Some counties require advance permits instead of stamps.
+                Buck tags work statewide.
+              </p>
+            </div>
+
+            <div class="border-b border-brand-brown/15 pb-6">
+              <h3 class="font-bold text-brand-brown mb-2">
+                "Do I need a bear permit?"
+              </h3>
+              <p class="text-brand-brown/75">
+                No special permit lottery anymore (ended in 2016). You do need a Bear Damage Stamp
+                (Class DS) unless you're a resident landowner hunting your own property.
+              </p>
+            </div>
+
+            <div class="border-b border-brand-brown/15 pb-6">
+              <h3 class="font-bold text-brand-brown mb-2">
+                "What's the Game Check app?"
+              </h3>
+              <p class="text-brand-brown/75">
+                WV requires electronic check-in for harvested deer, bear, and turkey. Download the
+                WV Game Check app before your hunt. You can also check in online or by phone.
+              </p>
+            </div>
+
+            <div class="pb-6">
+              <h3 class="font-bold text-brand-brown mb-2">
+                "Can I hunt on Sunday in West Virginia?"
+              </h3>
+              <p class="text-brand-brown/75">
+                Yes! WV legalized Sunday hunting on private land in 2015 and expanded it to public land
+                in recent years. Check current regulations for any remaining restrictions.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services CTA -->
+    <section class="bg-sign-green text-white py-12">
+      <div class="container mx-auto px-4 text-center">
+        <h2 class="font-display font-bold text-2xl mb-4">
+          Confused? Stop By — We'll Help
+        </h2>
+        <p class="text-white/80 mb-6 max-w-xl mx-auto">
+          We're a DNR license agent right off I-79 Exit 57. We can sell you your license, help you
+          figure out what stamps you need, and answer your questions about hunting around here.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a
+            href={SITE_CONTACT.mapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 bg-white text-sign-green font-bold px-6 py-3 rounded-sm hover:bg-brand-cream motion-safe:transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+          >
+            <svg aria-hidden="true" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            </svg>
+            Get Directions
+          </a>
+          <a
+            href={SITE_CONTACT.phoneHref}
+            class="inline-flex items-center gap-2 bg-white/10 border border-white/30 text-white font-bold px-6 py-3 rounded-sm hover:bg-white/20 motion-safe:transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+          >
+            <svg aria-hidden="true" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+            </svg>
+            {SITE_CONTACT.phoneDisplay}
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="py-12 md:py-16">
+      <div class="container mx-auto px-4">
+        <div class="max-w-xl mx-auto">
+          <EmailCapture
+            variant="card"
+            heading="Get Regulation Updates"
+            subheading="Season reminders, regulation changes, and what's hitting where delivered to your inbox."
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- WV DNR Badge -->
+    <section class="bg-brand-mud text-brand-cream py-6">
+      <div class="container mx-auto px-4 text-center">
+        <div class="inline-flex items-center gap-3">
+          <img src="/badges/wvdnr.svg" alt="WV DNR License Agent" width="32" height="32" class="h-8 opacity-80" />
+          <span class="text-sm">Official WV DNR License Agent — Get your license here</span>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Layout>
