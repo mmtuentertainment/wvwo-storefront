@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
 import SchemaBreadcrumb from '../../components/seo/SchemaBreadcrumb.astro';
 import { SITE_CONTACT } from '../../config/siteContact';
 
@@ -126,6 +127,7 @@ const collectionPageSchema = {
   additionalSchemas={[collectionPageSchema]}
 >
   <Header />
+  <Breadcrumb items={breadcrumbItems} />
   <SchemaBreadcrumb items={breadcrumbItems} />
 
   <main class="bg-brand-cream min-h-screen">
