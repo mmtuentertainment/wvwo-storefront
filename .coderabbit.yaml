@@ -141,10 +141,12 @@ reviews:
         - Tailwind CSS 4.x design system classes
         - Import from ../../components/, ../../layouts/, etc.
 
-        File Size Guidelines:
-        - Pages: ~300-500 lines typical
-        - Components: <200 lines preferred
+        File Size Guidelines (Claude Code Optimized):
+        - Pages: <800 lines (content-heavy guides acceptable)
+        - Components: <200 lines (strict)
+        - Functions: <50 lines
         - Extract repeated patterns to components
+        Note: Claude Code has 25K token limit (~6-8K lines); these limits are for human readability, not tooling constraints
 
     # shadcn/ui Components - React island components (WVWO customized)
     - path: "wv-wild-web/src/components/ui/*.tsx"
