@@ -128,7 +128,7 @@ const breadcrumbSchema = {
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
 
           <!-- Product Image -->
-          <div class="aspect-square bg-white rounded-lg shadow-sm border border-stone-100 overflow-hidden">
+          <div class="aspect-square bg-white rounded-sm shadow-sm border border-stone-100 overflow-hidden">
             {product.images[0] ? (
               <img
                 src={product.images[0]}
@@ -214,7 +214,7 @@ const breadcrumbSchema = {
 
             <!-- FFL Notice -->
             {product.fflRequired && (
-              <div class="mt-6 p-4 bg-stone-100 rounded-lg border border-stone-200">
+              <div class="mt-6 p-4 bg-stone-100 rounded-sm border border-stone-200">
                 <p class="text-sm text-stone-600">
                   <strong class="text-brand-brown">
                     {product.categoryId === 'firearms' ? 'Firearms Notice' : 'FFL Required'}:
