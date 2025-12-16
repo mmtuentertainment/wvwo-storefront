@@ -88,15 +88,42 @@ const schemaData = {
     ]
   },
   "additionalType": "https://schema.org/GunStore",
-  "areaServed": {
-    "@type": "GeoCircle",
-    "geoMidpoint": {
-      "@type": "GeoCoordinates",
-      "latitude": 38.49910,
-      "longitude": -80.75460
+  "areaServed": [
+    {
+      "@type": "GeoCircle",
+      "geoMidpoint": {
+        "@type": "GeoCoordinates",
+        "latitude": 38.49910,
+        "longitude": -80.75460
+      },
+      "geoRadius": 80467
     },
-    "geoRadius": 80467
-  },
+    {
+      "@type": "Place",
+      "name": "Sutton Lake",
+      "geo": { "@type": "GeoCoordinates", "latitude": 38.6620, "longitude": -80.6932 }
+    },
+    {
+      "@type": "Place",
+      "name": "Elk River WMA",
+      "geo": { "@type": "GeoCoordinates", "latitude": 38.6833, "longitude": -80.5833 }
+    },
+    {
+      "@type": "Place",
+      "name": "Summersville Lake",
+      "geo": { "@type": "GeoCoordinates", "latitude": 38.2217, "longitude": -80.9097 }
+    },
+    {
+      "@type": "Place",
+      "name": "Stonewall Jackson Lake",
+      "geo": { "@type": "GeoCoordinates", "latitude": 38.8697, "longitude": -80.4585 }
+    },
+    {
+      "@type": "Place",
+      "name": "Burnsville Lake",
+      "geo": { "@type": "GeoCoordinates", "latitude": 38.8423, "longitude": -80.6234 }
+    }
+  ],
   "knowsAbout": ["FFL transfers", "WV hunting licenses", "firearms", "ammunition", "I-79 corridor hunting supplies"],
   "paymentAccepted": "Cash, Credit Card, Debit Card",
   "currenciesAccepted": "USD",

@@ -1,0 +1,37 @@
+---
+/**
+ * SchemaBreadcrumb - Outputs BreadcrumbList JSON-LD schema
+ *
+ * Usage:
+ * <SchemaBreadcrumb items={[
+ *   { name: 'Home', url: '/' },
+ *   { name: 'Hunt Near Us', url: '/near/' },
+ *   { name: 'Elk River WMA', url: '/near/elk-river/' }
+ * ]} />
+ */
+
+interface BreadcrumbItem {
+  name: string;
+  url: string;
+}
+
+interface Props {
+  items: BreadcrumbItem[];
+}
+
+const { items } = Astro.props;
+const BASE_URL = 'https://wvwildoutdoors.com';
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": items.map((item, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "name": item.name,
+    "item": item.url.startsWith('http') ? item.url : `${BASE_URL}${item.url}`
+  }))
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />
