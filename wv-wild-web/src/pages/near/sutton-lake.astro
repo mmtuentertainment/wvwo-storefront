@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import EmailCapture from '../../components/EmailCapture.astro';
+import SchemaBreadcrumb from '../../components/seo/SchemaBreadcrumb.astro';
 import { SITE_CONTACT } from '../../config/siteContact';
 
 // Place schema for geographic SEO
@@ -41,6 +42,13 @@ const placeSchema = {
     { "@type": "LocationFeatureSpecification", "name": "Marina", "value": true }
   ]
 };
+
+// Breadcrumb schema data (3-level: Home → Hunt Near Us → Sutton Lake)
+const breadcrumbItems = [
+  { name: 'Home', url: '/' },
+  { name: 'Hunt Near Us', url: '/near/' },
+  { name: 'Sutton Lake', url: '/near/sutton-lake/' }
+];
 ---
 
 <Layout
@@ -49,6 +57,7 @@ const placeSchema = {
   additionalSchemas={[placeSchema]}
 >
   <Header />
+  <SchemaBreadcrumb items={breadcrumbItems} />
 
   <main class="bg-brand-cream min-h-screen">
 
