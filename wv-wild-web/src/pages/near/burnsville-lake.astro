@@ -3,6 +3,8 @@ import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import EmailCapture from '../../components/EmailCapture.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import SchemaBreadcrumb from '../../components/seo/SchemaBreadcrumb.astro';
 import { SITE_CONTACT } from '../../config/siteContact';
 
 // Place schema for geographic SEO
@@ -25,6 +27,13 @@ const placeSchema = {
     "addressCountry": "US"
   }
 };
+
+// Breadcrumb schema data (3-level: Home → Hunt Near Us → Burnsville Lake WMA)
+const breadcrumbItems = [
+  { name: 'Home', url: '/' },
+  { name: 'Hunt Near Us', url: '/near/' },
+  { name: 'Burnsville Lake WMA', url: '/near/burnsville-lake/' }
+];
 ---
 
 <Layout
@@ -33,6 +42,8 @@ const placeSchema = {
   additionalSchemas={[placeSchema]}
 >
   <Header />
+  <Breadcrumb items={breadcrumbItems} />
+  <SchemaBreadcrumb items={breadcrumbItems} />
 
   <main class="bg-brand-cream min-h-screen">
 

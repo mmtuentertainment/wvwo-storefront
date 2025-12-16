@@ -1,0 +1,60 @@
+---
+/**
+ * Breadcrumb - Visual breadcrumb navigation
+ *
+ * Displays breadcrumb trail for user navigation. Use alongside
+ * SchemaBreadcrumb for both visual and SEO benefits.
+ *
+ * Usage:
+ * <Breadcrumb items={[
+ *   { name: 'Home', url: '/' },
+ *   { name: 'Hunt Near Us', url: '/near/' },
+ *   { name: 'Elk River WMA', url: '/near/elk-river/' }
+ * ]} />
+ */
+
+import type { BreadcrumbItem } from '../types/breadcrumb';
+
+interface Props {
+  items: BreadcrumbItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<nav aria-label="Breadcrumb" class="py-3 bg-white border-b border-brand-brown/10">
+  <div class="container mx-auto px-4">
+    <ol class="flex flex-wrap items-center gap-1 text-sm">
+      {items.map((item, index) => {
+        const isLast = index === items.length - 1;
+        return (
+          <li class="flex items-center">
+            {index > 0 && (
+              <svg
+                aria-hidden="true"
+                class="w-4 h-4 text-brand-brown/40 mx-1"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            )}
+            {isLast ? (
+              <span class="text-brand-brown/60 font-medium" aria-current="page">
+                {item.name}
+              </span>
+            ) : (
+              <a
+                href={item.url}
+                class="text-sign-green hover:text-sign-green/80 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange rounded"
+              >
+                {item.name}
+              </a>
+            )}
+          </li>
+        );
+      })}
+    </ol>
+  </div>
+</nav>

@@ -2,6 +2,8 @@
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import SchemaBreadcrumb from '../../components/seo/SchemaBreadcrumb.astro';
 import { SITE_CONTACT } from '../../config/siteContact';
 
 // Outdoor areas near I-79 Exit 57 (Frametown), WV
@@ -95,13 +97,38 @@ const outdoorAreas = [
     hasDetailPage: true
   }
 ];
+
+// Breadcrumb schema data (2-level: Home → Hunt Near Us)
+const breadcrumbItems = [
+  { name: 'Home', url: '/' },
+  { name: 'Hunt Near Us', url: '/near/' }
+];
+
+// CollectionPage schema - signals this is a hub page with child destinations
+const collectionPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Hunt Near Us",
+  "description": "Public hunting and fishing areas near I-79 Exit 57 (Frametown), WV. Our shop is about 1,500 feet from the ramp.",
+  "url": "https://wvwildoutdoors.pages.dev/near/",
+  "hasPart": outdoorAreas
+    .filter(a => a.hasDetailPage)
+    .map(area => ({
+      "@type": "WebPage",
+      "name": area.name,
+      "url": `https://wvwildoutdoors.pages.dev/near/${area.slug}/`
+    }))
+};
 ---
 
 <Layout
   title="Hunt Near Us | Wildlife Management Areas | WV Wild Outdoors"
   description="Public hunting and fishing areas near I-79 Exit 57 (Frametown), WV. Our shop is about 1,500 feet from the ramp. Burnsville Lake, Elk River, and Stonewall Jackson WMAs all within 45 minutes."
+  additionalSchemas={[collectionPageSchema]}
 >
   <Header />
+  <Breadcrumb items={breadcrumbItems} />
+  <SchemaBreadcrumb items={breadcrumbItems} />
 
   <main class="bg-brand-cream min-h-screen">
 
