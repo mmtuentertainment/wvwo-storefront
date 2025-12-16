@@ -63,7 +63,7 @@ Summersville Lake is known as the "Little Bahamas of the East" - 2,700 acres of 
 - Picnic areas
 
 ### Getting There
-Directions from shop (14 Candy St):
+Directions from shop (121 WV-82):
 1. Head south on US-19
 2. Continue through Summersville
 3. Follow signs to Summersville Lake

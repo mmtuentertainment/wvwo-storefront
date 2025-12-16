@@ -1,0 +1,726 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import EmailCapture from '../../components/EmailCapture.astro';
+import { SITE_CONTACT } from '../../config/siteContact';
+
+// Place schema for geographic SEO
+// GPS: Approximate center of Monongahela National Forest
+const placeSchema = {
+  "@context": "https://schema.org",
+  "@type": "Place",
+  "name": "Monongahela National Forest",
+  "description": "Nearly a million acres of public land across eastern West Virginia. Premier trout fishing, black bear and deer hunting, and backcountry camping.",
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 38.92917,
+    "longitude": -79.84778
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "addressRegion": "WV",
+    "addressCountry": "US",
+    "postalCode": "26241"
+  },
+  "url": "https://www.fs.usda.gov/mnf"
+};
+---
+
+<Layout
+  title="Monongahela National Forest Hunting & Fishing Guide | WV Wild Outdoors"
+  description="Hunting and fishing guide for Monongahela National Forest. Nearly a million acres of public land, about an hour from our shop. Black bear, deer, turkey, native brook trout, and backcountry camping."
+  additionalSchemas={[placeSchema]}
+>
+  <Header />
+
+  <main class="bg-brand-cream min-h-screen">
+
+    <!-- Hero -->
+    <section class="bg-brand-brown text-white py-16 md:py-24 relative overflow-hidden">
+      <div class="absolute inset-0 bg-camo opacity-5 pointer-events-none"></div>
+
+      <div class="container mx-auto px-4 relative">
+        <div class="max-w-3xl">
+          <div class="flex flex-wrap items-center gap-3 mb-4">
+            <span class="inline-block bg-sign-green text-white px-4 py-1 rounded-sm font-bold text-sm">
+              1 hour from shop
+            </span>
+            <span class="inline-block bg-brand-orange text-white px-4 py-1 rounded-sm font-bold text-sm">
+              921,000 Acres
+            </span>
+          </div>
+          <h1 class="font-display font-black text-4xl md:text-6xl mb-4">
+            Monongahela National Forest
+          </h1>
+          <p class="text-xl md:text-2xl text-brand-cream/80 mb-6">
+            Nearly a million acres of public ground. Native brook trout streams,
+            black bear country, and some of the best backcountry hunting east of the Mississippi.
+          </p>
+          <p class="text-brand-cream/60">
+            If you're heading into the Mon, stop by first. We're your last reliable stop for licenses, ammo, and local knowledge.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Info -->
+    <section class="py-8 bg-white border-b border-brand-brown/15">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+          <div>
+            <span class="block text-2xl font-bold text-brand-brown">921,000</span>
+            <span class="text-sm text-brand-brown/60">Acres</span>
+          </div>
+          <div>
+            <span class="block text-2xl font-bold text-brand-brown">1 hour</span>
+            <span class="text-sm text-brand-brown/60">From Shop</span>
+          </div>
+          <div>
+            <span class="block text-2xl font-bold text-brand-brown">10 Counties</span>
+            <span class="text-sm text-brand-brown/60">Coverage</span>
+          </div>
+          <div>
+            <span class="block text-2xl font-bold text-brand-brown">Year-Round</span>
+            <span class="text-sm text-brand-brown/60">Access</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- What to Hunt -->
+    <section class="py-12 md:py-16">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-8">
+            What to Hunt
+          </h2>
+
+          <div class="space-y-6">
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">White-tailed Deer</h3>
+              <p class="text-brand-brown/75 mb-3">
+                The higher elevations mean the rut can hit a little different up here — old-timers
+                will tell you it peaks later than down in the valleys. Plenty of mature bucks
+                in the remote sections where hunting pressure is light.
+              </p>
+              <p class="text-sm text-brand-brown/60">
+                <strong>Best areas:</strong> Remote ridges and benches away from roads. The thick
+                mountain laurel and rhododendron provides excellent bedding cover.
+              </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15 border-l-4 border-l-brand-orange">
+              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Black Bear</h3>
+              <p class="text-brand-brown/75 mb-3">
+                West Virginia has some of the highest bear densities on the East Coast, and the
+                Mon is prime bear country. Archery and crossbow season runs late September through
+                December. Gun seasons run concurrent with deer firearms season.
+              </p>
+              <p class="text-sm text-brand-brown/60 mb-3">
+                <strong>Best areas:</strong> Higher elevations with beechnut and oak mast. Grant and
+                Pendleton counties have particularly good bear numbers.
+              </p>
+              <p class="text-sm text-brand-orange font-medium">
+                Note: Bear Damage Stamp required. Check WV DNR for current zone regulations —
+                bear hunting is prohibited in Cranberry Wilderness.
+              </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Wild Turkey</h3>
+              <p class="text-brand-brown/75 mb-3">
+                Mature hardwood forests throughout the Mon make for excellent turkey hunting.
+                Spring gobblers work the ridges at dawn. The remote terrain means less
+                pressure and birds that haven't heard every call in the book.
+              </p>
+              <p class="text-sm text-brand-brown/60">
+                <strong>Best areas:</strong> Ridge tops in mature timber for roosting. Old logging
+                roads and wildlife openings for strutting.
+              </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Ruffed Grouse</h3>
+              <p class="text-brand-brown/75 mb-3">
+                The regenerating timber areas and mixed-age forests provide good grouse habitat.
+                Season typically runs October through February. Bring a good pair of boots —
+                you'll cover some ground.
+              </p>
+              <p class="text-sm text-brand-brown/60">
+                <strong>Best areas:</strong> Young timber stands, creek edges, and areas recovering
+                from timber harvest. Higher elevations also hold snowshoe hare.
+              </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Squirrel & Small Game</h3>
+              <p class="text-brand-brown/75 mb-3">
+                All that oak and hickory produces excellent mast years. Gray and fox squirrels
+                are abundant throughout the forest. Good opportunity to introduce new hunters
+                to the woods.
+              </p>
+              <p class="text-sm text-brand-brown/60">
+                <strong>Best areas:</strong> Mature hardwood stands, especially oak flats. Early
+                morning when they're cutting.
+              </p>
+            </div>
+          </div>
+
+          <p class="mt-6 text-sm text-brand-brown/60">
+            Hunting regulations set by WV DNR. No baiting or feeding wildlife on public land.
+            Portable tree stands and ground blinds only.
+            <a href="https://wvdnr.gov/hunting/" target="_blank" rel="noopener noreferrer" class="text-sign-green hover:underline">
+              Check current seasons and regulations →
+            </a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- What to Fish -->
+    <section class="py-12 md:py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-8">
+            Fishing Waters
+          </h2>
+
+          <p class="text-brand-brown/75 mb-6">
+            The Mon has over 600 miles of cold water streams with native brook trout, plus
+            another 350 miles of stocked seasonal waters. Some folks say the brook trout
+            fishing in the headwaters is as good as it gets anywhere east of the Rockies.
+          </p>
+
+          <div class="space-y-6">
+            <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Williams River</h3>
+              <p class="text-brand-brown/75 mb-3">
+                Considered one of the five best trout streams in West Virginia. Cold water,
+                low turbidity, and 22 miles of stocked water. Rainbow, golden rainbow, brown,
+                and brook trout. Check the stocking hotline for current poundage.
+              </p>
+              <p class="text-sm text-brand-brown/60">
+                <strong>Best spots:</strong> Between Tea Creek Campground and Three Forks. The
+                "dead water" section between Scenic Highway Bridge and SR-17 bridge holds large browns.
+              </p>
+            </div>
+
+            <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Cranberry River</h3>
+              <p class="text-brand-brown/75 mb-3">
+                About 24 miles of stream running through some of the most scenic country in the state.
+                Wild brook trout in the remote backcountry sections with limited vehicle access.
+                Stocked sections hold rainbow, golden rainbow, and brown trout.
+              </p>
+              <p class="text-sm text-brand-brown/60">
+                <strong>Best spots:</strong> Lower section for stocked fish. Backcountry section
+                for wild brookies if you're willing to hike.
+              </p>
+            </div>
+
+            <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Shavers Fork</h3>
+              <p class="text-brand-brown/75 mb-3">
+                One of the longest and most productive trout streams in West Virginia. The upper
+                section is remote — requires a hike or a ride on the Cass Scenic Railroad.
+                Brook, brown, and rainbow trout throughout.
+              </p>
+              <p class="text-sm text-brand-brown/60">
+                <strong>Best spots:</strong> Upper Shavers Fork for exceptional brook trout in
+                wilderness settings. Bemis area for easier access.
+              </p>
+            </div>
+
+            <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Elk River</h3>
+              <p class="text-brand-brown/75 mb-3">
+                The Elk River may be the premier trout stream in West Virginia. Year-round
+                catch-and-release section from Elk Springs Campground to Rose Run Bridge
+                offers classic trout habitat — deep pools, rocky bottoms, and well-placed riffles.
+              </p>
+              <p class="text-sm text-brand-brown/60">
+                <strong>Species:</strong> Brook, brown, rainbow, tiger, and golden rainbow trout.
+                Back Fork also heavily stocked.
+              </p>
+            </div>
+          </div>
+
+          <div class="mt-6 p-4 bg-sign-green/10 rounded-sm border border-sign-green/20">
+            <p class="text-sm text-brand-brown">
+              <strong>License requirements:</strong> WV fishing license + Conservation Stamp +
+              National Forest Trout Stamp (three separate stamps).
+              <a href="https://wvdnr.gov/fishing/fish-stocking/" target="_blank" rel="noopener noreferrer" class="text-sign-green hover:underline">
+                Check daily stocking updates →
+              </a>
+              or call the stocking hotline: <strong>304-558-3399</strong>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Wilderness Areas -->
+    <section class="py-12 md:py-16">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-8">
+            Wilderness Areas
+          </h2>
+
+          <p class="text-brand-brown/75 mb-6">
+            The Mon includes several federally designated wilderness areas — no roads,
+            no motorized equipment, just you and the woods. Special regulations apply.
+          </p>
+
+          <div class="space-y-6">
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Dolly Sods Wilderness</h3>
+              <p class="text-brand-brown/75 mb-3">
+                17,371 acres of unique alpine tundra-like landscape in Grant, Randolph, and
+                Tucker counties. Wind-stunted spruce, open heath barrens, and rocky outcrops.
+                Hunting allowed per state regulations.
+              </p>
+              <p class="text-sm text-brand-brown/60">
+                Wear blaze orange during hunting season even if you're just hiking.
+                Weather changes fast at elevation.
+              </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Cranberry Wilderness</h3>
+              <p class="text-brand-brown/75 mb-3">
+                47,815 acres of remote backcountry. No roads, no motorized access. Wild brook
+                trout fishing in the headwaters. Some of the most remote country in the eastern US.
+              </p>
+              <p class="text-sm text-brand-orange font-medium">
+                Note: Bear hunting is prohibited in Cranberry Wilderness.
+              </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Spruce Knob</h3>
+              <p class="text-brand-brown/75 mb-3">
+                At 4,863 feet, Spruce Knob is the highest point in West Virginia. The surrounding
+                area offers high-elevation hunting and fishing with spectacular views.
+                Stone observation tower at the summit.
+              </p>
+              <p class="text-sm text-brand-brown/60">
+                Spruce Knob Lake nearby offers camping and fishing access.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Planning Your Trip (Safety) -->
+    <section class="py-12 md:py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-4">
+            Planning Your Trip
+          </h2>
+          <p class="text-brand-brown/75 mb-8">
+            The Mon is real backcountry — not a city park. A little planning goes a long way.
+          </p>
+
+          <div class="bg-brand-orange/10 border border-brand-orange/30 rounded-sm p-6 mb-8">
+            <h3 class="font-bold text-brand-brown mb-3 flex items-center gap-2">
+              <svg aria-hidden="true" focusable="false" class="w-5 h-5 text-brand-orange" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+              </svg>
+              Before You Go
+            </h3>
+            <ul class="space-y-2 text-brand-brown/75 text-sm">
+              <li class="flex items-start gap-2">
+                <span class="text-brand-orange font-bold">•</span>
+                <span><strong>Cell service is limited to non-existent</strong> in most of the forest. Don't rely on your phone for navigation or emergencies.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-brand-orange font-bold">•</span>
+                <span><strong>Download maps beforehand.</strong> Paper topo maps are even better. GPS apps won't work without signal.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-brand-orange font-bold">•</span>
+                <span><strong>Weather changes fast</strong> at elevation. It can be 20 degrees colder on the ridges than in the valleys. Pack layers.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-brand-orange font-bold">•</span>
+                <span><strong>Tell someone your plans.</strong> Where you're going, when you'll be back. Check in when you're out.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-brand-orange font-bold">•</span>
+                <span><strong>Check fire regulations</strong> before building campfires. Restrictions can change based on conditions.</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-bold text-brand-brown mb-3">Contact Info</h3>
+              <ul class="space-y-2 text-brand-brown/75 text-sm">
+                <li>
+                  <strong>Forest Supervisor's Office</strong><br>
+                  200 Sycamore Street, Elkins, WV<br>
+                  <a href="tel:304-636-1800" class="text-sign-green">304-636-1800</a>
+                </li>
+                <li>
+                  <strong>Gauley Ranger District</strong><br>
+                  932 Northfork Cherry Road, Richwood, WV<br>
+                  <a href="tel:304-846-2695" class="text-sign-green">304-846-2695</a>
+                </li>
+                <li>
+                  <strong>Cranberry Mountain Nature Center</strong><br>
+                  Hillsboro, WV 24946<br>
+                  <a href="tel:304-653-4826" class="text-sign-green">304-653-4826</a><br>
+                  <span class="text-brand-brown/60">Seasonal: mid-April through mid-October</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-bold text-brand-brown mb-3">Useful Links</h3>
+              <ul class="space-y-2 text-brand-brown/75 text-sm">
+                <li>
+                  <a href="https://www.fs.usda.gov/mnf" target="_blank" rel="noopener noreferrer" class="text-sign-green hover:underline">
+                    USFS Monongahela Home →
+                  </a>
+                </li>
+                <li>
+                  <a href="https://www.recreation.gov/camping/gateways/1090" target="_blank" rel="noopener noreferrer" class="text-sign-green hover:underline">
+                    Campground Reservations →
+                  </a>
+                </li>
+                <li>
+                  <a href="https://wvdnr.gov/hunting/" target="_blank" rel="noopener noreferrer" class="text-sign-green hover:underline">
+                    WV DNR Hunting Regulations →
+                  </a>
+                </li>
+                <li>
+                  <a href="https://wvdnr.gov/fishing/fish-stocking/" target="_blank" rel="noopener noreferrer" class="text-sign-green hover:underline">
+                    Trout Stocking Schedule →
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Getting There -->
+    <section class="py-12 md:py-16">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-8">
+            Getting There
+          </h2>
+
+          <div class="bg-white p-6 rounded-sm border-l-4 border-sign-green mb-6">
+            <h3 class="font-bold text-brand-brown mb-2">From Our Shop (Richwood Entrance)</h3>
+            <ol class="text-brand-brown/75 space-y-2 list-decimal list-inside">
+              <li>Head north on US-19 toward Summersville</li>
+              <li>Continue to Richwood via WV-39/WV-55</li>
+              <li>Pick up the Highland Scenic Highway in Richwood</li>
+              <li>About 1 hour to the forest boundary</li>
+            </ol>
+            <p class="text-sm text-brand-brown/60 mt-3">
+              The Highland Scenic Highway runs 43 miles from Richwood to US-219 near Marlinton,
+              with access to Williams River, Cranberry River, and numerous trailheads.
+            </p>
+          </div>
+
+          <div class="bg-white p-6 rounded-sm border-l-4 border-brand-orange mb-6">
+            <h3 class="font-bold text-brand-brown mb-2">From I-79 (Elkins Entrance)</h3>
+            <ol class="text-brand-brown/75 space-y-2 list-decimal list-inside">
+              <li>Take I-79 to US-33 East</li>
+              <li>Follow US-33 to Elkins</li>
+              <li>From Elkins, multiple forest access points via US-219, WV-28, or WV-55</li>
+              <li>Stop by our shop on Exit 57 — we're on your way</li>
+            </ol>
+          </div>
+
+          <div class="bg-brand-cream p-4 rounded-sm border border-brand-brown/15">
+            <p class="text-sm text-brand-brown/75">
+              <strong>Winter note:</strong> Route 150 (the Parkway section of Highland Scenic Highway)
+              is not maintained November through April. Travel can be treacherous or impossible
+              during winter storms. Plan accordingly.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Camping -->
+    <section class="py-12 md:py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-8">
+            Camping
+          </h2>
+
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-bold text-brand-brown mb-3">USFS Campgrounds</h3>
+              <p class="text-brand-brown/75 text-sm mb-3">
+                22 developed campgrounds throughout the forest, from primitive sites to
+                facilities with restrooms. Most are seasonal (April-October).
+              </p>
+              <ul class="space-y-2 text-brand-brown/75 text-sm">
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Tea Creek Campground
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Cranberry Campground
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Spruce Knob Lake
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Seneca Shadows
+                </li>
+              </ul>
+              <a href="https://www.recreation.gov/camping/gateways/1090" target="_blank" rel="noopener noreferrer" class="inline-block mt-4 text-sign-green text-sm font-medium hover:underline">
+                View all 22 campgrounds →
+              </a>
+            </div>
+
+            <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-bold text-brand-brown mb-3">Dispersed Camping</h3>
+              <p class="text-brand-brown/75 text-sm mb-3">
+                Free camping allowed throughout most of the forest. No reservations,
+                no facilities — just you and the woods.
+              </p>
+              <ul class="space-y-2 text-brand-brown/75 text-sm">
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  14-day stay limit
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  200 feet from water and roads
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Pack in, pack out
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Treat or filter water
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <p class="mt-6 text-sm text-brand-brown/60">
+            Need full hookups? Private RV parks are available in Elkins and surrounding areas.
+            Most USFS campgrounds are primitive or semi-primitive.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- What to Bring -->
+    <section class="py-12 md:py-16">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-4">
+            What to Bring
+          </h2>
+          <p class="text-brand-brown/75 mb-8">
+            We've got most of this in stock. Stop by before you head into the Mon.
+          </p>
+
+          <div class="grid md:grid-cols-3 gap-6">
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-bold text-brand-brown mb-3">For Hunting</h3>
+              <ul class="space-y-2 text-brand-brown/75 text-sm">
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  WV license + stamps
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Blaze orange (400 sq in)
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Rifle/shotgun + ammo
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Knife and game bags
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Bear Damage Stamp (for bear)
+                </li>
+              </ul>
+            </div>
+
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-bold text-brand-brown mb-3">For Trout Fishing</h3>
+              <ul class="space-y-2 text-brand-brown/75 text-sm">
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  WV license + trout stamp
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  National Forest Stamp
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Fly rod or spinning gear
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Waders (water's cold)
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Flies or lures
+                </li>
+              </ul>
+            </div>
+
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-bold text-brand-brown mb-3">For Backcountry</h3>
+              <ul class="space-y-2 text-brand-brown/75 text-sm">
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Topo map + compass
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Water filter
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  First aid kit
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Extra layers (cold at elevation)
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Bear bag or canister
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="mt-8 text-center">
+            <a
+              href="/shop"
+              class="inline-flex items-center gap-2 bg-sign-green text-white font-bold px-6 py-3 rounded-sm hover:bg-sign-green/90 motion-safe:transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange"
+            >
+              Browse Our Gear
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="bg-sign-green text-white py-12">
+      <div class="container mx-auto px-4 text-center">
+        <h2 class="font-display font-bold text-2xl mb-4">
+          Heading Into the Mon?
+        </h2>
+        <p class="text-white/80 mb-6 max-w-xl mx-auto">
+          Stop by first. We're your last reliable stop for licenses, ammo, and local knowledge
+          before you hit the backcountry. We'll point you in the right direction.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a
+            href={SITE_CONTACT.mapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 bg-white text-sign-green font-bold px-6 py-3 rounded-sm hover:bg-brand-cream motion-safe:transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+          >
+            <svg aria-hidden="true" focusable="false" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            </svg>
+            Get Directions to Shop
+          </a>
+          <a
+            href={SITE_CONTACT.phoneHref}
+            class="inline-flex items-center gap-2 bg-white/10 border border-white/30 text-white font-bold px-6 py-3 rounded-sm hover:bg-white/20 motion-safe:transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+          >
+            {SITE_CONTACT.phoneDisplay}
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="py-12 md:py-16">
+      <div class="container mx-auto px-4">
+        <div class="max-w-xl mx-auto">
+          <EmailCapture
+            variant="card"
+            heading="Get Backcountry Updates"
+            subheading="Stocking reports, season reminders, and gear restocks delivered to your inbox."
+          />
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Layout>

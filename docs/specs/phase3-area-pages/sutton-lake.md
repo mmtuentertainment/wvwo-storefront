@@ -50,7 +50,7 @@ Research needed for accurate species list. Current placeholder:
 - Restrooms
 
 ### Getting There
-Directions from shop (14 Candy St):
+Directions from shop (121 WV-82):
 1. Head north on I-79
 2. Take Exit 62 (Sutton)
 3. Follow signs to Sutton Lake

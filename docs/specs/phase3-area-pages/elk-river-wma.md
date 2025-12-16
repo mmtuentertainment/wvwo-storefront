@@ -61,7 +61,7 @@ Elk River WMA is massive (18,396 acres) and only 15 minutes from the shop. It's 
 - Smallmouth Bass (Elk River sections)
 
 ### Getting There
-Directions from shop (14 Candy St):
+Directions from shop (121 WV-82):
 1. Head north on I-79
 2. Take Exit 67 (Burnsville/Flatwoods area)
 3. Access roads are marked
