@@ -15,6 +15,10 @@ const badgeVariants = cva(
         destructive:
           "border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80",
         outline: "text-foreground",
+        // WVWO custom variants
+        stock: "border-transparent bg-sign-green text-white",
+        ffl: "border-transparent bg-brand-brown text-brand-cream",
+        blaze: "border-transparent bg-brand-orange text-white font-hand",
       },
     },
     defaultVariants: {

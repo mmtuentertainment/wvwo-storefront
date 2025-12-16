@@ -670,6 +670,22 @@ h1 { font-weight: 600; font-size: 1.5rem; } /* Weak, uncertain */
 ```
 Size jumps of 2.5x+ between heading levels. Weight jumps of 300+. Timid = forgettable.
 
+### RESPONSIVE TYPOGRAPHY SCALE
+Mobile-first scaling for professional hierarchy:
+
+| Class | Mobile | Tablet | Desktop | Use Case |
+|-------|--------|--------|---------|----------|
+| display-hero | 2.5rem | 4rem | 5rem | Homepage hero "Your Neighbors" |
+| display-section | 1.875rem | 2.25rem | 3rem | Section headers "What We Carry" |
+| display-card | 1.25rem | 1.5rem | 1.875rem | Category/product titles |
+| body-large | 1rem | 1.125rem | 1.25rem | Hero subtext, intros |
+| body-base | 0.875rem | 1rem | 1rem | Paragraphs, descriptions |
+
+**Line Height Rules:**
+- Display fonts: leading-tight (1.1-1.25) - bold signage doesn't need breathing room
+- Body fonts: leading-relaxed (1.625) - readability for product descriptions
+- Kim's handwritten: leading-normal (1.5) - natural Sharpie flow
+
 ### FORBIDDEN FONTS (AI Slop Indicators)
 ```
 NEVER: Inter, DM Sans, Space Grotesk, Poppins, Outfit, Montserrat, Raleway, Open Sans, system-ui
@@ -700,6 +716,27 @@ NEVER: Purple gradients, hot pink, neon anything, corporate blue (#0066cc), ster
 ### ORANGE USAGE
 <5% of screen. Highlighter, not paint bucket. CTAs and safety notices only.
 
+### COLOR USAGE BY COMPONENT
+
+| Component Type | Background | Border/Accent | Text | Hover |
+|----------------|------------|---------------|------|-------|
+| Primary CTA | sign-green | - | white | sign-green/90 |
+| Secondary CTA | transparent | brand-brown | brand-brown | brand-mud |
+| Ghost CTA | transparent | - | brand-brown | bg-brand-cream |
+| Card | white or brand-cream | sign-green (left) | brand-brown | border-orange |
+| Input (default) | brand-cream | brand-mud/30 | brand-brown | - |
+| Input (focus) | brand-cream | sign-green | brand-brown | - |
+| Input (error) | brand-cream | red-600 | brand-brown | - |
+| Badge (stock) | sign-green | - | white | - |
+| Badge (FFL) | brand-brown | - | brand-cream | - |
+| Badge (sale) | brand-orange | - | white | - |
+| Toast (success) | sign-green | - | white | - |
+| Toast (error) | red-600 | - | white | - |
+| Modal overlay | brand-brown/60 | - | - | - |
+| Modal dialog | brand-cream | brand-mud | brand-brown | - |
+
+**Orange Budget Rule**: Before adding orange to ANY component, audit the page. Must stay <5% of visible area. Orange reserved for: Primary CTAs, sale badges, required field asterisks.
+
 ## MOTION RULES
 
 ### ALLOWED
@@ -718,6 +755,25 @@ NEVER: Parallax, bouncy buttons, morphing gradients, glassmorphic reveals, confe
   * { animation-duration: 0.01ms !important; }
 }
 ```
+
+### COMPONENT ANIMATION PATTERNS
+
+| Component | Hover Effect | Duration | Easing |
+|-----------|--------------|----------|--------|
+| Product Card | `scale-[1.02]` on image | 0.3s | ease-out |
+| Category Card | `translateY(-2px)` + border-orange | 0.3s | ease-out |
+| CTA Button | `translateY(-1px)` + shadow-md | 0.2s | ease-out |
+| Nav Link | Pen-on-paper underline grow | 0.3s | ease-out |
+| Card Border | `border-l-sign-green` → `border-l-brand-orange` | 0.3s | ease |
+
+**Page Load Stagger**: For grids (categories, products), stagger entrance with `animation-delay: 60ms` per item.
+
+**Interaction Feedback**:
+- Button press: Brief `scale-[0.98]` (tactile press feel)
+- Link hover: Underline grows left-to-right
+- Form focus: Ring appears instantly (no fade)
+
+**NO Animation List**: Parallax scrolling, bouncy/elastic easing, infinite animations, hero image zoom on scroll, cursor followers.
 
 ## LAYOUT RULES
 
@@ -768,6 +824,288 @@ USE: "We handle the paperwork legally and quickly."
 - Raw flood photos
 
 **Philosophy**: If it looks like stock, it's wrong. If it looks like Kim took it on her phone, it's right.
+
+## FORM DESIGN RULES
+
+Forms are critical for FFL transfers, contact, and checkout. Must feel like Kim's clipboard, not a corporate portal.
+
+### Input Fields
+```css
+/* Default state */
+input { @apply bg-brand-cream border-2 border-brand-mud/30 rounded-sm px-4 py-3 font-body; }
+
+/* Focus state - green ring, no glow */
+input:focus { @apply ring-2 ring-sign-green border-sign-green outline-none; }
+
+/* Error state */
+input.error { @apply ring-2 ring-red-600 border-red-600; }
+
+/* Success state */
+input.success { @apply ring-2 ring-sign-green border-sign-green; }
+```
+
+### Labels & Required Fields
+- Font: `font-display font-medium` (Bitter, not handwritten)
+- Required indicator: Asterisk in `text-brand-orange` (not generic red)
+- Helper text: `text-sm text-brand-mud/60`
+- Position: Above field, left-aligned (like a paper form)
+
+### Error Messages
+- Position: Below field, left-aligned
+- Style: `text-sm text-red-600 mt-1`
+- Voice: Kim's tone ("Oops, we need your phone number to call you back")
+- NO: "Invalid input", "Required field", generic robot speak
+
+### Multi-Step Forms (FFL Transfers)
+Kim walks customers through FFL paperwork step-by-step. Digital should feel the same.
+
+1. Progress indicator: Simple numbered circles, not fancy stepper
+2. Current step: `bg-sign-green text-white`
+3. Completed step: Checkmark icon in `text-sign-green`
+4. Step titles: Kim's voice ("Tell us about yourself", "About the firearm", "Review & submit")
+
+### Form Examples (Kim's Voice)
+```
+WRONG: "Please enter a valid email address"
+RIGHT: "We'll need your email to send the transfer details"
+
+WRONG: "This field is required"
+RIGHT: "Don't forget your phone number - we'll call when it's ready"
+
+WRONG: "Form submitted successfully"
+RIGHT: "Got it! We'll be in touch within 24 hours. Grand love ya!"
+```
+
+## LOADING & FEEDBACK PATTERNS
+
+### Loading States
+Keep it simple. Kim's shop doesn't have fancy animations - just honest waiting.
+
+- **Spinner**: Simple circular in `text-sign-green`, 1.5rem size
+- **Skeleton**: `bg-brand-mud/10` blocks with subtle pulse (not shimmer)
+- **Duration**: Only show for waits >500ms (avoid flicker)
+- **NO**: Bouncing dots, morphing shapes, progress bars for unknown durations
+
+### Empty States
+When there's nothing to show, Kim's voice fills the gap:
+
+```
+Cart empty: "Your cart's looking a little empty. Browse our [category] to get started."
+No search results: "Hmm, we couldn't find that. Give us a call - if we don't have it, we can probably order it."
+Out of stock: "This one's popular! Leave your email and we'll holler when it's back."
+```
+
+- Illustration: Simple line icon (shopping bag, magnifying glass), not elaborate artwork
+- CTA: Always include next action ("Browse categories", "Call us", "View similar")
+- Font: Body text in `font-body`, CTA in `font-display`
+
+### Toast Notifications
+Quick feedback for actions (add to cart, form submit, etc.)
+
+- **Position**: Top-right (desktop), top-center (mobile)
+- **Duration**: 4 seconds with manual dismiss X
+- **Success**: `bg-sign-green text-white` with checkmark
+- **Error**: `bg-red-600 text-white` with X icon
+- **Info**: `bg-brand-brown text-brand-cream`
+- **Style**: `rounded-sm shadow-md` (sharp corners, harder shadow)
+- **NO**: Confetti, slide-from-bottom, stacking toasts
+
+### Cart Feedback
+When someone adds to cart:
+
+1. Button text: "Add to Cart" → "Added ✓" (hold 2 seconds, then reset)
+2. Cart icon: Brief pulse animation (scale 1.1 for 0.3s)
+3. NO: Modal popup, page redirect, confetti explosion
+
+## MODAL & DIALOG PATTERNS
+
+Guidelines ban glassmorphism - here's what TO use instead.
+
+### Overlay Background
+```css
+.modal-overlay {
+  background: rgba(62, 39, 35, 0.6); /* brand-brown at 60% */
+  /* NO: backdrop-blur, pure black, gradient overlays */
+}
+```
+
+### Dialog Box
+```css
+.modal-dialog {
+  @apply bg-brand-cream border-2 border-brand-mud rounded-sm;
+  @apply shadow-xl max-w-lg mx-4 p-6 md:p-8;
+  /* NO: rounded-2xl, glassmorphic bg, floating without border */
+}
+```
+
+### Dialog Header
+- Title: `font-display font-bold text-2xl text-brand-brown`
+- Close button: Simple X in top-right, `text-brand-mud hover:text-sign-green`
+- NO: Elaborate icons, gradient backgrounds, decorative elements
+
+### Dialog Content
+- Body text: `font-body text-brand-mud`
+- Spacing: Generous padding (p-6 minimum)
+- Actions: Right-aligned, primary CTA in `sign-green`, secondary in `outline`
+
+### Common Dialogs (Kim's Voice)
+```
+Confirm delete: "You sure? Once it's gone, it's gone."
+Unsaved changes: "Hold up - you've got unsaved changes. Want to save first?"
+Session timeout: "You've been away a while. For security, we logged you out."
+```
+
+## E-COMMERCE PATTERNS (Phase 3C)
+
+Professional retail patterns adapted for WVWO aesthetic.
+
+### Product Grid
+```css
+/* Responsive grid */
+.product-grid {
+  @apply grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6;
+}
+```
+
+- Cards: Border-left accent (`border-l-4 border-l-sign-green`)
+- Background: `bg-white` for product photos (clean display)
+- NO: Floating shadows, rounded-xl corners, gradient overlays
+
+### Product Card Anatomy
+1. **Image**: `aspect-square object-contain bg-white` (show full product)
+2. **Brand badge**: `text-brand-orange text-xs font-medium`
+3. **Title**: `font-display font-bold text-brand-brown line-clamp-2`
+4. **Price**: `font-display text-lg text-sign-green`
+5. **CTA**: Context-aware (shippable vs call-to-order)
+
+### Add to Cart Flow
+```
+1. User clicks "Add to Cart"
+2. Button shows spinner (0.5s max)
+3. Button text changes: "Added ✓" (green checkmark)
+4. Cart icon pulses briefly
+5. Button resets after 2 seconds
+6. NO: Modal popup, page redirect, confetti
+```
+
+### Cart Page Layout
+- Desktop: 2/3 items list, 1/3 order summary (sticky)
+- Mobile: Full-width items, summary below
+- Item row: Image (80px), title, quantity +/-, price, remove link
+- Remove: Text link ("Remove") not icon-only button
+
+### Cart Empty State
+```
+"Your cart's looking a little empty."
+[Browse Guns] [Browse Ammo] [Browse Gear]
+"Or give us a call - we're happy to help you find what you need."
+(304) 649-5765
+```
+
+### Checkout Flow
+- Style: Single page with collapsible sections
+- Sections: Contact → Shipping → Payment → Review
+- Progress: Simple numbered steps at top
+- Trust signals: FFL badge, phone number, "Family-owned since 2008"
+- Local pickup: Radio option with shop address + hours
+
+## SHADCN/UI ENFORCEMENT RULES
+
+shadcn components are copied into our codebase - we OWN them. Customize aggressively.
+
+### Mandatory Overrides (All Components)
+```
+rounded-md → rounded-sm (ALWAYS)
+rounded-lg → rounded-sm (ALWAYS)
+rounded-xl → rounded-sm (ALWAYS)
+```
+
+### Button Component (`src/components/ui/button.tsx`)
+Add WVWO custom variants:
+
+```typescript
+variant: {
+  // ... existing variants ...
+
+  // WVWO custom
+  wvwo: "bg-brand-brown text-brand-cream hover:bg-brand-mud font-display font-bold rounded-sm",
+  cta: "bg-sign-green text-white hover:bg-sign-green/90 font-display font-bold rounded-sm",
+  blaze: "bg-brand-orange text-white hover:bg-brand-orange/90 font-display font-bold rounded-sm",
+}
+```
+
+### Card Component (`src/components/ui/card.tsx`)
+- Enforce `rounded-sm`
+- Use `border-l-4 border-l-sign-green` pattern for product cards
+
+### Badge Component (`src/components/ui/badge.tsx`)
+Add WVWO custom variants:
+
+```typescript
+variant: {
+  // ... existing ...
+  stock: "bg-sign-green text-white rounded-sm",
+  ffl: "bg-brand-brown text-brand-cream rounded-sm",
+  blaze: "bg-brand-orange text-white rounded-sm font-hand",
+}
+```
+
+### Shadow Overrides (`shadcn-wvwo.css`)
+Harder shadows for WVWO (not soft SaaS shadows):
+
+```css
+.shadow-sm { box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.15); }
+.shadow-md { box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.2); }
+.shadow-lg { box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.2); }
+```
+
+### When to Use shadcn vs Astro
+| Use Case | Component Type | Why |
+|----------|----------------|-----|
+| Product cards | Astro (.astro) | Static, no hydration needed |
+| Category grid | Astro (.astro) | Static, better performance |
+| Cart slide-over | React (Sheet) | Needs interactivity |
+| Checkout form | React (Form) | Validation, state management |
+| Product filters | React (Accordion) | Collapse/expand interaction |
+| Tooltips | React (Tooltip) | Hover state management |
+
+## PRODUCT CONTENT STRUCTURE
+
+### Product Description Template
+```
+1. HOOK (1 sentence): What it does, who it's for
+2. FEATURES (3-5 bullets): Key benefits, specs that matter
+3. KIM'S TAKE (1-2 sentences): Personal recommendation in font-hand
+4. SPECS (if applicable): Caliber, size, weight, material
+```
+
+### Example: Hunting Jacket
+```
+Built for cold stands. The Badlands jacket keeps you warm through morning
+frost and afternoon wind.
+
+• PrimaLoft insulation rated to 20°F
+• Odor control lining won't spook deer
+• Quiet outer shell for movement
+• Reinforced elbows and shoulders
+• Available in Mossy Oak or Realtree
+
+*Kim says: "I've worn mine four seasons now. Still waterproof, still warm."*
+
+Specs: M-3XL | 2.4 lbs | Machine washable
+```
+
+### Voice Rules for Products
+```
+WRONG: "Experience unparalleled warmth with our premium insulation technology"
+RIGHT: "Keeps you warm on 20-degree mornings. Trust us, we've tested it."
+
+WRONG: "Industry-leading performance in all conditions"
+RIGHT: "Works in rain, snow, and that weird November drizzle"
+
+WRONG: "Shop now and elevate your hunting experience"
+RIGHT: "Questions? Give us a call - we've got this jacket in the shop"
+```
 
 ## 5 LITMUS TESTS (Run Before Every Design Decision)
 
