@@ -45,8 +45,8 @@ const schemaData = {
   },
   "geo": {
     "@type": "GeoCoordinates",
-    "latitude": 38.4876,
-    "longitude": -80.7073
+    "latitude": 38.49910,
+    "longitude": -80.75460
   },
   "openingHoursSpecification": [
     {
@@ -58,26 +58,32 @@ const schemaData = {
   ],
   "priceRange": "$$",
   "image": "https://wvwildoutdoors.com/og-wvwo-storefront.png",
-  "sameAs": [],
+  "sameAs": [
+    "https://www.facebook.com/profile.php?id=100063588635941"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": SITE_CONTACT.phone,
+    "contactType": "customer service",
+    "areaServed": "US",
+    "availableLanguage": "English"
+  },
   "hasOfferCatalog": {
     "@type": "OfferCatalog",
-    "name": "Products & Services",
+    "name": "Product Categories",
     "itemListElement": [
-      { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Optics" } },
-      { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Knives" } },
-      { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Guns" } },
-      { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Archery" } },
-      { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Fishing" } },
-      { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Rustic Cabin Goods" } },
-      { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Boots" } },
-      { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Ammo" } },
-      { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Animal Feed" } },
-      { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Pet Supplies" } },
-      { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Family Clothing" } },
-      { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Seasonal Garden Supplies" } },
-      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "FFL Transfers" } },
-      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "WV Hunting Licenses" } },
-      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "WV Fishing Licenses" } }
+      { "@type": "ListItem", "position": 1, "name": "Optics" },
+      { "@type": "ListItem", "position": 2, "name": "Knives" },
+      { "@type": "ListItem", "position": 3, "name": "Guns" },
+      { "@type": "ListItem", "position": 4, "name": "Archery" },
+      { "@type": "ListItem", "position": 5, "name": "Fishing" },
+      { "@type": "ListItem", "position": 6, "name": "Rustic Cabin Goods" },
+      { "@type": "ListItem", "position": 7, "name": "Boots" },
+      { "@type": "ListItem", "position": 8, "name": "Ammo" },
+      { "@type": "ListItem", "position": 9, "name": "Animal Feed" },
+      { "@type": "ListItem", "position": 10, "name": "Pet Supplies" },
+      { "@type": "ListItem", "position": 11, "name": "Family Clothing" },
+      { "@type": "ListItem", "position": 12, "name": "Seasonal Garden Supplies" }
     ]
   },
   "additionalType": "https://schema.org/GunStore",
@@ -85,14 +91,42 @@ const schemaData = {
     "@type": "GeoCircle",
     "geoMidpoint": {
       "@type": "GeoCoordinates",
-      "latitude": 38.4876,
-      "longitude": -80.7073
+      "latitude": 38.49910,
+      "longitude": -80.75460
     },
     "geoRadius": 80467
   },
   "knowsAbout": ["FFL transfers", "WV hunting licenses", "firearms", "ammunition", "I-79 corridor hunting supplies"],
   "paymentAccepted": "Cash, Credit Card, Debit Card",
-  "currenciesAccepted": "USD"
+  "currenciesAccepted": "USD",
+  "makesOffer": [
+    {
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Service",
+        "name": "FFL Transfer",
+        "description": "Buy online? Ship to us. We handle the paperwork legally and quickly. $25 per transfer."
+      },
+      "price": "25.00",
+      "priceCurrency": "USD"
+    },
+    {
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Service",
+        "name": "WV Hunting License",
+        "description": "Get your hunting license here. We're an official WVDNR agent - we print them on-site."
+      }
+    },
+    {
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Service",
+        "name": "WV Fishing License",
+        "description": "Get your fishing license here. We're an official WVDNR agent - we print them on-site."
+      }
+    }
+  ]
 };
 ---
 
