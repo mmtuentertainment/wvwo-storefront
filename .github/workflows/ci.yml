@@ -36,11 +36,11 @@ jobs:
         run: |
           echo "🤠 Checking WVWO Frontend Aesthetics Compliance..."
 
-          # Check for forbidden rounded corners (rounded-lg, rounded-xl)
+          # Check for forbidden rounded corners (rounded-md, rounded-lg, rounded-xl)
           # Exclude node_modules and allow rounded-full for circles
           if grep -rn --include="*.astro" --include="*.tsx" --include="*.jsx" \
-            -E "rounded-(lg|xl)" src/ 2>/dev/null | grep -v "rounded-full"; then
-            echo "❌ FAIL: Found rounded-lg or rounded-xl. Use rounded-sm for WVWO aesthetic."
+            -E "rounded-(md|lg|xl)" src/ 2>/dev/null | grep -v "rounded-full"; then
+            echo "❌ FAIL: Found rounded-md, rounded-lg, or rounded-xl. Use rounded-sm for WVWO aesthetic."
             echo "See CLAUDE.md → WVWO Frontend Aesthetics for guidelines."
             exit 1
           fi

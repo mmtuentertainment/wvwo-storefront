@@ -129,7 +129,7 @@ reviews:
         - Accessibility from day one (semantic HTML, alt text, ARIA)
 
         WVWO FRONTEND AESTHETICS (CI-Enforced):
-        - FORBIDDEN rounded corners: rounded-lg, rounded-xl → USE rounded-sm
+        - FORBIDDEN rounded corners: rounded-md, rounded-lg, rounded-xl → USE rounded-sm
         - FORBIDDEN glassmorphism: backdrop-blur → USE solid bg (bg-brand-brown/80)
         - FORBIDDEN animations: animate-bounce → USE subtle (animate-pulse sparingly)
         - FORBIDDEN fonts: Inter, Poppins, Space Grotesk, DM Sans → USE Bitter, Permanent Marker, Noto Sans
@@ -159,6 +159,7 @@ reviews:
         - Colors MUST use CSS variables: --brand-brown, --sign-green, --brand-orange, --brand-cream
         - NO glassmorphism (backdrop-blur)
         - Sharp shadows (increased opacity) over soft SaaS shadows
+        - Shadow values: shadow-sm (0.15), shadow-md (0.2), shadow-lg (0.2) opacity
 
         Approved shadcn Components:
         - button.tsx, card.tsx, badge.tsx, input.tsx, select.tsx
@@ -398,7 +399,7 @@ reviews:
     - label: "voice-authenticity"
       instructions: "Apply if PR contains corporate buzzwords, AI slop (Inter font, purple gradients), luxury language, or inauthentic WV voice (Principle II)"
     - label: "aesthetics-violation"
-      instructions: "Apply if PR contains: rounded-lg/xl (use rounded-sm), backdrop-blur (glassmorphism), animate-bounce, forbidden fonts (Inter, Poppins, Space Grotesk, DM Sans), or purple/neon colors. CI will also catch these."
+      instructions: "Apply if PR contains: rounded-md/lg/xl (use rounded-sm), backdrop-blur (glassmorphism), animate-bounce, forbidden fonts (Inter, Poppins, Space Grotesk, DM Sans), or purple/neon colors. CI will also catch these."
     - label: "gateway-positioning"
       instructions: "Apply if PR adds/improves geographic SEO: US 19, I-79 Exit 57, drive times to WMAs/lakes (Principle VII)"
     - label: "role-boundary-violation"
