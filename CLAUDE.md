@@ -360,7 +360,7 @@ Auto-generated from constitution v2.1.0. Last updated: 2025-12-12
 ## Active Technologies
 - Astro 5.x (static site generation)
 - Tailwind CSS 4.x (styling)
-- Vanilla JavaScript (minimal interactivity)
+- React + shadcn/ui (interactive components, approved Dec 2025)
 - Cloudflare Pages (hosting)
 
 ## Project Structure
@@ -388,8 +388,9 @@ npm run preview  # Preview production build
 ## Code Style
 
 - Astro components: `.astro` files with frontmatter
+- React components: `.tsx` files with shadcn/ui (use client:visible for hydration)
 - Tailwind: Use design system classes (brand-brown, brand-orange, etc.)
-- No React/Vue - vanilla JS only for interactivity
+- Apply WVWO aesthetic overrides to shadcn defaults (rounded-sm, brand colors)
 - Mobile-first responsive design
 
 ## Recent Changes
@@ -435,8 +436,8 @@ npx agentdb@latest reflexion retrieve "WVWO" --k 5 --synthesize-context
 ### DURING WORK (Semi-Auto)
 
 **Before implementing any approach**, check verdict:
-- REJECT if: React, Vue, Angular, Svelte, Next.js, corporate tone
-- APPROVE if: Astro component, Tailwind CSS, vanilla JS, Kim's voice
+- REJECT if: Vue, Angular, Svelte, Next.js, corporate tone
+- APPROVE if: Astro component, React/shadcn, Tailwind CSS, Kim's voice
 - REVIEW if: New pattern, complex feature, third-party integration
 
 **After completing each task**, ask user:
@@ -477,7 +478,7 @@ npx agentdb@latest learner run 3 0.6 0.7
 | **LOCATION** | **121 WV-82 (Birch River Rd), Birch River, WV 26610** (I-79 Exit 57 access) |
 | **IDENTITY** | FFL dealer, DNR agent, family-owned since 2008 |
 | **PHASE** | Phase 3: Highway Hunter Capture (SEO + Content Hub + E-Commerce) |
-| **TECH** | Astro 5.x + Tailwind CSS 4.x + vanilla JS ONLY |
+| **TECH** | Astro 5.x + Tailwind CSS 4.x + React/shadcn (approved Dec 2025) |
 | **HOSTING** | Cloudflare Pages |
 | **VOICE** | Faith-forward, humble, rural WV authentic, "Grand love ya" |
 | **DESIGN** | brand-brown, brand-orange, brand-cream, sign-green |
@@ -500,13 +501,14 @@ npx agentdb@latest learner run 3 0.6 0.7
 
 ## HARD RULES (Never Violate)
 
-- **NEVER** suggest React, Vue, Angular, Svelte, or any JS framework
+- **APPROVED**: React + shadcn/ui for interactive components (user approved Dec 2025)
+- **NEVER** suggest Vue, Angular, Svelte, or other JS frameworks (React is the exception)
 - **NEVER** use corporate marketing tone
 - **NEVER** over-engineer - keep it simple
 - **NEVER** suggest paid services without explicit user request
-- **ALWAYS** use Astro components with frontmatter
+- **ALWAYS** use Astro components with frontmatter (React islands via client:visible)
 - **ALWAYS** use Tailwind design system classes
-- **ALWAYS** write vanilla JS for interactivity
+- **ALWAYS** apply WVWO aesthetic to shadcn defaults (rounded-sm, brand colors, no purple)
 - **ALWAYS** match Kim's authentic voice
 - **ALWAYS** prefer free-tier solutions
 
