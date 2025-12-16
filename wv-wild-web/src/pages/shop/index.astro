@@ -6,6 +6,7 @@ import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import ProductCard from '../../components/shop/ProductCard.astro';
+import { CategoryShowcase } from '../../components/shop/CategoryShowcase';
 import { SITE_CONTACT } from '../../config/siteContact';
 import storeData from '../../data/store.json';
 
@@ -185,19 +186,7 @@ const brands = [...new Set(products.map(p => p.brand))].sort();
         <h2 class="font-display font-bold text-2xl text-brand-brown text-center mb-8">
           Browse by Category
         </h2>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {categories.map(cat => (
-            <a
-              href={`/shop/${cat.slug}`}
-              class="block bg-stone-100 rounded-lg p-6 text-center hover:bg-stone-200 transition-colors group"
-            >
-              <h3 class="font-display font-bold text-brand-brown group-hover:text-brand-orange transition-colors">
-                {cat.name}
-              </h3>
-              <p class="text-sm text-stone-500 mt-1">{cat.tagline}</p>
-            </a>
-          ))}
-        </div>
+        <CategoryShowcase categories={categories} client:visible />
       </div>
     </section>
 
