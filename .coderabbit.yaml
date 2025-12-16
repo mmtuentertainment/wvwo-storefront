@@ -128,15 +128,49 @@ reviews:
         - Error handling MUST be user-friendly
         - Accessibility from day one (semantic HTML, alt text, ARIA)
 
+        WVWO FRONTEND AESTHETICS (CI-Enforced):
+        - FORBIDDEN rounded corners: rounded-md, rounded-lg, rounded-xl → USE rounded-sm
+        - FORBIDDEN glassmorphism: backdrop-blur → USE solid bg (bg-brand-brown/80)
+        - FORBIDDEN animations: animate-bounce → USE subtle (animate-pulse sparingly)
+        - FORBIDDEN fonts: Inter, Poppins, Space Grotesk, DM Sans → USE Bitter, Permanent Marker, Noto Sans
+        - FORBIDDEN colors: purple gradients, hot pink, neon, corporate blue
+        - Sharp corners like a hardware store, not soft like a tech startup
+
         Tech Stack:
         - Astro 5.x components with frontmatter
         - Tailwind CSS 4.x design system classes
         - Import from ../../components/, ../../layouts/, etc.
 
-        File Size Guidelines:
-        - Pages: ~300-500 lines typical
-        - Components: <200 lines preferred
+        File Size Guidelines (Claude Code Optimized):
+        - Pages: <800 lines (content-heavy guides acceptable)
+        - Components: <200 lines (strict)
+        - Functions: <50 lines
         - Extract repeated patterns to components
+        Note: Claude Code has 25K token limit (~6-8K lines); these limits are for human readability, not tooling constraints
+
+    # shadcn/ui Components - React island components (WVWO customized)
+    - path: "wv-wild-web/src/components/ui/*.tsx"
+      instructions: |
+        CRITICAL - shadcn/ui Components for WVWO:
+        These are React-based shadcn/ui components customized for WVWO aesthetic.
+        Used as Astro client:load islands ONLY where interactivity requires it.
+
+        WVWO FRONTEND AESTHETICS (CI-Enforced):
+        - Base variant MUST use rounded-sm (not rounded-md/lg/xl)
+        - WVWO custom variants: wvwo, cta, blaze (buttons); stock, ffl, blaze (badges)
+        - Colors MUST use CSS variables: --brand-brown, --sign-green, --brand-orange, --brand-cream
+        - NO glassmorphism (backdrop-blur)
+        - Sharp shadows (increased opacity) over soft SaaS shadows
+        - Shadow values: shadow-sm (0.15), shadow-md (0.2), shadow-lg (0.2) opacity
+
+        Approved shadcn Components:
+        - button.tsx, card.tsx, badge.tsx, input.tsx, select.tsx
+        - Dialog, Sheet for modals (with WVWO styling)
+
+        FORBIDDEN in shadcn:
+        - Rounded corners > rounded-sm in base variants
+        - Default Tailwind stone colors without WVWO CSS variable mapping
+        - Animations beyond hover transitions
 
     # Store Data - Kim's inventory source of truth
     - path: "wv-wild-web/src/data/*.json"
@@ -366,6 +400,8 @@ reviews:
       instructions: "Apply if PR requires Kim to use terminal, edit config files, or exceed 15min training time (Principle I)"
     - label: "voice-authenticity"
       instructions: "Apply if PR contains corporate buzzwords, AI slop (Inter font, purple gradients), luxury language, or inauthentic WV voice (Principle II)"
+    - label: "aesthetics-violation"
+      instructions: "Apply if PR contains: rounded-md/lg/xl (use rounded-sm), backdrop-blur (glassmorphism), animate-bounce, forbidden fonts (Inter, Poppins, Space Grotesk, DM Sans), or purple/neon colors. CI will also catch these."
     - label: "gateway-positioning"
       instructions: "Apply if PR adds/improves geographic SEO: US 19, I-79 Exit 57, drive times to WMAs/lakes (Principle VII)"
     - label: "role-boundary-violation"
