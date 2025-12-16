@@ -17,6 +17,12 @@ export const SITE_CONTACT = {
         feetFromExit: 1500,                    // ~1500 feet from Exit 57, across from fire station road
         directions: "Take I-79 Exit 57 (Frametown). We're just off the exit, across from the fire station road.",
     },
+    // Drive times from major cities for highway hunter capture
+    driveTimes: [
+        { city: 'Pittsburgh, PA', time: '~2.5 hours' },
+        { city: 'Charleston, WV', time: '~1.5 hours' },
+        { city: 'Charlotte, NC', time: '~5 hours' },
+    ],
     // Nearby Wildlife Management Areas for hunting SEO
     nearbyWMAs: [
         { name: 'Burnsville Lake WMA', distance: '20 min' },

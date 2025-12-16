@@ -24,14 +24,28 @@ import { SITE_CONTACT } from '../config/siteContact';
                   <div>{line}</div>
                 ))}
               </address>
+              <p class="text-sm text-brand-mud/70 mt-2">
+                {SITE_CONTACT.highway.interstate} {SITE_CONTACT.highway.exitName} Exit {SITE_CONTACT.highway.exit}
+              </p>
+            </div>
+            <!-- Drive times from major cities -->
+            <div class="mt-4 pt-4 border-t border-brand-mud/10">
+              <p class="text-sm font-medium text-brand-brown mb-2">Drive times:</p>
+              <ul class="text-sm text-brand-mud/80 space-y-1">
+                {SITE_CONTACT.driveTimes.map((dt) => (
+                  <li class="flex justify-between max-w-[200px]">
+                    <span>{dt.city}</span>
+                    <span class="text-brand-mud/60">{dt.time}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
         </div>
 
         <div class="space-y-2">
             <h3 class="font-display text-2xl text-brand-brown">Hours</h3>
             <ul class="text-brand-mud font-body space-y-1">
-                <li>Mon–Fri: 9:00am–5:00pm</li>
-                <li>Sat: 9:00am–2:00pm</li>
+                <li>Mon–Sat: 10:00am–5:00pm</li>
                 <li>Sun: Closed</li>
                 <li class="italic text-brand-mud/85 text-sm mt-2">Call ahead for current hours</li>
             </ul>
