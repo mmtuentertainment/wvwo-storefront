@@ -32,6 +32,43 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: WVWO Aesthetics Lint
+        run: |
+          echo "🤠 Checking WVWO Frontend Aesthetics Compliance..."
+
+          # Check for forbidden rounded corners (rounded-lg, rounded-xl)
+          # Exclude node_modules and allow rounded-full for circles
+          if grep -rn --include="*.astro" --include="*.tsx" --include="*.jsx" \
+            -E "rounded-(lg|xl)" src/ 2>/dev/null | grep -v "rounded-full"; then
+            echo "❌ FAIL: Found rounded-lg or rounded-xl. Use rounded-sm for WVWO aesthetic."
+            echo "See CLAUDE.md → WVWO Frontend Aesthetics for guidelines."
+            exit 1
+          fi
+
+          # Check for glassmorphism (backdrop-blur)
+          if grep -rn --include="*.astro" --include="*.tsx" --include="*.jsx" \
+            "backdrop-blur" src/ 2>/dev/null; then
+            echo "❌ FAIL: Found backdrop-blur (glassmorphism). Not allowed in WVWO."
+            echo "Use solid backgrounds like bg-brand-brown/80 instead."
+            exit 1
+          fi
+
+          # Check for bouncy animations
+          if grep -rn --include="*.astro" --include="*.tsx" --include="*.jsx" \
+            "animate-bounce" src/ 2>/dev/null; then
+            echo "❌ FAIL: Found animate-bounce. Use subtle animations only."
+            exit 1
+          fi
+
+          # Check for forbidden SaaS fonts
+          if grep -rn --include="*.astro" --include="*.tsx" --include="*.jsx" --include="*.css" \
+            -E "font-family:.*(Inter|Poppins|Space Grotesk|DM Sans)" src/ 2>/dev/null; then
+            echo "❌ FAIL: Found forbidden SaaS font. Use Bitter, Permanent Marker, or Noto Sans."
+            exit 1
+          fi
+
+          echo "✅ PASS: All aesthetics checks passed. Sharp corners, authentic vibes."
+
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
