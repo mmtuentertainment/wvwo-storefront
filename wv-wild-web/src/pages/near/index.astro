@@ -109,13 +109,13 @@ const collectionPageSchema = {
   "@type": "CollectionPage",
   "name": "Hunt Near Us",
   "description": "Public hunting and fishing areas near I-79 Exit 57 (Frametown), WV. Our shop is about 1,500 feet from the ramp.",
-  "url": "https://wvwildoutdoors.com/near/",
+  "url": "https://wvwildoutdoors.pages.dev/near/",
   "hasPart": outdoorAreas
     .filter(a => a.hasDetailPage)
     .map(area => ({
       "@type": "WebPage",
       "name": area.name,
-      "url": `https://wvwildoutdoors.com/near/${area.slug}/`
+      "url": `https://wvwildoutdoors.pages.dev/near/${area.slug}/`
     }))
 };
 ---
