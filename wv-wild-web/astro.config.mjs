@@ -1,14 +1,14 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import tailwind from '@tailwindcss/vite';
-
 import react from '@astrojs/react';
+import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://wvwildoutdoors.com',
   vite: {
       plugins: [tailwind()],
   },
-
-  integrations: [react()],
+  integrations: [react(), sitemap()],
 });
