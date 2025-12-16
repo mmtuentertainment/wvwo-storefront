@@ -1,0 +1,85 @@
+/**
+ * WVWO Theme Override for shadcn/ui Components
+ *
+ * This maps WVWO brand colors to shadcn's design tokens.
+ * Applied after shadcn's default theme in global.css.
+ */
+
+@layer base {
+  :root {
+    /* Background & Foreground */
+    --background: 40 100% 97%;              /* brand-cream - warm paper background */
+    --foreground: 16 39% 19%;               /* brand-brown - dark text */
+
+    /* Card */
+    --card: 40 100% 97%;                    /* brand-cream */
+    --card-foreground: 16 39% 19%;          /* brand-brown */
+
+    /* Primary (Main Actions) */
+    --primary: 122 39% 34%;                 /* sign-green - earthy green */
+    --primary-foreground: 40 100% 97%;      /* brand-cream text on green */
+
+    /* Secondary (Subtle Actions) */
+    --secondary: 16 25% 29%;                /* brand-mud - weathered brown */
+    --secondary-foreground: 40 100% 97%;    /* brand-cream text */
+
+    /* Muted (Background Elements) */
+    --muted: 16 21% 35%;                    /* brand-brown-faded */
+    --muted-foreground: 40 100% 97%;        /* brand-cream */
+
+    /* Accent (Highlights & Hover States) */
+    --accent: 24 100% 50%;                  /* brand-orange - use sparingly! */
+    --accent-foreground: 16 39% 19%;        /* brand-brown text */
+
+    /* Destructive (Errors & Warnings) */
+    --destructive: 0 84% 60%;               /* Red for errors */
+    --destructive-foreground: 40 100% 97%;  /* brand-cream text */
+
+    /* Borders & Inputs */
+    --border: 16 25% 29% / 0.2;             /* brand-mud with transparency */
+    --input: 16 25% 29% / 0.2;              /* brand-mud with transparency */
+    --ring: 122 39% 34%;                    /* sign-green for focus rings */
+
+    /* Popover */
+    --popover: 40 100% 97%;                 /* brand-cream */
+    --popover-foreground: 16 39% 19%;       /* brand-brown */
+
+    /* Radius - Keep sharp corners per WVWO aesthetic */
+    --radius: 0.25rem;                      /* rounded-sm only */
+  }
+
+  /* Dark mode variant (if needed for admin areas) */
+  .dark {
+    --background: 16 39% 19%;               /* brand-brown background */
+    --foreground: 40 100% 97%;              /* brand-cream text */
+
+    --card: 16 25% 29%;                     /* brand-mud */
+    --card-foreground: 40 100% 97%;         /* brand-cream */
+
+    --primary: 122 43% 38%;                 /* sign-green-muted */
+    --primary-foreground: 40 100% 97%;      /* brand-cream */
+
+    --secondary: 16 21% 35%;                /* brand-brown-faded */
+    --secondary-foreground: 40 100% 97%;    /* brand-cream */
+
+    --muted: 16 25% 29%;                    /* brand-mud */
+    --muted-foreground: 40 100% 85%;        /* slightly dimmed cream */
+
+    --accent: 24 100% 45%;                  /* brand-orange-muted */
+    --accent-foreground: 40 100% 97%;       /* brand-cream */
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 40 100% 97%;
+
+    --border: 16 25% 29% / 0.3;
+    --input: 16 25% 29% / 0.3;
+    --ring: 122 43% 38%;
+
+    --popover: 16 25% 29%;
+    --popover-foreground: 40 100% 97%;
+  }
+}
+
+/**
+ * Component-specific overrides for WVWO aesthetic
+ */

@@ -19,15 +19,23 @@ Build a complete, production-ready website for **WV Wild Outdoors**, a family-ow
 | **Phone** | (obtain from store_info) |
 
 ### What They Sell
-- Firearms (rifles, shotguns, handguns)
-- Ammunition
-- Hunting gear and apparel
-- Fishing tackle and equipment
-- Boots and outdoor footwear
-- Optics (scopes, binoculars)
-- Knives and tools
-- Country store items
-- Live bait (seasonal)
+
+Kim's official 12 inventory sections (December 2025):
+
+1. **Optics** - Scopes, binoculars, rangefinders
+2. **Knives** - Hunting knives, skinning knives, multi-tools
+3. **Guns** - Rifles, shotguns, handguns (FFL dealer)
+4. **Archery** - Bows, crossbows, arrows, accessories
+5. **Fishing** - Rods, reels, tackle, live bait
+6. **Rustic Cabin Goods** - Cabin decor, cast iron, country living
+7. **Boots** - Hunting boots, work boots, rubber boots
+8. **Ammo** - Rifle, shotgun, handgun ammunition
+9. **Animal Feed** - Deer corn, bird seed, livestock feed
+10. **Pet Supplies** - Dog food, treats, hunting dog supplies
+11. **Family Clothing** - Camo, blaze orange, outdoor apparel
+12. **Seasonal Garden Supplies** - Seeds, plants, garden supplies
+
+*Source: Kim Utt (store owner), December 2025*
 
 ### Services Offered
 - FFL Transfers ($25 per transfer)

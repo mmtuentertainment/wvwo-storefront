@@ -1,36 +1,88 @@
 {
   "categories": [
     {
-      "id": "ammo",
-      "name": "Ammunition",
-      "slug": "ammunition",
-      "tagline": "The WV Staple",
-      "description": "Premium rifle and shotgun ammunition for hunting and sport shooting. We stock the brands West Virginia hunters trust.",
-      "image": "/images/categories/ammo.jpg"
+      "id": "optics",
+      "name": "Optics",
+      "slug": "optics",
+      "tagline": "See What Counts",
+      "description": "Scopes, binoculars, and rangefinders for hunting and birding."
     },
     {
-      "id": "fishing-creek",
-      "name": "Trout Fishing",
-      "slug": "trout-fishing",
-      "tagline": "For the Tributaries",
-      "description": "Everything you need for the stocked streams and native brook trout of the WV highlands.",
-      "image": "/images/categories/trout.jpg"
-    },
-    {
-      "id": "fishing-lake",
-      "name": "Lake Fishing",
-      "slug": "lake-fishing",
-      "tagline": "For Sutton & Burnsville",
-      "description": "Bass, catfish, and walleye tackle for the big water. Rigged and ready for Sutton Lake and beyond.",
-      "image": "/images/categories/lake.jpg"
+      "id": "knives",
+      "name": "Knives",
+      "slug": "knives",
+      "tagline": "Sharp & Ready",
+      "description": "Hunting knives, skinning knives, and multi-tools."
     },
     {
       "id": "firearms",
-      "name": "Firearms",
-      "slug": "firearms",
+      "name": "Guns",
+      "slug": "guns",
       "tagline": "Tools for the Woods",
-      "description": "Rifles, shotguns, and handguns from trusted manufacturers. All sales require federal background check.",
-      "image": "/images/categories/firearms.jpg"
+      "description": "Rifles, shotguns, and handguns. All sales require federal background check."
+    },
+    {
+      "id": "archery",
+      "name": "Archery",
+      "slug": "archery",
+      "tagline": "Quiet & Deadly",
+      "description": "Bows, crossbows, arrows, and archery accessories."
+    },
+    {
+      "id": "fishing",
+      "name": "Fishing",
+      "slug": "fishing",
+      "tagline": "For Creek & Lake",
+      "description": "Rods, reels, tackle, and live bait for trout streams and bass lakes."
+    },
+    {
+      "id": "rustic-cabin",
+      "name": "Rustic Cabin Goods",
+      "slug": "rustic-cabin",
+      "tagline": "Country Comforts",
+      "description": "Cabin decor, cast iron, and country living essentials."
+    },
+    {
+      "id": "boots",
+      "name": "Boots",
+      "slug": "boots",
+      "tagline": "Walk the Hills",
+      "description": "Hunting boots, work boots, and rubber boots for WV terrain."
+    },
+    {
+      "id": "ammo",
+      "name": "Ammo",
+      "slug": "ammo",
+      "tagline": "The WV Staple",
+      "description": "Rifle, shotgun, and handgun ammunition."
+    },
+    {
+      "id": "animal-feed",
+      "name": "Animal Feed",
+      "slug": "animal-feed",
+      "tagline": "For the Herd",
+      "description": "Deer corn, bird seed, and livestock feed."
+    },
+    {
+      "id": "pet-supplies",
+      "name": "Pet Supplies",
+      "slug": "pet-supplies",
+      "tagline": "For Your Hunting Buddies",
+      "description": "Dog food, treats, and supplies for hunting dogs and pets."
+    },
+    {
+      "id": "clothing",
+      "name": "Family Clothing",
+      "slug": "family-clothing",
+      "tagline": "Dress for the Outdoors",
+      "description": "Camo, blaze orange, work wear, and outdoor apparel for the whole family."
+    },
+    {
+      "id": "garden",
+      "name": "Seasonal Garden Supplies",
+      "slug": "garden",
+      "tagline": "Grow Your Own",
+      "description": "Seeds, plants, and garden supplies in season."
     }
   ],
   "products": [
@@ -138,7 +190,7 @@
       "id": "berkley-powerbait-chartreuse",
       "sku": "FISH-BPB-CHART",
       "slug": "berkley-powerbait-chartreuse",
-      "categoryId": "fishing-creek",
+      "categoryId": "fishing",
       "brand": "Berkley",
       "name": "PowerBait Trout Dough - Chartreuse",
       "shortName": "PowerBait Chartreuse",
@@ -162,7 +214,7 @@
       "id": "berkley-powerbait-rainbow",
       "sku": "FISH-BPB-RAIN",
       "slug": "berkley-powerbait-rainbow",
-      "categoryId": "fishing-creek",
+      "categoryId": "fishing",
       "brand": "Berkley",
       "name": "PowerBait Trout Dough - Rainbow",
       "shortName": "PowerBait Rainbow",
@@ -186,7 +238,7 @@
       "id": "trout-magnet-kit-original",
       "sku": "FISH-TM-KIT",
       "slug": "trout-magnet-original-kit",
-      "categoryId": "fishing-creek",
+      "categoryId": "fishing",
       "brand": "Trout Magnet",
       "name": "Trout Magnet Original 85-Piece Kit",
       "shortName": "Trout Magnet Kit",
@@ -210,7 +262,7 @@
       "id": "panther-martin-spinner-gold",
       "sku": "FISH-PM-GOLD",
       "slug": "panther-martin-spinner-gold",
-      "categoryId": "fishing-creek",
+      "categoryId": "fishing",
       "brand": "Panther Martin",
       "name": "Classic Spinner 1/8oz - Gold",
       "shortName": "Panther Martin Gold",
@@ -234,7 +286,7 @@
       "id": "strike-king-spinnerbait-white",
       "sku": "FISH-SK-SB-WHT",
       "slug": "strike-king-spinnerbait-white",
-      "categoryId": "fishing-lake",
+      "categoryId": "fishing",
       "brand": "Strike King",
       "name": "KVD Finesse Spinnerbait 3/8oz - White",
       "shortName": "KVD Spinnerbait White",
@@ -258,7 +310,7 @@
       "id": "bandit-crankbait-chartreuse-shad",
       "sku": "FISH-BAN-CB-CS",
       "slug": "bandit-crankbait-chartreuse-shad",
-      "categoryId": "fishing-lake",
+      "categoryId": "fishing",
       "brand": "Bandit",
       "name": "Series 200 Crankbait - Chartreuse Shad",
       "shortName": "Bandit 200 Chartreuse",
@@ -282,7 +334,7 @@
       "id": "eagle-claw-catfish-rig",
       "sku": "FISH-EC-CAT-RIG",
       "slug": "eagle-claw-catfish-rig",
-      "categoryId": "fishing-lake",
+      "categoryId": "fishing",
       "brand": "Eagle Claw",
       "name": "Catfish Rig Double Hook 3/0",
       "shortName": "Catfish Rig",
@@ -306,7 +358,7 @@
       "id": "zoom-brush-hog-green-pumpkin",
       "sku": "FISH-ZM-BH-GP",
       "slug": "zoom-brush-hog-green-pumpkin",
-      "categoryId": "fishing-lake",
+      "categoryId": "fishing",
       "brand": "Zoom",
       "name": "Brush Hog 6\" - Green Pumpkin",
       "shortName": "Brush Hog",

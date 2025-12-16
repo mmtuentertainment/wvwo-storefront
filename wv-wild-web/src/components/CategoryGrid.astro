@@ -1,76 +1,28 @@
-    ---
-import { Image } from 'astro:assets';
-// Authentic Stock Photos
-import imgGuns from '../assets/cat_real_guns.jpg';
-import imgShelves from '../assets/cat-shelves-real.jpg';
-import imgLures from '../assets/cat-lures-real.jpg';
-
-const categories = [
-  {
-    title: 'Firearms',
-    image: imgGuns,
-    position: 'center', // Focus on the wall
-    link: '#firearms'
-  },
-  {
-    title: 'Ammunition',
-    image: imgShelves,
-    position: 'top', // Focus on top shelves (Ammo)
-    link: '#ammo'
-  },
-  {
-    title: 'Live Bait',
-    image: imgShelves,
-    position: 'bottom', // Focus on bottom (Bait buckets)
-    link: '#bait'
-  },
-  {
-    title: 'Lures',
-    image: imgLures,
-    position: 'center', // Focus on pegboard
-    link: '#lures'
-  },
-  {
-     title: 'Deer Corn & Feed',
-     image: imgShelves, // Utilizing the "Bulk" look of the shelves again, but styled differently
-     position: 'left', // Trying a different slice of the abundance
-     link: '#feed',
-     tagline: "For the Herd"
-  }
-];
+---
+import storeData from '../data/store.json';
+const { categories } = storeData;
 ---
 
 <section id="shop" class="py-12 bg-brand-cream/30">
   <div class="container mx-auto px-4">
     <h2 class="text-3xl font-display font-bold text-brand-brown mb-8 text-center">In Stock Now</h2>
-    
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
       {categories.map((cat) => (
-        <a href={cat.link} class="group relative h-64 overflow-hidden rounded-lg shadow-md border-2 border-brand-mud/10 hover:border-sign-green focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-orange/50 transition-all duration-300">
-          
-          <Image 
-            src={cat.image} 
-            alt={cat.title}
-            class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale-[20%] group-hover:grayscale-0"
-            style={`object-position: ${cat.position}`}
-          />
-          
-          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
-          
-          <div class="absolute bottom-0 left-0 p-6 w-full">
-            <h3 class="text-2xl font-display font-bold text-white mb-1 drop-shadow-md">{cat.title}</h3>
-            {cat.tagline && <p class="text-brand-cream font-hand text-lg">{cat.tagline}</p>}
-            <span class="inline-block mt-2 text-sm font-bold text-sign-green uppercase tracking-wider group-hover:underline">
-              View Inventory &rarr;
-            </span>
-          </div>
+        <a
+          href={`/shop/${cat.slug}`}
+          class="group block p-4 bg-brand-cream border-l-4 border-sign-green rounded-sm hover:border-brand-orange transition-all duration-300 hover:-translate-y-0.5"
+        >
+          <h3 class="font-display font-bold text-brand-brown group-hover:text-brand-orange transition-colors">
+            {cat.name}
+          </h3>
+          <p class="font-hand text-brand-orange text-sm mt-1">{cat.tagline}</p>
         </a>
       ))}
     </div>
-    
-     <p class="text-center mt-8 text-brand-mud/60 italic font-hand text-xl">
+
+    <p class="text-center mt-8 text-brand-mud/60 italic font-hand text-xl">
       "If we don't have it, you probably don't need it."
     </p>
-
   </div>
 </section>
