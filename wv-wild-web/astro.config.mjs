@@ -6,7 +6,8 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://wvwildoutdoors.com',
+  // TODO: Update to wvwildoutdoors.com when domain is purchased
+  site: 'https://wvwildoutdoors.pages.dev',
   vite: {
       plugins: [tailwind()],
   },
