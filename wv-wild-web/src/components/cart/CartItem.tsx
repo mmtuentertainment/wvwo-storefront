@@ -2,7 +2,8 @@ import React from 'react';
 import { Plus, Minus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { useCart, type CartItem, formatPrice } from './CartProvider';
+import { useCart, type CartItem } from '@/hooks/useCart';
+import { formatPrice } from '@/stores/cartStore';
 
 interface CartItemRowProps {
   item: CartItem;

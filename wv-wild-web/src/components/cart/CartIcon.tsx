@@ -2,7 +2,7 @@
 import * as React from 'react';
 import { ShoppingBag } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useCart } from './CartProvider';
+import { useCart } from '@/hooks/useCart';
 
 export function CartIcon() {
   const { summary, setIsOpen } = useCart();

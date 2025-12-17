@@ -6,12 +6,12 @@ import {
   SheetTitle,
   SheetFooter,
 } from '@/components/ui/sheet';
-import { useCart } from './CartProvider';
+import { useCart } from '@/hooks/useCart';
 import { CartItemRow } from './CartItem';
 import { CartSummary } from './CartSummary';
 
 export function CartDrawer() {
-  const { state, summary, isOpen, setIsOpen, persistenceMode } = useCart();
+  const { state, summary, isOpen, setIsOpen } = useCart();
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -88,15 +88,6 @@ export function CartDrawer() {
                   </p>
                 </div>
 
-                {/* Session-only persistence notice */}
-                {persistenceMode === 'session' && (
-                  <div className="border-l-4 border-l-brand-mud bg-brand-cream/30 p-3 rounded-sm">
-                    <p className="font-body text-xs text-brand-mud/80">
-                      Your cart will clear when you close this browser. Create
-                      an account to save your cart.
-                    </p>
-                  </div>
-                )}
               </div>
             </>
           )}

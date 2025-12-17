@@ -1,4 +1,5 @@
 ---
+import HeaderCart from './cart/HeaderCart';
 ---
 <header class="sticky top-0 z-50 bg-brand-brown text-white shadow-lg border-b-4 border-sign-green">
   <div class="container mx-auto px-4 py-3 flex justify-between items-center">
@@ -29,21 +30,29 @@
         <a href="/contact" class="px-4 py-2 bg-sign-green text-white font-bold rounded hover:bg-green-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 focus-visible:ring-offset-brand-brown transition-colors">
           Contact
         </a>
+        <!-- Shopping Cart (Desktop) -->
+        <HeaderCart client:load />
       </nav>
     </div>
 
-    <!-- Mobile Menu Button -->
-    <button
-      id="mobile-menu-btn"
-      class="md:hidden text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange rounded p-1"
-      aria-label="Open menu"
-      aria-expanded="false"
-      aria-controls="mobile-menu"
-    >
-      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-      </svg>
-    </button>
+    <!-- Mobile: Cart + Menu -->
+    <div class="md:hidden flex items-center space-x-2">
+      <!-- Shopping Cart (Mobile) -->
+      <HeaderCart client:load />
+
+      <!-- Mobile Menu Button -->
+      <button
+        id="mobile-menu-btn"
+        class="text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange rounded p-1"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+      >
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
   </div>
 
   <!-- Mobile Menu Panel -->

@@ -8,7 +8,7 @@
  */
 
 import * as React from 'react';
-import { useCart, type CartItem } from './CartProvider';
+import { useCart, type CartItem } from '@/hooks/useCart';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
