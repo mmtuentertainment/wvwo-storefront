@@ -6,6 +6,17 @@
 
 ---
 
+## Clarifications
+
+### Session 2025-12-17
+- Q: What happens if product price/stock changes while in cart? → A: Best-effort notice on cart ("Prices may have changed"), validate at checkout
+- Q: What if localStorage is unavailable? → A: Session-only fallback with subtle notice "Cart won't save between visits"
+- Q: Should cart actions trigger analytics? → A: Basic events only: `add_to_cart`, `remove_from_cart`, `begin_checkout`
+- Q: Multi-tab cart behavior? → A: Independent carts per tab, last-write-wins on localStorage
+- Q: Schema versioning for localStorage? → A: Store schema version, attempt migration for known changes, clear if unrecoverable
+
+---
+
 ## Overview
 
 React-based shopping cart with localStorage persistence, supporting all three product tiers with appropriate restrictions and UI feedback.
@@ -38,7 +49,10 @@ src/components/cart/
 ## Cart State Schema
 
 ```typescript
+const CART_SCHEMA_VERSION = 1;
+
 interface CartState {
+  schemaVersion: number;    // For migration support
   items: CartItem[];
   lastUpdated: string;      // ISO timestamp
   sessionId: string;        // UUID for tracking
@@ -276,15 +290,52 @@ Three variants based on `fulfillmentType`:
 ### Storage Key
 ```typescript
 const CART_STORAGE_KEY = 'wvwo_cart';
+const CART_SCHEMA_VERSION = 1;
+```
+
+### Storage Availability Check
+```typescript
+function isLocalStorageAvailable(): boolean {
+  try {
+    const test = '__storage_test__';
+    localStorage.setItem(test, test);
+    localStorage.removeItem(test);
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+// Track persistence mode
+const [persistenceMode, setPersistenceMode] = useState<'local' | 'session'>('local');
 ```
 
 ### Hydration on Mount
 ```typescript
 useEffect(() => {
+  // Check localStorage availability
+  if (!isLocalStorageAvailable()) {
+    setPersistenceMode('session');
+    return; // Cart will work but not persist
+  }
+
   const stored = localStorage.getItem(CART_STORAGE_KEY);
   if (stored) {
     try {
       const parsed = JSON.parse(stored);
+
+      // Schema version check + migration
+      if (parsed.schemaVersion !== CART_SCHEMA_VERSION) {
+        const migrated = migrateCart(parsed);
+        if (migrated) {
+          dispatch({ type: 'HYDRATE', payload: migrated });
+        } else {
+          // Unrecoverable - clear cart
+          localStorage.removeItem(CART_STORAGE_KEY);
+        }
+        return;
+      }
+
       // Validate cart isn't stale (24 hour expiry for firearms)
       const lastUpdated = new Date(parsed.lastUpdated);
       const hoursSinceUpdate = (Date.now() - lastUpdated.getTime()) / (1000 * 60 * 60);
@@ -300,20 +351,43 @@ useEffect(() => {
     }
   }
 }, []);
+
+// Migration helper (expand as schema evolves)
+function migrateCart(oldCart: unknown): CartState | null {
+  // v0 → v1: Add schemaVersion field
+  if (!('schemaVersion' in (oldCart as object))) {
+    return { ...(oldCart as CartState), schemaVersion: 1 };
+  }
+  // Unknown version - can't migrate
+  return null;
+}
 ```
 
 ### Persist on Change
 ```typescript
 useEffect(() => {
+  if (persistenceMode !== 'local') return; // Skip if session-only
+
   if (cart.items.length > 0) {
     localStorage.setItem(CART_STORAGE_KEY, JSON.stringify({
       ...cart,
+      schemaVersion: CART_SCHEMA_VERSION,
       lastUpdated: new Date().toISOString()
     }));
   } else {
     localStorage.removeItem(CART_STORAGE_KEY);
   }
-}, [cart]);
+}, [cart, persistenceMode]);
+```
+
+### Session-Only Notice
+When `persistenceMode === 'session'`, display subtle notice in cart:
+```tsx
+{persistenceMode === 'session' && (
+  <p className="text-xs text-brand-mud/60 text-center py-2">
+    Cart won't save between visits
+  </p>
+)}
 ```
 
 ---
@@ -392,6 +466,46 @@ toast({
 
 ---
 
+## Analytics Events
+
+Fire basic analytics events for cart actions. Integrate with existing analytics provider (if any) or prepare hooks for future integration.
+
+```typescript
+type CartAnalyticsEvent =
+  | { event: 'add_to_cart'; productId: string; sku: string; quantity: number; price: number }
+  | { event: 'remove_from_cart'; productId: string; sku: string }
+  | { event: 'begin_checkout'; itemCount: number; subtotal: number };
+
+function trackCartEvent(event: CartAnalyticsEvent) {
+  // Integration point - fire to analytics provider
+  // e.g., window.gtag?.('event', event.event, event);
+  console.debug('[Cart Analytics]', event);
+}
+```
+
+**Usage:**
+- `add_to_cart`: Fire after successful addToCart
+- `remove_from_cart`: Fire after item removal
+- `begin_checkout`: Fire when user clicks "Proceed to Checkout"
+
+---
+
+## Price Freshness Notice
+
+Display best-effort notice when cart contains items:
+
+```tsx
+{cart.items.length > 0 && (
+  <p className="text-xs text-brand-mud/60 text-center py-2 border-t border-brand-mud/10">
+    Prices shown may have changed. Final price confirmed at checkout.
+  </p>
+)}
+```
+
+Actual validation of price/stock changes happens at checkout (SPEC-03).
+
+---
+
 ## Aesthetic Compliance
 
 Per CLAUDE.md WVWO Frontend Aesthetics:
@@ -406,6 +520,7 @@ Per CLAUDE.md WVWO Frontend Aesthetics:
 
 ## Testing Checklist
 
+### Core Functionality
 - [ ] Add shippable item to cart
 - [ ] Add ammo (pickup only) to cart
 - [ ] Reserve firearm (max 1 per SKU)
@@ -413,9 +528,24 @@ Per CLAUDE.md WVWO Frontend Aesthetics:
 - [ ] Quantity +/- respects maxQuantity
 - [ ] Remove item from cart
 - [ ] Clear entire cart
+
+### Persistence & Edge Cases
 - [ ] Cart persists on page refresh
 - [ ] Cart expires after 24 hours
+- [ ] localStorage unavailable: cart works in session-only mode with notice
+- [ ] Schema migration: old cart format migrates successfully
+- [ ] Schema migration: unknown version clears cart gracefully
+- [ ] Multi-tab: last-write-wins behavior (no sync required)
+
+### UI States
 - [ ] Empty cart state displays correctly
 - [ ] Mixed cart shows correct fulfillment notices
+- [ ] "Prices may have changed" notice displays
+- [ ] Session-only notice displays when localStorage unavailable
 - [ ] Mobile cart drawer is usable
 - [ ] Keyboard navigation works
+
+### Analytics
+- [ ] `add_to_cart` event fires on add
+- [ ] `remove_from_cart` event fires on remove
+- [ ] `begin_checkout` event fires on checkout click
