@@ -1,0 +1,1240 @@
+# Overview
+
+> Connect CodeRabbit with your preferred Git platform including GitHub, GitLab, Azure DevOps, and Bitbucket for AI-powered code reviews right in your PR.
+
+CodeRabbit seamlessly integrates with all major Git platforms to bring AI-powered code reviews directly to your development workflow. Choose your platform below to get started with step-by-step integration guides.
+
+## Supported Git platforms
+
+<CardGroup cols={2}>
+  <Card title="GitHub.com" icon="github" href="/platforms/github-com">
+    Connect your GitHub.com repositories for instant AI code reviews
+  </Card>
+
+  <Card title="GitHub Enterprise Server" icon="github" href="/platforms/github-enterprise-server">
+    Self-hosted GitHub integration for enterprise teams
+  </Card>
+
+  <Card title="GitLab.com" icon="gitlab" href="/platforms/gitlab-com">
+    Integrate with GitLab.com for comprehensive code analysis
+  </Card>
+
+  <Card title="Self-managed GitLab" icon="gitlab" href="/platforms/self-hosted-gitlab">
+    Connect your on-premises GitLab instance
+  </Card>
+
+  <Card title="Azure DevOps" icon="microsoft" href="/platforms/azure-devops">
+    Seamless integration with Microsoft Azure DevOps
+  </Card>
+
+  <Card title="Bitbucket Cloud" icon="bitbucket" href="/platforms/bitbucket-cloud">
+    AI code reviews for your Bitbucket Cloud repositories
+  </Card>
+</CardGroup>
+
+<Info>
+  **Need enterprise-grade deployment?** CodeRabbit offers a self-hosted option
+  for Enterprise customers with 500+ user seats. [Contact our sales
+  team](https://www.coderabbit.ai/contact-us/sales) to learn more about
+  CodeRabbit Enterprise.
+</Info>
+
+## Integration process
+
+While each Git platform has specific setup requirements, the general integration process follows these steps:
+
+<Steps>
+  <Step title="Authenticate with your Git platform">
+    Log into CodeRabbit using your Git platform account credentials for secure,
+    streamlined access.
+  </Step>
+
+  <Step title="Add your organizations">
+    Connect the organizations containing repositories you want CodeRabbit to
+    review. You'll need ownership-level permissions for these organizations.
+
+    <Note>
+      Different platforms use different terminology: "organizations" on GitHub,
+      "groups" on GitLab, and "workspaces" on Bitbucket.
+    </Note>
+  </Step>
+
+  <Step title="Configure service account">
+    Create a dedicated CodeRabbit service account if required. Some platforms
+    like GitHub.com handle this automatically.
+  </Step>
+
+  <Step title="Grant repository permissions">
+    Authorize CodeRabbit to access the specific repositories where you want AI
+    code reviews enabled.
+  </Step>
+</Steps>
+
+Once integration is complete, CodeRabbit immediately begins [reviewing pull requests](/guides/code-review-overview) with its default configuration. You can then [customize the configuration](/guides/configuration-overview) to match your team's specific needs and coding standards.
+
+
+---
+
+> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://docs.coderabbit.ai/llms.txt, # GitHub
+
+> Learn how to integrate CodeRabbit with GitHub.com repositories for automated AI-powered code reviews, including setup, permissions, and repository configuration.
+
+<Info>
+  For an overview of how CodeRabbit integrates with Git platforms, see [Add CodeRabbit to your repository](/platforms).
+
+  For a hands-on tutorial with CodeRabbit performing code reviews on a live GitHub repository that you create, see [Quickstart](/getting-started/quickstart).
+</Info>
+
+## Prerequisites
+
+<Warning>
+  **Required permissions**
+
+  You need to have a GitHub account with **owner-level permissions** for at least one repository associated with that account.
+
+  If you want to authorize CodeRabbit for repositories in a GitHub organization, you need **organization owner permissions** as well.
+</Warning>
+
+## Authorize CodeRabbit with your GitHub account
+
+<Steps>
+  <Step title="Visit CodeRabbit login page">
+    Navigate to [the CodeRabbit login page](https://app.coderabbit.ai/login).
+  </Step>
+
+  <Step title="Initiate GitHub login">
+    Click **Login with GitHub**. Your browser will redirect to GitHub.com.
+  </Step>
+
+  <Step title="Sign in to GitHub (if required)">
+    If GitHub prompts you to sign in, enter your GitHub login credentials as you normally would.
+  </Step>
+
+  <Step title="Review and authorize permissions">
+    GitHub displays a summary of the information that CodeRabbit needs to integrate with your account. This includes read-only access to:
+
+    * Organizations and teams associated with your GitHub account
+    * Email addresses associated with your GitHub account
+
+    Click **Authorize coderabbitai** to grant these permissions.
+  </Step>
+
+  <Step title="Select an organization">
+    Choose the organization where you want to install CodeRabbit.
+
+    * If you belong to multiple organizations, select from the list
+    * For personal repositories, select your account name
+
+    <Tip>
+      If your organization doesn't appear in the list, see [Adding organizations](/getting-started/adding-organizations).
+    </Tip>
+  </Step>
+
+  <Step title="Install and authorize CodeRabbit">
+    Configure repository access and review the permissions CodeRabbit needs.
+
+    ### Choose repository access
+
+    Select which repositories CodeRabbit can access:
+
+    **All repositories**: Grants access to all current and future repositories owned by this organization, including public repositories.
+
+    **Only select repositories**: Limits access to specific repositories you choose from the list.
+
+    <Tip>
+      You can change this setting later if needed.
+    </Tip>
+
+    ### Review permissions
+
+    CodeRabbit requires the following permissions to perform code reviews and manage pull requests:
+
+    **Read-only access:**
+
+    * Actions, checks, discussions, members, and metadata
+
+    **Read-and-write access:**
+
+    * Code, commit statuses, issues, and pull requests
+
+    <Note>
+      CodeRabbit requests read and write access to your repository for its code review, issue management, and pull request generation features to work. **CodeRabbit never stores your code.** For more information, see [the CodeRabbit Trust Center](https://trust.coderabbit.ai).
+    </Note>
+
+    ### Complete installation
+
+    Click **Install & Authorize** (for new integrations) or **Save** (for existing integrations).
+  </Step>
+
+  <Step title="Trigger your first review (optional)">
+    After installation, you can immediately see CodeRabbit in action or skip to configure settings first.
+
+    **Option 1: Trigger a review**
+
+    1. Select a repository from your list
+    2. Choose an existing pull request
+    3. CodeRabbit will perform a code review on that pull request
+
+    **Option 2: Skip to dashboard**
+
+    Click **Skip to App** to access the CodeRabbit dashboard and configure settings before your first review.
+  </Step>
+</Steps>
+
+
+---
+
+> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://docs.coderabbit.ai/llms.txt, # Add organizations
+
+> Learn how to add new organizations to CodeRabbit and grant the necessary permissions to enable code review across your organization's repositories.
+
+Adding organizations to CodeRabbit allows you to extend code review capabilities across all repositories within your organization. This process requires proper permissions and may involve organization admin approval.
+
+## How to add organizations
+
+Follow these steps to add a new organization to your CodeRabbit account:
+
+<Steps>
+  <Step title="Navigate to change organization">
+    Go to [app.coderabbit.ai](https://app.coderabbit.ai) and ensure you're
+    logged in to your account.
+  </Step>
+
+  <Step title="Refresh organization list">
+    Click the **Refresh** button next to your organizations list to check for
+    new organizations that you have access to. <img src="https://mintcdn.com/coderabbit/D_rqUjBaYiE185JH/images/getting-started/assets/images/check-for-new-orgs-737f894deedee730a79c1123011dc31c.png?fit=max&auto=format&n=D_rqUjBaYiE185JH&q=85&s=7c2836802597279131b52f1bceaf3a98" alt="Checking for new
+    organizations" data-og-width="1286" width="1286" data-og-height="512" height="512" data-path="images/getting-started/assets/images/check-for-new-orgs-737f894deedee730a79c1123011dc31c.png" data-optimize="true" data-opv="3" srcset="https://mintcdn.com/coderabbit/D_rqUjBaYiE185JH/images/getting-started/assets/images/check-for-new-orgs-737f894deedee730a79c1123011dc31c.png?w=280&fit=max&auto=format&n=D_rqUjBaYiE185JH&q=85&s=09984567264b7850dcf3ee9043e104a6 280w, https://mintcdn.com/coderabbit/D_rqUjBaYiE185JH/images/getting-started/assets/images/check-for-new-orgs-737f894deedee730a79c1123011dc31c.png?w=560&fit=max&auto=format&n=D_rqUjBaYiE185JH&q=85&s=ebe45ef5a4380eb70a408ae4fd36df87 560w, https://mintcdn.com/coderabbit/D_rqUjBaYiE185JH/images/getting-started/assets/images/check-for-new-orgs-737f894deedee730a79c1123011dc31c.png?w=840&fit=max&auto=format&n=D_rqUjBaYiE185JH&q=85&s=4728b8208430d7ee91aeddee6b765cc6 840w, https://mintcdn.com/coderabbit/D_rqUjBaYiE185JH/images/getting-started/assets/images/check-for-new-orgs-737f894deedee730a79c1123011dc31c.png?w=1100&fit=max&auto=format&n=D_rqUjBaYiE185JH&q=85&s=a2b3635b3087e57d63d140b03bd88b1f 1100w, https://mintcdn.com/coderabbit/D_rqUjBaYiE185JH/images/getting-started/assets/images/check-for-new-orgs-737f894deedee730a79c1123011dc31c.png?w=1650&fit=max&auto=format&n=D_rqUjBaYiE185JH&q=85&s=b9c001fb573a206f1e2b4c3b32a249bd 1650w, https://mintcdn.com/coderabbit/D_rqUjBaYiE185JH/images/getting-started/assets/images/check-for-new-orgs-737f894deedee730a79c1123011dc31c.png?w=2500&fit=max&auto=format&n=D_rqUjBaYiE185JH&q=85&s=049eb7cf0907d2930a054cfe25a4b869 2500w" />
+  </Step>
+
+  <Step title="Select organization">
+    Find the organization you want to add in the list of available
+    organizations.
+  </Step>
+
+  <Step title="Grant permissions">
+    Click the **Grant** button next to the organization name to authorize
+    CodeRabbit access. <img src="https://mintcdn.com/coderabbit/D_rqUjBaYiE185JH/images/getting-started/assets/images/grant-permission-25e8329e13fbfa0b9b8a9c377533b58b.png?fit=max&auto=format&n=D_rqUjBaYiE185JH&q=85&s=42a0e99ce39a1e2560f3e1c256210d09" alt="Granting permission to
+    organization" data-og-width="2988" width="2988" data-og-height="1414" height="1414" data-path="images/getting-started/assets/images/grant-permission-25e8329e13fbfa0b9b8a9c377533b58b.png" data-optimize="true" data-opv="3" srcset="https://mintcdn.com/coderabbit/D_rqUjBaYiE185JH/images/getting-started/assets/images/grant-permission-25e8329e13fbfa0b9b8a9c377533b58b.png?w=280&fit=max&auto=format&n=D_rqUjBaYiE185JH&q=85&s=b78a74f0037547fe9ac182aac3d20d91 280w, https://mintcdn.com/coderabbit/D_rqUjBaYiE185JH/images/getting-started/assets/images/grant-permission-25e8329e13fbfa0b9b8a9c377533b58b.png?w=560&fit=max&auto=format&n=D_rqUjBaYiE185JH&q=85&s=d6f59fe28e101df9bad788e924a4bfc3 560w, https://mintcdn.com/coderabbit/D_rqUjBaYiE185JH/images/getting-started/assets/images/grant-permission-25e8329e13fbfa0b9b8a9c377533b58b.png?w=840&fit=max&auto=format&n=D_rqUjBaYiE185JH&q=85&s=a901d0103a47a55884024ef330b27373 840w, https://mintcdn.com/coderabbit/D_rqUjBaYiE185JH/images/getting-started/assets/images/grant-permission-25e8329e13fbfa0b9b8a9c377533b58b.png?w=1100&fit=max&auto=format&n=D_rqUjBaYiE185JH&q=85&s=95f5b7a4b8ea73029f86c2ce6e4dd713 1100w, https://mintcdn.com/coderabbit/D_rqUjBaYiE185JH/images/getting-started/assets/images/grant-permission-25e8329e13fbfa0b9b8a9c377533b58b.png?w=1650&fit=max&auto=format&n=D_rqUjBaYiE185JH&q=85&s=7b3ef63abf9a73d126bd5eab6b675800 1650w, https://mintcdn.com/coderabbit/D_rqUjBaYiE185JH/images/getting-started/assets/images/grant-permission-25e8329e13fbfa0b9b8a9c377533b58b.png?w=2500&fit=max&auto=format&n=D_rqUjBaYiE185JH&q=85&s=a7053de1f89ca3623150cb1508bf72a0 2500w" />
+  </Step>
+</Steps>
+
+## What permissions does CodeRabbit need?
+
+When you grant CodeRabbit access to an organization, it receives the following permissions:
+
+* **Read organization and team membership** - To understand your team structure
+* **Read organization projects** - To access repositories for code review
+* **Access user email addresses (read-only)** - For notifications and user identification
+
+<Note>
+  Organizations control which applications are allowed to access their private
+  data. You may need organization admin approval to complete this process. If
+  you don't see the **Grant** button, contact your organization administrator to
+  approve CodeRabbit's application request.
+</Note>
+
+## What's next
+
+Once you've successfully added your organization, you can:
+
+* [Configure CodeRabbit](/getting-started/yaml-configuration) for your organization's specific needs
+* [Manage your subscription](/getting-started/subscription-management) to ensure adequate seats for your team
+* [Set up repository-specific settings](/guides/repository-settings) for fine-tuned control
+
+
+---
+
+> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://docs.coderabbit.ai/llms.txt, # Set permissions
+
+> Learn how to grant updated permissions to CodeRabbit when new features require additional GitHub access.
+
+When CodeRabbit introduces new features, it may require additional GitHub permissions to function properly. If you see permission warnings or notice that certain features aren't working, follow this guide to update your permissions.
+
+## When you need to update permissions
+
+<Warning>
+  If you see a permission warning in CodeRabbit or notice missing functionality,
+  you likely need to approve updated permissions for the GitHub App.
+</Warning>
+
+<img src="https://mintcdn.com/coderabbit/D_rqUjBaYiE185JH/images/getting-started/assets/images/permission-warning-5ae71501a21d040a0a3142c6ae247393.png?fit=max&auto=format&n=D_rqUjBaYiE185JH&q=85&s=5e620abe3a46fb8e9c312b5f10515087" alt="Permission warning example" data-og-width="992" width="992" data-og-height="371" height="371" data-path="images/getting-started/assets/images/permission-warning-5ae71501a21d040a0a3142c6ae247393.png" data-optimize="true" data-opv="3" srcset="https://mintcdn.com/coderabbit/D_rqUjBaYiE185JH/images/getting-started/assets/images/permission-warning-5ae71501a21d040a0a3142c6ae247393.png?w=280&fit=max&auto=format&n=D_rqUjBaYiE185JH&q=85&s=5866236d2f4bf52d94dbd9adb7e93be0 280w, https://mintcdn.com/coderabbit/D_rqUjBaYiE185JH/images/getting-started/assets/images/permission-warning-5ae71501a21d040a0a3142c6ae247393.png?w=560&fit=max&auto=format&n=D_rqUjBaYiE185JH&q=85&s=d7e8d200cc5d472f7f15e83a43611b33 560w, https://mintcdn.com/coderabbit/D_rqUjBaYiE185JH/images/getting-started/assets/images/permission-warning-5ae71501a21d040a0a3142c6ae247393.png?w=840&fit=max&auto=format&n=D_rqUjBaYiE185JH&q=85&s=533e48cde4ee1b7d1738de10bfbcc616 840w, https://mintcdn.com/coderabbit/D_rqUjBaYiE185JH/images/getting-started/assets/images/permission-warning-5ae71501a21d040a0a3142c6ae247393.png?w=1100&fit=max&auto=format&n=D_rqUjBaYiE185JH&q=85&s=700f0be34d830bf142789921550628a9 1100w, https://mintcdn.com/coderabbit/D_rqUjBaYiE185JH/images/getting-started/assets/images/permission-warning-5ae71501a21d040a0a3142c6ae247393.png?w=1650&fit=max&auto=format&n=D_rqUjBaYiE185JH&q=85&s=ee50b10e490ea1678a60fc8c6a49f5da 1650w, https://mintcdn.com/coderabbit/D_rqUjBaYiE185JH/images/getting-started/assets/images/permission-warning-5ae71501a21d040a0a3142c6ae247393.png?w=2500&fit=max&auto=format&n=D_rqUjBaYiE185JH&q=85&s=8b4ed18544de650a5f36e944b22b3775 2500w" />
+
+## Update permissions
+
+<Steps>
+  <Step title="Navigate to GitHub settings">
+    Go to your GitHub organization or repository settings page.
+  </Step>
+
+  <Step title="Access GitHub Apps">
+    Navigate to the "GitHub Apps" or "Installed GitHub Apps" section in the
+    settings sidebar.
+  </Step>
+
+  <Step title="Find CodeRabbit">
+    Locate CodeRabbit in the list of installed applications.
+  </Step>
+
+  <Step title="Configure the app">
+    Click the "Configure" button next to CodeRabbit.
+  </Step>
+
+  <Step title="Review and accept permissions">
+    Review the new permissions being requested and click "Accept new
+    permissions" to approve them. <img src="https://mintcdn.com/coderabbit/D_rqUjBaYiE185JH/images/getting-started/assets/images/grant-permission-25e8329e13fbfa0b9b8a9c377533b58b.png?fit=max&auto=format&n=D_rqUjBaYiE185JH&q=85&s=42a0e99ce39a1e2560f3e1c256210d09" alt="Granting updated
+    permissions" data-og-width="2988" width="2988" data-og-height="1414" height="1414" data-path="images/getting-started/assets/images/grant-permission-25e8329e13fbfa0b9b8a9c377533b58b.png" data-optimize="true" data-opv="3" srcset="https://mintcdn.com/coderabbit/D_rqUjBaYiE185JH/images/getting-started/assets/images/grant-permission-25e8329e13fbfa0b9b8a9c377533b58b.png?w=280&fit=max&auto=format&n=D_rqUjBaYiE185JH&q=85&s=b78a74f0037547fe9ac182aac3d20d91 280w, https://mintcdn.com/coderabbit/D_rqUjBaYiE185JH/images/getting-started/assets/images/grant-permission-25e8329e13fbfa0b9b8a9c377533b58b.png?w=560&fit=max&auto=format&n=D_rqUjBaYiE185JH&q=85&s=d6f59fe28e101df9bad788e924a4bfc3 560w, https://mintcdn.com/coderabbit/D_rqUjBaYiE185JH/images/getting-started/assets/images/grant-permission-25e8329e13fbfa0b9b8a9c377533b58b.png?w=840&fit=max&auto=format&n=D_rqUjBaYiE185JH&q=85&s=a901d0103a47a55884024ef330b27373 840w, https://mintcdn.com/coderabbit/D_rqUjBaYiE185JH/images/getting-started/assets/images/grant-permission-25e8329e13fbfa0b9b8a9c377533b58b.png?w=1100&fit=max&auto=format&n=D_rqUjBaYiE185JH&q=85&s=95f5b7a4b8ea73029f86c2ce6e4dd713 1100w, https://mintcdn.com/coderabbit/D_rqUjBaYiE185JH/images/getting-started/assets/images/grant-permission-25e8329e13fbfa0b9b8a9c377533b58b.png?w=1650&fit=max&auto=format&n=D_rqUjBaYiE185JH&q=85&s=7b3ef63abf9a73d126bd5eab6b675800 1650w, https://mintcdn.com/coderabbit/D_rqUjBaYiE185JH/images/getting-started/assets/images/grant-permission-25e8329e13fbfa0b9b8a9c377533b58b.png?w=2500&fit=max&auto=format&n=D_rqUjBaYiE185JH&q=85&s=a7053de1f89ca3623150cb1508bf72a0 2500w" />
+  </Step>
+</Steps>
+
+<img src="https://mintcdn.com/coderabbit/D_rqUjBaYiE185JH/images/getting-started/assets/images/updated-permissions-e69565bdcc98dca8616e78f5b0cfa46a.png?fit=max&auto=format&n=D_rqUjBaYiE185JH&q=85&s=dfef0a04e858519621632748a6e97293" alt="Updated permissions" data-og-width="628" width="628" data-og-height="986" height="986" data-path="images/getting-started/assets/images/updated-permissions-e69565bdcc98dca8616e78f5b0cfa46a.png" data-optimize="true" data-opv="3" srcset="https://mintcdn.com/coderabbit/D_rqUjBaYiE185JH/images/getting-started/assets/images/updated-permissions-e69565bdcc98dca8616e78f5b0cfa46a.png?w=280&fit=max&auto=format&n=D_rqUjBaYiE185JH&q=85&s=4ca352473c7a1c9df9642dcd1ed3af4c 280w, https://mintcdn.com/coderabbit/D_rqUjBaYiE185JH/images/getting-started/assets/images/updated-permissions-e69565bdcc98dca8616e78f5b0cfa46a.png?w=560&fit=max&auto=format&n=D_rqUjBaYiE185JH&q=85&s=13c424691075a929b968b3098de3602a 560w, https://mintcdn.com/coderabbit/D_rqUjBaYiE185JH/images/getting-started/assets/images/updated-permissions-e69565bdcc98dca8616e78f5b0cfa46a.png?w=840&fit=max&auto=format&n=D_rqUjBaYiE185JH&q=85&s=0375bdd0d969ec896509556d2e52eaf3 840w, https://mintcdn.com/coderabbit/D_rqUjBaYiE185JH/images/getting-started/assets/images/updated-permissions-e69565bdcc98dca8616e78f5b0cfa46a.png?w=1100&fit=max&auto=format&n=D_rqUjBaYiE185JH&q=85&s=eb9e33a686a6a5e8116de120e08520f5 1100w, https://mintcdn.com/coderabbit/D_rqUjBaYiE185JH/images/getting-started/assets/images/updated-permissions-e69565bdcc98dca8616e78f5b0cfa46a.png?w=1650&fit=max&auto=format&n=D_rqUjBaYiE185JH&q=85&s=6537704bff6025f7925a14dc33997464 1650w, https://mintcdn.com/coderabbit/D_rqUjBaYiE185JH/images/getting-started/assets/images/updated-permissions-e69565bdcc98dca8616e78f5b0cfa46a.png?w=2500&fit=max&auto=format&n=D_rqUjBaYiE185JH&q=85&s=291e844b722ff3cf653c3e3e23efcfbd 2500w" />
+
+## Why permissions are updated
+
+CodeRabbit may request additional permissions for several reasons:
+
+* **New GitHub features**: Access to recently released GitHub APIs and capabilities
+* **Enhanced scanning**: Deeper repository analysis and code review features
+* **Workflow automation**: Improved CI/CD integration and automated processes
+* **Security enhancements**: Advanced security scanning and vulnerability detection
+
+<Note>
+  **Not an organization admin?** If you don't have admin privileges, you'll need
+  to request approval from your organization administrators to update the
+  permissions. Share this guide with them to expedite the process.
+</Note>
+
+## Troubleshooting
+
+After updating permissions, CodeRabbit should have all the access it needs. If you continue experiencing issues:
+
+<Steps>
+  <Step title="Refresh your browser">
+    Clear your browser cache and refresh the CodeRabbit dashboard.
+  </Step>
+
+  <Step title="Wait a few minutes">
+    Permission changes may take a few minutes to propagate across GitHub's
+    systems.
+  </Step>
+
+  <Step title="Contact support">
+    If problems persist, reach out to our [support
+    team](/getting-started/support) for assistance.
+  </Step>
+</Steps>
+
+<Check>
+  **Need help?** Visit our [support page](/getting-started/support) or join our
+  [Discord community](https://discord.gg/coderabbit) for assistance.
+</Check>
+
+
+---
+
+> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://docs.coderabbit.ai/llms.txt, # Overview
+
+> Discover how CodeRabbit transforms your development workflow with AI-powered code reviews that provide instant, comprehensive feedback on every pull request.
+
+Transform your code review process with CodeRabbit's AI-powered analysis that delivers comprehensive feedback within minutes of creating a pull request. Get detailed summaries, security insights, and improvement suggestions that help your team ship better code faster.
+
+<Note>
+  Ready to see CodeRabbit in action? Try our [Quickstart
+  guide](/getting-started/quickstart) for a hands-on demonstration using a real
+  repository.
+</Note>
+
+## What CodeRabbit does for your pull requests
+
+CodeRabbit automatically analyzes every pull request with a multi-layered approach that combines the best of AI and industry-standard tools:
+
+<CardGroup cols={2}>
+  <Card title="AI-generated summaries" icon="file-text">
+    Comprehensive summaries and walkthroughs of code changes with contextual
+    insights
+  </Card>
+
+  <Card title="Security & quality analysis" icon="shield-check">
+    Integration with 40+ open-source linters and security scanners for
+    comprehensive coverage
+  </Card>
+
+  <Card title="Intelligent suggestions" icon="lightbulb">
+    Context-aware improvement recommendations based on your entire repository
+  </Card>
+
+  <Card title="Code graph analysis" icon="git-branch">
+    Deep understanding of code relationships and dependencies across your
+    project
+  </Card>
+</CardGroup>
+
+## How automatic reviews work
+
+<Steps>
+  <Step title="Integration setup">
+    After you [connect CodeRabbit to your repository](/platforms), it monitors
+    for new pull requests and commits
+  </Step>
+
+  <Step title="Instant analysis">
+    When a pull request is created, CodeRabbit immediately begins analyzing the
+    code changes using multiple AI models and static analysis tools
+  </Step>
+
+  <Step title="Comprehensive review">
+    Within minutes, CodeRabbit publishes detailed review comments with
+    summaries, security findings, and improvement suggestions
+  </Step>
+
+  <Step title="Continuous updates">
+    For subsequent commits, CodeRabbit performs incremental reviews focusing on
+    the new changes
+  </Step>
+</Steps>
+
+## Review types and severity levels
+
+CodeRabbit categorizes its feedback into different types and severity levels to help you prioritize and address issues effectively.
+
+### Review types
+
+CodeRabbit provides three types of review feedback:
+
+* ⚠️ **Potential issue** - Identifies potential bugs, security vulnerabilities, or problematic code patterns
+* 🛠️ **Refactor suggestion** - Recommends code improvements for maintainability, performance, or best practices
+* 🧹 **Nitpick** - Suggests minor style or formatting improvements (only in Assertive mode)
+
+### Severity levels
+
+Each review comment is assigned a severity level to indicate its importance:
+
+* 🔴 **Critical** - Severe issues that could cause system failures, security breaches, or data loss
+* 🟠 **Major** - Significant problems that impact functionality or performance
+* 🟡 **Minor** - Issues that should be addressed but don't critically impact the system
+* 🔵 **Trivial** - Low-impact suggestions for code quality improvements
+* ⚪ **Info** - Informational comments or context without requiring action
+
+### Review triggers and events
+
+CodeRabbit automatically initiates reviews based on these repository activities:
+
+<Tabs>
+  <Tab title="New pull requests" icon="git-pull-request">
+    **Full comprehensive review** when a new pull request is created - Complete
+    analysis of all proposed changes - Security and quality assessment - Code
+    style and best practices review
+  </Tab>
+
+  <Tab title="New commits" icon="git-commit">
+    **Incremental review** when existing pull requests receive new commits -
+    Focus on newly added changes - Updates to previous recommendations -
+    Maintains conversation context
+  </Tab>
+</Tabs>
+
+## Interactive code reviews with CodeRabbit
+
+Once CodeRabbit reviews your pull request, you can engage in dynamic conversations and request specific actions by mentioning `@coderabbitai` in your comments.
+
+<CardGroup cols={3}>
+  <Card title="Control reviews" icon="settings" href="/guides/commands">
+    Pause, resume, or customize review behavior with simple commands
+  </Card>
+</CardGroup>
+
+### Smart conversation capabilities
+
+<Tabs>
+  <Tab title="Contextual chat" icon="message-circle">
+    Ask CodeRabbit questions about your code changes, architecture decisions, or implementation approaches. It has access to your entire repository for informed responses.
+
+    ```md  theme={null}
+    @coderabbitai Why did you suggest using a factory pattern here?
+    ```
+  </Tab>
+
+  <Tab title="Review control" icon="pause-circle">
+    Manage CodeRabbit's review behavior for specific pull requests:
+
+    ```md  theme={null}
+    @coderabbitai pause
+    @coderabbitai resume
+    @coderabbitai resolve
+    ```
+  </Tab>
+
+  <Tab title="Code generation" icon="sparkles">
+    Request CodeRabbit to generate documentation:
+
+    ```md  theme={null}
+    @coderabbitai generate docstrings
+    ```
+  </Tab>
+</Tabs>
+
+<Tip>
+  CodeRabbit learns from your feedback and coding patterns to provide
+  increasingly relevant suggestions over time.
+</Tip>
+
+## Next steps
+
+Ready to dive deeper into CodeRabbit's capabilities? Explore these essential features to maximize your code review experience:
+
+<CardGroup cols={2}>
+  <Card title="Review commands" icon="terminal" href="/guides/commands">
+    Learn all the commands to control CodeRabbit's behavior during reviews
+  </Card>
+</CardGroup>
+
+
+---
+
+> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://docs.coderabbit.ai/llms.txt, # Manage code reviews
+
+> Learn how to control and manage CodeRabbit's automatic code reviews with commands. Pause, resume, ignore reviews, request manual reviews, resolve comments, and update pull request summaries using @coderabbitai commands.
+
+You can control CodeRabbit's behavior with a specific pull request by mentioning the username of its bot, `@coderabbitai`, alongside keywords in comments or the pull request description, as specified by the next sections of this page.
+
+For a complete CodeRabbit command reference, see [Code review command reference](/reference/review-commands).
+
+## Control automatic code reviews
+
+By default, CodeRabbit automatically reviews every new pull request created in your repository. It updates its review with comments whenever the pull request has new commits pushed to it.
+
+The following sections show you how to tell CodeRabbit to modify this behavior with a specific pull request, such as pausing reviews, or resolving open comments.
+
+For more information about permanently configuring the behavior of CodeRabbit on your repository, see [Add a configuration file](/getting-started/yaml-configuration).
+
+### Pause and resume automatic code reviews
+
+You can tell CodeRabbit to pause its automatic reviews of a pull request. If you do, then you can still manually request CodeRabbit to review changes using the commands listed on [Code review command reference](/reference/review-commands).
+
+To pause automated reviews of a pull request, post the following comment to the pull request:
+
+```md  theme={null}
+@coderabbitai pause
+```
+
+To resume automated reviews after pausing them, post the following comment to the pull request:
+
+```md  theme={null}
+@coderabbitai resume
+```
+
+### Disable automatic code reviews
+
+To disable automatic code reviews for a pull request, add the following line anywhere in the pull request description:
+
+```md  theme={null}
+@coderabbitai ignore
+```
+
+As long as that text remains in the description, CodeRabbit will not automatically review any commits associated with that pull request. You can still chat with CodeRabbit and issue other commands in the pull request comments.
+
+To enable automatic reviews on that pull request, delete "`@coderabbitai ignore`" from the pull request description. CodeRabbit commences automatic reviews starting with the next commit made to the branch under review.
+
+## Manually request code reviews
+
+You can ask CodeRabbit to perform a code review at any time. This can be useful when you have paused automated code reviews. Manually requested reviews have two types:
+
+* A *full review* disregards any comments that CodeRabbit has already made on this pull request, and generates a complete review of the entire pull request.
+
+* An *incremental review* takes all comments that CodeRabbit has made since its most recent full review into consideration, and generates a review of only the new changes.
+
+To manually request a full review, post the following comment to the pull request:
+
+```md  theme={null}
+@coderabbitai full review
+```
+
+To manually request an incremental review, post the following comment to the pull request:
+
+```md  theme={null}
+@coderabbitai review
+```
+
+## Resolve comments
+
+To have CodeRabbit mark all of its previous comments as resolved, post the following comment to the pull request:
+
+```md  theme={null}
+@coderabbitai resolve
+```
+
+## Update information about the pull request
+
+The commands in this section request CodeRabbit to generate and post updated information about the pull request itself.
+
+### Update the summary text
+
+To have CodeRabbit update the generated summary of the branch’s proposed changes to the pull request’s description, post the following comment:
+
+```md  theme={null}
+@coderabbitai summary
+```
+
+CodeRabbit updates the summary text to the description under the heading "Summary by CodeRabbit".
+
+### Diagram the pull request history
+
+To have CodeRabbit post a comment that contains a sequence diagram which visualizes the history of the pull request under review, post the following comment:
+
+```md  theme={null}
+@coderabbitai generate sequence diagram
+```
+
+## Get information about CodeRabbit
+
+The commands in this section request CodeRabbit to display its own configuration or documentation.
+
+### Display current configuration
+
+To have CodeRabbit post a comment listing out its current configuration with your repository, post the following comment to the pull request:
+
+```md  theme={null}
+@coderabbitai configuration
+```
+
+### Display a quick-reference guide
+
+To have CodeRabbit post a comment to the pull request with a quick-reference guide to its own commands and other features, post the following comment to the pull request:
+
+```md  theme={null}
+@coderabbitai help
+```
+
+
+---
+
+> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://docs.coderabbit.ai/llms.txt, # Agentic Pre-merge checks
+
+> Enforce quality gates and organization's custom requirements before pull requests are merged.
+
+<Info>
+  **Requirements:** This feature is avaialble in Preview exclusively as part of
+  the Pro plan.
+</Info>
+
+<Note>
+  Up to 5 Custom Pre-merge checks are currently allowed during the Preview
+  period. Pricing for this feature will be announced in a few weeks.
+</Note>
+
+Agentic Pre-Merge Checks provide automated validation of pull requests against standard quality metrics and organization specific requirements. Use **Built-in Checks** for common requirements and add your own **Custom Checks** with natural language instructions tailored to your team’s policies. These AI-powered checks can be configured by an Admin user at the organization or repository level, and CodeRabbit automatically validates every pull request against these requirements.
+
+### **Why use Pre-Merge Checks?**
+
+* **Consistent standards:** Enforce naming, documentation, and change-management hygiene across every PR.
+* **Safer merges:** Catch breaking API changes, security gaps, or policy violations before they land.
+* **Team-specific guardrails:** Encode architectural patterns, compliance rules, or business logic as custom checks.
+* **Faster reviews:** Surface blocking issues early in the PR **Walkthrough** so reviewers can act quickly.
+
+## Built-in Checks
+
+CodeRabbit includes four standard checks that address common organizational needs:
+
+<CardGroup cols={2}>
+  <Card title="Docstring Coverage" icon="file-code">
+    Verify PR docstring coverage against a configurable threshold (80% by
+    default)
+  </Card>
+
+  <Card title="Pull Request Title" icon="heading">
+    Validate PR titles accurately reflect changes made and follow your specified
+    requirements
+  </Card>
+
+  <Card title="Pull Request Description" icon="file-text">
+    Verify descriptions follow the template specified in your Git platform
+  </Card>
+
+  <Card title="Issue Assessment" icon="link">
+    Verify PRs address linked issues without containing out-of-scope changes
+  </Card>
+</CardGroup>
+
+## Custom Checks
+
+Define your own validation logic using natural language instructions. Custom checks leverage AI to understand and validate complex requirements that go beyond standard code quality metrics.
+
+### **How Custom Checks Work (scope & verification)**
+
+Custom checks run in a secure, **read-only** environment against your PR. They analyze the diff and context, verify details using tools, then return a clear result with reasoning.
+
+<Steps>
+  <Step title="Analyze">
+    CodeRabbit interprets your **Instructions** against rich PR context:
+
+    * **Repository & diff:** changed files, code snippets, and relevant git history
+    * **PR context:** title/description, linked issues, and review discussion
+    * **Static analysis:** pattern and code search (e.g., ast-grep, ripgrep)
+  </Step>
+
+  <Step title="Verify">
+    To substantiate findings, the check may:
+
+    * **Run sandboxed shell commands** to inspect the repo (e.g., scan for patterns, validate configs)
+    * **Consult public documentation** and best practices via web lookups
+    * **Call connected MCP tools** to pull context from internal systems (docs, knowledge bases, design tools, trackers).
+
+    > See [**Integrate MCP servers**](/context-enrichment/mcp-server-integrations) for setup and behavior
+  </Step>
+
+  <Step title="Decide">
+    After analysis and verification, the check emits a result — **Passed**, **Failed**, or **Inconclusive** — with brief reasoning so PR authors know what to fix or why a decision couldn't be reached.
+  </Step>
+</Steps>
+
+## Configuration
+
+### Enforcement Modes
+
+Each check can be configured with one of three enforcement modes:
+
+* `off`: Check is disabled
+* `warning`: Display warnings but don't block merges (default)
+* `error`: When paired with Request Changes Workflow, block merges until resolved or manually overrided
+
+  > **Configure:** [**Request Changes Workflow**](/reference/configuration#param-request-changes-workflow)
+
+### UI Configuration
+
+Configure Pre-Merge Checks through the CodeRabbit dashboard:
+
+<Steps>
+  <Step title="Navigate to Settings">
+    In CodeRabbit, go to **Settings → Review → Pre-Merge Checks** (org or repo scope)
+  </Step>
+
+  <Step title="Configure Built-in Checks">
+    Update configuration and enforcement modes for **Built-in Checks**
+  </Step>
+
+  <Step title="Add Custom Checks">
+    Add **Custom Checks**:
+
+    * **Name** (≤ 50 chars, unique within the org)
+    * **Instructions** (≤ 1000 chars; natural language)
+    * **Mode** (off | warning | error)
+  </Step>
+
+  <Step title="Apply Changes">
+    Click Apply Changes to save. The new checks are applied to subsequent reviews.
+  </Step>
+</Steps>
+
+### YAML Configuration
+
+For version-controlled configuration, add checks to your `.coderabbit.yaml` file:
+
+```yaml YAML icon=code wrap theme={null}
+reviews:
+  pre_merge_checks:
+    docstrings:
+      mode: "error"
+      threshold: 85
+    title:
+      mode: "warning"
+      requirements: "Start with an imperative verb; keep under 50 characters."
+    description:
+      mode: "error"
+    issue_assessment:
+      mode: "warning"
+    custom_checks:
+      - name: "Undocumented Breaking Changes"
+        mode: "warning"
+        instructions: "Pass/fail criteria: All breaking changes to public APIs, CLI flags, environment variables, configuration keys, database schemas, or HTTP/GraphQL endpoints must be documented in the Breaking Change section of the PR description and in CHANGELOG.md. Exclude purely internal or private changes (e.g., code not exported from package entry points or explicitly marked as internal)."
+```
+
+## Results in the Walkthrough
+
+Pre-Merge Check results appear alongside CodeRabbit's analysis in the PR **Walkthrough** with clear visual organization for quick assessment.
+
+<Tabs>
+  <Tab title="Display Format">
+    Results are organized into two tables:
+
+    <CardGroup cols={2}>
+      <Card title="Failed checks" icon="X">
+        * Prominently displayed to show errors and warnings requiring attention
+      </Card>
+
+      <Card title="Passed checks" icon="check">
+        Expandable to review checks that were validated successfully
+      </Card>
+    </CardGroup>
+  </Tab>
+
+  <Tab title="Table Structure">
+    Each check displays the following information:
+
+    * **Objective** — the name of the check being evaluated
+    * **Status** — one of:
+      * **❌ Error** — failed and will block merge when **Request Changes** is enabled
+      * **⚠️ Warning** — failed but non-blocking
+      * **✅ Passed** — requirements met
+      * **❓ Inconclusive** — incomplete instructions or insufficient information to decide
+    * **Explanation** — why the check passed or failed
+    * **Resolution** — what the author can do to remediate
+  </Tab>
+</Tabs>
+
+### **Unblocking a PR**
+
+If **Request Changes Workflow** is enabled and a check in **Error** mode fails, the PR is blocked until the issue is resolved or you explicitly ignore it. To ignore, select the **Ignore failed checks** checkbox in the PR Walkthrough. The PR is then unblocked and the affected rows are tagged **\[IGNORED]** for traceability.
+
+<Note>
+  The override applies only to that PR. Future PRs will still enforce checks as
+  configured.
+</Note>
+
+## Manual commands
+
+Trigger pre-merge checks manually using chat commands:
+
+### Run All Checks
+
+```md  theme={null}
+@coderabbitai run pre-merge checks
+```
+
+This reruns all configured checks and updates results in the walkthrough.
+
+### Test Custom Check
+
+```dotenv icon=text wrap theme={null}
+@coderabbitai evaluate custom pre-merge check --name <check_name> --instructions <text> [--mode <error|warning>]
+```
+
+Tests custom check logic before saving to configuration.
+
+### **Ignore failures**
+
+```md  theme={null}
+@coderabbitai ignore pre-merge checks
+```
+
+Manually ignore failed checks and unblock the PR.
+
+> See [**Manage code reviews**](/guides/commands) for more commands and behaviors.
+
+## **Best practices**
+
+* Write custom check instructions that are specific and actionable. Keep instructions concise and testable with one purpose per check.
+* Start new checks in warning mode to gather feedback, then move to error mode once the team is aligned on expectations.
+* Periodically review check results and inconclusive cases to refine instructions and identify gaps in validation logic.
+
+
+---
+
+> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://docs.coderabbit.ai/llms.txt, # Generate docstrings
+
+> Automatically generate comprehensive docstrings that match your existing format, delivered through PR workflow for complete review control
+
+<Info>
+  This feature is available exclusively as part of the Pro plan and is not
+  included in the Lite plan. Please refer to our [pricing
+  page](https://www.coderabbit.ai/pricing) for more information about our plans
+  and features.
+</Info>
+
+Writing documentation for every function is time-consuming, but undocumented code creates bottlenecks during code reviews. You spend cycles explaining what functions do instead of focusing on business logic and architecture decisions.
+
+CodeRabbit generates docstrings for functions missing documentation in your PRs. Comment `@coderabbitai generate docstrings` or check the box in your PR walkthrough to trigger generation.
+
+The system scans your changes with ast-grep, identifies functions needing documentation, and generates docstrings that match your codebase's existing format. Generated docstrings are committed to a new branch and opened as a PR for your review.
+
+This handles the initial documentation grunt work while keeping you in control through the standard PR review process.
+
+## How it works
+
+<Steps>
+  <Step title="Trigger generation">
+    Comment `@coderabbitai generate docstrings` in your PR or check **Generate
+    Docstrings** in the CodeRabbit Walkthrough
+  </Step>
+
+  <Step title="Function analysis">
+    ast-grep scans your PR changes to identify functions missing docstrings or
+    with incomplete documentation
+  </Step>
+
+  <Step title="Format-aware generation">
+    AI analyzes your existing docstrings to detect format patterns (JSDoc,
+    Google-style, Sphinx) and generates matching documentation
+  </Step>
+
+  <Step title="PR workflow">
+    Generated docstrings are committed to a new branch with a PR opened against
+    your original branch for review and merge (typically 30-60 seconds)
+  </Step>
+</Steps>
+
+<img src="https://mintcdn.com/coderabbit/D_rqUjBaYiE185JH/images/finishing-touches/assets/images/docstrings-pull-request-9148dc697aa77238c93a4797a87f726a.png?fit=max&auto=format&n=D_rqUjBaYiE185JH&q=85&s=ad01b2354519f17535da0abbb50dcca5" alt="Docstrings PR example showing generated documentation in a pull request" data-og-width="1380" width="1380" data-og-height="810" height="810" data-path="images/finishing-touches/assets/images/docstrings-pull-request-9148dc697aa77238c93a4797a87f726a.png" data-optimize="true" data-opv="3" srcset="https://mintcdn.com/coderabbit/D_rqUjBaYiE185JH/images/finishing-touches/assets/images/docstrings-pull-request-9148dc697aa77238c93a4797a87f726a.png?w=280&fit=max&auto=format&n=D_rqUjBaYiE185JH&q=85&s=5aede00d15bafe8ba357aad2e84d4f8e 280w, https://mintcdn.com/coderabbit/D_rqUjBaYiE185JH/images/finishing-touches/assets/images/docstrings-pull-request-9148dc697aa77238c93a4797a87f726a.png?w=560&fit=max&auto=format&n=D_rqUjBaYiE185JH&q=85&s=1194e23dec7acef982fdd6e096be4718 560w, https://mintcdn.com/coderabbit/D_rqUjBaYiE185JH/images/finishing-touches/assets/images/docstrings-pull-request-9148dc697aa77238c93a4797a87f726a.png?w=840&fit=max&auto=format&n=D_rqUjBaYiE185JH&q=85&s=4b6a99e9278f7aebd93fb408d456229f 840w, https://mintcdn.com/coderabbit/D_rqUjBaYiE185JH/images/finishing-touches/assets/images/docstrings-pull-request-9148dc697aa77238c93a4797a87f726a.png?w=1100&fit=max&auto=format&n=D_rqUjBaYiE185JH&q=85&s=7884a4e9730ea15eb95b4ada7bee82da 1100w, https://mintcdn.com/coderabbit/D_rqUjBaYiE185JH/images/finishing-touches/assets/images/docstrings-pull-request-9148dc697aa77238c93a4797a87f726a.png?w=1650&fit=max&auto=format&n=D_rqUjBaYiE185JH&q=85&s=8305c9ea89635a9cb5637d1118af0250 1650w, https://mintcdn.com/coderabbit/D_rqUjBaYiE185JH/images/finishing-touches/assets/images/docstrings-pull-request-9148dc697aa77238c93a4797a87f726a.png?w=2500&fit=max&auto=format&n=D_rqUjBaYiE185JH&q=85&s=cc2c5cdff529678b63140b528109e312 2500w" />
+
+You review the generated PR like any other code change. CodeRabbit preserves existing docstrings and only documents functions that genuinely need it.
+
+<Tip>
+  CodeRabbit automatically detects your docstring format by analyzing existing
+  documentation patterns. It matches JSDoc, Google-style, Sphinx, custom
+  formats, or even Go's doc comment conventions without any configuration.
+</Tip>
+
+## Platform and integration support
+
+<CardGroup cols={3}>
+  <Card title="Full PR workflow" icon="git-branch">
+    **Complete integration:**
+
+    * GitHub
+    * GitLab
+    * Azure DevOps
+
+    *Branch creation, PR opening, full review workflow*
+  </Card>
+
+  <Card title="Comment integration" icon="message-circle">
+    **Streamlined process:**
+
+    * Bitbucket
+
+    *Docstrings delivered as PR comments while we complete full integration*
+  </Card>
+
+  <Card title="Language coverage" icon="code">
+    **18+ languages supported:**
+
+    * Python, JavaScript, TypeScript
+    * Go, Rust, Java, Kotlin, Swift
+    * C, C++, C#, Ruby, PHP, Lua, Elixir, Bash
+
+    *Support depends on ast-grep parsing capabilities*
+  </Card>
+</CardGroup>
+
+<Warning>
+  **Bitbucket integration:** Currently receives docstrings as PR comments rather than separate PRs. Full workflow support is in development.
+</Warning>
+
+## Configure per-directory styles
+
+<Accordion title="Customize documentation format using .coderabbit.yaml">
+  Different parts of your codebase need different documentation approaches. Use path-based instructions to match your team's standards:
+
+  ```yaml  theme={null}
+  code_generation:
+    docstrings:
+      path_instructions:
+        - path: "src/**/*.ts"
+          instructions: |
+            Use TSDoc format with @param, @returns, and @example tags.
+            Include code examples for public API functions.
+            Focus on behavior and edge cases.
+        - path: "**/*test*"
+          instructions: |
+            Describe test purpose and expected behavior.
+            Keep docstrings concise - focus on what is being tested.
+        - path: "scripts/**/*.py"
+          instructions: |
+            Use Google-style docstrings with Args and Returns sections.
+            Include usage examples for utility scripts.
+        - path: "models/**/*.py"
+          instructions: |
+            Document database models with field descriptions and relationships.
+            Include example queries and common usage patterns.
+  ```
+
+  Path patterns use [minimatch](https://github.com/isaacs/minimatch) syntax to target specific directories, file types, or naming conventions.
+
+  ### Common configuration examples
+
+  **Frontend components:**
+
+  ```yaml  theme={null}
+  - path: "components/**/*.tsx"
+    instructions: "Document props, usage examples, and accessibility considerations"
+  ```
+
+  **API endpoints:**
+
+  ```yaml  theme={null}
+  - path: "api/**/*.{js,ts}"
+    instructions: "Document request/response formats, status codes, and error handling"
+  ```
+
+  **Utility functions:**
+
+  ```yaml  theme={null}
+  - path: "utils/**/*"
+    instructions: "Focus on input validation, return types, and edge case behavior"
+  ```
+
+  **Database models:**
+
+  ```yaml  theme={null}
+  - path: "models/**/*.py"
+    instructions: "Document fields, relationships, and include example queries"
+  ```
+</Accordion>
+
+## Reviewing generated docstrings
+
+When CodeRabbit opens a docstring PR, focus your review on:
+
+**Content accuracy:**
+
+* Parameter descriptions match actual function behavior
+* Return value documentation reflects real outputs
+* Edge cases and error conditions are correctly described
+
+**Format consistency:**
+
+* Generated format matches your codebase conventions
+* Examples use appropriate syntax for your language
+* Terminology aligns with your project's vocabulary
+
+**Completeness:**
+
+* All parameters are documented with appropriate detail
+* Complex functions include usage examples
+* Error conditions and exceptions are covered
+
+Most generated docstrings need minimal adjustment. Common tweaks include refining parameter descriptions or adding project-specific terminology.
+
+## Technical implementation
+
+CodeRabbit uses [ast-grep](https://ast-grep.github.io/) for precise code parsing across different programming languages and coding styles. This enables accurate function detection while respecting your code structure and automatically detecting your preferred docstring format.
+
+Language support depends on ast-grep capabilities. To request additional language support, contribute to the [ast-grep language addition guide](https://ast-grep.github.io/contributing/add-lang.html#add-new-language-to-ast-grep).
+
+**Currently supported:** Bash, C, C++, C#, Elixir, Go, Java, JavaScript, Kotlin, Lua, PHP, Python, React TypeScript, Ruby, Rust, Swift, TypeScript.
+
+## Next steps
+
+Ready to enhance your development workflow? Explore these related features and resources:
+
+<CardGroup cols={2}>
+  <Card title="Finishing touches overview" icon="sparkles" href="/finishing-touches">
+    Discover all code improvement features available in the finishing touches
+    suite
+  </Card>
+
+  <Card title="Configure CodeRabbit" icon="settings" href="/getting-started/yaml-configuration">
+    Set up .coderabbit.yaml to match your team's documentation standards and
+    workflows
+  </Card>
+
+  <Card title="Unit test generation" icon="flask" href="/finishing-touches/unit-test-generation">
+    Automatically generate comprehensive unit tests for your functions and
+    methods
+  </Card>
+
+  <Card title="Join our community" icon="users" href="https://discord.com/channels/1134356397673414807/1317286905557287022">
+    Connect with other developers and share feedback in our Discord community
+  </Card>
+</CardGroup>
+
+
+---
+
+> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://docs.coderabbit.ai/llms.txt,# Configuration via YAML File
+
+> Learn how to configure CodeRabbit using a YAML file for advanced customization.
+
+In this guide, we will cover the configuration using a YAML file. For reference, you can find curated examples of YAML configurations in our [`awesome-coderabbit`](https://github.com/coderabbitai/awesome-coderabbit) repository.
+
+## Configure CodeRabbit using a YAML File
+
+<Note>
+  `.coderabbit.yaml` configuration file must be located in the root of the
+  repository. The configuration present in the feature branch under review will
+  be automatically detected and used by CodeRabbit for that review.
+</Note>
+
+<Check>
+  Move existing UI configuration to a YAML file?
+
+  Use the `@coderabbitai configuration` command on any PR to get the current configuration in a YAML format. You can then copy the configuration to a `.coderabbit.yaml` file in the root of your repository.
+</Check>
+
+### Example Configuration
+
+```yaml .coderabbit.yaml theme={null}
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+language: "en-US"
+early_access: false
+reviews:
+  profile: "chill"
+  request_changes_workflow: false
+  high_level_summary: true
+  poem: true
+  review_status: true
+  collapse_walkthrough: false
+  auto_review:
+    enabled: true
+    drafts: false
+chat:
+  auto_reply: true
+```
+
+## Configuration Options
+
+The configuration file supports numerous options for customizing CodeRabbit's behavior. For the complete list of available configuration options and their descriptions, see the [configuration reference](/reference/configuration#reference).
+
+<CardGroup cols={2}>
+  <Card title="Configuration Reference" icon="book" href="/reference/configuration">
+    Complete documentation of all options
+  </Card>
+</CardGroup>
+
+Please note that code reviews commence with new pull requests or incremental commits to existing pull requests once the CodeRabbit app is installed. Should you have any questions or require assistance, our support team is here to help.
+
+## Shared configuration
+
+If you are self-hosting CodeRabbit in an air-gapped environment, you can use the shared configuration feature to share the configuration across multiple repositories.
+
+To use shared configuration, you need to:
+
+1. Create a `.coderabbit.yaml` file and host it in a location that is accessible to from the CodeRabbit instance.
+2. Create a `.coderabbit.yaml` file in the root of your repository with the following content:
+
+```yaml  theme={null}
+remote_config:
+  url: "https://your-config-location/.coderabbit.yaml"
+```
+
+
+---
+# Knowledge base
+
+> Connect CodeRabbit to your team's tools and practices with adaptive AI that learns from your feedback and automatically detects your coding standards.
+
+CodeRabbit's knowledge base makes reviews smarter by learning from your team's practices and integrating with your existing development tools. The AI adapts to your coding standards, remembers your preferences, and connects code changes to business context.
+
+## Core capabilities
+
+<CardGroup cols={3}>
+  <Card title="Adaptive learnings" icon="brain">
+    AI remembers your team's review preferences and improves over time
+  </Card>
+
+  <Card title="Code guidelines" icon="file-text">
+    Automatic detection of team rules from .cursorrules, CLAUDE.md, and other AI
+    agent files
+  </Card>
+
+  <Card title="Issue tracking" icon="bug">
+    Connect with Jira, Linear, and GitHub Issues for better context
+  </Card>
+</CardGroup>
+
+## Learnings: AI that adapts to your team
+
+Train CodeRabbit to understand your team's specific preferences through natural conversation. The AI remembers your feedback and applies it to future reviews.
+
+### Repository-wide preferences
+
+Tell CodeRabbit about general coding standards for your entire repository:
+
+```md  theme={null}
+@coderabbitai always remember to enforce camelCase variable naming
+```
+
+```md  theme={null}
+@coderabbitai we prefer functional components over class components in React
+```
+
+### Line-specific context
+
+Add context for specific code patterns by commenting directly on lines:
+
+```md  theme={null}
+@coderabbitai do not complain about lack of error handling here,
+it is handled higher up the execution stack
+```
+
+```md  theme={null}
+@coderabbitai this timeout value is intentionally high for batch operations
+```
+
+Learnings work across pull requests, so CodeRabbit won't repeat suggestions your team has already addressed.
+
+See [Teach CodeRabbit your review preferences](/guides/learnings) for advanced learning techniques.
+
+## Code guidelines: Automatic team rules
+
+CodeRabbit automatically detects and applies your team's coding standards from popular AI agent configuration files. No setup required - if you're already using AI coding tools, CodeRabbit understands your rules.
+
+### Supported configuration files
+
+<Accordion title="Automatically detected files">
+  CodeRabbit scans for these patterns in your repositories:
+
+  * **`.cursorrules`** - Cursor AI editor rules
+  * **`.github/copilot-instructions.md`** - GitHub Copilot instructions
+  * **`CLAUDE.md`** - Claude Code configuration files
+  * **`.cursor/rules/`** - Cursor configuration directory
+  * **`.windsurfrules`** - Windsurf editor rules
+  * **`.clinerules/`** - Cline AI agent configuration
+  * **`agent.md`** - AI agent instructions and guidelines
+  * **`.rules/`** - Generic team rules directory
+
+  CodeRabbit applies these rules during code review automatically.
+</Accordion>
+
+This means if you've already configured coding standards for Cursor, Claude, or other AI tools, CodeRabbit will follow the same guidelines. Your team's standards stay consistent across all AI interactions.
+
+<Tip>
+  Code guidelines work best when combined with learnings. Use guidelines for
+  static rules and learnings for dynamic team preferences.
+</Tip>
+
+## Setup and configuration
+
+### Enable knowledge base features
+
+1. **Learnings**: Enabled by default. Start using `@coderabbitai` commands in pull request comments.
+
+2. **Code guidelines**: Automatic detection enabled by default. Add supported configuration files to your repository root.
+
+3. **Issue tracking**: Requires setup. See [Issue integrations](/integrations/issue-integrations) for platform-specific instructions.
+
+### Best practices
+
+* **Start with learnings**: Use `@coderabbitai` commands to teach preferences incrementally
+* **Centralize guidelines**: Put team rules in `.cursorrules` or `CLAUDE.md` files at repository root
+* **Be specific**: Clear, actionable guidelines work better than vague preferences
+* **Review and iterate**: Check how CodeRabbit applies learnings and refine as needed
+
+## Advanced usage
+
+### Cross-repository learning
+
+Learnings can apply across repositories in your organization, helping maintain consistent standards across all projects.
+
+### Team collaboration
+
+Multiple team members can contribute learnings. CodeRabbit synthesizes feedback from different reviewers to understand team consensus.
+
+### Integration with AI agents
+
+Code guidelines ensure consistency between CodeRabbit reviews and your existing AI coding assistants, creating a unified development experience.
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Issue integrations" href="/integrations/issue-integrations">
+    Connect Jira, Linear, and GitHub Issues for better context
+  </Card>
+
+  <Card title="Advanced learnings" href="/guides/learnings">
+    Master CodeRabbit's adaptive AI capabilities
+  </Card>
+</CardGroup>
+
+
+---
+
+> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://docs.coderabbit.ai/llms.txt
+> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://docs.coderabbit.ai/llms.txt, 

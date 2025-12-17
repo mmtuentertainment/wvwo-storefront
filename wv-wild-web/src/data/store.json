@@ -100,8 +100,12 @@
       "priceUnit": "box of 20",
       "images": ["/images/products/hornady-precision-hunter.jpg"],
       "shippable": false,
-      "fflRequired": true,
+      "fflRequired": false,
       "inStock": true,
+      "fulfillmentType": "pickup_only",
+      "ageRestriction": 18,
+      "hazmat": true,
+      "stockLevel": "in_stock",
       "specs": {
         "caliber": ".308 Winchester",
         "bulletWeight": "178 grain",
@@ -125,8 +129,12 @@
       "priceUnit": "box of 20",
       "images": ["/images/products/remington-core-lokt.jpg"],
       "shippable": false,
-      "fflRequired": true,
+      "fflRequired": false,
       "inStock": true,
+      "fulfillmentType": "pickup_only",
+      "ageRestriction": 18,
+      "hazmat": true,
+      "stockLevel": "in_stock",
       "specs": {
         "caliber": ".30-06 Springfield",
         "bulletWeight": "150 grain",
@@ -150,8 +158,12 @@
       "priceUnit": "box of 20",
       "images": ["/images/products/winchester-deer-season.jpg"],
       "shippable": false,
-      "fflRequired": true,
+      "fflRequired": false,
       "inStock": true,
+      "fulfillmentType": "pickup_only",
+      "ageRestriction": 18,
+      "hazmat": true,
+      "stockLevel": "in_stock",
       "specs": {
         "caliber": ".270 Winchester",
         "bulletWeight": "130 grain",
@@ -175,8 +187,12 @@
       "priceUnit": "box of 10",
       "images": ["/images/products/federal-turkey.jpg"],
       "shippable": false,
-      "fflRequired": true,
+      "fflRequired": false,
       "inStock": true,
+      "fulfillmentType": "pickup_only",
+      "ageRestriction": 18,
+      "hazmat": true,
+      "stockLevel": "in_stock",
       "specs": {
         "gauge": "12 Gauge",
         "length": "3 inch",
@@ -202,6 +218,8 @@
       "shippable": true,
       "fflRequired": false,
       "inStock": true,
+      "fulfillmentType": "ship_or_pickup",
+      "stockLevel": "in_stock",
       "specs": {
         "weight": "1.75 oz",
         "color": "Chartreuse",
@@ -226,6 +244,8 @@
       "shippable": true,
       "fflRequired": false,
       "inStock": true,
+      "fulfillmentType": "ship_or_pickup",
+      "stockLevel": "in_stock",
       "specs": {
         "weight": "1.75 oz",
         "color": "Rainbow",
@@ -250,6 +270,8 @@
       "shippable": true,
       "fflRequired": false,
       "inStock": true,
+      "fulfillmentType": "ship_or_pickup",
+      "stockLevel": "in_stock",
       "specs": {
         "pieces": "85",
         "bodies": "70 (7 colors)",
@@ -274,6 +296,8 @@
       "shippable": true,
       "fflRequired": false,
       "inStock": true,
+      "fulfillmentType": "ship_or_pickup",
+      "stockLevel": "in_stock",
       "specs": {
         "weight": "1/8 oz",
         "bladeColor": "Gold",
@@ -298,6 +322,8 @@
       "shippable": true,
       "fflRequired": false,
       "inStock": true,
+      "fulfillmentType": "ship_or_pickup",
+      "stockLevel": "in_stock",
       "specs": {
         "weight": "3/8 oz",
         "skirtColor": "White/Chartreuse",
@@ -322,6 +348,8 @@
       "shippable": true,
       "fflRequired": false,
       "inStock": true,
+      "fulfillmentType": "ship_or_pickup",
+      "stockLevel": "in_stock",
       "specs": {
         "diveDepth": "6-8 feet",
         "length": "2 inches",
@@ -346,6 +374,8 @@
       "shippable": true,
       "fflRequired": false,
       "inStock": true,
+      "fulfillmentType": "ship_or_pickup",
+      "stockLevel": "in_stock",
       "specs": {
         "hookSize": "3/0",
         "quantity": "2 rigs",
@@ -370,6 +400,8 @@
       "shippable": true,
       "fflRequired": false,
       "inStock": true,
+      "fulfillmentType": "ship_or_pickup",
+      "stockLevel": "in_stock",
       "specs": {
         "length": "6 inches",
         "color": "Green Pumpkin",
@@ -394,6 +426,10 @@
       "shippable": false,
       "fflRequired": true,
       "inStock": true,
+      "fulfillmentType": "reserve_hold",
+      "maxQuantity": 1,
+      "ageRestriction": 18,
+      "stockLevel": "in_stock",
       "specs": {
         "gauge": "12 Gauge",
         "chamber": "3 inch",
@@ -419,6 +455,10 @@
       "shippable": false,
       "fflRequired": true,
       "inStock": true,
+      "fulfillmentType": "reserve_hold",
+      "maxQuantity": 1,
+      "ageRestriction": 18,
+      "stockLevel": "in_stock",
       "specs": {
         "caliber": ".22 LR",
         "barrelLength": "18.5 inches",
@@ -444,6 +484,10 @@
       "shippable": false,
       "fflRequired": true,
       "inStock": true,
+      "fulfillmentType": "reserve_hold",
+      "maxQuantity": 1,
+      "ageRestriction": 18,
+      "stockLevel": "in_stock",
       "specs": {
         "caliber": ".308 Winchester",
         "barrelLength": "22 inches",
@@ -469,6 +513,10 @@
       "shippable": false,
       "fflRequired": true,
       "inStock": true,
+      "fulfillmentType": "reserve_hold",
+      "maxQuantity": 1,
+      "ageRestriction": 18,
+      "stockLevel": "in_stock",
       "specs": {
         "gauge": "12 Gauge",
         "chamber": "3 inch",
@@ -478,5 +526,11 @@
       },
       "tags": ["shotgun", "pump", "hunting", "home defense", "combo"]
     }
-  ]
+  ],
+  "settings": {
+    "defaultMaxQuantity": 10,
+    "firearmMaxQuantity": 1,
+    "pickupOnlyCategories": ["ammo"],
+    "reserveHoldCategories": ["firearms"]
+  }
 }
