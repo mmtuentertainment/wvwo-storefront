@@ -45,7 +45,7 @@ export function isFirearm(product: Product): boolean {
 
 /**
  * Checks if a product is ammunition.
- * Ammo is pickup-only and marked as hazardous material.
+ * Ammo is identified by category or by being pickup-only hazmat.
  *
  * @param product - The product to check
  * @returns true if the product is ammunition
@@ -56,7 +56,8 @@ export function isFirearm(product: Product): boolean {
  * }
  */
 export function isAmmo(product: Product): boolean {
-  return product.fulfillmentType === 'pickup_only' && product.hazmat === true;
+  return product.categoryId === 'ammo' ||
+         (product.fulfillmentType === 'pickup_only' && product.hazmat === true);
 }
 
 /**

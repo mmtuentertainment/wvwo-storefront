@@ -103,7 +103,7 @@
       "fflRequired": false,
       "inStock": true,
       "fulfillmentType": "pickup_only",
-      "ageRestriction": 21,
+      "ageRestriction": 18,
       "hazmat": true,
       "stockLevel": "in_stock",
       "specs": {
@@ -132,7 +132,7 @@
       "fflRequired": false,
       "inStock": true,
       "fulfillmentType": "pickup_only",
-      "ageRestriction": 21,
+      "ageRestriction": 18,
       "hazmat": true,
       "stockLevel": "in_stock",
       "specs": {
@@ -161,7 +161,7 @@
       "fflRequired": false,
       "inStock": true,
       "fulfillmentType": "pickup_only",
-      "ageRestriction": 21,
+      "ageRestriction": 18,
       "hazmat": true,
       "stockLevel": "in_stock",
       "specs": {
@@ -190,7 +190,7 @@
       "fflRequired": false,
       "inStock": true,
       "fulfillmentType": "pickup_only",
-      "ageRestriction": 21,
+      "ageRestriction": 18,
       "hazmat": true,
       "stockLevel": "in_stock",
       "specs": {
