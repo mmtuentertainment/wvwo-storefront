@@ -7,6 +7,7 @@ import Header from '../../../components/Header.astro';
 import Footer from '../../../components/Footer.astro';
 import ProductCard from '../../../components/shop/ProductCard.astro';
 import { SITE_CONTACT } from '../../../config/siteContact';
+import { isFirearm } from '../../../lib/products';
 import storeData from '../../../data/store.json';
 
 export function getStaticPaths() {
@@ -43,6 +44,12 @@ const relatedProducts = storeData.products
 const specsEntries = Object.entries(product.specs || {});
 
 // Schema.org Product structured data (Phase 3A SEO)
+const schemaAvailability = isFirearm(product)
+  ? 'https://schema.org/InStoreOnly'
+  : product.inStock
+    ? 'https://schema.org/InStock'
+    : 'https://schema.org/OutOfStock';
+
 const productSchema = {
   "@context": "https://schema.org",
   "@type": "Product",
@@ -57,10 +64,11 @@ const productSchema = {
   "offers": {
     "@type": "Offer",
     "url": `https://wvwildoutdoors.com/shop/${category.slug}/${product.slug}`,
+    // Only include price for non-firearms
+    ...(isFirearm(product) ? {} : { price: (product.price / 100).toFixed(2) }),
     "priceCurrency": "USD",
-    "price": (product.price / 100).toFixed(2),
     "priceValidUntil": new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-    "availability": product.inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+    "availability": schemaAvailability,
     "itemCondition": "https://schema.org/NewCondition",
     "seller": {
       "@type": "Organization",
