@@ -44,7 +44,7 @@ export interface CartState {
   sessionId: string;       // UUID for tracking
 }
 
-export interface CartSummary {
+export interface CartSummaryData {
   itemCount: number;
   subtotal: number;        // In cents
   hasShippableItems: boolean;
@@ -205,7 +205,7 @@ function migrateCart(oldCart: unknown): CartState | null {
   return null;
 }
 
-function calculateSummary(items: CartItem[]): CartSummary {
+function calculateSummary(items: CartItem[]): CartSummaryData {
   const hasShippableItems = items.some(
     (item) => item.fulfillmentType === 'ship_or_pickup'
   );
@@ -248,7 +248,7 @@ function calculateSummary(items: CartItem[]): CartSummary {
 
 interface CartContextValue {
   state: CartState;
-  summary: CartSummary;
+  summary: CartSummaryData;
   persistenceMode: PersistenceMode;
   isOpen: boolean;
   setIsOpen: (open: boolean) => void;
