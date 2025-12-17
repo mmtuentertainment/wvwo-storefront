@@ -6,6 +6,8 @@ import {
   $subtotal,
   $summary,
   $persistenceMode,
+  $cartRestoreError,
+  $cartPersistenceWarning,
   addItem,
   removeItem,
   updateQuantity,
@@ -44,6 +46,8 @@ export function useCart() {
   const subtotal = useStore($subtotal);
   const summary = useStore($summary);
   const persistenceMode = useStore($persistenceMode);
+  const cartRestoreError = useStore($cartRestoreError);
+  const cartPersistenceWarning = useStore($cartPersistenceWarning);
 
   return {
     // State (match old interface)
@@ -54,7 +58,7 @@ export function useCart() {
       isOpen,
     },
 
-    // Summary data (shipping, tax, total)
+    // Summary data (item count, subtotal, fulfillment restrictions)
     summary,
 
     // Cart visibility
@@ -76,8 +80,10 @@ export function useCart() {
     updateQuantity,
     clearCart,
 
-    // Persistence mode
+    // Persistence mode and error states
     persistenceMode,
+    cartRestoreError,
+    cartPersistenceWarning,
 
     // Convenience computed values
     isEmpty: itemCount === 0,

@@ -77,7 +77,16 @@ export interface CartSummaryData {
 // ============================================================================
 
 function generateSessionId(): string {
-  return crypto.randomUUID();
+  // Fallback for older browsers without crypto.randomUUID()
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+    return crypto.randomUUID();
+  }
+  // Polyfill: generate UUID v4 pattern
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+    const r = (Math.random() * 16) | 0;
+    const v = c === 'x' ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
 }
 
 function isLocalStorageAvailable(): boolean {
@@ -176,6 +185,10 @@ export const $isCartOpen = atom(false);
 
 // Persistence mode: 'persistent' (localStorage working) | 'session' (fallback)
 export const $persistenceMode = atom<PersistenceMode>('persistent');
+
+// User-facing error states for localStorage failures
+export const $cartRestoreError = atom<boolean>(false);
+export const $cartPersistenceWarning = atom<boolean>(false);
 
 // Computed values
 export const $cartItems = computed($cartState, (state) => state.items);
@@ -431,6 +444,8 @@ if (typeof window !== 'undefined') {
       } catch (error) {
         console.error('[Cart] Failed to restore cart from localStorage:', error);
         localStorage.removeItem(CART_STORAGE_KEY);
+        // Notify UI that cart restoration failed
+        $cartRestoreError.set(true);
       }
     }
   } else {
@@ -450,7 +465,12 @@ if (typeof window !== 'undefined') {
       }
     } catch (error) {
       console.error('[Cart] Failed to persist cart:', error);
+      const prevMode = $persistenceMode.get();
       $persistenceMode.set('session'); // Degrade gracefully
+      // Only warn once when degrading from persistent to session
+      if (prevMode === 'persistent') {
+        $cartPersistenceWarning.set(true);
+      }
     }
   });
 }

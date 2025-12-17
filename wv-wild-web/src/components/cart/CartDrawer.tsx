@@ -11,7 +11,7 @@ import { CartItemRow } from './CartItem';
 import { CartSummary } from './CartSummary';
 
 export function CartDrawer() {
-  const { state, summary, isOpen, setIsOpen } = useCart();
+  const { state, summary, isOpen, setIsOpen, cartRestoreError, cartPersistenceWarning } = useCart();
 
   // Generate accessible cart status for screen readers
   const cartStatusAnnouncement = state.items.length === 0
@@ -35,6 +35,18 @@ export function CartDrawer() {
             {cartStatusAnnouncement}
           </div>
         </SheetHeader>
+
+        {/* Storage warning banners */}
+        {cartRestoreError && (
+          <div className="mx-4 mb-2 p-3 bg-amber-50 border border-amber-200 rounded-sm text-amber-800 text-sm">
+            <p className="font-body">Your previous cart couldn't be restored. You may need to re-add items.</p>
+          </div>
+        )}
+        {cartPersistenceWarning && (
+          <div className="mx-4 mb-2 p-3 bg-amber-50 border border-amber-200 rounded-sm text-amber-800 text-sm">
+            <p className="font-body">Cart won't be saved between sessions. Complete checkout before leaving.</p>
+          </div>
+        )}
 
         {/* Scrollable content area */}
         <div className="flex-1 overflow-y-auto py-4 space-y-4">

@@ -20,6 +20,9 @@ vi.stubGlobal('localStorage', localStorageMock);
 // Now import the store
 import {
   $cartState,
+  $itemCount,
+  $subtotal,
+  $summary,
   addItem,
   removeItem,
   updateQuantity,
@@ -199,6 +202,131 @@ describe('cartStore', () => {
       const item = createMockItem({ productId: 'gun-1', fulfillmentType: 'reserve_hold' });
       const result = addItem(item);
       expect(result.success).toBe(true);
+    });
+  });
+
+  describe('computed values', () => {
+    it('$itemCount returns correct sum of quantities', () => {
+      addItem(createMockItem({ productId: 'item-1', quantity: 2 }));
+      addItem(createMockItem({ productId: 'item-2', quantity: 3 }));
+
+      expect($itemCount.get()).toBe(5);
+    });
+
+    it('$subtotal returns correct sum of price * quantity', () => {
+      addItem(createMockItem({ productId: 'item-1', price: 1000, quantity: 2 })); // $10 x 2 = $20
+      addItem(createMockItem({ productId: 'item-2', price: 500, quantity: 3 }));  // $5 x 3 = $15
+
+      expect($subtotal.get()).toBe(3500); // $35 in cents
+    });
+
+    it('$summary.hasShippableItems detects ship_or_pickup items', () => {
+      addItem(createMockItem({ fulfillmentType: 'ship_or_pickup' }));
+
+      expect($summary.get().hasShippableItems).toBe(true);
+      expect($summary.get().hasPickupOnlyItems).toBe(false);
+      expect($summary.get().hasFirearms).toBe(false);
+    });
+
+    it('$summary.hasPickupOnlyItems detects pickup_only items', () => {
+      addItem(createMockItem({ productId: 'ammo-1', fulfillmentType: 'pickup_only' }));
+
+      expect($summary.get().hasPickupOnlyItems).toBe(true);
+    });
+
+    it('$summary.hasFirearms detects reserve_hold items', () => {
+      addItem(createMockItem({ productId: 'gun-1', fulfillmentType: 'reserve_hold' }));
+
+      expect($summary.get().hasFirearms).toBe(true);
+    });
+
+    it('$summary.requiresAgeVerification detects age-restricted items', () => {
+      addItem(createMockItem({ ageRestriction: 21 }));
+
+      expect($summary.get().requiresAgeVerification).toBe(true);
+    });
+
+    it('$summary.fulfillmentOptions allows ship and pickup for shippable-only cart', () => {
+      addItem(createMockItem({ fulfillmentType: 'ship_or_pickup' }));
+
+      expect($summary.get().fulfillmentOptions).toEqual(['ship', 'pickup']);
+    });
+
+    it('$summary.fulfillmentOptions forces pickup-only for firearms', () => {
+      addItem(createMockItem({ productId: 'gun-1', fulfillmentType: 'reserve_hold' }));
+
+      expect($summary.get().fulfillmentOptions).toEqual(['pickup']);
+    });
+
+    it('$summary.fulfillmentOptions allows both when mixing shippable and pickup_only', () => {
+      addItem(createMockItem({ productId: 'gear-1', fulfillmentType: 'ship_or_pickup' }));
+      addItem(createMockItem({ productId: 'ammo-1', fulfillmentType: 'pickup_only' }));
+
+      expect($summary.get().fulfillmentOptions).toEqual(['ship', 'pickup']);
+    });
+  });
+
+  describe('invalid product data validation', () => {
+    it('rejects item with missing productId', () => {
+      const item = createMockItem({ productId: '' });
+      const result = addItem(item);
+
+      expect(result.success).toBe(false);
+      expect(result.message).toBe('Invalid product data');
+    });
+
+    it('rejects item with missing sku', () => {
+      const item = createMockItem({ sku: '' });
+      const result = addItem(item);
+
+      expect(result.success).toBe(false);
+      expect(result.message).toBe('Invalid product data');
+    });
+
+    it('rejects item with missing name', () => {
+      const item = createMockItem({ name: '' });
+      const result = addItem(item);
+
+      expect(result.success).toBe(false);
+      expect(result.message).toBe('Invalid product data');
+    });
+
+    it('rejects item with quantity less than 1', () => {
+      const item = createMockItem({ quantity: 0 });
+      const result = addItem(item);
+
+      expect(result.success).toBe(false);
+      expect(result.message).toBe('Quantity must be at least 1');
+    });
+
+    it('rejects item with negative quantity', () => {
+      const item = createMockItem({ quantity: -1 });
+      const result = addItem(item);
+
+      expect(result.success).toBe(false);
+      expect(result.message).toBe('Quantity must be at least 1');
+    });
+  });
+
+  describe('cumulative quantity validation', () => {
+    it('fails when adding to existing item exceeds maxQuantity', () => {
+      const item = createMockItem({ productId: 'item-1', quantity: 6, maxQuantity: 10 });
+      addItem(item);
+
+      // Try to add 6 more (total would be 12, max is 10)
+      const result = addItem(createMockItem({ productId: 'item-1', quantity: 6, maxQuantity: 10 }));
+
+      expect(result.success).toBe(false);
+      expect(result.message).toContain('Maximum 10');
+    });
+  });
+
+  describe('updateQuantity edge cases', () => {
+    it('handles updating non-existent item gracefully', () => {
+      // Should not throw
+      expect(() => updateQuantity('nonexistent', 5)).not.toThrow();
+      // Cart should remain unchanged
+      expect(Object.keys($cartState.get().items)).toHaveLength(0);
     });
   });
 });
