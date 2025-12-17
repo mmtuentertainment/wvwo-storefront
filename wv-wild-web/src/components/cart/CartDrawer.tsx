@@ -1,4 +1,4 @@
-import { ShoppingBag } from 'lucide-react';
+import { ShoppingBag, X } from 'lucide-react';
 import {
   Sheet,
   SheetContent,
@@ -11,7 +11,7 @@ import { CartItemRow } from './CartItem';
 import { CartSummary } from './CartSummary';
 
 export function CartDrawer() {
-  const { state, summary, isOpen, setIsOpen, cartRestoreError, cartPersistenceWarning } = useCart();
+  const { state, summary, isOpen, setIsOpen, cartRestoreError, cartPersistenceWarning, clearCartRestoreError, clearCartPersistenceWarning } = useCart();
 
   // Generate accessible cart status for screen readers
   const cartStatusAnnouncement = state.items.length === 0
@@ -38,13 +38,27 @@ export function CartDrawer() {
 
         {/* Storage warning banners */}
         {cartRestoreError && (
-          <div role="alert" className="mx-4 mb-2 p-3 bg-brand-cream border border-brand-mud/30 rounded-sm text-brand-brown text-sm">
+          <div role="alert" className="mx-4 mb-2 p-3 bg-brand-cream border border-brand-mud/30 rounded-sm text-brand-brown text-sm flex justify-between items-start gap-2">
             <p className="font-body">Your previous cart couldn't be restored. You may need to re-add items.</p>
+            <button
+              onClick={clearCartRestoreError}
+              className="flex-shrink-0 text-brand-mud hover:text-brand-brown transition-colors"
+              aria-label="Dismiss warning"
+            >
+              <X className="w-4 h-4" />
+            </button>
           </div>
         )}
         {cartPersistenceWarning && (
-          <div role="alert" className="mx-4 mb-2 p-3 bg-brand-cream border border-brand-mud/30 rounded-sm text-brand-brown text-sm">
+          <div role="alert" className="mx-4 mb-2 p-3 bg-brand-cream border border-brand-mud/30 rounded-sm text-brand-brown text-sm flex justify-between items-start gap-2">
             <p className="font-body">Cart won't be saved between sessions. Complete checkout before leaving.</p>
+            <button
+              onClick={clearCartPersistenceWarning}
+              className="flex-shrink-0 text-brand-mud hover:text-brand-brown transition-colors"
+              aria-label="Dismiss warning"
+            >
+              <X className="w-4 h-4" />
+            </button>
           </div>
         )}
 

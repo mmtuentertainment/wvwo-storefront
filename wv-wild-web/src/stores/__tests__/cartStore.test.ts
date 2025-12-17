@@ -23,10 +23,14 @@ import {
   $itemCount,
   $subtotal,
   $summary,
+  $cartRestoreError,
+  $cartPersistenceWarning,
   addItem,
   removeItem,
   updateQuantity,
   clearCart,
+  clearCartRestoreError,
+  clearCartPersistenceWarning,
   formatPrice,
   type CartItem,
 } from '../cartStore';
@@ -334,6 +338,40 @@ describe('cartStore', () => {
       expect(() => updateQuantity('nonexistent', 5)).not.toThrow();
       // Cart should remain unchanged
       expect(Object.keys($cartState.get().items)).toHaveLength(0);
+    });
+  });
+
+  describe('error state management', () => {
+    beforeEach(() => {
+      // Reset error states before each test
+      $cartRestoreError.set(false);
+      $cartPersistenceWarning.set(false);
+    });
+
+    it('clearCartRestoreError resets $cartRestoreError to false', () => {
+      $cartRestoreError.set(true);
+      expect($cartRestoreError.get()).toBe(true);
+
+      clearCartRestoreError();
+      expect($cartRestoreError.get()).toBe(false);
+    });
+
+    it('clearCartPersistenceWarning resets $cartPersistenceWarning to false', () => {
+      $cartPersistenceWarning.set(true);
+      expect($cartPersistenceWarning.get()).toBe(true);
+
+      clearCartPersistenceWarning();
+      expect($cartPersistenceWarning.get()).toBe(false);
+    });
+
+    it('clear functions are idempotent (calling when already false is safe)', () => {
+      expect($cartRestoreError.get()).toBe(false);
+      clearCartRestoreError();
+      expect($cartRestoreError.get()).toBe(false);
+
+      expect($cartPersistenceWarning.get()).toBe(false);
+      clearCartPersistenceWarning();
+      expect($cartPersistenceWarning.get()).toBe(false);
     });
   });
 });
