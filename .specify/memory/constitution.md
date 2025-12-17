@@ -1,18 +1,18 @@
 <!--
 SYNC IMPACT REPORT
 ==================
-Version change: 2.0.0 (Simple Static Approach) → 2.1.0 (Phase 3 Strategy & Geographic Positioning)
+Version change: 2.1.0 (Phase 3 Strategy) → 2.2.0 (Matt Runs Tech)
 
-MINOR VERSION BUMP - New principle added, scope expanded.
+MINOR VERSION BUMP - Tech ownership clarified, React/shadcn approved.
 
 Modified sections:
-- Principle II: Added US 19/I-79 Exit 57 geographic positioning, expanded non-negotiables
-- Principle VI: Added Anti-Speed Clause (no artificial deadlines)
-- NEW Principle VII: Appalachian Gateway Positioning (geographic strategy)
-- Boundary Rules: E-commerce now IN scope (Phase 3C)
-- Compliance Review: Updated to reference 7 principles
+- Principle IV: Clarified Matt has FULL tech autonomy (architecture, frameworks, paid services)
+- Technology Stack: Added React + shadcn/ui for interactive components
+- Removed "No client-side JavaScript frameworks" constraint (React approved Dec 2025)
+- Removed "free tier" emphasis - Matt decides on paid services based on business value
 
 Previous versions:
+- 2.1.0: Phase 3 Strategy & Geographic Positioning
 - 2.0.0: Simple Static Approach - architecture pivot from enterprise to static
 - 1.1.3: December 2025 dependency updates
 - 1.1.2: Added Anti-MVP exception for .env.example placeholder files
@@ -25,7 +25,8 @@ Templates requiring updates:
 - .specify/templates/spec-template.md ✅ compatible (no constitution refs)
 - .specify/templates/tasks-template.md ✅ compatible (no constitution refs)
 - .coderabbit.yaml ✅ compatible (no version refs)
-- CLAUDE.md - needs Phase 3 and geographic context updates
+- CLAUDE.md ✅ updated (TECH OWNER principle added)
+- .agentdb/wvwo-context.json ✅ updated (MATT_RUNS_TECH principle added)
 -->
 
 # WV Wild Outdoors Storefront Constitution
@@ -81,10 +82,10 @@ independently. Each component owns its domain and integrates through well-define
 **Rationale:** Small business technology needs change. Vendor lock-in kills flexibility.
 Any component can be swapped without rebuilding the entire system.
 
-### IV. Developer-Managed Infrastructure
+### IV. Matt Runs All Tech
 
-Matt owns ALL backend systems, deployment, updates, security, and configuration.
-Kim MUST NEVER need to access servers, databases, or configuration files.
+Matt owns ALL technical decisions: architecture, frameworks, infrastructure, paid services,
+and implementation choices. Kim MUST NEVER need to access servers, databases, or config files.
 
 **Non-negotiable rules:**
 - Kim's access: Website viewing, Facebook page, email review
@@ -92,9 +93,12 @@ Kim MUST NEVER need to access servers, databases, or configuration files.
 - All production changes MUST go through Matt
 - Emergency procedures MUST have Matt as primary contact
 - Documentation MUST distinguish "Kim does this" vs "Matt does this"
+- Tech complexity is Matt's call - don't flag React/shadcn as "too complex"
+- Paid services are Matt's call when business value justifies cost
 
 **Rationale:** Clear ownership prevents accidents. Kim focuses on business, Matt focuses
-on technology. No gray areas, no "just SSH in and fix it" situations for non-technical users.
+on technology. Matt has full autonomy on tech decisions - architecture, frameworks, and
+tooling choices are his domain. No second-guessing or suggesting "simpler" alternatives.
 
 ### V. Dual-Experience Design
 
@@ -186,31 +190,30 @@ WV's hunting highway — we position accordingly.
 
 ## Technology Stack
 
-The following technologies are approved for this project. Deviations require constitution
-amendment.
+The following technologies are approved for this project. Matt may add tools as needed.
 
 **Frontend:**
 - Astro (static site generation)
 - Tailwind CSS (styling)
-- Vanilla JavaScript (interactivity, minimal dependencies)
+- React + shadcn/ui (interactive components - approved Dec 2025)
 
-**Services (External, Free Tier):**
-- Buttondown (email newsletter - free up to 100 subscribers)
-- Web3Forms (contact/quote forms - free tier)
+**Services (External):**
+- Buttondown (email newsletter)
+- Web3Forms (contact/quote forms)
 - YouTube (video hosting - embedded)
-- Cloudflare Analytics (traffic tracking - free)
+- Cloudflare Analytics (traffic tracking)
+- Additional services as Matt determines business value justifies cost
 
 **Infrastructure:**
-- Cloudflare Pages (static hosting - free)
-- Cloudflare (DNS, CDN - free tier)
-- GitHub (version control, CI/CD - free)
+- Cloudflare Pages (static hosting)
+- Cloudflare (DNS, CDN)
+- GitHub (version control, CI/CD)
 
 **Constraints:**
-- No client-side JavaScript frameworks (React, Vue, etc.) for public pages
+- No Vue, Angular, Svelte, or other JS frameworks (React is the approved exception)
 - No WordPress, Shopify, or monolithic platforms
 - No services requiring Kim to manage credentials or API keys
-- No databases or servers to maintain
-- No Docker or containerization (static files only)
+- No databases or servers Kim needs to maintain (Matt can use as needed)
 
 ## Roles & Responsibilities
 
@@ -261,4 +264,4 @@ Storefront project. All specifications, plans, and implementations MUST comply.
 - Anti-MVP Bias checklist (Internal + External shipping criteria) MUST be completed before merge
 - Violations MUST be documented with explicit justification in Complexity Tracking
 
-**Version**: 2.1.0 | **Ratified**: 2025-12-04 | **Last Amended**: 2025-12-12
+**Version**: 2.2.0 | **Ratified**: 2025-12-04 | **Last Amended**: 2025-12-17
