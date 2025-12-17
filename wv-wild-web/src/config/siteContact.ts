@@ -13,9 +13,9 @@ export const SITE_CONTACT = {
     highway: {
         interstate: 'I-79',
         exit: '57',
-        exitName: 'Frametown',
-        feetFromExit: 1500,                    // ~1500 feet from Exit 57, across from fire station road
-        directions: "Take I-79 Exit 57 (Frametown). We're just off the exit, across from the fire station road.",
+        exitName: '',                          // Kim confirmed NOT Frametown - awaiting correct name
+        feetFromExit: 1500,                    // ~1500 feet from Exit 57, across from GoMart
+        directions: "Take I-79 Exit 57. We're across from GoMart, visible from Rt 19.",
     },
     // Drive times from major cities for highway hunter capture
     driveTimes: [
