@@ -48,11 +48,11 @@
 | 2016+ | Theft - Lost $10,000, no insurance | Same period |
 | After 2016 | Relocated to corner lot | **Current location** (121 Birch River Rd) |
 | **After recovery** | Landlord told them "Move out!" | Forced to find new building |
-| **Now** | Debt-free, own building + all inventory | Small storefront (~shed-sized) |
+| **Now** | Lease current building, own all inventory | Small storefront (~shed-sized) |
 
 ### Physical Store Context
 - **Size:** Small storefront (approximately lawn mower shed scale)
-- **Ownership:** They own the building + all inventory outright
+- **Ownership:** They LEASE the building, own all inventory outright
 - **Previous location:** Stucco building next door (now neighbor's property)
 - **The $70k flood loss:** Was likely their ENTIRE inventory at the time
 - **"Country store" positioning:** Accurate and intentional - small is the point
@@ -61,7 +61,7 @@
 After recovering from the flood and theft, the landlord told them to leave. As Kim put it:
 > "I told Bryan then that (giggling) to shut up and get ready for a blessing."
 
-This led them to buy their own building - turning what felt like another disaster into debt-free ownership.
+This led them to find a new location - turning what felt like another disaster into a fresh start.
 
 ---
 
@@ -295,9 +295,9 @@ This captures her faith-forward resilience perfectly - every setback is reframed
 >
 > The flood hit Birch River hard. Record water levels. Old Route 19 collapsed. We lost $70,000 in inventory overnight. FEMA said no - Braxton County wasn't on their list. Then someone broke in and took another $10,000.
 >
-> After we rebuilt, the landlord told us to move out. We could have given up. Instead, we bought our own building.
+> After we rebuilt, the landlord told us to move out. We could have given up. Instead, we found a new place.
 >
-> Today we own this place and every single thing in it. No debt. No landlord. Just us.
+> Today we're still here. We own every single thing in this shop. No debt on inventory. Just us.
 >
 > When a door closes, look for the blessing. God is good.
 
@@ -444,7 +444,7 @@ Each major intent needs its own section:
 |--------------------|---------|
 | Address "506 Fire House Rd" | Wrong - that's old location, now 121 Birch River Rd |
 | "Appears smaller operation" | It IS small, but full legitimate storefront |
-| "Garage-based FFL?" | Wrong - they own building + all inventory |
+| "Garage-based FFL?" | Wrong - full storefront (leased), own all inventory |
 | "Garden hub" dual identity | Wrong - hunting store + spring potato sales only |
 | Onion sets, tomatoes, perennials | None observed - seed potatoes only |
 | Complex "seasonal chameleon" | Simple: hunting primary, potatoes secondary |
