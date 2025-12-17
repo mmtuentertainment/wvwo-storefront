@@ -15,6 +15,8 @@ import {
   openCart,
   closeCart,
   toggleCart,
+  clearCartRestoreError,
+  clearCartPersistenceWarning,
   type CartItem,
   type CartSummaryData,
   type PersistenceMode
@@ -84,6 +86,8 @@ export function useCart() {
     persistenceMode,
     cartRestoreError,
     cartPersistenceWarning,
+    clearCartRestoreError,
+    clearCartPersistenceWarning,
 
     // Convenience computed values
     isEmpty: itemCount === 0,

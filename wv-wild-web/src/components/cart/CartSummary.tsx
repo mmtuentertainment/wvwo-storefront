@@ -18,12 +18,8 @@ export function CartSummary() {
   };
 
   return (
-    <div
-      role="region"
-      aria-labelledby="cart-summary-heading"
-      className="border-t border-brand-mud/20 pt-4 space-y-4"
-    >
-      <h2 id="cart-summary-heading" className="sr-only">Cart Summary</h2>
+    <div className="border-t border-brand-mud/20 pt-4 space-y-4">
+      <h2 className="sr-only">Cart Summary</h2>
       <div className="flex justify-between items-center">
         <span className="text-brand-mud">
           {summary.itemCount} {summary.itemCount === 1 ? 'item' : 'items'}

@@ -38,12 +38,12 @@ export function CartDrawer() {
 
         {/* Storage warning banners */}
         {cartRestoreError && (
-          <div className="mx-4 mb-2 p-3 bg-amber-50 border border-amber-200 rounded-sm text-amber-800 text-sm">
+          <div role="alert" className="mx-4 mb-2 p-3 bg-brand-cream border border-brand-mud/30 rounded-sm text-brand-brown text-sm">
             <p className="font-body">Your previous cart couldn't be restored. You may need to re-add items.</p>
           </div>
         )}
         {cartPersistenceWarning && (
-          <div className="mx-4 mb-2 p-3 bg-amber-50 border border-amber-200 rounded-sm text-amber-800 text-sm">
+          <div role="alert" className="mx-4 mb-2 p-3 bg-brand-cream border border-brand-mud/30 rounded-sm text-brand-brown text-sm">
             <p className="font-body">Cart won't be saved between sessions. Complete checkout before leaving.</p>
           </div>
         )}

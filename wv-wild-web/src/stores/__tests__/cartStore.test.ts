@@ -264,6 +264,13 @@ describe('cartStore', () => {
 
       expect($summary.get().fulfillmentOptions).toEqual(['ship', 'pickup']);
     });
+
+    it('$summary.fulfillmentOptions forces pickup-only for pickup_only-only cart', () => {
+      addItem(createMockItem({ productId: 'ammo-1', fulfillmentType: 'pickup_only' }));
+      addItem(createMockItem({ productId: 'ammo-2', fulfillmentType: 'pickup_only' }));
+
+      expect($summary.get().fulfillmentOptions).toEqual(['pickup']);
+    });
   });
 
   describe('invalid product data validation', () => {

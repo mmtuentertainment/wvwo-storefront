@@ -190,6 +190,20 @@ export const $persistenceMode = atom<PersistenceMode>('persistent');
 export const $cartRestoreError = atom<boolean>(false);
 export const $cartPersistenceWarning = atom<boolean>(false);
 
+/**
+ * Clear cart restore error (call after user acknowledges)
+ */
+export function clearCartRestoreError(): void {
+  $cartRestoreError.set(false);
+}
+
+/**
+ * Clear cart persistence warning (call after user acknowledges)
+ */
+export function clearCartPersistenceWarning(): void {
+  $cartPersistenceWarning.set(false);
+}
+
 // Computed values
 export const $cartItems = computed($cartState, (state) => state.items);
 
@@ -434,6 +448,8 @@ if (typeof window !== 'undefined') {
             } else {
               console.warn('[Cart] Could not migrate cart, clearing data');
               localStorage.removeItem(CART_STORAGE_KEY);
+              // Notify UI that cart migration failed
+              $cartRestoreError.set(true);
             }
           }
         } else {
