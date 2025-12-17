@@ -3,8 +3,13 @@ import * as React from 'react';
 import { ShoppingBag } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useCart } from '@/hooks/useCart';
+import { cn } from '@/lib/utils';
 
-export function CartIcon() {
+interface CartIconProps {
+  className?: string;
+}
+
+export function CartIcon({ className }: CartIconProps) {
   const { summary, setIsOpen } = useCart();
   const itemCount = summary.itemCount;
 
@@ -13,7 +18,7 @@ export function CartIcon() {
       variant="ghost"
       size="icon"
       onClick={() => setIsOpen(true)}
-      className="relative"
+      className={cn("relative", className)}
       aria-label={`Shopping cart${itemCount > 0 ? `, ${itemCount} items` : ''}`}
     >
       <ShoppingBag className="h-5 w-5" />

@@ -16,7 +16,7 @@ export function CartDrawer() {
   // Generate accessible cart status for screen readers
   const cartStatusAnnouncement = state.items.length === 0
     ? 'Cart is empty'
-    : `Cart has ${state.items.length} ${state.items.length === 1 ? 'item' : 'items'}, total ${summary.total.toFixed(2)} dollars`;
+    : `Cart has ${state.items.length} ${state.items.length === 1 ? 'item' : 'items'}, subtotal ${(summary.subtotal / 100).toFixed(2)} dollars`;
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
