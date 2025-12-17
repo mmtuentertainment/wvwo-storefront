@@ -54,10 +54,7 @@ describe('cartStore', () => {
   });
 
   describe('addItem', () => {
-    it('adds item to empty cart', async () => {
-      // Wait for any debounce to clear
-      await new Promise(r => setTimeout(r, 150));
-
+    it('adds item to empty cart', () => {
       const item = createMockItem();
       const result = addItem(item);
 
@@ -66,9 +63,7 @@ describe('cartStore', () => {
       expect($cartState.get().items['test-123']).toBeDefined();
     });
 
-    it('respects maxQuantity limit', async () => {
-      await new Promise(r => setTimeout(r, 150));
-
+    it('respects maxQuantity limit', () => {
       const item = createMockItem({ quantity: 11, maxQuantity: 10 });
       const result = addItem(item);
 
@@ -76,24 +71,18 @@ describe('cartStore', () => {
       expect(result.message).toContain('Maximum');
     });
 
-    it('limits firearms to 1 per SKU', async () => {
-      await new Promise(r => setTimeout(r, 150));
-
+    it('limits firearms to 1 per SKU', () => {
       const firearm = createMockItem({ fulfillmentType: 'reserve_hold' });
 
       const first = addItem(firearm);
       expect(first.success).toBe(true);
-
-      await new Promise(r => setTimeout(r, 150));
 
       const second = addItem(firearm);
       expect(second.success).toBe(false);
       expect(second.message).toContain('already reserved');
     });
 
-    it('limits total firearms to 3 per order', async () => {
-      await new Promise(r => setTimeout(r, 150));
-
+    it('limits total firearms to 3 per order', () => {
       // Add 3 different firearms
       for (let i = 1; i <= 3; i++) {
         const firearm = createMockItem({
@@ -101,7 +90,6 @@ describe('cartStore', () => {
           fulfillmentType: 'reserve_hold',
         });
         addItem(firearm);
-        await new Promise(r => setTimeout(r, 150));
       }
 
       // Try to add a 4th
@@ -117,9 +105,7 @@ describe('cartStore', () => {
   });
 
   describe('removeItem', () => {
-    it('removes item from cart', async () => {
-      await new Promise(r => setTimeout(r, 150));
-
+    it('removes item from cart', () => {
       const item = createMockItem();
       addItem(item);
 
@@ -137,9 +123,7 @@ describe('cartStore', () => {
   });
 
   describe('updateQuantity', () => {
-    it('updates quantity within bounds', async () => {
-      await new Promise(r => setTimeout(r, 150));
-
+    it('updates quantity within bounds', () => {
       const item = createMockItem();
       addItem(item);
 
@@ -148,9 +132,7 @@ describe('cartStore', () => {
       expect($cartState.get().items['test-123'].quantity).toBe(5);
     });
 
-    it('caps quantity at maxQuantity', async () => {
-      await new Promise(r => setTimeout(r, 150));
-
+    it('caps quantity at maxQuantity', () => {
       const item = createMockItem({ maxQuantity: 5 });
       addItem(item);
 
@@ -159,9 +141,7 @@ describe('cartStore', () => {
       expect($cartState.get().items['test-123'].quantity).toBe(5);
     });
 
-    it('removes item when quantity is 0 or less', async () => {
-      await new Promise(r => setTimeout(r, 150));
-
+    it('removes item when quantity is 0 or less', () => {
       const item = createMockItem();
       addItem(item);
 
@@ -172,11 +152,8 @@ describe('cartStore', () => {
   });
 
   describe('clearCart', () => {
-    it('removes all items from cart', async () => {
-      await new Promise(r => setTimeout(r, 150));
-
+    it('removes all items from cart', () => {
       addItem(createMockItem({ productId: 'item-1' }));
-      await new Promise(r => setTimeout(r, 150));
       addItem(createMockItem({ productId: 'item-2' }));
 
       clearCart();
@@ -192,6 +169,36 @@ describe('cartStore', () => {
       expect(formatPrice(0)).toBe('$0.00');
       expect(formatPrice(99)).toBe('$0.99');
       expect(formatPrice(10000)).toBe('$100.00');
+    });
+
+    it('handles large amounts', () => {
+      expect(formatPrice(999999)).toBe('$9,999.99');
+    });
+
+    it('handles negative (refunds)', () => {
+      expect(formatPrice(-500)).toBe('-$5.00');
+    });
+  });
+
+  describe('fulfillment type validation', () => {
+    it('allows ship_or_pickup items', () => {
+      const item = createMockItem({ fulfillmentType: 'ship_or_pickup' });
+      const result = addItem(item);
+      expect(result.success).toBe(true);
+    });
+
+    it('allows pickup_only items', () => {
+      clearCart();
+      const item = createMockItem({ productId: 'ammo-1', fulfillmentType: 'pickup_only' });
+      const result = addItem(item);
+      expect(result.success).toBe(true);
+    });
+
+    it('allows reserve_hold (firearms) with restrictions', () => {
+      clearCart();
+      const item = createMockItem({ productId: 'gun-1', fulfillmentType: 'reserve_hold' });
+      const result = addItem(item);
+      expect(result.success).toBe(true);
     });
   });
 });

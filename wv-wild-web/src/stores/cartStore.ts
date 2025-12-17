@@ -10,6 +10,21 @@
 
 import { atom, map, computed } from 'nanostores';
 
+// Analytics type declarations
+interface CartAnalyticsEvent {
+  event: 'add_to_cart' | 'remove_from_cart';
+  productId: string;
+  sku: string;
+  quantity?: number;
+  price?: number;
+}
+
+declare global {
+  interface Window {
+    trackCartEvent?: (event: CartAnalyticsEvent) => void;
+  }
+}
+
 // Schema version for localStorage migration support
 const CART_SCHEMA_VERSION = 1;
 const CART_STORAGE_KEY = 'wvwo_cart';
@@ -119,12 +134,17 @@ function calculateSummary(items: Record<string, CartItem>): CartSummaryData {
   // Determine available fulfillment options
   const fulfillmentOptions: ('ship' | 'pickup')[] = [];
   if (hasShippableItems && !hasFirearms && !hasPickupOnlyItems) {
+    // Only shippable items - both options available
     fulfillmentOptions.push('ship', 'pickup');
   } else if (hasShippableItems && hasPickupOnlyItems && !hasFirearms) {
-    // Mixed cart with pickup-only - customer can choose
+    // Mixed cart with pickup-only items (e.g., ammo) - both options,
+    // pickup-only items will be separated at checkout if shipping selected
     fulfillmentOptions.push('ship', 'pickup');
   } else {
-    // Firearms in cart = entire order is pickup only
+    // All other cases require pickup only:
+    // - Cart contains firearms (reserve_hold) - FFL transfer required
+    // - Cart contains only pickup_only items (ammo without shippables)
+    // - Any combination with firearms forces entire order to pickup
     fulfillmentOptions.push('pickup');
   }
 
@@ -190,6 +210,23 @@ export function addItem(item: CartItem): { success: boolean; message: string } {
 
   isAddingItem = true;
 
+  // Validate required CartItem fields
+  if (!item.productId || !item.sku || !item.name || typeof item.quantity !== 'number' || typeof item.maxQuantity !== 'number') {
+    isAddingItem = false;
+    return {
+      success: false,
+      message: 'Invalid product data',
+    };
+  }
+
+  if (item.quantity < 1) {
+    isAddingItem = false;
+    return {
+      success: false,
+      message: 'Quantity must be at least 1',
+    };
+  }
+
   try {
     const state = $cartState.get();
     const existingItem = state.items[item.productId];
@@ -249,9 +286,9 @@ export function addItem(item: CartItem): { success: boolean; message: string } {
     $cartState.setKey('lastUpdated', new Date().toISOString());
 
     // Optional: Track analytics (with error handling)
-    if (typeof window !== 'undefined' && (window as any).trackCartEvent) {
+    if (typeof window !== 'undefined' && window.trackCartEvent) {
       try {
-        (window as any).trackCartEvent({
+        window.trackCartEvent({
           event: 'add_to_cart',
           productId: item.productId,
           sku: item.sku,
@@ -268,8 +305,7 @@ export function addItem(item: CartItem): { success: boolean; message: string } {
       message: `${item.shortName} added to cart`,
     };
   } finally {
-    // Reset lock after a short delay to allow React state to settle
-    setTimeout(() => { isAddingItem = false; }, 100);
+    isAddingItem = false;
   }
 }
 
@@ -288,9 +324,9 @@ export function removeItem(productId: string): void {
   $cartState.setKey('lastUpdated', new Date().toISOString());
 
   // Optional: Track analytics (with error handling)
-  if (typeof window !== 'undefined' && (window as any).trackCartEvent) {
+  if (typeof window !== 'undefined' && window.trackCartEvent) {
     try {
-      (window as any).trackCartEvent({
+      window.trackCartEvent({
         event: 'remove_from_cart',
         productId: item.productId,
         sku: item.sku,
