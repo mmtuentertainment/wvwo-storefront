@@ -475,10 +475,11 @@ npx agentdb@latest learner run 3 0.6 0.7
 | Key | Value |
 |-----|-------|
 | **PROJECT** | WV Wild Outdoors - Kim & Bryan's hunting/outdoor shop |
+| **TECH OWNER** | **Matt handles ALL technical work.** Kim runs the store. React/shadcn complexity is fine. |
 | **LOCATION** | **121 WV-82 (Birch River Rd), Birch River, WV 26610** (I-79 Exit 57 access) |
 | **IDENTITY** | FFL dealer, DNR agent, family-owned since 2008 |
 | **PHASE** | Phase 3: Highway Hunter Capture (SEO + Content Hub + E-Commerce) |
-| **TECH** | Astro 5.x + Tailwind CSS 4.x + React/shadcn (approved Dec 2025) |
+| **TECH** | Astro 5.x + Tailwind CSS 4.x + React/shadcn (full stack approved) |
 | **HOSTING** | Cloudflare Pages |
 | **VOICE** | Faith-forward, humble, rural WV authentic, "Grand love ya" |
 | **DESIGN** | brand-brown, brand-orange, brand-cream, sign-green |
@@ -489,28 +490,26 @@ npx agentdb@latest learner run 3 0.6 0.7
 
 | Principle | Meaning | Example |
 |-----------|---------|---------|
-| **SIMPLICITY > COMPLEXITY** | We pivoted from Docker/Directus to static Astro. Simpler is better for small business. | Don't suggest databases, CMSs, or complex architectures |
-| **AUTHENTIC > CORPORATE** | Kim's real voice, not marketing speak. Rural WV culture, not Silicon Valley. | Don't use buzzwords, "solutions", or slick copy |
-| **FREE > EXPENSIVE** | Cloudflare Pages free tier. Web3Forms free tier. Minimize monthly costs for Kim. | Don't suggest expensive paid services without justification |
+| **MATT RUNS TECH** | Matt handles ALL technical work. Don't flag React/shadcn as "complex" - Matt can handle it. | Don't suggest simpler alternatives unless asked |
+| **AUTHENTIC > CORPORATE** | Kim's real voice for UI copy, not marketing speak. Rural WV culture, not Silicon Valley. | Don't use buzzwords, "solutions", or slick copy |
+| **COST-CONSCIOUS** | Prefer free-tier where sensible, but Matt decides on paid services when business value justifies it. | Suggest options, let Matt decide on costs |
 | **LOCAL + HIGHWAY** | Kim's customers are neighbors AND out-of-state hunters on I-79. Serve both. | SEO and e-commerce ARE in scope for Phase 3 |
 | **QUALITY > SPEED** | This is NOT an MVP. No artificial deadlines. Do it RIGHT, not fast. | Never rush, never cut corners, never "ship it" |
 
 **When suggesting features, Claude MUST check:**
-> "Does this add unnecessary complexity? Does it sound corporate? Does it serve both local AND highway customers?"
-> E-commerce and SEO are now IN SCOPE (Phase 3). Quality over speed, always.
+> "Does this sound corporate? Does it serve both local AND highway customers?"
+> Technical complexity is fine - Matt handles all tech. Focus on business value and Kim's voice for UI.
 
 ## HARD RULES (Never Violate)
 
-- **APPROVED**: React + shadcn/ui for interactive components (user approved Dec 2025)
+- **APPROVED**: React + shadcn/ui for interactive components (Matt handles all tech)
 - **NEVER** suggest Vue, Angular, Svelte, or other JS frameworks (React is the exception)
-- **NEVER** use corporate marketing tone
-- **NEVER** over-engineer - keep it simple
-- **NEVER** suggest paid services without explicit user request
+- **NEVER** use corporate marketing tone in UI copy
 - **ALWAYS** use Astro components with frontmatter (React islands via client:visible)
 - **ALWAYS** use Tailwind design system classes
 - **ALWAYS** apply WVWO aesthetic to shadcn defaults (rounded-sm, brand colors, no purple)
-- **ALWAYS** match Kim's authentic voice
-- **ALWAYS** prefer free-tier solutions
+- **ALWAYS** match Kim's authentic voice for customer-facing copy
+- **TECH DECISIONS**: Matt decides on complexity, architecture, and paid services. Don't second-guess.
 
 ## WORKFLOW RULES (Token Efficiency)
 
