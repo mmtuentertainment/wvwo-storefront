@@ -447,6 +447,23 @@ reviews:
     docstrings:
       mode: "warning"  # Warn but don't block (no code yet)
     # Note: unit_tests removed - not in CodeRabbit schema; rely on CI instead
+    custom_checks:
+      - name: "PR Size Limit"
+        mode: "warning"
+        instructions: |
+          Evaluate PR size based on total lines changed (additions + deletions):
+          - PASS: < 400 lines - Good size for effective review
+          - WARNING: 400-500 lines - Approaching limit, consider splitting
+          - FAIL: > 500 lines - PR too large, recommend splitting into smaller PRs
+          Comment on natural split points if PR is too large.
+
+      - name: "Spec Reference Required"
+        mode: "warning"
+        instructions: |
+          For PRs touching src/ code, verify the PR description includes
+          a reference to a spec file in docs/specs/ or specs/ directory.
+          PASS if spec reference found, or if PR is documentation-only.
+          WARN if no spec reference for code changes.
 
   # Tools Configuration - Simple static site stack
   tools:
