@@ -55,12 +55,21 @@ export interface CartSummaryData {
 
 // ============================================================================
 // Utilities
-// ============================================================================
+/**
+ * Generate a UUID string for use as a cart session identifier.
+ *
+ * @returns An RFC 4122-compliant UUID string suitable as a session id.
+ */
 
 function generateSessionId(): string {
   return crypto.randomUUID();
 }
 
+/**
+ * Checks whether localStorage is available and writable in the current environment.
+ *
+ * @returns `true` if `window.localStorage` can be used for read/write operations, `false` otherwise.
+ */
 function isLocalStorageAvailable(): boolean {
   if (typeof window === 'undefined') return false;
 
@@ -74,6 +83,19 @@ function isLocalStorageAvailable(): boolean {
   }
 }
 
+/**
+ * Compute aggregated cart summary metrics from the given cart items.
+ *
+ * @param items - A record of CartItem objects keyed by `productId`.
+ * @returns CartSummaryData containing:
+ *  - `itemCount`: total quantity of all items,
+ *  - `subtotal`: total price in cents (sum of price * quantity),
+ *  - `hasShippableItems`: `true` if any item is `ship_or_pickup`,
+ *  - `hasPickupOnlyItems`: `true` if any item is `pickup_only`,
+ *  - `hasFirearms`: `true` if any item is `reserve_hold`,
+ *  - `requiresAgeVerification`: `true` if any item has an `ageRestriction`,
+ *  - `fulfillmentOptions`: array of available fulfillment choices (`'ship'` and/or `'pickup'`).
+ */
 function calculateSummary(items: Record<string, CartItem>): CartSummaryData {
   const itemsArray = Object.values(items);
 
@@ -150,7 +172,15 @@ export const $summary = computed($cartState, (state) => {
 // ============================================================================
 
 /**
- * Add item to cart with validation
+ * Adds an item to the cart while enforcing quantity and firearm reservation constraints.
+ *
+ * Validates that the resulting quantity does not exceed the item's `maxQuantity`. For items with
+ * `fulfillmentType === 'reserve_hold'` (firearms), prevents adding a duplicate firearm (same product)
+ * and enforces a maximum of 3 firearms per order. Updates the cart state and `lastUpdated` timestamp when
+ * the item is added or updated.
+ *
+ * @param item - The cart item to add or update
+ * @returns An object with `success` indicating whether the item was added/updated and `message` describing the result
  */
 export function addItem(item: CartItem): { success: boolean; message: string } {
   const state = $cartState.get();
@@ -228,7 +258,12 @@ export function addItem(item: CartItem): { success: boolean; message: string } {
 }
 
 /**
- * Remove item from cart
+ * Remove an item from the cart by its productId and update the cart state.
+ *
+ * Updates the cart's `lastUpdated` timestamp and, if available, emits a `remove_from_cart`
+ * analytics event via `window.trackCartEvent`.
+ *
+ * @param productId - The ID of the product to remove from the cart
  */
 export function removeItem(productId: string): void {
   const state = $cartState.get();
@@ -252,7 +287,13 @@ export function removeItem(productId: string): void {
 }
 
 /**
- * Update item quantity (0 or less removes item)
+ * Set the quantity for a cart item, removing it when the requested quantity is less than or equal to zero.
+ *
+ * If the specified product is not in the cart, no change is made. The stored quantity is capped at the
+ * item's `maxQuantity`. The cart's `lastUpdated` timestamp is updated when a change occurs.
+ *
+ * @param productId - The cart item's product identifier
+ * @param quantity - Desired quantity; if `<= 0` the item is removed, otherwise capped to the item's `maxQuantity`
  */
 export function updateQuantity(productId: string, quantity: number): void {
   if (quantity <= 0) {
@@ -277,7 +318,9 @@ export function updateQuantity(productId: string, quantity: number): void {
 }
 
 /**
- * Clear all items from cart
+ * Remove all items from the cart and record the current update time.
+ *
+ * Empties the cart's items and sets `lastUpdated` to the current ISO timestamp.
  */
 export function clearCart(): void {
   $cartState.setKey('items', {});
@@ -285,14 +328,14 @@ export function clearCart(): void {
 }
 
 /**
- * Toggle cart drawer
+ * Toggle the cart drawer open/closed state.
  */
 export function toggleCart(): void {
   $isCartOpen.set(!$isCartOpen.get());
 }
 
 /**
- * Open cart drawer
+ * Opens the cart drawer.
  */
 export function openCart(): void {
   $isCartOpen.set(true);
@@ -354,7 +397,12 @@ if (typeof window !== 'undefined') {
 
 // ============================================================================
 // Utility: Format price from cents
-// ============================================================================
+/**
+ * Format a monetary amount given in cents as a US dollar currency string.
+ *
+ * @param cents - Amount in cents (e.g., 123 -> $1.23)
+ * @returns A USD-formatted currency string (for example, "$1.23")
+ */
 
 export function formatPrice(cents: number): string {
   return new Intl.NumberFormat('en-US', {
