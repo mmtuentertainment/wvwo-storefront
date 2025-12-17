@@ -19,7 +19,8 @@ export function CartItemRow({ item }: CartItemRowProps) {
       <div className="flex-shrink-0">
         <img
           src={item.image || '/placeholder-product.jpg'}
-          alt={item.name}
+          alt=""
+          role="presentation"
           onError={(e) => {
             e.currentTarget.src = '/placeholder-product.jpg';
           }}

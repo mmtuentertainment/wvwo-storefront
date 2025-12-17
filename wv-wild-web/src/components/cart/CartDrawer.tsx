@@ -13,6 +13,11 @@ import { CartSummary } from './CartSummary';
 export function CartDrawer() {
   const { state, summary, isOpen, setIsOpen } = useCart();
 
+  // Generate accessible cart status for screen readers
+  const cartStatusAnnouncement = state.items.length === 0
+    ? 'Cart is empty'
+    : `Cart has ${state.items.length} ${state.items.length === 1 ? 'item' : 'items'}, total ${summary.total.toFixed(2)} dollars`;
+
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetContent side="right" className="flex flex-col w-full sm:max-w-lg">
@@ -20,6 +25,15 @@ export function CartDrawer() {
           <SheetTitle className="font-display text-2xl text-brand-brown">
             Your Cart
           </SheetTitle>
+          {/* Live region for screen reader announcements */}
+          <div
+            role="status"
+            aria-live="polite"
+            aria-atomic="true"
+            className="sr-only"
+          >
+            {cartStatusAnnouncement}
+          </div>
         </SheetHeader>
 
         {/* Scrollable content area */}
