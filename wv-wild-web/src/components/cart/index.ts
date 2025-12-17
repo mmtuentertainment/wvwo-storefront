@@ -19,3 +19,4 @@ export { CartSummary } from './CartSummary';
 export { CartDrawer } from './CartDrawer';
 export { AddToCartButton } from './AddToCartButton';
 export { default as HeaderCart } from './HeaderCart';
+export { CartErrorBoundary } from './CartErrorBoundary';

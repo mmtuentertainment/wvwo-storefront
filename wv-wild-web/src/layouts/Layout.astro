@@ -2,7 +2,7 @@
 import '../styles/global.css';
 import { SITE_CONTACT } from '../config/siteContact';
 import StickyPhone from '../components/StickyPhone.astro';
-import { CartDrawer } from '../components/cart';
+import { CartDrawer, CartErrorBoundary } from '../components/cart';
 
 interface Props {
 	title: string;
@@ -200,6 +200,8 @@ const schemaData = {
 		<slot />
 		<StickyPhone />
 		<!-- Cart Drawer (shared state via nanostores) -->
-		<CartDrawer client:load />
+		<CartErrorBoundary client:load>
+			<CartDrawer client:load />
+		</CartErrorBoundary>
 	</body>
 </html>

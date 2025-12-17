@@ -13,13 +13,17 @@ import { atom, map, computed } from 'nanostores';
 // Schema version for localStorage migration support
 const CART_SCHEMA_VERSION = 1;
 const CART_STORAGE_KEY = 'wvwo_cart';
-const CART_EXPIRY_HOURS = 24;
+const CART_EXPIRY_HOURS = 168; // 7 days (was 24 hours)
+
+// Race condition protection for addItem
+let isAddingItem = false;
 
 // ============================================================================
 // Types
 // ============================================================================
 
 export type FulfillmentType = 'ship_or_pickup' | 'pickup_only' | 'reserve_hold';
+export type PersistenceMode = 'persistent' | 'session';
 
 export interface CartItem {
   productId: string;
@@ -69,8 +73,30 @@ function isLocalStorageAvailable(): boolean {
     localStorage.setItem(test, test);
     localStorage.removeItem(test);
     return true;
-  } catch {
+  } catch (error) {
+    console.warn('[Cart] localStorage unavailable:', error);
     return false;
+  }
+}
+
+/**
+ * Migrate cart data from older schema versions
+ * Returns null if migration is not possible (forces cart clear)
+ */
+function migrateCart(oldVersion: number, data: CartState): CartState | null {
+  try {
+    // Currently on v1, no migrations needed yet
+    // When we bump to v2, add migration logic here:
+    // if (oldVersion === 1 && CART_SCHEMA_VERSION === 2) {
+    //   return { ...data, schemaVersion: 2, newField: defaultValue };
+    // }
+
+    // Cannot migrate unknown versions
+    console.warn(`[Cart] Cannot migrate from schema v${oldVersion} to v${CART_SCHEMA_VERSION}`);
+    return null;
+  } catch (error) {
+    console.error('[Cart] Migration failed:', error);
+    return null;
   }
 }
 
@@ -128,6 +154,9 @@ export const $cartState = map<CartState>({
 // Cart drawer open/closed
 export const $isCartOpen = atom(false);
 
+// Persistence mode: 'persistent' (localStorage working) | 'session' (fallback)
+export const $persistenceMode = atom<PersistenceMode>('persistent');
+
 // Computed values
 export const $cartItems = computed($cartState, (state) => state.items);
 
@@ -151,80 +180,97 @@ export const $summary = computed($cartState, (state) => {
 
 /**
  * Add item to cart with validation
+ * Includes race condition protection for rapid clicks
  */
 export function addItem(item: CartItem): { success: boolean; message: string } {
-  const state = $cartState.get();
-  const existingItem = state.items[item.productId];
-
-  // Validate quantity
-  const newQuantity = existingItem
-    ? existingItem.quantity + item.quantity
-    : item.quantity;
-
-  if (newQuantity > item.maxQuantity) {
-    return {
-      success: false,
-      message: `Maximum ${item.maxQuantity} per order`,
-    };
+  // Prevent race conditions from rapid clicks
+  if (isAddingItem) {
+    return { success: false, message: 'Please wait...' };
   }
 
-  // Firearms: max 1 per SKU, max 3 total
-  if (item.fulfillmentType === 'reserve_hold') {
-    const firearmCount = Object.values(state.items).filter(
-      (i) => i.fulfillmentType === 'reserve_hold'
-    ).length;
+  isAddingItem = true;
 
+  try {
+    const state = $cartState.get();
+    const existingItem = state.items[item.productId];
+
+    // Validate quantity
+    const newQuantity = existingItem
+      ? existingItem.quantity + item.quantity
+      : item.quantity;
+
+    if (newQuantity > item.maxQuantity) {
+      return {
+        success: false,
+        message: `Maximum ${item.maxQuantity} per order`,
+      };
+    }
+
+    // Firearms: max 1 per SKU, max 3 total
+    if (item.fulfillmentType === 'reserve_hold') {
+      const firearmCount = Object.values(state.items).filter(
+        (i) => i.fulfillmentType === 'reserve_hold'
+      ).length;
+
+      if (existingItem) {
+        return {
+          success: false,
+          message: 'This firearm is already reserved',
+        };
+      }
+
+      if (firearmCount >= 3) {
+        return {
+          success: false,
+          message: 'Maximum 3 firearms per order',
+        };
+      }
+    }
+
+    // Add or update the item
     if (existingItem) {
-      return {
-        success: false,
-        message: 'This firearm is already reserved',
-      };
+      $cartState.setKey('items', {
+        ...state.items,
+        [item.productId]: {
+          ...existingItem,
+          quantity: Math.min(
+            existingItem.quantity + item.quantity,
+            existingItem.maxQuantity
+          ),
+        },
+      });
+    } else {
+      $cartState.setKey('items', {
+        ...state.items,
+        [item.productId]: item,
+      });
     }
 
-    if (firearmCount >= 3) {
-      return {
-        success: false,
-        message: 'Maximum 3 firearms per order',
-      };
+    $cartState.setKey('lastUpdated', new Date().toISOString());
+
+    // Optional: Track analytics (with error handling)
+    if (typeof window !== 'undefined' && (window as any).trackCartEvent) {
+      try {
+        (window as any).trackCartEvent({
+          event: 'add_to_cart',
+          productId: item.productId,
+          sku: item.sku,
+          quantity: item.quantity,
+          price: item.price,
+        });
+      } catch (error) {
+        console.error('[Cart] Analytics tracking failed:', error);
+      }
     }
+
+    return {
+      success: true,
+      message: `${item.shortName} added to cart`,
+    };
+  } finally {
+    // Reset lock after a short delay to allow React state to settle
+    setTimeout(() => { isAddingItem = false; }, 100);
   }
-
-  // Add or update the item
-  if (existingItem) {
-    $cartState.setKey('items', {
-      ...state.items,
-      [item.productId]: {
-        ...existingItem,
-        quantity: Math.min(
-          existingItem.quantity + item.quantity,
-          existingItem.maxQuantity
-        ),
-      },
-    });
-  } else {
-    $cartState.setKey('items', {
-      ...state.items,
-      [item.productId]: item,
-    });
-  }
-
-  $cartState.setKey('lastUpdated', new Date().toISOString());
-
-  // Optional: Track analytics
-  if (typeof window !== 'undefined' && (window as any).trackCartEvent) {
-    (window as any).trackCartEvent({
-      event: 'add_to_cart',
-      productId: item.productId,
-      sku: item.sku,
-      quantity: item.quantity,
-      price: item.price,
-    });
-  }
-
-  return {
-    success: true,
-    message: `${item.shortName} added to cart`,
-  };
 }
 
 /**
@@ -241,13 +287,17 @@ export function removeItem(productId: string): void {
   $cartState.setKey('items', rest);
   $cartState.setKey('lastUpdated', new Date().toISOString());
 
-  // Optional: Track analytics
+  // Optional: Track analytics (with error handling)
   if (typeof window !== 'undefined' && (window as any).trackCartEvent) {
-    (window as any).trackCartEvent({
-      event: 'remove_from_cart',
-      productId: item.productId,
-      sku: item.sku,
-    });
+    try {
+      (window as any).trackCartEvent({
+        event: 'remove_from_cart',
+        productId: item.productId,
+        sku: item.sku,
+      });
+    } catch (error) {
+      console.error('[Cart] Analytics tracking failed:', error);
+    }
   }
 }
 
@@ -317,7 +367,7 @@ if (typeof window !== 'undefined') {
       try {
         const parsed = JSON.parse(stored) as CartState;
 
-        // Validate cart isn't stale (24 hour expiry)
+        // Validate cart isn't stale (7 day expiry)
         const lastUpdated = new Date(parsed.lastUpdated);
         const hoursSinceUpdate =
           (Date.now() - lastUpdated.getTime()) / (1000 * 60 * 60);
@@ -327,27 +377,44 @@ if (typeof window !== 'undefined') {
           if (parsed.schemaVersion === CART_SCHEMA_VERSION) {
             $cartState.set(parsed);
           } else {
-            // Clear incompatible schema
-            localStorage.removeItem(CART_STORAGE_KEY);
+            // Attempt migration instead of clearing
+            const migrated = migrateCart(parsed.schemaVersion, parsed);
+            if (migrated) {
+              $cartState.set(migrated);
+              console.log(`[Cart] Migrated cart from v${parsed.schemaVersion} to v${CART_SCHEMA_VERSION}`);
+            } else {
+              console.warn('[Cart] Could not migrate cart, clearing data');
+              localStorage.removeItem(CART_STORAGE_KEY);
+            }
           }
         } else {
           // Clear stale cart
+          console.log('[Cart] Cart expired, clearing data');
           localStorage.removeItem(CART_STORAGE_KEY);
         }
-      } catch {
+      } catch (error) {
+        console.error('[Cart] Failed to restore cart from localStorage:', error);
         localStorage.removeItem(CART_STORAGE_KEY);
       }
     }
+  } else {
+    // localStorage not available - set session mode
+    $persistenceMode.set('session');
   }
 
   // Subscribe to changes and save to localStorage
   $cartState.subscribe((state) => {
     if (!isLocalStorageAvailable()) return;
 
-    if (Object.keys(state.items).length > 0) {
-      localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(state));
-    } else {
-      localStorage.removeItem(CART_STORAGE_KEY);
+    try {
+      if (Object.keys(state.items).length > 0) {
+        localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(state));
+      } else {
+        localStorage.removeItem(CART_STORAGE_KEY);
+      }
+    } catch (error) {
+      console.error('[Cart] Failed to persist cart:', error);
+      $persistenceMode.set('session'); // Degrade gracefully
     }
   });
 }
@@ -356,9 +423,12 @@ if (typeof window !== 'undefined') {
 // Utility: Format price from cents
 // ============================================================================
 
+// Memoized price formatter (avoids recreating Intl.NumberFormat on every call)
+const priceFormatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+});
+
 export function formatPrice(cents: number): string {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-  }).format(cents / 100);
+  return priceFormatter.format(cents / 100);
 }

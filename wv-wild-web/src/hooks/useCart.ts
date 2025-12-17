@@ -5,6 +5,7 @@ import {
   $itemCount,
   $subtotal,
   $summary,
+  $persistenceMode,
   addItem,
   removeItem,
   updateQuantity,
@@ -13,7 +14,8 @@ import {
   closeCart,
   toggleCart,
   type CartItem,
-  type CartSummaryData
+  type CartSummaryData,
+  type PersistenceMode
 } from '@/stores/cartStore';
 
 /**
@@ -41,6 +43,7 @@ export function useCart() {
   const itemCount = useStore($itemCount);
   const subtotal = useStore($subtotal);
   const summary = useStore($summary);
+  const persistenceMode = useStore($persistenceMode);
 
   return {
     // State (match old interface)
@@ -73,10 +76,13 @@ export function useCart() {
     updateQuantity,
     clearCart,
 
+    // Persistence mode
+    persistenceMode,
+
     // Convenience computed values
     isEmpty: itemCount === 0,
   };
 }
 
 // Re-export types for convenience
-export type { CartItem, CartSummaryData } from '@/stores/cartStore';
+export type { CartItem, CartSummaryData, PersistenceMode } from '@/stores/cartStore';

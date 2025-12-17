@@ -18,8 +18,11 @@ export function CartItemRow({ item }: CartItemRowProps) {
       {/* Product Image */}
       <div className="flex-shrink-0">
         <img
-          src={item.image}
+          src={item.image || '/placeholder-product.jpg'}
           alt={item.name}
+          onError={(e) => {
+            e.currentTarget.src = '/placeholder-product.jpg';
+          }}
           className="w-20 h-20 object-contain bg-white rounded-sm border border-brand-mud/20"
         />
       </div>
