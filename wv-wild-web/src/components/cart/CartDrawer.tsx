@@ -1,4 +1,4 @@
-import { ShoppingBag } from 'lucide-react';
+import { ShoppingBag, X } from 'lucide-react';
 import {
   Sheet,
   SheetContent,
@@ -6,12 +6,17 @@ import {
   SheetTitle,
   SheetFooter,
 } from '@/components/ui/sheet';
-import { useCart } from './CartProvider';
+import { useCart } from '@/hooks/useCart';
 import { CartItemRow } from './CartItem';
 import { CartSummary } from './CartSummary';
 
 export function CartDrawer() {
-  const { state, summary, isOpen, setIsOpen, persistenceMode } = useCart();
+  const { state, summary, isOpen, setIsOpen, cartRestoreError, cartPersistenceWarning, clearCartRestoreError, clearCartPersistenceWarning } = useCart();
+
+  // Generate accessible cart status for screen readers
+  const cartStatusAnnouncement = state.items.length === 0
+    ? 'Cart is empty'
+    : `Cart has ${state.items.length} ${state.items.length === 1 ? 'item' : 'items'}, subtotal ${(summary.subtotal / 100).toFixed(2)} dollars`;
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -20,7 +25,42 @@ export function CartDrawer() {
           <SheetTitle className="font-display text-2xl text-brand-brown">
             Your Cart
           </SheetTitle>
+          {/* Live region for screen reader announcements */}
+          <div
+            role="status"
+            aria-live="polite"
+            aria-atomic="true"
+            className="sr-only"
+          >
+            {cartStatusAnnouncement}
+          </div>
         </SheetHeader>
+
+        {/* Storage warning banners */}
+        {cartRestoreError && (
+          <div role="alert" className="mx-4 mb-2 p-3 bg-brand-cream border border-brand-mud/30 rounded-sm text-brand-brown text-sm flex justify-between items-start gap-2">
+            <p className="font-body">Your previous cart couldn't be restored. You may need to re-add items.</p>
+            <button
+              onClick={clearCartRestoreError}
+              className="flex-shrink-0 text-brand-mud hover:text-brand-brown transition-colors"
+              aria-label="Dismiss warning"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+        )}
+        {cartPersistenceWarning && (
+          <div role="alert" className="mx-4 mb-2 p-3 bg-brand-cream border border-brand-mud/30 rounded-sm text-brand-brown text-sm flex justify-between items-start gap-2">
+            <p className="font-body">Cart won't be saved between sessions. Complete checkout before leaving.</p>
+            <button
+              onClick={clearCartPersistenceWarning}
+              className="flex-shrink-0 text-brand-mud hover:text-brand-brown transition-colors"
+              aria-label="Dismiss warning"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+        )}
 
         {/* Scrollable content area */}
         <div className="flex-1 overflow-y-auto py-4 space-y-4">
@@ -88,15 +128,6 @@ export function CartDrawer() {
                   </p>
                 </div>
 
-                {/* Session-only persistence notice */}
-                {persistenceMode === 'session' && (
-                  <div className="border-l-4 border-l-brand-mud bg-brand-cream/30 p-3 rounded-sm">
-                    <p className="font-body text-xs text-brand-mud/80">
-                      Your cart will clear when you close this browser. Create
-                      an account to save your cart.
-                    </p>
-                  </div>
-                )}
               </div>
             </>
           )}

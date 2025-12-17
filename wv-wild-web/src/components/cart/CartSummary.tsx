@@ -1,7 +1,8 @@
 // CartSummary.tsx - Cart totals and checkout CTA
 import * as React from 'react';
 import { Button } from '@/components/ui/button';
-import { useCart, formatPrice } from './CartProvider';
+import { useCart } from '@/hooks/useCart';
+import { formatPrice } from '@/stores/cartStore';
 import { trackCartEvent } from '@/lib/cart-analytics';
 
 export function CartSummary() {
@@ -18,6 +19,7 @@ export function CartSummary() {
 
   return (
     <div className="border-t border-brand-mud/20 pt-4 space-y-4">
+      <h2 className="sr-only">Cart Summary</h2>
       <div className="flex justify-between items-center">
         <span className="text-brand-mud">
           {summary.itemCount} {summary.itemCount === 1 ? 'item' : 'items'}

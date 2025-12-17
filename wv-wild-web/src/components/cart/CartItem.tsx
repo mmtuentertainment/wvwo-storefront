@@ -2,7 +2,8 @@ import React from 'react';
 import { Plus, Minus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { useCart, type CartItem, formatPrice } from './CartProvider';
+import { useCart, type CartItem } from '@/hooks/useCart';
+import { formatPrice } from '@/stores/cartStore';
 
 interface CartItemRowProps {
   item: CartItem;
@@ -17,8 +18,12 @@ export function CartItemRow({ item }: CartItemRowProps) {
       {/* Product Image */}
       <div className="flex-shrink-0">
         <img
-          src={item.image}
-          alt={item.name}
+          src={item.image || '/placeholder-product.jpg'}
+          alt=""
+          role="presentation"
+          onError={(e) => {
+            e.currentTarget.src = '/placeholder-product.jpg';
+          }}
           className="w-20 h-20 object-contain bg-white rounded-sm border border-brand-mud/20"
         />
       </div>

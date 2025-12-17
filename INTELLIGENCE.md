@@ -1,6 +1,6 @@
 # WV Wild Outdoors - Intelligence File
 
-> **Last Updated:** December 11, 2024
+> **Last Updated:** December 17, 2025
 > **Status:** Website development IN PROGRESS
 > **Project:** Surprise digital storefront gift for family
 > **Website Permission:** Granted Dec 7, 2024
@@ -48,11 +48,11 @@
 | 2016+ | Theft - Lost $10,000, no insurance | Same period |
 | After 2016 | Relocated to corner lot | **Current location** (121 Birch River Rd) |
 | **After recovery** | Landlord told them "Move out!" | Forced to find new building |
-| **Now** | Debt-free, own building + all inventory | Small storefront (~shed-sized) |
+| **Now** | Lease current building, own all inventory | Small storefront (~shed-sized) |
 
 ### Physical Store Context
 - **Size:** Small storefront (approximately lawn mower shed scale)
-- **Ownership:** They own the building + all inventory outright
+- **Ownership:** They LEASE the building, own all inventory outright
 - **Previous location:** Stucco building next door (now neighbor's property)
 - **The $70k flood loss:** Was likely their ENTIRE inventory at the time
 - **"Country store" positioning:** Accurate and intentional - small is the point
@@ -61,7 +61,7 @@
 After recovering from the flood and theft, the landlord told them to leave. As Kim put it:
 > "I told Bryan then that (giggling) to shut up and get ready for a blessing."
 
-This led them to buy their own building - turning what felt like another disaster into debt-free ownership.
+This led them to find a new location - turning what felt like another disaster into a fresh start.
 
 ---
 
@@ -232,6 +232,32 @@ Birch River sits between two retail hubs with no dedicated outfitter in between:
 ### Kim's Actual Voice
 **Tone:** Faith-first, resilient, humble, family-centered, no-frills
 
+**Verified Quotes (with dates from Messenger log):**
+| Quote | Date | Context |
+|-------|------|---------|
+| "Grand love ya!" | Multiple (10+) | Signature sign-off |
+| "If in the Lord's will" | Multiple (15+) | Every future plan |
+| "God is so, so, so good! I love my Lord!" | Dec 3, 2024 | After flood story |
+| "When a door closes, definitely look for the blessing" | Dec 3, 2024 | Core philosophy |
+| "I told Bryan then that (giggling) to shut up and get ready for a blessing" | Dec 11, 2024 | Eviction story |
+| "My GOD IS INDEED GOOD ALL THE TIME!" | Dec 3, 2024 | Testifying (caps intentional) |
+| "Keep your chin up!" | Dec 3, 2024 | Encouraging Matt |
+| "Each door closed had a blessing with a new door open" | Dec 11, 2025 | Faith teaching |
+| "You praise God through the bad; you praise God through the good!" | Dec 11, 2025 | Faith teaching |
+| "Grand Live! Grand Laugh! Grand Love!" | Dec 11, 2025 | Kim's new full tagline |
+| "Take time everyday for your God!" | Dec 11, 2025 | Faith encouragement |
+| "Get up and roll for Jesus!" | Dec 11, 2025 | Call to action |
+
+**"Grand" Pattern:** Kim uses "Grand" as her signature intensifier:
+- "Grand love ya" (sign-off)
+- "Grand bunches" (amplifier)
+- "Grand kiddo" (affectionate address)
+- "Grand Live! Grand Laugh! Grand Love!" (full tagline)
+
+**LOL Usage:** Kim uses LOL liberally and GENUINELY (not ironic). Rural WV Facebook energy.
+
+**Capitalization:** Kim CAPITALIZES for testimony/emphasis ("my GOD IS INDEED GOOD")
+
 **Key phrases she uses:**
 - "If in the Lord's will"
 - "God is so, so, so good"
@@ -269,9 +295,9 @@ This captures her faith-forward resilience perfectly - every setback is reframed
 >
 > The flood hit Birch River hard. Record water levels. Old Route 19 collapsed. We lost $70,000 in inventory overnight. FEMA said no - Braxton County wasn't on their list. Then someone broke in and took another $10,000.
 >
-> After we rebuilt, the landlord told us to move out. We could have given up. Instead, we bought our own building.
+> After we rebuilt, the landlord told us to move out. We could have given up. Instead, we found a new place.
 >
-> Today we own this place and every single thing in it. No debt. No landlord. Just us.
+> Today we're still here. We own every single thing in this shop. No debt on inventory. Just us.
 >
 > When a door closes, look for the blessing. God is good.
 
@@ -418,7 +444,7 @@ Each major intent needs its own section:
 |--------------------|---------|
 | Address "506 Fire House Rd" | Wrong - that's old location, now 121 Birch River Rd |
 | "Appears smaller operation" | It IS small, but full legitimate storefront |
-| "Garage-based FFL?" | Wrong - they own building + all inventory |
+| "Garage-based FFL?" | Wrong - full storefront (leased), own all inventory |
 | "Garden hub" dual identity | Wrong - hunting store + spring potato sales only |
 | Onion sets, tomatoes, perennials | None observed - seed potatoes only |
 | Complex "seasonal chameleon" | Simple: hunting primary, potatoes secondary |
@@ -452,10 +478,61 @@ Each major intent needs its own section:
 
 | Gap | Priority | Approach |
 |-----|----------|----------|
-| Bre's boyfriend name | Low | Next convo: guess wrong, she'll correct |
+| Bre's boyfriend last name | Low | First name is Jordan (confirmed Dec 2024) |
+| Exit 57 correct description | **CRITICAL** | Kim said "NOT Frametown" - ask what IS correct |
+| Federal contract award date | High | "Was that 2016? 2017?" |
+| Which parks they clean | High | "Gauley? New River?" |
 | What they're most proud of | Medium | "What part of the store makes you happiest?" |
 | Pain points | Medium | "What do people always ask for that you don't have?" |
 | Future vision | Medium | "Ever think about expanding?" |
+
+---
+
+## December 2025 Intel Update
+
+### Business Confirmations (Dec 10-17, 2025)
+| Field | Confirmed Value | Source |
+|-------|-----------------|--------|
+| Address | 121 BIRCH RIVER RD, BIRCH RIVER WV 26610 | Kim Dec 10 |
+| Phone | 304 649 2607 (landline only) | Kim Dec 10 |
+| Hours | MON-SAT 10 AM-5PM | Kim Dec 10 |
+| Location | Across from GoMart, visible from Rt 19 | Kim Dec 17 |
+| Cell Service | **NONE** at store | Kim Dec 16 |
+| Email | bkutt1@yahoo.com (for codes, since no cell) | Kim Dec 16 |
+
+### New Service (2025!)
+- **Private sales verification** - new service started this year
+- Check buyer, check seller's weapon for corrupt hits, provide receipt
+- **$25 per weapon** (may increase next year due to paperwork time)
+- "That's Bryan's call!" on pricing
+
+### Inventory Categories (Confirmed Dec 15, 2025)
+Optics, knives, guns, archery, fishing, rustic cabin goods, boots, ammo, animal feed, pet supplies, family clothing, seasonal garden supplies. Lots of Danner & LaCrosse boots.
+
+### Website Progress
+- Domain: wvwildoutdoor.com ($10.46/year on Cloudflare)
+- Draft site: https://wvwildoutdoors.pages.dev/
+- Google Business Profile being updated (was stale)
+- SEO: 45% more visible by Monday/Friday (per Matt's work)
+
+### Corrections Kim Made
+| What Matt Had | Kim's Correction | Source |
+|--------------|------------------|--------|
+| "Tesla Church" | **Stump Chapel Baptist Church** | Dec 17 |
+| "Frametown Exit 57" | **NOT Frametown** (but didn't say what IS correct) | Dec 17 |
+| "Lifetime Licenses Available" | **FALSE** - only on WV DNR site | Dec 17 |
+| "in Braxton County for over 15 years" | **Not true** - moved to Braxton 2013 | Dec 17 |
+
+### Family Updates (Dec 2025)
+- BJ's car broke down, got approved for new auto (working with Ford)
+- Bryan's truck also breaking down, looking at Maverick
+- Kim has been sick (fever, runny nose)
+- Kim teaching Matt about SAM.gov contracts and habitat grants
+
+### Surprising Fact (PRIVATE)
+**Joe Manchin (U.S. Senator) is Kim's uncle** - confirmed Nov 21, 2021 conversation.
+Kim described him as "her favorite" uncle.
+**DO NOT use publicly without explicit permission.**
 
 ---
 

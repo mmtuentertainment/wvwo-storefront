@@ -66,7 +66,7 @@ People ask questions on Google. Add these yourself so you control the answers:
 **A:** Sure do! We're an official WV DNR agent. We print hunting and fishing licenses right here in the shop. Takes just a few minutes.
 
 ### Q: How do I find you from I-79?
-**A:** Take Exit 57 (Frametown). We're just off the exit on WV-82, across from the fire station road. About 2 minutes from the interstate. Look for our sign!
+**A:** Take Exit 57. We're right there — across from GoMart, visible from Rt 19. You'll see us as soon as you get off the exit!
 
 ### Q: Do you buy used guns?
 **A:** Sometimes! Depends on what you've got. Best to bring it by or give us a call. We're always happy to take a look.
