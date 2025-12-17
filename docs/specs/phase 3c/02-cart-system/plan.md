@@ -20,7 +20,7 @@ React-based shopping cart using Context + useReducer for state management, with 
 
 ## Component Structure
 
-```
+```text
 wv-wild-web/src/
 ├── components/
 │   ├── cart/
@@ -47,6 +47,7 @@ wv-wild-web/src/
 ### Phase 1: Dependencies & Infrastructure (~150 LOC)
 
 **1.1 Install shadcn components**
+
 ```bash
 npx shadcn@latest add sheet toast
 ```
@@ -151,6 +152,7 @@ Three variants via prop:
 ## Dependencies
 
 ### External (to install)
+
 ```bash
 # shadcn components (uses existing @radix-ui packages)
 npx shadcn@latest add sheet toast
@@ -244,6 +246,7 @@ npx shadcn@latest add sheet toast
 ## Files to Create/Modify
 
 ### New Files
+
 | File | LOC Est | PR |
 |------|---------|-----|
 | `components/cart/CartProvider.tsx` | 120 | 1 |
@@ -260,6 +263,7 @@ npx shadcn@latest add sheet toast
 | `layouts/CartLayout.astro` | 20 | 3 |
 
 ### Modified Files
+
 | File | Changes | PR |
 |------|---------|-----|
 | `layouts/Layout.astro` | Wrap with CartLayout | 3 |

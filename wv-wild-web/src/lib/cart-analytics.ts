@@ -4,6 +4,8 @@
  * Fires basic analytics events for cart actions.
  * Currently logs to console; can be extended to integrate with
  * Google Analytics, Plausible, or other providers.
+ *
+ * Note: All monetary values (price, subtotal) are in cents.
  */
 
 export type CartAnalyticsEvent =
