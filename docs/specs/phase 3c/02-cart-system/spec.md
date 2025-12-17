@@ -1,7 +1,7 @@
 # SPEC-02: Cart System
 
 **Phase:** 3C - E-Commerce Foundation
-**Status:** SPECIFICATION
+**Status:** ✅ IMPLEMENTED
 **Dependencies:** SPEC-01 (Product Model)
 
 ---
@@ -27,21 +27,27 @@ React-based shopping cart with localStorage persistence, supporting all three pr
 
 ### Technology Stack
 - **UI Framework:** React + shadcn/ui (approved for interactive components)
-- **State Management:** React Context + useReducer
+- **State Management:** Nanostores (framework-agnostic atoms)
 - **Persistence:** localStorage (guest checkout, no backend)
-- **Hydration:** Astro `client:load` directive
+- **Hydration:** Astro `client:visible` directive
 
 ### Component Structure
 ```
 src/components/cart/
-├── CartProvider.tsx       # Context provider + reducer
 ├── CartDrawer.tsx         # Slide-over cart UI (shadcn Sheet)
 ├── CartItem.tsx           # Individual cart item row
 ├── CartSummary.tsx        # Totals + checkout button
 ├── AddToCartButton.tsx    # Product page button
 ├── CartIcon.tsx           # Header cart icon with count
-└── hooks/
-    └── useCart.ts         # Cart hook for components
+├── CartErrorBoundary.tsx  # Graceful error handling
+├── HeaderCart.tsx         # Astro island wrapper
+└── index.ts               # Barrel exports
+
+src/stores/
+└── cartStore.ts           # Nanostores cart state
+
+src/hooks/
+└── useCart.ts             # React hook wrapping nanostores
 ```
 
 ---
