@@ -203,8 +203,9 @@ export function createOrder(params: CreateOrderParams): OrderData {
 const ORDER_STORAGE_KEY = 'wvwo_pending_order';
 
 /**
- * Store order in sessionStorage for retrieval on confirmation page.
- * @returns true if stored successfully, false if storage failed
+ * Store a pending order in sessionStorage for retrieval on the confirmation page.
+ *
+ * @returns `true` if the order was stored; `false` if storage failed or the code is not running in a browser environment.
  */
 export function storePendingOrder(order: OrderData): boolean {
   if (typeof window === 'undefined') return false;
@@ -219,8 +220,11 @@ export function storePendingOrder(order: OrderData): boolean {
 }
 
 /**
- * Retrieve and validate pending order from sessionStorage.
- * @returns StorageResult with validated order data or typed error message
+ * Retrieve the pending order from sessionStorage and validate its structure.
+ *
+ * If the stored data fails validation the entry is removed from sessionStorage to prevent repeated failures.
+ *
+ * @returns `{ success: true, data: OrderData }` when a valid pending order is found; `{ success: false, error: string }` with a descriptive error message otherwise (e.g., not in browser, no pending order, corrupted data, or storage access failure)
  */
 export function getPendingOrder(): StorageResult<OrderData> {
   if (typeof window === 'undefined') {
@@ -252,8 +256,9 @@ export function getPendingOrder(): StorageResult<OrderData> {
 }
 
 /**
- * Clear pending order from sessionStorage.
- * @returns true if cleared successfully, false if operation failed
+ * Remove the pending order entry from sessionStorage.
+ *
+ * @returns `true` if the storage entry was removed, `false` if not in a browser environment or an error occurred
  */
 export function clearPendingOrder(): boolean {
   if (typeof window === 'undefined') return false;
