@@ -146,8 +146,11 @@ export type CheckoutFormData = z.infer<typeof checkoutSchema>;
 // ============================================================================
 
 /**
- * Validates the firearm reserve agreement.
- * Call this separately when cart.hasFirearms is true.
+ * Check that the customer acknowledged the firearm reserve agreement when the cart contains firearms.
+ *
+ * @param reserveAgree - Whether the customer has confirmed the firearm reserve agreement
+ * @param hasFirearms - Whether the current cart includes firearms
+ * @returns An error message string if firearms are present and the agreement was not confirmed, `null` otherwise
  */
 export function validateFirearmAgreement(
   reserveAgree: boolean | undefined,
@@ -186,11 +189,12 @@ export function validateStateRestriction(
 }
 
 /**
- * Validates state for long gun sales.
- * Long guns can be sold to residents of contiguous states.
+ * Determines whether a two-letter state code is eligible for long-gun purchase.
  *
- * @param customerState - The customer's state
- * @returns Whether the state is valid for long gun purchase
+ * Eligible states: WV, OH, PA, MD, VA, KY.
+ *
+ * @param customerState - Two-letter state code (e.g., "WV")
+ * @returns `true` if the state is one of WV, OH, PA, MD, VA, or KY, `false` otherwise.
  */
 export function validateLongGunState(customerState: string): boolean {
   const contiguousStates = ['WV', 'OH', 'PA', 'MD', 'VA', 'KY'];
