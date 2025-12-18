@@ -27,18 +27,26 @@ import { SITE_CONTACT } from '@/config/siteContact';
 export function OrderConfirmation() {
   const [order, setOrder] = useState<OrderData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
-    // Get order from sessionStorage
-    const pendingOrder = getPendingOrder();
-    setOrder(pendingOrder);
-    setLoading(false);
+    // Get order from sessionStorage with proper error handling
+    const result = getPendingOrder();
 
-    // Clear cart on successful order confirmation
-    if (pendingOrder) {
+    if (result.success) {
+      setOrder(result.data);
+      // Clear cart on successful order confirmation
       clearCart();
       clearPendingOrder();
+    } else {
+      // Log error for debugging, show user-friendly message
+      if (result.error !== 'No pending order found') {
+        console.error('[OrderConfirmation] Failed to retrieve order:', result.error);
+        setErrorMessage(result.error);
+      }
     }
+
+    setLoading(false);
   }, []);
 
   if (loading) {
@@ -53,7 +61,7 @@ export function OrderConfirmation() {
     );
   }
 
-  // No order found - redirect user
+  // No order found or error retrieving - show appropriate message
   if (!order) {
     return (
       <div className="max-w-2xl mx-auto text-center py-12 px-4">
@@ -61,15 +69,29 @@ export function OrderConfirmation() {
           <Package className="w-8 h-8 text-brand-mud" />
         </div>
         <h1 className="font-display font-black text-2xl text-brand-brown mb-2">
-          No Order Found
+          {errorMessage ? 'Something Went Wrong' : 'No Order Found'}
         </h1>
         <p className="text-brand-mud mb-6">
-          We couldn't find an order to confirm. If you just placed an order,
-          please check your email for confirmation.
+          {errorMessage
+            ? "We had trouble loading your order details. If you just placed an order, don't worry - it went through! Check your email for confirmation."
+            : "We couldn't find an order to confirm. If you just placed an order, please check your email for confirmation."}
         </p>
-        <Button variant="cta" asChild>
-          <a href="/shop">Continue Shopping</a>
-        </Button>
+        {errorMessage && (
+          <p className="text-sm text-brand-mud/60 mb-6">
+            Error: {errorMessage}
+          </p>
+        )}
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <Button variant="cta" asChild>
+            <a href="/shop">Continue Shopping</a>
+          </Button>
+          <Button variant="outline" asChild>
+            <a href={SITE_CONTACT.phoneHref}>
+              <Phone className="w-4 h-4 mr-2" />
+              Call Us
+            </a>
+          </Button>
+        </div>
       </div>
     );
   }

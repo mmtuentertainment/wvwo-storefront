@@ -10,6 +10,7 @@
     "typecheck": "astro check && tsc --noEmit",
     "test": "vitest",
     "test:run": "vitest run",
+    "test:checkout": "vitest run --coverage src/lib/__tests__ src/components/checkout/schemas/__tests__",
     "optimize-images": "node scripts/optimize-images.mjs"
   },
   "dependencies": {
@@ -45,6 +46,7 @@
     "zod": "^3.25.76"
   },
   "devDependencies": {
+    "@vitest/coverage-v8": "^4.0.16",
     "@vitest/ui": "^4.0.16",
     "jsdom": "^27.3.0",
     "sharp": "^0.34.5",

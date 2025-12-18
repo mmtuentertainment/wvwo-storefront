@@ -2,8 +2,10 @@
  * Order Utilities
  *
  * Order ID generation, storage, and types for checkout flow.
+ * Includes runtime validation for stored order data.
  */
 
+import { z } from 'zod';
 import type { CartItem, CartSummaryData } from '@/stores/cartStore';
 
 // ============================================================================
@@ -12,6 +14,13 @@ import type { CartItem, CartSummaryData } from '@/stores/cartStore';
 
 export type FulfillmentMethod = 'ship' | 'pickup';
 export type OrderStatus = 'pending_payment' | 'paid' | 'processing' | 'ready_for_pickup' | 'shipped' | 'completed';
+
+/**
+ * Result type for storage operations with typed errors
+ */
+export type StorageResult<T> =
+  | { success: true; data: T }
+  | { success: false; error: string };
 
 export interface ShippingAddress {
   street: string;
@@ -44,6 +53,57 @@ export interface OrderData {
   reserveAgreed?: boolean;
   status: OrderStatus;
 }
+
+// ============================================================================
+// Runtime Validation Schema
+// ============================================================================
+
+/**
+ * Zod schema for validating stored order data.
+ * Used to detect corrupted sessionStorage data.
+ */
+const cartItemSchema = z.object({
+  productId: z.string(),
+  sku: z.string(),
+  name: z.string(),
+  shortName: z.string(),
+  price: z.number().int().nonnegative(),
+  priceDisplay: z.string(),
+  quantity: z.number().int().positive(),
+  maxQuantity: z.number().int().positive(),
+  image: z.string(),
+  fulfillmentType: z.enum(['ship_or_pickup', 'pickup_only', 'reserve_hold']),
+  fflRequired: z.boolean(),
+  ageRestriction: z.union([z.literal(18), z.literal(21)]).optional(),
+});
+
+const orderDataSchema = z.object({
+  id: z.string().regex(/^WVWO-\d{4}-\d{6}$/),
+  createdAt: z.string(),
+  contact: z.object({
+    firstName: z.string(),
+    lastName: z.string(),
+    email: z.string().email(),
+    phone: z.string(),
+  }),
+  fulfillment: z.enum(['ship', 'pickup']),
+  shippingAddress: z.object({
+    street: z.string(),
+    apt: z.string().optional(),
+    city: z.string(),
+    state: z.string().length(2),
+    zip: z.string().regex(/^\d{5}$/),
+  }).optional(),
+  items: z.array(cartItemSchema),
+  subtotal: z.number().int().nonnegative(),
+  shipping: z.number().int().nonnegative(),
+  tax: z.number().int().nonnegative(),
+  total: z.number().int().nonnegative(),
+  hasFirearms: z.boolean(),
+  hasPickupOnlyItems: z.boolean(),
+  reserveAgreed: z.boolean().optional(),
+  status: z.enum(['pending_payment', 'paid', 'processing', 'ready_for_pickup', 'shipped', 'completed']),
+});
 
 // ============================================================================
 // Order ID Generation
@@ -143,44 +203,67 @@ export function createOrder(params: CreateOrderParams): OrderData {
 const ORDER_STORAGE_KEY = 'wvwo_pending_order';
 
 /**
- * Store order in sessionStorage for retrieval on confirmation page
+ * Store order in sessionStorage for retrieval on confirmation page.
+ * @returns true if stored successfully, false if storage failed
  */
-export function storePendingOrder(order: OrderData): void {
-  if (typeof window === 'undefined') return;
+export function storePendingOrder(order: OrderData): boolean {
+  if (typeof window === 'undefined') return false;
 
   try {
     sessionStorage.setItem(ORDER_STORAGE_KEY, JSON.stringify(order));
+    return true;
   } catch (error) {
     console.error('[Order] Failed to store order:', error);
+    return false;
   }
 }
 
 /**
- * Retrieve pending order from sessionStorage
+ * Retrieve and validate pending order from sessionStorage.
+ * @returns StorageResult with validated order data or typed error message
  */
-export function getPendingOrder(): OrderData | null {
-  if (typeof window === 'undefined') return null;
+export function getPendingOrder(): StorageResult<OrderData> {
+  if (typeof window === 'undefined') {
+    return { success: false, error: 'Not in browser environment' };
+  }
 
   try {
     const stored = sessionStorage.getItem(ORDER_STORAGE_KEY);
-    if (!stored) return null;
-    return JSON.parse(stored) as OrderData;
+
+    if (!stored) {
+      return { success: false, error: 'No pending order found' };
+    }
+
+    const parsed = JSON.parse(stored);
+    const validated = orderDataSchema.safeParse(parsed);
+
+    if (!validated.success) {
+      console.error('[Order] Invalid order data:', validated.error.issues);
+      // Clear corrupted data to prevent repeated failures
+      sessionStorage.removeItem(ORDER_STORAGE_KEY);
+      return { success: false, error: 'Order data corrupted' };
+    }
+
+    return { success: true, data: validated.data as OrderData };
   } catch (error) {
     console.error('[Order] Failed to retrieve order:', error);
-    return null;
+    return { success: false, error: 'Storage access failed' };
   }
 }
 
 /**
- * Clear pending order from sessionStorage
+ * Clear pending order from sessionStorage.
+ * @returns true if cleared successfully, false if operation failed
  */
-export function clearPendingOrder(): void {
-  if (typeof window === 'undefined') return;
+export function clearPendingOrder(): boolean {
+  if (typeof window === 'undefined') return false;
 
   try {
     sessionStorage.removeItem(ORDER_STORAGE_KEY);
+    return true;
   } catch (error) {
     console.error('[Order] Failed to clear order:', error);
+    return false;
   }
 }
 
