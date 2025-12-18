@@ -7,17 +7,18 @@ import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import ProductCard from '../../components/shop/ProductCard.astro';
 import { SITE_CONTACT } from '../../config/siteContact';
-import storeData from '../../data/store.json';
+import type { Category } from '../../types/product';
+import { categories, products as allProducts } from '../../lib/storeData';
 
 export function getStaticPaths() {
-  return storeData.categories.map(cat => ({
+  return categories.map(cat => ({
     params: { category: cat.slug },
     props: { category: cat }
   }));
 }
 
-const { category } = Astro.props;
-const products = storeData.products.filter(p => p.categoryId === category.id);
+const { category } = Astro.props as { category: Category };
+const products = allProducts.filter(p => p.categoryId === category.id);
 
 // Get unique brands in this category
 const brands = [...new Set(products.map(p => p.brand))].sort();
@@ -172,7 +173,7 @@ const breadcrumbSchema = {
           Other Categories
         </h2>
         <div class="flex flex-wrap justify-center gap-4">
-          {storeData.categories.filter(c => c.id !== category.id).map(cat => (
+          {categories.filter(c => c.id !== category.id).map(cat => (
             <a
               href={`/shop/${cat.slug}`}
               class="bg-stone-100 hover:bg-stone-200 rounded-sm px-5 py-3 transition-colors"

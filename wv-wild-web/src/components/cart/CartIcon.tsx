@@ -1,5 +1,4 @@
 // CartIcon.tsx - Shopping cart icon with item count badge
-import * as React from 'react';
 import { ShoppingBag } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useCart } from '@/hooks/useCart';

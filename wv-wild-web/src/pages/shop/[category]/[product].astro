@@ -9,13 +9,14 @@ import ProductCard from '../../../components/shop/ProductCard.astro';
 import { AddToCartButton } from '../../../components/cart';
 import { SITE_CONTACT } from '../../../config/siteContact';
 import { isFirearm } from '../../../lib/products';
-import storeData from '../../../data/store.json';
+import type { Product, Category } from '../../../types/product';
+import { categories, products as allProducts } from '../../../lib/storeData';
 
 export function getStaticPaths() {
   const paths = [];
 
-  for (const category of storeData.categories) {
-    const categoryProducts = storeData.products.filter(p => p.categoryId === category.id);
+  for (const category of categories) {
+    const categoryProducts = allProducts.filter(p => p.categoryId === category.id);
 
     for (const product of categoryProducts) {
       paths.push({
@@ -34,10 +35,10 @@ export function getStaticPaths() {
   return paths;
 }
 
-const { product, category } = Astro.props;
+const { product, category } = Astro.props as { product: Product; category: Category };
 
 // Get related products (same category, excluding current)
-const relatedProducts = storeData.products
+const relatedProducts = allProducts
   .filter(p => p.categoryId === product.categoryId && p.id !== product.id)
   .slice(0, 3);
 
@@ -307,7 +308,7 @@ const breadcrumbSchema = {
       <div class="container mx-auto px-4">
         <div class="flex flex-wrap items-center justify-center gap-4">
           <span class="text-stone-500 text-sm">Browse:</span>
-          {storeData.categories.map(cat => (
+          {categories.map(cat => (
             <a
               href={`/shop/${cat.slug}`}
               class={`text-sm font-medium px-3 py-1 rounded ${cat.id === category.id ? 'bg-brand-brown text-white' : 'text-brand-brown hover:bg-stone-200'} transition-colors`}

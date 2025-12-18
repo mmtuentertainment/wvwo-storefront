@@ -28,8 +28,8 @@ interface Props {
 const { product, categorySlug } = Astro.props;
 
 // Get category info for link
-import storeData from '../../data/store.json';
-const category = storeData.categories.find(c => c.id === product.categoryId);
+import { categories } from '../../lib/storeData';
+const category = categories.find(c => c.id === product.categoryId);
 const catSlug = categorySlug || category?.slug || product.categoryId;
 ---
 

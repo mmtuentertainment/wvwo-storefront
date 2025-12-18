@@ -18,7 +18,8 @@ type ShippingZone = 1 | 2 | 3;
 
 // State to zone mapping
 const STATE_ZONES: Record<string, ShippingZone> = {
-  // Zone 1: WV + bordering states (excluding KY per spec)
+  // Zone 1: WV + adjacent states (shorter shipping distance)
+  // Note: KY is Zone 2 despite bordering WV (per business decision - higher carrier rates)
   WV: 1,
   VA: 1,
   MD: 1,

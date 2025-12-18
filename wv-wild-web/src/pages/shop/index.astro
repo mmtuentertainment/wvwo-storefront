@@ -8,9 +8,7 @@ import Footer from '../../components/Footer.astro';
 import ProductCard from '../../components/shop/ProductCard.astro';
 import { CategoryShowcase } from '../../components/shop/CategoryShowcase';
 import { SITE_CONTACT } from '../../config/siteContact';
-import storeData from '../../data/store.json';
-
-const { categories, products } = storeData;
+import { categories, products } from '../../lib/storeData';
 
 // Get unique brands for filter
 const brands = [...new Set(products.map(p => p.brand))].sort();

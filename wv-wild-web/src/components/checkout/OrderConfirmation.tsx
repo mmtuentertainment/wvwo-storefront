@@ -27,18 +27,26 @@ import { SITE_CONTACT } from '@/config/siteContact';
 export function OrderConfirmation() {
   const [order, setOrder] = useState<OrderData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
-    // Get order from sessionStorage
-    const pendingOrder = getPendingOrder();
-    setOrder(pendingOrder);
-    setLoading(false);
+    // Get order from sessionStorage with proper error handling
+    const result = getPendingOrder();
 
-    // Clear cart on successful order confirmation
-    if (pendingOrder) {
+    if (result.success) {
+      setOrder(result.data);
+      // Clear cart on successful order confirmation
       clearCart();
       clearPendingOrder();
+    } else {
+      // Log error for debugging, show user-friendly message
+      if (result.error !== 'No pending order found') {
+        console.error('[OrderConfirmation] Failed to retrieve order:', result.error);
+        setErrorMessage(result.error);
+      }
     }
+
+    setLoading(false);
   }, []);
 
   if (loading) {
@@ -53,23 +61,56 @@ export function OrderConfirmation() {
     );
   }
 
-  // No order found - redirect user
+  // No order found or error retrieving - show honest uncertainty message
   if (!order) {
     return (
       <div className="max-w-2xl mx-auto text-center py-12 px-4">
-        <div className="w-16 h-16 bg-brand-cream rounded-full flex items-center justify-center mx-auto mb-6">
-          <Package className="w-8 h-8 text-brand-mud" />
+        <div className="w-16 h-16 bg-brand-orange/10 rounded-full flex items-center justify-center mx-auto mb-6">
+          <Package className="w-8 h-8 text-brand-orange" />
         </div>
-        <h1 className="font-display font-black text-2xl text-brand-brown mb-2">
-          No Order Found
+        <h1 className="font-display font-black text-2xl text-brand-brown mb-4">
+          We Couldn't Find Your Order Details
         </h1>
-        <p className="text-brand-mud mb-6">
-          We couldn't find an order to confirm. If you just placed an order,
-          please check your email for confirmation.
-        </p>
-        <Button variant="cta" asChild>
-          <a href="/shop">Continue Shopping</a>
-        </Button>
+
+        {/* Honest uncertainty - we can't verify what happened */}
+        <div className="bg-brand-cream border-2 border-brand-orange/30 rounded-sm p-6 mb-6 text-left">
+          <p className="text-brand-brown font-medium mb-3">
+            This can happen if:
+          </p>
+          <ul className="text-brand-mud text-sm space-y-2 mb-4 list-disc list-inside">
+            <li>You refreshed this page after placing your order</li>
+            <li>Your browser cleared its data</li>
+            <li>You're visiting from a different device or browser</li>
+          </ul>
+          <p className="text-brand-brown font-medium">
+            Your payment may still have processed successfully.
+          </p>
+          <p className="text-brand-mud text-sm mt-2">
+            Please call us at{' '}
+            <a href={SITE_CONTACT.phoneHref} className="text-sign-green font-medium hover:underline">
+              {SITE_CONTACT.phoneDisplay}
+            </a>{' '}
+            with your approximate order time and we'll confirm your order status.
+          </p>
+        </div>
+
+        {errorMessage && (
+          <p className="text-xs text-brand-mud/50 mb-6">
+            Technical details: {errorMessage}
+          </p>
+        )}
+
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <Button variant="cta" asChild>
+            <a href={SITE_CONTACT.phoneHref}>
+              <Phone className="w-4 h-4 mr-2" />
+              Call to Confirm
+            </a>
+          </Button>
+          <Button variant="outline" asChild>
+            <a href="/shop">Continue Shopping</a>
+          </Button>
+        </div>
       </div>
     );
   }

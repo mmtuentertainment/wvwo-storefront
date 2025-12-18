@@ -37,7 +37,11 @@ let isAddingItem = false;
 // Types
 // ============================================================================
 
-export type FulfillmentType = 'ship_or_pickup' | 'pickup_only' | 'reserve_hold';
+// Import canonical FulfillmentType from product types
+// Re-exported here for cart consumers that don't need full product types
+export type { FulfillmentType } from '@/types/product';
+import type { FulfillmentType } from '@/types/product';
+
 export type PersistenceMode = 'persistent' | 'session';
 
 export interface CartItem {
@@ -107,7 +111,7 @@ function isLocalStorageAvailable(): boolean {
  * Migrate cart data from older schema versions
  * Returns null if migration is not possible (forces cart clear)
  */
-function migrateCart(oldVersion: number, data: CartState): CartState | null {
+function migrateCart(oldVersion: number, _data: CartState): CartState | null {
   try {
     // Currently on v1, no migrations needed yet
     // When we bump to v2, add migration logic here:

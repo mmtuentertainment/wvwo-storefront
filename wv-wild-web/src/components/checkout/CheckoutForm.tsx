@@ -12,6 +12,8 @@ import { ShoppingBag, ArrowLeft } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
+import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
+import { AlertTriangle, Shield, Package } from 'lucide-react';
 import { useCart } from '@/hooks/useCart';
 import {
   checkoutSchema,
@@ -28,9 +30,11 @@ import { PaymentSection } from './PaymentSection';
 import { OrderSummary } from './OrderSummary';
 
 export function CheckoutForm() {
-  const { state, summary, clearCart, isEmpty } = useCart();
+  const { state, summary, isEmpty } = useCart();
   const [isProcessing, setIsProcessing] = useState(false);
   const [firearmError, setFirearmError] = useState<string | null>(null);
+  const [storageError, setStorageError] = useState<string | null>(null);
+  const [paymentError, setPaymentError] = useState<string | null>(null);
 
   // Initialize form with react-hook-form + Zod
   const form = useForm<CheckoutFormData>({
@@ -117,8 +121,17 @@ export function CheckoutForm() {
 
     const order = createOrder(orderParams);
 
-    // Store order for confirmation page
-    storePendingOrder(order);
+    // Store order for confirmation page (returns boolean)
+    const stored = storePendingOrder(order);
+    if (!stored) {
+      // Storage failed - warn user but don't block payment
+      setStorageError(
+        `Couldn't save your order details locally. Please note your order number: ${order.id}`
+      );
+      console.error('[CheckoutForm] Storage failed');
+    } else {
+      setStorageError(null);
+    }
 
     // Payment is handled by PaymentSection (stub for now)
     // Real payment would happen here via Tactical Payments redirect
@@ -131,27 +144,42 @@ export function CheckoutForm() {
   };
 
   // Handle pre-payment validation
-  const handlePaymentAttempt = async () => {
-    // Trigger form validation
-    const isValid = await form.trigger();
-    if (!isValid) {
-      // Scroll to first error
-      const firstError = document.querySelector('[aria-invalid="true"]');
-      firstError?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  const handlePaymentAttempt = async (): Promise<boolean> => {
+    try {
+      // Clear previous errors
+      setPaymentError(null);
+
+      // Trigger form validation
+      const isValid = await form.trigger();
+      if (!isValid) {
+        // Scroll to first error
+        const firstError = document.querySelector('[aria-invalid="true"]');
+        firstError?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return false;
+      }
+
+      // Validate firearm agreement
+      if (summary.hasFirearms && !reserveAgree) {
+        setFirearmError('Please confirm you understand the firearm reserve terms.');
+        const agreementSection = document.getElementById('reserveAgree');
+        agreementSection?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return false;
+      }
+
+      // Submit form data (creates order and stores it)
+      await form.handleSubmit(onSubmit)();
+      return true;
+    } catch (error) {
+      console.error('[CheckoutForm] Payment preparation failed:', error);
+      setPaymentError('Something went wrong preparing your order. Please try again.');
       return false;
     }
+  };
 
-    // Validate firearm agreement
-    if (summary.hasFirearms && !reserveAgree) {
-      setFirearmError('Please confirm you understand the firearm reserve terms.');
-      const agreementSection = document.getElementById('reserveAgree');
-      agreementSection?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      return false;
-    }
-
-    // Submit form data
-    await form.handleSubmit(onSubmit)();
-    return true;
+  // Handle payment error from PaymentSection
+  const handlePaymentError = (error: string) => {
+    setPaymentError(error);
+    setIsProcessing(false);
   };
 
   // Redirect if cart is empty
@@ -189,6 +217,55 @@ export function CheckoutForm() {
         Checkout
       </h1>
 
+      {/* Cart Warnings */}
+      {summary.hasFirearms && (
+        <Alert variant="info" className="mb-6">
+          <Shield className="w-4 h-4" />
+          <AlertTitle>Firearm Purchase</AlertTitle>
+          <AlertDescription>
+            Federal background check (NICS) required. Must be 18+ for long guns, 21+ for handguns.
+            Your order will be held as a reserve until you complete the in-store process.
+          </AlertDescription>
+        </Alert>
+      )}
+
+      {summary.hasPickupOnlyItems && !summary.hasFirearms && (
+        <Alert variant="info" className="mb-6">
+          <Package className="w-4 h-4" />
+          <AlertTitle>Ammunition Notice</AlertTitle>
+          <AlertDescription>
+            Ammunition cannot be shipped and must be picked up in store.
+            We'll call you when your order is ready.
+          </AlertDescription>
+        </Alert>
+      )}
+
+      {/* Storage Error Warning */}
+      {storageError && (
+        <Alert variant="warning" className="mb-6">
+          <AlertTriangle className="w-4 h-4" />
+          <AlertTitle>Please Note Your Order Number</AlertTitle>
+          <AlertDescription>
+            {storageError}
+          </AlertDescription>
+        </Alert>
+      )}
+
+      {/* Payment Error */}
+      {paymentError && (
+        <Alert variant="destructive" className="mb-6">
+          <AlertTriangle className="w-4 h-4" />
+          <AlertTitle>Something Went Wrong</AlertTitle>
+          <AlertDescription>
+            {paymentError}
+            <br />
+            <span className="mt-2 block">
+              Give us a call at (304) 649-5765 and we'll help sort it out.
+            </span>
+          </AlertDescription>
+        </Alert>
+      )}
+
       <form onSubmit={(e) => e.preventDefault()}>
         <div className="lg:grid lg:grid-cols-3 lg:gap-8">
           {/* Main Form - 2 columns on desktop */}
@@ -220,6 +297,7 @@ export function CheckoutForm() {
             <PaymentSection
               total={total}
               onPaymentSuccess={handlePaymentSuccess}
+              onPaymentError={handlePaymentError}
               isProcessing={isProcessing}
               setIsProcessing={async (processing) => {
                 if (processing) {

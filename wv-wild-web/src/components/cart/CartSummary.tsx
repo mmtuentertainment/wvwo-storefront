@@ -1,5 +1,4 @@
 // CartSummary.tsx - Cart totals and checkout CTA
-import * as React from 'react';
 import { Button } from '@/components/ui/button';
 import { useCart } from '@/hooks/useCart';
 import { formatPrice } from '@/stores/cartStore';
