@@ -1,8 +1,9 @@
 # SPEC-07: FFL Compliance
 
 **Phase:** 3C - E-Commerce Foundation
-**Status:** SPECIFICATION
+**Status:** SPECIFICATION (Updated 2024-12-17 - Audit Additions)
 **Dependencies:** SPEC-01 (Product Model), SPEC-03 (Checkout)
+**Audit:** 5-Agent Hive Mind Review - 7 Critical Additions
 
 ---
 
@@ -434,3 +435,291 @@ Per CLAUDE.md WVWO Frontend Aesthetics:
 - [ ] NICS denied triggers refund flow
 - [ ] Out-of-state handgun purchase blocked
 - [ ] 7-day reservation window tracked
+- [ ] Straw purchase warning displayed prominently
+- [ ] State validation blocks out-of-state handgun orders
+
+---
+
+## Audit Additions (2024-12-17)
+
+The following sections were added based on a comprehensive 5-agent hive mind audit identifying 7 critical compliance gaps.
+
+---
+
+## Straw Purchase Prevention
+
+**Risk Level:** HIGH - Federal Felony if violated
+**ATF Authority:** 18 U.S.C. § 922(a)(6)
+
+### Requirements
+
+1. **Name Matching:** Customer name on order MUST match government ID at pickup
+2. **Identity Verification:** Customer completing 4473 MUST be the person who placed/paid for order
+3. **No Third-Party Pickup:** Absolutely forbidden, even with written authorization
+4. **Red Flags Training:** Kim should document if customer exhibits straw purchase indicators:
+   - Someone else waiting in car/outside
+   - Customer asks if "friend can pick up"
+   - Customer unsure of firearm details they ordered
+   - Customer brings another person who tries to answer 4473 questions
+
+### UI Implementation
+
+Add prominent warning to FirearmAgreement.tsx:
+
+```tsx
+<Alert className="bg-red-50 border-2 border-red-600 mb-4">
+  <AlertTriangle className="w-5 h-5 text-red-600" />
+  <AlertTitle className="text-red-800 font-bold">
+    Federal Law: No Third-Party Transfers
+  </AlertTitle>
+  <AlertDescription className="text-red-700">
+    <strong>The person placing this order MUST be the person who picks up the firearm.</strong>
+    {' '}Purchasing a firearm for another person (straw purchase) is a federal felony
+    punishable by up to 10 years in prison. You must bring the ID matching the name
+    on this order. No exceptions.
+  </AlertDescription>
+</Alert>
+```
+
+---
+
+## Out-of-State Handgun Validation
+
+**Risk Level:** HIGH - Federal Violation
+**ATF Authority:** 18 U.S.C. § 922(b)(3)
+
+### Requirements
+
+Handguns can ONLY be transferred to residents of the dealer's state (WV). Out-of-state residents MUST have handguns shipped to an FFL in their home state.
+
+### Validation Logic
+
+```typescript
+// checkoutSchema.ts or orderUtils.ts
+export function validateStateRestriction(
+  customerState: string | undefined,
+  hasHandguns: boolean
+): { valid: boolean; error?: string } {
+  // CRITICAL: Block out-of-state handgun purchases entirely
+  if (hasHandguns && customerState && customerState !== 'WV') {
+    return {
+      valid: false,
+      error: 'Handgun purchases require WV residency. Out-of-state customers can have handguns transferred to an FFL in their home state (contact us for details).',
+    };
+  }
+  return { valid: true };
+}
+
+// Long guns: Allow contiguous states only
+export function validateLongGunState(customerState: string): boolean {
+  const contiguousStates = ['WV', 'OH', 'PA', 'MD', 'VA', 'KY'];
+  return contiguousStates.includes(customerState);
+}
+```
+
+### Error Display
+
+When blocked, show:
+```text
+"Handgun purchases require WV residency. Out-of-state customers can have handguns transferred to an FFL in their home state (contact us for details)."
+```
+
+---
+
+## Multiple Handgun Sales Reporting
+
+**Risk Level:** MEDIUM - Federal Reporting Requirement
+**ATF Authority:** 18 U.S.C. § 923(g)(3)
+
+### Requirements
+
+FFLs must report sales of 2+ handguns to the same person within 5 consecutive business days to ATF and local law enforcement.
+
+### Trigger Conditions
+
+- **2+ handguns** to same person within **5 consecutive business days**
+- Includes semi-automatic pistols, revolvers (any handgun)
+- Does NOT include rifles/shotguns
+
+### Reporting Process
+
+1. **Detection:** System alerts Kim when customer has 2+ handgun transfers in 5-day window
+2. **Form 3310.4:** Kim completes ATF Form 3310.4 (Report of Multiple Sale)
+3. **Submission:** Fax/mail to ATF within 24 hours of second transfer
+4. **Local Notice:** Copy to WV State Police (if required by state)
+
+### Implementation (Future - SPEC-05 Order Management)
+
+```typescript
+interface MultipleHandgunAlert {
+  customerId: string;
+  handgunCount: number;
+  windowStart: Date;
+  transferDates: Date[];
+  formRequired: boolean;
+  formSubmitted: boolean;
+}
+```
+
+---
+
+## Ammunition Age Verification (Clarification)
+
+**ATF Authority:** 18 U.S.C. § 922(b)(1), ATF Ruling 2011-5
+
+### Age Rules by Ammunition Type
+
+| Ammo Type | Minimum Age | Notes |
+|-----------|-------------|-------|
+| Handgun-only calibers (.45 ACP, 9mm, .40 S&W) | 21 | Strict |
+| Rifle/shotgun-only calibers (.30-06, 12ga, .270) | 18 | Strict |
+| **Dual-use calibers (.22 LR, .223/5.56, .30-30)** | **18 if for rifle** | Kim verifies intent |
+
+### WVWO Policy (Conservative)
+
+Mark ALL ammunition as `ageRestriction: 21` in product data to avoid compliance risk. Since WVWO does pickup-only, Kim can verify intent in-person if customer is 18-20.
+
+```json
+{
+  "id": "federal-bulk-22lr",
+  "ageRestriction": 21,
+  "notes": "18+ allowed for rifle use - Kim verifies intent at pickup"
+}
+```
+
+---
+
+## NICS Delayed Policy
+
+**ATF Authority:** 18 U.S.C. § 922(t)(1)(B)(ii)
+
+### Legal Background
+
+If NICS does not respond within 3 business days, dealer MAY proceed with transfer (not required).
+
+### WVWO Policy Decision Required
+
+### Option A: Default Proceed (ATF Minimum)
+- After 3 business days with no DENIED, transfer may proceed
+- Risk: Transfer could later be flagged if NICS returns late DENIED
+
+### Option B: Explicit Proceed Only (Conservative) - RECOMMENDED
+- Wait for explicit PROCEED from NICS, even beyond 3 days
+- Risk: None - customer waits longer, but zero compliance risk
+
+### Customer Communication (Option B)
+
+```text
+"We've submitted your background check, but it's taking longer than usual.
+We'll hold your firearm and contact you as soon as we receive approval.
+This can take up to 10 business days. Thanks for your patience!"
+```
+
+---
+
+## Bound Book Integration
+
+**ATF Authority:** 27 CFR § 478.125
+
+### Required Fields for Firearm Dispositions
+
+```typescript
+interface FirearmDisposition {
+  // ATF Bound Book columns
+  dispositionDate: string;       // Date of transfer (NICS approval + pickup)
+  firearmMake: string;
+  firearmModel: string;
+  firearmSerialNumber: string;
+  firearmType: 'Rifle' | 'Shotgun' | 'Pistol' | 'Revolver' | 'Receiver';
+  firearmCaliber: string;
+
+  // Transferee (buyer)
+  buyerName: string;             // Full name from 4473
+  buyerAddress: string;          // Full address from 4473
+  buyerDOB: string;
+  buyerIdType: string;           // WV DL, State ID, etc.
+  buyerIdNumber: string;
+  buyerIdExpiration: string;
+
+  // Background check
+  nicsTransactionNumber: string;
+  nicsDate: string;
+  nicsResult: 'proceed' | 'delayed-proceed';
+
+  // Form 4473
+  form4473Location: string;      // Physical location of paper form
+}
+```
+
+### Kim's Workflow
+
+1. Customer picks up firearm after NICS approval
+2. Kim enters serial number (from specific firearm assigned)
+3. Kim enters all 4473 data into bound book (paper or eZ-Check)
+4. System stores digital reference (NOT a replacement for official bound book)
+
+---
+
+## Prohibited Persons Disclosure (Optional Enhancement)
+
+**⚠️ Legal Review Required:** Before implementing this optional enhancement, consult with legal counsel. Some FFLs prefer not to enumerate prohibitions to prevent customers from self-screening incorrectly. If implemented, consider placing behind a feature flag until legal approval is obtained.
+
+Add expandable disclosure to FirearmAgreement for customer awareness:
+
+```tsx
+<Accordion type="single" collapsible>
+  <AccordionItem value="prohibited">
+    <AccordionTrigger className="font-display text-brand-brown text-sm">
+      Am I legally able to purchase a firearm?
+    </AccordionTrigger>
+    <AccordionContent className="text-sm text-brand-mud space-y-2">
+      <p>Federal law prohibits firearm sales to anyone who:</p>
+      <ul className="list-disc pl-5 space-y-1">
+        <li>Is under indictment for a felony</li>
+        <li>Has been convicted of a felony</li>
+        <li>Is a fugitive from justice</li>
+        <li>Is an unlawful user of controlled substances</li>
+        <li>Has been adjudicated mentally defective</li>
+        <li>Has been dishonorably discharged from the military</li>
+        <li>Is subject to a domestic violence restraining order</li>
+        <li>Has been convicted of misdemeanor domestic violence</li>
+        <li>Has renounced U.S. citizenship</li>
+      </ul>
+      <p className="text-xs text-brand-mud/60 mt-3">
+        If any of these apply, please do not place an order. We will discover
+        this during the background check and cannot complete the transfer.
+      </p>
+    </AccordionContent>
+  </AccordionItem>
+</Accordion>
+```
+
+---
+
+## Compliance Checklist Summary
+
+| Item | Status | Priority |
+|------|--------|----------|
+| Reserve & Hold Model | ✅ Compliant | - |
+| Form 4473 In-Person | ✅ Compliant | - |
+| NICS Process | ✅ Compliant | - |
+| Age Requirements | ✅ Compliant | - |
+| 20-Year Record Retention | ✅ Compliant | - |
+| **Straw Purchase Warning** | 🔧 Added | P0 |
+| **Out-of-State Handgun Blocking** | 🔧 Added | P0 |
+| **Multiple Handgun Reporting** | 📋 Specified | P1 |
+| **Ammo Age Clarification** | 📋 Specified | P1 |
+| **NICS Delayed Policy** | 📋 Specified | P1 |
+| **Bound Book Integration** | 📋 Specified | P2 |
+| **Prohibited Persons Disclosure** | 📋 Specified | P2 |
+
+---
+
+## Legal Disclaimer
+
+This specification is based on researcher analysis of ATF regulations as of December 2024. Kim should consult with:
+1. **ATF Industry Operations Inspector** for her area
+2. **West Virginia attorney** specializing in firearms law
+3. **FFL compliance consultant** before accepting first online firearm order
+
+**ATF FFL Hotline:** 1-888-283-3219

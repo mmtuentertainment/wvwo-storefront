@@ -428,12 +428,7 @@ reviews:
       instructions: "Apply if PR includes SPARC spec (spec.md with research sources, implementation plan, voice guidelines)"
 
   auto_review:
-    enabled: true
-    auto_incremental_review: true
-    drafts: false  # No draft reviews - ship complete work (Anti-MVP Bias)
-    ignore_title_keywords: []
-    labels: []
-    base_branches: ["main", "develop"]
+    enabled: false  # Trigger reviews manually with @coderabbitai review - stops rate limit hits
 
   # Finishing touches
   finishing_touches:

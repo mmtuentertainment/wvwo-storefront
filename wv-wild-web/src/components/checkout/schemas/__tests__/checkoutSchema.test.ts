@@ -11,6 +11,8 @@ import {
   shippingSchema,
   checkoutSchema,
   validateFirearmAgreement,
+  validateStateRestriction,
+  validateLongGunState,
   formatPhoneNumber,
   normalizePhone,
 } from '../checkoutSchema';
@@ -410,5 +412,154 @@ describe('normalizePhone', () => {
   it('handles short numbers', () => {
     expect(normalizePhone('555-1234')).toBe('5551234');
     expect(normalizePhone('1234')).toBe('1234');
+  });
+});
+
+// ============================================================================
+// State Restriction Validation Tests
+// ============================================================================
+
+describe('validateStateRestriction', () => {
+  describe('handgun restrictions', () => {
+    it('allows WV residents to purchase handguns', () => {
+      const result = validateStateRestriction('WV', true);
+      expect(result.valid).toBe(true);
+      expect(result.error).toBeUndefined();
+    });
+
+    it('blocks out-of-state handgun purchases', () => {
+      const result = validateStateRestriction('OH', true);
+      expect(result.valid).toBe(false);
+      expect(result.error).toBe(
+        'Handgun purchases require WV residency. Out-of-state customers can have handguns transferred to an FFL in their home state (contact us for details).'
+      );
+    });
+
+    it('blocks all non-WV states for handguns', () => {
+      const states = ['PA', 'MD', 'VA', 'KY', 'CA', 'TX', 'NY'];
+      states.forEach(state => {
+        const result = validateStateRestriction(state, true);
+        expect(result.valid).toBe(false);
+        expect(result.error).toContain('Handgun purchases require WV residency');
+      });
+    });
+
+    it('handles undefined state with handguns', () => {
+      const result = validateStateRestriction(undefined, true);
+      expect(result.valid).toBe(true); // Validation passes if no state provided yet
+    });
+
+    it('handles lowercase state codes (case insensitive)', () => {
+      // WV resident with lowercase should be allowed
+      expect(validateStateRestriction('wv', true).valid).toBe(true);
+      expect(validateStateRestriction('Wv', true).valid).toBe(true);
+
+      // Out-of-state with lowercase should still be blocked
+      expect(validateStateRestriction('oh', true).valid).toBe(false);
+      expect(validateStateRestriction('pa', true).valid).toBe(false);
+    });
+  });
+
+  describe('non-handgun purchases', () => {
+    it('allows any state when no handguns in cart', () => {
+      const states = ['WV', 'OH', 'PA', 'MD', 'VA', 'KY', 'CA', 'TX', 'NY'];
+      states.forEach(state => {
+        const result = validateStateRestriction(state, false);
+        expect(result.valid).toBe(true);
+        expect(result.error).toBeUndefined();
+      });
+    });
+
+    it('handles undefined state when no handguns', () => {
+      const result = validateStateRestriction(undefined, false);
+      expect(result.valid).toBe(true);
+    });
+  });
+});
+
+// ============================================================================
+// Long Gun State Validation Tests
+// ============================================================================
+
+describe('validateLongGunState', () => {
+  describe('contiguous states', () => {
+    it('allows WV (home state)', () => {
+      expect(validateLongGunState('WV')).toBe(true);
+    });
+
+    it('allows Ohio', () => {
+      expect(validateLongGunState('OH')).toBe(true);
+    });
+
+    it('allows Pennsylvania', () => {
+      expect(validateLongGunState('PA')).toBe(true);
+    });
+
+    it('allows Maryland', () => {
+      expect(validateLongGunState('MD')).toBe(true);
+    });
+
+    it('allows Virginia', () => {
+      expect(validateLongGunState('VA')).toBe(true);
+    });
+
+    it('allows Kentucky', () => {
+      expect(validateLongGunState('KY')).toBe(true);
+    });
+
+    it('allows all contiguous states', () => {
+      const contiguousStates = ['WV', 'OH', 'PA', 'MD', 'VA', 'KY'];
+      contiguousStates.forEach(state => {
+        expect(validateLongGunState(state)).toBe(true);
+      });
+    });
+  });
+
+  describe('non-contiguous states', () => {
+    it('blocks California', () => {
+      expect(validateLongGunState('CA')).toBe(false);
+    });
+
+    it('blocks Texas', () => {
+      expect(validateLongGunState('TX')).toBe(false);
+    });
+
+    it('blocks New York', () => {
+      expect(validateLongGunState('NY')).toBe(false);
+    });
+
+    it('blocks Florida', () => {
+      expect(validateLongGunState('FL')).toBe(false);
+    });
+
+    it('blocks multiple non-contiguous states', () => {
+      const nonContiguousStates = ['CA', 'TX', 'NY', 'FL', 'AZ', 'NC', 'TN', 'GA'];
+      nonContiguousStates.forEach(state => {
+        expect(validateLongGunState(state)).toBe(false);
+      });
+    });
+  });
+
+  describe('case insensitivity', () => {
+    it('allows lowercase contiguous state codes', () => {
+      expect(validateLongGunState('wv')).toBe(true);
+      expect(validateLongGunState('oh')).toBe(true);
+      expect(validateLongGunState('pa')).toBe(true);
+      expect(validateLongGunState('md')).toBe(true);
+      expect(validateLongGunState('va')).toBe(true);
+      expect(validateLongGunState('ky')).toBe(true);
+    });
+
+    it('allows mixed case state codes', () => {
+      expect(validateLongGunState('Wv')).toBe(true);
+      expect(validateLongGunState('oH')).toBe(true);
+      expect(validateLongGunState('Pa')).toBe(true);
+    });
+
+    it('blocks lowercase non-contiguous states', () => {
+      expect(validateLongGunState('ca')).toBe(false);
+      expect(validateLongGunState('tx')).toBe(false);
+      expect(validateLongGunState('ny')).toBe(false);
+    });
   });
 });

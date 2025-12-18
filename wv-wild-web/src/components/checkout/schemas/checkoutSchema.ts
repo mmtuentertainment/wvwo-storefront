@@ -160,6 +160,49 @@ export function validateFirearmAgreement(
 }
 
 // ============================================================================
+// Helper: Validate state restrictions for firearms
+// ============================================================================
+
+/**
+ * Validates state restrictions for handgun purchases.
+ * Federal law (18 U.S.C. § 922(b)(3)) prohibits out-of-state handgun sales.
+ *
+ * @param customerState - The customer's state (from shipping address or ID)
+ * @param hasHandguns - Whether the cart contains handguns
+ * @returns Validation result with error message if invalid
+ */
+export function validateStateRestriction(
+  customerState: string | undefined,
+  hasHandguns: boolean
+): { valid: boolean; error?: string } {
+  // CRITICAL: Block out-of-state handgun purchases entirely
+  // Normalize to uppercase for case-insensitive comparison
+  const normalizedState = customerState?.toUpperCase();
+  if (hasHandguns && normalizedState && normalizedState !== 'WV') {
+    return {
+      valid: false,
+      error: 'Handgun purchases require WV residency. Out-of-state customers can have handguns transferred to an FFL in their home state (contact us for details).',
+    };
+  }
+  return { valid: true };
+}
+
+/**
+ * Validates state for long gun sales.
+ * Long guns can be sold to residents of contiguous states per 18 U.S.C. § 922(b)(3).
+ *
+ * @param customerState - The customer's state (handles undefined defensively)
+ * @returns Whether the state is valid for long gun purchase
+ */
+export function validateLongGunState(customerState: string | undefined): boolean {
+  // Defensive check: undefined or empty state is invalid
+  if (!customerState) return false;
+  const contiguousStates = ['WV', 'OH', 'PA', 'MD', 'VA', 'KY'];
+  // Normalize to uppercase for case-insensitive comparison
+  return contiguousStates.includes(customerState.toUpperCase());
+}
+
+// ============================================================================
 // Utility: Format phone for display
 // ============================================================================
 

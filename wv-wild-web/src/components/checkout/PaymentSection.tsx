@@ -90,17 +90,28 @@ export function PaymentSection({
       {/* Trust Signals */}
       <div className="flex flex-wrap items-center gap-4 text-sm text-brand-mud">
         <div className="flex items-center gap-1">
-          <Lock className="w-4 h-4" />
+          <Lock className="w-4 h-4 text-sign-green" />
           <span>Secure checkout</span>
         </div>
         <div className="flex items-center gap-1">
-          <Shield className="w-4 h-4" />
-          <span>PCI compliant</span>
+          <Shield className="w-4 h-4 text-sign-green" />
+          <span>2A-Friendly Processor</span>
         </div>
         <div className="flex items-center gap-1">
           <CreditCard className="w-4 h-4" />
           <span>Visa, MC, Amex</span>
         </div>
+      </div>
+
+      {/* Payment Provider Badge */}
+      <div className="flex items-center justify-center gap-2 py-3 px-4 bg-brand-cream/50 rounded-sm border border-brand-mud/10">
+        <Lock className="w-4 h-4 text-sign-green" />
+        <span className="text-sm text-brand-mud">
+          Secure payment powered by <strong className="text-brand-brown">Tactical Payments</strong>
+        </span>
+        <span className="inline-flex items-center px-2 py-0.5 text-xs font-medium bg-brand-brown text-brand-cream rounded-sm">
+          2A-Friendly
+        </span>
       </div>
 
       {/* Pay Button */}
