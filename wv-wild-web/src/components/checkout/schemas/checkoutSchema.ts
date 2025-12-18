@@ -52,7 +52,6 @@ export type ContactFormData = z.infer<typeof contactSchema>;
 export const shippingSchema = z.object({
   street: z
     .string()
-    .min(1, "Where should we ship this?")
     .min(5, "Please enter your full street address.")
     .max(100, "Street address is too long."),
 
@@ -64,7 +63,6 @@ export const shippingSchema = z.object({
 
   city: z
     .string()
-    .min(1, "Please enter a city.")
     .min(2, "Please enter your city.")
     .max(50, "City name is too long."),
 
@@ -75,7 +73,6 @@ export const shippingSchema = z.object({
 
   zip: z
     .string()
-    .min(1, "We need your ZIP code for shipping.")
     .regex(zipPattern, "That ZIP code doesn't look right. Should be 5 digits."),
 });
 

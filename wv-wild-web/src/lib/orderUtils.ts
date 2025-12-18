@@ -124,7 +124,7 @@ export function createOrder(params: CreateOrderParams): OrderData {
     contact,
     fulfillment,
     shippingAddress: fulfillment === 'ship' ? shippingAddress : undefined,
-    items: Object.values(items),
+    items,
     subtotal,
     shipping: shippingCost,
     tax,
