@@ -13,12 +13,14 @@
  * 6. Webhook updates order status in background
  */
 
-import { Lock, Shield, CreditCard } from 'lucide-react';
+import { Lock, Shield, CreditCard, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { formatPrice } from '@/stores/cartStore';
 import { createPaymentRequest } from '@/lib/payment/tacticalPayments';
 import { getPendingOrder } from '@/lib/orderUtils';
 import type { CreateSessionResponse } from '@/lib/payment/schemas';
+import { SITE_CONTACT } from '@/config/siteContact';
 
 interface PaymentSectionProps {
   total: number;
@@ -35,10 +37,20 @@ export function PaymentSection({
   isProcessing,
   setIsProcessing,
 }: PaymentSectionProps) {
+  // Feature flag: Payment integration disabled until legal review
+  const paymentEnabled = import.meta.env.PUBLIC_PAYMENT_ENABLED === 'true';
+
   const handlePayClick = async () => {
     setIsProcessing(true);
 
     try {
+      // DISABLED: Payment integration under legal review
+      if (!paymentEnabled) {
+        throw new Error(
+          "Online payment is coming soon! For now, please call us at (304) 649-5765 to complete your order."
+        );
+      }
+
       // Retrieve pending order from sessionStorage
       const orderResult = getPendingOrder();
       if (!orderResult.success) {
@@ -88,11 +100,31 @@ export function PaymentSection({
     }
   };
 
+  // Feature flag: Payment integration disabled until legal review
+  const paymentEnabled = import.meta.env.PUBLIC_PAYMENT_ENABLED === 'true';
+
   return (
     <section className="space-y-4">
       <h2 className="font-display font-bold text-xl text-brand-brown">
         Secure Payment
       </h2>
+
+      {/* DISABLED: Payment integration under legal review */}
+      {!paymentEnabled && (
+        <Alert className="border-brand-orange/30 bg-brand-orange/5">
+          <Phone className="w-5 h-5 text-brand-orange" />
+          <AlertTitle className="font-display font-bold text-brand-brown">
+            Call to Complete Your Order
+          </AlertTitle>
+          <AlertDescription className="font-body text-brand-mud">
+            Online payment is coming soon! For now, please call us at{' '}
+            <a href={SITE_CONTACT.phoneHref} className="font-medium text-sign-green hover:underline">
+              {SITE_CONTACT.phoneDisplay}
+            </a>{' '}
+            to complete your order. We accept all major credit cards over the phone.
+          </AlertDescription>
+        </Alert>
+      )}
 
       {/* Mock Payment Form UI */}
       <div className="p-4 bg-brand-cream rounded-sm border-2 border-brand-mud/30 space-y-3">
@@ -152,27 +184,42 @@ export function PaymentSection({
         </span>
       </div>
 
-      {/* Pay Button */}
-      <Button
-        type="button"
-        variant="cta"
-        size="lg"
-        className="w-full h-14 text-lg"
-        onClick={handlePayClick}
-        disabled={isProcessing}
-      >
-        {isProcessing ? (
-          <span className="flex items-center gap-2">
-            <span className="animate-spin h-5 w-5 border-2 border-white border-t-transparent rounded-full" />
-            Processing...
-          </span>
-        ) : (
-          <>
-            <Lock className="w-5 h-5 mr-2" />
-            Pay {formatPrice(total)}
-          </>
-        )}
-      </Button>
+      {/* Pay Button (or Call Button if disabled) */}
+      {!paymentEnabled ? (
+        <Button
+          type="button"
+          variant="cta"
+          size="lg"
+          className="w-full h-14 text-lg"
+          asChild
+        >
+          <a href={SITE_CONTACT.phoneHref}>
+            <Phone className="w-5 h-5 mr-2" />
+            Call to Complete Order
+          </a>
+        </Button>
+      ) : (
+        <Button
+          type="button"
+          variant="cta"
+          size="lg"
+          className="w-full h-14 text-lg"
+          onClick={handlePayClick}
+          disabled={isProcessing}
+        >
+          {isProcessing ? (
+            <span className="flex items-center gap-2">
+              <span className="animate-spin h-5 w-5 border-2 border-white border-t-transparent rounded-full" />
+              Processing...
+            </span>
+          ) : (
+            <>
+              <Lock className="w-5 h-5 mr-2" />
+              Pay {formatPrice(total)}
+            </>
+          )}
+        </Button>
+      )}
 
       <p className="text-xs text-brand-mud/60 text-center">
         By clicking "Pay", you agree to our{' '}
