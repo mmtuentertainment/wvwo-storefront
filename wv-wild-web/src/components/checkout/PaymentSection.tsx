@@ -100,9 +100,6 @@ export function PaymentSection({
     }
   };
 
-  // Feature flag: Payment integration disabled until legal review
-  const paymentEnabled = import.meta.env.PUBLIC_PAYMENT_ENABLED === 'true';
-
   return (
     <section className="space-y-4">
       <h2 className="font-display font-bold text-xl text-brand-brown">

@@ -353,20 +353,67 @@ export function CheckoutForm() {
 
             <Separator className="bg-brand-mud/20" />
 
-            {/* Payment Section */}
-            <PaymentSection
-              total={total}
-              onPaymentSuccess={handlePaymentSuccess}
-              onPaymentError={handlePaymentError}
-              isProcessing={isProcessing}
-              setIsProcessing={async (processing) => {
-                if (processing) {
-                  const canProceed = await handlePaymentAttempt();
-                  if (!canProceed) return;
-                }
-                setIsProcessing(processing);
-              }}
-            />
+            {/* Payment Section - BLOCKED for firearms (call/pickup only) */}
+            {summary.hasFirearms ? (
+              <section className="space-y-4">
+                <h2 className="font-display font-bold text-xl text-brand-brown">
+                  Complete Your Firearm Reserve
+                </h2>
+
+                <Alert className="border-sign-green/30 bg-sign-green/5">
+                  <Shield className="w-5 h-5 text-sign-green" />
+                  <AlertTitle className="font-display font-bold text-brand-brown">
+                    Firearm Purchases Require Pickup
+                  </AlertTitle>
+                  <AlertDescription className="font-body text-brand-mud space-y-2">
+                    <p>
+                      All firearms require local pickup at our shop with completed federal background check (NICS).
+                    </p>
+                    <p className="font-medium text-brand-brown">
+                      Please call us at{' '}
+                      <a href="tel:+13046495765" className="text-sign-green hover:underline">
+                        (304) 649-5765
+                      </a>{' '}
+                      to complete your firearm reserve.
+                    </p>
+                    <p className="text-sm text-brand-mud/80">
+                      We'll verify availability, answer any questions, and get your paperwork started.
+                    </p>
+                  </AlertDescription>
+                </Alert>
+
+                <Button
+                  type="button"
+                  variant="cta"
+                  size="lg"
+                  className="w-full h-14 text-lg"
+                  asChild
+                >
+                  <a href="tel:+13046495765">
+                    <Shield className="w-5 h-5 mr-2" />
+                    Call to Reserve
+                  </a>
+                </Button>
+
+                <p className="text-xs text-brand-mud/60 text-center">
+                  All firearm transfers comply with federal law (18 U.S.C. § 922). Background check required at pickup.
+                </p>
+              </section>
+            ) : (
+              <PaymentSection
+                total={total}
+                onPaymentSuccess={handlePaymentSuccess}
+                onPaymentError={handlePaymentError}
+                isProcessing={isProcessing}
+                setIsProcessing={async (processing) => {
+                  if (processing) {
+                    const canProceed = await handlePaymentAttempt();
+                    if (!canProceed) return;
+                  }
+                  setIsProcessing(processing);
+                }}
+              />
+            )}
           </div>
 
           {/* Order Summary - sticky on desktop */}
