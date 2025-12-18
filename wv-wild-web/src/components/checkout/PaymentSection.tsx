@@ -121,7 +121,7 @@ export function PaymentSection({
             <a href={SITE_CONTACT.phoneHref} className="font-medium text-sign-green hover:underline">
               {SITE_CONTACT.phoneDisplay}
             </a>{' '}
-            to complete your order. We accept all major credit cards over the phone.
+            to complete your order.
           </AlertDescription>
         </Alert>
       )}
