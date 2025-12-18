@@ -1,0 +1,19 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { OrderConfirmation } from '../components/checkout';
+---
+
+<Layout
+  title="Order Confirmed | WV Wild Outdoors"
+  description="Thank you for your order from WV Wild Outdoors. Your order has been confirmed."
+>
+  <Header />
+
+  <main class="bg-brand-cream min-h-screen py-8">
+    <OrderConfirmation client:load />
+  </main>
+
+  <Footer />
+</Layout>

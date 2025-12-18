@@ -1,0 +1,19 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { CheckoutForm } from '../components/checkout';
+---
+
+<Layout
+  title="Checkout | WV Wild Outdoors"
+  description="Complete your order from WV Wild Outdoors. Secure checkout for firearms, ammunition, and outdoor gear."
+>
+  <Header />
+
+  <main class="bg-brand-cream min-h-screen py-8">
+    <CheckoutForm client:load />
+  </main>
+
+  <Footer />
+</Layout>
