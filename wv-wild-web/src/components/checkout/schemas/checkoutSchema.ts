@@ -189,12 +189,14 @@ export function validateStateRestriction(
 
 /**
  * Validates state for long gun sales.
- * Long guns can be sold to residents of contiguous states.
+ * Long guns can be sold to residents of contiguous states per 18 U.S.C. § 922(b)(3).
  *
- * @param customerState - The customer's state
+ * @param customerState - The customer's state (handles undefined defensively)
  * @returns Whether the state is valid for long gun purchase
  */
-export function validateLongGunState(customerState: string): boolean {
+export function validateLongGunState(customerState: string | undefined): boolean {
+  // Defensive check: undefined or empty state is invalid
+  if (!customerState) return false;
   const contiguousStates = ['WV', 'OH', 'PA', 'MD', 'VA', 'KY'];
   // Normalize to uppercase for case-insensitive comparison
   return contiguousStates.includes(customerState.toUpperCase());

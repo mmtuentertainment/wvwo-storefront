@@ -19,6 +19,7 @@ import {
   checkoutSchema,
   validateFirearmAgreement,
   validateStateRestriction,
+  validateLongGunState,
   type CheckoutFormData,
 } from './schemas/checkoutSchema';
 import { calculateShipping } from '@/lib/shipping';
@@ -84,28 +85,37 @@ export function CheckoutForm() {
     }
   }, [summary.fulfillmentOptions, fulfillment, form]);
 
-  // Handle form submission
-  const onSubmit = async (data: CheckoutFormData) => {
+  // Handle form submission - returns boolean indicating success
+  const onSubmit = async (data: CheckoutFormData): Promise<boolean> => {
     // Validate firearm agreement separately (conditional)
     if (summary.hasFirearms) {
       const firearmValidation = validateFirearmAgreement(data.reserveAgree, summary.hasFirearms);
       if (firearmValidation) {
         setFirearmError(firearmValidation);
-        return;
+        return false;
       }
     }
     setFirearmError(null);
 
-    // Validate state restriction for firearm purchases (federal law)
+    // Validate state restrictions for firearm purchases (federal law)
     // Note: Currently uses hasFirearms as proxy. When product data includes firearmType,
-    // this should specifically check for handguns (handguns have stricter state restrictions).
-    // For now, since all WVWO firearms are pickup-only, this validation primarily
-    // guards against future shipping scenarios.
+    // this should specifically check for handguns vs long guns separately.
+    // For now, we validate both rules when shipping firearms.
     if (summary.hasFirearms && data.fulfillment === 'ship') {
+      // Check handgun restrictions (WV residents only per 18 U.S.C. § 922(b)(3))
       const stateValidation = validateStateRestriction(data.state, true);
       if (!stateValidation.valid) {
         setStateError(stateValidation.error || 'State restriction validation failed.');
-        return;
+        return false;
+      }
+
+      // Check long gun restrictions (contiguous states only)
+      if (!validateLongGunState(data.state)) {
+        setStateError(
+          'Long gun shipments are limited to WV and contiguous states (OH, PA, MD, VA, KY). ' +
+            'Give us a call at (304) 649-5765 and we can arrange an FFL transfer to your state.'
+        );
+        return false;
       }
     }
     setStateError(null);
@@ -152,6 +162,7 @@ export function CheckoutForm() {
 
     // Payment is handled by PaymentSection (stub for now)
     // Real payment would happen here via Tactical Payments redirect
+    return true;
   };
 
   // Handle successful payment (called by PaymentSection)
@@ -184,7 +195,25 @@ export function CheckoutForm() {
       }
 
       // Submit form data (creates order and stores it)
-      await form.handleSubmit(onSubmit)();
+      // CRITICAL: Capture the result from onSubmit to check if validation passed
+      let submitSuccess = false;
+      await form.handleSubmit(
+        async (data) => {
+          submitSuccess = await onSubmit(data);
+        },
+        () => {
+          // Validation failed callback
+          submitSuccess = false;
+        }
+      )();
+
+      if (!submitSuccess) {
+        // onSubmit returned false (validation failed) - scroll to error if visible
+        const errorAlert = document.querySelector('[role="alert"]');
+        errorAlert?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return false;
+      }
+
       return true;
     } catch (error) {
       console.error('[CheckoutForm] Payment preparation failed:', error);
