@@ -420,18 +420,42 @@ Claude MUST follow this protocol for every WVWO session:
 
 ### SESSION START (Do this FIRST)
 
-1. **Load Context** - Read the memory file:
+**THOROUGH CONTEXT LOADING** - Run ALL of these, not just one:
+
+1. **Load Memory File**:
 ```
 Read .agentdb/wvwo-context.json
 ```
 
-2. **Recall Learned Patterns** - Check what worked before:
+2. **Recall ALL Learned Patterns** (k=15 minimum, not 5):
 ```bash
-npx agentdb@latest reflexion retrieve "WVWO" --k 5 --synthesize-context
+# Get comprehensive WVWO context (15+ episodes)
+npx agentdb@latest reflexion retrieve "WVWO" --k 15 --synthesize-context
+
+# Get domain-specific context based on task type
+npx agentdb@latest reflexion retrieve "checkout payment validation" --k 10 --synthesize-context
+npx agentdb@latest reflexion retrieve "FFL compliance firearm" --k 10 --synthesize-context
+npx agentdb@latest reflexion retrieve "shadcn component aesthetic" --k 10 --synthesize-context
 ```
 
-3. **Acknowledge Context** - Briefly confirm to user:
-> "Loaded WVWO context: Kim & Bryan's shop, Astro+Tailwind, vanilla JS only, faith-forward voice."
+3. **Learn from Past Failures** (CRITICAL - don't repeat mistakes):
+```bash
+npx agentdb@latest reflexion critique-summary "WVWO"
+npx agentdb@latest reflexion retrieve "WVWO" --k 10 --only-failures
+```
+
+4. **Get Causal Patterns** (what CAUSES success):
+```bash
+npx agentdb@latest recall with-certificate "<current_task>" 10
+```
+
+5. **Check Recent High-Reward Patterns**:
+```bash
+npx agentdb@latest reflexion retrieve "<current_task>" --k 10 --min-reward 0.8 --only-successes
+```
+
+6. **Acknowledge Context** - Briefly confirm to user:
+> "Loaded WVWO context: [X] episodes, [Y] failure patterns to avoid, [Z] high-reward approaches."
 
 ### DURING WORK (Semi-Auto)
 
@@ -543,14 +567,37 @@ npx agentdb@latest skill search "API key config settings" 5
 ## Quick Commands Reference
 
 ```bash
-# Recall all WVWO context
-npx agentdb@latest skill search "wvwo" 5
+# ══════════════════════════════════════════════════════════════════════════════
+# THOROUGH RETRIEVAL (use these k values, not 5)
+# ══════════════════════════════════════════════════════════════════════════════
 
-# Semantic code search
-npx agentdb@latest skill search "<what you're looking for>" 5
+# Full WVWO context (15+ episodes)
+npx agentdb@latest reflexion retrieve "WVWO" --k 15 --synthesize-context
 
-# Check learned patterns
-npx agentdb@latest reflexion retrieve "<topic>" --k 5 --synthesize-context
+# Domain-specific context
+npx agentdb@latest reflexion retrieve "checkout" --k 10 --synthesize-context
+npx agentdb@latest reflexion retrieve "FFL compliance" --k 10 --synthesize-context
+npx agentdb@latest reflexion retrieve "shadcn component" --k 10 --synthesize-context
+
+# Learn from failures (CRITICAL)
+npx agentdb@latest reflexion retrieve "WVWO" --k 10 --only-failures
+npx agentdb@latest reflexion critique-summary "WVWO"
+
+# High-reward successes only
+npx agentdb@latest reflexion retrieve "<task>" --k 10 --min-reward 0.8 --only-successes
+
+# Causal recall (what CAUSES success)
+npx agentdb@latest recall with-certificate "<task>" 12
+
+# ══════════════════════════════════════════════════════════════════════════════
+# SEMANTIC CODE SEARCH
+# ══════════════════════════════════════════════════════════════════════════════
+
+npx agentdb@latest skill search "<what you're looking for>" 10
+
+# ══════════════════════════════════════════════════════════════════════════════
+# STORE PATTERNS
+# ══════════════════════════════════════════════════════════════════════════════
 
 # Store success pattern
 npx agentdb@latest reflexion store "wvwo-session" "<task>" 1.0 true "<approach>"
@@ -558,11 +605,37 @@ npx agentdb@latest reflexion store "wvwo-session" "<task>" 1.0 true "<approach>"
 # Store failure pattern
 npx agentdb@latest reflexion store "wvwo-session" "<task>" 0.0 false "<what_failed>"
 
-# View critique summary (learn from failures)
-npx agentdb@latest reflexion critique-summary "WVWO"
+# ══════════════════════════════════════════════════════════════════════════════
+# ADVANCED FILTERS (MongoDB-style)
+# ══════════════════════════════════════════════════════════════════════════════
 
-# Discover new patterns
+# Filter by success AND high reward
+npx agentdb@latest reflexion retrieve "<task>" --k 10 --filters '{"success":true,"reward":{"$gte":0.9}}'
+
+# Filter by session
+npx agentdb@latest reflexion retrieve "<task>" --k 10 --filters '{"sessionId":"wvwo-session"}'
+
+# Semantic query with domain context
+npx agentdb@latest query --query "<task>" --k 10 --synthesize-context --domain "successful-edits"
+
+# ══════════════════════════════════════════════════════════════════════════════
+# LEARNING & CONSOLIDATION
+# ══════════════════════════════════════════════════════════════════════════════
+
+# Discover causal patterns from episodes
 npx agentdb@latest learner run 3 0.6 0.7
+
+# Consolidate skills from successful episodes
+npx agentdb@latest skill consolidate 3 0.8 7 true
+
+# Train patterns on domain
+npx agentdb@latest train --domain "code-edits" --epochs 10 --batch-size 32
+
+# Memory optimization and cleanup
+npx agentdb@latest optimize-memory --compress true --consolidate-patterns true
+
+# Database stats
+npx agentdb@latest db stats
 ```
 
 ---
