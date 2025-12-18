@@ -414,47 +414,93 @@ npm run preview  # Preview production build
 
 # WVWO Intelligence System (AgentDB + ReasoningBank)
 
+## MASTER SESSION START PROMPT (Opus 4.5 Optimized)
+
+Copy this prompt to start a new session with full context:
+
+```text
+You are Claude Opus 4.5 working on the WVWO (WV Wild Outdoors) project. Before proceeding with any task, execute this comprehensive context loading protocol using AgentDB advanced features.
+
+<parallel_context_loading>
+Execute ALL of these AgentDB commands IN PARALLEL (Opus 4.5 excels at parallel tool execution):
+
+1. FULL WVWO CONTEXT (15+ episodes):
+   npx agentdb@latest reflexion retrieve "WVWO" --k 15 --synthesize-context
+
+2. FAILURE PATTERNS (CRITICAL - don't repeat mistakes):
+   npx agentdb@latest reflexion critique-summary "WVWO"
+   npx agentdb@latest reflexion retrieve "WVWO" --k 10 --only-failures
+
+3. HIGH-REWARD SUCCESSES (what worked):
+   npx agentdb@latest reflexion retrieve "WVWO" --k 10 --min-reward 0.8 --only-successes --filters '{"success":true}'
+
+4. DOMAIN-SPECIFIC (based on likely task):
+   npx agentdb@latest reflexion retrieve "checkout security validation" --k 10 --synthesize-context
+   npx agentdb@latest reflexion retrieve "shadcn component aesthetic" --k 10 --synthesize-context
+
+5. DATABASE STATS:
+   npx agentdb@latest db stats
+</parallel_context_loading>
+
+<context_awareness>
+Your context window will be automatically compacted as it approaches its limit. Do not stop tasks early due to token budget concerns. Save progress to AgentDB before context refreshes. Be persistent and autonomous - complete tasks fully.
+</context_awareness>
+
+<opus_4_5_directives>
+- Use interleaved thinking: After receiving tool results, reflect on quality and plan next steps before acting
+- Parallel tool calls: Execute independent operations simultaneously (file reads, searches, etc.)
+- Explicit action: Implement changes rather than suggesting them unless asked otherwise
+- Long-horizon reasoning: Track state across extended sessions using structured formats
+- Avoid overengineering: Only make changes directly requested. Keep solutions simple.
+</opus_4_5_directives>
+
+<wvwo_constraints>
+APPROVED: Astro 5.x, Tailwind CSS 4.x, React/shadcn (with WVWO aesthetic overrides)
+NEVER: Vue, Angular, Svelte, Next.js, corporate tone, purple/neon colors
+ALWAYS: rounded-sm (never rounded-md/lg), brand-brown/sign-green/brand-cream palette, Kim's authentic voice
+</wvwo_constraints>
+
+After loading context, acknowledge with:
+"Loaded WVWO context: [X] episodes, [Y] failure patterns, [Z] high-reward approaches. Ready for task."
+```
+
 ## MANDATORY: Session Protocol
 
 Claude MUST follow this protocol for every WVWO session:
 
 ### SESSION START (Do this FIRST)
 
-**THOROUGH CONTEXT LOADING** - Run ALL of these, not just one:
+**THOROUGH CONTEXT LOADING** - Execute ALL in PARALLEL (Opus 4.5 strength):
 
-1. **Load Memory File**:
-```
-Read .agentdb/wvwo-context.json
-```
-
-2. **Recall ALL Learned Patterns** (k=15 minimum, not 5):
+1. **Load Memory File + Full Context** (parallel):
 ```bash
-# Get comprehensive WVWO context (15+ episodes)
+# Run these 5 commands IN PARALLEL (single message, multiple tool calls)
 npx agentdb@latest reflexion retrieve "WVWO" --k 15 --synthesize-context
+npx agentdb@latest reflexion critique-summary "WVWO"
+npx agentdb@latest reflexion retrieve "WVWO" --k 10 --only-failures
+npx agentdb@latest reflexion retrieve "WVWO" --k 10 --min-reward 0.8 --only-successes
+npx agentdb@latest db stats
+```
 
-# Get domain-specific context based on task type
+2. **Domain-Specific Context** (parallel, based on task type):
+```bash
+# Pick relevant domains for current task
 npx agentdb@latest reflexion retrieve "checkout payment validation" --k 10 --synthesize-context
 npx agentdb@latest reflexion retrieve "FFL compliance firearm" --k 10 --synthesize-context
 npx agentdb@latest reflexion retrieve "shadcn component aesthetic" --k 10 --synthesize-context
 ```
 
-3. **Learn from Past Failures** (CRITICAL - don't repeat mistakes):
+3. **Causal Patterns** (what CAUSES success):
 ```bash
-npx agentdb@latest reflexion critique-summary "WVWO"
-npx agentdb@latest reflexion retrieve "WVWO" --k 10 --only-failures
+npx agentdb@latest recall with-certificate "<current_task>" 12
 ```
 
-4. **Get Causal Patterns** (what CAUSES success):
+4. **Filtered High-Precision Queries** (MongoDB-style):
 ```bash
-npx agentdb@latest recall with-certificate "<current_task>" 10
+npx agentdb@latest reflexion retrieve "<task>" --k 10 --filters '{"success":true,"reward":{"$gte":0.9}}'
 ```
 
-5. **Check Recent High-Reward Patterns**:
-```bash
-npx agentdb@latest reflexion retrieve "<current_task>" --k 10 --min-reward 0.8 --only-successes
-```
-
-6. **Acknowledge Context** - Briefly confirm to user:
+5. **Acknowledge Context** - Briefly confirm to user:
 > "Loaded WVWO context: [X] episodes, [Y] failure patterns to avoid, [Z] high-reward approaches."
 
 ### DURING WORK (Semi-Auto)
