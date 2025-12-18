@@ -2,7 +2,7 @@
  * Checkout Progress Indicator
  *
  * Visual step indicator for checkout flow.
- * Shows current progress through: Contact → Fulfillment → Payment → Confirm
+ * Shows current progress through: Info → Shipping → Payment → Review
  * Responsive: Shows numbers + labels on desktop, numbers only on mobile.
  */
 
@@ -16,10 +16,10 @@ interface CheckoutProgressProps {
 }
 
 const STEPS = [
-  { num: 1 as const, label: 'Contact' },
-  { num: 2 as const, label: 'Fulfillment' },
+  { num: 1 as const, label: 'Info' },
+  { num: 2 as const, label: 'Shipping' },
   { num: 3 as const, label: 'Payment' },
-  { num: 4 as const, label: 'Confirm' },
+  { num: 4 as const, label: 'Review' },
 ];
 
 export function CheckoutProgress({ currentStep }: CheckoutProgressProps) {

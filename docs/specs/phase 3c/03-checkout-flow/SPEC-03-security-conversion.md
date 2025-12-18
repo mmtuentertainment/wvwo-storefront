@@ -52,7 +52,7 @@ This specification consolidates P0 (blocking) findings from a comprehensive 5-ag
 **Current:** Stub implementation with fake delay
 **Required:** Server-side verification via Cloudflare Worker
 
-```
+```text
 User → CheckoutForm → Tactical Payments Redirect
   ↓
 Payment Success → Webhook validates → Cloudflare Worker stores order
@@ -94,10 +94,10 @@ export function generateOrderId(): string {
 // CheckoutProgress.tsx
 export function CheckoutProgress({ currentStep }: { currentStep: 1 | 2 | 3 | 4 }) {
   const steps = [
-    { num: 1, label: 'Contact' },
-    { num: 2, label: 'Fulfillment' },
+    { num: 1, label: 'Info' },
+    { num: 2, label: 'Shipping' },
     { num: 3, label: 'Payment' },
-    { num: 4, label: 'Confirm' },
+    { num: 4, label: 'Review' },
   ];
 
   return (

@@ -662,6 +662,8 @@ interface FirearmDisposition {
 
 ## Prohibited Persons Disclosure (Optional Enhancement)
 
+**⚠️ Legal Review Required:** Before implementing this optional enhancement, consult with legal counsel. Some FFLs prefer not to enumerate prohibitions to prevent customers from self-screening incorrectly. If implemented, consider placing behind a feature flag until legal approval is obtained.
+
 Add expandable disclosure to FirearmAgreement for customer awareness:
 
 ```tsx
