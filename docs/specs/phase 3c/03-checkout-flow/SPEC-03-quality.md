@@ -659,7 +659,7 @@ describe('normalizePhone', () => {
 
 ## Implementation Sequence
 
-```
+```text
 [1] Setup Test Infrastructure
     ├─ Verify vitest.config.ts has proper coverage settings
     └─ Add test:checkout script to package.json

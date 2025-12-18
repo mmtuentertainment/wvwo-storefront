@@ -321,13 +321,13 @@ describe('getFullName', () => {
     expect(getFullName(contact)).toBe('Kim Smith');
   });
 
-  it('handles single names', () => {
+  it('handles single names (trims trailing space)', () => {
     const contact: ContactInfo = {
       firstName: 'Madonna',
       lastName: '',
       email: 'madonna@example.com',
       phone: '3045551234',
     };
-    expect(getFullName(contact)).toBe('Madonna ');
+    expect(getFullName(contact)).toBe('Madonna');
   });
 });

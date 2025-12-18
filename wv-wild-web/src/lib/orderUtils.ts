@@ -297,5 +297,5 @@ export function formatOrderDate(isoString: string): string {
  * Get full name from contact info
  */
 export function getFullName(contact: ContactInfo): string {
-  return `${contact.firstName} ${contact.lastName}`;
+  return `${contact.firstName} ${contact.lastName}`.trim();
 }

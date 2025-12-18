@@ -66,6 +66,67 @@ describe('getShippingZone', () => {
     it('maps MI to Zone 2', () => {
       expect(getShippingZone('MI')).toBe(2);
     });
+
+    // Additional Zone 2 states for complete coverage
+    it('maps SC to Zone 2', () => {
+      expect(getShippingZone('SC')).toBe(2);
+    });
+
+    it('maps IN to Zone 2', () => {
+      expect(getShippingZone('IN')).toBe(2);
+    });
+
+    it('maps NJ to Zone 2', () => {
+      expect(getShippingZone('NJ')).toBe(2);
+    });
+
+    it('maps DE to Zone 2', () => {
+      expect(getShippingZone('DE')).toBe(2);
+    });
+
+    it('maps DC to Zone 2', () => {
+      expect(getShippingZone('DC')).toBe(2);
+    });
+
+    it('maps CT to Zone 2', () => {
+      expect(getShippingZone('CT')).toBe(2);
+    });
+
+    it('maps MA to Zone 2', () => {
+      expect(getShippingZone('MA')).toBe(2);
+    });
+
+    it('maps RI to Zone 2', () => {
+      expect(getShippingZone('RI')).toBe(2);
+    });
+
+    it('maps VT to Zone 2', () => {
+      expect(getShippingZone('VT')).toBe(2);
+    });
+
+    it('maps NH to Zone 2', () => {
+      expect(getShippingZone('NH')).toBe(2);
+    });
+
+    it('maps ME to Zone 2', () => {
+      expect(getShippingZone('ME')).toBe(2);
+    });
+
+    it('maps AL to Zone 2', () => {
+      expect(getShippingZone('AL')).toBe(2);
+    });
+
+    it('maps MS to Zone 2', () => {
+      expect(getShippingZone('MS')).toBe(2);
+    });
+
+    it('maps IL to Zone 2', () => {
+      expect(getShippingZone('IL')).toBe(2);
+    });
+
+    it('maps WI to Zone 2', () => {
+      expect(getShippingZone('WI')).toBe(2);
+    });
   });
 
   describe('Zone 3: National (default)', () => {
