@@ -111,7 +111,7 @@ const orderDataSchema = z.object({
 
 /**
  * Generates an order ID in format: WVWO-YYYY-NNNNNN
- * Example: WVWO-2024-847291
+ * Example: WVWO-2025-847291 (year reflects current date)
  *
  * Note: Uses timestamp modulo. NOT cryptographically unique.
  * Collision risk is low but possible within same millisecond.

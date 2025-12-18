@@ -1,8 +1,9 @@
 /**
  * Fulfillment Section
  *
- * Ship vs Pickup choice + shipping address form.
- * Conditionally shows based on cart contents.
+ * Ship vs Pickup choice, shipping address form (when shipping),
+ * and pickup location card (when pickup selected or required).
+ * Visibility adapts to cart contents (e.g., firearms force pickup).
  */
 
 import type { UseFormReturn } from 'react-hook-form';
