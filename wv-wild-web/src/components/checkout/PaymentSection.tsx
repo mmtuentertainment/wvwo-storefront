@@ -12,6 +12,7 @@ import { formatPrice } from '@/stores/cartStore';
 interface PaymentSectionProps {
   total: number;
   onPaymentSuccess: () => void;
+  onPaymentError?: (error: string) => void;
   isProcessing: boolean;
   setIsProcessing: (processing: boolean) => void;
 }
@@ -19,17 +20,34 @@ interface PaymentSectionProps {
 export function PaymentSection({
   total,
   onPaymentSuccess,
+  onPaymentError,
   isProcessing,
   setIsProcessing,
 }: PaymentSectionProps) {
-  const handlePayClick = () => {
+  const handlePayClick = async () => {
     setIsProcessing(true);
 
-    // Simulate payment processing delay
-    setTimeout(() => {
-      setIsProcessing(false);
+    try {
+      // Simulate payment processing delay
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+
+      // In a real implementation, this is where we'd:
+      // 1. Send payment to 2A processor (Tactical Payments)
+      // 2. Handle success/failure response
+      // 3. Update order status
+
+      // For stub: simulate success
+      // When real payment is integrated, failures will call onPaymentError
       onPaymentSuccess();
-    }, 1500);
+    } catch (error) {
+      console.error('[PaymentSection] Payment failed:', error);
+      onPaymentError?.(
+        error instanceof Error
+          ? error.message
+          : 'Payment processing failed. Please try again.'
+      );
+      setIsProcessing(false);
+    }
   };
 
   return (

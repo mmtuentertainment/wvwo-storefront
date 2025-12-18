@@ -14,6 +14,7 @@ import { qualifiesForFreeShipping, getAmountForFreeShipping } from '@/lib/shippi
 import type { CartSummaryData } from '@/stores/cartStore';
 
 interface OrderSummaryProps {
+  /** Cart items as array */
   items: CartItem[];
   summary: CartSummaryData;
   fulfillment: 'ship' | 'pickup' | undefined;
@@ -33,7 +34,8 @@ export function OrderSummary({
   total,
 }: OrderSummaryProps) {
   const [isExpanded, setIsExpanded] = useState(false);
-  const itemsArray = Object.values(items);
+  // items is already an array from useCart
+  const itemsArray = items;
   const amountForFreeShipping = getAmountForFreeShipping(summary.subtotal);
   const hasFreeShipping = qualifiesForFreeShipping(summary.subtotal);
 

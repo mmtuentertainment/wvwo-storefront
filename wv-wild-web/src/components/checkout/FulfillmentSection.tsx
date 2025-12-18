@@ -62,6 +62,10 @@ export function FulfillmentSection({ form, summary }: FulfillmentSectionProps) {
 
       {/* Ship/Pickup Choice */}
       {showShippingChoice && (
+        <>
+        <Label className="font-display font-bold text-brand-brown">
+          How would you like to receive your order? <span className="text-brand-orange">*</span>
+        </Label>
         <RadioGroup
           value={fulfillment}
           onValueChange={(value) => setValue('fulfillment', value as 'ship' | 'pickup')}
@@ -97,6 +101,7 @@ export function FulfillmentSection({ form, summary }: FulfillmentSectionProps) {
             </Label>
           </div>
         </RadioGroup>
+        </>
       )}
 
       {/* Shipping Address Form */}

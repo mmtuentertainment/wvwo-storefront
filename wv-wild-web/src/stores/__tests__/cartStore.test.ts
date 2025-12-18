@@ -341,6 +341,70 @@ describe('cartStore', () => {
     });
   });
 
+  describe('firearm edge cases', () => {
+    it('hasFirearms becomes false when removing the only firearm', () => {
+      const firearm = createMockItem({ productId: 'gun-1', fulfillmentType: 'reserve_hold' });
+      addItem(firearm);
+
+      expect($summary.get().hasFirearms).toBe(true);
+
+      removeItem('gun-1');
+
+      expect($summary.get().hasFirearms).toBe(false);
+    });
+
+    it('hasFirearms remains true when removing one of multiple firearms', () => {
+      addItem(createMockItem({ productId: 'gun-1', fulfillmentType: 'reserve_hold' }));
+      addItem(createMockItem({ productId: 'gun-2', fulfillmentType: 'reserve_hold' }));
+
+      expect($summary.get().hasFirearms).toBe(true);
+
+      removeItem('gun-1');
+
+      expect($summary.get().hasFirearms).toBe(true);
+    });
+
+    it('hasFirearms becomes true when re-adding a firearm after removal', () => {
+      const firearm = createMockItem({ productId: 'gun-1', fulfillmentType: 'reserve_hold' });
+      addItem(firearm);
+      removeItem('gun-1');
+
+      expect($summary.get().hasFirearms).toBe(false);
+
+      addItem(firearm);
+
+      expect($summary.get().hasFirearms).toBe(true);
+    });
+
+    it('fulfillmentOptions updates from pickup-only to ship+pickup when firearm removed', () => {
+      // Add a firearm and a shippable item
+      addItem(createMockItem({ productId: 'gear-1', fulfillmentType: 'ship_or_pickup' }));
+      addItem(createMockItem({ productId: 'gun-1', fulfillmentType: 'reserve_hold' }));
+
+      // With firearm: pickup only
+      expect($summary.get().fulfillmentOptions).toEqual(['pickup']);
+
+      // Remove firearm
+      removeItem('gun-1');
+
+      // Without firearm: ship and pickup available again
+      expect($summary.get().fulfillmentOptions).toEqual(['ship', 'pickup']);
+    });
+
+    it('fulfillmentOptions updates from ship+pickup to pickup-only when firearm added', () => {
+      addItem(createMockItem({ productId: 'gear-1', fulfillmentType: 'ship_or_pickup' }));
+
+      // Without firearm: ship and pickup available
+      expect($summary.get().fulfillmentOptions).toEqual(['ship', 'pickup']);
+
+      // Add firearm
+      addItem(createMockItem({ productId: 'gun-1', fulfillmentType: 'reserve_hold' }));
+
+      // With firearm: pickup only
+      expect($summary.get().fulfillmentOptions).toEqual(['pickup']);
+    });
+  });
+
   describe('error state management', () => {
     beforeEach(() => {
       // Reset error states before each test

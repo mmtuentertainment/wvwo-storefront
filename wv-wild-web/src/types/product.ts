@@ -5,9 +5,9 @@
 
 /**
  * Fulfillment options for products
- * - ship_or_pickup: Standard retail items that can be shipped or picked up
- * - pickup_only: Items requiring in-person pickup (firearms via FFL)
- * - reserve_hold: Items that require customer to reserve and complete purchase in-store
+ * - ship_or_pickup: Standard retail items (apparel, accessories) - can ship or pickup
+ * - pickup_only: Items that cannot be shipped (ammunition) - in-store pickup required
+ * - reserve_hold: Firearms requiring FFL transfer - customer reserves, completes 4473/NICS in-store
  */
 export type FulfillmentType = 'ship_or_pickup' | 'pickup_only' | 'reserve_hold';
 

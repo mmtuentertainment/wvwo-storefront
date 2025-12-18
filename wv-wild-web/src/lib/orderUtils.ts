@@ -110,9 +110,12 @@ const orderDataSchema = z.object({
 // ============================================================================
 
 /**
- * Generates a unique order ID in format: WVWO-YYYY-NNNNNN
+ * Generates an order ID in format: WVWO-YYYY-NNNNNN
  * Example: WVWO-2024-847291
- * Note: MVP uses timestamp-based sequence. Production should use Cloudflare KV counter.
+ *
+ * Note: Uses timestamp modulo. NOT cryptographically unique.
+ * Collision risk is low but possible within same millisecond.
+ * MVP acceptable; Production should use Cloudflare KV counter or UUID.
  */
 export function generateOrderId(): string {
   const year = new Date().getFullYear();

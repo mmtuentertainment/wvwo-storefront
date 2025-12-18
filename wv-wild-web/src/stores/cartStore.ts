@@ -37,7 +37,11 @@ let isAddingItem = false;
 // Types
 // ============================================================================
 
-export type FulfillmentType = 'ship_or_pickup' | 'pickup_only' | 'reserve_hold';
+// Import canonical FulfillmentType from product types
+// Re-exported here for cart consumers that don't need full product types
+export type { FulfillmentType } from '@/types/product';
+import type { FulfillmentType } from '@/types/product';
+
 export type PersistenceMode = 'persistent' | 'session';
 
 export interface CartItem {
