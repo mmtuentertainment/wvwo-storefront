@@ -160,6 +160,44 @@ export function validateFirearmAgreement(
 }
 
 // ============================================================================
+// Helper: Validate state restrictions for firearms
+// ============================================================================
+
+/**
+ * Validates state restrictions for handgun purchases.
+ * Federal law (18 U.S.C. § 922(b)(3)) prohibits out-of-state handgun sales.
+ *
+ * @param customerState - The customer's state (from shipping address or ID)
+ * @param hasHandguns - Whether the cart contains handguns
+ * @returns Validation result with error message if invalid
+ */
+export function validateStateRestriction(
+  customerState: string | undefined,
+  hasHandguns: boolean
+): { valid: boolean; error?: string } {
+  // CRITICAL: Block out-of-state handgun purchases entirely
+  if (hasHandguns && customerState && customerState !== 'WV') {
+    return {
+      valid: false,
+      error: 'Federal law prohibits out-of-state handgun sales. Contact us at (304) 649-5765 to arrange FFL transfer to your home state.',
+    };
+  }
+  return { valid: true };
+}
+
+/**
+ * Validates state for long gun sales.
+ * Long guns can be sold to residents of contiguous states.
+ *
+ * @param customerState - The customer's state
+ * @returns Whether the state is valid for long gun purchase
+ */
+export function validateLongGunState(customerState: string): boolean {
+  const contiguousStates = ['WV', 'OH', 'PA', 'MD', 'VA', 'KY'];
+  return contiguousStates.includes(customerState);
+}
+
+// ============================================================================
 // Utility: Format phone for display
 // ============================================================================
 

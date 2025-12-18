@@ -3,12 +3,14 @@
  *
  * Legal agreement checkbox for firearm orders.
  * Only displayed when cart contains firearms (reserve_hold items).
+ * Includes federal straw purchase warning per ATF compliance audit.
  */
 
 import type { UseFormReturn } from 'react-hook-form';
-import { AlertTriangle } from 'lucide-react';
+import { AlertTriangle, ShieldAlert } from 'lucide-react';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
+import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 import type { CheckoutFormData } from './schemas/checkoutSchema';
 
 interface FirearmAgreementProps {
@@ -30,6 +32,20 @@ export function FirearmAgreement({ form }: FirearmAgreementProps) {
         <AlertTriangle className="h-5 w-5 text-brand-orange" />
         Firearm Reserve Agreement
       </h2>
+
+      {/* Straw Purchase Warning - Federal Compliance */}
+      <Alert className="bg-red-50 border-2 border-red-600 mb-4">
+        <ShieldAlert className="h-5 w-5 text-red-600" />
+        <AlertTitle className="text-red-800 font-bold">
+          Federal Law: No Third-Party Transfers
+        </AlertTitle>
+        <AlertDescription className="text-red-700 text-sm">
+          <strong>The person placing this order MUST be the person who picks up the firearm.</strong>
+          {' '}Purchasing a firearm for another person (straw purchase) is a federal felony
+          punishable by up to 10 years in prison. You must bring ID matching the name
+          on this order. No exceptions.
+        </AlertDescription>
+      </Alert>
 
       <div className="space-y-3 text-sm text-brand-mud">
         <p>By placing this order, you understand:</p>

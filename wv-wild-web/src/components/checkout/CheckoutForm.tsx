@@ -18,6 +18,7 @@ import { useCart } from '@/hooks/useCart';
 import {
   checkoutSchema,
   validateFirearmAgreement,
+  validateStateRestriction,
   type CheckoutFormData,
 } from './schemas/checkoutSchema';
 import { calculateShipping } from '@/lib/shipping';
@@ -28,11 +29,13 @@ import { FulfillmentSection } from './FulfillmentSection';
 import { FirearmAgreement } from './FirearmAgreement';
 import { PaymentSection } from './PaymentSection';
 import { OrderSummary } from './OrderSummary';
+import { CheckoutProgress } from './CheckoutProgress';
 
 export function CheckoutForm() {
   const { state, summary, isEmpty } = useCart();
   const [isProcessing, setIsProcessing] = useState(false);
   const [firearmError, setFirearmError] = useState<string | null>(null);
+  const [stateError, setStateError] = useState<string | null>(null);
   const [storageError, setStorageError] = useState<string | null>(null);
   const [paymentError, setPaymentError] = useState<string | null>(null);
 
@@ -92,6 +95,20 @@ export function CheckoutForm() {
       }
     }
     setFirearmError(null);
+
+    // Validate state restriction for firearm purchases (federal law)
+    // Note: Currently uses hasFirearms as proxy. When product data includes firearmType,
+    // this should specifically check for handguns (handguns have stricter state restrictions).
+    // For now, since all WVWO firearms are pickup-only, this validation primarily
+    // guards against future shipping scenarios.
+    if (summary.hasFirearms && data.fulfillment === 'ship') {
+      const stateValidation = validateStateRestriction(data.state, true);
+      if (!stateValidation.valid) {
+        setStateError(stateValidation.error || 'State restriction validation failed.');
+        return;
+      }
+    }
+    setStateError(null);
 
     // Create order object
     const orderParams: CreateOrderParams = {
@@ -265,6 +282,20 @@ export function CheckoutForm() {
           </AlertDescription>
         </Alert>
       )}
+
+      {/* State Restriction Error (Handgun out-of-state) */}
+      {stateError && (
+        <Alert variant="destructive" className="mb-6">
+          <AlertTriangle className="w-4 h-4" />
+          <AlertTitle>State Restriction</AlertTitle>
+          <AlertDescription>
+            {stateError}
+          </AlertDescription>
+        </Alert>
+      )}
+
+      {/* Checkout Progress Indicator */}
+      <CheckoutProgress currentStep={1} />
 
       <form onSubmit={(e) => e.preventDefault()}>
         <div className="lg:grid lg:grid-cols-3 lg:gap-8">
