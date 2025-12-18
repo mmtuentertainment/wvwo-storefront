@@ -1,13 +1,24 @@
 /**
- * Payment Section (Stub)
+ * Payment Section
  *
- * Mock payment UI for SPEC-03.
- * Ready to wire up Tactical Payments or similar 2A processor in SPEC-04.
+ * Initiates payment with Tactical Payments (2A-compliant processor).
+ * Uses hosted payment page flow for PCI SAQ-A compliance.
+ *
+ * Flow:
+ * 1. User clicks "Pay" button
+ * 2. Call /api/payment/create-session worker
+ * 3. Redirect to Tactical Payments hosted page
+ * 4. Customer enters payment info
+ * 5. Tactical redirects back to /order-confirmation with status
+ * 6. Webhook updates order status in background
  */
 
 import { Lock, Shield, CreditCard } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { formatPrice } from '@/stores/cartStore';
+import { createPaymentRequest } from '@/lib/payment/tacticalPayments';
+import { getPendingOrder } from '@/lib/orderUtils';
+import type { CreateSessionResponse } from '@/lib/payment/schemas';
 
 interface PaymentSectionProps {
   total: number;
@@ -28,23 +39,50 @@ export function PaymentSection({
     setIsProcessing(true);
 
     try {
-      // Simulate payment processing delay
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      // Retrieve pending order from sessionStorage
+      const orderResult = getPendingOrder();
+      if (!orderResult.success) {
+        throw new Error("Couldn't find your order. Please try refreshing the page.");
+      }
 
-      // In a real implementation, this is where we'd:
-      // 1. Send payment to 2A processor (Tactical Payments)
-      // 2. Handle success/failure response
-      // 3. Update order status
+      const order = orderResult.data;
 
-      // For stub: simulate success
-      // When real payment is integrated, failures will call onPaymentError
-      onPaymentSuccess();
+      // Create payment request
+      const paymentRequest = createPaymentRequest(order);
+
+      // Call create-session worker
+      const response = await fetch('/api/payment/create-session', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(paymentRequest),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(
+          errorData.error || "Couldn't create payment session. Please try again."
+        );
+      }
+
+      const sessionData: CreateSessionResponse = await response.json();
+
+      if (!sessionData.success || !sessionData.redirectUrl) {
+        throw new Error(
+          sessionData.error || "Couldn't create payment session. Please try again."
+        );
+      }
+
+      // Redirect to Tactical Payments hosted page
+      console.log('[PaymentSection] Redirecting to Tactical Payments...');
+      window.location.href = sessionData.redirectUrl;
     } catch (error) {
-      console.error('[PaymentSection] Payment failed:', error);
+      console.error('[PaymentSection] Payment initiation failed:', error);
       onPaymentError?.(
         error instanceof Error
           ? error.message
-          : 'Payment processing failed. Please try again.'
+          : "Something went wrong with the payment. Give us a call at (304) 649-5765 and we'll sort it out."
       );
       setIsProcessing(false);
     }
@@ -57,32 +95,32 @@ export function PaymentSection({
       </h2>
 
       {/* Mock Payment Form UI */}
-      <div className="p-4 bg-stone-100 rounded-sm border-2 border-stone-200 space-y-3">
+      <div className="p-4 bg-brand-cream rounded-sm border-2 border-brand-mud/30 space-y-3">
         {/* Card Number (mock) */}
         <div className="space-y-1">
-          <label className="text-xs text-stone-500 font-medium">Card Number</label>
-          <div className="h-12 bg-stone-200 rounded-sm flex items-center px-4">
-            <span className="text-stone-400 text-sm">•••• •••• •••• ••••</span>
+          <label className="text-xs text-brand-mud/60 font-medium">Card Number</label>
+          <div className="h-12 bg-brand-cream/70 rounded-sm flex items-center px-4">
+            <span className="text-brand-mud/50 text-sm">•••• •••• •••• ••••</span>
           </div>
         </div>
 
         {/* Expiry / CVV (mock) */}
         <div className="grid grid-cols-2 gap-3">
           <div className="space-y-1">
-            <label className="text-xs text-stone-500 font-medium">Expiry</label>
-            <div className="h-12 bg-stone-200 rounded-sm flex items-center px-4">
-              <span className="text-stone-400 text-sm">MM/YY</span>
+            <label className="text-xs text-brand-mud/60 font-medium">Expiry</label>
+            <div className="h-12 bg-brand-cream/70 rounded-sm flex items-center px-4">
+              <span className="text-brand-mud/50 text-sm">MM/YY</span>
             </div>
           </div>
           <div className="space-y-1">
-            <label className="text-xs text-stone-500 font-medium">CVV</label>
-            <div className="h-12 bg-stone-200 rounded-sm flex items-center px-4">
-              <span className="text-stone-400 text-sm">•••</span>
+            <label className="text-xs text-brand-mud/60 font-medium">CVV</label>
+            <div className="h-12 bg-brand-cream/70 rounded-sm flex items-center px-4">
+              <span className="text-brand-mud/50 text-sm">•••</span>
             </div>
           </div>
         </div>
 
-        <p className="text-sm text-stone-500 text-center pt-2">
+        <p className="text-sm text-brand-mud/60 text-center pt-2">
           Payment form will be connected to a 2A-compliant processor
         </p>
       </div>

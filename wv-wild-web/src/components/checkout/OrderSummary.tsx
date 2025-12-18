@@ -111,7 +111,7 @@ export function OrderSummary({
                   </Badge>
                 )}
                 {item.fulfillmentType === 'pickup_only' && (
-                  <Badge variant="default" className="mt-1 text-xs">
+                  <Badge variant="stock" className="mt-1 text-xs">
                     <Store className="w-3 h-3 mr-1" />
                     Pickup Only
                   </Badge>

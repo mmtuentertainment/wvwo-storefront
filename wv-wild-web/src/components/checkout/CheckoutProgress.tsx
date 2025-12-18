@@ -54,7 +54,7 @@ export function CheckoutProgress({ currentStep }: CheckoutProgressProps) {
                 {/* Step Label - hidden on small screens */}
                 <span
                   className={`
-                    hidden sm:inline text-sm font-medium
+                    hidden sm:inline text-sm font-display font-medium
                     ${isCompleted ? 'text-sign-green' : ''}
                     ${isCurrent ? 'text-sign-green' : ''}
                     ${isPending ? 'text-brand-mud/40' : ''}

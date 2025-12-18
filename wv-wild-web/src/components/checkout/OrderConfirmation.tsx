@@ -8,11 +8,12 @@
  */
 
 import { useState, useEffect } from 'react';
-import { CheckCircle, Package, Store, Shield, Phone, MapPin, Clock, FileText, UserCheck } from 'lucide-react';
+import { CheckCircle, Package, Store, Shield, Phone, MapPin, Clock, FileText, UserCheck, AlertCircle } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { clearCart } from '@/stores/cartStore';
 import {
   getPendingOrder,
@@ -23,33 +24,156 @@ import {
   type OrderData,
 } from '@/lib/orderUtils';
 import { SITE_CONTACT } from '@/config/siteContact';
+import { parsePaymentReturn, getPaymentStatusMessage, getPaymentActionText, type PaymentStatus } from '@/lib/payment/tacticalPayments';
+import type { OrderStatusResponse } from '@/lib/payment/schemas';
 
 export function OrderConfirmation() {
   const [order, setOrder] = useState<OrderData | null>(null);
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [paymentStatus, setPaymentStatus] = useState<PaymentStatus | null>(null);
+  const [isPolling, setIsPolling] = useState(false);
 
   useEffect(() => {
-    // Get order from sessionStorage with proper error handling
-    const result = getPendingOrder();
+    const verifyPaymentAndLoadOrder = async () => {
+      // Check if this is a payment return from Tactical Payments
+      const searchParams = new URLSearchParams(window.location.search);
+      const paymentReturn = parsePaymentReturn(searchParams);
 
-    if (result.success) {
-      setOrder(result.data);
-      // Clear cart on successful order confirmation
-      clearCart();
-      clearPendingOrder();
-    } else {
-      // Log error for debugging, show user-friendly message
-      if (result.error !== 'No pending order found') {
-        console.error('[OrderConfirmation] Failed to retrieve order:', result.error);
-        setErrorMessage(result.error);
+      if (paymentReturn) {
+        console.log('[OrderConfirmation] Payment return detected:', paymentReturn.status);
+        setPaymentStatus(paymentReturn.status);
+
+        // If payment succeeded, poll for webhook confirmation
+        if (paymentReturn.status === 'success' || paymentReturn.status === 'pending') {
+          setIsPolling(true);
+          await pollPaymentStatus(paymentReturn.orderId, paymentReturn.status);
+          setIsPolling(false);
+        }
+
+        // If payment failed/cancelled, show error (order is still in sessionStorage)
+        if (paymentReturn.status === 'declined' || paymentReturn.status === 'cancelled' || paymentReturn.status === 'error') {
+          setLoading(false);
+          return; // Don't clear cart, let user retry
+        }
+      }
+
+      // Get order from sessionStorage with proper error handling
+      const result = getPendingOrder();
+
+      if (result.success) {
+        setOrder(result.data);
+        // Only clear cart/storage if payment succeeded
+        if (!paymentReturn || paymentReturn.status === 'success') {
+          clearCart();
+          clearPendingOrder();
+        }
+      } else {
+        // Log error for debugging, show user-friendly message
+        if (result.error !== 'No pending order found') {
+          console.error('[OrderConfirmation] Failed to retrieve order:', result.error);
+          setErrorMessage(result.error);
+        }
+      }
+
+      setLoading(false);
+    };
+
+    verifyPaymentAndLoadOrder();
+  }, []);
+
+  /**
+   * Polls the status endpoint until webhook updates order status to "paid".
+   * Maximum 5 attempts with 2-second intervals (10 seconds total).
+   */
+  const pollPaymentStatus = async (orderId: string, initialStatus: PaymentStatus): Promise<void> => {
+    const maxAttempts = 5;
+    const pollInterval = 2000; // 2 seconds
+
+    for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+      try {
+        const response = await fetch(`/api/orders/${orderId}/status`);
+
+        if (!response.ok) {
+          console.warn(`[OrderConfirmation] Status poll ${attempt}/${maxAttempts} failed:`, response.status);
+          continue;
+        }
+
+        const statusData: OrderStatusResponse = await response.json();
+
+        console.log(`[OrderConfirmation] Poll ${attempt}/${maxAttempts}: status=${statusData.status}`);
+
+        if (statusData.status === 'paid') {
+          console.log('[OrderConfirmation] Payment confirmed by webhook!');
+          setPaymentStatus('success');
+          return; // Success - webhook arrived
+        }
+
+        if (statusData.status === 'failed') {
+          setPaymentStatus('declined');
+          return; // Payment failed
+        }
+
+        // Status still pending, wait and retry
+        if (attempt < maxAttempts) {
+          await new Promise((resolve) => setTimeout(resolve, pollInterval));
+        }
+      } catch (error) {
+        console.error(`[OrderConfirmation] Poll ${attempt}/${maxAttempts} error:`, error);
       }
     }
 
-    setLoading(false);
-  }, []);
+    // Polling timeout - webhook hasn't arrived yet, but payment may still process
+    console.warn('[OrderConfirmation] Webhook polling timeout - status may update soon');
+    // Keep initial status (likely 'pending' or 'success')
+  };
 
-  if (loading) {
+  // Show payment error states BEFORE loading
+  if (paymentStatus && ['declined', 'cancelled', 'error'].includes(paymentStatus) && !loading) {
+    return (
+      <div className="max-w-2xl mx-auto px-4 py-12">
+        <div className="w-16 h-16 bg-brand-orange/10 rounded-full flex items-center justify-center mx-auto mb-6">
+          <AlertCircle className="w-8 h-8 text-brand-orange" />
+        </div>
+
+        <h1 className="font-display font-black text-2xl text-brand-brown mb-4 text-center">
+          {paymentStatus === 'cancelled' ? 'Payment Cancelled' : 'Payment Issue'}
+        </h1>
+
+        <Alert variant="destructive" className="mb-6">
+          <AlertCircle className="w-5 h-5" />
+          <AlertTitle>Payment {paymentStatus === 'cancelled' ? 'Cancelled' : 'Failed'}</AlertTitle>
+          <AlertDescription className="font-body">
+            {getPaymentStatusMessage(paymentStatus)}
+          </AlertDescription>
+        </Alert>
+
+        <div className="bg-brand-cream border-2 border-brand-mud/20 rounded-sm p-6 mb-6">
+          <p className="text-brand-brown font-medium mb-2">Your cart is still saved</p>
+          <p className="text-brand-mud text-sm">
+            {paymentStatus === 'cancelled'
+              ? "You can return to checkout and try again."
+              : "You can try a different payment method or call us for help."}
+          </p>
+        </div>
+
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <Button variant="cta" asChild>
+            <a href="/checkout">{getPaymentActionText(paymentStatus)}</a>
+          </Button>
+          <Button variant="outline" asChild>
+            <a href={SITE_CONTACT.phoneHref}>
+              <Phone className="w-4 h-4 mr-2" />
+              Call Us
+            </a>
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
+  if (loading || isPolling) {
+    const loadingMessage = isPolling ? 'Confirming payment...' : 'Loading...';
     return (
       <div className="max-w-2xl mx-auto text-center py-12 px-4">
         <div className="animate-pulse">
@@ -57,6 +181,7 @@ export function OrderConfirmation() {
           <div className="h-8 bg-brand-mud/20 rounded w-48 mx-auto mb-4" />
           <div className="h-4 bg-brand-mud/20 rounded w-64 mx-auto" />
         </div>
+        <p className="text-brand-mud/60 text-sm mt-4">{loadingMessage}</p>
       </div>
     );
   }
