@@ -18,15 +18,15 @@ type ShippingZone = 1 | 2 | 3;
 
 // State to zone mapping
 const STATE_ZONES: Record<string, ShippingZone> = {
-  // Zone 1: WV + bordering states
+  // Zone 1: WV + bordering states (excluding KY per spec)
   WV: 1,
   VA: 1,
   MD: 1,
   PA: 1,
   OH: 1,
-  KY: 1,
 
   // Zone 2: Regional (within ~500 miles)
+  KY: 2,
   NC: 2,
   SC: 2,
   TN: 2,
@@ -64,7 +64,7 @@ interface ShippingRate {
 
 const ZONE_RATES: Record<ShippingZone, ShippingRate> = {
   1: {
-    standard: 799,  // $7.99
+    standard: 899,  // $8.99
     description: 'Regional shipping',
     estimatedDays: '3-5 business days',
   },
@@ -81,7 +81,7 @@ const ZONE_RATES: Record<ShippingZone, ShippingRate> = {
 };
 
 // Free shipping threshold (in cents)
-const FREE_SHIPPING_THRESHOLD = 9900; // $99.00
+const FREE_SHIPPING_THRESHOLD = 7500; // $75.00
 
 // ============================================================================
 // Calculation Functions

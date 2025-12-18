@@ -50,13 +50,14 @@ export interface OrderData {
 // ============================================================================
 
 /**
- * Generates a unique order ID in format: WVWO-YYYY-XXXXXX
- * Example: WVWO-2024-A3B7X2
+ * Generates a unique order ID in format: WVWO-YYYY-NNNNNN
+ * Example: WVWO-2024-847291
+ * Note: MVP uses timestamp-based sequence. Production should use Cloudflare KV counter.
  */
 export function generateOrderId(): string {
   const year = new Date().getFullYear();
-  const random = Math.random().toString(36).substring(2, 8).toUpperCase();
-  return `WVWO-${year}-${random}`;
+  const sequence = (Date.now() % 1000000).toString().padStart(6, '0');
+  return `WVWO-${year}-${sequence}`;
 }
 
 // ============================================================================

@@ -14,8 +14,8 @@ import { z } from 'zod';
 // US phone: accepts (304) 555-1234, 304-555-1234, 3045551234, +1 304 555 1234
 const phonePattern = /^(\+1)?[\s.-]?\(?[0-9]{3}\)?[\s.-]?[0-9]{3}[\s.-]?[0-9]{4}$/;
 
-// US ZIP: 5 digits or 5+4 format
-const zipPattern = /^\d{5}(-\d{4})?$/;
+// US ZIP: exactly 5 digits
+const zipPattern = /^\d{5}$/;
 
 // ============================================================================
 // Contact Schema
@@ -24,13 +24,11 @@ const zipPattern = /^\d{5}(-\d{4})?$/;
 export const contactSchema = z.object({
   firstName: z
     .string()
-    .min(1, "We need your first name to process your order.")
     .min(2, "We need your first name to process your order.")
     .max(50, "First name is too long."),
 
   lastName: z
     .string()
-    .min(1, "We need your last name to process your order.")
     .min(2, "We need your last name to process your order.")
     .max(50, "Last name is too long."),
 
