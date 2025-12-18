@@ -14,7 +14,8 @@ export function CartSummary() {
       itemCount: summary.itemCount,
       subtotal: summary.subtotal,
     });
-    // TODO: Navigate to checkout page
+    // Navigate to checkout page
+    window.location.href = '/checkout';
   };
 
   return (
