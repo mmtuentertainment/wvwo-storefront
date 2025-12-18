@@ -504,7 +504,7 @@ export function validateStateRestriction(
   if (hasHandguns && customerState && customerState !== 'WV') {
     return {
       valid: false,
-      error: 'Federal law prohibits out-of-state handgun sales. Contact us at (304) 649-5765 to arrange FFL transfer to your home state.',
+      error: 'Handgun purchases require WV residency. Out-of-state customers can have handguns transferred to an FFL in their home state (contact us for details).',
     };
   }
   return { valid: true };
@@ -520,8 +520,8 @@ export function validateLongGunState(customerState: string): boolean {
 ### Error Display
 
 When blocked, show:
-```
-"Federal law prohibits out-of-state handgun sales. Contact us at (304) 649-5765 to arrange FFL transfer to your home state."
+```text
+"Handgun purchases require WV residency. Out-of-state customers can have handguns transferred to an FFL in their home state (contact us for details)."
 ```
 
 ---
@@ -599,17 +599,17 @@ If NICS does not respond within 3 business days, dealer MAY proceed with transfe
 
 ### WVWO Policy Decision Required
 
-**Option A: Default Proceed (ATF Minimum)**
+### Option A: Default Proceed (ATF Minimum)
 - After 3 business days with no DENIED, transfer may proceed
 - Risk: Transfer could later be flagged if NICS returns late DENIED
 
-**Option B: Explicit Proceed Only (Conservative) - RECOMMENDED**
+### Option B: Explicit Proceed Only (Conservative) - RECOMMENDED
 - Wait for explicit PROCEED from NICS, even beyond 3 days
 - Risk: None - customer waits longer, but zero compliance risk
 
 ### Customer Communication (Option B)
 
-```
+```text
 "We've submitted your background check, but it's taking longer than usual.
 We'll hold your firearm and contact you as soon as we receive approval.
 This can take up to 10 business days. Thanks for your patience!"

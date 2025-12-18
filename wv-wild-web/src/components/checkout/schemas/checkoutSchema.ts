@@ -179,7 +179,7 @@ export function validateStateRestriction(
   if (hasHandguns && customerState && customerState !== 'WV') {
     return {
       valid: false,
-      error: 'Federal law prohibits out-of-state handgun sales. Contact us at (304) 649-5765 to arrange FFL transfer to your home state.',
+      error: 'Handgun purchases require WV residency. Out-of-state customers can have handguns transferred to an FFL in their home state (contact us for details).',
     };
   }
   return { valid: true };
