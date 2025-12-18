@@ -1,9 +1,5 @@
 ---
-import type { StoreData } from '../types/product';
-import storeDataRaw from '../data/store.json';
-
-const storeData = storeDataRaw as unknown as StoreData;
-const { categories } = storeData;
+import { categories } from '../lib/storeData';
 ---
 
 <section id="shop" class="py-12 bg-brand-cream/30">

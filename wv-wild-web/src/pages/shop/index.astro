@@ -8,12 +8,7 @@ import Footer from '../../components/Footer.astro';
 import ProductCard from '../../components/shop/ProductCard.astro';
 import { CategoryShowcase } from '../../components/shop/CategoryShowcase';
 import { SITE_CONTACT } from '../../config/siteContact';
-import type { StoreData } from '../../types/product';
-import storeDataRaw from '../../data/store.json';
-
-// Cast JSON to proper types
-const storeData = storeDataRaw as unknown as StoreData;
-const { categories, products } = storeData;
+import { categories, products } from '../../lib/storeData';
 
 // Get unique brands for filter
 const brands = [...new Set(products.map(p => p.brand))].sort();
