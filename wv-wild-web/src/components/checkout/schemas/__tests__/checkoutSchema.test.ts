@@ -448,6 +448,16 @@ describe('validateStateRestriction', () => {
       const result = validateStateRestriction(undefined, true);
       expect(result.valid).toBe(true); // Validation passes if no state provided yet
     });
+
+    it('handles lowercase state codes (case insensitive)', () => {
+      // WV resident with lowercase should be allowed
+      expect(validateStateRestriction('wv', true).valid).toBe(true);
+      expect(validateStateRestriction('Wv', true).valid).toBe(true);
+
+      // Out-of-state with lowercase should still be blocked
+      expect(validateStateRestriction('oh', true).valid).toBe(false);
+      expect(validateStateRestriction('pa', true).valid).toBe(false);
+    });
   });
 
   describe('non-handgun purchases', () => {
@@ -527,6 +537,29 @@ describe('validateLongGunState', () => {
       nonContiguousStates.forEach(state => {
         expect(validateLongGunState(state)).toBe(false);
       });
+    });
+  });
+
+  describe('case insensitivity', () => {
+    it('allows lowercase contiguous state codes', () => {
+      expect(validateLongGunState('wv')).toBe(true);
+      expect(validateLongGunState('oh')).toBe(true);
+      expect(validateLongGunState('pa')).toBe(true);
+      expect(validateLongGunState('md')).toBe(true);
+      expect(validateLongGunState('va')).toBe(true);
+      expect(validateLongGunState('ky')).toBe(true);
+    });
+
+    it('allows mixed case state codes', () => {
+      expect(validateLongGunState('Wv')).toBe(true);
+      expect(validateLongGunState('oH')).toBe(true);
+      expect(validateLongGunState('Pa')).toBe(true);
+    });
+
+    it('blocks lowercase non-contiguous states', () => {
+      expect(validateLongGunState('ca')).toBe(false);
+      expect(validateLongGunState('tx')).toBe(false);
+      expect(validateLongGunState('ny')).toBe(false);
     });
   });
 });

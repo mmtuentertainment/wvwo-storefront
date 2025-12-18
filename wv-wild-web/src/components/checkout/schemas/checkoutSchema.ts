@@ -176,7 +176,9 @@ export function validateStateRestriction(
   hasHandguns: boolean
 ): { valid: boolean; error?: string } {
   // CRITICAL: Block out-of-state handgun purchases entirely
-  if (hasHandguns && customerState && customerState !== 'WV') {
+  // Normalize to uppercase for case-insensitive comparison
+  const normalizedState = customerState?.toUpperCase();
+  if (hasHandguns && normalizedState && normalizedState !== 'WV') {
     return {
       valid: false,
       error: 'Handgun purchases require WV residency. Out-of-state customers can have handguns transferred to an FFL in their home state (contact us for details).',
@@ -194,7 +196,8 @@ export function validateStateRestriction(
  */
 export function validateLongGunState(customerState: string): boolean {
   const contiguousStates = ['WV', 'OH', 'PA', 'MD', 'VA', 'KY'];
-  return contiguousStates.includes(customerState);
+  // Normalize to uppercase for case-insensitive comparison
+  return contiguousStates.includes(customerState.toUpperCase());
 }
 
 // ============================================================================
