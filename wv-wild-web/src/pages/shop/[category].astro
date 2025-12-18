@@ -7,16 +7,22 @@ import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import ProductCard from '../../components/shop/ProductCard.astro';
 import { SITE_CONTACT } from '../../config/siteContact';
-import storeData from '../../data/store.json';
+import type { Category, StoreData } from '../../types/product';
+import storeDataRaw from '../../data/store.json';
 
+// getStaticPaths runs in isolated scope - can only access file imports
 export function getStaticPaths() {
-  return storeData.categories.map(cat => ({
+  const data = storeDataRaw as unknown as StoreData;
+  return data.categories.map(cat => ({
     params: { category: cat.slug },
     props: { category: cat }
   }));
 }
 
-const { category } = Astro.props;
+// Cast for component body scope
+const storeData = storeDataRaw as unknown as StoreData;
+
+const { category } = Astro.props as { category: Category };
 const products = storeData.products.filter(p => p.categoryId === category.id);
 
 // Get unique brands in this category

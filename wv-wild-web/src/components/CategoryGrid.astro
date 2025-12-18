@@ -1,5 +1,8 @@
 ---
-import storeData from '../data/store.json';
+import type { StoreData } from '../types/product';
+import storeDataRaw from '../data/store.json';
+
+const storeData = storeDataRaw as unknown as StoreData;
 const { categories } = storeData;
 ---
 

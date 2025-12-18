@@ -10,7 +10,7 @@ import { useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { formatPrice, type CartItem } from '@/stores/cartStore';
-import { getShippingDisplay, qualifiesForFreeShipping, getAmountForFreeShipping } from '@/lib/shipping';
+import { qualifiesForFreeShipping, getAmountForFreeShipping } from '@/lib/shipping';
 import type { CartSummaryData } from '@/stores/cartStore';
 
 interface OrderSummaryProps {

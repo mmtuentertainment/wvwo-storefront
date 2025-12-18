@@ -9,13 +9,16 @@ import ProductCard from '../../../components/shop/ProductCard.astro';
 import { AddToCartButton } from '../../../components/cart';
 import { SITE_CONTACT } from '../../../config/siteContact';
 import { isFirearm } from '../../../lib/products';
-import storeData from '../../../data/store.json';
+import type { Product, Category, StoreData } from '../../../types/product';
+import storeDataRaw from '../../../data/store.json';
 
+// getStaticPaths runs in isolated scope - can only access file imports
 export function getStaticPaths() {
+  const data = storeDataRaw as unknown as StoreData;
   const paths = [];
 
-  for (const category of storeData.categories) {
-    const categoryProducts = storeData.products.filter(p => p.categoryId === category.id);
+  for (const category of data.categories) {
+    const categoryProducts = data.products.filter(p => p.categoryId === category.id);
 
     for (const product of categoryProducts) {
       paths.push({
@@ -34,7 +37,10 @@ export function getStaticPaths() {
   return paths;
 }
 
-const { product, category } = Astro.props;
+// Cast for component body scope
+const storeData = storeDataRaw as unknown as StoreData;
+
+const { product, category } = Astro.props as { product: Product; category: Category };
 
 // Get related products (same category, excluding current)
 const relatedProducts = storeData.products

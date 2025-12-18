@@ -28,7 +28,7 @@ import { PaymentSection } from './PaymentSection';
 import { OrderSummary } from './OrderSummary';
 
 export function CheckoutForm() {
-  const { state, summary, clearCart, isEmpty } = useCart();
+  const { state, summary, isEmpty } = useCart();
   const [isProcessing, setIsProcessing] = useState(false);
   const [firearmError, setFirearmError] = useState<string | null>(null);
 
