@@ -50,8 +50,9 @@ export interface OrderData {
 // ============================================================================
 
 /**
- * Generates a unique order ID in format: WVWO-YYYY-XXXXXX
- * Example: WVWO-2024-A3B7X2
+ * Create a new order identifier using the WVWO-YYYY-XXXXXX pattern.
+ *
+ * @returns A string order identifier in the format `WVWO-YYYY-XXXXXX` (for example, `WVWO-2024-A3B7X2`)
  */
 export function generateOrderId(): string {
   const year = new Date().getFullYear();
@@ -67,8 +68,13 @@ export function generateOrderId(): string {
 const WV_TAX_RATE = 0.06; // 6%
 
 /**
- * Calculate sales tax
- * For MVP: Only charge WV tax. Out-of-state shipping has no tax (nexus simplification).
+ * Compute the sales tax amount for an order subtotal.
+ *
+ * Applies West Virginia tax rules for the MVP: pickup orders are charged WV tax, shipping orders are charged WV tax only when the shipping state is `WV`; out-of-state shipping is taxed as 0.
+ *
+ * @param shippingState - Two-letter state code for the shipping address, or `undefined` when no shipping address is provided
+ * @param fulfillment - Fulfillment method (`'ship'` or `'pickup'`)
+ * @returns The tax amount in cents, rounded to the nearest cent
  */
 export function calculateTax(
   subtotal: number,
@@ -105,7 +111,13 @@ export interface CreateOrderParams {
 }
 
 /**
- * Create an order object from checkout form data
+ * Builds a complete OrderData object from checkout inputs.
+ *
+ * Computes tax and total, generates an order ID and creation timestamp, flattens item entries,
+ * and includes the shipping address only when fulfillment is `'ship'`.
+ *
+ * @param params - CreateOrderParams containing contact, fulfillment, optional shippingAddress, items, subtotal, shippingCost, summary flags, and optional reserveAgreed
+ * @returns The populated OrderData with `id`, `createdAt`, contact and fulfillment details, `items` as an array, monetary fields (`subtotal`, `shipping`, `tax`, `total`), flags (`hasFirearms`, `hasPickupOnlyItems`), `reserveAgreed` if provided, and an initial `status` of `pending_payment`
  */
 export function createOrder(params: CreateOrderParams): OrderData {
   const { contact, fulfillment, shippingAddress, items, subtotal, shippingCost, summary, reserveAgreed } = params;
@@ -142,7 +154,11 @@ export function createOrder(params: CreateOrderParams): OrderData {
 const ORDER_STORAGE_KEY = 'wvwo_pending_order';
 
 /**
- * Store order in sessionStorage for retrieval on confirmation page
+ * Persist a pending order in session storage for later retrieval (e.g., on a confirmation page).
+ *
+ * No-ops when executed outside a browser environment; failures while accessing storage are caught and logged.
+ *
+ * @param order - The order data to persist for the pending/confirmation flow
  */
 export function storePendingOrder(order: OrderData): void {
   if (typeof window === 'undefined') return;
@@ -155,7 +171,9 @@ export function storePendingOrder(order: OrderData): void {
 }
 
 /**
- * Retrieve pending order from sessionStorage
+ * Retrieve the pending order stored in sessionStorage for the current session.
+ *
+ * @returns The stored `OrderData` if present and parseable, `null` if not running in a browser environment, no pending order is stored, or the stored data cannot be parsed.
  */
 export function getPendingOrder(): OrderData | null {
   if (typeof window === 'undefined') return null;
@@ -171,7 +189,9 @@ export function getPendingOrder(): OrderData | null {
 }
 
 /**
- * Clear pending order from sessionStorage
+ * Remove the pending order entry from sessionStorage.
+ *
+ * Deletes the value stored under `ORDER_STORAGE_KEY` in `sessionStorage`. Does nothing when executed outside a browser environment (no `window`), and suppresses errors that occur during removal.
  */
 export function clearPendingOrder(): void {
   if (typeof window === 'undefined') return;
@@ -188,7 +208,10 @@ export function clearPendingOrder(): void {
 // ============================================================================
 
 /**
- * Format order total for display
+ * Format an amount in cents as a US dollar currency string.
+ *
+ * @param cents - Amount in cents
+ * @returns A US dollar formatted string (e.g., "$12.34")
  */
 export function formatOrderPrice(cents: number): string {
   return new Intl.NumberFormat('en-US', {
@@ -198,7 +221,10 @@ export function formatOrderPrice(cents: number): string {
 }
 
 /**
- * Format order date for display
+ * Format an ISO 8601 date/time string into a human-readable US date with weekday.
+ *
+ * @param isoString - An ISO 8601 date or datetime string (for example "2024-03-01T12:00:00Z")
+ * @returns The date formatted for the en-US locale as "Weekday, Month Day, Year" (for example "Friday, March 1, 2024")
  */
 export function formatOrderDate(isoString: string): string {
   return new Date(isoString).toLocaleDateString('en-US', {
@@ -210,7 +236,10 @@ export function formatOrderDate(isoString: string): string {
 }
 
 /**
- * Get full name from contact info
+ * Construct a display name by combining a contact's first and last name.
+ *
+ * @param contact - Contact information containing `firstName` and `lastName`
+ * @returns The contact's full name in the format `First Last`
  */
 export function getFullName(contact: ContactInfo): string {
   return `${contact.firstName} ${contact.lastName}`;

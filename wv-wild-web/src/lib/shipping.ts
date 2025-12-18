@@ -88,14 +88,21 @@ const FREE_SHIPPING_THRESHOLD = 9900; // $99.00
 // ============================================================================
 
 /**
- * Get the shipping zone for a state
+ * Resolve the shipping zone for a US state postal code.
+ *
+ * @param stateCode - Two-letter US state postal code (case-insensitive)
+ * @returns The shipping zone: 1, 2, or 3; defaults to 3 when the state code is not mapped
  */
 export function getShippingZone(stateCode: string): ShippingZone {
   return STATE_ZONES[stateCode.toUpperCase()] ?? 3;
 }
 
 /**
- * Calculate shipping cost for an order
+ * Compute the shipping rate and whether shipping is free for an order.
+ *
+ * @param stateCode - A US postal state code (case-insensitive) used to determine the shipping zone
+ * @param subtotal - Order subtotal in cents
+ * @returns The selected shipping rate augmented with `cost` (shipping cost in cents) and `isFree` (`true` if `subtotal` meets or exceeds the free-shipping threshold, `false` otherwise)
  */
 export function calculateShipping(
   stateCode: string,
@@ -116,7 +123,11 @@ export function calculateShipping(
 }
 
 /**
- * Get shipping display string
+ * Produce the storefront shipping label for a given destination and subtotal.
+ *
+ * @param stateCode - Optional two-letter US state code; when omitted the function prompts for an address
+ * @param subtotal - Cart subtotal in cents used to determine free-shipping eligibility
+ * @returns The shipping label: "Enter address for shipping" if `stateCode` is missing, "FREE" when free shipping applies, or a formatted price string like "$X.XX" for the calculated cost
  */
 export function getShippingDisplay(
   stateCode: string | undefined,
@@ -136,7 +147,10 @@ export function getShippingDisplay(
 }
 
 /**
- * Format shipping price (cents to dollars)
+ * Formats a shipping amount in cents into a display string.
+ *
+ * @param cents - The amount in cents
+ * @returns A formatted price like `$X.XX`, or `'FREE'` when `cents` is 0
  */
 export function formatShippingPrice(cents: number): string {
   if (cents === 0) return 'FREE';
@@ -144,7 +158,10 @@ export function formatShippingPrice(cents: number): string {
 }
 
 /**
- * Get amount needed for free shipping
+ * Compute the remaining amount (in cents) required to reach the free-shipping threshold.
+ *
+ * @param subtotal - Order subtotal in cents
+ * @returns The number of cents remaining to qualify for free shipping, or 0 if the threshold is already met
  */
 export function getAmountForFreeShipping(subtotal: number): number {
   const remaining = FREE_SHIPPING_THRESHOLD - subtotal;
@@ -152,7 +169,10 @@ export function getAmountForFreeShipping(subtotal: number): number {
 }
 
 /**
- * Check if order qualifies for free shipping
+ * Determines whether an order subtotal meets the free-shipping threshold.
+ *
+ * @param subtotal - Order subtotal in cents
+ * @returns `true` if `subtotal` is greater than or equal to the free-shipping threshold, `false` otherwise.
  */
 export function qualifiesForFreeShipping(subtotal: number): boolean {
   return subtotal >= FREE_SHIPPING_THRESHOLD;

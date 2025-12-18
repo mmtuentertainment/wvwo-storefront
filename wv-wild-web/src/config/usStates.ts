@@ -65,7 +65,10 @@ export const US_STATES: USState[] = [
 ];
 
 /**
- * Get state name from abbreviation
+ * Maps a two-letter US state code to its full state name.
+ *
+ * @param code - Two-letter state abbreviation (e.g., "CA")
+ * @returns The state's full name if a match exists, otherwise the original `code`
  */
 export function getStateName(code: string): string {
   const state = US_STATES.find((s) => s.value === code);
@@ -73,7 +76,10 @@ export function getStateName(code: string): string {
 }
 
 /**
- * Check if state code is valid
+ * Determines whether the provided two-letter US state code exists in the known list.
+ *
+ * @param code - The two-letter state code to check (case-sensitive).
+ * @returns `true` if a matching state code exists, `false` otherwise.
  */
 export function isValidStateCode(code: string): boolean {
   return US_STATES.some((s) => s.value === code);

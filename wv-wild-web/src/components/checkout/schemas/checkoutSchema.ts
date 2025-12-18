@@ -151,8 +151,11 @@ export type CheckoutFormData = z.infer<typeof checkoutSchema>;
 // ============================================================================
 
 /**
- * Validates the firearm reserve agreement.
- * Call this separately when cart.hasFirearms is true.
+ * Checks whether the user agreed to the firearm reservation terms when the cart contains firearms.
+ *
+ * @param reserveAgree - The user's confirmation value for the firearm reservation agreement
+ * @param hasFirearms - Whether the cart contains one or more firearms
+ * @returns An error message if the cart contains firearms and `reserveAgree` is falsy, `null` otherwise
  */
 export function validateFirearmAgreement(
   reserveAgree: boolean | undefined,
@@ -169,7 +172,10 @@ export function validateFirearmAgreement(
 // ============================================================================
 
 /**
- * Formats a phone number to (XXX) XXX-XXXX format
+ * Format a phone number as "(XXX) XXX-XXXX".
+ *
+ * @param phone - Input phone string; non-digit characters are ignored when extracting the last 10 digits.
+ * @returns The phone formatted as `(XXX) XXX-XXXX` if exactly 10 digits can be extracted; otherwise returns the original `phone` string.
  */
 export function formatPhoneNumber(phone: string): string {
   const cleaned = phone.replace(/\D/g, '').slice(-10);
@@ -182,7 +188,10 @@ export function formatPhoneNumber(phone: string): string {
 // ============================================================================
 
 /**
- * Strips formatting from phone number for storage/API
+ * Normalize a phone number to its 10-digit US local component.
+ *
+ * @param phone - Input phone string which may include formatting characters or a country code
+ * @returns The digits-only string consisting of the last 10 digits of `phone`; if `phone` has fewer than 10 digits, returns all digits present
  */
 export function normalizePhone(phone: string): string {
   return phone.replace(/\D/g, '').slice(-10);
