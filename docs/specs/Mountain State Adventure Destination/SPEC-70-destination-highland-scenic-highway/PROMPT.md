@@ -1,172 +1,134 @@
-# SPEC-70: Highland Scenic Highway Destination Page - Swarm Implementation Prompt
+# Highland Scenic Highway - Destination Content Generation
 
-## Objective
-Create `/destinations/highland-scenic-highway` page using hierarchical swarm coordination with WebSearch research, AgentDB pattern learning, and scenic byway template implementation (WV-150/WV-55 high elevation + Cranberry Wilderness + overlooks + fall foliage).
+## Hierarchical Swarm Instructions
 
-## Swarm Architecture
-**Topology**: Hierarchical (1 queen → 3 scouts → 2 planners → 1 coder)
+You are the **Swarm Queen** coordinating a specialized team to create compelling destination content for Highland Scenic Highway (WV 150/55) that drives highway hunters to WVWO.
 
-### Queen Agent: Orchestrate research → planning → implementation for high elevation scenic highway
-### Scout 1: Byway official info (Highland Scenic Highway route, length, designation, access)
-### Scout 2: Scenic highlights (high elevation 4,000+ ft, overlooks, Cranberry Wilderness, forest character)
-### Scout 3: Recreation access (Cranberry Glades, Williams River, Falls of Hills Creek, trailheads)
+### Swarm Topology: Hierarchical
 
-## Data Requirements
+**Queen Agent**: Coordinates all agents, ensures WVWO brand voice consistency, validates against constitution
+**Specialist Agents**:
+- `researcher`: Highway research, WV 150/55 route, Cranberry Wilderness access, scenic highlights
+- `wv-historian`: Pocahontas County heritage, Monongahela NF history, highlands ecology
+- `hunter-strategist`: Hunter relevance, backcountry access, Pocahontas/Monongahela NF hunting
+- `seo-specialist`: Geographic SEO, Highland Scenic Highway searches, backcountry corridor hunting
+- `content-writer`: Kim's voice enforcement, authentic WV storytelling
 
-### Geographic Data
-**Shop coordinates**: `38.5858, -80.8581` (Birch River, WV)
-**Byway route**: WV-150/WV-55 from Richwood to US-219 (~45 miles)
-**Shop connection**: US-219 N to WV-55/WV-150 (~1 hour from shop)
-**Drive time**: Shop to Highland Scenic Highway ~1 hour
+### Context Requirements
 
-### Highland Scenic Highway Data
-```typescript
-const highlandScenicHighway = {
-  designation: "National Scenic Byway (WV-150 and WV-55)",
-  route: "Richwood to US-219 junction",
-  length: "~45 miles of high elevation highway",
-  elevation: "4,000+ feet (highest elevation paved road in WV)",
-  character: "High elevation plateau drive through Monongahela National Forest and Cranberry Wilderness edge",
-  highlights: [
-    "Highest paved road in West Virginia (4,000+ ft elevation)",
-    "Cranberry Wilderness access and overlooks",
-    "Fall foliage (peak mid-October)",
-    "Red spruce and northern hardwood forest",
-    "Monongahela National Forest scenic corridor"
-  ],
-  season: "Best late spring through fall (closed or difficult in winter snow/ice)",
-  uniqueness: "Alpine-like high elevation plateau drive - unique in WV"
-};
+**BEFORE generating content**, Queen must coordinate parallel research:
 
-const highlandScenicStops = [
-  {
-    name: "Cranberry Glades Botanical Area",
-    location: "Off WV-150",
-    distance: "~1.25 hours from shop",
-    highlights: ["Rare bog ecosystem", "0.5-mile boardwalk", "Cranberry plants", "Northern plant species"]
-  },
-  {
-    name: "Falls of Hills Creek",
-    location: "Near WV-55/WV-39 junction",
-    distance: "~1.5 hours from shop",
-    highlights: ["3 waterfalls (25, 45, 63 feet)", "Boardwalk trail (0.75 mi)", "Tallest waterfall in WV area"]
-  },
-  {
-    name: "Cranberry Mountain Nature Center",
-    location: "WV-150 near Cranberry Wilderness",
-    distance: "~1.25 hours from shop",
-    highlights: ["Visitor center", "Exhibits on Cranberry Wilderness", "Trailhead access", "Overlook"]
-  },
-  {
-    name: "Highland Scenic Overlooks",
-    location: "Multiple pulloffs along WV-150",
-    distance: "Various",
-    highlights: ["High elevation views", "Wilderness vistas", "Photography spots", "Fall foliage viewing"]
-  }
-];
-
-const cranberryWilderness = {
-  name: "Cranberry Wilderness",
-  size: "~36,000 acres",
-  character: "Backcountry wilderness in Monongahela National Forest",
-  elevation: "High elevation spruce forests and balds",
-  access: "Highland Scenic Highway provides trailhead access to wilderness edge"
-};
-```
-
-## Kim's Voice Guidelines
-
-**Tone**: High elevation unique drive, Cranberry Wilderness access, fall foliage emphasis, alpine-like character, seasonal access.
-
-**Approved phrases**:
-```
-"Highland Scenic Highway is WV-150 and WV-55 - highest paved road in West Virginia at 4,000+ feet."
-"Alpine-like drive through red spruce forests and high elevation plateau. Unique in WV."
-"Cranberry Wilderness access - 36,000-acre backcountry wilderness. Highland Scenic runs along the edge."
-"Falls of Hills Creek has 3 waterfalls - tallest is 63 feet. Boardwalk trail (0.75 mi) to all three."
-"Fall foliage peak is mid-October. Best scenic drive in WV for leaf color. Plan for cool temps at elevation."
-```
-
-**Forbidden phrases**:
-```
-NEVER: "Majestic mountain journey", "Alpine paradise", "Ultimate high country experience"
-```
-
-## Content Blocks
-
-### Hero Block
-**Headline**: "Highland Scenic Highway: WV's Highest Paved Road"
-**Subhead**: "45-mile byway at 4,000+ ft elevation - Cranberry Wilderness, Falls of Hills Creek, fall foliage. 1 hour from our shop."
-**CTA**: "Shop Layers for High Elevation Hiking"
-
-### Byway Overview Block (Primary Highlight)
-**Component**: `<ScenicByway byway={highlandScenicHighway} />`
-**Kim's note**: *"Highland Scenic Highway is WV-150 and WV-55 - highest paved road in West Virginia at 4,000+ feet. Alpine-like drive through red spruce forest and high plateau. 45 miles from Richwood to US-219."*
-
-### Scenic Stops Block
-**Component**: `<BywayStops stops={highlandScenicStops} />`
-**Kim's note**: *"Cranberry Glades (rare bog ecosystem, boardwalk), Falls of Hills Creek (3 waterfalls, tallest 63 ft), Cranberry Mountain Nature Center (visitor center, exhibits), Highland Scenic Overlooks (multiple pulloffs for views)."*
-
-### Cranberry Wilderness Block
-**Component**: `<WildernessAccess wilderness={cranberryWilderness} />`
-**Kim's note**: *"Cranberry Wilderness is 36,000-acre backcountry wilderness. Highland Scenic Highway runs along the edge - trailhead access to wilderness. High elevation spruce forests and balds."*
-
-### Local Knowledge (Kim's voice)
-```
-"Highland Scenic Highway is WV-150 and WV-55 - National Scenic Byway running about 45 miles
-from Richwood to the US-219 junction. Highest paved road in West Virginia at over 4,000 feet
-elevation. Alpine-like high plateau drive through Monongahela National Forest. 1 hour from
-the shop on US-219 North to WV-55/WV-150.
-
-High elevation character is unique in WV - red spruce forests, northern hardwood, cooler temps.
-Feels different from lower elevation WV. Alpine-like plateau.
-
-Cranberry Wilderness is 36,000 acres of backcountry wilderness - Highland Scenic Highway runs
-along the edge. Trailhead access to wilderness. High elevation spruce forests and mountain balds.
-
-Fall foliage is the main draw - peak mid-October at this elevation. Best scenic drive in WV
-for leaf color. Red spruce, northern hardwoods, high elevation color.
-
-Cranberry Glades Botanical Area (off WV-150) - rare bog ecosystem with cranberry plants and
-northern plant species. 0.5-mile boardwalk through the glades. About 1.25 hours from shop.
-Unique ecosystem for WV.
-
-Falls of Hills Creek (near WV-55/WV-39 junction) - 3 waterfalls on boardwalk trail (0.75 mi).
-Falls are 25, 45, and 63 feet tall. Tallest is the most impressive. About 1.5 hours from shop.
-
-Cranberry Mountain Nature Center (WV-150) - visitor center with exhibits on Cranberry Wilderness,
-trailhead access, overlook. Good first stop. About 1.25 hours from shop.
-
-Highland Scenic Overlooks - multiple pulloffs along WV-150 for high elevation views, wilderness
-vistas, photography. Plan to stop at overlooks for photos and scenery.
-
-Season: Best late spring through fall. Winter has snow and ice at 4,000+ feet - road can be
-closed or difficult. Check conditions before driving in winter.
-
-Cool temps at elevation - can be 10-15 degrees cooler than lower elevations. Bring layers,
-even in summer.
-
-Good scenic drive - 2 hours if you drive straight through, half day if you stop at Cranberry
-Glades, Falls of Hills Creek, overlooks, Nature Center.
-
-We're 1 hour south on US-219. Stop by for layers, hiking boots, camera gear, or just to talk
-about Highland Scenic Highway. Grand love ya."
-```
-
-## Schema.org Markup
-```typescript
-const highlandScenicSchema = {
-  "@context": "https://schema.org",
-  "@type": "TouristAttraction",
-  "name": "Highland Scenic Highway",
-  "description": "National Scenic Byway (WV-150/WV-55) - highest paved road in West Virginia at 4,000+ feet elevation. 45-mile high plateau drive through Monongahela National Forest featuring Cranberry Wilderness access, Cranberry Glades bog ecosystem, Falls of Hills Creek (3 waterfalls), and alpine-like red spruce forests. Premier fall foliage destination.",
-  "touristType": ["scenic drivers", "fall foliage viewers", "wilderness hikers", "photographers", "nature enthusiasts"]
-};
-```
-
-## AgentDB Pattern Storage
 ```bash
-npx agentdb@latest reflexion store "wvwo-session" "highland-scenic-highway-byway" 1.0 true "Scenic byway template with hierarchical swarm. ScenicByway component (Highland Scenic Highway WV-150/WV-55 highest paved road WV 4000ft elevation 45mi Richwood to US-219 alpine-like high plateau red spruce Monongahela National Forest fall foliage mid-Oct peak), BywayStops (Cranberry Glades rare bog boardwalk 1.25hr, Falls of Hills Creek 3 waterfalls 63ft tallest boardwalk 1.5hr, Cranberry Mountain Nature Center visitor exhibits 1.25hr, Highland Scenic Overlooks pulloffs views), WildernessAccess (Cranberry Wilderness 36000-acre backcountry trailhead access high elevation spruce balds). Kim's high-elevation alpine-like fall-foliage seasonal-access voice, US-219 connection. 1hr drive. Gear mappings (layers/hiking/camera)."
+# Queen spawns all researchers simultaneously
+Task("Highway researcher", "Research Highland Scenic Highway (WV 150/55), route details, Cranberry Wilderness access, high elevation", "researcher")
+Task("WV historian", "Research Pocahontas County highlands, Monongahela National Forest, high-elevation ecology, corridor history", "wv-historian")
+Task("Hunter strategist", "Analyze Monongahela NF backcountry hunting, Pocahontas County access, high-elevation species, wilderness hunting", "hunter-strategist")
+Task("SEO specialist", "Research 'Highland Scenic Highway hunting', 'Pocahontas County backcountry', 'Monongahela NF hunting access', wilderness searches", "seo-specialist")
 ```
 
-**Reusable for**: Other high elevation byways, alpine-like scenic drives, wilderness access highways, fall foliage routes
+### Content Template: Scenic Drive (Backcountry Corridor)
+
+**Required Sections**:
+1. **Hero** (1-2 sentences): High-elevation scenic corridor + Cranberry Wilderness access, serious backcountry hunter appeal
+2. **Why Hunters Drive This Route** (3-4 bullets): Monongahela NF access, Cranberry Wilderness trailheads, high-elevation corridor, backcountry hunting
+3. **The Drive** (2-3 paragraphs): Route details (WV 150/55, length, elevation), Cranberry Wilderness overlooks, high-elevation character, seasonal access
+4. **Local History** (1-2 paragraphs): Pocahontas highlands heritage, Monongahela NF establishment, high-elevation ecology
+5. **Plan Your Drive** (practical info): Seasonal access (closed in winter), fuel/services (limited), driving time, preparation needed
+6. **Hunting Access Along the Route** (3-5 bullet points): Cranberry Wilderness trailheads, Monongahela NF backcountry, high-elevation species, regulations
+7. **WVWO Connection** (1 paragraph): "Heading to Pocahontas backcountry? WVWO is 1 hour north on US 219 - gear up for serious wilderness..."
+
+### WVWO Brand Requirements
+
+**Voice**: Kim's authentic rural WV tone (faith-forward, humble, neighborly) - but SERIOUS for backcountry
+**Forbidden**: Corporate speak, "pristine wilderness", over-romanticized scenic language
+**Geographic Context**: Pocahontas County, WV 150/55 corridor (high-elevation Alleghenies)
+**Hunter Framing**: Serious backcountry hunters, wilderness access, high-elevation hunting, preparation critical
+**WVWO Integration**: Realistic proximity (1 hour via US 219), emphasize backcountry gear needs
+
+### SEO Strategy
+
+**Primary Keywords**:
+- "Highland Scenic Highway hunting"
+- "Pocahontas County backcountry hunting"
+- "Cranberry Wilderness hunting access"
+- "Monongahela National Forest hunting corridor"
+
+**Geographic Modifiers**:
+- WV 150/55 corridor
+- Pocahontas County
+- Monongahela National Forest
+- Cranberry Wilderness
+
+**Search Intent**: Serious backcountry hunters seeking wilderness access, high-elevation hunting, Monongahela NF trailheads
+
+### Quality Gates (Queen Validation)
+
+Before finalizing content, Queen must verify:
+
+- [ ] Voice passes Kim's Neighbor Test (sounds like Kim, respects backcountry seriousness)
+- [ ] Route details accurate (WV 150/55, elevation 4000+ ft, seasonal closure)
+- [ ] Hunter relevance is specific (Cranberry Wilderness access, backcountry hunting, high-elevation species)
+- [ ] WVWO proximity realistic (1 hour north on US 219, gear before wilderness)
+- [ ] Seasonal access emphasized (CLOSED IN WINTER - critical safety info)
+- [ ] Preparation requirements clear (limited services, backcountry skills needed)
+
+### Output Format
+
+**Deliverable**: Complete `index.md` file ready for `src/content/destinations/highland-scenic-highway/`
+
+**Frontmatter Required**:
+```yaml
+---
+title: "Highland Scenic Highway (WV 150/55)"
+region: "Pocahontas County (High-Elevation Alleghenies)"
+activities: ["scenic drive", "backcountry access", "Cranberry Wilderness trailheads", "high-elevation corridor"]
+season: "Late spring through fall (CLOSED IN WINTER)"
+wmaProximity: "Monongahela National Forest (entire corridor)"
+i79Access: "US 219 corridor (1 hour from WVWO via US 219 south)"
+difficulty: "moderate (high elevation, seasonal closure, limited services)"
+routeLength: "~43 miles (WV 39/55 junction to US 219)"
+elevation: "4000+ feet"
+huntingCorridor: "high (Cranberry Wilderness and Monongahela NF access)"
+seasonalClosure: "yes (typically November through April)"
+---
+```
+
+**Content Structure**: Follow template sections exactly, use Kim's voice throughout
+
+### Coordination Protocol
+
+**Queen's Workflow**:
+1. Spawn all 4 specialist agents in parallel (single message)
+2. Wait for research completion
+3. Brief content-writer with synthesized research
+4. Review draft against quality gates
+5. Iterate if needed (max 2 rounds)
+6. Deliver final `index.md`
+
+**Agent Memory**: Use `npx claude-flow@alpha hooks post-edit` to share findings across agents
+
+**Success Metric**: Content that positions Highland Scenic Highway as serious backcountry corridor with WVWO as critical gear stop before wilderness
+
+---
+
+## Research Sources to Consult
+
+- Highland Scenic Highway official info (WVDOT/Forest Service)
+- WV 150/55 route details (length, elevation, seasonal closure)
+- Cranberry Wilderness access points and trailheads
+- Monongahela National Forest backcountry hunting regulations
+- Pocahontas County and US 219 corridor map
+- Seasonal access and safety considerations
+
+## Notes for Queen
+
+- **Highland Scenic Highway** is WV 150/55 through Pocahontas County (high-elevation Alleghenies)
+- **CRITICAL**: Highway is **CLOSED IN WINTER** (typically November-April) - must emphasize safety
+- Route is ~43 miles, elevation 4000+ feet, connects WV 39/55 to US 219
+- **Cranberry Wilderness** trailhead access is major hunter draw (35,000-acre wilderness area)
+- Hunter appeal: **Serious backcountry access**, high-elevation hunting, Monongahela NF corridor
+- WVWO connection: **1 hour north on US 219** - "Before entering wilderness, gear up at WVWO..."
+- **Limited services** along route - emphasize preparation needed
+- Scenic highlights: High-elevation vistas, spruce forests, Cranberry Glades overlook (mention but don't oversell)
+- Position as **backcountry access corridor**, not just scenic drive
+- **This is NOT a casual drive** - high elevation, seasonal closure, backcountry character

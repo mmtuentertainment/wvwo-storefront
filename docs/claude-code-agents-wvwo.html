@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Code Agents - WVWO Reference</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;700;800&family=Noto+Sans:wght@400;500;600&family=Permanent+Marker&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand-brown: #3E2723;
+            --brand-mud: #5D4037;
+            --brand-cream: #FFF8E1;
+            --sign-green: #2E7D32;
+            --brand-orange: #FF6F00;
+            --sign-green-muted: #558B2F;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Noto Sans', sans-serif;
+            background: var(--brand-cream);
+            color: var(--brand-brown);
+            padding: 40px;
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        h1 {
+            font-family: 'Bitter', serif;
+            text-align: center;
+            color: var(--brand-brown);
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--brand-mud);
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        .project-context {
+            text-align: center;
+            font-family: 'Permanent Marker', cursive;
+            color: var(--sign-green);
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+        }
+
+        .category {
+            background: white;
+            border-left: 4px solid var(--sign-green);
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.2);
+            overflow: hidden;
+        }
+
+        .category-header {
+            background: var(--brand-brown);
+            color: var(--brand-cream);
+            padding: 20px 30px;
+            font-family: 'Bitter', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .category-desc {
+            background: #f5f0e6;
+            padding: 12px 30px;
+            font-style: italic;
+            color: var(--brand-mud);
+            border-bottom: 1px solid #ddd;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #f5f0e6;
+            color: var(--brand-brown);
+            padding: 15px 20px;
+            text-align: left;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-bottom: 2px solid var(--sign-green);
+        }
+
+        td {
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+            vertical-align: top;
+        }
+
+        tr:hover {
+            background: #fdfbf5;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .agent-name {
+            font-family: 'Bitter', serif;
+            font-weight: 700;
+            color: var(--sign-green);
+            font-size: 1.05rem;
+            white-space: nowrap;
+        }
+
+        .description {
+            color: var(--brand-mud);
+        }
+
+        .wvwo-use {
+            color: var(--brand-brown);
+            font-weight: 500;
+        }
+
+        .count {
+            background: var(--brand-orange);
+            color: white;
+            padding: 3px 12px;
+            font-size: 0.85rem;
+            margin-left: 15px;
+            font-family: 'Noto Sans', sans-serif;
+            font-weight: 600;
+        }
+
+        .priority-high { border-left-color: var(--brand-orange); }
+        .priority-high .category-header { background: var(--sign-green); }
+
+        .priority-medium .category-header { background: var(--brand-brown); }
+
+        .priority-low { border-left-color: var(--brand-mud); }
+        .priority-low .category-header { background: var(--brand-mud); }
+
+        .toc {
+            background: white;
+            border-left: 4px solid var(--sign-green);
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.2);
+        }
+
+        .toc h2 {
+            margin-top: 0;
+            color: var(--brand-brown);
+            font-family: 'Bitter', serif;
+            font-weight: 700;
+        }
+
+        .toc-section {
+            margin-bottom: 20px;
+        }
+
+        .toc-section h3 {
+            font-family: 'Bitter', serif;
+            color: var(--sign-green);
+            font-size: 1rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .toc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 10px;
+        }
+
+        .toc a {
+            color: var(--brand-brown);
+            text-decoration: none;
+            padding: 10px 15px;
+            background: #f5f0e6;
+            display: block;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+
+        .toc a:hover {
+            background: var(--sign-green);
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        .toc a.high { border-left: 3px solid var(--brand-orange); }
+        .toc a.medium { border-left: 3px solid var(--sign-green); }
+        .toc a.low { border-left: 3px solid var(--brand-mud); }
+
+        .phase-tag {
+            display: inline-block;
+            background: var(--sign-green);
+            color: white;
+            padding: 2px 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+
+        .phase-tag.future { background: var(--brand-mud); }
+
+        .example-code {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 12px 16px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.85rem;
+            margin-top: 8px;
+            overflow-x: auto;
+        }
+
+        @media print {
+            body { padding: 20px; }
+            .category { break-inside: avoid; }
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 15px; }
+            .category-header { padding: 15px 20px; font-size: 1.25rem; }
+            td, th { padding: 12px 15px; }
+            .toc-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <h1>Claude Code Agents</h1>
+    <p class="subtitle">WVWO-Contextualized Reference Guide - 89 Agents</p>
+    <p class="project-context">Organized by relevance to WV Wild Outdoors development</p>
+
+    <div class="toc">
+        <h2>Quick Navigation</h2>
+
+        <div class="toc-section">
+            <h3>Daily Drivers (Use Every Session)</h3>
+            <div class="toc-grid">
+                <a href="#daily" class="high">Daily Drivers (7)</a>
+                <a href="#pr-quality" class="high">PR & Quality (6)</a>
+                <a href="#feature" class="high">Feature Building (3)</a>
+            </div>
+        </div>
+
+        <div class="toc-section">
+            <h3>Phase 3 Development</h3>
+            <div class="toc-grid">
+                <a href="#planning" class="medium">Planning & Specs (6)</a>
+                <a href="#testing" class="medium">Testing (3)</a>
+                <a href="#github" class="medium">GitHub & CI/CD (6)</a>
+            </div>
+        </div>
+
+        <div class="toc-section">
+            <h3>Power Tools (Complex Tasks)</h3>
+            <div class="toc-grid">
+                <a href="#swarms" class="medium">Power Swarms (8)</a>
+                <a href="#goal" class="medium">Goal Planning (3)</a>
+            </div>
+        </div>
+
+        <div class="toc-section">
+            <h3>Future / Reference</h3>
+            <div class="toc-grid">
+                <a href="#backend" class="low">Backend & API (3)</a>
+                <a href="#specialized" class="low">Specialized (4)</a>
+                <a href="#reference" class="low">Reference Only (40)</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- DAILY DRIVERS -->
+    <div class="category priority-high" id="daily">
+        <div class="category-header">Daily Drivers <span class="count">7 agents</span></div>
+        <div class="category-desc">These are your bread and butter. Use them every coding session.</div>
+        <table>
+            <tr>
+                <th style="width:18%">Agent</th>
+                <th style="width:32%">What It Does</th>
+                <th style="width:50%">WVWO Use Case</th>
+            </tr>
+            <tr>
+                <td class="agent-name">coder</td>
+                <td class="description">Implementation specialist for writing clean efficient code</td>
+                <td class="wvwo-use">
+                    <span class="phase-tag">Phase 3C</span>
+                    Building new React/shadcn components for checkout flow, product cards, cart functionality
+                    <div class="example-code">Task("Build product card", "Create ProductCard.tsx component with WVWO styling", "coder")</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="agent-name">Explore</td>
+                <td class="description">Fast agent for exploring codebases</td>
+                <td class="wvwo-use">
+                    <span class="phase-tag">Daily</span>
+                    Finding where things are: "Where is the cart state managed?" "How does checkout validation work?"
+                    <div class="example-code">Task("Find cart", "Where is cart state managed in WVWO?", "Explore")</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="agent-name">reviewer</td>
+                <td class="description">Code review and quality assurance specialist</td>
+                <td class="wvwo-use">
+                    <span class="phase-tag">Daily</span>
+                    Quick code check before committing - catches bugs CodeRabbit might miss
+                    <div class="example-code">Task("Review checkout", "Review CheckoutForm.tsx for bugs", "reviewer")</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="agent-name">tester</td>
+                <td class="description">Comprehensive testing and quality assurance</td>
+                <td class="wvwo-use">
+                    <span class="phase-tag">Phase 3C</span>
+                    Writing Vitest tests for checkout schemas, cart logic, FFL validation
+                    <div class="example-code">Task("Write tests", "Create tests for checkoutSchema.ts", "tester")</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="agent-name">planner</td>
+                <td class="description">Strategic planning and task orchestration</td>
+                <td class="wvwo-use">
+                    <span class="phase-tag">Daily</span>
+                    Breaking down complex features: "How should we implement the product filtering?"
+                    <div class="example-code">Task("Plan filters", "Plan product filtering implementation for WVWO", "planner")</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="agent-name">researcher</td>
+                <td class="description">Deep research and information gathering</td>
+                <td class="wvwo-use">
+                    <span class="phase-tag">Daily</span>
+                    Looking up ATF compliance rules, Stripe integration docs, Astro 5 features
+                    <div class="example-code">Task("Research FFL", "What are FFL transfer requirements for online sales?", "researcher")</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="agent-name">general-purpose</td>
+                <td class="description">Jack of all trades for complex multi-step tasks</td>
+                <td class="wvwo-use">
+                    <span class="phase-tag">Daily</span>
+                    When the task doesn't fit elsewhere - complex refactoring, multi-file changes
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- PR & QUALITY -->
+    <div class="category priority-high" id="pr-quality">
+        <div class="category-header">PR & Quality <span class="count">6 agents</span></div>
+        <div class="category-desc">Use these before PRs. They catch what CodeRabbit misses.</div>
+        <table>
+            <tr>
+                <th style="width:18%">Agent</th>
+                <th style="width:32%">What It Does</th>
+                <th style="width:50%">WVWO Use Case</th>
+            </tr>
+            <tr>
+                <td class="agent-name">code-reviewer</td>
+                <td class="description">Reviews code for guidelines and best practices</td>
+                <td class="wvwo-use">
+                    <span class="phase-tag">Pre-PR</span>
+                    Check code follows WVWO conventions (rounded-sm, brand colors, Kim's voice)
+                    <div class="example-code">Task("Review PR", "Review checkout changes against WVWO guidelines", "pr-review-toolkit:code-reviewer")</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="agent-name">pr-test-analyzer</td>
+                <td class="description">Reviews PR test coverage quality</td>
+                <td class="wvwo-use">
+                    <span class="phase-tag">Pre-PR</span>
+                    Make sure FFL compliance tests are thorough - this found the case sensitivity bug!
+                    <div class="example-code">Task("Check coverage", "Analyze test coverage for checkout schema", "pr-review-toolkit:pr-test-analyzer")</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="agent-name">silent-failure-hunter</td>
+                <td class="description">Identifies silent failures and inadequate error handling</td>
+                <td class="wvwo-use">
+                    <span class="phase-tag">Pre-PR</span>
+                    Critical for checkout - find where errors get swallowed without user feedback
+                    <div class="example-code">Task("Hunt failures", "Find silent failures in payment processing", "pr-review-toolkit:silent-failure-hunter")</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="agent-name">type-design-analyzer</td>
+                <td class="description">Expert analysis of TypeScript types</td>
+                <td class="wvwo-use">
+                    <span class="phase-tag">Phase 3C</span>
+                    Review Zod schemas - checkoutSchema, cartSchema, FFLTransferSchema
+                    <div class="example-code">Task("Analyze types", "Review checkoutSchema.ts type design", "pr-review-toolkit:type-design-analyzer")</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="agent-name">code-simplifier</td>
+                <td class="description">Simplifies code while preserving functionality</td>
+                <td class="wvwo-use">
+                    <span class="phase-tag">Refactor</span>
+                    Clean up checkout components when they get too complex
+                </td>
+            </tr>
+            <tr>
+                <td class="agent-name">comment-analyzer</td>
+                <td class="description">Analyzes code comments for accuracy</td>
+                <td class="wvwo-use">
+                    <span class="phase-tag">Docs</span>
+                    Verify JSDoc comments match actual function behavior
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- FEATURE BUILDING -->
+    <div class="category priority-high" id="feature">
+        <div class="category-header">Feature Building <span class="count">3 agents</span></div>
+        <div class="category-desc">Use when planning and building new features.</div>
+        <table>
+            <tr>
+                <th style="width:18%">Agent</th>
+                <th style="width:32%">What It Does</th>
+                <th style="width:50%">WVWO Use Case</th>
+            </tr>
+            <tr>
+                <td class="agent-name">code-architect</td>
+                <td class="description">Designs feature architectures by analyzing existing patterns</td>
+                <td class="wvwo-use">
+                    <span class="phase-tag">Phase 3C</span>
+                    "How should we structure the product catalog?" - analyzes existing WVWO patterns first
+                    <div class="example-code">Task("Design catalog", "Design product catalog architecture for WVWO", "feature-dev:code-architect")</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="agent-name">code-explorer</td>
+                <td class="description">Deeply analyzes existing codebase features</td>
+                <td class="wvwo-use">
+                    <span class="phase-tag">Daily</span>
+                    "How does the contact form work?" - traces through Web3Forms integration
+                    <div class="example-code">Task("Explore forms", "How does WVWO handle form submissions?", "feature-dev:code-explorer")</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="agent-name">code-analyzer</td>
+                <td class="description">Advanced code quality analysis</td>
+                <td class="wvwo-use">
+                    <span class="phase-tag">Audit</span>
+                    Deep dive into checkout flow quality before major releases
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- PLANNING & SPECS -->
+    <div class="category priority-medium" id="planning">
+        <div class="category-header">Planning & Specs <span class="count">6 agents</span></div>
+        <div class="category-desc">SPARC methodology for systematic development.</div>
+        <table>
+            <tr>
+                <th style="width:18%">Agent</th>
+                <th style="width:32%">What It Does</th>
+                <th style="width:50%">WVWO Use Case</th>
+            </tr>
+            <tr>
+                <td class="agent-name">specification</td>
+                <td class="description">Requirements analysis phase specialist</td>
+                <td class="wvwo-use">
+                    <span class="phase-tag future">Phases</span>
+                    Writing spec.md files like SPEC-03-security-conversion.md
+                    <div class="example-code">Task("Write spec", "Create spec for product reviews feature", "specification")</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="agent-name">architecture</td>
+                <td class="description">System design phase specialist</td>
+                <td class="wvwo-use">
+                    <span class="phase-tag future">Phases</span>
+                    Designing how new features fit into Astro + React architecture
+                </td>
+            </tr>
+            <tr>
+                <td class="agent-name">sparc-coder</td>
+                <td class="description">Transform specs into working code with TDD</td>
+                <td class="wvwo-use">
+                    <span class="phase-tag">Phase 3C</span>
+                    Takes a spec.md and implements it with tests first
+                    <div class="example-code">Task("Implement spec", "Implement SPEC-07 FFL compliance with TDD", "sparc-coder")</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="agent-name">pseudocode</td>
+                <td class="description">Algorithm design phase</td>
+                <td class="wvwo-use">
+                    <span class="phase-tag future">Complex</span>
+                    For complex algorithms like cart pricing rules, inventory sync
+                </td>
+            </tr>
+            <tr>
+                <td class="agent-name">refinement</td>
+                <td class="description">Iterative improvement phase</td>
+                <td class="wvwo-use">
+                    <span class="phase-tag future">Polish</span>
+                    Polishing checkout flow after initial implementation
+                </td>
+            </tr>
+            <tr>
+                <td class="agent-name">sparc-coord</td>
+                <td class="description">SPARC methodology orchestrator</td>
+                <td class="wvwo-use">
+                    <span class="phase-tag future">Major</span>
+                    Coordinating full SPARC workflow for major features
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- TESTING -->
+    <div class="category priority-medium" id="testing">
+        <div class="category-header">Testing <span class="count">3 agents</span></div>
+        <div class="category-desc">Beyond basic tests - comprehensive coverage.</div>
+        <table>
+            <tr>
+                <th style="width:18%">Agent</th>
+                <th style="width:32%">What It Does</th>
+                <th style="width:50%">WVWO Use Case</th>
+            </tr>
+            <tr>
+                <td class="agent-name">tdd-london-swarm</td>
+                <td class="description">TDD London School mock-driven development</td>
+                <td class="wvwo-use">
+                    <span class="phase-tag">Phase 3C</span>
+                    Outside-in TDD for checkout flow - mock Stripe, test behavior
+                    <div class="example-code">Task("TDD checkout", "Implement payment flow with London-style TDD", "tdd-london-swarm")</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="agent-name">production-validator</td>
+                <td class="description">Production validation for deployment readiness</td>
+                <td class="wvwo-use">
+                    <span class="phase-tag">Pre-Deploy</span>
+                    Final check before deploying to Cloudflare Pages
+                    <div class="example-code">Task("Validate", "Check if WVWO is production-ready", "production-validator")</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="agent-name">analyst</td>
+                <td class="description">Advanced code quality analysis</td>
+                <td class="wvwo-use">
+                    <span class="phase-tag">Audit</span>
+                    Deep quality audit of entire checkout system
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- GITHUB & CI/CD -->
+    <div class="category priority-medium" id="github">
+        <div class="category-header">GitHub & CI/CD <span class="count">6 agents</span></div>
+        <div class="category-desc">Repository management and automation.</div>
+        <table>
+            <tr>
+                <th style="width:18%">Agent</th>
+                <th style="width:32%">What It Does</th>
+                <th style="width:50%">WVWO Use Case</th>
+            </tr>
+            <tr>
+                <td class="agent-name">pr-manager</td>
+                <td class="description">Complete pull request lifecycle management</td>
+                <td class="wvwo-use">
+                    <span class="phase-tag">Daily</span>
+                    Creating PRs with proper format, managing review cycles
+                    <div class="example-code">Task("Create PR", "Create PR for checkout security improvements", "pr-manager")</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="agent-name">issue-tracker</td>
+                <td class="description">Intelligent issue management</td>
+                <td class="wvwo-use">
+                    <span class="phase-tag future">Issues</span>
+                    Managing GitHub issues for WVWO feature requests and bugs
+                </td>
+            </tr>
+            <tr>
+                <td class="agent-name">code-review-swarm</td>
+                <td class="description">AI-powered comprehensive code reviews</td>
+                <td class="wvwo-use">
+                    <span class="phase-tag">Pre-PR</span>
+                    Multi-agent code review like what we just did for PR #44
+                    <div class="example-code">Task("Swarm review", "8-agent review of checkout PR", "code-review-swarm")</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="agent-name">workflow-automation</td>
+                <td class="description">GitHub Actions workflow automation</td>
+                <td class="wvwo-use">
+                    <span class="phase-tag future">CI/CD</span>
+                    Setting up automated tests, Cloudflare deployments
+                </td>
+            </tr>
+            <tr>
+                <td class="agent-name">cicd-engineer</td>
+                <td class="description">CI/CD pipeline specialist</td>
+                <td class="wvwo-use">
+                    <span class="phase-tag future">CI/CD</span>
+                    Building comprehensive CI pipeline for WVWO
+                </td>
+            </tr>
+            <tr>
+                <td class="agent-name">release-manager</td>
+                <td class="description">Automated release coordination</td>
+                <td class="wvwo-use">
+                    <span class="phase-tag future">Releases</span>
+                    Managing version releases when we're ready for production
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- POWER SWARMS -->
+    <div class="category priority-medium" id="swarms">
+        <div class="category-header">Power Swarms <span class="count">8 agents</span></div>
+        <div class="category-desc">Multi-agent coordination for complex tasks.</div>
+        <table>
+            <tr>
+                <th style="width:18%">Agent</th>
+                <th style="width:32%">What It Does</th>
+                <th style="width:50%">WVWO Use Case</th>
+            </tr>
+            <tr>
+                <td class="agent-name">hierarchical-coordinator</td>
+                <td class="description">Queen-led swarm with specialized workers</td>
+                <td class="wvwo-use">
+                    <span class="phase-tag">Complex</span>
+                    Boss agent delegating to specialists - like the 8-agent PR review we just ran
+                    <div class="example-code">Task("Coordinate review", "8-agent hierarchical PR review", "hierarchical-coordinator")</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="agent-name">mesh-coordinator</td>
+                <td class="description">Peer-to-peer distributed decisions</td>
+                <td class="wvwo-use">
+                    <span class="phase-tag">Parallel</span>
+                    When multiple agents need to work together as equals
+                </td>
+            </tr>
+            <tr>
+                <td class="agent-name">queen-coordinator</td>
+                <td class="description">Sovereign orchestrator for strategic decisions</td>
+                <td class="wvwo-use">
+                    <span class="phase-tag">Major</span>
+                    Big picture coordination for major WVWO initiatives
+                </td>
+            </tr>
+            <tr>
+                <td class="agent-name">collective-intelligence-coordinator</td>
+                <td class="description">Distributed cognitive processes</td>
+                <td class="wvwo-use">
+                    <span class="phase-tag future">Consensus</span>
+                    When agents need to reach consensus on approach
+                </td>
+            </tr>
+            <tr>
+                <td class="agent-name">swarm-memory-manager</td>
+                <td class="description">Manages distributed memory</td>
+                <td class="wvwo-use">
+                    <span class="phase-tag future">Memory</span>
+                    Sharing context between agents in a swarm
+                </td>
+            </tr>
+            <tr>
+                <td class="agent-name">worker-specialist</td>
+                <td class="description">Dedicated task execution</td>
+                <td class="wvwo-use">
+                    <span class="phase-tag">Swarm</span>
+                    Worker bees in a hierarchical swarm
+                </td>
+            </tr>
+            <tr>
+                <td class="agent-name">scout-explorer</td>
+                <td class="description">Information reconnaissance</td>
+                <td class="wvwo-use">
+                    <span class="phase-tag">Swarm</span>
+                    Scouts that gather intel before main work
+                </td>
+            </tr>
+            <tr>
+                <td class="agent-name">adaptive-coordinator</td>
+                <td class="description">Dynamic topology switching</td>
+                <td class="wvwo-use">
+                    <span class="phase-tag future">Advanced</span>
+                    Self-organizing swarm that adapts to task needs
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- GOAL PLANNING -->
+    <div class="category priority-medium" id="goal">
+        <div class="category-header">Goal Planning <span class="count">3 agents</span></div>
+        <div class="category-desc">Smart planning for complex objectives.</div>
+        <table>
+            <tr>
+                <th style="width:18%">Agent</th>
+                <th style="width:32%">What It Does</th>
+                <th style="width:50%">WVWO Use Case</th>
+            </tr>
+            <tr>
+                <td class="agent-name">goal-planner</td>
+                <td class="description">Goal-Oriented Action Planning</td>
+                <td class="wvwo-use">
+                    <span class="phase-tag future">Planning</span>
+                    "Complete Phase 3C e-commerce" - breaks into achievable milestones
+                    <div class="example-code">Task("Plan Phase 3C", "Create GOAP plan for e-commerce implementation", "goal-planner")</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="agent-name">code-goal-planner</td>
+                <td class="description">Code-centric goal planning</td>
+                <td class="wvwo-use">
+                    <span class="phase-tag future">Development</span>
+                    Software-specific planning with technical milestones
+                </td>
+            </tr>
+            <tr>
+                <td class="agent-name">sublinear-goal-planner</td>
+                <td class="description">Optimized path finding</td>
+                <td class="wvwo-use">
+                    <span class="phase-tag future">Optimize</span>
+                    Finding efficient paths through complex state spaces
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- BACKEND & API -->
+    <div class="category priority-low" id="backend">
+        <div class="category-header">Backend & API <span class="count">3 agents</span></div>
+        <div class="category-desc">For future API development (Phase 4+).</div>
+        <table>
+            <tr>
+                <th style="width:18%">Agent</th>
+                <th style="width:32%">What It Does</th>
+                <th style="width:50%">WVWO Use Case</th>
+            </tr>
+            <tr>
+                <td class="agent-name">backend-dev</td>
+                <td class="description">REST and GraphQL API development</td>
+                <td class="wvwo-use">
+                    <span class="phase-tag future">Future</span>
+                    If we ever need a custom API for inventory management
+                </td>
+            </tr>
+            <tr>
+                <td class="agent-name">api-docs</td>
+                <td class="description">OpenAPI/Swagger documentation</td>
+                <td class="wvwo-use">
+                    <span class="phase-tag future">Future</span>
+                    Documenting APIs if we build them
+                </td>
+            </tr>
+            <tr>
+                <td class="agent-name">system-architect</td>
+                <td class="description">System architecture design and patterns</td>
+                <td class="wvwo-use">
+                    <span class="phase-tag future">Major</span>
+                    Major architectural decisions for backend systems
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- SPECIALIZED -->
+    <div class="category priority-low" id="specialized">
+        <div class="category-header">Specialized <span class="count">4 agents</span></div>
+        <div class="category-desc">Domain-specific agents - low relevance for WVWO.</div>
+        <table>
+            <tr>
+                <th style="width:18%">Agent</th>
+                <th style="width:32%">What It Does</th>
+                <th style="width:50%">WVWO Use Case</th>
+            </tr>
+            <tr>
+                <td class="agent-name">mobile-dev</td>
+                <td class="description">React Native mobile development</td>
+                <td class="wvwo-use">
+                    <span class="phase-tag future">Maybe</span>
+                    If Kim ever wants a mobile app for inventory
+                </td>
+            </tr>
+            <tr>
+                <td class="agent-name">ml-developer</td>
+                <td class="description">Machine learning model development</td>
+                <td class="wvwo-use">
+                    <span class="phase-tag future">Unlikely</span>
+                    Not applicable to WVWO currently
+                </td>
+            </tr>
+            <tr>
+                <td class="agent-name">base-template-generator</td>
+                <td class="description">Foundational templates and boilerplate</td>
+                <td class="wvwo-use">
+                    <span class="phase-tag future">New</span>
+                    When starting entirely new sub-projects
+                </td>
+            </tr>
+            <tr>
+                <td class="agent-name">memory-coordinator</td>
+                <td class="description">Persistent memory across sessions</td>
+                <td class="wvwo-use">
+                    <span class="phase-tag">Sessions</span>
+                    AgentDB handles this for WVWO already
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- REFERENCE ONLY -->
+    <div class="category priority-low" id="reference">
+        <div class="category-header">Reference Only <span class="count">40 agents</span></div>
+        <div class="category-desc">These exist but won't be used for WVWO. Listed for completeness.</div>
+        <table>
+            <tr>
+                <th style="width:18%">Agent</th>
+                <th style="width:35%">What It Does</th>
+                <th style="width:47%">Why Not For WVWO</th>
+            </tr>
+            <!-- Consensus/Distributed -->
+            <tr>
+                <td class="agent-name">byzantine-coordinator</td>
+                <td class="description">Byzantine fault-tolerant consensus</td>
+                <td class="wvwo-use">Distributed systems - not applicable</td>
+            </tr>
+            <tr>
+                <td class="agent-name">raft-manager</td>
+                <td class="description">Raft consensus with leader election</td>
+                <td class="wvwo-use">Distributed systems - not applicable</td>
+            </tr>
+            <tr>
+                <td class="agent-name">gossip-coordinator</td>
+                <td class="description">Gossip-based consensus</td>
+                <td class="wvwo-use">Distributed systems - not applicable</td>
+            </tr>
+            <tr>
+                <td class="agent-name">crdt-synchronizer</td>
+                <td class="description">Conflict-free Replicated Data Types</td>
+                <td class="wvwo-use">Distributed systems - not applicable</td>
+            </tr>
+            <tr>
+                <td class="agent-name">quorum-manager</td>
+                <td class="description">Dynamic quorum adjustment</td>
+                <td class="wvwo-use">Distributed systems - not applicable</td>
+            </tr>
+            <tr>
+                <td class="agent-name">security-manager</td>
+                <td class="description">Distributed consensus security</td>
+                <td class="wvwo-use">Distributed systems - not applicable</td>
+            </tr>
+            <!-- Performance -->
+            <tr>
+                <td class="agent-name">perf-analyzer</td>
+                <td class="description">Performance bottleneck analyzer</td>
+                <td class="wvwo-use">Overkill for static Astro site</td>
+            </tr>
+            <tr>
+                <td class="agent-name">performance-benchmarker</td>
+                <td class="description">Comprehensive benchmarking</td>
+                <td class="wvwo-use">Overkill for static Astro site</td>
+            </tr>
+            <tr>
+                <td class="agent-name">Benchmark Suite</td>
+                <td class="description">Regression detection</td>
+                <td class="wvwo-use">Overkill for static Astro site</td>
+            </tr>
+            <tr>
+                <td class="agent-name">Load Balancing Coordinator</td>
+                <td class="description">Dynamic task distribution</td>
+                <td class="wvwo-use">For distributed agent systems</td>
+            </tr>
+            <tr>
+                <td class="agent-name">Performance Monitor</td>
+                <td class="description">Real-time metrics</td>
+                <td class="wvwo-use">For distributed agent systems</td>
+            </tr>
+            <tr>
+                <td class="agent-name">Resource Allocator</td>
+                <td class="description">Capacity planning</td>
+                <td class="wvwo-use">For distributed agent systems</td>
+            </tr>
+            <tr>
+                <td class="agent-name">Topology Optimizer</td>
+                <td class="description">Swarm topology reconfiguration</td>
+                <td class="wvwo-use">For distributed agent systems</td>
+            </tr>
+            <!-- Flow Nexus -->
+            <tr>
+                <td class="agent-name">flow-nexus-auth</td>
+                <td class="description">Authentication management</td>
+                <td class="wvwo-use">Flow Nexus platform specific</td>
+            </tr>
+            <tr>
+                <td class="agent-name">flow-nexus-sandbox</td>
+                <td class="description">E2B sandbox deployment</td>
+                <td class="wvwo-use">Flow Nexus platform specific</td>
+            </tr>
+            <tr>
+                <td class="agent-name">flow-nexus-swarm</td>
+                <td class="description">Cloud AI swarm orchestration</td>
+                <td class="wvwo-use">Flow Nexus platform specific</td>
+            </tr>
+            <tr>
+                <td class="agent-name">flow-nexus-neural</td>
+                <td class="description">Neural network training</td>
+                <td class="wvwo-use">Flow Nexus platform specific</td>
+            </tr>
+            <tr>
+                <td class="agent-name">flow-nexus-payments</td>
+                <td class="description">Credit management</td>
+                <td class="wvwo-use">Flow Nexus platform specific</td>
+            </tr>
+            <tr>
+                <td class="agent-name">flow-nexus-challenges</td>
+                <td class="description">Coding challenges</td>
+                <td class="wvwo-use">Flow Nexus platform specific</td>
+            </tr>
+            <tr>
+                <td class="agent-name">flow-nexus-app-store</td>
+                <td class="description">App marketplace</td>
+                <td class="wvwo-use">Flow Nexus platform specific</td>
+            </tr>
+            <tr>
+                <td class="agent-name">flow-nexus-user-tools</td>
+                <td class="description">User management</td>
+                <td class="wvwo-use">Flow Nexus platform specific</td>
+            </tr>
+            <tr>
+                <td class="agent-name">flow-nexus-workflow</td>
+                <td class="description">Workflow automation</td>
+                <td class="wvwo-use">Flow Nexus platform specific</td>
+            </tr>
+            <!-- GitHub extras -->
+            <tr>
+                <td class="agent-name">github-modes</td>
+                <td class="description">GitHub workflow orchestration</td>
+                <td class="wvwo-use">pr-manager covers needs</td>
+            </tr>
+            <tr>
+                <td class="agent-name">release-swarm</td>
+                <td class="description">Multi-platform releases</td>
+                <td class="wvwo-use">Single deployment target (Cloudflare)</td>
+            </tr>
+            <tr>
+                <td class="agent-name">repo-architect</td>
+                <td class="description">Repository structure optimization</td>
+                <td class="wvwo-use">Structure already established</td>
+            </tr>
+            <tr>
+                <td class="agent-name">multi-repo-swarm</td>
+                <td class="description">Cross-repository orchestration</td>
+                <td class="wvwo-use">Single repo project</td>
+            </tr>
+            <tr>
+                <td class="agent-name">swarm-issue</td>
+                <td class="description">Issue-based swarm coordination</td>
+                <td class="wvwo-use">Advanced orchestration not needed</td>
+            </tr>
+            <tr>
+                <td class="agent-name">swarm-pr</td>
+                <td class="description">PR swarm management</td>
+                <td class="wvwo-use">code-review-swarm covers needs</td>
+            </tr>
+            <tr>
+                <td class="agent-name">sync-coordinator</td>
+                <td class="description">Multi-repo synchronization</td>
+                <td class="wvwo-use">Single repo project</td>
+            </tr>
+            <tr>
+                <td class="agent-name">project-board-sync</td>
+                <td class="description">GitHub Projects sync</td>
+                <td class="wvwo-use">Not using GitHub Projects</td>
+            </tr>
+            <!-- Misc -->
+            <tr>
+                <td class="agent-name">safla-neural</td>
+                <td class="description">Self-aware feedback loop AI</td>
+                <td class="wvwo-use">ML/AI specific - not applicable</td>
+            </tr>
+            <tr>
+                <td class="agent-name">smart-agent</td>
+                <td class="description">Dynamic spawning specialist</td>
+                <td class="wvwo-use">Manual agent selection preferred</td>
+            </tr>
+            <tr>
+                <td class="agent-name">migration-planner</td>
+                <td class="description">System migration planning</td>
+                <td class="wvwo-use">No migrations planned</td>
+            </tr>
+            <tr>
+                <td class="agent-name">task-orchestrator</td>
+                <td class="description">Task decomposition</td>
+                <td class="wvwo-use">planner covers needs</td>
+            </tr>
+            <tr>
+                <td class="agent-name">claude-code-guide</td>
+                <td class="description">Claude Code documentation</td>
+                <td class="wvwo-use">For learning Claude Code itself</td>
+            </tr>
+            <tr>
+                <td class="agent-name">statusline-setup</td>
+                <td class="description">Status line configuration</td>
+                <td class="wvwo-use">One-time setup task</td>
+            </tr>
+            <tr>
+                <td class="agent-name">hookify:conversation-analyzer</td>
+                <td class="description">Analyze conversations for hooks</td>
+                <td class="wvwo-use">For creating hooks from chat</td>
+            </tr>
+            <tr>
+                <td class="agent-name">hookify:writing-rules</td>
+                <td class="description">Configure hookify rules</td>
+                <td class="wvwo-use">For hook configuration</td>
+            </tr>
+            <tr>
+                <td class="agent-name">Plan</td>
+                <td class="description">Implementation strategy design</td>
+                <td class="wvwo-use">planner covers needs</td>
+            </tr>
+        </table>
+    </div>
+
+    <div style="text-align:center; margin-top:50px; padding:30px; background:white; border-left:4px solid var(--sign-green);">
+        <p style="font-family:'Permanent Marker',cursive; color:var(--sign-green); font-size:1.3rem; margin:0 0 10px 0;">
+            "Grand love ya!"
+        </p>
+        <p style="color:var(--brand-mud); margin:0;">
+            Generated for Matt - WVWO Agent Reference Guide<br>
+            89 Agents organized by WVWO development relevance
+        </p>
+    </div>
+
+</body>
+</html>

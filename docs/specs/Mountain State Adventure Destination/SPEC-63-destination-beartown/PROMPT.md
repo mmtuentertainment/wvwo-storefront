@@ -1,139 +1,127 @@
-# SPEC-63: Beartown State Park Destination Page - Swarm Implementation Prompt
+# Beartown State Park - Destination Content Generation
 
-## Objective
-Create `/destinations/beartown` page using hierarchical swarm coordination with WebSearch research, AgentDB pattern learning, and state park template implementation (unique rock formation maze + boardwalk trail + sandstone crevices).
+## Hierarchical Swarm Instructions
 
-## Swarm Architecture
-**Topology**: Hierarchical (1 queen → 3 scouts → 2 planners → 1 coder)
+You are the **Swarm Queen** coordinating a specialized team to create compelling destination content for Beartown State Park that drives highway hunters to WVWO.
 
-### Queen Agent: Orchestrate research → planning → implementation for unique geological rock maze park
-### Scout 1: State park official info (Beartown, fees, hours, regulations)
-### Scout 2: Rock formation geology (sandstone maze, crevices, formation process, unique features)
-### Scout 3: Boardwalk trail & access (0.5 mi boardwalk, accessibility, photography, seasonal)
+### Swarm Topology: Hierarchical
 
-## Data Requirements
+**Queen Agent**: Coordinates all agents, ensures WVWO brand voice consistency, validates against constitution
+**Specialist Agents**:
+- `researcher`: Park research, rock formations, boardwalk trail, unique geology
+- `wv-historian`: Pocahontas County heritage, Allegheny highlands geology, natural history
+- `hunter-strategist`: Hunter relevance, Pocahontas backcountry, quick roadside stop appeal
+- `seo-specialist`: Geographic SEO, US 219 corridor, Pocahontas County searches
+- `content-writer`: Kim's voice enforcement, authentic WV storytelling
 
-### Geographic Data
-**Shop coordinates**: `38.5858, -80.8581` (Birch River, WV)
-**Destination coordinates**: `37.9714, -80.2156` (Droop, WV - Beartown State Park)
-**Drive time**: ~50 minutes via US-19 S and US-219 S
-**Distance**: ~35 miles
+### Context Requirements
 
-### Rock Formation Data
-```typescript
-const beartownFormations = {
-  type: "Droop Mountain Sandstone formations",
-  description: "Unique maze of vertical sandstone slabs and deep crevices",
-  formation: "Erosion created narrow passageways between rock walls (10-30 feet tall)",
-  features: [
-    "Labyrinth of rock crevices",
-    "Vertical sandstone slabs (narrow gaps - some <2 feet wide)",
-    "Cool temperatures in crevices (year-round)",
-    "Moss and fern growth on rocks"
-  ],
-  uniqueness: "One of the most unusual geological formations in West Virginia",
-  nickname: "Called Beartown because crevices resemble dens (early settlers thought bears used them)"
-};
+**BEFORE generating content**, Queen must coordinate parallel research:
 
-const beartownBoardwalk = {
-  trail: "Beartown Boardwalk",
-  length: "0.5 mi loop",
-  surface: "Elevated wooden boardwalk",
-  difficulty: "Easy (accessible)",
-  highlights: [
-    "Winds through rock maze",
-    "Views into deep crevices",
-    "Interpretive signs (geology, ecology)",
-    "Photography opportunities (unique rock formations)"
-  ],
-  accessibility: "Wheelchair accessible boardwalk",
-  season: "Year-round, but best spring-fall (icy in winter)"
-};
-```
-
-## Kim's Voice Guidelines
-
-**Tone**: Geological wonder emphasis, unique WV feature, short accessible trail, photography appeal.
-
-**Approved phrases**:
-```
-"Beartown is a maze of sandstone rocks - vertical slabs with narrow crevices between them. Unique geology."
-"Boardwalk trail is 0.5 miles - winds through the rock maze. Wheelchair accessible. Easy walk."
-"Crevices are narrow - some less than 2 feet wide. 10 to 30 feet deep. Cool temperatures in the gaps."
-"Called Beartown because early settlers thought bears used the crevices as dens. Good name."
-"One of the most unusual geological formations in West Virginia. Worth the stop for photos."
-```
-
-**Forbidden phrases**:
-```
-NEVER: "Mystical rock labyrinth", "Otherworldly geological experience", "Nature's cathedral"
-```
-
-## Content Blocks
-
-### Hero Block
-**Headline**: "Beartown: Sandstone Rock Maze & Boardwalk Trail"
-**Subhead**: "Unique vertical rock formations, 0.5-mile boardwalk through crevices, accessible trail. 50 minutes from our shop."
-**CTA**: "Shop Camera Gear for Rock Photography"
-
-### Rock Formation Geology Block (Primary Highlight)
-**Component**: `<RockFormations formations={beartownFormations} />`
-**Kim's note**: *"Beartown is a sandstone maze - vertical rock slabs with narrow crevices between them. Erosion created passageways (some <2 feet wide, 10-30 feet deep). One of the most unusual geological formations in WV."*
-
-### Boardwalk Trail Block
-**Component**: `<BoardwalkTrail trail={beartownBoardwalk} />`
-**Kim's note**: *"Boardwalk is 0.5 miles - elevated wooden walkway winds through the rock maze. Wheelchair accessible. Easy walk with views into the crevices."*
-
-### Photography & Geology Block
-**Component**: `<GeologyPhoto features={beartownFormations.features} />`
-**Kim's note**: *"Good spot for photography - unique rock formations, moss and ferns on rocks, light filtering into crevices. Interpretive signs explain how the formations were created."*
-
-### Local Knowledge (Kim's voice)
-```
-"Beartown is a unique rock maze - vertical sandstone slabs with narrow crevices between them.
-Droop Mountain Sandstone formation. Erosion created the labyrinth - some crevices are less than
-2 feet wide but 10 to 30 feet deep. One of the most unusual geological sites in West Virginia.
-It's in Pocahontas County, 50 minutes from the shop on US-19 and US-219 South.
-
-Called Beartown because early settlers thought bears used the crevices as dens. Good name -
-crevices do look like dens.
-
-Boardwalk trail is 0.5 miles - elevated wooden walkway winds through the rock maze. Wheelchair
-accessible. Easy walk. You get views into the deep crevices from the boardwalk. Interpretive
-signs explain the geology and ecology.
-
-Cool temperatures in the crevices year-round - rock walls block sunlight. Moss and ferns grow
-on the rocks. Feels different from the surrounding forest.
-
-Good spot for photography - unique rock formations, light filtering into narrow gaps, moss and
-lichen textures. Bring a camera.
-
-Park is day-use only. Boardwalk, picnic area, restrooms. No camping or lodging.
-
-Best time to visit: Spring and fall for comfortable temps. Summer is cooler in the crevices.
-Winter can be icy on boardwalk - use caution or visit when dry.
-
-Short visit - you can walk the boardwalk in 30-45 minutes. Good stop if you're driving through
-Pocahontas County.
-
-We're 50 minutes north. Stop by for camera gear or just to talk about Beartown geology.
-Grand love ya."
-```
-
-## Schema.org Markup
-```typescript
-const beartownSchema = {
-  "@context": "https://schema.org",
-  "@type": "StateOrProvincialPark",
-  "name": "Beartown State Park",
-  "description": "Unique sandstone rock maze state park featuring vertical rock formations with narrow crevices, 0.5-mile accessible boardwalk trail, and geological interpretive displays. Located in Pocahontas County near Droop.",
-  "touristType": ["geologists", "photographers", "nature lovers", "families", "accessible trail users"]
-};
-```
-
-## AgentDB Pattern Storage
 ```bash
-npx agentdb@latest reflexion store "wvwo-session" "beartown-rock-maze-boardwalk-park" 1.0 true "State park template with hierarchical swarm. RockFormations component (Droop Mountain Sandstone maze vertical slabs narrow crevices <2ft wide 10-30ft deep, erosion-created labyrinth cool temps moss ferns, unique WV geology, called Beartown settlers thought bears used dens), BoardwalkTrail (0.5mi elevated wooden loop wheelchair accessible winds through maze views into crevices interpretive signs), GeologyPhoto (photography opportunity unique formations light filtering). Kim's geological-wonder accessible-trail voice, Pocahontas County. 50min drive US-19/219. Gear mappings (camera)."
+# Queen spawns all researchers simultaneously
+Task("Park researcher", "Research Beartown State Park rock formations, boardwalk trail, geology, moss-covered boulders, crevices", "researcher")
+Task("WV historian", "Research Allegheny highlands geology, Pocahontas County natural history, rock formation process", "wv-historian")
+Task("Hunter strategist", "Analyze Pocahontas County hunting access, US 219 corridor location, quick stop appeal for hunters", "hunter-strategist")
+Task("SEO specialist", "Research 'Beartown State Park hunting', 'Pocahontas County WV hunting', 'US 219 corridor', unique geology searches", "seo-specialist")
 ```
 
-**Reusable for**: Other unique geological parks, boardwalk trail destinations, rock formation sites, accessible nature trails
+### Content Template: State Park (Unique Geology Focus)
+
+**Required Sections**:
+1. **Hero** (1-2 sentences): Unique rock formations + boardwalk, hunter appeal as quick roadside stop
+2. **Why Hunters Stop Here** (3-4 bullets): 20-minute boardwalk stretch, US 219 corridor location, Pocahontas backcountry proximity
+3. **The Park** (2-3 paragraphs): Rock formations, boardwalk trail, moss-covered boulders, crevices and passages
+4. **Local History** (1-2 paragraphs): Allegheny highlands geology, how rock formations developed, natural history
+5. **Plan Your Visit** (practical info): Hours, fees (if any), directions from US 219
+6. **Nearby Hunting Access** (2-3 bullet points): Monongahela NF, Pocahontas WMAs, backcountry hunting
+7. **WVWO Connection** (1 paragraph): "Quick stop on US 219? WVWO is 1 hour north - gear up before Pocahontas backcountry..."
+
+### WVWO Brand Requirements
+
+**Voice**: Kim's authentic rural WV tone (faith-forward, humble, neighborly)
+**Forbidden**: Corporate speak, "hidden gem", "mystical rock formations" tourism language
+**Geographic Context**: Pocahontas County, US 219 corridor (southeastern highlands)
+**Hunter Framing**: 20-minute leg stretch on way to backcountry hunts, unique geology quick stop
+**WVWO Integration**: Realistic proximity (1 hour north on US 219), gear stop for Pocahontas hunts
+
+### SEO Strategy
+
+**Primary Keywords**:
+- "Beartown State Park Pocahontas County"
+- "US 219 corridor WV hunting"
+- "Pocahontas County backcountry hunting"
+- "quick stops US 219 hunting trips"
+
+**Geographic Modifiers**:
+- US 219 corridor
+- Pocahontas County
+- Allegheny highlands
+
+**Search Intent**: Hunters traveling US 219 looking for quick roadside stops, Pocahontas backcountry access info
+
+### Quality Gates (Queen Validation)
+
+Before finalizing content, Queen must verify:
+
+- [ ] Voice passes Kim's Neighbor Test (sounds like Kim, not park brochure)
+- [ ] Geology explanation is simple and authentic (not overly scientific)
+- [ ] Hunter relevance is realistic (20-min stop, not primary destination)
+- [ ] WVWO proximity emphasized (1 hour north on US 219)
+- [ ] Boardwalk trail positioned as quick leg stretch benefit
+- [ ] Pocahontas backcountry access clear
+
+### Output Format
+
+**Deliverable**: Complete `index.md` file ready for `src/content/destinations/beartown-state-park/`
+
+**Frontmatter Required**:
+```yaml
+---
+title: "Beartown State Park"
+region: "Pocahontas County (Southeastern Highlands)"
+activities: ["boardwalk trail", "unique geology", "rock formations", "nature viewing"]
+season: "year-round (best spring-fall for boardwalk conditions)"
+wmaProximity: "Monongahela National Forest (immediate area)"
+i79Access: "US 219 corridor (1 hour south from I-79 via Sutton/Webster Springs)"
+difficulty: "easy (accessible boardwalk, 0.5 mile loop)"
+uniqueFeature: "moss-covered boulder formations and rock crevices"
+---
+```
+
+**Content Structure**: Follow template sections exactly, use Kim's voice throughout
+
+### Coordination Protocol
+
+**Queen's Workflow**:
+1. Spawn all 4 specialist agents in parallel (single message)
+2. Wait for research completion
+3. Brief content-writer with synthesized research
+4. Review draft against quality gates
+5. Iterate if needed (max 2 rounds)
+6. Deliver final `index.md`
+
+**Agent Memory**: Use `npx claude-flow@alpha hooks post-edit` to share findings across agents
+
+**Success Metric**: Content that positions Beartown as quick 20-minute roadside stop for hunters on US 219, with WVWO as gear stop
+
+---
+
+## Research Sources to Consult
+
+- WV State Parks official site (Beartown page)
+- Allegheny highlands geology resources
+- Pocahontas County tourism and hunting info
+- US 219 corridor map
+- Boardwalk trail details and accessibility
+
+## Notes for Queen
+
+- **Beartown State Park** is in Pocahontas County, 1 hour south of WVWO on US 219
+- **Unique feature**: Moss-covered rock formations with crevices and passages - created by weathering
+- **Boardwalk trail**: 0.5-mile accessible loop (20-30 minutes) - perfect **quick leg stretch** for hunters
+- Hunter appeal: **Quick roadside stop** on US 219 corridor, not primary destination
+- WVWO connection: **1 hour north on US 219** - "Before heading into Pocahontas backcountry, gear up at WVWO..."
+- **Geology**: Rock formations created by freeze/thaw weathering over thousands of years - keep explanation simple
+- Park name origin: Rock passages resemble bear dens
+- Position as **leg stretch benefit** for long hunting trips through US 219 corridor

@@ -1,152 +1,128 @@
-# SPEC-62: Droop Mountain Battlefield State Park Destination Page - Swarm Implementation Prompt
+# Droop Mountain Battlefield State Park - Destination Content Generation
 
-## Objective
-Create `/destinations/droop-mountain` page using hierarchical swarm coordination with WebSearch research, AgentDB pattern learning, and state park template implementation (largest Civil War battle in WV + observation tower + battlefield trails + museum).
+## Hierarchical Swarm Instructions
 
-## Swarm Architecture
-**Topology**: Hierarchical (1 queen → 3 scouts → 2 planners → 1 coder)
+You are the **Swarm Queen** coordinating a specialized team to create compelling destination content for Droop Mountain Battlefield that drives highway hunters to WVWO.
 
-### Queen Agent: Orchestrate research → planning → implementation for WV's largest Civil War battlefield
-### Scout 1: State park official info (battlefield, fees, hours, regulations)
-### Scout 2: Civil War history (Battle of Droop Mountain Nov 1863, museum exhibits, historical significance)
-### Scout 3: Observation tower & trails (lookout tower views, battlefield trails, scenic overlooks)
+### Swarm Topology: Hierarchical
 
-## Data Requirements
+**Queen Agent**: Coordinates all agents, ensures WVWO brand voice consistency, validates against constitution
+**Specialist Agents**:
+- `researcher`: Battlefield site research, trails, observation tower, facilities
+- `wv-historian`: Civil War battle history (1863), Pocahontas County heritage, strategic significance
+- `hunter-strategist`: Hunter relevance, Pocahontas County backcountry, US 219 corridor access
+- `seo-specialist`: Geographic SEO, US 219 corridor, Pocahontas County searches
+- `content-writer`: Kim's voice enforcement, authentic WV storytelling
 
-### Geographic Data
-**Shop coordinates**: `38.5858, -80.8581` (Birch River, WV)
-**Destination coordinates**: `38.1097, -80.2589` (Hillsboro, WV - Droop Mountain Battlefield)
-**Drive time**: ~45 minutes via US-19 S and US-219 S
-**Distance**: ~30 miles
+### Context Requirements
 
-### Civil War Battlefield Data
-```typescript
-const droopMountainBattlefield = {
-  battle: "Battle of Droop Mountain (November 6, 1863)",
-  significance: "Largest Civil War battle fought in West Virginia - over 6,000 troops engaged",
-  outcome: "Union victory - ended major Confederate presence in WV",
-  battlefield: "161-acre preserved battlefield with original earthworks",
-  museum: {
-    name: "Droop Mountain Battlefield Museum",
-    exhibits: "Battle artifacts, weapons, uniforms, photographs, interpretive displays",
-    hours: "Seasonal (Memorial Day - Labor Day, weekends)",
-    admission: "Free"
-  },
-  cemetery: "Confederate cemetery on battlefield grounds"
-};
-```
+**BEFORE generating content**, Queen must coordinate parallel research:
 
-### Observation Tower & Trails Data
-```typescript
-const droopMountainTower = {
-  name: "Lookout Tower",
-  height: "~30 feet",
-  views: "360-degree views of battlefield and surrounding mountains",
-  accessibility: "Climb stairs to observation deck",
-  photography: "Excellent panoramic views"
-};
-
-const droopMountainTrails = [
-  {
-    name: "Battlefield Trail",
-    length: "1.5 mi loop",
-    difficulty: "Easy to Moderate",
-    highlights: ["Battle markers", "Earthworks", "Troop positions", "Interpretive signs"]
-  },
-  {
-    name: "Tower Trail",
-    length: "0.25 mi",
-    difficulty: "Easy",
-    highlights: ["Lookout tower", "Panoramic views", "Battlefield overview"]
-  }
-];
-```
-
-## Kim's Voice Guidelines
-
-**Tone**: Civil War history respectful, largest WV battle emphasis, observation tower views, Pocahontas County pride.
-
-**Approved phrases**:
-```
-"Droop Mountain was the largest Civil War battle in West Virginia - over 6,000 troops fought here in November 1863."
-"Union victory at Droop Mountain ended major Confederate operations in WV. Preserved battlefield has original earthworks."
-"Lookout tower gives you 360-degree views of the battlefield and mountains. Good spot to understand the terrain."
-"Battlefield trail is 1.5 miles - easy to moderate loop with battle markers and interpretive signs."
-"Museum has battle artifacts and exhibits. Free admission, open weekends Memorial Day through Labor Day."
-```
-
-**Forbidden phrases**:
-```
-NEVER: "Epic battle experience", "Relive the conflict", "Ultimate Civil War destination"
-```
-
-## Content Blocks
-
-### Hero Block
-**Headline**: "Droop Mountain: West Virginia's Largest Civil War Battlefield"
-**Subhead**: "1863 battle, observation tower, preserved earthworks, museum. 45 minutes from our shop."
-**CTA**: "Shop Hiking Gear"
-
-### Civil War Battlefield Block (Primary Highlight)
-**Component**: `<CivilWarBattlefield battlefield={droopMountainBattlefield} />`
-**Kim's note**: *"Battle of Droop Mountain (November 6, 1863) was the largest Civil War battle in West Virginia - over 6,000 troops. Union victory ended major Confederate presence in WV."*
-
-### Observation Tower Block
-**Component**: `<ObservationTower tower={droopMountainTower} />`
-**Kim's note**: *"Lookout tower is about 30 feet tall - climb stairs to observation deck for 360-degree views of the battlefield and surrounding mountains. Helps you understand the battle terrain."*
-
-### Museum & Cemetery Block
-**Component**: `<BattlefieldMuseum museum={droopMountainBattlefield.museum} cemetery={true} />`
-**Kim's note**: *"Museum has battle artifacts, weapons, uniforms, photographs. Free admission. Open weekends Memorial Day through Labor Day. Confederate cemetery is on battlefield grounds."*
-
-### Local Knowledge (Kim's voice)
-```
-"Droop Mountain is West Virginia's largest Civil War battlefield - Battle of Droop Mountain
-(November 6, 1863). Over 6,000 troops fought here. Union victory that ended major Confederate
-operations in West Virginia. It's in Pocahontas County, 45 minutes from the shop on US-19 and
-US-219 South.
-
-Battlefield is 161 acres - preserved with original earthworks (Confederate defensive positions).
-Battlefield Trail is 1.5-mile loop (easy to moderate) with battle markers showing troop positions
-and interpretive signs explaining what happened. You can see where the fighting occurred.
-
-Lookout tower is about 30 feet tall - observation deck at the top gives you 360-degree views of
-the battlefield and surrounding mountains. Good spot to understand why Confederates chose this
-position and how Union forces attacked. Climb the stairs for panoramic views.
-
-Museum has battle artifacts - weapons, uniforms, photographs, interpretive displays. Free
-admission. Open weekends Memorial Day through Labor Day. Rest of year, you can walk the
-battlefield but museum's closed.
-
-Confederate cemetery is on the battlefield grounds - soldiers who died in the battle are buried
-here. Respectful memorial.
-
-Park is day-use only - picnic areas, restrooms, battlefield trails. No camping or lodging.
-
-Reenactments happen occasionally - check wvstateparks.com for event schedule. Usually on battle
-anniversary in November.
-
-Best time to visit: Fall for leaf color and comfortable walking temps. Spring for wildflowers.
-Summer weekends for museum access.
-
-We're 45 minutes north. Stop by for hiking boots or a day pack if you're walking the battlefield.
-Grand love ya."
-```
-
-## Schema.org Markup
-```typescript
-const droopMountainSchema = {
-  "@context": "https://schema.org",
-  "@type": "StateOrProvincialPark",
-  "name": "Droop Mountain Battlefield State Park",
-  "description": "West Virginia's largest Civil War battlefield featuring Battle of Droop Mountain (1863), observation tower with 360-degree views, preserved earthworks, museum, and Confederate cemetery. Located in Pocahontas County near Hillsboro.",
-  "touristType": ["history buffs", "Civil War enthusiasts", "hikers", "scenic viewers"]
-};
-```
-
-## AgentDB Pattern Storage
 ```bash
-npx agentdb@latest reflexion store "wvwo-session" "droop-mountain-battlefield-tower-park" 1.0 true "State park template with hierarchical swarm. CivilWarBattlefield component (Battle of Droop Mountain Nov-6-1863 largest-WV-battle 6000-troops Union victory ended Confederate presence, 161-acre preserved battlefield original earthworks, Battlefield Trail 1.5mi loop battle markers troop positions), ObservationTower (30ft lookout tower 360-degree views battlefield mountains observation deck stairs), BattlefieldMuseum (artifacts weapons uniforms photos free admission seasonal Memorial-Labor weekends, Confederate cemetery). Kim's Civil-War-respectful largest-battle emphasis Pocahontas County. 45min drive US-19/219. Gear mappings (hiking)."
+# Queen spawns all researchers simultaneously
+Task("Park researcher", "Research Droop Mountain Battlefield trails, observation tower, interpretive features, battlefield terrain", "researcher")
+Task("WV historian", "Research Battle of Droop Mountain (November 1863), largest WV battle, Averell vs Echols, strategic significance", "wv-historian")
+Task("Hunter strategist", "Analyze Pocahontas County hunting (Monongahela NF access), US 219 corridor, backcountry species, fall seasons", "hunter-strategist")
+Task("SEO specialist", "Research 'Droop Mountain hunting', 'Pocahontas County WV hunting', 'US 219 corridor hunting access', backcountry searches", "seo-specialist")
 ```
 
-**Reusable for**: Other Civil War battlefield parks, observation tower destinations, historic earthworks sites
+### Content Template: Historic Site
+
+**Required Sections**:
+1. **Hero** (1-2 sentences): Largest WV Civil War battle site + mountain views, hunter appeal on US 219 corridor
+2. **Why Hunters Stop Here** (3-4 bullets): US 219 corridor location, Pocahontas backcountry access, observation tower for terrain scouting
+3. **The Site** (2-3 paragraphs): Battlefield trails, observation tower, interpretive features, mountain terrain
+4. **Local History** (2-3 paragraphs): Battle of Droop Mountain (November 1863), largest battle in WV, Averell's campaign, strategic significance
+5. **Plan Your Visit** (practical info): Hours, fees, directions from US 219
+6. **Nearby Hunting Access** (2-3 bullet points): Monongahela NF, Pocahontas County WMAs, backcountry hunting
+7. **WVWO Connection** (1 paragraph): "Heading into Pocahontas backcountry? WVWO is 1 hour north on US 219..."
+
+### WVWO Brand Requirements
+
+**Voice**: Kim's authentic rural WV tone (faith-forward, humble, neighborly)
+**Forbidden**: Corporate speak, overly dramatic battle language, "sacred ground" tourism speak
+**Geographic Context**: Pocahontas County, US 219 corridor (southeastern highlands)
+**Hunter Framing**: Roadside stop on US 219, observation tower for terrain scouting, backcountry access
+**WVWO Integration**: Realistic proximity (1 hour south of WVWO on US 219), gear stop for Pocahontas hunts
+
+### SEO Strategy
+
+**Primary Keywords**:
+- "Droop Mountain Pocahontas County hunting"
+- "US 219 corridor hunting access"
+- "Pocahontas County WV backcountry hunting"
+- "Monongahela National Forest hunting"
+
+**Geographic Modifiers**:
+- US 219 corridor (Elkins to Lewisburg route)
+- Pocahontas County
+- Monongahela National Forest
+
+**Search Intent**: Hunters traveling US 219 corridor to Pocahontas backcountry, looking for terrain info and access points
+
+### Quality Gates (Queen Validation)
+
+Before finalizing content, Queen must verify:
+
+- [ ] Voice passes Kim's Neighbor Test (sounds like Kim, not park service)
+- [ ] Civil War history is accurate (Battle of Droop Mountain, Nov 6 1863, largest WV battle)
+- [ ] Hunter relevance is specific (observation tower for scouting, US 219 corridor, backcountry access)
+- [ ] WVWO proximity emphasized (1 hour north on US 219)
+- [ ] Observation tower mentioned as hunter benefit (terrain view)
+- [ ] Pocahontas backcountry access clear (Monongahela NF immediate area)
+
+### Output Format
+
+**Deliverable**: Complete `index.md` file ready for `src/content/destinations/droop-mountain-battlefield/`
+
+**Frontmatter Required**:
+```yaml
+---
+title: "Droop Mountain Battlefield State Park"
+region: "Pocahontas County (Southeastern Highlands)"
+activities: ["historic site", "hiking", "observation tower", "Civil War history"]
+season: "year-round"
+wmaProximity: "Monongahela National Forest (immediate access)"
+i79Access: "US 219 corridor (1 hour south from I-79 via Sutton/Webster Springs)"
+difficulty: "easy to moderate (trails, tower climb)"
+historicSignificance: "highest (largest Civil War battle fought in WV)"
+---
+```
+
+**Content Structure**: Follow template sections exactly, use Kim's voice throughout
+
+### Coordination Protocol
+
+**Queen's Workflow**:
+1. Spawn all 4 specialist agents in parallel (single message)
+2. Wait for research completion
+3. Brief content-writer with synthesized research
+4. Review draft against quality gates
+5. Iterate if needed (max 2 rounds)
+6. Deliver final `index.md`
+
+**Agent Memory**: Use `npx claude-flow@alpha hooks post-edit` to share findings across agents
+
+**Success Metric**: Content that positions Droop Mountain as US 219 corridor stop with observation tower for terrain scouting, WVWO as gear stop
+
+---
+
+## Research Sources to Consult
+
+- WV State Parks official site (Droop Mountain page)
+- Battle of Droop Mountain historical accounts (November 6, 1863)
+- General William Averell's campaign details
+- Pocahontas County and Monongahela NF hunting info
+- US 219 corridor map
+- Observation tower and trail details
+
+## Notes for Queen
+
+- **Droop Mountain Battlefield** is in Pocahontas County, 1 hour south of WVWO on US 219
+- **Largest Civil War battle in WV**: November 6, 1863, Union General Averell vs Confederate General Echols
+- Hunter appeal: **Observation tower** (great for terrain scouting), **US 219 corridor** location, **backcountry access**
+- **Tower view**: 360-degree mountain views - emphasize as hunter benefit for understanding terrain
+- WVWO connection: **1 hour north on US 219** - "Before heading into Pocahontas backcountry, stop by WVWO for gear..."
+- **Monongahela National Forest** immediate access from site
+- Battle significance: **Secured Union control of southern WV**, ended major Confederate presence
+- Keep history **accurate, not dramatized** - respect battle site

@@ -1,155 +1,128 @@
-# SPEC-65: Grandview State Park (New River Gorge) Destination Page - Swarm Implementation Prompt
+# Grandview State Park - Destination Content Generation
 
-## Objective
-Create `/destinations/grandview` page using hierarchical swarm coordination with WebSearch research, AgentDB pattern learning, and state park template implementation (New River Gorge overlook + trails + part of New River Gorge National Park).
+## Hierarchical Swarm Instructions
 
-## Swarm Architecture
-**Topology**: Hierarchical (1 queen → 3 scouts → 2 planners → 1 coder)
+You are the **Swarm Queen** coordinating a specialized team to create compelling destination content for Grandview State Park that drives highway hunters to WVWO.
 
-### Queen Agent: Orchestrate research → planning → implementation for premier New River Gorge overlook park
-### Scout 1: State park official info (Grandview, connection to NRG National Park, fees, hours)
-### Scout 2: Grandview overlook & Main Overlook Trail (iconic gorge views, Main Overlook, photography)
-### Scout 3: Trail system (Turkey Spur, Castle Rock, Tunnel Trail, difficulty, highlights)
+### Swarm Topology: Hierarchical
 
-## Data Requirements
+**Queen Agent**: Coordinates all agents, ensures WVWO brand voice consistency, validates against constitution
+**Specialist Agents**:
+- `researcher`: Park research, New River Gorge overlook, trails, facilities
+- `wv-historian`: Raleigh County heritage, New River Gorge history, coal mining context
+- `hunter-strategist`: Hunter relevance, Raleigh County WMAs, I-64 corridor access
+- `seo-specialist`: Geographic SEO, I-64 corridor, Beckley area, New River Gorge searches
+- `content-writer`: Kim's voice enforcement, authentic WV storytelling
 
-### Geographic Data
-**Shop coordinates**: `38.5858, -80.8581` (Birch River, WV)
-**Destination coordinates**: `37.8336, -81.0606` (Beckley, WV - Grandview area)
-**Drive time**: ~45 minutes via I-77 S
-**Distance**: ~35 miles
+### Context Requirements
 
-### Grandview Overlook Data
-```typescript
-const grandviewOverlook = {
-  name: "Grandview Main Overlook",
-  elevation: "~2,500 feet above sea level (1,400 ft above river)",
-  view: "Iconic views of New River Gorge horseshoe bend",
-  features: [
-    "Most famous overlook of New River Gorge",
-    "Horseshoe bend of New River visible",
-    "Endless Wall opposite rim visible",
-    "Photography spot (sunrise, sunset, fall foliage)"
-  ],
-  accessibility: "Short paved walk from parking (0.1 mi)",
-  note: "Now part of New River Gorge National Park and Preserve (managed cooperatively with WV State Parks)"
-};
+**BEFORE generating content**, Queen must coordinate parallel research:
 
-const grandviewTrails = [
-  {
-    name: "Main Overlook Trail",
-    length: "0.2 mi roundtrip",
-    difficulty: "Easy (paved)",
-    highlights: ["Grandview Main Overlook", "Wheelchair accessible", "Iconic gorge views"]
-  },
-  {
-    name: "Castle Rock Trail",
-    length: "1 mi roundtrip",
-    difficulty: "Moderate",
-    highlights: ["Castle Rock overlook", "Forest trail", "Less crowded than Main Overlook"]
-  },
-  {
-    name: "Turkey Spur Trail",
-    length: "2.2 mi roundtrip",
-    difficulty: "Moderate to Difficult (steep sections)",
-    highlights: ["Turkey Spur Rock overlook", "Rhododendron thickets", "Backcountry feel"]
-  },
-  {
-    name: "Tunnel Trail",
-    length: "0.3 mi one-way to Castle Rock",
-    difficulty: "Easy to Moderate",
-    highlights: ["Connects parking to Castle Rock", "Forest walk"]
-  }
-];
-```
-
-## Kim's Voice Guidelines
-
-**Tone**: Iconic New River Gorge overlook, photography emphasis, Main Overlook centerpiece, trail options for different abilities.
-
-**Approved phrases**:
-```
-"Grandview is the iconic New River Gorge overlook - horseshoe bend views from 1,400 feet above the river."
-"Main Overlook is paved and accessible - 0.1 mile from parking. Best views of the gorge."
-"Castle Rock and Turkey Spur are less crowded if you want to hike beyond Main Overlook."
-"Part of New River Gorge National Park now - cooperatively managed with WV State Parks."
-"Best photography spot for New River Gorge - sunrise, sunset, fall foliage. Bring your camera."
-```
-
-**Forbidden phrases**:
-```
-NEVER: "Breathtaking vistas", "Nature's masterpiece", "Ultimate gorge experience"
-```
-
-## Content Blocks
-
-### Hero Block
-**Headline**: "Grandview: Iconic New River Gorge Overlook"
-**Subhead**: "Famous horseshoe bend views, Main Overlook accessible, trails to Castle Rock and Turkey Spur. 45 minutes from our shop."
-**CTA**: "Shop Camera Gear for Gorge Photography"
-
-### Grandview Main Overlook Block (Primary Highlight)
-**Component**: `<GrandviewOverlook overlook={grandviewOverlook} />`
-**Kim's note**: *"Grandview Main Overlook is the iconic view of New River Gorge - horseshoe bend from 1,400 feet above the river. Paved walk (0.1 mi) from parking. Accessible. Best gorge views."*
-
-### Trail System Block
-**Component**: `<TrailList trails={grandviewTrails} />`
-**Kim's note**: *"Main Overlook is paved and easy. Castle Rock Trail (1 mi) and Turkey Spur Trail (2.2 mi) are less crowded if you want to hike. Moderate to difficult terrain."*
-
-### Photography & National Park Block
-**Component**: `<PhotographyNPS connection="New River Gorge National Park and Preserve" />`
-**Kim's note**: *"Best photography spot for New River Gorge. Sunrise and sunset have great light. Fall foliage is stunning. Now part of New River Gorge National Park."*
-
-### Local Knowledge (Kim's voice)
-```
-"Grandview is the iconic overlook for New River Gorge - most famous view of the gorge. Horseshoe
-bend of the New River from 1,400 feet above the water. It's near Beckley, 45 minutes from the
-shop on I-77 South.
-
-Main Overlook is the centerpiece - paved accessible trail (0.1 mile from parking lot). Wheelchair
-accessible. Views of the gorge horseshoe bend, Endless Wall on the opposite rim. This is the
-view you see in photos of New River Gorge.
-
-Photography is excellent - sunrise and sunset have great light. Fall foliage is stunning from
-the overlook. Bring a camera and tripod.
-
-Grandview is now part of New River Gorge National Park and Preserve (established 2020) -
-cooperatively managed with WV State Parks. No entrance fee.
-
-Castle Rock Trail is 1 mile roundtrip (moderate difficulty) - forest trail to Castle Rock
-overlook. Less crowded than Main Overlook. Good option if Main is busy.
-
-Turkey Spur Trail is 2.2 miles roundtrip (moderate to difficult, steep sections) - backcountry
-feel, rhododendron thickets, Turkey Spur Rock overlook. More remote.
-
-Tunnel Trail connects parking area to Castle Rock (0.3 mi one-way, easy to moderate forest walk).
-
-Park has picnic areas, restrooms, visitor contact station. No camping (day-use only).
-
-Best time to visit: Fall for foliage (mid-October peak). Spring for wildflowers. Summer for
-green gorge. Winter for clear views (fewer leaves, farther sight lines).
-
-Crowds: Main Overlook is popular - visit early morning or weekday to avoid crowds. Castle Rock
-and Turkey Spur are quieter.
-
-We're 45 minutes north. Stop by for camera gear, tripods, or just to talk about Grandview
-overlook. Grand love ya."
-```
-
-## Schema.org Markup
-```typescript
-const grandviewSchema = {
-  "@context": "https://schema.org",
-  "@type": "StateOrProvincialPark",
-  "name": "Grandview State Park (New River Gorge National Park)",
-  "description": "Iconic New River Gorge overlook featuring Grandview Main Overlook with horseshoe bend views (1,400 ft above river), accessible paved trail, Castle Rock and Turkey Spur hiking trails. Part of New River Gorge National Park and Preserve. Located near Beckley.",
-  "touristType": ["photographers", "sightseers", "hikers", "families", "national park visitors"]
-};
-```
-
-## AgentDB Pattern Storage
 ```bash
-npx agentdb@latest reflexion store "wvwo-session" "grandview-nrg-overlook-park" 1.0 true "State park template with hierarchical swarm. GrandviewOverlook component (Main Overlook iconic NRG horseshoe bend 1400ft above river paved 0.1mi accessible best gorge views, photography sunrise sunset fall foliage), TrailList (Main Overlook 0.2mi easy paved, Castle Rock 1mi moderate less crowded, Turkey Spur 2.2mi moderate-difficult steep rhododendron backcountry), PhotographyNPS (part of New River Gorge National Park and Preserve 2020 cooperatively managed no entrance fee). Kim's iconic-overlook photography-emphasis national-park voice, near Beckley. 45min drive I-77. Gear mappings (camera/tripod)."
+# Queen spawns all researchers simultaneously
+Task("Park researcher", "Research Grandview State Park New River Gorge overlook, trails, facilities, scenic views", "researcher")
+Task("WV historian", "Research New River Gorge history, Raleigh County coal heritage, gorge formation, regional significance", "wv-historian")
+Task("Hunter strategist", "Analyze Raleigh County WMAs, I-64 corridor hunting access, fall color + hunting season overlap", "hunter-strategist")
+Task("SEO specialist", "Research 'Grandview hunting', 'Raleigh County WV hunting', 'I-64 corridor hunting', New River Gorge area searches", "seo-specialist")
 ```
 
-**Reusable for**: Other national park overlooks, iconic scenic viewpoints, accessible overlook trails, photography destinations
+### Content Template: State Park
+
+**Required Sections**:
+1. **Hero** (1-2 sentences): New River Gorge overlook + scenic vistas, hunter appeal as I-64 corridor stop
+2. **Why Hunters Stop Here** (3-4 bullets): I-64 corridor location, Raleigh County WMA access, fall color overlaps hunting
+3. **The Park** (2-3 paragraphs): Overlook views, trails, New River Gorge rim, facilities
+4. **Local History** (1-2 paragraphs): New River Gorge formation, Raleigh County coal heritage, gorge significance
+5. **Plan Your Visit** (practical info): Hours, fees, directions from I-64
+6. **Nearby Hunting Access** (2-3 bullet points): Raleigh County WMAs, public lands, season timing
+7. **WVWO Connection** (1 paragraph): "Traveling I-64? WVWO is 1 hour north via I-77 and I-79..."
+
+### WVWO Brand Requirements
+
+**Voice**: Kim's authentic rural WV tone (faith-forward, humble, neighborly)
+**Forbidden**: Corporate speak, "breathtaking vistas", over-the-top scenic language
+**Geographic Context**: Raleigh County, I-64 corridor (southern WV, near Beckley)
+**Hunter Framing**: I-64 corridor stop for gorge views, fall color + hunting combo trips
+**WVWO Integration**: Realistic about distance (1 hour via I-77 to I-79), but emphasize FFL and serious gear
+
+### SEO Strategy
+
+**Primary Keywords**:
+- "Grandview State Park hunting"
+- "Raleigh County WV hunting"
+- "I-64 corridor hunting access"
+- "New River Gorge hunting"
+
+**Geographic Modifiers**:
+- I-64 corridor (Beckley area)
+- Raleigh County
+- New River Gorge region
+
+**Search Intent**: Hunters traveling I-64 looking for scenic stops and nearby hunting access, fall color + hunting trips
+
+### Quality Gates (Queen Validation)
+
+Before finalizing content, Queen must verify:
+
+- [ ] Voice passes Kim's Neighbor Test (sounds like Kim, not tourism board)
+- [ ] New River Gorge views emphasized but not over-dramatized
+- [ ] Hunter relevance is specific (I-64 corridor location, Raleigh WMAs)
+- [ ] WVWO distance acknowledged (1 hour via I-77/I-79 connection)
+- [ ] Fall color + hunting season overlap mentioned
+- [ ] Coal heritage context included authentically
+
+### Output Format
+
+**Deliverable**: Complete `index.md` file ready for `src/content/destinations/grandview-state-park/`
+
+**Frontmatter Required**:
+```yaml
+---
+title: "Grandview State Park"
+region: "Raleigh County (Southern WV)"
+activities: ["New River Gorge overlook", "hiking", "scenic views", "fall color"]
+season: "year-round (peak fall color September-October)"
+wmaProximity: "Raleigh County WMAs (various, 10-30 miles)"
+i79Access: "I-64 corridor (1 hour from WVWO via I-77 north to I-79)"
+difficulty: "easy (short overlook walk, some trails moderate)"
+scenicHighlight: "New River Gorge rim overlook"
+---
+```
+
+**Content Structure**: Follow template sections exactly, use Kim's voice throughout
+
+### Coordination Protocol
+
+**Queen's Workflow**:
+1. Spawn all 4 specialist agents in parallel (single message)
+2. Wait for research completion
+3. Brief content-writer with synthesized research
+4. Review draft against quality gates
+5. Iterate if needed (max 2 rounds)
+6. Deliver final `index.md`
+
+**Agent Memory**: Use `npx claude-flow@alpha hooks post-edit` to share findings across agents
+
+**Success Metric**: Content that positions Grandview as I-64 corridor scenic stop, with WVWO as gear destination via I-77/I-79
+
+---
+
+## Research Sources to Consult
+
+- WV State Parks official site (Grandview page)
+- New River Gorge National Park context
+- Raleigh County tourism and WMA information
+- I-64 corridor map (Beckley area)
+- Fall foliage timing in New River Gorge region
+- Coal mining heritage in Raleigh County
+
+## Notes for Queen
+
+- **Grandview State Park** is in Raleigh County (I-64 corridor, Beckley area) - 1 hour from WVWO
+- **New River Gorge overlook** is the defining feature - iconic WV views
+- Hunter appeal: **I-64 corridor location** + **fall color overlaps hunting season**
+- WVWO connection: **1 hour north via I-77 to I-79** - "Worth the drive for FFL service and serious gear"
+- Emphasize **Raleigh County WMA access** for hunting opportunities
+- **Coal heritage** context (Raleigh County coalfields) - mention authentically
+- Park was **CCC-built** (Civilian Conservation Corps, 1930s) - historical note
+- Position as **scenic overlook stop** for hunters traveling I-64 through southern WV

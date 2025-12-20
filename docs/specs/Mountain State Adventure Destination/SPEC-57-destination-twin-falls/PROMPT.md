@@ -1,149 +1,126 @@
-# SPEC-57: Twin Falls State Park Destination Page
+# Twin Falls State Park - Destination Content Generation
 
-**Type**: State park (waterfalls + golf + mountain biking)
-**Template**: State park pattern
-**Assigned Swarm**: 5-agent hierarchical coordination
+## Hierarchical Swarm Instructions
 
----
+You are the **Swarm Queen** coordinating a specialized team to create compelling destination content for Twin Falls State Park that drives highway hunters to WVWO.
 
-## Agent Selection
+### Swarm Topology: Hierarchical
 
-| Agent | Role | Why Selected |
-|-------|------|--------------|
-| `hierarchical-coordinator` | **Leader** | Orchestrates state park page |
-| `researcher` | **Scout** | Researches Twin Falls waterfalls, golf course, mountain biking trails |
-| `architect` | **Designer** | Designs content for multi-activity destination |
-| `coder` | **Builder** | Implements `/wv-wild-web/src/content/adventures/twin-falls-state-park.md` |
-| `tester` | **Validator** | Reviews waterfall access info, golf course details, trail difficulty |
+**Queen Agent**: Coordinates all agents, ensures WVWO brand voice consistency, validates against constitution
+**Specialist Agents**:
+- `researcher`: Park research, waterfall trails, facilities, wildlife habitat
+- `wv-historian`: Wyoming County history, coal heritage, natural history
+- `hunter-strategist`: Hunter relevance, nearby WMAs, fall color + hunting season overlap
+- `seo-specialist`: Geographic SEO, southern WV searches, Beckley area optimization
+- `content-writer`: Kim's voice enforcement, authentic WV storytelling
 
-**Execution**: `npx claude-flow@alpha swarm hierarchical "<this prompt>"`
+### Context Requirements
 
----
-
-## AgentDB Context Loading
+**BEFORE generating content**, Queen must coordinate parallel research:
 
 ```bash
-npx agentdb@latest reflexion retrieve "state park waterfalls WV" --k 10 --synthesize-context
-npx agentdb@latest reflexion retrieve "golf course mountain biking state park" --k 10 --synthesize-context
-npx agentdb@latest skill search "state park pattern waterfalls" 5
-npx agentdb@latest reflexion critique-summary "WVWO"
+# Queen spawns all researchers simultaneously
+Task("Park researcher", "Research Twin Falls State Park trails, waterfall access, cabins, golf course, natural features", "researcher")
+Task("WV historian", "Research Wyoming County history, coal camps, gorge geology, Appalachian forest ecology", "wv-historian")
+Task("Hunter strategist", "Analyze nearby WMAs, fall hunting seasons, species, access from Mullens/Wyoming County", "hunter-strategist")
+Task("SEO specialist", "Research 'Twin Falls WV hunting', 'Wyoming County hunting', 'Mullens WV hunting access', southern WV searches", "seo-specialist")
 ```
 
----
+### Content Template: State Park
 
-## Research Focus (Researcher Agent)
+**Required Sections**:
+1. **Hero** (1-2 sentences): Twin waterfalls + gorge beauty, hunter appeal during fall color season
+2. **Why Hunters Stop Here** (3-4 bullets): Fall color overlaps hunting season, cabin stays, proximity to backcountry WMAs
+3. **The Park** (2-3 paragraphs): Waterfalls, trails, gorge, cabins, facilities
+4. **Local History** (1-2 paragraphs): Wyoming County coal heritage, natural history of gorge
+5. **Plan Your Visit** (practical info): Hours, fees, cabin reservations, directions from US 19/I-77
+6. **Nearby Hunting Access** (2-3 bullet points): WMAs within 30 miles, public lands, season timing
+7. **WVWO Connection** (1 paragraph): "Planning a fall hunting trip with family? Twin Falls cabins + WVWO for gear..."
 
-**Key Queries**:
-- "Twin Falls State Park waterfalls hiking"
-- "Twin Falls State Park golf course"
-- "Twin Falls State Park mountain biking trails"
-- "Twin Falls State Park distance from I-79 Birch River"
+### WVWO Brand Requirements
 
-**Data Priorities**:
-- Waterfalls: Twin Falls (two separate waterfalls), Black Fork Falls
-- Unique feature: 18-hole golf course in state park setting
-- Activities: Mountain biking, hiking, golf, camping
-- Trails: 20+ miles of hiking/biking trails, moderate difficulty
-- Distance: ~90 minutes from shop (Wyoming County)
-- Season: Year-round (golf: spring-fall, waterfalls: best spring)
+**Voice**: Kim's authentic rural WV tone (faith-forward, humble, neighborly)
+**Forbidden**: Corporate speak, buzzwords, "escape to nature", "hidden gem"
+**Geographic Context**: Wyoming County, southern coalfields, US 19/I-77 corridor (not I-79 - note different region)
+**Hunter Framing**: Fall color hiking + hunting combo trips, family cabin stays during season
+**WVWO Integration**: Gear for both hiking and hunting, FFL transfers for out-of-state hunters staying in cabins
 
----
+### SEO Strategy
 
-## Content Structure (Architect Agent)
+**Primary Keywords**:
+- "Twin Falls State Park hunting"
+- "Wyoming County WV hunting"
+- "hunting near Twin Falls WV"
+- "southern WV fall hunting"
 
-**Frontmatter**:
+**Geographic Modifiers**:
+- US 19 corridor (Beckley to Princeton route)
+- Wyoming County, Mullens area
+- Southern coalfields region
+
+**Search Intent**: Hunters combining fall foliage trips with hunting, families staying in park cabins during season
+
+### Quality Gates (Queen Validation)
+
+Before finalizing content, Queen must verify:
+
+- [ ] Voice passes Kim's Neighbor Test (sounds like her, not tourism board)
+- [ ] Hunter relevance acknowledges distance from I-79 (WVWO is 1+ hour away, but worth the stop for serious gear)
+- [ ] Fall color + hunting season overlap is emphasized (September-November)
+- [ ] WVWO mention is realistic (hunters might visit WVWO on drive to park, not as day trip from park)
+- [ ] Cabin stays positioned as hunter base camp option
+- [ ] Geographic context is accurate (southern WV, US 19 corridor, NOT I-79)
+
+### Output Format
+
+**Deliverable**: Complete `index.md` file ready for `src/content/destinations/twin-falls-state-park/`
+
+**Frontmatter Required**:
 ```yaml
-name: "Twin Falls State Park"
-type: "State Park"
-slug: "twin-falls-state-park"
-featured: false
-coordinates: [37.78, -81.14]
-description: "State park with two waterfalls, 18-hole golf course, and 20+ miles of mountain biking trails. Multi-activity destination about 90 minutes from the shop."
-amenities: ["Golf Course", "Campground", "Picnic Areas", "Lodge", "Restrooms"]
-activities: ["Hiking", "Mountain Biking", "Golf", "Waterfall Viewing", "Camping"]
-difficulty: "Moderate"
-season: "Year-round (Best: Spring-Fall)"
-distanceFromShop: "75 miles"
-drivingTime: "90 minutes"
+---
+title: "Twin Falls State Park"
+region: "Southern WV"
+activities: ["hiking", "waterfall viewing", "camping", "cabins", "fall color"]
+season: "year-round (peak fall color September-October)"
+wmaProximity: "Various WMAs within 30 miles (Wyoming/Mercer counties)"
+i79Access: "Not direct I-79 access - US 19/I-77 corridor (1+ hour from WVWO)"
+difficulty: "moderate"
+---
 ```
 
-**Voice Guidelines**:
-```
-✅ "Twin Falls has something for everyone - waterfalls for hikers, an 18-hole golf course, and mountain biking trails. About 90 minutes south from the shop."
+**Content Structure**: Follow template sections exactly, use Kim's voice throughout
 
-❌ "Experience the ultimate outdoor recreation paradise with breathtaking cascades and championship golf!"
-```
+### Coordination Protocol
+
+**Queen's Workflow**:
+1. Spawn all 4 specialist agents in parallel (single message)
+2. Wait for research completion
+3. Brief content-writer with synthesized research
+4. Review draft against quality gates
+5. Iterate if needed (max 2 rounds)
+6. Deliver final `index.md`
+
+**Agent Memory**: Use `npx claude-flow@alpha hooks post-edit` to share findings across agents
+
+**Success Metric**: Content that positions Twin Falls as a fall hunting + family trip destination, with WVWO as the gear stop on the drive in
 
 ---
 
-## Implementation (Coder Agent)
+## Research Sources to Consult
 
-**File Path**: `c:\Users\matth\Desktop\wvwo-storefront\wv-wild-web\src\content\adventures\twin-falls-state-park.md`
+- WV State Parks official site (Twin Falls page)
+- Wyoming County tourism resources
+- Fall foliage timing in southern WV
+- Nearby WMA details (Wyoming/Mercer/McDowell counties - WVDNR)
+- US 19 corridor map
+- Cabin rental info and hunter suitability
 
-**Content Sample**:
-```markdown
-Twin Falls State Park is a multi-activity destination in Wyoming County with two waterfalls, an 18-hole golf course, and over 20 miles of hiking and mountain biking trails. About 90 minutes south from the shop.
+## Notes for Queen
 
-## Waterfalls
-
-Twin Falls gets its name from two separate waterfalls in the park. The main Twin Falls is a scenic cascade you can hike to via moderate trail. Black Fork Falls is another waterfall accessible from park trails.
-
-**Best Time**: Spring (highest water flow after snowmelt)
-**Difficulty**: Moderate hike (rocky terrain)
-**Access**: Well-marked trails from park center
-
-## Golf Course
-
-Twin Falls has an 18-hole golf course built into the mountain terrain. Scenic views, challenging elevation changes, affordable public rates.
-
-**Season**: April-October
-**Greens**: Public access, no membership required
-**Pro Shop**: Club rentals available
-
-## Mountain Biking
-
-20+ miles of trails ranging from beginner to advanced. Mix of singletrack and wider trails. Some steep climbs and technical sections.
-
-**Difficulty**: Varies (marked by trail)
-**Rentals**: Not available on-site - bring your own bike
-**Best For**: Intermediate to advanced riders
-
-## Camping & Lodge
-
-**Campground**: 50 sites (some with hookups)
-**Lodge**: Cabins available for reservation
-**Facilities**: Restrooms, showers, playground
-
-## Kim's Take
-
-*Twin Falls is one of the few state parks in WV with a golf course AND good mountain biking. If you're planning a long weekend down there, we've got bike repair supplies, golf gloves, and hiking boots at the shop. Stop by before you head out.*
-
-*The waterfalls are worth the hike in spring when the water's high. Take your camera.*
-
-## Getting There from the Shop
-
-South on I-79, then Route 16 south through Mullens to park entrance. About 75 miles, 90 minutes. Wyoming County.
-
-Grand love ya.
-```
-
----
-
-## Validation (Tester Agent)
-
-**Checklist**:
-- [ ] Waterfall access info (moderate difficulty, spring best)
-- [ ] Golf course details (18 holes, public access, seasonal)
-- [ ] Mountain biking trail difficulty (intermediate to advanced)
-- [ ] Distance accuracy (~90 minutes, Wyoming County)
-- [ ] Shop tie-in natural (bike supplies, golf gloves, hiking boots)
-
----
-
-## Success Criteria
-
-✅ Multi-activity state park highlights waterfalls + golf + biking
-✅ Spring waterfall viewing emphasized
-✅ Golf course details (public, seasonal)
-✅ Shop crossover natural (gear for all activities)
-✅ Pattern stored for multi-activity state park pages
+- **Twin Falls** is in Wyoming County, southern coalfields - NOT near I-79
+- WVWO is in Braxton County (central WV) - 1+ hour drive from Twin Falls
+- Hunter appeal is **fall color season overlaps hunting season** (September-November)
+- Position as **family cabin stay during hunting season** - some hunt, some hike waterfalls
+- WVWO connection should be **realistic**: "On your drive down US 19, stop by WVWO in Birch River for..."
+- Emphasize **gorge beauty, twin waterfalls, fall colors** as the unique draw
+- Don't oversell WVWO proximity - acknowledge distance but emphasize quality gear worth the stop

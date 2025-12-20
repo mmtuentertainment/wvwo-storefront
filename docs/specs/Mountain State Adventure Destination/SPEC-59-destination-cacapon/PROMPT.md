@@ -1,166 +1,129 @@
-# SPEC-59: Cacapon Resort State Park Destination Page
+# Cacapon Resort State Park - Destination Content Generation
 
-**Type**: State park (resort lodge + golf + lake)
-**Template**: State park pattern (resort focus)
-**Assigned Swarm**: 5-agent hierarchical coordination
+## Hierarchical Swarm Instructions
 
----
+You are the **Swarm Queen** coordinating a specialized team to create compelling destination content for Cacapon Resort State Park that drives highway hunters to WVWO.
 
-## Agent Selection
+### Swarm Topology: Hierarchical
 
-| Agent | Role | Why Selected |
-|-------|------|--------------|
-| `hierarchical-coordinator` | **Leader** | Orchestrates state park page |
-| `researcher` | **Scout** | Researches Cacapon Resort lodge, golf course, lake, trails |
-| `architect` | **Designer** | Designs content for resort-style state park |
-| `coder` | **Builder** | Implements `/wv-wild-web/src/content/adventures/cacapon-resort-state-park.md` |
-| `tester` | **Validator** | Reviews resort details, golf course info, lake activities |
+**Queen Agent**: Coordinates all agents, ensures WVWO brand voice consistency, validates against constitution
+**Specialist Agents**:
+- `researcher`: Park research, resort facilities, trails, Cacapon Mountain
+- `wv-historian`: Morgan County history, Eastern Panhandle heritage, resort history
+- `hunter-strategist`: Hunter relevance, Eastern Panhandle WMAs, out-of-state hunter appeal
+- `seo-specialist`: Geographic SEO, I-81/US 522 corridor, Maryland/Virginia hunter searches
+- `content-writer`: Kim's voice enforcement, authentic WV storytelling
 
-**Execution**: `npx claude-flow@alpha swarm hierarchical "<this prompt>"`
+### Context Requirements
 
----
-
-## AgentDB Context Loading
+**BEFORE generating content**, Queen must coordinate parallel research:
 
 ```bash
-npx agentdb@latest reflexion retrieve "resort state park lodge WV" --k 10 --synthesize-context
-npx agentdb@latest reflexion retrieve "golf course lake fishing state park" --k 10 --synthesize-context
-npx agentdb@latest skill search "state park pattern resort" 5
-npx agentdb@latest reflexion critique-summary "WVWO"
+# Queen spawns all researchers simultaneously
+Task("Park researcher", "Research Cacapon Resort State Park lodge, cabins, golf course, trails, Cacapon Mountain", "researcher")
+Task("WV historian", "Research Morgan County history, Eastern Panhandle heritage, resort development, Cacapon region", "wv-historian")
+Task("Hunter strategist", "Analyze Eastern Panhandle WMAs, out-of-state hunter appeal (MD/VA proximity), hunting seasons, deer/turkey", "hunter-strategist")
+Task("SEO specialist", "Research 'Cacapon hunting', 'Eastern Panhandle WV hunting', 'Maryland hunters WV access', I-81 corridor searches", "seo-specialist")
 ```
 
----
+### Content Template: State Park
 
-## Research Focus (Researcher Agent)
+**Required Sections**:
+1. **Hero** (1-2 sentences): Resort mountain setting, hunter appeal for out-of-state hunters
+2. **Why Hunters Stop Here** (3-4 bullets): Out-of-state hunter base camp, resort amenities, Eastern Panhandle WMA access
+3. **The Park** (2-3 paragraphs): Lodge, cabins, golf, trails, Cacapon Mountain views
+4. **Local History** (1-2 paragraphs): Morgan County heritage, Eastern Panhandle character, resort history
+5. **Plan Your Visit** (practical info): Reservations, fees, directions from I-81/US 522
+6. **Nearby Hunting Access** (2-3 bullet points): Eastern Panhandle WMAs, public lands, out-of-state licensing
+7. **WVWO Connection** (1 paragraph): "Out-of-state hunters: WVWO handles FFL transfers and has local WMA knowledge..."
 
-**Key Queries**:
-- "Cacapon Resort State Park lodge cabins"
-- "Cacapon Resort State Park golf course Robert Trent Jones"
-- "Cacapon Resort State Park lake fishing beach"
-- "Cacapon Resort State Park distance from I-79 Eastern Panhandle"
+### WVWO Brand Requirements
 
-**Data Priorities**:
-- Resort: Full-service lodge (largest in WV state park system)
-- Golf: Robert Trent Jones Sr. designed 18-hole course
-- Lake: 6-acre lake (fishing, beach, paddleboats)
-- Hiking: 20+ miles of trails (Cacapon Mountain ridgeline)
-- Location: Eastern Panhandle (Berkeley Springs area)
-- Distance: ~120 minutes from shop (far east, but popular)
+**Voice**: Kim's authentic rural WV tone (faith-forward, humble, neighborly)
+**Forbidden**: Corporate speak, "luxury resort", "destination getaway"
+**Geographic Context**: Eastern Panhandle, Morgan County, I-81/US 522 corridor (FAR from I-79 - acknowledge distance)
+**Hunter Framing**: Out-of-state hunters (MD/VA) using resort as base camp, WVWO as WV-local resource for FFL/gear
+**WVWO Integration**: Realistic about distance (2+ hours) - position as "worth the drive for serious gear and FFL services"
 
----
+### SEO Strategy
 
-## Content Structure (Architect Agent)
+**Primary Keywords**:
+- "Cacapon hunting"
+- "Eastern Panhandle WV hunting"
+- "Maryland hunters West Virginia"
+- "out-of-state hunting WV lodging"
 
-**Frontmatter**:
+**Geographic Modifiers**:
+- I-81 corridor (Virginia border)
+- Morgan County, Berkeley Springs area
+- Eastern Panhandle
+- Maryland/Virginia proximity
+
+**Search Intent**: Out-of-state hunters (MD/VA) looking for WV hunting access + resort lodging, need FFL transfer info
+
+### Quality Gates (Queen Validation)
+
+Before finalizing content, Queen must verify:
+
+- [ ] Voice passes Kim's Neighbor Test (sounds like Kim, not resort marketing)
+- [ ] Out-of-state hunter focus is clear (MD/VA hunters, not local WV hunters)
+- [ ] WVWO distance is acknowledged honestly (2+ hours, but FFL service justifies drive)
+- [ ] Resort amenities positioned as hunter-friendly (not luxury vacation)
+- [ ] FFL transfer emphasis (out-of-state hunters need this service)
+- [ ] Geographic context accurate (Eastern Panhandle, NOT central WV)
+
+### Output Format
+
+**Deliverable**: Complete `index.md` file ready for `src/content/destinations/cacapon-resort-state-park/`
+
+**Frontmatter Required**:
 ```yaml
-name: "Cacapon Resort State Park"
-type: "State Park"
-slug: "cacapon-resort-state-park"
-featured: false
-coordinates: [39.62, -78.27]
-description: "Full-service resort state park with lodge, Robert Trent Jones golf course, lake, and Cacapon Mountain trails. Eastern Panhandle destination about 2 hours from the shop."
-amenities: ["Resort Lodge", "Golf Course", "Beach", "Marina", "Restaurant", "Restrooms"]
-activities: ["Golf", "Hiking", "Swimming", "Fishing", "Horseback Riding"]
-difficulty: "Easy to Moderate"
-season: "Year-round (Golf: Spring-Fall)"
-distanceFromShop: "120 miles"
-drivingTime: "2 hours"
+---
+title: "Cacapon Resort State Park"
+region: "Eastern Panhandle"
+activities: ["resort lodging", "hiking", "golf", "cabins", "mountain views"]
+season: "year-round (popular during fall/spring hunting seasons)"
+wmaProximity: "Eastern Panhandle WMAs (various, 10-30 miles)"
+i79Access: "Not I-79 corridor - I-81/US 522 access (2+ hours from WVWO)"
+difficulty: "easy to moderate"
+outOfStateAppeal: "high (Maryland/Virginia hunter base camp)"
+---
 ```
 
-**Voice Guidelines**:
-```
-✅ "Cacapon is the resort-style state park in the Eastern Panhandle with a Robert Trent Jones golf course and full-service lodge. About 2 hours east from the shop."
+**Content Structure**: Follow template sections exactly, use Kim's voice throughout
 
-❌ "Indulge in luxury resort amenities surrounded by pristine natural beauty and championship golf!"
-```
+### Coordination Protocol
+
+**Queen's Workflow**:
+1. Spawn all 4 specialist agents in parallel (single message)
+2. Wait for research completion
+3. Brief content-writer with synthesized research
+4. Review draft against quality gates
+5. Iterate if needed (max 2 rounds)
+6. Deliver final `index.md`
+
+**Agent Memory**: Use `npx claude-flow@alpha hooks post-edit` to share findings across agents
+
+**Success Metric**: Content that positions Cacapon as out-of-state hunter base camp, with WVWO as WV-local FFL/gear resource worth the drive
 
 ---
 
-## Implementation (Coder Agent)
+## Research Sources to Consult
 
-**File Path**: `c:\Users\matth\Desktop\wvwo-storefront\wv-wild-web\src\content\adventures\cacapon-resort-state-park.md`
+- WV State Parks official site (Cacapon Resort page)
+- Morgan County and Eastern Panhandle tourism
+- Eastern Panhandle WMA details (WVDNR)
+- Out-of-state hunting license requirements (MD/VA hunters)
+- I-81/US 522 corridor map
+- Resort amenities and hunter suitability
 
-**Content Sample**:
-```markdown
-Cacapon Resort State Park is WV's premier resort-style state park in the Eastern Panhandle. Full-service lodge, Robert Trent Jones Sr. designed 18-hole golf course, 6-acre lake with beach, and 20+ miles of mountain trails. About 2 hours east from the shop near Berkeley Springs.
+## Notes for Queen
 
-## Lodge & Accommodations
-
-Cacapon has the largest lodge in the WV state park system with modern rooms, restaurant, conference center, and indoor pool.
-
-**Lodge**: 48 rooms (modern amenities)
-**Cabins**: 30 cabins (various sizes, some pet-friendly)
-**Restaurant**: Full-service dining (breakfast, lunch, dinner)
-**Indoor Pool**: Year-round swimming
-
-## Golf Course
-
-18-hole championship golf course designed by Robert Trent Jones Sr. in 1974. Mountain terrain with elevation changes, scenic views.
-
-**Designer**: Robert Trent Jones Sr.
-**Holes**: 18 (par 72)
-**Season**: April-October
-**Pro Shop**: Club rentals, cart rentals, lessons available
-
-## Lake & Beach
-
-6-acre lake with sand beach, fishing, and paddle boat rentals.
-
-**Beach**: Sandy beach with lifeguards (summer)
-**Fishing**: Bass, bluegill, catfish (WV license required)
-**Rentals**: Paddle boats, rowboats (seasonal)
-**Swimming**: Memorial Day-Labor Day
-
-## Hiking
-
-20+ miles of trails on Cacapon Mountain ridgeline. Mix of easy nature trails and moderate mountain hikes.
-
-**Difficulty**: Easy to moderate
-**Highlight**: Panorama Overlook trail (views of Cacapon Valley)
-**Season**: Year-round (best spring-fall)
-
-## Horseback Riding
-
-Cacapon offers guided horseback trail rides through the park.
-
-**Season**: Spring-fall (weather dependent)
-**Reservations**: Required
-**Experience**: Beginner-friendly
-
-## Kim's Take
-
-*Cacapon is the fanciest state park in WV - more like a regular resort than a campground. Good for families who want hotel amenities with state park access. The golf course is well-maintained and challenging.*
-
-*It's about 2 hours east from the shop, so not a quick trip from our area. But if you're headed to Berkeley Springs or the Eastern Panhandle, it's worth a stop. We've got golf gloves, fishing tackle, and hiking boots at the shop if you need to stock up before you go.*
-
-## Getting There from the Shop
-
-East on I-79 to I-68 east, then US-522 south to Berkeley Springs area. About 120 miles, 2 hours. Eastern Panhandle.
-
-**Note**: Farther than most state parks from the shop, but a popular destination for longer trips.
-
-Grand love ya.
-```
-
----
-
-## Validation (Tester Agent)
-
-**Checklist**:
-- [ ] Lodge details (48 rooms, restaurant, indoor pool)
-- [ ] Golf course info (Robert Trent Jones Sr., 18 holes, championship)
-- [ ] Lake activities (6 acres, beach, fishing, paddle boats)
-- [ ] Distance accuracy (~2 hours, Eastern Panhandle)
-- [ ] Shop tie-in natural (golf gloves, fishing tackle, hiking boots)
-- [ ] Resort-style emphasis (largest lodge, amenities)
-
----
-
-## Success Criteria
-
-✅ Resort-style state park emphasized (largest lodge, full amenities)
-✅ Golf course highlighted (Robert Trent Jones Sr. design)
-✅ Lake and beach details for summer recreation
-✅ Distance noted (farther east, but worth longer trip)
-✅ Shop crossover natural (gear for golf/fishing/hiking)
-✅ Pattern stored for resort-style state park pages
+- **Cacapon Resort** is in Eastern Panhandle (Morgan County) - FAR from WVWO (2+ hours)
+- Primary hunter audience: **Out-of-state (Maryland/Virginia)** using WV as hunting destination
+- WVWO value proposition: **FFL transfers** (out-of-state hunters shipping firearms) + local WMA knowledge
+- Resort has **lodge, cabins, golf** - position as comfortable base camp, not luxury resort
+- Hunter appeal: **Eastern Panhandle WMAs accessible from resort**
+- WVWO connection must be **realistic about distance** - "worth the drive for FFL service and serious gear"
+- Emphasize **out-of-state licensing info** (hunters need WV nonresident license)
+- **Cacapon Mountain** backdrop is scenic draw - mention for resort setting context

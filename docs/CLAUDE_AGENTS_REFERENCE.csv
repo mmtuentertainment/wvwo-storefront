@@ -1,0 +1,87 @@
+Category,Agent Name,Description,Use Case
+Core Development,coder,Implementation specialist,Writing clean efficient code
+Core Development,reviewer,Code review specialist,Quality assurance and code review
+Core Development,tester,Testing specialist,Comprehensive testing and QA
+Core Development,planner,Strategic planning agent,Task orchestration and planning
+Core Development,researcher,Research specialist,Deep research and information gathering
+Core Development,system-architect,Architecture expert,System design and patterns
+Core Development,code-analyzer,Code quality analysis,Comprehensive code reviews
+Core Development,analyst,Advanced analysis,Code quality improvements
+Feature Development,code-architect,Architecture designer,Feature architecture blueprints
+Feature Development,code-explorer,Codebase analyzer,Trace execution paths and map architecture
+Feature Development,code-reviewer,Feature code reviewer,Review for bugs and adherence to conventions
+PR Review Toolkit,code-reviewer,PR code reviewer,Review code for guidelines and best practices
+PR Review Toolkit,code-simplifier,Code simplifier,Simplify code while preserving functionality
+PR Review Toolkit,comment-analyzer,Comment analyzer,Analyze comments for accuracy and maintainability
+PR Review Toolkit,pr-test-analyzer,Test coverage analyzer,Review PR test coverage quality
+PR Review Toolkit,silent-failure-hunter,Error handling reviewer,Find silent failures and inadequate error handling
+PR Review Toolkit,type-design-analyzer,Type design expert,Analyze type design for encapsulation
+Swarm Coordination,hierarchical-coordinator,Queen-led coordinator,Hierarchical swarm with worker delegation
+Swarm Coordination,mesh-coordinator,Mesh network coordinator,Peer-to-peer distributed decision making
+Swarm Coordination,adaptive-coordinator,Dynamic topology coordinator,Self-organizing swarm patterns
+Swarm Coordination,queen-coordinator,Sovereign orchestrator,Strategic decisions and resource allocation
+Swarm Coordination,collective-intelligence-coordinator,Collective intelligence,Distributed cognitive processes
+Swarm Coordination,swarm-memory-manager,Memory manager,Distributed memory and synchronization
+Swarm Coordination,worker-specialist,Task executor,Dedicated task execution with precision
+Swarm Coordination,scout-explorer,Information recon,Explores unknown territories and gathers intel
+Consensus/Distributed,byzantine-coordinator,Byzantine fault tolerant,Malicious actor detection consensus
+Consensus/Distributed,raft-manager,Raft consensus,Leader election and log replication
+Consensus/Distributed,gossip-coordinator,Gossip protocol,Scalable eventually consistent systems
+Consensus/Distributed,crdt-synchronizer,CRDT implementation,Conflict-free replicated data types
+Consensus/Distributed,quorum-manager,Quorum management,Dynamic quorum and membership management
+Consensus/Distributed,security-manager,Security mechanisms,Comprehensive security for consensus
+Performance,perf-analyzer,Performance analyzer,Identify and resolve workflow inefficiencies
+Performance,performance-benchmarker,Benchmarking,Comprehensive performance benchmarking
+Performance,Benchmark Suite,Benchmark suite,Regression detection and validation
+Performance,Load Balancing Coordinator,Load balancer,Dynamic task distribution and work-stealing
+Performance,Performance Monitor,Metrics monitor,Real-time metrics and anomaly detection
+Performance,Resource Allocator,Resource allocation,Adaptive scaling and capacity planning
+Performance,Topology Optimizer,Topology optimizer,Dynamic topology reconfiguration
+GitHub Integration,github-modes,GitHub workflow,Workflow orchestration and PR management
+GitHub Integration,pr-manager,PR lifecycle,Complete pull request management
+GitHub Integration,code-review-swarm,Code review swarm,AI-powered comprehensive code reviews
+GitHub Integration,issue-tracker,Issue management,Automated tracking and coordination
+GitHub Integration,release-manager,Release coordinator,Automated versioning and deployment
+GitHub Integration,release-swarm,Release orchestration,Multi-platform deployment swarm
+GitHub Integration,repo-architect,Repository optimizer,Multi-repo management and architecture
+GitHub Integration,multi-repo-swarm,Cross-repo swarm,Organization-wide automation
+GitHub Integration,swarm-issue,Issue-based swarm,Transform issues into multi-agent tasks
+GitHub Integration,swarm-pr,PR swarm manager,Multi-agent code review workflows
+GitHub Integration,sync-coordinator,Sync coordinator,Version alignment and dependency sync
+GitHub Integration,workflow-automation,CI/CD automation,Self-organizing CI/CD pipelines
+GitHub Integration,project-board-sync,Project board sync,Visual task management and tracking
+SPARC Methodology,sparc-coord,SPARC orchestrator,Development phase coordination
+SPARC Methodology,sparc-coder,SPARC coder,Transform specs into working code with TDD
+SPARC Methodology,specification,Spec specialist,Requirements analysis phase
+SPARC Methodology,pseudocode,Pseudocode specialist,Algorithm design phase
+SPARC Methodology,architecture,Architecture specialist,System design phase
+SPARC Methodology,refinement,Refinement specialist,Iterative improvement phase
+Specialized Development,backend-dev,Backend developer,REST and GraphQL API development
+Specialized Development,mobile-dev,Mobile developer,React Native iOS/Android development
+Specialized Development,ml-developer,ML developer,Model development training and deployment
+Specialized Development,cicd-engineer,CI/CD engineer,GitHub Actions pipeline optimization
+Specialized Development,api-docs,API documentation,OpenAPI/Swagger documentation
+Specialized Development,base-template-generator,Template generator,Foundational templates and boilerplate
+Flow Nexus Platform,flow-nexus-auth,Authentication,Login registration and session management
+Flow Nexus Platform,flow-nexus-sandbox,Sandbox management,E2B sandbox deployment and management
+Flow Nexus Platform,flow-nexus-swarm,Swarm orchestration,AI swarm deployment in cloud
+Flow Nexus Platform,flow-nexus-neural,Neural networks,Distributed neural network training
+Flow Nexus Platform,flow-nexus-payments,Payments,Credit management and billing
+Flow Nexus Platform,flow-nexus-challenges,Challenges,Coding challenges and gamification
+Flow Nexus Platform,flow-nexus-app-store,App marketplace,Template and app management
+Flow Nexus Platform,flow-nexus-user-tools,User tools,Profile and storage management
+Flow Nexus Platform,flow-nexus-workflow,Workflow automation,Event-driven workflow automation
+Goal Planning,goal-planner,GOAP specialist,Dynamic intelligent planning
+Goal Planning,code-goal-planner,Code GOAP,Software development planning
+Goal Planning,sublinear-goal-planner,Sublinear GOAP,Optimized path finding
+Hive Mind,safla-neural,SAFLA neural,Self-aware feedback loop AI systems
+Utility,Explore,Fast explorer,Quick codebase exploration
+Utility,Plan,Software architect,Implementation strategy design
+Utility,general-purpose,General purpose,Complex multi-step tasks
+Utility,claude-code-guide,Documentation guide,Claude Code and SDK questions
+Utility,smart-agent,Intelligent coordinator,Dynamic spawning specialist
+Utility,memory-coordinator,Memory manager,Persistent cross-session memory
+Utility,migration-planner,Migration planner,Command to agent migration
+Utility,task-orchestrator,Task orchestrator,Decomposition and result synthesis
+Utility,tdd-london-swarm,TDD London,Mock-driven development
+Utility,production-validator,Production validator,Deployment readiness validation

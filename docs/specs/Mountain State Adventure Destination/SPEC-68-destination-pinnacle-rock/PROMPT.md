@@ -1,138 +1,127 @@
-# SPEC-68: Pinnacle Rock State Park Destination Page - Swarm Implementation Prompt
+# Pinnacle Rock State Park - Destination Content Generation
 
-## Objective
-Create `/destinations/pinnacle-rock` page using hierarchical swarm coordination with WebSearch research, AgentDB pattern learning, and state park template implementation (unique sandstone rock formation + short accessible trail + geological landmark).
+## Hierarchical Swarm Instructions
 
-## Swarm Architecture
-**Topology**: Hierarchical (1 queen → 3 scouts → 2 planners → 1 coder)
+You are the **Swarm Queen** coordinating a specialized team to create compelling destination content for Pinnacle Rock State Park that drives highway hunters to WVWO.
 
-### Queen Agent: Orchestrate research → planning → implementation for unique rock formation landmark park
-### Scout 1: State park official info (Pinnacle Rock, fees, hours, regulations)
-### Scout 2: Pinnacle Rock geology (sandstone formation, height, erosion process, uniqueness)
-### Scout 3: Trail & access (short trail, overlook platform, accessibility, photography)
+### Swarm Topology: Hierarchical
 
-## Data Requirements
+**Queen Agent**: Coordinates all agents, ensures WVWO brand voice consistency, validates against constitution
+**Specialist Agents**:
+- `researcher`: Park research, Pinnacle Rock formation, trails, unique geology
+- `wv-historian`: Mercer County heritage, geological formation, natural history
+- `hunter-strategist`: Hunter relevance, Mercer County WMAs, quick roadside stop appeal
+- `seo-specialist`: Geographic SEO, US 52 corridor, Mercer County searches
+- `content-writer`: Kim's voice enforcement, authentic WV storytelling
 
-### Geographic Data
-**Shop coordinates**: `38.5858, -80.8581` (Birch River, WV)
-**Destination coordinates**: `37.5406, -81.2511` (Bramwell, WV - Pinnacle Rock State Park)
-**Drive time**: ~2 hours via I-77 S
-**Distance**: ~85 miles
+### Context Requirements
 
-### Pinnacle Rock Formation Data
-```typescript
-const pinnacleRockFormation = {
-  name: "Pinnacle Rock",
-  type: "Sandstone pinnacle (erosion remnant)",
-  height: "~50 feet tall sandstone spire",
-  formation: "Erosion carved this rock pinnacle from surrounding softer rock layers",
-  uniqueness: "Distinctive vertical sandstone formation - geological oddity in southern WV",
-  location: "Flat Top Mountain area (McDowell County)",
-  visibility: "Visible from overlook platform (short trail from parking)"
-};
+**BEFORE generating content**, Queen must coordinate parallel research:
 
-const pinnacleRockTrail = {
-  name: "Pinnacle Rock Trail",
-  length: "0.25 mi roundtrip",
-  difficulty: "Easy (paved/gravel, accessible)",
-  features: [
-    "Short walk from parking to overlook platform",
-    "Viewing platform at base of rock formation",
-    "Interpretive signs (geology, formation process)",
-    "Photography spot (unique rock formation)"
-  ],
-  accessibility: "Mostly accessible (gentle grade to platform)"
-};
-
-const pinnacleRockPark = {
-  size: "Small day-use park (~10 acres)",
-  amenities: ["Picnic area", "Restrooms", "Parking", "Interpretive signs"],
-  lodging: "None (day-use only)",
-  nearby: "Near Bramwell and Bluefield (southern WV coal towns)"
-};
-```
-
-## Kim's Voice Guidelines
-
-**Tone**: Geological curiosity emphasis, quick stop appeal, unique southern WV feature, short accessible trail.
-
-**Approved phrases**:
-```
-"Pinnacle Rock is a 50-foot sandstone spire - erosion carved it from surrounding rock. Geological oddity."
-"Trail is 0.25 miles - short walk from parking to overlook platform at the base of the rock."
-"Small day-use park - picnic area, restrooms, short trail. Good quick stop in southern WV."
-"Flat Top Mountain area near Bramwell. Coal country southern West Virginia."
-"Unique rock formation - worth a photo stop if you're driving through McDowell County."
-```
-
-**Forbidden phrases**:
-```
-NEVER: "Majestic stone sentinel", "Nature's sculpture", "Awe-inspiring geological wonder"
-```
-
-## Content Blocks
-
-### Hero Block
-**Headline**: "Pinnacle Rock: 50-Foot Sandstone Spire"
-**Subhead**: "Unique rock formation, 0.25-mile accessible trail, quick stop. 2 hours from our shop."
-**CTA**: "Shop Camera Gear for Geology Photos"
-
-### Pinnacle Rock Formation Block (Primary Highlight)
-**Component**: `<RockFormation formation={pinnacleRockFormation} />`
-**Kim's note**: *"Pinnacle Rock is a 50-foot sandstone spire - erosion carved it from surrounding softer rock. Geological oddity. Distinctive vertical formation in Flat Top Mountain area."*
-
-### Trail & Access Block
-**Component**: `<ShortTrail trail={pinnacleRockTrail} />`
-**Kim's note**: *"Trail is short - 0.25 miles from parking to overlook platform at the base of the rock. Paved/gravel, mostly accessible. Quick walk."*
-
-### Photography & Geology Block
-**Component**: `<GeologyPhoto formation="Pinnacle Rock" />`
-**Kim's note**: *"Good spot for unique geology photos. Interpretive signs explain how erosion created the pinnacle. Worth a photo stop."*
-
-### Local Knowledge (Kim's voice)
-```
-"Pinnacle Rock is a small state park with a big rock - 50-foot sandstone spire that erosion
-carved from surrounding softer rock layers. Geological oddity. It's in McDowell County near
-Bramwell, southern WV coal country. 2 hours from the shop on I-77 South.
-
-Pinnacle Rock trail is short - 0.25 miles from parking lot to overlook platform at the base
-of the rock formation. Paved/gravel path, mostly accessible. Gentle grade. Quick walk.
-
-Viewing platform at the base gives you a good look at the vertical sandstone formation.
-Interpretive signs explain how erosion created the pinnacle - softer rock around it wore
-away, leaving the harder sandstone spire standing.
-
-Small day-use park - about 10 acres. Picnic area, restrooms, parking, interpretive signs.
-No camping or lodging. This is a quick stop, not an all-day destination.
-
-Flat Top Mountain area - Bramwell and Bluefield are nearby towns (southern WV coal heritage).
-
-Photography is good - unique rock formation, vertical sandstone, interesting geology. Bring
-a camera for a few shots.
-
-Best time to visit: Spring through fall. Winter access can be icy (southern WV gets snow).
-Any time of year works for a quick stop.
-
-You can see Pinnacle Rock in 30 minutes - walk to platform, read interpretive signs, take
-photos, walk back. Good stretch-your-legs stop on a road trip through southern WV.
-
-We're 2 hours north. Stop by for camera gear or just to talk about WV geology. Grand love ya."
-```
-
-## Schema.org Markup
-```typescript
-const pinnacleRockSchema = {
-  "@context": "https://schema.org",
-  "@type": "StateOrProvincialPark",
-  "name": "Pinnacle Rock State Park",
-  "description": "Small day-use state park featuring Pinnacle Rock (50-foot sandstone spire erosion remnant), 0.25-mile accessible trail to overlook platform, and geological interpretive displays. Located in McDowell County near Bramwell.",
-  "touristType": ["geologists", "photographers", "road trippers", "geology enthusiasts"]
-};
-```
-
-## AgentDB Pattern Storage
 ```bash
-npx agentdb@latest reflexion store "wvwo-session" "pinnacle-rock-formation-park" 1.0 true "State park template with hierarchical swarm. RockFormation component (Pinnacle Rock 50ft sandstone spire erosion remnant carved from softer rock, geological oddity distinctive vertical formation Flat Top Mountain), ShortTrail (0.25mi roundtrip easy paved/gravel accessible parking to overlook platform, viewing platform at base interpretive signs geology), GeologyPhoto (unique formation photography spot). Small day-use park 10 acres picnic restrooms no camping quick stop. Kim's geological-curiosity quick-stop southern-WV voice, McDowell County Bramwell coal country. 2hr drive I-77. Gear mappings (camera)."
+# Queen spawns all researchers simultaneously
+Task("Park researcher", "Research Pinnacle Rock State Park rock formation, trails, unique geology, facilities", "researcher")
+Task("WV historian", "Research Pinnacle Rock geology (sandstone pinnacle), Mercer County heritage, formation process", "wv-historian")
+Task("Hunter strategist", "Analyze Mercer County WMAs, US 52 corridor location, quick stop appeal for hunters", "hunter-strategist")
+Task("SEO specialist", "Research 'Pinnacle Rock hunting', 'Mercer County WV hunting', 'US 52 corridor hunting access', unique geology", "seo-specialist")
 ```
 
-**Reusable for**: Other small geological parks, quick-stop rock formations, accessible short trail destinations
+### Content Template: State Park (Unique Geology Focus)
+
+**Required Sections**:
+1. **Hero** (1-2 sentences): Unique sandstone pinnacle, hunter appeal as quick roadside stop
+2. **Why Hunters Stop Here** (3-4 bullets): 15-minute stop, US 52 corridor location, Mercer County WMA proximity
+3. **The Park** (2-3 paragraphs): Pinnacle Rock formation, trails, overlook, geological significance
+4. **Local History** (1-2 paragraphs): Rock formation geology, Mercer County natural history
+5. **Plan Your Visit** (practical info): Hours, fees, directions from US 52
+6. **Nearby Hunting Access** (2-3 bullet points): Mercer County WMAs, public lands
+7. **WVWO Connection** (1 paragraph): "Traveling US 52? WVWO is worth the drive for serious gear..."
+
+### WVWO Brand Requirements
+
+**Voice**: Kim's authentic rural WV tone (faith-forward, humble, neighborly)
+**Forbidden**: Corporate speak, "natural wonder", over-dramatized geology language
+**Geographic Context**: Mercer County, US 52 corridor (southern WV)
+**Hunter Framing**: Quick 15-minute leg stretch, unique geology quick stop
+**WVWO Integration**: Realistic about distance (Pinnacle Rock is far from I-79), emphasize quality gear worth the drive
+
+### SEO Strategy
+
+**Primary Keywords**:
+- "Pinnacle Rock State Park Mercer County"
+- "US 52 corridor WV hunting"
+- "Mercer County WV hunting"
+- "quick stops US 52 hunting trips"
+
+**Geographic Modifiers**:
+- US 52 corridor
+- Mercer County
+- Southern WV
+
+**Search Intent**: Hunters traveling US 52 looking for quick roadside stops, Mercer County hunting access info
+
+### Quality Gates (Queen Validation)
+
+Before finalizing content, Queen must verify:
+
+- [ ] Voice passes Kim's Neighbor Test (sounds like Kim, not park brochure)
+- [ ] Geology explanation is simple and authentic (not overly scientific)
+- [ ] Hunter relevance is realistic (15-min stop, not primary destination)
+- [ ] WVWO distance acknowledged (far from I-79, but quality gear worth planning)
+- [ ] Pinnacle Rock positioned as unique quick stop benefit
+- [ ] Mercer County WMA access clear
+
+### Output Format
+
+**Deliverable**: Complete `index.md` file ready for `src/content/destinations/pinnacle-rock-state-park/`
+
+**Frontmatter Required**:
+```yaml
+---
+title: "Pinnacle Rock State Park"
+region: "Mercer County (Southern WV)"
+activities: ["unique geology", "rock formation", "hiking", "overlook"]
+season: "year-round"
+wmaProximity: "Mercer County WMAs (various, 10-30 miles)"
+i79Access: "US 52 corridor (far from I-79 - southern WV route)"
+difficulty: "easy (short trail to overlook)"
+uniqueFeature: "sandstone pinnacle formation"
+---
+```
+
+**Content Structure**: Follow template sections exactly, use Kim's voice throughout
+
+### Coordination Protocol
+
+**Queen's Workflow**:
+1. Spawn all 4 specialist agents in parallel (single message)
+2. Wait for research completion
+3. Brief content-writer with synthesized research
+4. Review draft against quality gates
+5. Iterate if needed (max 2 rounds)
+6. Deliver final `index.md`
+
+**Agent Memory**: Use `npx claude-flow@alpha hooks post-edit` to share findings across agents
+
+**Success Metric**: Content that positions Pinnacle Rock as quick 15-minute roadside geology stop, with WVWO as quality gear destination
+
+---
+
+## Research Sources to Consult
+
+- WV State Parks official site (Pinnacle Rock page)
+- Sandstone pinnacle geology resources
+- Mercer County tourism and hunting info
+- US 52 corridor map
+- Trail details and accessibility
+
+## Notes for Queen
+
+- **Pinnacle Rock State Park** is in Mercer County (southern WV, US 52 corridor) - FAR from I-79/WVWO
+- **Unique feature**: Sandstone pinnacle rising from forest - created by erosion over millions of years
+- Hunter appeal: **Quick 15-minute leg stretch** on US 52 corridor, not primary destination
+- WVWO connection: Be **realistic about distance** - "WVWO is worth planning your trip around for serious gear and FFL service"
+- **Geology**: Simple explanation - sandstone pinnacle left standing after surrounding rock eroded
+- Position as **quick roadside geology stop** for hunters traveling US 52 through southern WV
+- **Trail**: Short walk to overlook (easy access, quick stop)
+- Don't oversell WVWO proximity - acknowledge distance but emphasize quality and FFL service worth the planning
