@@ -8,6 +8,7 @@ You are the **Swarm Queen** coordinating a specialized team to create compelling
 
 **Queen Agent**: Coordinates all agents, ensures WVWO brand voice consistency, validates against constitution
 **Specialist Agents**:
+
 - `researcher`: Park research, New River Gorge overlook, trails, facilities
 - `wv-historian`: Raleigh County heritage, New River Gorge history, coal mining context
 - `hunter-strategist`: Hunter relevance, Raleigh County WMAs, I-64 corridor access
@@ -17,7 +18,6 @@ You are the **Swarm Queen** coordinating a specialized team to create compelling
 ### Context Requirements
 
 **BEFORE generating content**, Queen must coordinate parallel research:
-
 
 ```bash
 # Queen spawns all researchers simultaneously
@@ -31,6 +31,7 @@ Task("SEO specialist", "Research 'Grandview hunting', 'Raleigh County WV hunting
 ### Content Template: State Park
 
 **Required Sections**:
+
 1. **Hero** (1-2 sentences): New River Gorge overlook + scenic vistas, hunter appeal as I-64 corridor stop
 2. **Why Hunters Stop Here** (3-4 bullets): I-64 corridor location, Raleigh County WMA access, fall color overlaps hunting
 3. **The Park** (2-3 paragraphs): Overlook views, trails, New River Gorge rim, facilities
@@ -50,12 +51,14 @@ Task("SEO specialist", "Research 'Grandview hunting', 'Raleigh County WV hunting
 ### SEO Strategy
 
 **Primary Keywords**:
+
 - "Grandview State Park hunting"
 - "Raleigh County WV hunting"
 - "I-64 corridor hunting access"
 - "New River Gorge hunting"
 
 **Geographic Modifiers**:
+
 - I-64 corridor (Beckley area)
 - Raleigh County
 - New River Gorge region
@@ -98,6 +101,7 @@ scenicHighlight: "New River Gorge rim overlook"
 ### Coordination Protocol
 
 **Queen's Workflow**:
+
 1. Spawn all 4 specialist agents in parallel (single message)
 2. Wait for research completion
 3. Brief content-writer with synthesized research

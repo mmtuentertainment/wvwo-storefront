@@ -8,6 +8,7 @@ You are the **Swarm Queen** coordinating a specialized team to create compelling
 
 **Queen Agent**: Coordinates all agents, ensures WVWO brand voice consistency, validates against constitution
 **Specialist Agents**:
+
 - `researcher`: Battlefield site research, trails, observation tower, facilities
 - `wv-historian`: Civil War battle history (1863), Pocahontas County heritage, strategic significance
 - `hunter-strategist`: Hunter relevance, Pocahontas County backcountry, US 219 corridor access
@@ -17,7 +18,6 @@ You are the **Swarm Queen** coordinating a specialized team to create compelling
 ### Context Requirements
 
 **BEFORE generating content**, Queen must coordinate parallel research:
-
 
 ```bash
 # Queen spawns all researchers simultaneously
@@ -31,6 +31,7 @@ Task("SEO specialist", "Research 'Droop Mountain hunting', 'Pocahontas County WV
 ### Content Template: Historic Site
 
 **Required Sections**:
+
 1. **Hero** (1-2 sentences): Largest WV Civil War battle site + mountain views, hunter appeal on US 219 corridor
 2. **Why Hunters Stop Here** (3-4 bullets): US 219 corridor location, Pocahontas backcountry access, observation tower for terrain scouting
 3. **The Site** (2-3 paragraphs): Battlefield trails, observation tower, interpretive features, mountain terrain
@@ -50,12 +51,14 @@ Task("SEO specialist", "Research 'Droop Mountain hunting', 'Pocahontas County WV
 ### SEO Strategy
 
 **Primary Keywords**:
+
 - "Droop Mountain Pocahontas County hunting"
 - "US 219 corridor hunting access"
 - "Pocahontas County WV backcountry hunting"
 - "Monongahela National Forest hunting"
 
 **Geographic Modifiers**:
+
 - US 219 corridor (Elkins to Lewisburg route)
 - Pocahontas County
 - Monongahela National Forest
@@ -98,6 +101,7 @@ historicSignificance: "highest (largest Civil War battle fought in WV)"
 ### Coordination Protocol
 
 **Queen's Workflow**:
+
 1. Spawn all 4 specialist agents in parallel (single message)
 2. Wait for research completion
 3. Brief content-writer with synthesized research

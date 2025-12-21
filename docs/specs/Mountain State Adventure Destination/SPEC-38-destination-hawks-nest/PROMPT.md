@@ -1,6 +1,7 @@
 # SPEC-38: Hawks Nest State Park Destination Page - Swarm Implementation Prompt
 
 ## Objective
+
 Create `/destinations/hawks-nest` page using hierarchical swarm coordination with WebSearch research, AgentDB pattern learning, and state park template implementation (scenic overlook + aerial tramway + New River access).
 
 ## Swarm Architecture
@@ -8,8 +9,10 @@ Create `/destinations/hawks-nest` page using hierarchical swarm coordination wit
 **Topology**: Hierarchical (1 queen → 3 scouts → 2 planners → 1 coder)
 
 ### Queen Agent (Coordinator)
+
 **Role**: Orchestrate research → planning → implementation for scenic overlook park with unique aerial tramway
 **Responsibilities**:
+
 - Initialize swarm memory namespace `swarm/hawks-nest`
 - Assign tasks to scouts (state park official, aerial tramway/overlook, New River access/activities)
 - Synthesize scout findings for planners
@@ -19,6 +22,7 @@ Create `/destinations/hawks-nest` page using hierarchical swarm coordination wit
 ### Scout Agents (3 Parallel Researchers)
 
 #### Scout 1: State Park Official Information
+
 **Research targets**:
 
 ```bash
@@ -37,6 +41,7 @@ npx agentdb@latest skill search "state park lodge overlook" 5
 ```
 
 **Deliverables**:
+
 - Official WV State Parks URLs
 - Park amenities (Hawks Nest Lodge, overlook, aerial tramway, museum)
 - Entry fees (day-use free for WV residents)
@@ -44,6 +49,7 @@ npx agentdb@latest skill search "state park lodge overlook" 5
 - Regulations (pets, trails, New River access)
 
 #### Scout 2: Aerial Tramway & Scenic Overlook
+
 **Research targets**:
 
 ```bash
@@ -62,6 +68,7 @@ npx agentdb@latest recall with-certificate "family attraction viewpoint" 12
 ```
 
 **Deliverables**:
+
 - Aerial tramway details (600 ft descent to New River, seasonal operation)
 - Tramway logistics (fees, hours, capacity)
 - Overlook viewpoint (New River Gorge views, accessible)
@@ -69,6 +76,7 @@ npx agentdb@latest recall with-certificate "family attraction viewpoint" 12
 - Museum (coal mining history, New River Gorge Bridge)
 
 #### Scout 3: New River Access & Activities
+
 **Research targets**:
 
 ```bash
@@ -87,6 +95,7 @@ npx agentdb@latest skill search "jet boat tours water activities" 5
 ```
 
 **Deliverables**:
+
 - New River access (bottom of tramway, boat launch)
 - Jet boat tours (seasonal, high-speed tours through gorge)
 - Fishing (smallmouth bass, New River)
@@ -96,6 +105,7 @@ npx agentdb@latest skill search "jet boat tours water activities" 5
 ### Planner Agents (2 Sequential Architects)
 
 #### Planner 1: Content Architecture
+
 **Input**: Synthesized scout findings from queen
 **Template**: State park template (`docs/templates/destination-state-park.md`)
 
@@ -108,6 +118,7 @@ npx agentdb@latest reflexion retrieve "WVWO voice Kim authentic" --k 10 --only-s
 ```
 
 **Responsibilities**:
+
 1. Map scout data to state park template sections
 2. Design hero content (aerial tramway or overlook imagery)
 3. Plan tramway/overlook as primary draw, river access as secondary
@@ -115,6 +126,7 @@ npx agentdb@latest reflexion retrieve "WVWO voice Kim authentic" --k 10 --only-s
 5. Voice design: Family-friendly, scenic drive emphasis, unique tramway highlight
 
 **Deliverables**:
+
 - Content outline with state park template headers
 - Hero messaging ("Hawks Nest: Aerial Tramway to the New River Gorge")
 - Tramway/overlook details (600 ft descent, scenic views)
@@ -123,6 +135,7 @@ npx agentdb@latest reflexion retrieve "WVWO voice Kim authentic" --k 10 --only-s
 - Gear callout placements (fishing gear, camera gear)
 
 #### Planner 2: Technical Architecture
+
 **Input**: Content architecture from Planner 1
 
 **AgentDB retrieval**:
@@ -134,6 +147,7 @@ npx agentdb@latest skill search "scenic overlook photo gallery" 5
 ```
 
 **Responsibilities**:
+
 1. Component selection (AerialTramwayDetails, ScenicOverlook, TrailList, RiverAccess)
 2. Data structure design (tramway info, trails, river activities, amenities)
 3. Schema.org markup (StateOrProvincialPark type)
@@ -142,12 +156,14 @@ npx agentdb@latest skill search "scenic overlook photo gallery" 5
 6. Image strategy (tramway, gorge overlook, New River from above)
 
 **Deliverables**:
+
 - Component tree with tramway/overlook focus
 - JSON data structure (tramway, overlook, trails, river access)
 - Schema markup template (StateOrProvincialPark)
 - Performance budget (overlook photos lazy load)
 
 ### Coder Agent (Implementation)
+
 **Input**: Content + technical architecture from planners
 
 **AgentDB retrieval**:
@@ -159,6 +175,7 @@ npx agentdb@latest reflexion retrieve "WVWO aesthetic scenic photography" --k 10
 ```
 
 **Responsibilities**:
+
 1. Implement `/wv-wild-web/src/pages/destinations/hawks-nest.astro`
 2. Create AerialTramwayDetails component (unique to Hawks Nest)
 3. Apply WVWO aesthetic (earthy tones, sign-green for trails, brand-brown for overlook)
@@ -167,6 +184,7 @@ npx agentdb@latest reflexion retrieve "WVWO aesthetic scenic photography" --k 10
 6. Add gear category links (fishing gear, camera gear, hiking gear)
 
 **Quality gates**:
+
 - Pass WVWO aesthetic checklist
 - Kim's voice authentic (family-friendly, scenic drive emphasis)
 - Mobile-responsive (375px width)
@@ -174,6 +192,7 @@ npx agentdb@latest reflexion retrieve "WVWO aesthetic scenic photography" --k 10
 - Load time <2s on 3G
 
 **Deliverables**:
+
 - Complete `.astro` page file
 - AerialTramwayDetails component
 - ScenicOverlook component
@@ -182,6 +201,7 @@ npx agentdb@latest reflexion retrieve "WVWO aesthetic scenic photography" --k 10
 ## Data Requirements
 
 ### Geographic Data
+
 **Shop coordinates**: `38.5858, -80.8581` (Birch River, WV)
 **Destination coordinates**: `38.1256, -81.1014` (Ansted, WV - Hawks Nest State Park)
 **Drive time**: ~40 minutes via US-60 W
@@ -342,14 +362,17 @@ NEVER: "Soaring adventure", "Breathtaking aerial journey", "Ultimate scenic expe
 ## Content Blocks (State Park Template Sections)
 
 ### Hero Block
+
 **Image**: Aerial tramway descending to New River or scenic overlook view
 **Headline**: "Hawks Nest: Aerial Tramway to the New River Gorge"
 **Subhead**: "600-foot tramway descent, scenic overlook, New River fishing. 40 minutes from our shop."
 **CTA**: "Shop Fishing Gear"
 
 ### Aerial Tramway Block (Primary Highlight)
+
 **Component**: `<AerialTramwayDetails tramway={hawksNestTramway} />`
 **Content**:
+
 - 600 ft descent to New River
 - 3-4 minute ride each way
 - Only aerial tramway in WV state parks
@@ -358,8 +381,10 @@ NEVER: "Soaring adventure", "Breathtaking aerial journey", "Ultimate scenic expe
 **Kim's note**: *"Kids love the tramway. It's the only one in WV state parks. Takes you down to the river level in 4 minutes."*
 
 ### Scenic Overlook Block
+
 **Component**: `<ScenicOverlook trails={hawksNestTrails.filter(t => t.name === "Overlook Trail")} />`
 **Content**:
+
 - Paved accessible overlook (0.5 mi trail)
 - New River Gorge views
 - Free (no tramway fee required)
@@ -367,13 +392,16 @@ NEVER: "Soaring adventure", "Breathtaking aerial journey", "Ultimate scenic expe
 **Kim's note**: *"Overlook's free and easy. Paved trail, wheelchair accessible. Quick stop for gorge views."*
 
 ### Trail System Block
+
 **Component**: `<TrailList trails={hawksNestTrails} />`
 **Content**: Overlook Trail (easy, paved), Cliffside Trail (moderate, forest), Fisherman's Trail (steep descent to river)
 **Kim's note**: *"Fisherman's Trail is steep - foot path alternative to tramway if you're hiking down to fish."*
 
 ### New River Access & Activities Block
+
 **Component**: `<RiverActivities activities={hawksNestRiverActivities} />`
 **Content**:
+
 - Jet boat tours (bottom of tramway, seasonal)
 - Fishing (smallmouth bass, tramway or Fisherman's Trail access)
 - Rafting (nearby outfitters, not direct park access)
@@ -381,7 +409,9 @@ NEVER: "Soaring adventure", "Breathtaking aerial journey", "Ultimate scenic expe
 **Kim's note**: *"Tramway gets you to the river for fishing. Smallmouth bass fight hard. Bring your WV license."*
 
 ### Park Amenities Block
+
 **Content**:
+
 - Hawks Nest Lodge (31 rooms, restaurant, overlook views)
 - Museum (coal mining history, New River Gorge Bridge exhibit)
 - Scenic overlook (free, accessible)
@@ -390,7 +420,9 @@ NEVER: "Soaring adventure", "Breathtaking aerial journey", "Ultimate scenic expe
 **Kim's note**: *"Lodge restaurant has solid food and gorge views. Good lunch stop on a scenic drive."*
 
 ### Access & Logistics Block
+
 **Content**:
+
 - Drive time from WVWO shop: 40 min via US-60 W
 - Location: Midland Trail Scenic Highway (US-60)
 - Entry fees: Day-use free (WV residents), Tramway fee (check wvstateparks.com)
@@ -399,6 +431,7 @@ NEVER: "Soaring adventure", "Breathtaking aerial journey", "Ultimate scenic expe
 **CTA**: "We're on your route - stop by for fishing gear and local tips"
 
 ### Local Knowledge Block
+
 **Kim's voice**:
 
 ```
@@ -432,7 +465,6 @@ just to say hi. Grand love ya."
 ```
 
 ## Schema.org Markup
-
 
 ```typescript
 const hawksNestSchema = {
@@ -521,6 +553,7 @@ npx claude-flow@alpha hooks session-end --export-metrics true
 ## Success Criteria
 
 ### Content Quality
+
 - [ ] Kim's voice authentic (family-friendly, scenic drive stop, tramway unique highlight)
 - [ ] Zero AI slop ("soaring adventure", "nature's grandeur", etc.)
 - [ ] Tramway details accurate (600 ft, seasonal, fee-based)
@@ -529,6 +562,7 @@ npx claude-flow@alpha hooks session-end --export-metrics true
 - [ ] Gear recommendations match WVWO inventory (fishing, camera)
 
 ### Technical Quality
+
 - [ ] Passes WVWO aesthetic checklist
 - [ ] Mobile-responsive (375px width)
 - [ ] Schema.org validation (StateOrProvincialPark)
@@ -537,6 +571,7 @@ npx claude-flow@alpha hooks session-end --export-metrics true
 - [ ] Load time <2s on 3G
 
 ### Swarm Coordination
+
 - [ ] All scouts completed research in parallel
 - [ ] Queen successfully synthesized findings
 - [ ] Planners built on scout data

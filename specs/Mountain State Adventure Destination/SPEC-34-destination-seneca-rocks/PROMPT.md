@@ -1,6 +1,7 @@
 # SPEC-34: Seneca Rocks Destination Page - Swarm Implementation Prompt
 
 ## Objective
+
 Create `/destinations/seneca-rocks` page using hierarchical swarm coordination with WebSearch research, AgentDB pattern learning, and backcountry template implementation (iconic climbing + hiking destination).
 
 ## Swarm Architecture
@@ -8,8 +9,10 @@ Create `/destinations/seneca-rocks` page using hierarchical swarm coordination w
 **Topology**: Hierarchical (1 queen → 3 scouts → 2 planners → 1 coder)
 
 ### Queen Agent (Coordinator)
+
 **Role**: Orchestrate research → planning → implementation for iconic WV climbing destination
 **Responsibilities**:
+
 - Initialize swarm memory namespace `swarm/seneca-rocks`
 - Assign tasks to scouts (NFS official info, climbing routes/grades, hiking trails)
 - Synthesize scout findings for planners
@@ -19,6 +22,7 @@ Create `/destinations/seneca-rocks` page using hierarchical swarm coordination w
 ### Scout Agents (3 Parallel Researchers)
 
 #### Scout 1: National Forest Official Information
+
 **Research targets**:
 
 ```bash
@@ -37,6 +41,7 @@ npx agentdb@latest skill search "federal land climbing regulations" 5
 ```
 
 **Deliverables**:
+
 - Official NFS URLs (fs.usda.gov)
 - Seneca Rocks Discovery Center details
 - Permits/fees (free entry, no climbing permits for day use)
@@ -44,6 +49,7 @@ npx agentdb@latest skill search "federal land climbing regulations" 5
 - Operating hours (Discovery Center hours, trails 24/7)
 
 #### Scout 2: Climbing Routes & Grades
+
 **Research targets**:
 
 ```bash
@@ -62,6 +68,7 @@ npx agentdb@latest recall with-certificate "trad climbing content" 12
 ```
 
 **Deliverables**:
+
 - Route count (~375 routes)
 - Grade range (5.2 to 5.13+)
 - Climbing style (trad-dominant, some sport routes)
@@ -70,6 +77,7 @@ npx agentdb@latest recall with-certificate "trad climbing content" 12
 - Approach details (short approach, base of formation)
 
 #### Scout 3: Hiking Trails & Backcountry
+
 **Research targets**:
 
 ```bash
@@ -88,6 +96,7 @@ npx agentdb@latest skill search "summit trail viewpoints" 5
 ```
 
 **Deliverables**:
+
 - West Face Trail (1.3 mi to summit observation platform)
 - Summit elevation (900 ft vertical gain)
 - Trail difficulty (moderate, rocky)
@@ -97,6 +106,7 @@ npx agentdb@latest skill search "summit trail viewpoints" 5
 ### Planner Agents (2 Sequential Architects)
 
 #### Planner 1: Content Architecture
+
 **Input**: Synthesized scout findings from queen
 **Template**: Backcountry template (`docs/templates/destination-backcountry.md`)
 
@@ -110,6 +120,7 @@ npx agentdb@latest reflexion retrieve "WV pride iconic landmark" --k 10
 ```
 
 **Responsibilities**:
+
 1. Map scout data to backcountry template sections
 2. Design hero content (dramatic Seneca Rocks fin formation imagery)
 3. Plan climbing vs hiking content split (primary: climbing, secondary: hiking)
@@ -117,6 +128,7 @@ npx agentdb@latest reflexion retrieve "WV pride iconic landmark" --k 10
 5. Voice design: Respectful of technical difficulty, WV pride for iconic landmark
 
 **Deliverables**:
+
 - Content outline with backcountry template headers
 - Hero messaging ("Seneca Rocks: West Virginia's Iconic Climbing Spire")
 - Climbing route highlights (Old Ladies, Old Man's, Gunsight Notch)
@@ -125,6 +137,7 @@ npx agentdb@latest reflexion retrieve "WV pride iconic landmark" --k 10
 - Gear callout placements (climbing gear, hiking gear)
 
 #### Planner 2: Technical Architecture
+
 **Input**: Content architecture from Planner 1
 
 **AgentDB retrieval**:
@@ -136,6 +149,7 @@ npx agentdb@latest skill search "route grade visualization" 5
 ```
 
 **Responsibilities**:
+
 1. Component selection (ClimbingRouteList, TrailDetails, GearChecklist, PhotoGallery)
 2. Data structure design (routes by grade, trails, gear categories)
 3. Schema.org markup (TouristAttraction + climbing-specific properties)
@@ -144,12 +158,14 @@ npx agentdb@latest skill search "route grade visualization" 5
 6. Image strategy (dramatic formation photos, climbers on routes)
 
 **Deliverables**:
+
 - Component tree with route categorization
 - JSON data structure (routes, trails, gear)
 - Schema markup template (TouristAttraction)
 - Performance budget (high-res formation photos lazy load)
 
 ### Coder Agent (Implementation)
+
 **Input**: Content + technical architecture from planners
 
 **AgentDB retrieval**:
@@ -161,6 +177,7 @@ npx agentdb@latest reflexion retrieve "WVWO aesthetic route tables" --k 10 --onl
 ```
 
 **Responsibilities**:
+
 1. Implement `/wv-wild-web/src/pages/destinations/seneca-rocks.astro`
 2. Create ClimbingRouteList component (sortable by grade, beginner-friendly emphasis)
 3. Apply WVWO aesthetic (brand-brown, sign-green, serious tone for technical content)
@@ -169,6 +186,7 @@ npx agentdb@latest reflexion retrieve "WVWO aesthetic route tables" --k 10 --onl
 6. Add gear category links (climbing gear, hiking gear for West Face Trail)
 
 **Quality gates**:
+
 - Pass WVWO aesthetic checklist
 - Kim's voice authentic (WV pride, realistic about trad difficulty)
 - Mobile-responsive route list (375px width)
@@ -176,6 +194,7 @@ npx agentdb@latest reflexion retrieve "WVWO aesthetic route tables" --k 10 --onl
 - Load time <2.5s on 3G (image-heavy tolerance)
 
 **Deliverables**:
+
 - Complete `.astro` page file
 - ClimbingRouteList component
 - TrailDetails component
@@ -184,6 +203,7 @@ npx agentdb@latest reflexion retrieve "WVWO aesthetic route tables" --k 10 --onl
 ## Data Requirements
 
 ### Geographic Data
+
 **Shop coordinates**: `38.5858, -80.8581` (Birch River, WV)
 **Destination coordinates**: `38.8344, -79.3773` (Seneca Rocks, WV)
 **Drive time**: ~2.5 hours via US-33 E
@@ -386,13 +406,16 @@ NEVER: "Conquer Seneca", "Ultimate climbing challenge", "Test your limits", "Ext
 ## Content Blocks (Backcountry Template Sections)
 
 ### Hero Block
+
 **Image**: Seneca Rocks fin formation (dramatic profile shot)
 **Headline**: "Seneca Rocks: West Virginia's Iconic Climbing Spire"
 **Subhead**: "375 routes, 5.2 to 5.13+. Trad-dominant multi-pitch climbing. 2.5 hours from our shop."
 **CTA**: "Shop Climbing Gear"
 
 ### Climbing Overview Block
+
 **Content**:
+
 - 375+ routes on Tuscarora quartzite
 - Grade range: 5.2 (Old Ladies) to 5.13+ (expert)
 - Style: Trad-dominant (some sport routes)
@@ -401,19 +424,23 @@ NEVER: "Conquer Seneca", "Ultimate climbing challenge", "Test your limits", "Ext
 **Kim's note**: *"Seneca is trad country. If you're new to trad, hire a guide or stick to Old Ladies Route with experienced partners."*
 
 ### Classic Routes Block
+
 **Component**: `<ClimbingRouteList routes={senecaRoutes.filter(r => r.classic)} sortBy="grade" />`
 **Content**: Table of classic routes (Old Ladies 5.2, Gunsight Notch 5.6, Old Man's 5.7, Skyline Traverse 5.4)
 **Columns**: Route Name | Grade | Pitches | Style | Description
 **Kim's note**: *"Old Ladies is the beginner multi-pitch. Old Man's is the West Face classic. Both are must-climbs."*
 
 ### Advanced Routes Block
+
 **Component**: `<ClimbingRouteList routes={senecaRoutes.filter(r => r.grade >= "5.8")} />`
 **Content**: Intermediate/advanced routes (Conn's West Direct 5.8, Castor 5.9, Pollux 5.10a)
 **Kim's note**: *"Once you're comfortable on 5.7 trad, Conn's West Direct is the next step. Pollux is thin and technical - expert only."*
 
 ### West Face Trail (Non-Climbers) Block
+
 **Component**: `<TrailDetails trail={senecaTrails[0]} />`
 **Content**:
+
 - 1.3 mi to summit observation platform
 - 900 ft elevation gain (steep but doable)
 - No climbing gear needed
@@ -421,19 +448,24 @@ NEVER: "Conquer Seneca", "Ultimate climbing challenge", "Test your limits", "Ext
 **Kim's note**: *"If you're not climbing, the West Face Trail gets you to the top. Steep and rocky, but families do it. Bring water."*
 
 ### Seasonal Conditions Block
+
 **Content**: Spring (cool, occasional rain), Summer (hot, early/late climbing), Fall (PRIME), Winter (expert ice)
 **Kim's note**: *"Fall is peak season - perfect temps, dry rock, and the whole East Coast shows up. Book lodging early."*
 
 ### Gear Requirements Block
+
 **Component**: `<GearChecklist activities={["Trad Climbing", "Sport Climbing", "Hiking"]} />`
 **Content**:
+
 - Trad climbing: Full rack (cams, nuts, slings, quickdraws), rope, harness, helmet, belay device
 - Sport climbing: Quickdraws, rope, harness, helmet (limited sport routes)
 - Hiking: Sturdy boots, water, layers (summit platform trail)
 **Kim's note**: *"We stock trad racks and build custom sets. Come in and we'll set you up for Seneca's gear placements."*
 
 ### Access & Logistics Block
+
 **Content**:
+
 - Drive time from WVWO shop: 2.5 hours via US-33 E
 - Parking: Seneca Rocks Discovery Center lot (free)
 - Permits: None for day climbing, backcountry permit for overnight camping
@@ -442,6 +474,7 @@ NEVER: "Conquer Seneca", "Ultimate climbing challenge", "Test your limits", "Ext
 **CTA**: "Stock up at WVWO before you head east - we're the last major shop"
 
 ### Local Knowledge Block
+
 **Kim's voice**:
 
 ```
@@ -488,7 +521,6 @@ there first if it's your first visit. Grand love ya."
 ```
 
 ## Schema.org Markup
-
 
 ```typescript
 const senecaSchema = {
@@ -577,6 +609,7 @@ npx claude-flow@alpha hooks session-end --export-metrics true
 ## Success Criteria
 
 ### Content Quality
+
 - [ ] Kim's voice authentic (WV pride, trad climbing realism, honest difficulty)
 - [ ] Zero AI slop ("conquer", "ultimate challenge", etc.)
 - [ ] Route information accurate (grades, pitches, styles)
@@ -584,6 +617,7 @@ npx claude-flow@alpha hooks session-end --export-metrics true
 - [ ] Gear recommendations match WVWO inventory (trad racks, approach shoes)
 
 ### Technical Quality
+
 - [ ] Passes WVWO aesthetic checklist
 - [ ] Mobile-responsive route list (375px width)
 - [ ] Schema.org validation (TouristAttraction)
@@ -592,6 +626,7 @@ npx claude-flow@alpha hooks session-end --export-metrics true
 - [ ] Load time <2.5s on 3G
 
 ### Swarm Coordination
+
 - [ ] All scouts completed research in parallel
 - [ ] Queen successfully synthesized findings
 - [ ] Planners built on scout data

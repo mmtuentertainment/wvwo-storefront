@@ -22,7 +22,6 @@
 
 ## AgentDB Context Loading
 
-
 ```bash
 npx agentdb@latest reflexion retrieve "state park mountain trails" --k 10 --synthesize-context
 npx agentdb@latest reflexion retrieve "rustic cabins camping WV" --k 10 --synthesize-context
@@ -36,12 +35,14 @@ npx agentdb@latest reflexion critique-summary "WVWO"
 ## Research Focus (Researcher Agent)
 
 **Key Queries**:
+
 - "Holly River State Park trails hiking"
 - "Holly River State Park cabins camping"
 - "Holly River State Park trout fishing creek"
 - "Holly River State Park distance from I-79"
 
 **Data Priorities**:
+
 - Trails: 30+ miles (some steep, elevation changes)
 - Cabins: Rustic 1930s CCC-built cabins
 - Camping: Tent sites, no RV hookups (primitive)
@@ -138,6 +139,7 @@ Grand love ya.
 ## Validation (Tester Agent)
 
 **Checklist**:
+
 - [ ] Trail distances accurate (Potato Knob, Tecumseh)
 - [ ] CCC cabin history noted (1930s rustic charm)
 - [ ] Brook trout native vs stocked clarified

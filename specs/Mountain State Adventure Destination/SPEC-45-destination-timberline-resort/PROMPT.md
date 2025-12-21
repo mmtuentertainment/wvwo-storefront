@@ -22,7 +22,6 @@
 
 ## AgentDB Context Loading
 
-
 ```bash
 npx agentdb@latest reflexion retrieve "ski resort WV" --k 10 --synthesize-context
 npx agentdb@latest reflexion retrieve "dual-season resort content" --k 10 --synthesize-context
@@ -36,12 +35,14 @@ npx agentdb@latest reflexion critique-summary "WVWO"
 ## Research Focus (Researcher Agent)
 
 **Key Queries**:
+
 - "Timberline Resort Canaan Valley ski season"
 - "Timberline Resort mountain biking summer"
 - "Timberline Four Seasons Resort lodging"
 - "Timberline Resort distance from I-79"
 
 **Data Priorities**:
+
 - Location: Canaan Valley, WV (high elevation skiing)
 - Winter: Skiing, snowboarding (Dec-March)
 - Summer: Mountain biking, hiking, golf
@@ -123,6 +124,7 @@ Grand love ya.
 ## Validation (Tester Agent)
 
 **Checklist**:
+
 - [ ] Dual-season content balanced (winter + summer)
 - [ ] Elevation/snow quality emphasized (highest in WV)
 - [ ] Canaan Valley NWR connection (waterfowl hunting tie-in)

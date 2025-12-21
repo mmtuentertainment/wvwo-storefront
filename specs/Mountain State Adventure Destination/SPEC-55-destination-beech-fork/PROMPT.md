@@ -24,7 +24,6 @@
 
 ## AgentDB Context Loading
 
-
 ```bash
 npx agentdb@latest reflexion retrieve "state park lake fishing" --k 10 --synthesize-context
 npx agentdb@latest reflexion retrieve "I-64 corridor destinations" --k 10 --synthesize-context
@@ -39,6 +38,7 @@ npx agentdb@latest db stats
 ## WVWO Context (Critical Constraints)
 
 **From CLAUDE.md**:
+
 - **Audience**: I-79/I-64 corridor travelers, southern WV hunters/fishermen
 - **Voice**: Kim's authentic, humble (not state tourism board speak)
 - **Phase**: Phase 3B - Highway Hunter Capture (geographic SEO)
@@ -58,6 +58,7 @@ WebSearch "Beech Fork State Park distance from I-64"
 ```
 
 **Data to Extract**:
+
 - Size: 760-acre lake
 - Fish species: Largemouth bass, crappie, catfish
 - Campground: 275 campsites (full hookups available)
@@ -205,6 +206,7 @@ Grand love ya.
 ```
 
 **Code Quality Checks**:
+
 - [ ] Frontmatter matches schema.org PlaceSchema
 - [ ] Lake size accurate (760 acres)
 - [ ] Campground capacity correct (275 sites)
@@ -229,18 +231,21 @@ npx claude-flow@alpha hooks post-edit \
 **Validation Checklist**:
 
 **WVWO Voice Audit**:
+
 - [ ] NO state tourism marketing ("scenic lakeside retreat")
 - [ ] YES Kim's honest assessment ("solid family spot, not wilderness")
 - [ ] Distance acknowledged (long drive, not primary recommendation)
 - [ ] Humble, realistic tone
 
 **Geographic Accuracy**:
+
 - [ ] Distance from shop verified (125 miles)
 - [ ] I-64 corridor positioning clear
 - [ ] Huntington proximity noted
 - [ ] Directions from I-79/I-64 accurate
 
 **Lake & Campground Info**:
+
 - [ ] Lake size accurate (760 acres)
 - [ ] Fish species verified (bass, crappie, catfish)
 - [ ] Campground capacity correct (275 sites)
@@ -286,18 +291,21 @@ echo "SPEC-55 Complete: Beech Fork State Park destination page ready at wv-wild-
 ## Success Criteria
 
 ✅ **Content Complete**:
+
 - Beech Fork page created with state park + lake template
 - Lake fishing (bass, crappie) detailed
 - Large campground capacity noted (275 sites)
 - I-64 corridor positioning clear
 
 ✅ **WVWO Compliance**:
+
 - Kim's voice honest about distance (long drive, not primary rec)
 - Family camping focus (not wilderness solitude)
 - Realistic fishing expectations (consistent, not trophy)
 - Faith-forward, humble tone
 
 ✅ **Quality Checks**:
+
 - Schema.org markup validated
 - Lake size and species accurate
 - Campground details verified

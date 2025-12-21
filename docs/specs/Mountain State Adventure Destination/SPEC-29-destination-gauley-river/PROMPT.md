@@ -1,6 +1,7 @@
 # SPEC-29: Gauley River Destination Page - Swarm Implementation Prompt
 
 ## Objective
+
 Create `/destinations/gauley-river` page using hierarchical swarm coordination with WebSearch research, AgentDB pattern learning, and river template implementation.
 
 ## Swarm Architecture
@@ -8,8 +9,10 @@ Create `/destinations/gauley-river` page using hierarchical swarm coordination w
 **Topology**: Hierarchical (1 queen → 3 scouts → 2 planners → 1 coder)
 
 ### Queen Agent (Coordinator)
+
 **Role**: Orchestrate research → planning → implementation pipeline
 **Responsibilities**:
+
 - Initialize swarm memory namespace `swarm/gauley-river`
 - Assign tasks to scouts (official info, seasonal patterns, gear requirements)
 - Synthesize scout findings for planners
@@ -19,6 +22,7 @@ Create `/destinations/gauley-river` page using hierarchical swarm coordination w
 ### Scout Agents (3 Parallel Researchers)
 
 #### Scout 1: Official Information
+
 **Research targets**:
 
 ```bash
@@ -38,12 +42,14 @@ npx agentdb@latest skill search "river recreation whitewater" 5
 ```
 
 **Deliverables**:
+
 - Official NPS/state URLs
 - Season dates (Gauley Season: Sept-Oct, Lower Gauley year-round)
 - River sections (Upper Gauley Class V, Lower Gauley Class III-IV)
 - Access points and regulations
 
 #### Scout 2: Seasonal & Activity Patterns
+
 **Research targets**:
 
 ```bash
@@ -62,12 +68,14 @@ npx agentdb@latest recall with-certificate "seasonal content structure" 12
 ```
 
 **Deliverables**:
+
 - Peak seasons (Gauley Season Sept-Oct, shoulder seasons)
 - Activity timing (rafting, fishing, kayaking)
 - Weather patterns and water levels
 - Crowd expectations (heavy during Gauley Season)
 
 #### Scout 3: Gear & Safety Requirements
+
 **Research targets**:
 
 ```bash
@@ -86,6 +94,7 @@ npx agentdb@latest skill search "safety requirements equipment" 5
 ```
 
 **Deliverables**:
+
 - Required gear (PFD, helmet for Upper Gauley, wetsuit in cold months)
 - Recommended gear from WVWO inventory
 - Safety certifications and guide requirements
@@ -94,6 +103,7 @@ npx agentdb@latest skill search "safety requirements equipment" 5
 ### Planner Agents (2 Sequential Architects)
 
 #### Planner 1: Content Architecture
+
 **Input**: Synthesized scout findings from queen
 **Template**: River template (`docs/templates/destination-river.md`)
 
@@ -106,6 +116,7 @@ npx agentdb@latest reflexion retrieve "WVWO voice Kim authentic" --k 10 --only-s
 ```
 
 **Responsibilities**:
+
 1. Map scout data to river template sections
 2. Design hero content (dramatic Upper Gauley imagery, intensity messaging)
 3. Plan seasonal content blocks (Gauley Season focus, shoulder season alternatives)
@@ -113,12 +124,14 @@ npx agentdb@latest reflexion retrieve "WVWO voice Kim authentic" --k 10 --only-s
 5. Voice design: Respectful of Class V danger, not glamorizing risk
 
 **Deliverables**:
+
 - Content outline with section headers
 - Hero messaging ("The Gauley: East Coast's Wildest Whitewater")
 - Kim's voice snippets for each section
 - Gear callout placements
 
 #### Planner 2: Technical Architecture
+
 **Input**: Content architecture from Planner 1
 
 **AgentDB retrieval**:
@@ -130,6 +143,7 @@ npx agentdb@latest skill search "React component interactive" 5
 ```
 
 **Responsibilities**:
+
 1. Component selection (RiverHero, SeasonalBlocks, DifficultyComparison)
 2. Data structure design (sections, activities, gear categories)
 3. Schema.org markup (TouristAttraction, WaterfallsTrail for river)
@@ -137,12 +151,14 @@ npx agentdb@latest skill search "React component interactive" 5
 5. Responsive layout plan (mobile-first, image-heavy)
 
 **Deliverables**:
+
 - Component tree
 - JSON data structure
 - Schema markup template
 - Performance budget (image optimization plan)
 
 ### Coder Agent (Implementation)
+
 **Input**: Content + technical architecture from planners
 
 **AgentDB retrieval**:
@@ -154,6 +170,7 @@ npx agentdb@latest reflexion retrieve "WVWO aesthetic shadcn" --k 10 --only-succ
 ```
 
 **Responsibilities**:
+
 1. Implement `/wv-wild-web/src/pages/destinations/gauley-river.astro`
 2. Create river-specific components if needed
 3. Apply WVWO aesthetic (Bitter font, brand-brown, sign-green, rounded-sm)
@@ -162,6 +179,7 @@ npx agentdb@latest reflexion retrieve "WVWO aesthetic shadcn" --k 10 --only-succ
 6. Add gear category links to WVWO products
 
 **Quality gates**:
+
 - Pass WVWO aesthetic checklist
 - Kim's voice authenticity (no "experience epic adventure" slop)
 - Mobile-responsive (test 375px width)
@@ -169,6 +187,7 @@ npx agentdb@latest reflexion retrieve "WVWO aesthetic shadcn" --k 10 --only-succ
 - Load time <2s on 3G
 
 **Deliverables**:
+
 - Complete `.astro` page file
 - Any new components in `src/components/destinations/`
 - Image optimization report
@@ -176,6 +195,7 @@ npx agentdb@latest reflexion retrieve "WVWO aesthetic shadcn" --k 10 --only-succ
 ## Data Requirements
 
 ### Geographic Data
+
 **Shop coordinates**: `38.5858, -80.8581` (Birch River, WV)
 **Destination coordinates**: `38.1667, -80.9167` (Summersville Dam area)
 **Drive time**: ~45 minutes via US-19 S
@@ -304,23 +324,28 @@ NEVER: "Conquer the Gauley", "Ultimate adventure", "Extreme thrill-seekers", "Un
 ## Content Blocks (River Template Sections)
 
 ### Hero Block
+
 **Image**: Upper Gauley rapids (dramatic whitewater, kayaker or raft)
 **Headline**: "The Gauley: East Coast's Wildest Whitewater"
 **Subhead**: "Class V intensity every September. Lower Gauley year-round fun. 45 minutes from our shop."
 **CTA**: "Shop Rafting Gear" (link to water-sports category)
 
 ### River Sections Block
+
 **Component**: `<DifficultyComparison sections={gauleySections} />`
 **Content**: Side-by-side Upper vs Lower Gauley with difficulty, season, features
 **Kim's note**: *"Upper Gauley is no joke. If you want big water without the terror, stick to the Lower."*
 
 ### Seasonal Guide Block
+
 **Component**: `<SeasonalBlocks seasons={gauleySeasons} />`
 **Content**: Gauley Season (Sept-Oct) highlighted, shoulder seasons listed
 **Gear callouts**: Links to wetsuits (fall), waders (spring), fishing gear (summer)
 
 ### Access & Logistics Block
+
 **Content**:
+
 - Put-in/take-out locations (Summersville Dam, Swiss/Mason's Branch for Upper)
 - Parking info
 - Permit requirements (none for commercial trips)
@@ -328,6 +353,7 @@ NEVER: "Conquer the Gauley", "Ultimate adventure", "Extreme thrill-seekers", "Un
 **CTA**: "Stop by for last-minute gear - we're on your way"
 
 ### Local Knowledge Block
+
 **Kim's voice**:
 
 ```
@@ -342,12 +368,12 @@ a helmet on the Upper. Pillow Rock doesn't care how tough you think you are."
 ```
 
 ### Gear Recommendations Block
+
 **Component**: `<GearList activities={["Upper Gauley", "Lower Gauley", "Fishing"]} />`
 **Content**: Activity-specific gear with WVWO product links
 **Kim's note**: *"We stock everything except the raft. Wetsuit, helmet, drybag, river shoes - rent or buy before you head down."*
 
 ## Schema.org Markup
-
 
 ```typescript
 const gauleySchema = {
@@ -442,6 +468,7 @@ npx claude-flow@alpha hooks session-end --export-metrics true
 ## Success Criteria
 
 ### Content Quality
+
 - [ ] Kim's voice authentic (safety-first, not glamorizing Class V)
 - [ ] Zero AI slop ("epic adventure", "unleash", etc.)
 - [ ] Honest difficulty assessment (Upper Gauley = dangerous)
@@ -449,6 +476,7 @@ npx claude-flow@alpha hooks session-end --export-metrics true
 - [ ] Gear recommendations match WVWO inventory
 
 ### Technical Quality
+
 - [ ] Passes WVWO aesthetic checklist (Bitter font, rounded-sm, brand colors)
 - [ ] Mobile-responsive (tested 375px width)
 - [ ] Schema.org validation (TouristAttraction)
@@ -457,6 +485,7 @@ npx claude-flow@alpha hooks session-end --export-metrics true
 - [ ] Load time <2s on 3G
 
 ### Swarm Coordination
+
 - [ ] All scouts completed research in parallel
 - [ ] Queen successfully synthesized findings
 - [ ] Planners built on scout data (no duplicate research)

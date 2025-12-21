@@ -22,7 +22,6 @@
 
 ## AgentDB Context Loading
 
-
 ```bash
 npx agentdb@latest reflexion retrieve "resort outfitter partnerships" --k 10 --synthesize-context
 npx agentdb@latest reflexion retrieve "New River Gorge" --k 10 --synthesize-context
@@ -36,12 +35,14 @@ npx agentdb@latest reflexion critique-summary "WVWO"
 ## Research Focus (Researcher Agent)
 
 **Key Queries**:
+
 - "Adventures on the Gorge New River rafting packages"
 - "Adventures on the Gorge distance from I-79"
 - "New River Gorge Bridge Day proximity"
 - "Adventures on the Gorge cabin lodging pricing"
 
 **Data Priorities**:
+
 - Distance from shop (I-79 to Lansing, WV)
 - Rafting trips: Upper New (Class III-IV), Lower New (Class III), Gauley (Class V)
 - Lodging: Cabins, camping, bunkhouses
@@ -127,6 +128,7 @@ Grand love ya.
 ## Validation (Tester Agent)
 
 **Checklist**:
+
 - [ ] Partnership tone (helpful, not promotional)
 - [ ] Pricing NOT listed (changes frequently, link to their site)
 - [ ] Kim's voice maintains humble shop perspective

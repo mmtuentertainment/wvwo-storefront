@@ -48,6 +48,7 @@ npx agentdb@latest reflexion retrieve "lake recreation seasonal" --k 10 --synthe
 **Output**: Component architecture specification
 
 **Required Sections**:
+
 1. **Hero**: River name, total length, difficulty range, quick highlights
 2. **Rapids Guide**: Named rapids with class ratings, descriptions, hazards
 3. **Fishing**: Species, seasons, access points, techniques
@@ -125,6 +126,7 @@ interface RiverTemplateProps {
 **Output**: `src/components/templates/RiverTemplate.astro`
 
 **Implementation Rules**:
+
 1. **Length**: Target ~550 lines
 2. **Typography**:
    - Hero: `font-display text-4xl md:text-5xl lg:text-6xl font-bold`
@@ -407,18 +409,21 @@ interface RiverTemplateProps {
 ## VALIDATION CRITERIA
 
 **Completeness**:
+
 - [ ] ~550 lines
 - [ ] All 8 sections implemented
 - [ ] TypeScript props interface complete
 - [ ] Responsive grid layouts (mobile-first)
 
 **WVWO Aesthetic**:
+
 - [ ] `rounded-sm` enforced
 - [ ] Color-coded rapids by class (green/orange/red)
 - [ ] Border-left accents throughout
 - [ ] Safety sections highly visible (orange borders)
 
 **Safety Emphasis**:
+
 - [ ] Hazards prominently displayed in rapids guide
 - [ ] Required gear clearly listed
 - [ ] Skill level warnings present
@@ -429,11 +434,13 @@ interface RiverTemplateProps {
 ## COORDINATION PROTOCOL
 
 **hierarchical-coordinator** manages:
+
 1. **researcher** (WebSearch Gauley/New River guides) → Pattern research
 2. **code-architect** → Architecture design
 3. **base-template-generator** → Template implementation
 
 **Memory keys**:
+
 - `swarm/researcher/river-patterns` - Research findings
 - `swarm/architect/river-structure` - Component architecture
 - `swarm/generator/river-template` - Final template path

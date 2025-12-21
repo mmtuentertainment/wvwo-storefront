@@ -1,6 +1,7 @@
 # SPEC-30: New River Gorge Destination Page - Swarm Implementation Prompt
 
 ## Objective
+
 Create `/destinations/new-river-gorge` page using hierarchical swarm coordination with WebSearch research, AgentDB pattern learning, and hybrid template implementation (combines river + backcountry + state park patterns).
 
 ## Swarm Architecture
@@ -9,8 +10,10 @@ Create `/destinations/new-river-gorge` page using hierarchical swarm coordinatio
 **Note**: 4 scouts (not 3) due to multi-activity complexity
 
 ### Queen Agent (Coordinator)
+
 **Role**: Orchestrate research → planning → implementation for flagship multi-activity destination
 **Responsibilities**:
+
 - Initialize swarm memory namespace `swarm/new-river-gorge`
 - Assign tasks to 4 scouts (official NPS info, activity diversity, access/trails, cultural/historical)
 - Synthesize scout findings for planners (hybrid template requires more integration)
@@ -20,6 +23,7 @@ Create `/destinations/new-river-gorge` page using hierarchical swarm coordinatio
 ### Scout Agents (4 Parallel Researchers)
 
 #### Scout 1: Official NPS Information
+
 **Research targets**:
 
 ```bash
@@ -39,6 +43,7 @@ npx agentdb@latest skill search "national park visitor information" 5
 ```
 
 **Deliverables**:
+
 - Official NPS URLs (nps.gov/neri)
 - Visitor center locations (Canyon Rim, Sandstone)
 - Entry fees ($0 - free entry)
@@ -46,6 +51,7 @@ npx agentdb@latest skill search "national park visitor information" 5
 - Operating hours (year-round, daylight hours)
 
 #### Scout 2: Activity Diversity
+
 **Research targets**:
 
 ```bash
@@ -64,12 +70,14 @@ npx agentdb@latest recall with-certificate "activity categorization content" 12
 ```
 
 **Deliverables**:
+
 - Primary activities (rafting, rock climbing, hiking, mountain biking, fishing)
 - Seasonal activity matrix (what's available when)
 - Difficulty ranges (Class I-V rafting, 5.4-5.14 climbing, easy-strenuous hiking)
 - Unique events (Bridge Day in October)
 
 #### Scout 3: Access & Trail Systems
+
 **Research targets**:
 
 ```bash
@@ -88,12 +96,14 @@ npx agentdb@latest skill search "trailhead parking logistics" 5
 ```
 
 **Deliverables**:
+
 - Major trail systems (Endless Wall, Long Point, Kaymoor)
 - Climbing areas (Endless Wall, Junkyard, Beauty Mountain, Kaymoor)
 - River access points (Cunard to Thurmond section)
 - Parking and trailhead locations
 
 #### Scout 4: Cultural & Historical Context
+
 **Research targets**:
 
 ```bash
@@ -112,6 +122,7 @@ npx agentdb@latest skill search "WV coal history authentic voice" 5
 ```
 
 **Deliverables**:
+
 - Coal mining heritage (Thurmond, Kaymoor)
 - Bridge history (1977 construction, longest single-span arch for 26 years)
 - National Park designation (2020, upgraded from National River)
@@ -120,6 +131,7 @@ npx agentdb@latest skill search "WV coal history authentic voice" 5
 ### Planner Agents (2 Sequential Architects)
 
 #### Planner 1: Content Architecture (Hybrid Template)
+
 **Input**: Synthesized findings from all 4 scouts
 **Template**: Hybrid (river + backcountry + state park patterns)
 
@@ -133,6 +145,7 @@ npx agentdb@latest reflexion retrieve "cultural storytelling WV pride" --k 10
 ```
 
 **Responsibilities**:
+
 1. Map scout data to hybrid template sections
 2. Design hero content (New River Gorge Bridge iconic imagery)
 3. Plan activity categorization (tabbed interface: Rafting, Climbing, Hiking, Biking, Fishing)
@@ -141,6 +154,7 @@ npx agentdb@latest reflexion retrieve "cultural storytelling WV pride" --k 10
 6. Voice design: Proud but not boastful, "our backyard" energy
 
 **Deliverables**:
+
 - Content outline with hybrid section headers
 - Hero messaging ("The Gorge: Where the New River Carved West Virginia's Playground")
 - Activity-specific subsections (5 activities × 3-4 blocks each)
@@ -149,6 +163,7 @@ npx agentdb@latest reflexion retrieve "cultural storytelling WV pride" --k 10
 - Gear callout placements per activity
 
 #### Planner 2: Technical Architecture (Complex State Management)
+
 **Input**: Content architecture from Planner 1
 
 **AgentDB retrieval**:
@@ -160,6 +175,7 @@ npx agentdb@latest skill search "activity filtering state management" 5
 ```
 
 **Responsibilities**:
+
 1. Component selection (ActivityTabs, SeasonalMatrix, TrailMap, GearRecommendations)
 2. Data structure design (activities array with nested seasons, trails, gear)
 3. Schema.org markup (TouristAttraction + multi-activity types)
@@ -168,12 +184,14 @@ npx agentdb@latest skill search "activity filtering state management" 5
 6. Image strategy (hero bridge, activity-specific imagery)
 
 **Deliverables**:
+
 - Component tree with React state management
 - JSON data structure (activities, seasons, trails, gear mappings)
 - Schema markup template (complex multi-type)
 - Performance budget (image lazy loading, tab content hydration)
 
 ### Coder Agent (Implementation)
+
 **Input**: Content + technical architecture from planners
 
 **AgentDB retrieval**:
@@ -186,6 +204,7 @@ npx agentdb@latest reflexion retrieve "React Tabs component customization" --k 1
 ```
 
 **Responsibilities**:
+
 1. Implement `/wv-wild-web/src/pages/destinations/new-river-gorge.astro`
 2. Create hybrid-specific components (ActivityTabs, SeasonalMatrix)
 3. Apply WVWO aesthetic to shadcn Tabs (rounded-sm, brand-brown, sign-green)
@@ -194,6 +213,7 @@ npx agentdb@latest reflexion retrieve "React Tabs component customization" --k 1
 6. Add gear category links per activity (rafting gear, climbing gear, etc.)
 
 **Quality gates**:
+
 - Pass WVWO aesthetic checklist
 - Kim's voice authenticity (proud but humble WV tone)
 - Mobile-responsive tabs (375px width)
@@ -201,6 +221,7 @@ npx agentdb@latest reflexion retrieve "React Tabs component customization" --k 1
 - Load time <2.5s on 3G (complex page, image-heavy)
 
 **Deliverables**:
+
 - Complete `.astro` page file
 - New components in `src/components/destinations/`
 - Image optimization report
@@ -209,6 +230,7 @@ npx agentdb@latest reflexion retrieve "React Tabs component customization" --k 1
 ## Data Requirements
 
 ### Geographic Data
+
 **Shop coordinates**: `38.5858, -80.8581` (Birch River, WV)
 **Destination coordinates**: `38.0673, -81.0784` (Fayetteville, WV - central Gorge)
 **Drive time**: ~50 minutes via US-19 S
@@ -406,15 +428,18 @@ Those ghost towns are part of our story. Respect that when you visit."
 ## Content Blocks (Hybrid Template Sections)
 
 ### Hero Block
+
 **Image**: New River Gorge Bridge from Long Point Trail (iconic WV imagery)
 **Headline**: "The Gorge: Where the New River Carved West Virginia's Playground"
 **Subhead**: "Rafting, climbing, hiking, biking, fishing. National Park since 2020. 50 minutes from our shop."
 **CTA**: "Shop by Activity" (anchor to tabs)
 
 ### Activity Tabs Block
+
 **Component**: `<ActivityTabs activities={newRiverActivities} client:visible />`
 **Tabs**: Rafting | Climbing | Hiking | Biking | Fishing
 **Each tab contains**:
+
 - Difficulty breakdown
 - Seasonal guide
 - Top locations
@@ -424,12 +449,14 @@ Those ghost towns are part of our story. Respect that when you visit."
 **Mobile**: Tabs collapse to accordion (shadcn Accordion component)
 
 ### Seasonal Matrix Block
+
 **Component**: `<SeasonalMatrix data={seasonalMatrix} />`
 **Content**: Grid showing all 5 activities across 4 seasons
 **Purpose**: Quick reference for trip planning
 **Kim's note**: *"Fall's the best. Climbing weather is perfect, rafting's still fun, leaves are changing. Book early."*
 
 ### Cultural Heritage Block
+
 **Content**:
 
 ```
@@ -445,10 +472,13 @@ In 2020, the Gorge became America's newest National Park. We've been climbing,
 rafting, and fishing here for generations. The designation just made it official.
 
 ```
+
 **Images**: Historic Thurmond, Kaymoor tipple, Bridge Day BASE jumpers
 
 ### Access & Logistics Block
+
 **Content**:
+
 - Visitor centers (Canyon Rim, Sandstone)
 - Entry fees ($0 - free)
 - Drive time from WVWO shop (50 min via US-19 S)
@@ -457,6 +487,7 @@ rafting, and fishing here for generations. The designation just made it official
 **CTA**: "Stop by for maps and local beta - we live here"
 
 ### Local Knowledge Block
+
 **Kim's voice**:
 
 ```
@@ -479,7 +510,6 @@ The Gorge is humid in summer, and those trails are steep."
 ```
 
 ## Schema.org Markup (Multi-Activity)
-
 
 ```typescript
 const newRiverGorgeSchema = {
@@ -603,6 +633,7 @@ npx claude-flow@alpha hooks session-end --export-metrics true
 ## Success Criteria
 
 ### Content Quality
+
 - [ ] Kim's voice authentic (proud WV identity, not boastful)
 - [ ] Cultural heritage integrated (coal history, Bridge Day, National Park designation)
 - [ ] Zero AI slop ("ultimate playground", "adrenaline paradise", etc.)
@@ -610,6 +641,7 @@ npx claude-flow@alpha hooks session-end --export-metrics true
 - [ ] Gear recommendations match WVWO inventory per activity
 
 ### Technical Quality
+
 - [ ] Passes WVWO aesthetic checklist (shadcn Tabs customized: rounded-sm, brand colors)
 - [ ] Mobile-responsive tabs (collapse to accordion on mobile)
 - [ ] Schema.org validation (multi-activity TouristAttraction + NationalPark)
@@ -618,6 +650,7 @@ npx claude-flow@alpha hooks session-end --export-metrics true
 - [ ] Load time <2.5s on 3G (complex page tolerance)
 
 ### Swarm Coordination
+
 - [ ] All 4 scouts completed research in parallel
 - [ ] Queen successfully synthesized 4 data streams
 - [ ] Planners built on scout data (no duplicate research)

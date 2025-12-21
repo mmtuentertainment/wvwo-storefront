@@ -48,6 +48,7 @@ npx agentdb@latest reflexion retrieve "recreation facilities amenities" --k 10 -
 **Output**: Component architecture specification
 
 **Required Sections**:
+
 1. **Hero**: Resort name, elevation, vertical drop, season dates, quick stats
 2. **Trail Count**: Breakdown by difficulty (beginner/intermediate/expert), total acreage
 3. **Lift System**: Number of lifts, types, capacity, coverage
@@ -143,6 +144,7 @@ interface SkiTemplateProps {
 **Output**: `src/components/templates/SkiTemplate.astro`
 
 **Implementation Rules**:
+
 1. **Length**: Target ~550-600 lines
 2. **Typography**:
    - Hero: `font-display text-4xl md:text-5xl lg:text-6xl font-bold`
@@ -451,18 +453,21 @@ interface SkiTemplateProps {
 ## VALIDATION CRITERIA
 
 **Completeness**:
+
 - [ ] ~550-600 lines
 - [ ] All 9 sections implemented
 - [ ] TypeScript props interface complete
 - [ ] Responsive grid layouts (mobile-first)
 
 **WVWO Aesthetic**:
+
 - [ ] `rounded-sm` enforced
 - [ ] Trail difficulty color-coded (green/blue/black)
 - [ ] Border-left accents throughout
 - [ ] Pricing clearly displayed
 
 **Functionality**:
+
 - [ ] Conditional rendering (terrain parks, summer activities, rentals)
 - [ ] Real-time snow conditions link integration
 - [ ] Booking URL support for lodging
@@ -473,11 +478,13 @@ interface SkiTemplateProps {
 ## COORDINATION PROTOCOL
 
 **hierarchical-coordinator** manages:
+
 1. **researcher** (WebSearch Snowshoe/Canaan Valley) → Pattern research
 2. **code-architect** → Architecture design
 3. **base-template-generator** → Template implementation
 
 **Memory keys**:
+
 - `swarm/researcher/ski-patterns` - Research findings
 - `swarm/architect/ski-structure` - Component architecture
 - `swarm/generator/ski-template` - Final template path

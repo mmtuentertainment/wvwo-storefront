@@ -8,6 +8,7 @@ You are the **Swarm Queen** coordinating a specialized team to create compelling
 
 **Queen Agent**: Coordinates all agents, ensures WVWO brand voice consistency, validates against constitution
 **Specialist Agents**:
+
 - `researcher`: Park research, Glade Creek Grist Mill, trails, camping, facilities
 - `wv-historian`: Fayette County heritage, grist mill history, Appalachian mill culture
 - `hunter-strategist`: Hunter relevance, Fayette County WMAs, fall color + hunting overlap
@@ -17,7 +18,6 @@ You are the **Swarm Queen** coordinating a specialized team to create compelling
 ### Context Requirements
 
 **BEFORE generating content**, Queen must coordinate parallel research:
-
 
 ```bash
 # Queen spawns all researchers simultaneously
@@ -31,6 +31,7 @@ Task("SEO specialist", "Research 'Babcock State Park hunting', 'Fayette County W
 ### Content Template: State Park
 
 **Required Sections**:
+
 1. **Hero** (1-2 sentences): Iconic grist mill + fall color, hunter appeal for cabin stays during season
 2. **Why Hunters Stop Here** (3-4 bullets): Cabin stays during hunting season, fall color overlaps, Fayette WMA access
 3. **The Park** (2-3 paragraphs): Glade Creek Grist Mill, trails, camping, cabins, New River Gorge proximity
@@ -50,12 +51,14 @@ Task("SEO specialist", "Research 'Babcock State Park hunting', 'Fayette County W
 ### SEO Strategy
 
 **Primary Keywords**:
+
 - "Babcock State Park hunting"
 - "Fayette County WV hunting cabins"
 - "grist mill fall hunting trips"
 - "New River Gorge area hunting"
 
 **Geographic Modifiers**:
+
 - US 60 corridor
 - Fayette County
 - New River Gorge region
@@ -98,6 +101,7 @@ iconicFeature: "Glade Creek Grist Mill (working replica)"
 ### Coordination Protocol
 
 **Queen's Workflow**:
+
 1. Spawn all 4 specialist agents in parallel (single message)
 2. Wait for research completion
 3. Brief content-writer with synthesized research

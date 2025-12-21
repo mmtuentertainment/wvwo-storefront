@@ -48,6 +48,7 @@ npx agentdb@latest reflexion retrieve "recreation facilities family activities" 
 **Output**: Component architecture specification
 
 **Required Sections**:
+
 1. **Hero**: Park name, acreage, signature feature, quick highlights
 2. **Facilities**: Lodging, camping, visitor center, picnic areas, playgrounds
 3. **Trails**: Hiking trails with difficulty, distance, highlights
@@ -151,6 +152,7 @@ interface StateParkTemplateProps {
 **Output**: `src/components/templates/StateParkTemplate.astro`
 
 **Implementation Rules**:
+
 1. **Length**: Target ~525 lines
 2. **Typography**:
    - Hero: `font-display text-4xl md:text-5xl lg:text-6xl font-bold`
@@ -563,18 +565,21 @@ interface StateParkTemplateProps {
 ## VALIDATION CRITERIA
 
 **Completeness**:
+
 - [ ] ~525 lines
 - [ ] All 8 sections implemented
 - [ ] TypeScript props interface complete
 - [ ] Responsive grid layouts (mobile-first)
 
 **WVWO Aesthetic**:
+
 - [ ] `rounded-sm` enforced
 - [ ] Border-left accents throughout
 - [ ] Accessibility prominently featured
 - [ ] Family-friendly voice
 
 **Functionality**:
+
 - [ ] Conditional rendering (lodging, camping, programs)
 - [ ] Reservation URL support
 - [ ] Accessible trail indicators
@@ -585,11 +590,13 @@ interface StateParkTemplateProps {
 ## COORDINATION PROTOCOL
 
 **hierarchical-coordinator** manages:
+
 1. **researcher** (WebSearch Blackwater Falls/Pipestem) → Pattern research
 2. **code-architect** → Architecture design
 3. **base-template-generator** → Template implementation
 
 **Memory keys**:
+
 - `swarm/researcher/state-park-patterns` - Research findings
 - `swarm/architect/state-park-structure` - Component architecture
 - `swarm/generator/state-park-template` - Final template path

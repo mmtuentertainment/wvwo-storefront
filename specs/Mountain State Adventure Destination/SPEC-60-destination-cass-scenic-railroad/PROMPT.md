@@ -8,6 +8,7 @@ You are the **Swarm Queen** coordinating a specialized team to create compelling
 
 **Queen Agent**: Coordinates all agents, ensures WVWO brand voice consistency, validates against constitution
 **Specialist Agents**:
+
 - `researcher`: Railroad research, logging heritage, Bald Knob, facilities
 - `wv-historian`: Cass company town, logging railroad history, Pocahontas County heritage
 - `hunter-strategist`: Hunter relevance, Pocahontas County backcountry, fall hunting + foliage combo trips
@@ -17,7 +18,6 @@ You are the **Swarm Queen** coordinating a specialized team to create compelling
 ### Context Requirements
 
 **BEFORE generating content**, Queen must coordinate parallel research:
-
 
 ```bash
 # Queen spawns all researchers simultaneously
@@ -31,6 +31,7 @@ Task("SEO specialist", "Research 'Cass Railroad hunting', 'Pocahontas County WV 
 ### Content Template: Historic Site
 
 **Required Sections**:
+
 1. **Hero** (1-2 sentences): Steam railroad + logging heritage, hunter appeal as fall combo trip (foliage + hunting)
 2. **Why Hunters Stop Here** (3-4 bullets): Fall foliage overlaps hunting, family activity while some hunt, Pocahontas backcountry access
 3. **The Site** (2-3 paragraphs): Steam railroad, Bald Knob trips, company town, logging heritage
@@ -50,12 +51,14 @@ Task("SEO specialist", "Research 'Cass Railroad hunting', 'Pocahontas County WV 
 ### SEO Strategy
 
 **Primary Keywords**:
+
 - "Cass Railroad Pocahontas County hunting"
 - "US 219 corridor hunting access"
 - "Pocahontas County WV backcountry hunting"
 - "fall foliage hunting combo WV"
 
 **Geographic Modifiers**:
+
 - US 219 corridor (Elkins to Lewisburg route)
 - Pocahontas County
 - Monongahela National Forest
@@ -98,6 +101,7 @@ historicSignificance: "high (last operating logging railroad, restored company t
 ### Coordination Protocol
 
 **Queen's Workflow**:
+
 1. Spawn all 4 specialist agents in parallel (single message)
 2. Wait for research completion
 3. Brief content-writer with synthesized research

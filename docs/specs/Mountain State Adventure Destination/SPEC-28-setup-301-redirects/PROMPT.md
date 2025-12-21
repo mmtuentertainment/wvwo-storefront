@@ -10,7 +10,6 @@
 
 Before starting, load relevant patterns:
 
-
 ```bash
 # Parallel context loading
 npx agentdb@latest reflexion retrieve "Cloudflare Pages redirects" --k 10 --synthesize-context
@@ -40,7 +39,6 @@ Create Cloudflare Pages `_redirects` file to handle 301 redirects for all migrat
 
 **Research Cloudflare Pages _redirects syntax**:
 
-
 ```bash
 # WebSearch for official documentation
 WebSearch("Cloudflare Pages _redirects file syntax 2025")
@@ -49,6 +47,7 @@ WebFetch("<cloudflare_docs_url>", "Summarize _redirects file format, 301 redirec
 ```
 
 **Key questions to answer**:
+
 - File location (`public/_redirects` vs root `_redirects`)
 - 301 redirect syntax format
 - Path handling (absolute vs relative)
@@ -89,6 +88,7 @@ npx claude-flow@alpha hooks post-edit --file "cloudflare-redirects-research.md" 
 | `/near/birch-river-recreation` | `/adventures/birch-river-wma` | 301 |
 
 **Special case handling**:
+
 - **TWO old URLs** (`burnsville-lake` + `burnsville-lake-recreation`) → **ONE new URL** (`burnsville-lake-wma`)
 - Order matters: Put both redirects explicitly (no wildcards needed for these specific cases)
 
@@ -123,6 +123,7 @@ npx claude-flow@alpha hooks post-task --task-id "spec-28-redirects"
 **Manual verification** (post-deployment):
 
 1. **Test old URLs** (should 301 redirect):
+
    ```
    https://wvwild.com/near/burnsville-lake → /adventures/burnsville-lake-wma
    https://wvwild.com/near/burnsville-lake-recreation → /adventures/burnsville-lake-wma
@@ -130,6 +131,7 @@ npx claude-flow@alpha hooks post-task --task-id "spec-28-redirects"
    ```
 
 2. **Test with curl** (check HTTP status):
+
    ```bash
    curl -I https://wvwild.com/near/burnsville-lake
    # Should return: HTTP/1.1 301 Moved Permanently
@@ -141,6 +143,7 @@ npx claude-flow@alpha hooks post-task --task-id "spec-28-redirects"
    - Verify redirects are being followed by Googlebot
 
 **Cloudflare Pages behavior**:
+
 - Redirects processed on every request (no caching issues)
 - First matching rule wins (order matters)
 - Works with trailing slashes automatically
@@ -177,12 +180,14 @@ Before marking complete:
 ## WVWO Context
 
 **Why 301 redirects matter**:
+
 - Phase 3 Strategy: Geographic SEO foundation for I-79 highway hunters
 - Preserve existing search rankings for "near Birch River" queries
 - Prevent 404s for users/bots visiting old `/near/*` URLs
 - Signal to Google that content moved permanently (transfer SEO equity)
 
 **Project principles**:
+
 - Quality over speed: Get redirects right, don't rush
 - Local + highway: Serve both existing visitors and new I-79 traffic
 - SEO matters: We're capturing out-of-state hunters via search
@@ -190,7 +195,6 @@ Before marking complete:
 ---
 
 ## Store Pattern (After Completion)
-
 
 ```bash
 # If successful

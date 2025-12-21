@@ -22,7 +22,6 @@
 
 ## AgentDB Context Loading
 
-
 ```bash
 npx agentdb@latest reflexion retrieve "lake fishing camping WV" --k 10 --synthesize-context
 npx agentdb@latest reflexion retrieve "Army Corps lake" --k 10 --synthesize-context
@@ -36,12 +35,14 @@ npx agentdb@latest reflexion critique-summary "WVWO"
 ## Research Focus (Researcher Agent)
 
 **Key Queries**:
+
 - "Tygart Lake fishing bass crappie walleye"
 - "Tygart Lake State Park camping cabins"
 - "Tygart Lake boat ramps Corps of Engineers"
 - "Tygart Lake distance from I-79"
 
 **Data Priorities**:
+
 - Size: 10 miles long, 1,750 acres
 - Fish species: Largemouth bass, smallmouth bass, walleye, crappie, catfish
 - Campground: Tygart Lake State Park (full hookups, lodge)
@@ -124,6 +125,7 @@ Grand love ya.
 ## Validation (Tester Agent)
 
 **Checklist**:
+
 - [ ] Fish species accurate (bass, walleye, crappie verified)
 - [ ] Seasonal patterns noted (spring crappie, fall walleye)
 - [ ] Less-crowded positioning honest (underrated vs overhyped)

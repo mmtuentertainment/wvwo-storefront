@@ -22,7 +22,6 @@
 
 ## AgentDB Context Loading (BEFORE Starting)
 
-
 ```bash
 # Parallel context retrieval (Opus 4.5 strength)
 npx agentdb@latest reflexion retrieve "shared components" --k 10 --synthesize-context
@@ -67,6 +66,7 @@ npx claude-flow@alpha hooks post-edit \
 ## WVWO Context (Critical Constraints)
 
 **From CLAUDE.md**:
+
 - **Typography**: font-display for headings, font-body for content
 - **Colors**: brand-brown headings, sign-green accents, brand-cream backgrounds
 - **Layout**: Container max-width, generous padding, responsive spacing
@@ -103,18 +103,21 @@ Read "./wv-wild-web\src\pages\adventures\summersville-lake.astro"
 **Key Patterns to Extract**:
 
 **A. Getting There Section** (find driving directions pattern):
+
 - Heading structure
 - Directions format (from I-79 Exit 57)
 - Link styling for "Open in Google Maps"
 - Layout (single column text or multi-column)
 
 **B. Gear Checklist Section** (find checklist pattern):
+
 - Heading structure
 - List format (checkboxes? icons? plain bullets?)
 - Item grouping (categories? flat list?)
 - Styling (grid? columns? stacked?)
 
 **C. Shop Related Items Section** (find CTA pattern):
+
 - Heading structure
 - Product recommendations (manual list? categories?)
 - CTA button styling
@@ -136,7 +139,6 @@ npx claude-flow@alpha hooks post-task \
 
 #### A. AdventureGettingThere API
 
-
 ```typescript
 interface Props {
   title?: string;                    // Default: "Getting There"
@@ -152,13 +154,13 @@ interface Props {
 ```
 
 **Design Notes**:
+
 - Support HTML in directions for bold text, lists
 - Map link opens in new tab with external icon
 - Display drive time + distance if provided
 - Kim's voice for directions ("Head south on US-19...")
 
 #### B. AdventureGearChecklist API
-
 
 ```typescript
 interface GearItem {
@@ -179,13 +181,13 @@ interface Props {
 ```
 
 **Design Notes**:
+
 - Checkmark icon for required items, circle for optional
 - Responsive grid (1 column mobile, 2-3 desktop)
 - Optional intro text in Kim's voice
 - Footer slot for "Don't have this gear? Visit our shop" CTA
 
 #### C. AdventureRelatedShop API
-
 
 ```typescript
 interface RelatedCategory {
@@ -206,6 +208,7 @@ interface Props {
 ```
 
 **Design Notes**:
+
 - Grid of category cards (2 columns mobile, 3-4 desktop)
 - Each card links to shop category
 - Main CTA button at bottom
@@ -223,7 +226,6 @@ npx claude-flow@alpha hooks post-edit \
 ### 3️⃣ Coder-1: Implement AdventureGettingThere.astro
 
 **Implementation**:
-
 
 ```astro
 ---
@@ -318,7 +320,6 @@ const {
 
 **Implementation**:
 
-
 ```astro
 ---
 // File: src/components/adventure/AdventureGearChecklist.astro
@@ -406,7 +407,6 @@ const gridClass = columns === 1 ? 'grid-cols-1' : columns === 3 ? 'grid-cols-1 m
 
 **Implementation**:
 
-
 ```astro
 ---
 // File: src/components/adventure/AdventureRelatedShop.astro
@@ -488,7 +488,6 @@ const {
 ## Usage Examples
 
 ### Complete Adventure Page Example
-
 
 ```astro
 ---
@@ -582,6 +581,7 @@ const relatedCategories = [
 ## Code Quality Checks (All 3 Components)
 
 ### AdventureGettingThere
+
 - [ ] Supports HTML in directions (Fragment set:html)
 - [ ] Map link opens in new tab (target="_blank" rel="noopener")
 - [ ] Drive time + distance icons match design system
@@ -589,6 +589,7 @@ const relatedCategories = [
 - [ ] Typography: font-display headings, font-body content
 
 ### AdventureGearChecklist
+
 - [ ] Required items show checkmark icon (sign-green)
 - [ ] Optional items show circle icon + "(optional)" text
 - [ ] Responsive grid (1 col mobile → 2-3 desktop)
@@ -596,6 +597,7 @@ const relatedCategories = [
 - [ ] Background: brand-cream for contrast
 
 ### AdventureRelatedShop
+
 - [ ] Category cards use border-l-4 pattern
 - [ ] Hover effect: border color change + translateY
 - [ ] Responsive grid (1 col mobile → 3 desktop)
@@ -631,11 +633,13 @@ echo "Location: wv-wild-web/src/components/adventure/"
 ## Success Criteria
 
 ✅ **All 3 Components Implemented**:
+
 - AdventureGettingThere: Directions + map link + drive stats
 - AdventureGearChecklist: Required/optional items + responsive grid
 - AdventureRelatedShop: Category cards + main CTA
 
 ✅ **WVWO Compliance**:
+
 - Typography: font-display + font-body throughout
 - Colors: brand-brown, sign-green, brand-cream, brand-mud
 - Layout: Responsive grids, container max-width
@@ -643,6 +647,7 @@ echo "Location: wv-wild-web/src/components/adventure/"
 - Corners: rounded-sm (not rounded-md/lg)
 
 ✅ **Quality Checks**:
+
 - Slot system working (default + named slots)
 - Responsive behavior validated (mobile/tablet/desktop)
 - Accessibility: Semantic HTML, alt text, external link rel

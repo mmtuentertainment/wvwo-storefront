@@ -25,6 +25,7 @@ Create a reusable Astro template for West Virginia Wildlife Management Areas tha
 **researcher WebSearch queries**:
 
 ```
+
 "West Virginia WMA hunting guide structure"
 "wildlife management area website layout best practices"
 "DNR WMA facility information display"
@@ -49,6 +50,7 @@ npx agentdb@latest skill search "WMA hunting facilities" 10
 **Output**: Component architecture specification
 
 **Required Sections**:
+
 1. **Hero**: WMA name, acreage, location, quick stats
 2. **What to Hunt**: Species by season with regulations
 3. **Fishing Waters**: Named streams/ponds with species
@@ -84,6 +86,7 @@ interface WMATemplateProps {
 **Output**: `src/components/templates/WMATemplate.astro`
 
 **Implementation Rules**:
+
 1. **Length**: Target ~400 lines (matches elk-river.astro)
 2. **Typography**:
    - Hero: `font-display text-4xl md:text-5xl font-bold`
@@ -237,18 +240,21 @@ interface WMATemplateProps {
 ## VALIDATION CRITERIA
 
 **Completeness**:
+
 - [ ] ~400 lines (matches elk-river.astro depth)
 - [ ] All 7 sections implemented
 - [ ] TypeScript props interface complete
 - [ ] Responsive grid layouts (mobile-first)
 
 **WVWO Aesthetic**:
+
 - [ ] `rounded-sm` enforced (not md/lg)
 - [ ] Border-left accents (green for species, orange for regulations)
 - [ ] Kim's voice in notes/tips
 - [ ] `font-display`, `font-body`, `font-hand` hierarchy
 
 **Functionality**:
+
 - [ ] Props drive all content (no hardcoded data)
 - [ ] Conditional rendering (mapUrl, facility counts, notes)
 - [ ] Accessible markup (semantic HTML, alt text)
@@ -258,11 +264,13 @@ interface WMATemplateProps {
 ## COORDINATION PROTOCOL
 
 **hierarchical-coordinator** manages:
+
 1. **researcher** + **scout-explorer** → Pattern research (parallel)
 2. **code-architect** → Architecture design
 3. **base-template-generator** → Template implementation
 
 **Memory keys**:
+
 - `swarm/researcher/wma-patterns` - Research findings
 - `swarm/architect/wma-structure` - Component architecture
 - `swarm/generator/wma-template` - Final template path

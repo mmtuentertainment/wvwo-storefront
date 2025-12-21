@@ -48,6 +48,7 @@ npx agentdb@latest reflexion retrieve "wilderness safety regulations" --k 10 --s
 **Output**: Component architecture specification
 
 **Required Sections**:
+
 1. **Hero**: Area name, acreage, designation type, remoteness stats
 2. **Wilderness Areas**: Named zones with terrain, access, difficulty
 3. **Backcountry Camping**: Regulations, permitted sites, water sources
@@ -134,6 +135,7 @@ interface BackcountryTemplateProps {
 **Output**: `src/components/templates/BackcountryTemplate.astro`
 
 **Implementation Rules**:
+
 1. **Length**: Target ~525 lines
 2. **Typography**:
    - Hero: `font-display text-4xl md:text-5xl lg:text-6xl font-bold`
@@ -523,18 +525,21 @@ interface BackcountryTemplateProps {
 ## VALIDATION CRITERIA
 
 **Completeness**:
+
 - [ ] ~525 lines
 - [ ] All 8 sections implemented
 - [ ] TypeScript props interface complete
 - [ ] Responsive grid layouts (mobile-first)
 
 **WVWO Aesthetic**:
+
 - [ ] `rounded-sm` enforced
 - [ ] Border-left accents (green for wilderness, orange for safety)
 - [ ] Kim's voice for practical advice
 - [ ] Serious safety emphasis throughout
 
 **Safety Emphasis**:
+
 - [ ] Required skills clearly detailed
 - [ ] Hazards prominently displayed
 - [ ] Leave No Trace principles integrated
@@ -545,11 +550,13 @@ interface BackcountryTemplateProps {
 ## COORDINATION PROTOCOL
 
 **hierarchical-coordinator** manages:
+
 1. **researcher** + **scout-explorer** → Pattern research (parallel)
 2. **code-architect** → Architecture design
 3. **base-template-generator** → Template implementation
 
 **Memory keys**:
+
 - `swarm/researcher/backcountry-patterns` - Research findings
 - `swarm/architect/backcountry-structure` - Component architecture
 - `swarm/generator/backcountry-template` - Final template path

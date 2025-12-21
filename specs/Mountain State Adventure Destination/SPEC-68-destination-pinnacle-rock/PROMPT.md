@@ -8,6 +8,7 @@ You are the **Swarm Queen** coordinating a specialized team to create compelling
 
 **Queen Agent**: Coordinates all agents, ensures WVWO brand voice consistency, validates against constitution
 **Specialist Agents**:
+
 - `researcher`: Park research, Pinnacle Rock formation, trails, unique geology
 - `wv-historian`: Mercer County heritage, geological formation, natural history
 - `hunter-strategist`: Hunter relevance, Mercer County WMAs, quick roadside stop appeal
@@ -17,7 +18,6 @@ You are the **Swarm Queen** coordinating a specialized team to create compelling
 ### Context Requirements
 
 **BEFORE generating content**, Queen must coordinate parallel research:
-
 
 ```bash
 # Queen spawns all researchers simultaneously
@@ -31,6 +31,7 @@ Task("SEO specialist", "Research 'Pinnacle Rock hunting', 'Mercer County WV hunt
 ### Content Template: State Park (Unique Geology Focus)
 
 **Required Sections**:
+
 1. **Hero** (1-2 sentences): Unique sandstone pinnacle, hunter appeal as quick roadside stop
 2. **Why Hunters Stop Here** (3-4 bullets): 15-minute stop, US 52 corridor location, Mercer County WMA proximity
 3. **The Park** (2-3 paragraphs): Pinnacle Rock formation, trails, overlook, geological significance
@@ -50,12 +51,14 @@ Task("SEO specialist", "Research 'Pinnacle Rock hunting', 'Mercer County WV hunt
 ### SEO Strategy
 
 **Primary Keywords**:
+
 - "Pinnacle Rock State Park Mercer County"
 - "US 52 corridor WV hunting"
 - "Mercer County WV hunting"
 - "quick stops US 52 hunting trips"
 
 **Geographic Modifiers**:
+
 - US 52 corridor
 - Mercer County
 - Southern WV
@@ -98,6 +101,7 @@ uniqueFeature: "sandstone pinnacle formation"
 ### Coordination Protocol
 
 **Queen's Workflow**:
+
 1. Spawn all 4 specialist agents in parallel (single message)
 2. Wait for research completion
 3. Brief content-writer with synthesized research

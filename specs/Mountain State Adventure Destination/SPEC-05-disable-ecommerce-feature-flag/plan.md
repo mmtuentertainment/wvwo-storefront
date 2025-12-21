@@ -1,6 +1,10 @@
 # Implementation Plan: SPEC-05 - Disable E-Commerce Feature Flag
 
-**Branch**: `feat/spec-05-commerce-feature-flag` | **Date**: 2025-12-21 | **Spec**: [PROMPT.md](PROMPT.md)
+## Metadata
+
+- **Branch**: `feat/spec-05-commerce-feature-flag`
+- **Date**: 2025-12-21
+- **Spec**: [PROMPT.md](PROMPT.md)
 
 ## Summary
 
@@ -26,19 +30,24 @@ Implements a `PUBLIC_COMMERCE_ENABLED` feature flag to toggle e-commerce functio
 ## Proposed Changes
 
 ### Configuration
+
 - [x] `.env.example`: Added `PUBLIC_COMMERCE_ENABLED`
 
 ### Components & Layouts
+
 - [x] `Layout.astro`: Conditional `CartDrawer` rendering
 - [x] `Header.astro`: Conditional `HeaderCart` icon visibility
 
 ### Pages
+
 - [x] `checkout.astro`: Added redirect guard
 - [x] `[product].astro`: Three-state CTA logic (Buy / Call to Order / Out of Stock)
 
 ## Success Criteria
 
+```text
 - **SC-001**: Cart is inaccessible when disabled
 - **SC-002**: Site remains navigable as a catalog
 - **SC-003**: No regressions in "Call for Availability" logic
 - **SC-004**: 100% reversible via environment variable
+```

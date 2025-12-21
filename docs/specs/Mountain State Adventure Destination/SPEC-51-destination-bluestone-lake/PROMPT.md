@@ -22,7 +22,6 @@
 
 ## AgentDB Context Loading
 
-
 ```bash
 npx agentdb@latest reflexion retrieve "lake fishing WMA" --k 10 --synthesize-context
 npx agentdb@latest reflexion retrieve "Bluestone Lake WV" --k 10 --synthesize-context
@@ -36,12 +35,14 @@ npx agentdb@latest reflexion critique-summary "WVWO"
 ## Research Focus (Researcher Agent)
 
 **Key Queries**:
+
 - "Bluestone Lake fishing bass muskie crappie"
 - "Bluestone State Park camping cabins"
 - "Bluestone WMA hunting deer turkey"
 - "Bluestone Lake distance from I-77"
 
 **Data Priorities**:
+
 - Size: 2,040 acres surface, 20+ miles long
 - Fish species: Largemouth bass, muskie, crappie, walleye, catfish
 - State park: Bluestone State Park (camping, cabins, boat ramp)
@@ -131,6 +132,7 @@ Grand love ya.
 ## Validation (Tester Agent)
 
 **Checklist**:
+
 - [ ] Muskie fishing emphasized (trophy potential)
 - [ ] WMA hunting seasons accurate (deer, turkey)
 - [ ] State park facilities detailed

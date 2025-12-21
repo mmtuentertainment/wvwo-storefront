@@ -22,7 +22,6 @@
 
 ## AgentDB Context Loading
 
-
 ```bash
 npx agentdb@latest reflexion retrieve "cave attractions WV" --k 10 --synthesize-context
 npx agentdb@latest reflexion retrieve "family-friendly tourist stops" --k 10 --synthesize-context
@@ -36,12 +35,14 @@ npx agentdb@latest reflexion critique-summary "WVWO"
 ## Research Focus (Researcher Agent)
 
 **Key Queries**:
+
 - "Lost World Caverns Lewisburg WV tours"
 - "Lost World Caverns admission prices hours"
 - "Lost World Caverns wild cave tour"
 - "Lost World Caverns distance from I-64"
 
 **Data Priorities**:
+
 - Location: Lewisburg, WV (I-64 Exit 169)
 - Tour options: Self-guided walkway, wild cave tour
 - Features: War Club stalactite, 40+ feet formations
@@ -129,6 +130,7 @@ Grand love ya.
 ## Validation (Tester Agent)
 
 **Checklist**:
+
 - [ ] Accessibility info clear (stairs, not wheelchair-accessible)
 - [ ] Wild cave tour requirements noted (age, fitness level)
 - [ ] Pricing caveat (check website for current)

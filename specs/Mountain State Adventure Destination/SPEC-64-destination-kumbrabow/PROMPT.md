@@ -8,6 +8,7 @@ You are the **Swarm Queen** coordinating a specialized team to create compelling
 
 **Queen Agent**: Coordinates all agents, ensures WVWO brand voice consistency, validates against constitution
 **Specialist Agents**:
+
 - `researcher`: Forest research, backcountry camping, trails, elevation, isolation
 - `wv-historian`: Randolph County heritage, high-elevation ecology, forest history
 - `hunter-strategist`: Hunter relevance, backcountry hunting, solitude appeal, elevation species
@@ -17,7 +18,6 @@ You are the **Swarm Queen** coordinating a specialized team to create compelling
 ### Context Requirements
 
 **BEFORE generating content**, Queen must coordinate parallel research:
-
 
 ```bash
 # Queen spawns all researchers simultaneously
@@ -31,6 +31,7 @@ Task("SEO specialist", "Research 'Kumbrabow hunting', 'Randolph County WV backco
 ### Content Template: Backcountry
 
 **Required Sections**:
+
 1. **Hero** (1-2 sentences): High-elevation backcountry forest, serious hunter appeal for solitude
 2. **Why Hunters Choose Here** (3-4 bullets): Backcountry solitude, high-elevation species, primitive camping, forest access
 3. **The Forest** (2-3 paragraphs): Elevation (3400ft+), backcountry character, trails, primitive camping, isolation
@@ -50,12 +51,14 @@ Task("SEO specialist", "Research 'Kumbrabow hunting', 'Randolph County WV backco
 ### SEO Strategy
 
 **Primary Keywords**:
+
 - "Kumbrabow State Forest hunting"
 - "Randolph County WV backcountry hunting"
 - "high elevation WV hunting"
 - "backcountry hunting solitude WV"
 
 **Geographic Modifiers**:
+
 - Randolph County
 - US 219/US 250 corridor (northeastern access)
 - High-elevation Alleghenies
@@ -99,6 +102,7 @@ huntingAllowed: "yes (WV state forest hunting regulations)"
 ### Coordination Protocol
 
 **Queen's Workflow**:
+
 1. Spawn all 4 specialist agents in parallel (single message)
 2. Wait for research completion
 3. Brief content-writer with synthesized research

@@ -19,7 +19,6 @@ Build the Adventures Hub (`/adventures/`) with triple-axis filtering (activity +
 
 ### Load These Patterns (Parallel Execution)
 
-
 ```bash
 # Run ALL of these in PARALLEL (Opus 4.5 strength)
 npx agentdb@latest reflexion retrieve "vanilla JS filtering" --k 10 --synthesize-context
@@ -39,6 +38,7 @@ npx agentdb@latest skill search "hub page structure CollectionPage" 5
 ### 1️⃣ Scout Agents (2 agents, parallel)
 
 **Scout 1: Shop Filtering Analysis**
+
 - **Read:** `wv-wild-web/src/pages/shop/index.astro` (lines 207-330)
 - **Extract:**
   - Vanilla JS filtering pattern (no React, no frameworks)
@@ -48,11 +48,13 @@ npx agentdb@latest skill search "hub page structure CollectionPage" 5
   - Empty state handling
   - ViewTransitions cleanup pattern
 - **Store in AgentDB:**
+
   ```bash
   npx agentdb@latest reflexion store "spec07-scout" "shop-filtering-pattern" 1.0 true "Vanilla JS with data attrs, URL sync, idempotent init"
   ```
 
 **Scout 2: Hub Page Structure Analysis**
+
 - **Read:** `wv-wild-web/src/pages/near/index.astro`
 - **Extract:**
   - Hero section structure (badge + title + description)
@@ -62,6 +64,7 @@ npx agentdb@latest skill search "hub page structure CollectionPage" 5
   - Breadcrumb integration
   - CTA section pattern ("Stop By Before You Head Out")
 - **Store in AgentDB:**
+
   ```bash
   npx agentdb@latest reflexion store "spec07-scout" "hub-page-structure" 1.0 true "Hero + grouped sections + CollectionPage schema + CTA"
   ```
@@ -69,10 +72,12 @@ npx agentdb@latest skill search "hub page structure CollectionPage" 5
 ### 2️⃣ Architect Agents (2 agents, parallel)
 
 **Architect 1: Code Architecture (code-architect agent)**
+
 - **Inputs:** Scout 1 findings + triple-axis requirements
 - **Design:**
   1. Filter state management (3 independent axes: activity, season, distance)
   2. Data attribute schema for adventure cards
+
      ```typescript
      // Example:
      data-adventure
@@ -82,6 +87,7 @@ npx agentdb@latest skill search "hub page structure CollectionPage" 5
      data-name="Burnsville Lake WMA"
      data-slug="burnsville-lake"
      ```
+
   3. Filter UI component structure (radio groups for season/distance, checkboxes for activities)
   4. URL param naming (`?activity=hiking&season=fall&distance=15-30`)
   5. Results count + empty state logic
@@ -89,6 +95,7 @@ npx agentdb@latest skill search "hub page structure CollectionPage" 5
 - **Output:** Architecture diagram in memory + pseudocode
 
 **Architect 2: Hub Page Design (planner agent)**
+
 - **Inputs:** Scout 2 findings + 70+ destinations requirement
 - **Design:**
   1. Hero section (WVWO voice: "Your Mountain State Adventure Headquarters")
@@ -105,6 +112,7 @@ npx agentdb@latest skill search "hub page structure CollectionPage" 5
 **Inputs:** Both architect outputs + scout code references
 
 **Tasks:**
+
 1. **Create page structure** (`src/pages/adventures/index.astro`)
    - Copy hero pattern from `/near/index.astro`
    - Add breadcrumb + CollectionPage schema
@@ -149,6 +157,7 @@ npx agentdb@latest skill search "hub page structure CollectionPage" 5
    - Breadcrumb schema
 
 **Code Style:**
+
 - WVWO aesthetic (CLAUDE.md guidelines)
 - Vanilla JS, no React for this page
 - Data attributes for filtering
@@ -162,7 +171,6 @@ npx agentdb@latest skill search "hub page structure CollectionPage" 5
 ## 📐 Technical Specifications
 
 ### Triple-Axis Filter Logic
-
 
 ```typescript
 // Pseudocode (vanilla JS)
@@ -204,7 +212,6 @@ function applyFilters() {
 
 ### Data Attribute Schema
 
-
 ```html
 <article
   data-adventure
@@ -221,7 +228,6 @@ function applyFilters() {
 ```
 
 ### URL Param Strategy
-
 
 ```
 # No filters
@@ -255,6 +261,7 @@ Empty state: "Hmm, nothing matches those filters. Try widening your search - or 
 ```
 
 ### Design Tokens
+
 - Hero: `bg-brand-brown text-white` with camo texture overlay
 - Filter controls: `bg-brand-cream border-brand-mud/30`
 - Adventure cards: `bg-white border-l-4 border-l-sign-green`
@@ -263,6 +270,7 @@ Empty state: "Hmm, nothing matches those filters. Try widening your search - or 
 - Corners: `rounded-sm` (NEVER rounded-md/lg)
 
 ### Typography
+
 - Display: `font-display font-black` (Bitter)
 - Body: `font-body` (Noto Sans)
 - Handwritten accents: `font-hand` (Permanent Marker) for Kim's voice
@@ -272,6 +280,7 @@ Empty state: "Hmm, nothing matches those filters. Try widening your search - or 
 ## ✅ Definition of Done
 
 ### Functional
+
 - [ ] Triple-axis filtering works independently and combined
 - [ ] URL params sync on filter change (shareable links)
 - [ ] "Clear All Filters" resets state + URL
@@ -281,17 +290,20 @@ Empty state: "Hmm, nothing matches those filters. Try widening your search - or 
 - [ ] Works with client-side navigation (no page reload)
 
 ### Content
+
 - [ ] 10-15 placeholder adventures with real data
 - [ ] Kim's voice in hero and empty states
 - [ ] CollectionPage schema with all destinations
 - [ ] Breadcrumb schema (Home → Adventures)
 
 ### Performance
+
 - [ ] No React hydration (pure Astro + vanilla JS)
 - [ ] Filtering feels instant (<50ms)
 - [ ] No layout shift on filter apply
 
 ### Aesthetic
+
 - [ ] WVWO design system colors
 - [ ] rounded-sm corners (no rounded-md/lg)
 - [ ] Border-left accent cards
@@ -299,6 +311,7 @@ Empty state: "Hmm, nothing matches those filters. Try widening your search - or 
 - [ ] motion-safe: animations
 
 ### Code Quality
+
 - [ ] Reuses shop filtering pattern (DRY)
 - [ ] Idempotent initialization
 - [ ] Data attributes match naming convention
@@ -310,6 +323,7 @@ Empty state: "Hmm, nothing matches those filters. Try widening your search - or 
 ## 🔗 Reference Files (Must Read)
 
 ### REQUIRED Reading
+
 1. `wv-wild-web/src/pages/shop/index.astro` (lines 207-330)
    **Why:** Proven vanilla JS filtering pattern, URL sync, idempotency
 
@@ -317,10 +331,11 @@ Empty state: "Hmm, nothing matches those filters. Try widening your search - or 
    **Why:** Hub page structure, CollectionPage schema, card design
 
 ### Aesthetic Reference
+
 3. `CLAUDE.md` (WVWO Frontend Aesthetics section)
    **Why:** Voice, colors, typography, design constraints
 
-4. `docs/WVWO_FRONTEND_AESTHETICS.md`
+2. `docs/WVWO_FRONTEND_AESTHETICS.md`
    **Why:** Detailed aesthetic guidelines, litmus tests
 
 ---
@@ -328,6 +343,7 @@ Empty state: "Hmm, nothing matches those filters. Try widening your search - or 
 ## 🧪 Testing Checklist
 
 ### Manual Testing
+
 - [ ] Filter by single activity (hiking) → correct results
 - [ ] Filter by multiple activities (hiking + fishing) → OR logic works
 - [ ] Filter by season (fall) → respects year-round destinations
@@ -340,6 +356,7 @@ Empty state: "Hmm, nothing matches those filters. Try widening your search - or 
 - [ ] Desktop: sticky filter sidebar (if designed)
 
 ### Edge Cases
+
 - [ ] No adventures match filters → empty state shows
 - [ ] All filters cleared → full list returns
 - [ ] URL param with invalid value → gracefully ignored
@@ -397,16 +414,19 @@ npx agentdb@latest skill search "hub page structure CollectionPage" 5
 ```
 
 ### Step 2: Scout Phase (Parallel)
+
 - Scout 1 reads `shop/index.astro` (filtering logic)
 - Scout 2 reads `/near/index.astro` (hub structure)
 - Both store findings in AgentDB
 
 ### Step 3: Architect Phase (Parallel)
+
 - Architect 1 designs filter architecture
 - Architect 2 designs hub page layout
 - Both output design artifacts
 
 ### Step 4: Implementation (Sequential)
+
 - Coder reads architect outputs
 - Builds page following Foundation Pattern
 - Tests triple-axis filtering
@@ -414,6 +434,7 @@ npx agentdb@latest skill search "hub page structure CollectionPage" 5
 - Stores success patterns in AgentDB
 
 ### Step 5: Validation
+
 - Manual testing checklist
 - Edge case verification
 - AgentDB pattern consolidation
@@ -423,22 +444,26 @@ npx agentdb@latest skill search "hub page structure CollectionPage" 5
 ## 📝 Implementation Notes
 
 ### Reuse, Don't Rewrite
+
 - **Copy** `initShopFilters()` function skeleton
 - **Adapt** filter logic for triple-axis
 - **Keep** URL sync, idempotency, ViewTransitions cleanup
 
 ### Triple-Axis Logic
+
 - **Activities:** OR logic (match ANY selected)
 - **Season:** Exact match OR "year-round"
 - **Distance:** Exact bucket match
 - **Combined:** AND intersection across axes
 
 ### Mobile Considerations
+
 - Filters collapse to accordion on mobile
 - Grid responsive: 1-col → 2-col → 3-col
 - Filter controls sticky at top on scroll
 
 ### Future-Proofing
+
 - Data attributes allow easy addition of new filters (difficulty, amenities)
 - CollectionPage schema supports dynamic destination count
 - URL params backward-compatible with single-activity links
@@ -484,7 +509,7 @@ npx agentdb@latest reflexion store "spec07-clarify" "<question>" 1.0 true "<answ
 
 ## 🔚 Completion Criteria
 
-### You're done when:
+### You're done when
 
 1. ✅ `/adventures/` page loads with hero + filters + grid
 2. ✅ All three filter axes work independently

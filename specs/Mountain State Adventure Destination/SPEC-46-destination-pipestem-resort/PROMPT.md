@@ -22,7 +22,6 @@
 
 ## AgentDB Context Loading
 
-
 ```bash
 npx agentdb@latest reflexion retrieve "WV state park resorts" --k 10 --synthesize-context
 npx agentdb@latest reflexion retrieve "Bluestone River fishing" --k 10 --synthesize-context
@@ -36,12 +35,14 @@ npx agentdb@latest reflexion critique-summary "WVWO"
 ## Research Focus (Researcher Agent)
 
 **Key Queries**:
+
 - "Pipestem Resort State Park lodging cabins"
 - "Pipestem Resort aerial tram canyon"
 - "Bluestone River fishing Pipestem"
 - "Pipestem Resort distance from I-79"
 
 **Data Priorities**:
+
 - Lodging: McKeever Lodge (rim), Mountain Creek Lodge (canyon via tram)
 - Bluestone River: Smallmouth bass, muskie fishing
 - Aerial tram: 3,600 feet to canyon floor
@@ -129,6 +130,7 @@ Grand love ya.
 ## Validation (Tester Agent)
 
 **Checklist**:
+
 - [ ] Aerial tram unique feature emphasized
 - [ ] Bluestone River fishing detailed
 - [ ] State park hunting regulations noted

@@ -22,7 +22,6 @@
 
 ## AgentDB Context Loading
 
-
 ```bash
 npx agentdb@latest reflexion retrieve "state park WV" --k 10 --synthesize-context
 npx agentdb@latest reflexion retrieve "old-growth forest trails" --k 10 --synthesize-context
@@ -36,12 +35,14 @@ npx agentdb@latest reflexion critique-summary "WVWO"
 ## Research Focus (Researcher Agent)
 
 **Key Queries**:
+
 - "Cathedral State Park old-growth hemlock forest"
 - "Cathedral State Park hiking trails accessibility"
 - "Cathedral State Park distance from I-79"
 - "Cathedral State Park Aurora WV"
 
 **Data Priorities**:
+
 - Size: 133 acres (small park, big trees)
 - Old-growth: 350+ year-old hemlocks
 - Trails: 3 miles easy walking (loop trails)
@@ -118,6 +119,7 @@ Grand love ya.
 ## Validation (Tester Agent)
 
 **Checklist**:
+
 - [ ] Old-growth age accurate (350+ years verified)
 - [ ] Accessibility info clear (boardwalk sections)
 - [ ] Honest about distance (far from shop, not primary destination)

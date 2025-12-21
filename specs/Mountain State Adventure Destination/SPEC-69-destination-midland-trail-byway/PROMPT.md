@@ -8,6 +8,7 @@ You are the **Swarm Queen** coordinating a specialized team to create compelling
 
 **Queen Agent**: Coordinates all agents, ensures WVWO brand voice consistency, validates against constitution
 **Specialist Agents**:
+
 - `researcher`: Byway research, US 60 corridor, scenic highlights, access points
 - `wv-historian`: Midland Trail history, corridor heritage, counties along route
 - `hunter-strategist`: Hunter relevance, corridor WMA access, multi-county hunting opportunities
@@ -17,7 +18,6 @@ You are the **Swarm Queen** coordinating a specialized team to create compelling
 ### Context Requirements
 
 **BEFORE generating content**, Queen must coordinate parallel research:
-
 
 ```bash
 # Queen spawns all researchers simultaneously
@@ -31,6 +31,7 @@ Task("SEO specialist", "Research 'Midland Trail hunting', 'US 60 corridor WV hun
 ### Content Template: Scenic Drive
 
 **Required Sections**:
+
 1. **Hero** (1-2 sentences): Historic US 60 corridor + scenic highlights, hunter appeal as multi-county access route
 2. **Why Hunters Drive This Route** (3-4 bullets): Multi-county WMA access, scenic corridor, connects hunting areas, lodging options
 3. **The Drive** (2-3 paragraphs): Route details (length, counties), scenic highlights, key stops, road character
@@ -50,12 +51,14 @@ Task("SEO specialist", "Research 'Midland Trail hunting', 'US 60 corridor WV hun
 ### SEO Strategy
 
 **Primary Keywords**:
+
 - "Midland Trail Byway hunting"
 - "US 60 corridor WV hunting access"
 - "scenic byway hunting WV"
 - "multi-county hunting route WV"
 
 **Geographic Modifiers**:
+
 - US 60 corridor
 - Fayette, Greenbrier, Nicholas counties
 - I-79 intersection (Birch River area)
@@ -99,6 +102,7 @@ huntingCorridor: "high (connects multiple counties and WMAs)"
 ### Coordination Protocol
 
 **Queen's Workflow**:
+
 1. Spawn all 4 specialist agents in parallel (single message)
 2. Wait for research completion
 3. Brief content-writer with synthesized research

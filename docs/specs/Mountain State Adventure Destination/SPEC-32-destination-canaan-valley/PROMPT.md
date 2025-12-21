@@ -1,6 +1,7 @@
 # SPEC-32: Canaan Valley Destination Page - Swarm Implementation Prompt
 
 ## Objective
+
 Create `/destinations/canaan-valley` page using hierarchical swarm coordination with WebSearch research, AgentDB pattern learning, and hybrid template implementation (combines ski resort + state park patterns).
 
 ## Swarm Architecture
@@ -8,8 +9,10 @@ Create `/destinations/canaan-valley` page using hierarchical swarm coordination 
 **Topology**: Hierarchical (1 queen → 3 scouts → 2 planners → 1 coder)
 
 ### Queen Agent (Coordinator)
+
 **Role**: Orchestrate research → planning → implementation for hybrid ski/state park destination
 **Responsibilities**:
+
 - Initialize swarm memory namespace `swarm/canaan-valley`
 - Assign tasks to scouts (state park info, ski resort info, summer activities/wildlife)
 - Synthesize scout findings for planners (hybrid template integration)
@@ -19,6 +22,7 @@ Create `/destinations/canaan-valley` page using hierarchical swarm coordination 
 ### Scout Agents (3 Parallel Researchers)
 
 #### Scout 1: State Park Official Information
+
 **Research targets**:
 
 ```bash
@@ -37,6 +41,7 @@ npx agentdb@latest skill search "state park facilities camping" 5
 ```
 
 **Deliverables**:
+
 - Official WV State Parks URLs
 - Park amenities (campground, lodge, trails)
 - Entry/camping fees
@@ -44,6 +49,7 @@ npx agentdb@latest skill search "state park facilities camping" 5
 - Regulations (pets, fires, backcountry)
 
 #### Scout 2: Ski Resort Information
+
 **Research targets**:
 
 ```bash
@@ -62,6 +68,7 @@ npx agentdb@latest recall with-certificate "family ski destination" 12
 ```
 
 **Deliverables**:
+
 - Ski terrain (47 slopes/trails, 4 lifts)
 - Difficulty breakdown (beginner 40%, intermediate 40%, advanced 20%)
 - Season dates (Dec-Mar typically)
@@ -69,6 +76,7 @@ npx agentdb@latest recall with-certificate "family ski destination" 12
 - Tubing park (family-friendly winter activity)
 
 #### Scout 3: Summer Activities & Wildlife
+
 **Research targets**:
 
 ```bash
@@ -87,6 +95,7 @@ npx agentdb@latest skill search "wetlands birding nature" 5
 ```
 
 **Deliverables**:
+
 - Summer hiking trails (Bald Knob, Blackwater River Trail)
 - Wildlife viewing (wetlands, birding hotspot)
 - Canaan Valley National Wildlife Refuge (adjacent)
@@ -96,6 +105,7 @@ npx agentdb@latest skill search "wetlands birding nature" 5
 ### Planner Agents (2 Sequential Architects)
 
 #### Planner 1: Content Architecture (Hybrid Template)
+
 **Input**: Synthesized scout findings from queen
 **Template**: Hybrid (ski resort + state park patterns)
 
@@ -108,6 +118,7 @@ npx agentdb@latest reflexion retrieve "WVWO voice Kim authentic" --k 10 --only-s
 ```
 
 **Responsibilities**:
+
 1. Map scout data to hybrid template sections
 2. Design hero content (valley landscape, winter/summer dual appeal)
 3. Plan winter/summer content split (ski resort vs nature/wildlife)
@@ -115,6 +126,7 @@ npx agentdb@latest reflexion retrieve "WVWO voice Kim authentic" --k 10 --only-s
 5. Voice design: Family-friendly, nature-appreciative, affordable alternative to Snowshoe
 
 **Deliverables**:
+
 - Content outline with hybrid section headers
 - Hero messaging ("Canaan Valley: Where Mountains Meet Wetlands")
 - Winter ski vs summer nature content blocks
@@ -122,6 +134,7 @@ npx agentdb@latest reflexion retrieve "WVWO voice Kim authentic" --k 10 --only-s
 - Gear callout placements (ski winter, hiking/birding summer)
 
 #### Planner 2: Technical Architecture
+
 **Input**: Content architecture from Planner 1
 
 **AgentDB retrieval**:
@@ -133,6 +146,7 @@ npx agentdb@latest skill search "dual attraction hybrid page" 5
 ```
 
 **Responsibilities**:
+
 1. Component selection (SeasonalToggle, TrailList, WildlifeGallery, SkiTerrainBreakdown)
 2. Data structure design (ski trails, hiking trails, wildlife species, seasonal activities)
 3. Schema.org markup (SkiResort + StateOrProvincialPark types)
@@ -140,12 +154,14 @@ npx agentdb@latest skill search "dual attraction hybrid page" 5
 5. Responsive layout (mobile nature photography emphasis)
 
 **Deliverables**:
+
 - Component tree with seasonal state management
 - JSON data structure (ski terrain, hiking trails, wildlife, amenities)
 - Schema markup template (dual types)
 - Performance budget (nature photography lazy loading)
 
 ### Coder Agent (Implementation)
+
 **Input**: Content + technical architecture from planners
 
 **AgentDB retrieval**:
@@ -157,6 +173,7 @@ npx agentdb@latest reflexion retrieve "WVWO aesthetic nature photography" --k 10
 ```
 
 **Responsibilities**:
+
 1. Implement `/wv-wild-web/src/pages/destinations/canaan-valley.astro`
 2. Create seasonal toggle component (Winter Ski / Summer Nature tabs)
 3. Apply WVWO aesthetic (earthy palette, sign-green for nature, brand-brown for ski)
@@ -165,6 +182,7 @@ npx agentdb@latest reflexion retrieve "WVWO aesthetic nature photography" --k 10
 6. Add gear category links (winter ski, summer hiking/birding)
 
 **Quality gates**:
+
 - Pass WVWO aesthetic checklist
 - Kim's voice authentic (family-friendly, nature-appreciative, affordable)
 - Mobile-responsive toggle (375px width)
@@ -172,6 +190,7 @@ npx agentdb@latest reflexion retrieve "WVWO aesthetic nature photography" --k 10
 - Load time <2s on 3G
 
 **Deliverables**:
+
 - Complete `.astro` page file
 - SeasonalToggle component
 - WildlifeGallery component (if needed)
@@ -180,6 +199,7 @@ npx agentdb@latest reflexion retrieve "WVWO aesthetic nature photography" --k 10
 ## Data Requirements
 
 ### Geographic Data
+
 **Shop coordinates**: `38.5858, -80.8581` (Birch River, WV)
 **Destination coordinates**: `39.1213, -79.4354` (Canaan Valley, WV)
 **Drive time**: ~2 hours via US-219 N
@@ -324,19 +344,23 @@ NEVER: "Premier destination", "Luxury resort", "World-class slopes", "Ultimate e
 ## Content Blocks (Hybrid Template Sections)
 
 ### Hero Block
+
 **Image**: Valley landscape (winter: snowy slopes, summer: wetlands)
 **Headline**: "Canaan Valley: Where Mountains Meet Wetlands"
 **Subhead**: "Family skiing in winter, rare wildlife in summer. State park + ski resort. 2 hours from our shop."
 **CTA**: "Shop Winter Gear" (winter) / "Shop Hiking Gear" (summer toggle)
 
 ### Seasonal Toggle Block
+
 **Component**: `<SeasonalToggle seasons={["Winter Ski", "Summer Nature"]} client:visible />`
 **Winter content**: Ski resort terrain, tubing park, cross-country trails
 **Summer content**: Hiking trails, wildlife viewing, birding, golf
 
 ### Winter Ski Content
+
 **Component**: `<SkiTerrainBreakdown resort={canaanValleyResort} />`
 **Content**:
+
 - 47 trails, 4 lifts (beginner-friendly 40%/40%/20% split)
 - Tubing park (family favorite)
 - Night skiing available
@@ -344,8 +368,10 @@ NEVER: "Premier destination", "Luxury resort", "World-class slopes", "Ultimate e
 **Kim's note**: *"Canaan's perfect for learning or family skiing. Not as big as Snowshoe, but way less intimidating."*
 
 ### Summer Nature Content
+
 **Component**: `<TrailList trails={canaanValleyPark.trails} />`
 **Content**:
+
 - Hiking trails (Bald Knob summit, Blackwater wetlands)
 - Wildlife viewing (200+ bird species, snowshoe hare, black bear)
 - Canaan Valley National Wildlife Refuge (adjacent)
@@ -353,12 +379,15 @@ NEVER: "Premier destination", "Luxury resort", "World-class slopes", "Ultimate e
 **Kim's note**: *"Birders love Canaan - rare species you won't see elsewhere in WV. Bring field guides."*
 
 ### Wildlife Gallery Block
+
 **Content**: Photography showcase (birds, wetlands, deer, rare plants)
 **Caption examples**: "Snowshoe hare (winter coat)", "High-elevation wetlands", "Swainson's thrush (spring migrant)"
 **CTA**: "Shop Binoculars & Field Guides"
 
 ### State Park Amenities Block
+
 **Content**:
+
 - Campground (34 sites, electric hookups)
 - Lodge (250 rooms, on-site dining)
 - Golf course (18-hole)
@@ -366,7 +395,9 @@ NEVER: "Premier destination", "Luxury resort", "World-class slopes", "Ultimate e
 **Kim's note**: *"State park camping is cheap ($20-30/night). Lodge is reasonable if you want a bed and hot shower."*
 
 ### Access & Logistics Block
+
 **Content**:
+
 - Drive time from WVWO shop: 2 hours via US-219 N
 - Entry fees: (state park day-use free, camping $20-30)
 - Ski lift tickets: (link to resort - cheaper than Snowshoe)
@@ -374,6 +405,7 @@ NEVER: "Premier destination", "Luxury resort", "World-class slopes", "Ultimate e
 **CTA**: "We're halfway there - stop by for gear and local beta"
 
 ### Local Knowledge Block
+
 **Kim's voice**:
 
 ```
@@ -401,7 +433,6 @@ boots, binoculars, field guides, bug spray - we've got you covered. Grand love y
 ```
 
 ## Schema.org Markup (Dual Types)
-
 
 ```typescript
 const canaanValleySchema = {
@@ -490,6 +521,7 @@ npx claude-flow@alpha hooks session-end --export-metrics true
 ## Success Criteria
 
 ### Content Quality
+
 - [ ] Kim's voice authentic (family-friendly, affordable alternative, nature-appreciative)
 - [ ] Zero AI slop ("premier", "luxury", etc.)
 - [ ] Seasonal toggle clear (winter ski vs summer nature)
@@ -497,6 +529,7 @@ npx claude-flow@alpha hooks session-end --export-metrics true
 - [ ] Gear recommendations match WVWO inventory
 
 ### Technical Quality
+
 - [ ] Passes WVWO aesthetic checklist
 - [ ] Mobile-responsive toggle (375px width)
 - [ ] Schema.org dual-type validation (SkiResort + StateOrProvincialPark)
@@ -505,6 +538,7 @@ npx claude-flow@alpha hooks session-end --export-metrics true
 - [ ] Load time <2s on 3G
 
 ### Swarm Coordination
+
 - [ ] All scouts completed research in parallel
 - [ ] Queen successfully synthesized hybrid data
 - [ ] Planners built on scout data

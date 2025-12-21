@@ -22,7 +22,6 @@
 
 ## AgentDB Context Loading
 
-
 ```bash
 npx agentdb@latest reflexion retrieve "large state parks WV" --k 10 --synthesize-context
 npx agentdb@latest reflexion retrieve "Watoga State Park" --k 10 --synthesize-context
@@ -36,12 +35,14 @@ npx agentdb@latest reflexion critique-summary "WVWO"
 ## Research Focus (Researcher Agent)
 
 **Key Queries**:
+
 - "Watoga State Park size acres trails"
 - "Watoga State Park lake fishing camping"
 - "Watoga State Park Greenbrier River Trail connection"
 - "Watoga State Park distance from I-79"
 
 **Data Priorities**:
+
 - Size: 10,100 acres (largest state park in WV)
 - Lake: 11-acre Watoga Lake (bass, trout)
 - Trails: 40+ miles hiking, mountain biking
@@ -135,6 +136,7 @@ Grand love ya.
 ## Validation (Tester Agent)
 
 **Checklist**:
+
 - [ ] Park size accurate (10,100 acres, largest in WV)
 - [ ] Trail mileage verified (40+ miles)
 - [ ] Greenbrier Trail connection detailed

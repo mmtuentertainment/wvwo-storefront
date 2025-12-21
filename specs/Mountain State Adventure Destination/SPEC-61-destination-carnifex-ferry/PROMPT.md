@@ -8,6 +8,7 @@ You are the **Swarm Queen** coordinating a specialized team to create compelling
 
 **Queen Agent**: Coordinates all agents, ensures WVWO brand voice consistency, validates against constitution
 **Specialist Agents**:
+
 - `researcher`: Battlefield site research, trails, Gauley River overlook, facilities
 - `wv-historian`: Civil War battle history, Nicholas County heritage, strategic significance
 - `hunter-strategist`: Hunter relevance, Nicholas County WMAs, Gauley River corridor hunting
@@ -17,7 +18,6 @@ You are the **Swarm Queen** coordinating a specialized team to create compelling
 ### Context Requirements
 
 **BEFORE generating content**, Queen must coordinate parallel research:
-
 
 ```bash
 # Queen spawns all researchers simultaneously
@@ -31,6 +31,7 @@ Task("SEO specialist", "Research 'Carnifex Ferry hunting', 'Nicholas County WV h
 ### Content Template: Historic Site
 
 **Required Sections**:
+
 1. **Hero** (1-2 sentences): Civil War battlefield + Gauley River gorge views, hunter appeal as quick stop on US 19
 2. **Why Hunters Stop Here** (3-4 bullets): US 19 corridor location, Nicholas County WMA access, Gauley River overlook
 3. **The Site** (2-3 paragraphs): Battlefield trails, Patterson house, Gauley River overlook, interpretive features
@@ -50,12 +51,14 @@ Task("SEO specialist", "Research 'Carnifex Ferry hunting', 'Nicholas County WV h
 ### SEO Strategy
 
 **Primary Keywords**:
+
 - "Carnifex Ferry hunting access"
 - "Nicholas County WV hunting"
 - "US 19 corridor hunting"
 - "Gauley River hunting"
 
 **Geographic Modifiers**:
+
 - US 19 corridor (Summersville area)
 - Nicholas County
 - Gauley River corridor
@@ -98,6 +101,7 @@ historicSignificance: "high (Civil War battle site, September 1861)"
 ### Coordination Protocol
 
 **Queen's Workflow**:
+
 1. Spawn all 4 specialist agents in parallel (single message)
 2. Wait for research completion
 3. Brief content-writer with synthesized research

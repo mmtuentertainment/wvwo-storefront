@@ -1,6 +1,7 @@
 # SPEC-31: Snowshoe Mountain Destination Page - Swarm Implementation Prompt
 
 ## Objective
+
 Create `/destinations/snowshoe-mountain` page using hierarchical swarm coordination with WebSearch research, AgentDB pattern learning, and ski resort template implementation.
 
 ## Swarm Architecture
@@ -8,8 +9,10 @@ Create `/destinations/snowshoe-mountain` page using hierarchical swarm coordinat
 **Topology**: Hierarchical (1 queen → 3 scouts → 2 planners → 1 coder)
 
 ### Queen Agent (Coordinator)
+
 **Role**: Orchestrate research → planning → implementation for premier ski resort destination
 **Responsibilities**:
+
 - Initialize swarm memory namespace `swarm/snowshoe-mountain`
 - Assign tasks to scouts (resort info, ski conditions, summer activities)
 - Synthesize scout findings for planners
@@ -19,6 +22,7 @@ Create `/destinations/snowshoe-mountain` page using hierarchical swarm coordinat
 ### Scout Agents (3 Parallel Researchers)
 
 #### Scout 1: Resort Official Information
+
 **Research targets**:
 
 ```bash
@@ -37,6 +41,7 @@ npx agentdb@latest skill search "resort amenities pricing" 5
 ```
 
 **Deliverables**:
+
 - Official resort URLs (snowshoemtn.com)
 - Lift ticket prices (day passes, season passes)
 - Terrain breakdown (244 acres, 60 trails, 14 lifts)
@@ -44,6 +49,7 @@ npx agentdb@latest skill search "resort amenities pricing" 5
 - Operating season (Nov-Apr typically)
 
 #### Scout 2: Winter Ski Conditions & Terrain
+
 **Research targets**:
 
 ```bash
@@ -62,6 +68,7 @@ npx agentdb@latest recall with-certificate "winter sports content" 12
 ```
 
 **Deliverables**:
+
 - Average snowfall (180 inches/year)
 - Snowmaking coverage (100% of trails)
 - Terrain parks (progressive features)
@@ -69,6 +76,7 @@ npx agentdb@latest recall with-certificate "winter sports content" 12
 - Base elevation (4,848 ft - highest in Mid-Atlantic)
 
 #### Scout 3: Summer & Off-Season Activities
+
 **Research targets**:
 
 ```bash
@@ -87,6 +95,7 @@ npx agentdb@latest skill search "seasonal transition shoulder season" 5
 ```
 
 **Deliverables**:
+
 - Summer activities (mountain biking, hiking, golf, scenic chairlift rides)
 - Bike park terrain (downhill trails, lift-accessed)
 - Disc golf courses (Raven Golf Club)
@@ -95,6 +104,7 @@ npx agentdb@latest skill search "seasonal transition shoulder season" 5
 ### Planner Agents (2 Sequential Architects)
 
 #### Planner 1: Content Architecture
+
 **Input**: Synthesized scout findings from queen
 **Template**: Ski resort template (`docs/templates/destination-ski.md`)
 
@@ -107,6 +117,7 @@ npx agentdb@latest reflexion retrieve "WVWO voice Kim authentic" --k 10 --only-s
 ```
 
 **Responsibilities**:
+
 1. Map scout data to ski template sections
 2. Design hero content (snowy mountain imagery, "WV's premier ski resort")
 3. Plan winter/summer content toggle (seasonal switcher component)
@@ -114,6 +125,7 @@ npx agentdb@latest reflexion retrieve "WVWO voice Kim authentic" --k 10 --only-s
 5. Voice design: Accessible but realistic about conditions
 
 **Deliverables**:
+
 - Content outline with ski template headers
 - Hero messaging ("Snowshoe: West Virginia's Sky-High Winter Playground")
 - Winter vs summer content blocks
@@ -121,6 +133,7 @@ npx agentdb@latest reflexion retrieve "WVWO voice Kim authentic" --k 10 --only-s
 - Gear callout placements (ski/snowboard, summer biking)
 
 #### Planner 2: Technical Architecture
+
 **Input**: Content architecture from Planner 1
 
 **AgentDB retrieval**:
@@ -132,6 +145,7 @@ npx agentdb@latest skill search "terrain map interactive" 5
 ```
 
 **Responsibilities**:
+
 1. Component selection (SeasonalToggle, TerrainBreakdown, LiftStatus, GearList)
 2. Data structure design (winter trails, summer trails, lift info, conditions)
 3. Schema.org markup (SkiResort type)
@@ -139,12 +153,14 @@ npx agentdb@latest skill search "terrain map interactive" 5
 5. Responsive layout (mobile trail list, desktop interactive map idea)
 
 **Deliverables**:
+
 - Component tree with seasonal state management
 - JSON data structure (trails by difficulty, lifts, summer activities)
 - Schema markup template (SkiResort)
 - Performance budget (trail map images, lazy load summer content)
 
 ### Coder Agent (Implementation)
+
 **Input**: Content + technical architecture from planners
 
 **AgentDB retrieval**:
@@ -156,6 +172,7 @@ npx agentdb@latest reflexion retrieve "WVWO aesthetic shadcn toggle" --k 10 --on
 ```
 
 **Responsibilities**:
+
 1. Implement `/wv-wild-web/src/pages/destinations/snowshoe-mountain.astro`
 2. Create seasonal toggle component (Winter/Summer tabs)
 3. Apply WVWO aesthetic (brand-brown, sign-green, blaze-orange for advanced terrain)
@@ -164,6 +181,7 @@ npx agentdb@latest reflexion retrieve "WVWO aesthetic shadcn toggle" --k 10 --on
 6. Add gear category links (winter: ski/snowboard, summer: biking)
 
 **Quality gates**:
+
 - Pass WVWO aesthetic checklist
 - Kim's voice authenticity (accessible, family-friendly tone)
 - Mobile-responsive toggle (375px width)
@@ -171,6 +189,7 @@ npx agentdb@latest reflexion retrieve "WVWO aesthetic shadcn toggle" --k 10 --on
 - Load time <2s on 3G
 
 **Deliverables**:
+
 - Complete `.astro` page file
 - SeasonalToggle component
 - TerrainBreakdown component
@@ -179,6 +198,7 @@ npx agentdb@latest reflexion retrieve "WVWO aesthetic shadcn toggle" --k 10 --on
 ## Data Requirements
 
 ### Geographic Data
+
 **Shop coordinates**: `38.5858, -80.8581` (Birch River, WV)
 **Destination coordinates**: `38.4098, -79.9937` (Snowshoe, WV)
 **Drive time**: ~90 minutes via US-219 S
@@ -381,24 +401,29 @@ NEVER: "Premier destination", "World-class slopes", "Luxury mountain experience"
 ## Content Blocks (Ski Resort Template Sections)
 
 ### Hero Block
+
 **Image**: Snowy slopes with skiers, Snowshoe summit
 **Headline**: "Snowshoe: West Virginia's Sky-High Winter Playground"
 **Subhead**: "60 trails, 180 inches of snow, 4,848 ft elevation. Summer bike park too. 90 minutes from our shop."
 **CTA**: "Shop Winter Gear" (winter) / "Shop Biking Gear" (summer toggle)
 
 ### Seasonal Toggle Block
+
 **Component**: `<SeasonalToggle seasons={["Winter", "Summer"]} client:visible />`
 **Winter content**: Ski trails, terrain parks, lift status
 **Summer content**: Bike park, hiking, disc golf, scenic chairlift
 
 ### Terrain Breakdown Block (Winter)
+
 **Component**: `<TerrainBreakdown resort={snowshoeResort} trails={notableTrails} />`
 **Content**: Visual breakdown (20% beginner, 40% intermediate, 30% advanced, 10% expert)
 **Highlights**: Cupp Run (longest), Shay's Revenge (steepest), Sawmill (beginner-friendly)
 **Kim's note**: *"If you're new, stick to Snowshoe Basin (green/blue runs). Western Territory is where it gets spicy."*
 
 ### Conditions & Snowfall Block
+
 **Content**:
+
 - Average snowfall: 180 inches/year
 - Snowmaking: 100% coverage (reliable even in lean years)
 - Base elevation: 4,848 ft (highest in Mid-Atlantic)
@@ -406,13 +431,16 @@ NEVER: "Premier destination", "World-class slopes", "Luxury mountain experience"
 **Kim's note**: *"Snowshoe's high enough that snow sticks. Even warm winters, they'll make enough to keep you skiing."*
 
 ### Summer Activities Block
+
 **Component**: `<SummerActivities activities={summerActivities} />`
 **Content**: Bike park (lift-accessed downhill), hiking, disc golf, scenic chairlift
 **Gear callouts**: Mountain biking gear, hiking boots
 **Kim's note**: *"Summer at Snowshoe is quieter. Bike park's fun, and the chairlift ride to the summit is worth it for the views alone."*
 
 ### Access & Logistics Block
+
 **Content**:
+
 - Drive time from WVWO shop: 90 min via US-219 S
 - Lift ticket prices: (link to resort site - prices change)
 - Parking: Resort lots (paid during peak season)
@@ -420,6 +448,7 @@ NEVER: "Premier destination", "World-class slopes", "Luxury mountain experience"
 **CTA**: "Stock up on gear before the drive - we're 30 min closer than Snowshoe's shops"
 
 ### Local Knowledge Block
+
 **Kim's voice**:
 
 ```
@@ -446,7 +475,6 @@ than the resort's. Grand love ya."
 ```
 
 ## Schema.org Markup
-
 
 ```typescript
 const snowshoeSchema = {
@@ -540,6 +568,7 @@ npx claude-flow@alpha hooks session-end --export-metrics true
 ## Success Criteria
 
 ### Content Quality
+
 - [ ] Kim's voice authentic (accessible, family-friendly, honest about conditions)
 - [ ] Zero AI slop ("premier destination", "luxury experience", etc.)
 - [ ] Seasonal toggle clear (winter vs summer content)
@@ -547,6 +576,7 @@ npx claude-flow@alpha hooks session-end --export-metrics true
 - [ ] Gear recommendations match WVWO inventory
 
 ### Technical Quality
+
 - [ ] Passes WVWO aesthetic checklist
 - [ ] Mobile-responsive toggle (375px width)
 - [ ] Schema.org SkiResort validation
@@ -555,6 +585,7 @@ npx claude-flow@alpha hooks session-end --export-metrics true
 - [ ] Load time <2s on 3G
 
 ### Swarm Coordination
+
 - [ ] All scouts completed research in parallel
 - [ ] Queen successfully synthesized findings
 - [ ] Planners built on scout data

@@ -23,7 +23,6 @@
 
 ## AgentDB Context Loading (BEFORE Starting)
 
-
 ```bash
 # Parallel context retrieval (Opus 4.5 strength)
 npx agentdb@latest reflexion retrieve "card components" --k 10 --synthesize-context
@@ -66,6 +65,7 @@ npx claude-flow@alpha hooks post-edit \
 ## WVWO Context (Critical Constraints)
 
 **From CLAUDE.md**:
+
 - **Aesthetic**: Border-l-4 accent (sign-green), rounded-sm corners, hover translateY(-2px)
 - **Animation**: Gentle stagger on grid load (60ms delay per card)
 - **Typography**: font-display for titles, font-body for descriptions
@@ -135,6 +135,7 @@ interface Props {
 ```
 
 **Design Constraints**:
+
 - Image: `aspect-[4/3] object-cover` (landscape adventures)
 - Badge position: Top-right absolute with difficulty color
 - Hover: Border-left changes sign-green → brand-orange
@@ -152,7 +153,6 @@ npx claude-flow@alpha hooks post-edit \
 ### 3️⃣ Coder: Implement AdventureCard.astro
 
 **Implementation Requirements**:
-
 
 ```astro
 ---
@@ -242,6 +242,7 @@ const staggerDelay = `${index * 60}ms`;
 **Save Location**: `./wv-wild-web\src\components\adventure\AdventureCard.astro`
 
 **Code Quality Checks**:
+
 - [ ] Border-l-4 pattern matches ProductCard
 - [ ] Hover state includes translateY(-2px) AND border color change
 - [ ] Stagger animation uses 60ms delay per index
@@ -264,6 +265,7 @@ npx claude-flow@alpha hooks post-edit \
 **Validation Checklist**:
 
 **Visual Audit**:
+
 - [ ] Border accent is 4px left, sign-green default
 - [ ] Hover changes border to brand-orange + lifts 2px
 - [ ] Difficulty badge positioned top-right with correct colors
@@ -283,6 +285,7 @@ npx claude-flow@alpha hooks post-edit \
 ```
 
 **Accessibility**:
+
 - [ ] Full card is single clickable link (no nested links)
 - [ ] Image has descriptive alt text
 - [ ] Difficulty badge has semantic meaning
@@ -357,18 +360,21 @@ echo "SPEC-08 Complete: AdventureCard.astro component ready at wv-wild-web/src/c
 ## Success Criteria
 
 ✅ **Component Implemented**:
+
 - AdventureCard.astro created with full ProductCard aesthetic
 - Border-l-4 accent pattern working
 - Hover state with translateY + border color change
 - Animation stagger for grid reveals
 
 ✅ **WVWO Compliance**:
+
 - Typography: font-display (Bitter) + font-body (Noto Sans)
 - Colors: brand-brown, sign-green, brand-orange
 - Corners: rounded-sm (not rounded-md/lg)
 - Motion: Respects prefers-reduced-motion
 
 ✅ **Quality Checks**:
+
 - Responsive grid tested (mobile/tablet/desktop)
 - Accessibility validated (full card link, alt text)
 - Integration test file created

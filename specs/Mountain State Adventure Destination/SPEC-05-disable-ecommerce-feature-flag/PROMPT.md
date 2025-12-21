@@ -7,6 +7,7 @@ You are Claude Opus 4.5 orchestrating hierarchical research swarm to design and 
 Read: `./docs\claude-code-agents-wvwo.html`
 
 **Selected for This Spec**:
+
 - **Queen**: hierarchical-coordinator (orchestrates swarm, synthesizes plan)
 - **Scout 1**: scout-explorer (cart dependency tree analysis)
 - **Scout 2**: scout-explorer (feature flag pattern research)
@@ -18,7 +19,6 @@ Read: `./docs\claude-code-agents-wvwo.html`
 ## Context Loading (PARALLEL - Execute ALL in single message)
 
 Execute these 6 AgentDB commands in parallel:
-
 
 ```bash
 # 1. Load full WVWO context (15 episodes)
@@ -51,7 +51,6 @@ After loading, acknowledge with brief summary:
 ## Hierarchical Swarm Setup
 
 ### Queen Coordinator
-
 
 ```
 Task("Commerce disable orchestration", "Orchestrate scout research and architect design for PUBLIC_COMMERCE_ENABLED=false feature flag. Coordinate 3 scouts (dependencies, patterns, CTAs) + 2 architects (implementation, reversibility). Synthesize complete plan.md with file-by-file implementation spec.", "hierarchical-coordinator")
@@ -224,14 +223,17 @@ Output: Validation report with go/no-go recommendation.", "code-reviewer")
 ## WVWO Context
 
 ### Project Goal
+
 Prepare for strategic pivot from e-commerce storefront to adventure destination hub. Phase 3C e-commerce will be re-enabled later with adjusted focus (shippable gear only, not firearms).
 
 ### Current State
+
 - **Tech**: Astro 5.x + Tailwind CSS 4.x + React/shadcn components
 - **Commerce**: Cart (cart.js), checkout (PaymentSection.tsx), product cards with "Add to Cart"
 - **Products**: Store data (guns, ammo, gear) - keep data, hide buying UI
 
 ### Constraints
+
 1. **Reversibility**: Must be single env var toggle (PUBLIC_COMMERCE_ENABLED=true/false)
 2. **Data Preservation**: Products, images, descriptions stay intact
 3. **WVWO Voice**: New CTAs must sound like Kim ("Give us a call" not "Contact us")
@@ -239,6 +241,7 @@ Prepare for strategic pivot from e-commerce storefront to adventure destination 
 5. **Shop Browsability**: /shop pages remain accessible, products informative
 
 ### Success Metrics
+
 - Commerce UI completely hidden when flag=false
 - Products display correctly without cart (informational value retained)
 - New CTAs feel authentic (pass "Would Kim say this?" test)
@@ -248,20 +251,25 @@ Prepare for strategic pivot from e-commerce storefront to adventure destination 
 ### Files to Research (Scout Starting Points)
 
 **Cart Navigation**:
+
 - `wv-wild-web/src/components/Header.astro:33` (desktop cart link)
 - `wv-wild-web/src/components/Header.astro:40` (mobile cart link)
 
 **Cart Script Injection**:
+
 - `wv-wild-web/src/layouts/Layout.astro:203-205` (cart.js script tag)
 
 **Existing PUBLIC_ Pattern**:
+
 - `wv-wild-web/src/components/checkout/PaymentSection.tsx` (PUBLIC_STRIPE_KEY usage example)
 
 **Product Display**:
+
 - Shop pages: `wv-wild-web/src/pages/shop/*.astro`
 - Product cards: Use skill search to locate
 
 **Config**:
+
 - `wv-wild-web/.env` (environment variables)
 - `wv-wild-web/astro.config.mjs` (Astro config)
 

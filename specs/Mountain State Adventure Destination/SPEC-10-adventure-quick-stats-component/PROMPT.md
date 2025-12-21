@@ -22,7 +22,6 @@
 
 ## AgentDB Context Loading (BEFORE Starting)
 
-
 ```bash
 # Parallel context retrieval (Opus 4.5 strength)
 npx agentdb@latest reflexion retrieve "stats grid" --k 10 --synthesize-context
@@ -65,6 +64,7 @@ npx claude-flow@alpha hooks post-edit \
 ## WVWO Context (Critical Constraints)
 
 **From CLAUDE.md**:
+
 - **Layout**: Responsive grid (grid-cols-2 md:grid-cols-4 for 4 stats)
 - **Typography**: font-display for values (large, bold), font-body for labels
 - **Colors**: brand-brown for values, brand-mud/60 for labels
@@ -102,6 +102,7 @@ Read "./wv-wild-web\src\pages\adventures\summersville-lake.astro" --offset 95 --
 ```
 
 **Key Patterns to Extract**:
+
 - Grid layout (grid-cols-2 md:grid-cols-4)
 - Stat structure (icon + value + label)
 - Icon styling (SVG size, color)
@@ -145,6 +146,7 @@ interface Props {
 ```
 
 **Design Constraints**:
+
 - **Flexible columns**: Default 4 columns desktop, auto-collapse to 2 on mobile
 - **Optional icons**: Support SVG icons OR text-only stats
 - **Consistent styling**: All stats follow same visual pattern
@@ -171,7 +173,6 @@ npx claude-flow@alpha hooks post-edit \
 ### 3️⃣ Coder: Implement AdventureQuickStats.astro
 
 **Implementation Requirements**:
-
 
 ```astro
 ---
@@ -269,6 +270,7 @@ const gridClass = `grid grid-cols-2 md:grid-cols-${columns}`;
 **Save Location**: `./wv-wild-web\src\components\adventure\AdventureQuickStats.astro`
 
 **Code Quality Checks**:
+
 - [ ] Responsive grid: grid-cols-2 (mobile) → grid-cols-{columns} (desktop)
 - [ ] Typography: font-display for values, font-body for labels
 - [ ] Colors: brand-brown values, brand-mud/60 labels, sign-green icons
@@ -358,18 +360,21 @@ echo "SPEC-10 Complete: AdventureQuickStats.astro component ready at wv-wild-web
 ## Success Criteria
 
 ✅ **Component Implemented**:
+
 - AdventureQuickStats.astro created with flexible stats array
 - Responsive grid (2 columns mobile → 4 columns desktop)
 - Optional icon system (predefined set + custom SVG)
 - Background color for section contrast
 
 ✅ **WVWO Compliance**:
+
 - Typography: font-display (Bitter) for values, font-body (Noto Sans) for labels
 - Colors: brand-brown values, brand-mud/60 labels, sign-green icons
 - Background: brand-cream section background
 - Motion: Gentle reveal respects prefers-reduced-motion
 
 ✅ **Quality Checks**:
+
 - Flexible columns prop tested (2, 3, 4 columns)
 - Icon system works (predefined + custom SVG paths)
 - Responsive behavior validated (mobile/tablet/desktop)

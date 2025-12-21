@@ -48,6 +48,7 @@ npx agentdb@latest reflexion retrieve "visitor facilities safety information" --
 **Output**: Component architecture specification
 
 **Required Sections**:
+
 1. **Hero**: Cave name, depth, discovery date, quick highlights
 2. **Tour Information**: Duration, difficulty, group size, scheduling
 3. **Formations**: Named features with descriptions and geology
@@ -128,6 +129,7 @@ interface CaveTemplateProps {
 **Output**: `src/components/templates/CaveTemplate.astro`
 
 **Implementation Rules**:
+
 1. **Length**: Target ~475 lines
 2. **Typography**:
    - Hero: `font-display text-4xl md:text-5xl font-bold`
@@ -471,18 +473,21 @@ interface CaveTemplateProps {
 ## VALIDATION CRITERIA
 
 **Completeness**:
+
 - [ ] ~475 lines
 - [ ] All 8 sections implemented
 - [ ] TypeScript props interface complete
 - [ ] Responsive grid layouts (mobile-first)
 
 **WVWO Aesthetic**:
+
 - [ ] `rounded-sm` enforced
 - [ ] Border-left accents (green for tours, orange for accessibility)
 - [ ] Fun facts in `font-hand`
 - [ ] Educational but accessible tone
 
 **Educational Focus**:
+
 - [ ] Formations with geological context
 - [ ] Clear safety and accessibility information
 - [ ] Practical visitor guidance (what to wear/bring)
@@ -492,11 +497,13 @@ interface CaveTemplateProps {
 ## COORDINATION PROTOCOL
 
 **hierarchical-coordinator** manages:
+
 1. **researcher** (WebSearch Seneca Caverns) → Pattern research
 2. **code-architect** → Architecture design
 3. **base-template-generator** → Template implementation
 
 **Memory keys**:
+
 - `swarm/researcher/cave-patterns` - Research findings
 - `swarm/architect/cave-structure` - Component architecture
 - `swarm/generator/cave-template` - Final template path

@@ -1,6 +1,7 @@
 # SPEC-37: Smoke Hole Caverns Destination Page - Swarm Implementation Prompt
 
 ## Objective
+
 Create `/destinations/smoke-hole-caverns` page using hierarchical swarm coordination with WebSearch research, AgentDB pattern learning, and cave template implementation (commercial cave tours with unique Smoke Hole Canyon context).
 
 **Pattern Reuse**: Leverage SPEC-36 Seneca Caverns template and adapt for Smoke Hole's unique features (canyon location, log cabin museum, gift shop emphasis).
@@ -10,8 +11,10 @@ Create `/destinations/smoke-hole-caverns` page using hierarchical swarm coordina
 **Topology**: Hierarchical (1 queen → 3 scouts → 2 planners → 1 coder)
 
 ### Queen Agent (Coordinator)
+
 **Role**: Orchestrate research → planning → implementation for commercial cave in scenic canyon
 **Responsibilities**:
+
 - Initialize swarm memory namespace `swarm/smoke-hole-caverns`
 - Assign tasks to scouts (cavern official info, tour/formations, canyon context/nearby)
 - Synthesize scout findings for planners
@@ -22,6 +25,7 @@ Create `/destinations/smoke-hole-caverns` page using hierarchical swarm coordina
 ### Scout Agents (3 Parallel Researchers)
 
 #### Scout 1: Cavern Official Information
+
 **Research targets**:
 
 ```bash
@@ -40,6 +44,7 @@ npx agentdb@latest skill search "cave tour commercial family" 5
 ```
 
 **Deliverables**:
+
 - Official cavern URLs (smokeholecaverns.com)
 - Tour details (guided tours, duration ~45 min, easier than Seneca Caverns)
 - Admission prices (adults, children, groups)
@@ -47,6 +52,7 @@ npx agentdb@latest skill search "cave tour commercial family" 5
 - On-site amenities (log cabin museum, gift shop, gem mining for kids)
 
 #### Scout 2: Tour Experience & Formations
+
 **Research targets**:
 
 ```bash
@@ -65,6 +71,7 @@ npx agentdb@latest recall with-certificate "commercial cave logistics" 12
 ```
 
 **Deliverables**:
+
 - Tour logistics (fewer stairs than Seneca, 45 min, temp ~56°F year-round)
 - Accessibility (easier tour than Seneca Caverns, still stairs)
 - Unique formations ("World's Only Cave Ribbon", coral reef fossils)
@@ -72,6 +79,7 @@ npx agentdb@latest recall with-certificate "commercial cave logistics" 12
 - Photography policy (allowed on tours)
 
 #### Scout 3: Smoke Hole Canyon Context & Nearby
+
 **Research targets**:
 
 ```bash
@@ -90,6 +98,7 @@ npx agentdb@latest skill search "scenic canyon fishing destination" 5
 ```
 
 **Deliverables**:
+
 - Smoke Hole Canyon (scenic gorge, South Branch Potomac River)
 - Fishing opportunities (trout in South Branch)
 - Proximity to Seneca Rocks (20 min drive)
@@ -99,6 +108,7 @@ npx agentdb@latest skill search "scenic canyon fishing destination" 5
 ### Planner Agents (2 Sequential Architects)
 
 #### Planner 1: Content Architecture
+
 **Input**: Synthesized scout findings from queen
 **Template**: Cave template (SPEC-36 Seneca Caverns adapted)
 
@@ -111,6 +121,7 @@ npx agentdb@latest reflexion retrieve "WVWO voice Kim authentic" --k 10 --only-s
 ```
 
 **Responsibilities**:
+
 1. Map scout data to cave template sections (from SPEC-36)
 2. Design hero content (cave entrance in canyon setting)
 3. Plan tour logistics messaging (easier than Seneca, 45 min, fewer stairs)
@@ -118,6 +129,7 @@ npx agentdb@latest reflexion retrieve "WVWO voice Kim authentic" --k 10 --only-s
 5. Voice design: Family-friendly, easier cave for kids/seniors
 
 **Deliverables**:
+
 - Content outline (cave template from SPEC-36)
 - Hero messaging ("Smoke Hole Caverns: Canyon Cave with Coral Fossils")
 - Tour logistics (45 min, easier than Seneca, 56°F, jacket recommended)
@@ -126,6 +138,7 @@ npx agentdb@latest reflexion retrieve "WVWO voice Kim authentic" --k 10 --only-s
 - Gear callout placements (light jacket, sturdy shoes, fishing gear for canyon)
 
 #### Planner 2: Technical Architecture
+
 **Input**: Content architecture from Planner 1
 
 **AgentDB retrieval**:
@@ -137,6 +150,7 @@ npx agentdb@latest skill search "canyon context scenic drive component" 5
 ```
 
 **Responsibilities**:
+
 1. Component selection (TourDetails, FormationGallery, CanyonContext, NearbyAttractions)
 2. Data structure design (tour info, formations, canyon features, nearby sites)
 3. Schema.org markup (TouristAttraction type)
@@ -145,12 +159,14 @@ npx agentdb@latest skill search "canyon context scenic drive component" 5
 6. External links (Smoke Hole Caverns booking, disclaimer)
 
 **Deliverables**:
+
 - Component tree (reuse SPEC-36 components)
 - JSON data structure (tour, formations, canyon, nearby)
 - Schema markup template (TouristAttraction)
 - Performance budget (cave + canyon photos lazy load)
 
 ### Coder Agent (Implementation)
+
 **Input**: Content + technical architecture from planners
 
 **AgentDB retrieval**:
@@ -162,6 +178,7 @@ npx agentdb@latest reflexion retrieve "WVWO aesthetic cave commercial" --k 10 --
 ```
 
 **Responsibilities**:
+
 1. Implement `/wv-wild-web/src/pages/destinations/smoke-hole-caverns.astro`
 2. Reuse TourDetails component from SPEC-36 (adapt for Smoke Hole data)
 3. Apply WVWO aesthetic (earthy tones, brand-brown, sign-green for canyon)
@@ -171,6 +188,7 @@ npx agentdb@latest reflexion retrieve "WVWO aesthetic cave commercial" --k 10 --
 7. Include disclaimer: "Smoke Hole Caverns is a separate business. Visit smokeholecaverns.com to book."
 
 **Quality gates**:
+
 - Pass WVWO aesthetic checklist
 - Kim's voice authentic (easier cave, family-friendly, canyon context)
 - Mobile-responsive (375px width)
@@ -179,6 +197,7 @@ npx agentdb@latest reflexion retrieve "WVWO aesthetic cave commercial" --k 10 --
 - Clear disclaimer on WVWO/Caverns separation
 
 **Deliverables**:
+
 - Complete `.astro` page file (based on SPEC-36 template)
 - Adapted TourDetails component
 - CanyonContext component (new)
@@ -188,6 +207,7 @@ npx agentdb@latest reflexion retrieve "WVWO aesthetic cave commercial" --k 10 --
 ## Data Requirements
 
 ### Geographic Data
+
 **Shop coordinates**: `38.5858, -80.8581` (Birch River, WV)
 **Destination coordinates**: `38.7939, -79.3156` (near Seneca Rocks, WV - Smoke Hole Caverns)
 **Drive time**: ~2.5 hours via US-33 E
@@ -354,13 +374,16 @@ NEVER: "Journey into the earth", "Subterranean wonderland", "Nature's artistry",
 ## Content Blocks (Cave Template Sections - from SPEC-36)
 
 ### Hero Block
+
 **Image**: Cave entrance or formation with canyon context
 **Headline**: "Smoke Hole Caverns: Canyon Cave with Coral Fossils"
 **Subhead**: "45-minute guided tour, easier than Seneca Caverns. World's Only Cave Ribbon. 2.5 hours from our shop."
 **CTA**: "What to Bring for Your Tour"
 
 ### Cave Overview Block
+
 **Content**:
+
 - Location: Smoke Hole Canyon, along South Branch Potomac River
 - Duration: 45 minutes (shorter than Seneca Caverns)
 - Temperature: 56°F year-round (bring light jacket)
@@ -369,8 +392,10 @@ NEVER: "Journey into the earth", "Subterranean wonderland", "Nature's artistry",
 **Kim's note**: *"Easier cave than Seneca Caverns. Good for kids, seniors, or folks who want a shorter tour."*
 
 ### Tour Details Block
+
 **Component**: `<TourDetails tour={smokeHoleTour} amenities={smokeHoleAmenities} />`
 **Content**:
+
 - Duration: 45 minutes
 - Fewer stairs than Seneca Caverns
 - Temperature: 56°F (bring jacket)
@@ -379,13 +404,16 @@ NEVER: "Journey into the earth", "Subterranean wonderland", "Nature's artistry",
 **Kim's note**: *"Kids love the gem mining - sluice box with gemstones to find. Gift shop has WV souvenirs."*
 
 ### Formation Highlights Block
+
 **Component**: `<FormationGallery formations={smokeHoleFormations} />`
 **Content**: World's Only Cave Ribbon, Coral reef fossils, Stalactites/Stalagmites, Flowstone
 **Kim's note**: *"Cave Ribbon is unique - I haven't seen it anywhere else. Coral fossils remind you WV was underwater 300 million years ago."*
 
 ### Smoke Hole Canyon Context Block (NEW)
+
 **Component**: `<CanyonContext canyon={smokeHoleCanyon} />`
 **Content**:
+
 - Smoke Hole Canyon (scenic gorge)
 - South Branch Potomac River (trout fishing)
 - Scenic drive (Smoke Hole Road - winding canyon road)
@@ -394,15 +422,19 @@ NEVER: "Journey into the earth", "Subterranean wonderland", "Nature's artistry",
 **Kim's note**: *"Canyon drive is beautiful. If you fish, South Branch has trout. Stop by for WV licenses and tackle."*
 
 ### Nearby Attractions Block
+
 **Component**: `<NearbyAttractions attractions={nearby} />`
 **Content**:
+
 - Seneca Rocks (20 min) - climbing, hiking
 - Seneca Caverns (25 min) - deeper cave tours
 - South Branch Potomac (adjacent) - trout fishing
 **Kim's note**: *"Smoke Hole Caverns, Seneca Rocks, and fishing the South Branch - easy to do all three in a day or weekend."*
 
 ### Access & Logistics Block
+
 **Content**:
+
 - Drive time from WVWO shop: 2.5 hours via US-33 E
 - Parking: Free on-site
 - Admission: (link to smokeholecaverns.com for current prices)
@@ -411,6 +443,7 @@ NEVER: "Journey into the earth", "Subterranean wonderland", "Nature's artistry",
 **CTA**: "Stop by WVWO for fishing gear and local beta"
 
 ### Local Knowledge Block
+
 **Kim's voice**:
 
 ```
@@ -446,6 +479,7 @@ here to help with trip planning and gear. Grand love ya."
 ```
 
 ### Disclaimer Block (Prominent)
+
 **Content**:
 
 ```
@@ -456,7 +490,6 @@ or call them directly. We're happy to help with trip planning - stop by the shop
 ```
 
 ## Schema.org Markup
-
 
 ```typescript
 const smokeHoleCavernsSchema = {
@@ -546,6 +579,7 @@ npx claude-flow@alpha hooks session-end --export-metrics true
 ## Success Criteria
 
 ### Content Quality
+
 - [ ] Kim's voice authentic (easier cave, family-friendly, canyon context, fishing tie-in)
 - [ ] Zero AI slop ("subterranean wonderland", "nature's artistry", etc.)
 - [ ] Tour logistics accurate (45 min, fewer stairs, 56°F, easier than Seneca)
@@ -554,6 +588,7 @@ npx claude-flow@alpha hooks session-end --export-metrics true
 - [ ] Clear WVWO/Caverns separation (disclaimer prominent)
 
 ### Technical Quality
+
 - [ ] Passes WVWO aesthetic checklist
 - [ ] Mobile-responsive (375px width)
 - [ ] Schema.org validation (TouristAttraction)
@@ -563,6 +598,7 @@ npx claude-flow@alpha hooks session-end --export-metrics true
 - [ ] External links to Smoke Hole Caverns site (clear, not pushy)
 
 ### Swarm Coordination
+
 - [ ] All scouts completed research in parallel
 - [ ] Queen successfully leveraged SPEC-36 template
 - [ ] Planners adapted Seneca Caverns structure for Smoke Hole

@@ -1,8 +1,8 @@
 # SPEC-06: Astro Content Collections Schema - FOUNDATION PATTERN
 
 ## ARCHITECTURAL CONTEXT
-See [PIVOT_RATIONALE.md](../PIVOT_RATIONALE.md) for details on the strategic shift to Content Collections and the disabling of e-commerce.
 
+See [PIVOT_RATIONALE.md](../PIVOT_RATIONALE.md) for details on the strategic shift to Content Collections and the disabling of e-commerce.
 
 **CONTEXT**: WVWO Phase 4 (Mountain State Adventure Destination) requires structured content for hunting guides, trail maps, seasonal calendars, and adventure stories. Astro 5.x Content Collections provide type-safe frontmatter schemas with Zod validation.
 
@@ -11,7 +11,6 @@ See [PIVOT_RATIONALE.md](../PIVOT_RATIONALE.md) for details on the strategic shi
 ---
 
 ## 🧠 LOAD WVWO INTELLIGENCE (Execute FIRST)
-
 
 ```bash
 # Execute ALL in PARALLEL (Opus 4.5 strength)
@@ -31,9 +30,11 @@ npx agentdb@latest db stats
 ## 🎯 HIERARCHICAL SWARM STRUCTURE
 
 ### QUEEN AGENT: Content Architect
+
 **Role**: Orchestrate schema design, ensure type safety, coordinate scouts and specialists.
 
 **Responsibilities**:
+
 - Parse SPEC-06 requirements for content types
 - Coordinate scout research and specialist analysis
 - Design unified schema architecture
@@ -67,6 +68,7 @@ mcp__claude-flow__memory_usage {
 ## 🔍 SCOUT AGENTS (Research Phase)
 
 ### Scout 1: Astro 5 Documentation Researcher
+
 **Task**: Research Astro 5.x Content Collections API, Zod integration, and TypeScript generation.
 
 **Instructions**:
@@ -104,6 +106,7 @@ mcp__claude-flow__memory_usage {
 ```
 
 ### Scout 2: Existing Frontmatter Analyzer
+
 **Task**: Analyze existing WVWO markdown files for frontmatter patterns to preserve.
 
 **Instructions**:
@@ -145,6 +148,7 @@ mcp__claude-flow__memory_usage {
 ## 🏗️ SPECIALIST AGENTS (Design Phase)
 
 ### Specialist 1: Code Architect
+
 **Role**: Design content collection schemas based on scout findings.
 
 **Instructions**:
@@ -199,6 +203,7 @@ mcp__claude-flow__memory_usage {
 ```
 
 ### Specialist 2: Type Design Analyzer
+
 **Role**: Validate TypeScript type generation and ensure type safety.
 
 **Instructions**:
@@ -326,7 +331,6 @@ mcp__claude-flow__memory_usage {
 
 ### Zod Schema Patterns (Use These)
 
-
 ```typescript
 // Enum example
 const SeasonEnum = z.enum(['spring', 'summer', 'fall', 'winter']);
@@ -350,7 +354,6 @@ const AuthorSchema = z.reference('authors');  // Collection reference
 ```
 
 ### File Organization
-
 
 ```
 src/
@@ -405,13 +408,16 @@ npm run typecheck  # Verify TypeScript inference
 ```
 
 ### Example Content Testing
+
 Create at least one example for EACH collection type:
+
 - adventures/example-hunt.md
 - stories/example-story.md
 - resources/example-wma.md
 - locations/example-trailhead.md
 
 Verify each example:
+
 1. Passes Zod validation (build succeeds)
 2. TypeScript types are inferred correctly
 3. Can be queried with getCollection()
@@ -421,23 +427,27 @@ Verify each example:
 ## 📊 SUCCESS CRITERIA
 
 **Research Phase**:
+
 - [ ] Astro 5 Content Collections API documented
 - [ ] Existing frontmatter patterns analyzed
 - [ ] Scout findings stored in memory
 
 **Design Phase**:
+
 - [ ] Schemas designed for 4+ content types
 - [ ] Zod validation rules defined
 - [ ] TypeScript type safety validated
 - [ ] WVWO-specific fields included
 
 **Implementation Phase**:
+
 - [ ] src/content/config.ts created
 - [ ] Example content for each collection type
 - [ ] Astro build passes validation
 - [ ] Types inferred correctly in IDE
 
 **Validation Phase**:
+
 - [ ] WVWO compliance checklist passed
 - [ ] Documentation written for Matt
 - [ ] Schema patterns stored in AgentDB for future reference
@@ -498,6 +508,7 @@ Report: "SPEC-06 complete. [X] collections, [Y] validation rules, [Z] examples c
 ```
 
 **Remember**:
+
 - ALL operations in single messages (parallel execution)
 - Coordinate via MCP memory tools
 - Use Claude Code's Task tool for agent spawning

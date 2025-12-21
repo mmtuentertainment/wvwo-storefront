@@ -44,6 +44,7 @@ npx agentdb@latest skill search "summersville lake fishing camping" 10
 **Output**: Component architecture specification
 
 **Required Sections**:
+
 1. **Hero**: Lake name, acreage, depth stats, quick highlights
 2. **What to Fish**: Species guide with seasonal patterns
 3. **Where to Fish**: Named coves/points with depth/structure
@@ -120,6 +121,7 @@ interface LakeTemplateProps {
 **Output**: `src/components/templates/LakeTemplate.astro`
 
 **Implementation Rules**:
+
 1. **Length**: Target ~600 lines (matches summersville-lake.astro)
 2. **Typography**:
    - Hero: `font-display text-4xl md:text-5xl lg:text-6xl font-bold`
@@ -409,18 +411,21 @@ interface LakeTemplateProps {
 ## VALIDATION CRITERIA
 
 **Completeness**:
+
 - [ ] ~600 lines (matches summersville-lake.astro depth)
 - [ ] All 8 sections implemented
 - [ ] TypeScript props interface complete
 - [ ] Responsive grid layouts (mobile-first)
 
 **WVWO Aesthetic**:
+
 - [ ] `rounded-sm` enforced (not md/lg)
 - [ ] Border-left accents (green for fish, brown for spots, orange for safety)
 - [ ] Kim's tips in `font-hand`
 - [ ] `font-display`, `font-body`, `font-hand` hierarchy
 
 **Fishing Focus**:
+
 - [ ] Species techniques prominently featured
 - [ ] Fishing spots with depth/structure details
 - [ ] Seasonal patterns emphasized
@@ -431,11 +436,13 @@ interface LakeTemplateProps {
 ## COORDINATION PROTOCOL
 
 **hierarchical-coordinator** manages:
+
 1. **researcher** + **scout-explorer** → Pattern research (parallel)
 2. **code-architect** → Architecture design
 3. **base-template-generator** → Template implementation
 
 **Memory keys**:
+
 - `swarm/researcher/lake-patterns` - Research findings
 - `swarm/architect/lake-structure` - Component architecture
 - `swarm/generator/lake-template` - Final template path

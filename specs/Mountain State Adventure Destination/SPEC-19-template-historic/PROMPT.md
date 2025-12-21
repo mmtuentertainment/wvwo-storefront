@@ -48,6 +48,7 @@ npx agentdb@latest reflexion retrieve "educational tour visitor interpretation" 
 **Output**: Component architecture specification
 
 **Required Sections**:
+
 1. **Hero**: Site name, era/date, significance, National Register status
 2. **Historical Context**: Events, timeline, key figures, broader significance
 3. **Preserved Structures**: Buildings, monuments, markers with descriptions
@@ -145,6 +146,7 @@ interface HistoricTemplateProps {
 **Output**: `src/components/templates/HistoricTemplate.astro`
 
 **Implementation Rules**:
+
 1. **Length**: Target ~475 lines
 2. **Typography**:
    - Hero: `font-display text-4xl md:text-5xl font-bold`
@@ -589,18 +591,21 @@ interface HistoricTemplateProps {
 ## VALIDATION CRITERIA
 
 **Completeness**:
+
 - [ ] ~475 lines
 - [ ] All 8 sections implemented
 - [ ] TypeScript props interface complete
 - [ ] Responsive grid layouts (mobile-first)
 
 **WVWO Aesthetic**:
+
 - [ ] `rounded-sm` enforced
 - [ ] Border-left accents (green for events, brown for structures)
 - [ ] Grayscale hero image (respectful tone)
 - [ ] Storytelling voice
 
 **Educational Focus**:
+
 - [ ] Historical context with depth
 - [ ] Timeline visualization
 - [ ] Interpretive programs featured
@@ -611,11 +616,13 @@ interface HistoricTemplateProps {
 ## COORDINATION PROTOCOL
 
 **hierarchical-coordinator** manages:
+
 1. **researcher** (WebSearch Carnifex Ferry/Bulltown) → Pattern research
 2. **code-architect** → Architecture design
 3. **base-template-generator** → Template implementation
 
 **Memory keys**:
+
 - `swarm/researcher/historic-patterns` - Research findings
 - `swarm/architect/historic-structure` - Component architecture
 - `swarm/generator/historic-template` - Final template path

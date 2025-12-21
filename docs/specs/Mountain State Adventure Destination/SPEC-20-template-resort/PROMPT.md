@@ -48,6 +48,7 @@ npx agentdb@latest reflexion retrieve "resort activities lodging pricing" --k 10
 **Output**: Component architecture specification
 
 **Required Sections**:
+
 1. **Hero**: Resort name, location, signature activities, season dates
 2. **Activity Menu**: Full catalog organized by category (water, land, air, winter)
 3. **Guided Trips**: Outfitter-led adventures with difficulty, duration, pricing
@@ -161,6 +162,7 @@ interface ResortTemplateProps {
 **Output**: `src/components/templates/ResortTemplate.astro`
 
 **Implementation Rules**:
+
 1. **Length**: Target ~575 lines
 2. **Typography**:
    - Hero: `font-display text-4xl md:text-5xl lg:text-6xl font-bold`
@@ -594,18 +596,21 @@ interface ResortTemplateProps {
 ## VALIDATION CRITERIA
 
 **Completeness**:
+
 - [ ] ~575 lines
 - [ ] All 8 sections implemented
 - [ ] TypeScript props interface complete
 - [ ] Responsive grid layouts (mobile-first)
 
 **WVWO Aesthetic**:
+
 - [ ] `rounded-sm` enforced
 - [ ] Border-left accents (green for activities, orange for packages)
 - [ ] Action-oriented CTAs
 - [ ] Pricing clearly displayed
 
 **Functionality**:
+
 - [ ] Conditional rendering (packages, facilities, policies)
 - [ ] Booking URL integration throughout
 - [ ] Activity categorization clear
@@ -616,11 +621,13 @@ interface ResortTemplateProps {
 ## COORDINATION PROTOCOL
 
 **hierarchical-coordinator** manages:
+
 1. **researcher** (WebSearch ACE Adventure Resort) → Pattern research
 2. **code-architect** → Architecture design
 3. **base-template-generator** → Template implementation
 
 **Memory keys**:
+
 - `swarm/researcher/resort-patterns` - Research findings
 - `swarm/architect/resort-structure` - Component architecture
 - `swarm/generator/resort-template` - Final template path

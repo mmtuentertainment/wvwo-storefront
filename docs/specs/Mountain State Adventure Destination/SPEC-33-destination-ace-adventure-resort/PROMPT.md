@@ -1,6 +1,7 @@
 # SPEC-33: ACE Adventure Resort Destination Page - Swarm Implementation Prompt
 
 ## Objective
+
 Create `/destinations/ace-adventure-resort` page using hierarchical swarm coordination with WebSearch research, AgentDB pattern learning, and resort template implementation (commercial adventure resort, distinct from state parks).
 
 ## Swarm Architecture
@@ -8,8 +9,10 @@ Create `/destinations/ace-adventure-resort` page using hierarchical swarm coordi
 **Topology**: Hierarchical (1 queen → 3 scouts → 2 planners → 1 coder)
 
 ### Queen Agent (Coordinator)
+
 **Role**: Orchestrate research → planning → implementation for commercial adventure resort
 **Responsibilities**:
+
 - Initialize swarm memory namespace `swarm/ace-adventure`
 - Assign tasks to scouts (resort official info, activity packages, logistics/booking)
 - Synthesize scout findings for planners
@@ -19,6 +22,7 @@ Create `/destinations/ace-adventure-resort` page using hierarchical swarm coordi
 ### Scout Agents (3 Parallel Researchers)
 
 #### Scout 1: Resort Official Information
+
 **Research targets**:
 
 ```bash
@@ -37,6 +41,7 @@ npx agentdb@latest skill search "guided tours activity packages" 5
 ```
 
 **Deliverables**:
+
 - Official resort URLs (aceraft.com)
 - Activity menu (rafting, zip lines, rock climbing, ATV tours, fishing, paintball)
 - Package deals (multi-activity combos)
@@ -44,6 +49,7 @@ npx agentdb@latest skill search "guided tours activity packages" 5
 - Operating season (year-round with seasonal activities)
 
 #### Scout 2: Activity Details & Difficulty Levels
+
 **Research targets**:
 
 ```bash
@@ -62,6 +68,7 @@ npx agentdb@latest recall with-certificate "family vs adventure activities" 12
 ```
 
 **Deliverables**:
+
 - Rafting trips (New River, Gauley River guided trips)
 - Zip line tours (canopy tour, adventure course)
 - Rock climbing (guided trips to New River Gorge)
@@ -69,6 +76,7 @@ npx agentdb@latest recall with-certificate "family vs adventure activities" 12
 - Family-friendly vs. adventure activities breakdown
 
 #### Scout 3: Lodging, Dining & Logistics
+
 **Research targets**:
 
 ```bash
@@ -87,6 +95,7 @@ npx agentdb@latest skill search "lodging camping resort amenities" 5
 ```
 
 **Deliverables**:
+
 - Lodging options (cabins, lodge rooms, camping, yurts)
 - Dining (on-site restaurant, meal packages)
 - Booking system (online reservations required)
@@ -96,6 +105,7 @@ npx agentdb@latest skill search "lodging camping resort amenities" 5
 ### Planner Agents (2 Sequential Architects)
 
 #### Planner 1: Content Architecture
+
 **Input**: Synthesized scout findings from queen
 **Template**: Resort template (`docs/templates/destination-resort.md`)
 
@@ -108,6 +118,7 @@ npx agentdb@latest reflexion retrieve "WVWO voice Kim authentic" --k 10 --only-s
 ```
 
 **Responsibilities**:
+
 1. Map scout data to resort template sections
 2. Design hero content (action-packed imagery, "adventure resort" positioning)
 3. Plan activity categorization (water, aerial, land, family-friendly)
@@ -115,6 +126,7 @@ npx agentdb@latest reflexion retrieve "WVWO voice Kim authentic" --k 10 --only-s
 5. Voice design: Informative but not pushy (WVWO sells gear, not trips)
 
 **Deliverables**:
+
 - Content outline with resort template headers
 - Hero messaging ("ACE Adventure Resort: New River Gorge's Activity Hub")
 - Activity categories (water, aerial, land, family)
@@ -122,6 +134,7 @@ npx agentdb@latest reflexion retrieve "WVWO voice Kim authentic" --k 10 --only-s
 - Gear callout placements (rafting, zip line, climbing, ATV)
 
 #### Planner 2: Technical Architecture
+
 **Input**: Content architecture from Planner 1
 
 **AgentDB retrieval**:
@@ -133,6 +146,7 @@ npx agentdb@latest skill search "external booking link integration" 5
 ```
 
 **Responsibilities**:
+
 1. Component selection (ActivityGrid, PackageCards, LodgingOptions, ExternalBookingCTA)
 2. Data structure design (activities by category, packages, lodging types)
 3. Schema.org markup (TouristAttraction + LodgingBusiness)
@@ -141,12 +155,14 @@ npx agentdb@latest skill search "external booking link integration" 5
 6. External links (ACE booking site, clear "not affiliated" disclaimer)
 
 **Deliverables**:
+
 - Component tree with activity categorization
 - JSON data structure (activities, packages, lodging)
 - Schema markup template (TouristAttraction + LodgingBusiness)
 - Performance budget (activity images lazy load)
 
 ### Coder Agent (Implementation)
+
 **Input**: Content + technical architecture from planners
 
 **AgentDB retrieval**:
@@ -158,6 +174,7 @@ npx agentdb@latest reflexion retrieve "WVWO aesthetic activity cards" --k 10 --o
 ```
 
 **Responsibilities**:
+
 1. Implement `/wv-wild-web/src/pages/destinations/ace-adventure-resort.astro`
 2. Create ActivityGrid component (categorized activities)
 3. Apply WVWO aesthetic (brand-brown, sign-green, blaze-orange for adventure activities)
@@ -167,6 +184,7 @@ npx agentdb@latest reflexion retrieve "WVWO aesthetic activity cards" --k 10 --o
 7. Include disclaimer: "ACE Adventure Resort is a separate business. We provide gear - book trips directly with them."
 
 **Quality gates**:
+
 - Pass WVWO aesthetic checklist
 - Kim's voice authentic (informative, neutral on bookings, gear-focused)
 - Mobile-responsive activity grid (375px width)
@@ -175,6 +193,7 @@ npx agentdb@latest reflexion retrieve "WVWO aesthetic activity cards" --k 10 --o
 - Clear disclaimer on WVWO/ACE separation
 
 **Deliverables**:
+
 - Complete `.astro` page file
 - ActivityGrid component
 - ExternalBookingCTA component with disclaimer
@@ -183,6 +202,7 @@ npx agentdb@latest reflexion retrieve "WVWO aesthetic activity cards" --k 10 --o
 ## Data Requirements
 
 ### Geographic Data
+
 **Shop coordinates**: `38.5858, -80.8581` (Birch River, WV)
 **Destination coordinates**: `38.0573, -81.1381` (Oak Hill, WV - ACE Resort)
 **Drive time**: ~55 minutes via US-19 S
@@ -397,37 +417,45 @@ NEVER: "Book your ultimate adventure!", "Experience the thrill of a lifetime!", 
 ## Content Blocks (Resort Template Sections)
 
 ### Hero Block
+
 **Image**: Action shot (rafting, zip line, or climbing at ACE)
 **Headline**: "ACE Adventure Resort: New River Gorge's Activity Hub"
 **Subhead**: "Guided rafting, zip lines, climbing, ATVs, and more. 55 minutes from our shop."
 **CTA**: "Shop Gear for Your Trip" (links to WVWO categories, NOT ACE booking)
 
 ### Activity Grid Block
+
 **Component**: `<ActivityGrid activities={aceActivities} categories={["Water", "Aerial", "Land", "Family"]} />`
 **Content**: Cards for each activity with difficulty, duration, age minimum, gear needs
 **Gear callouts**: Each card links to relevant WVWO gear categories
 **Kim's note per category**:
+
 - Water: *"Rafting season is March-November. Wetsuit recommended spring/fall."*
 - Aerial: *"Zip line's the easiest adventure - no experience needed."*
 - Land: *"Climbing trips are guided. Bring your own shoes or rent theirs."*
 
 ### Package Deals Block
+
 **Component**: `<PackageCards packages={acePackages} />`
 **Content**: Pre-built combo packages (Adventure Combo, Family Fun, Weekend Warrior)
 **Note**: "Packages booked through ACE. Gear available at WVWO."
 
 ### Lodging Options Block
+
 **Component**: `<LodgingGrid options={aceLodging} />`
 **Content**: Cabins, lodge rooms, camping, yurts
 **Kim's note**: *"ACE has lodging on-site. Book direct with them. We're 30 min north if you need last-minute gear."*
 
 ### Gear Recommendations Block
+
 **Component**: `<GearListByActivity activities={["Rafting", "Zip Line", "Climbing", "ATV", "Fishing"]} />`
 **Content**: Activity-specific gear with WVWO product links
 **Kim's note**: *"ACE provides rafts, ropes, and guides. You bring personal gear - PFDs, wetsuits, shoes, drybags. We stock all of it."*
 
 ### Access & Logistics Block
+
 **Content**:
+
 - Drive time from WVWO shop: 55 min via US-19 S
 - ACE location: Oak Hill, WV (near New River Gorge Bridge)
 - Booking: Online reservations required (aceraft.com)
@@ -435,6 +463,7 @@ NEVER: "Book your ultimate adventure!", "Experience the thrill of a lifetime!", 
 **CTA**: "Stop by WVWO on your way - we're on US-19"
 
 ### Local Knowledge Block
+
 **Kim's voice**:
 
 ```
@@ -465,6 +494,7 @@ direct with them at aceraft.com. We're just here for gear. Grand love ya."
 ```
 
 ### Disclaimer Block (Prominent)
+
 **Content**:
 
 ```
@@ -475,7 +505,6 @@ We're happy to outfit you with gear for your trip - stop by the shop on your way
 ```
 
 ## Schema.org Markup (Dual Types)
-
 
 ```typescript
 const aceSchema = {
@@ -565,6 +594,7 @@ npx claude-flow@alpha hooks session-end --export-metrics true
 ## Success Criteria
 
 ### Content Quality
+
 - [ ] Kim's voice authentic (informative, neutral, gear-focused)
 - [ ] Zero AI slop ("ultimate adventure", "thrill of a lifetime", etc.)
 - [ ] Clear WVWO/ACE separation (disclaimer prominent)
@@ -572,6 +602,7 @@ npx claude-flow@alpha hooks session-end --export-metrics true
 - [ ] Gear recommendations match WVWO inventory (not ACE rentals)
 
 ### Technical Quality
+
 - [ ] Passes WVWO aesthetic checklist
 - [ ] Mobile-responsive activity grid (375px width)
 - [ ] Schema.org dual-type validation (TouristAttraction + LodgingBusiness)
@@ -581,6 +612,7 @@ npx claude-flow@alpha hooks session-end --export-metrics true
 - [ ] External links to ACE site (clear, not pushy)
 
 ### Swarm Coordination
+
 - [ ] All scouts completed research in parallel
 - [ ] Queen successfully synthesized findings
 - [ ] Planners built on scout data

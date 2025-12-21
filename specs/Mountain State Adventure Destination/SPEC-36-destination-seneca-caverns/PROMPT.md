@@ -1,6 +1,7 @@
 # SPEC-36: Seneca Caverns Destination Page - Swarm Implementation Prompt
 
 ## Objective
+
 Create `/destinations/seneca-caverns` page using hierarchical swarm coordination with WebSearch research, AgentDB pattern learning, and cave template implementation (commercial cave tours, family attraction).
 
 ## Swarm Architecture
@@ -8,8 +9,10 @@ Create `/destinations/seneca-caverns` page using hierarchical swarm coordination
 **Topology**: Hierarchical (1 queen → 3 scouts → 2 planners → 1 coder)
 
 ### Queen Agent (Coordinator)
+
 **Role**: Orchestrate research → planning → implementation for commercial cave attraction
 **Responsibilities**:
+
 - Initialize swarm memory namespace `swarm/seneca-caverns`
 - Assign tasks to scouts (cavern official info, tour details, regional context/nearby attractions)
 - Synthesize scout findings for planners
@@ -19,6 +22,7 @@ Create `/destinations/seneca-caverns` page using hierarchical swarm coordination
 ### Scout Agents (3 Parallel Researchers)
 
 #### Scout 1: Cavern Official Information
+
 **Research targets**:
 
 ```bash
@@ -37,6 +41,7 @@ npx agentdb@latest skill search "cave tour guided attraction" 5
 ```
 
 **Deliverables**:
+
 - Official cavern URLs (senecacaverns.com)
 - Tour details (guided tours, duration ~60 min, depth 165 ft)
 - Admission prices (adults, children, groups)
@@ -44,6 +49,7 @@ npx agentdb@latest skill search "cave tour guided attraction" 5
 - Cave formations (stalactites, stalagmites, flowstone, mirror lake)
 
 #### Scout 2: Tour Experience & Details
+
 **Research targets**:
 
 ```bash
@@ -62,6 +68,7 @@ npx agentdb@latest recall with-certificate "guided tour logistics" 12
 ```
 
 **Deliverables**:
+
 - Tour logistics (stairs ~250, cave temp 54°F year-round, humidity)
 - Accessibility (not wheelchair accessible, moderate fitness required)
 - Historical context (discovered 1742, one of oldest show caves in WV)
@@ -69,6 +76,7 @@ npx agentdb@latest recall with-certificate "guided tour logistics" 12
 - Photography policy (allowed/not allowed on tours)
 
 #### Scout 3: Regional Context & Nearby Attractions
+
 **Research targets**:
 
 ```bash
@@ -86,6 +94,7 @@ npx agentdb@latest skill search "cave attraction nearby outdoor" 5
 ```
 
 **Deliverables**:
+
 - Proximity to Seneca Rocks (30 min drive)
 - Germany Valley scenic drive
 - Nearby outdoor activities (hiking, fishing, climbing)
@@ -95,6 +104,7 @@ npx agentdb@latest skill search "cave attraction nearby outdoor" 5
 ### Planner Agents (2 Sequential Architects)
 
 #### Planner 1: Content Architecture
+
 **Input**: Synthesized scout findings from queen
 **Template**: Cave template (`docs/templates/destination-cave.md`)
 
@@ -107,6 +117,7 @@ npx agentdb@latest reflexion retrieve "WVWO voice Kim authentic" --k 10 --only-s
 ```
 
 **Responsibilities**:
+
 1. Map scout data to cave template sections
 2. Design hero content (cave entrance or formation imagery)
 3. Plan tour logistics messaging (stairs, temp, duration)
@@ -114,6 +125,7 @@ npx agentdb@latest reflexion retrieve "WVWO voice Kim authentic" --k 10 --only-s
 5. Voice design: Informative, family-friendly, realistic about stairs/accessibility
 
 **Deliverables**:
+
 - Content outline with cave template headers
 - Hero messaging ("Seneca Caverns: West Virginia's Historic Underground Wonder")
 - Tour logistics details (60 min, 250 stairs, 54°F, moderate fitness)
@@ -122,6 +134,7 @@ npx agentdb@latest reflexion retrieve "WVWO voice Kim authentic" --k 10 --only-s
 - Gear callout placements (light jacket, sturdy shoes, camera)
 
 #### Planner 2: Technical Architecture
+
 **Input**: Content architecture from Planner 1
 
 **AgentDB retrieval**:
@@ -133,6 +146,7 @@ npx agentdb@latest skill search "tour booking external link" 5
 ```
 
 **Responsibilities**:
+
 1. Component selection (TourDetails, FormationGallery, ExternalBookingCTA, NearbyAttractions)
 2. Data structure design (tour info, formations, logistics, nearby sites)
 3. Schema.org markup (TouristAttraction type)
@@ -141,12 +155,14 @@ npx agentdb@latest skill search "tour booking external link" 5
 6. External links (Seneca Caverns booking site, clear disclaimer)
 
 **Deliverables**:
+
 - Component tree with tour logistics focus
 - JSON data structure (tour details, formations, nearby attractions)
 - Schema markup template (TouristAttraction)
 - Performance budget (formation photos lazy load)
 
 ### Coder Agent (Implementation)
+
 **Input**: Content + technical architecture from planners
 
 **AgentDB retrieval**:
@@ -158,6 +174,7 @@ npx agentdb@latest reflexion retrieve "WVWO aesthetic commercial attraction" --k
 ```
 
 **Responsibilities**:
+
 1. Implement `/wv-wild-web/src/pages/destinations/seneca-caverns.astro`
 2. Create TourDetails component (duration, stairs, temp, what to bring)
 3. Apply WVWO aesthetic (earthy tones, brand-brown for cave imagery)
@@ -167,6 +184,7 @@ npx agentdb@latest reflexion retrieve "WVWO aesthetic commercial attraction" --k
 7. Include disclaimer: "Seneca Caverns is a separate business. Visit senecacaverns.com to book tours."
 
 **Quality gates**:
+
 - Pass WVWO aesthetic checklist
 - Kim's voice authentic (practical, informative, family-friendly)
 - Mobile-responsive (375px width)
@@ -175,6 +193,7 @@ npx agentdb@latest reflexion retrieve "WVWO aesthetic commercial attraction" --k
 - Clear disclaimer on WVWO/Caverns separation
 
 **Deliverables**:
+
 - Complete `.astro` page file
 - TourDetails component
 - FormationGallery component
@@ -184,6 +203,7 @@ npx agentdb@latest reflexion retrieve "WVWO aesthetic commercial attraction" --k
 ## Data Requirements
 
 ### Geographic Data
+
 **Shop coordinates**: `38.5858, -80.8581` (Birch River, WV)
 **Destination coordinates**: `38.7656, -79.3373` (Riverton, WV - Seneca Caverns)
 **Drive time**: ~2.5 hours via US-33 E
@@ -341,13 +361,16 @@ NEVER: "Journey into the earth's depths", "Underground wonderland", "Nature's ca
 ## Content Blocks (Cave Template Sections)
 
 ### Hero Block
+
 **Image**: Cave formation (mirror lake or stalactites)
 **Headline**: "Seneca Caverns: West Virginia's Historic Underground Wonder"
 **Subhead**: "Guided tours 165 ft below ground. 54°F year-round, 60-minute tour. 2.5 hours from our shop."
 **CTA**: "What to Bring for Your Tour"
 
 ### Cave Overview Block
+
 **Content**:
+
 - Discovered 1742 (one of WV's oldest show caves)
 - Depth: 165 ft below surface
 - Temperature: 54°F year-round (bring jacket)
@@ -356,8 +379,10 @@ NEVER: "Journey into the earth's depths", "Underground wonderland", "Nature's ca
 **Kim's note**: *"It's 54 degrees down there, even in summer. Bring a light jacket or long sleeves."*
 
 ### Tour Details Block
+
 **Component**: `<TourDetails tour={senecaTour} logistics={tourLogistics} />`
 **Content**:
+
 - Duration: 60 minutes
 - Stairs: ~250 (moderate fitness required)
 - Temperature: 54°F constant
@@ -366,27 +391,34 @@ NEVER: "Journey into the earth's depths", "Underground wonderland", "Nature's ca
 **Kim's note**: *"Wear good shoes - stairs are steep and slippery. Hiking boots or sneakers. Skip the flip-flops."*
 
 ### Formation Highlights Block
+
 **Component**: `<FormationGallery formations={senecaFormations} />`
 **Content**: Mirror Lake (reflecting pool), Grand Ballroom (massive chamber), Flowstone curtains, Stalactites/Stalagmites
 **Kim's note**: *"Mirror Lake is the tour highlight - still water that reflects the ceiling like a mirror. Stunning."*
 
 ### What to Bring Block
+
 **Content**:
+
 - Required: Sturdy closed-toe shoes, Light jacket/sweater
 - Recommended: Camera (photography allowed), Water bottle
 - Not needed: Flashlight (cave is lit), Heavy layers
 **Kim's note**: *"Camera's allowed on the tour. Cave is lit, so no flashlight needed. Just jacket and good shoes."*
 
 ### Nearby Attractions Block
+
 **Component**: `<NearbyAttractions attractions={nearby} />`
 **Content**:
+
 - Seneca Rocks (30 min) - climbing, hiking
 - Germany Valley (15 min) - scenic drive
 - Smoke Hole Caverns (45 min) - another cave option
 **Kim's note**: *"Seneca Caverns is 30 min from Seneca Rocks. Easy to do both in one day - cave in morning, climb or hike afternoon."*
 
 ### Access & Logistics Block
+
 **Content**:
+
 - Drive time from WVWO shop: 2.5 hours via US-33 E
 - Parking: Free on-site
 - Admission: (link to senecacaverns.com for current prices)
@@ -395,6 +427,7 @@ NEVER: "Journey into the earth's depths", "Underground wonderland", "Nature's ca
 **CTA**: "Stop by WVWO for directions and local beta - we're on your route"
 
 ### Local Knowledge Block
+
 **Kim's voice**:
 
 ```
@@ -427,6 +460,7 @@ with them. We're just here to tell you what to bring: jacket and good shoes. Gra
 ```
 
 ### Disclaimer Block (Prominent)
+
 **Content**:
 
 ```
@@ -437,7 +471,6 @@ We're happy to offer trip planning advice - stop by the shop!
 ```
 
 ## Schema.org Markup
-
 
 ```typescript
 const senecaCavernsSchema = {
@@ -527,6 +560,7 @@ npx claude-flow@alpha hooks session-end --export-metrics true
 ## Success Criteria
 
 ### Content Quality
+
 - [ ] Kim's voice authentic (practical, informative, family-friendly, prep-focused)
 - [ ] Zero AI slop ("journey into earth's depths", "mystical realm", etc.)
 - [ ] Tour logistics accurate (60 min, 250 stairs, 54°F, jacket + shoes)
@@ -535,6 +569,7 @@ npx claude-flow@alpha hooks session-end --export-metrics true
 - [ ] Clear WVWO/Caverns separation (disclaimer prominent)
 
 ### Technical Quality
+
 - [ ] Passes WVWO aesthetic checklist
 - [ ] Mobile-responsive (375px width)
 - [ ] Schema.org validation (TouristAttraction)
@@ -544,6 +579,7 @@ npx claude-flow@alpha hooks session-end --export-metrics true
 - [ ] External links to Seneca Caverns site (clear, not pushy)
 
 ### Swarm Coordination
+
 - [ ] All scouts completed research in parallel
 - [ ] Queen successfully synthesized findings
 - [ ] Planners built on scout data

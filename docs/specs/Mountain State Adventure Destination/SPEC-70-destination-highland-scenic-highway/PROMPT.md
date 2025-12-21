@@ -8,6 +8,7 @@ You are the **Swarm Queen** coordinating a specialized team to create compelling
 
 **Queen Agent**: Coordinates all agents, ensures WVWO brand voice consistency, validates against constitution
 **Specialist Agents**:
+
 - `researcher`: Highway research, WV 150/55 route, Cranberry Wilderness access, scenic highlights
 - `wv-historian`: Pocahontas County heritage, Monongahela NF history, highlands ecology
 - `hunter-strategist`: Hunter relevance, backcountry access, Pocahontas/Monongahela NF hunting
@@ -17,7 +18,6 @@ You are the **Swarm Queen** coordinating a specialized team to create compelling
 ### Context Requirements
 
 **BEFORE generating content**, Queen must coordinate parallel research:
-
 
 ```bash
 # Queen spawns all researchers simultaneously
@@ -31,6 +31,7 @@ Task("SEO specialist", "Research 'Highland Scenic Highway hunting', 'Pocahontas 
 ### Content Template: Scenic Drive (Backcountry Corridor)
 
 **Required Sections**:
+
 1. **Hero** (1-2 sentences): High-elevation scenic corridor + Cranberry Wilderness access, serious backcountry hunter appeal
 2. **Why Hunters Drive This Route** (3-4 bullets): Monongahela NF access, Cranberry Wilderness trailheads, high-elevation corridor, backcountry hunting
 3. **The Drive** (2-3 paragraphs): Route details (WV 150/55, length, elevation), Cranberry Wilderness overlooks, high-elevation character, seasonal access
@@ -50,12 +51,14 @@ Task("SEO specialist", "Research 'Highland Scenic Highway hunting', 'Pocahontas 
 ### SEO Strategy
 
 **Primary Keywords**:
+
 - "Highland Scenic Highway hunting"
 - "Pocahontas County backcountry hunting"
 - "Cranberry Wilderness hunting access"
 - "Monongahela National Forest hunting corridor"
 
 **Geographic Modifiers**:
+
 - WV 150/55 corridor
 - Pocahontas County
 - Monongahela National Forest
@@ -102,6 +105,7 @@ seasonalClosure: "yes (typically November through April)"
 ### Coordination Protocol
 
 **Queen's Workflow**:
+
 1. Spawn all 4 specialist agents in parallel (single message)
 2. Wait for research completion
 3. Brief content-writer with synthesized research

@@ -22,7 +22,6 @@
 
 ## AgentDB Context Loading
 
-
 ```bash
 npx agentdb@latest reflexion retrieve "state park swimming WV" --k 10 --synthesize-context
 npx agentdb@latest reflexion retrieve "family camping destinations" --k 10 --synthesize-context
@@ -36,12 +35,14 @@ npx agentdb@latest reflexion critique-summary "WVWO"
 ## Research Focus (Researcher Agent)
 
 **Key Queries**:
+
 - "Audra State Park Middle Fork River swimming"
 - "Audra State Park camping reservations"
 - "Audra State Park trails boardwalk"
 - "Audra State Park distance from I-79"
 
 **Data Priorities**:
+
 - River: Middle Fork River (swimming, wading, tubing)
 - Unique feature: Natural swimming holes, sandy beaches
 - Camping: 65 campsites (electric hookups available)
@@ -132,6 +133,7 @@ Grand love ya.
 ## Validation (Tester Agent)
 
 **Checklist**:
+
 - [ ] Swimming safety info (cold water, check depth)
 - [ ] Campground reservation tip (summer weekends)
 - [ ] Distance accuracy (50 miles, closest to shop)

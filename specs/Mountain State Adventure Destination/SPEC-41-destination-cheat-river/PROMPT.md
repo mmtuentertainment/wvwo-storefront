@@ -24,7 +24,6 @@
 
 ## AgentDB Context Loading (BEFORE Starting)
 
-
 ```bash
 # Parallel context retrieval
 npx agentdb@latest reflexion retrieve "river destinations" --k 10 --synthesize-context
@@ -41,12 +40,14 @@ npx agentdb@latest db stats
 ## WVWO Context (Critical Constraints)
 
 **From CLAUDE.md**:
+
 - **Location**: 121 WV-82, Birch River, WV (I-79 Exit 57 access)
 - **Voice**: Kim's authentic, faith-forward, humble (NO marketing speak)
 - **Audience**: Out-of-state hunters on I-79 + local outdoorsmen
 - **Phase**: Phase 3B - Highway Hunter Capture (geographic SEO)
 
 **River Page Priorities**:
+
 - Driving distance from shop (I-79 corridor appeal)
 - Whitewater rafting difficulty levels (beginner vs advanced)
 - Fishing access points and species
@@ -82,6 +83,7 @@ WebSearch "Cheat River release schedule rafting season"
 ```
 
 **Data to Extract**:
+
 - Distance from WVWO shop (minutes via I-79)
 - Rafting sections: Cheat Canyon (Class III-IV), Cheat Narrows (Class V), Big Sandy (Class III)
 - Season: September release schedule (dam-controlled)
@@ -104,7 +106,6 @@ npx claude-flow@alpha hooks post-task \
 ### 2️⃣ Architect: Design Content Structure
 
 **Content Outline**:
-
 
 ```markdown
 # Frontmatter (schema.org compliant)
@@ -158,6 +159,7 @@ npx claude-flow@alpha hooks post-task \
 ```
 
 **Schema.org Markup**:
+
 - PlaceSchema: River with GeoCoordinates
 - sportsActivityLocation: Rafting, Kayaking, Fishing
 - touristType: Adventure seekers, experienced paddlers
@@ -193,7 +195,6 @@ npx claude-flow@alpha hooks post-edit \
 **File Path**: `./wv-wild-web\src\content\adventures\cheat-river.md`
 
 **Implementation Requirements**:
-
 
 ```markdown
 ---
@@ -296,6 +297,7 @@ Grand love ya.
 ```
 
 **Code Quality Checks**:
+
 - [ ] Frontmatter matches schema.org PlaceSchema
 - [ ] Coordinates accurate (Albright put-in)
 - [ ] Distance/driving time verified from shop
@@ -321,18 +323,21 @@ npx claude-flow@alpha hooks post-edit \
 **Validation Checklist**:
 
 **WVWO Voice Audit**:
+
 - [ ] NO corporate marketing ("unlock", "experience", "world-class")
 - [ ] YES Kim's authentic voice ("no joke", "Grand love ya")
 - [ ] Personal anecdotes included (Bryan's Narrows runs)
 - [ ] Humble, helpful tone (not salesy)
 
 **Geographic Accuracy**:
+
 - [ ] Distance from shop verified (75 miles via I-79)
 - [ ] Driving directions from Exit 57 clear
 - [ ] Coordinates accurate (Albright put-in)
 - [ ] Nearest town/services mentioned
 
 **Safety & Regulations**:
+
 - [ ] Class V danger warnings prominent
 - [ ] Outfitter recommendation clear
 - [ ] Life jacket law mentioned
@@ -348,6 +353,7 @@ npx agentdb@latest skill search "PlaceSchema validation" 5
 ```
 
 **Content Quality**:
+
 - [ ] Opening hook engaging (Class V whitewater angle)
 - [ ] Sections well-organized (whitewater, fishing, access)
 - [ ] Practical details complete (hours, fees, regulations)
@@ -386,18 +392,21 @@ echo "SPEC-41 Complete: Cheat River destination page ready at wv-wild-web/src/co
 ## Success Criteria
 
 ✅ **Content Complete**:
+
 - Cheat River page created with river template pattern
 - Whitewater sections documented (Canyon, Narrows, Big Sandy)
 - Fishing access and species detailed
 - I-79 highway hunter positioning clear
 
 ✅ **WVWO Compliance**:
+
 - Kim's voice throughout (no SaaS speak)
 - Safety warnings prominent (Class V danger)
 - Personal touch (Bryan's experiences)
 - Faith-forward, humble tone
 
 ✅ **Quality Checks**:
+
 - Schema.org markup validated
 - Geographic accuracy verified
 - Regulations current (WV DNR sourced)

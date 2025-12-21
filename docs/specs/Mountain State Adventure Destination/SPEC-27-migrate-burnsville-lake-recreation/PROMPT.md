@@ -10,7 +10,6 @@
 
 Before starting, load relevant patterns:
 
-
 ```bash
 # Parallel context loading
 npx agentdb@latest reflexion retrieve "content migration" --k 10 --synthesize-context
@@ -44,6 +43,7 @@ Read ./wv-wild-web\src\content\adventures\burnsville-lake-wma.md
 ```
 
 **Extract from recreation.astro**:
+
 - Additional `activities[]` not in WMA version (boating, swimming, camping)
 - Additional `amenities[]` (boat ramps, beaches, campgrounds)
 - Recreation-specific safety notes
@@ -63,12 +63,14 @@ npx claude-flow@alpha hooks post-edit --file "burnsville-lake-recreation.astro" 
 **Merge INTO existing burnsville-lake-wma.md**:
 
 **Frontmatter updates**:
+
 - Merge `activities[]` arrays (dedupe, sort by relevance)
 - Merge `amenities[]` arrays (dedupe, organize by type)
 - Combine safety notes
 - Update description to reflect BOTH hunting and recreation
 
 **Body content merge**:
+
 - Expand "Activities" section to include recreation options
 - Add "Recreation Facilities" subsection for boat ramps, beaches, campgrounds
 - Keep Kim's voice throughout
@@ -118,7 +120,6 @@ Before marking complete:
 ---
 
 ## Store Pattern (After Completion)
-
 
 ```bash
 # If successful

@@ -1,6 +1,7 @@
 # SPEC-35: Blackwater Falls State Park Destination Page - Swarm Implementation Prompt
 
 ## Objective
+
 Create `/destinations/blackwater-falls` page using hierarchical swarm coordination with WebSearch research, AgentDB pattern learning, and state park template implementation (waterfall + hiking + seasonal activities).
 
 ## Swarm Architecture
@@ -8,8 +9,10 @@ Create `/destinations/blackwater-falls` page using hierarchical swarm coordinati
 **Topology**: Hierarchical (1 queen → 3 scouts → 2 planners → 1 coder)
 
 ### Queen Agent (Coordinator)
+
 **Role**: Orchestrate research → planning → implementation for WV's most-visited state park
 **Responsibilities**:
+
 - Initialize swarm memory namespace `swarm/blackwater-falls`
 - Assign tasks to scouts (state park official info, waterfall/trails, seasonal activities/winter sports)
 - Synthesize scout findings for planners
@@ -19,6 +22,7 @@ Create `/destinations/blackwater-falls` page using hierarchical swarm coordinati
 ### Scout Agents (3 Parallel Researchers)
 
 #### Scout 1: State Park Official Information
+
 **Research targets**:
 
 ```bash
@@ -37,6 +41,7 @@ npx agentdb@latest skill search "WV state park lodging camping" 5
 ```
 
 **Deliverables**:
+
 - Official WV State Parks URLs
 - Park amenities (lodge, cabins, campground, pool, nature center)
 - Entry fees (day-use, camping)
@@ -44,6 +49,7 @@ npx agentdb@latest skill search "WV state park lodging camping" 5
 - Regulations (pets, backcountry, fires)
 
 #### Scout 2: Waterfall & Trail System
+
 **Research targets**:
 
 ```bash
@@ -62,6 +68,7 @@ npx agentdb@latest recall with-certificate "family-friendly hiking" 12
 ```
 
 **Deliverables**:
+
 - Blackwater Falls details (62 ft drop, amber water from tannins, Blackwater River)
 - Accessible boardwalk (short walk to overlook)
 - Staircase to base (214 steps down, 376 steps total loop)
@@ -69,6 +76,7 @@ npx agentdb@latest recall with-certificate "family-friendly hiking" 12
 - Trail system (Lindy Point Trail 0.8 mi, Balanced Rock Trail, Canyon Rim Trail)
 
 #### Scout 3: Seasonal Activities & Winter Sports
+
 **Research targets**:
 
 ```bash
@@ -87,6 +95,7 @@ npx agentdb@latest skill search "winter sports cross-country skiing" 5
 ```
 
 **Deliverables**:
+
 - Winter activities (cross-country skiing, snowshoeing, sled run)
 - Frozen waterfall (winter highlight for photographers)
 - Fall foliage (peak mid-October, high elevation early color)
@@ -95,6 +104,7 @@ npx agentdb@latest skill search "winter sports cross-country skiing" 5
 ### Planner Agents (2 Sequential Architects)
 
 #### Planner 1: Content Architecture
+
 **Input**: Synthesized scout findings from queen
 **Template**: State park template (`docs/templates/destination-state-park.md`)
 
@@ -107,6 +117,7 @@ npx agentdb@latest reflexion retrieve "WVWO voice Kim authentic" --k 10 --only-s
 ```
 
 **Responsibilities**:
+
 1. Map scout data to state park template sections
 2. Design hero content (waterfall imagery, amber water highlight)
 3. Plan seasonal content (winter frozen falls, fall foliage, summer hiking)
@@ -114,6 +125,7 @@ npx agentdb@latest reflexion retrieve "WVWO voice Kim authentic" --k 10 --only-s
 5. Voice design: Family-friendly, accessible for all ages
 
 **Deliverables**:
+
 - Content outline with state park template headers
 - Hero messaging ("Blackwater Falls: West Virginia's Amber Cascade")
 - Waterfall details (62 ft, tannin-amber water, accessible overlook)
@@ -122,6 +134,7 @@ npx agentdb@latest reflexion retrieve "WVWO voice Kim authentic" --k 10 --only-s
 - Gear callout placements (hiking summer, cross-country skiing winter)
 
 #### Planner 2: Technical Architecture
+
 **Input**: Content architecture from Planner 1
 
 **AgentDB retrieval**:
@@ -133,6 +146,7 @@ npx agentdb@latest skill search "waterfall photo gallery component" 5
 ```
 
 **Responsibilities**:
+
 1. Component selection (WaterfallDetails, TrailList, SeasonalActivities, PhotoGallery)
 2. Data structure design (waterfall details, trails, amenities, seasonal activities)
 3. Schema.org markup (StateOrProvincialPark + Waterfall types)
@@ -141,12 +155,14 @@ npx agentdb@latest skill search "waterfall photo gallery component" 5
 6. Image strategy (amber water closeups, frozen falls winter, foliage fall)
 
 **Deliverables**:
+
 - Component tree with seasonal categorization
 - JSON data structure (waterfall, trails, amenities, activities)
 - Schema markup template (dual types)
 - Performance budget (high-res waterfall photos lazy load)
 
 ### Coder Agent (Implementation)
+
 **Input**: Content + technical architecture from planners
 
 **AgentDB retrieval**:
@@ -158,6 +174,7 @@ npx agentdb@latest reflexion retrieve "WVWO aesthetic photo gallery" --k 10 --on
 ```
 
 **Responsibilities**:
+
 1. Implement `/wv-wild-web/src/pages/destinations/blackwater-falls.astro`
 2. Create WaterfallDetails component (62 ft drop, amber water explanation)
 3. Apply WVWO aesthetic (earthy tones, sign-green for trails, brand-brown for falls)
@@ -166,6 +183,7 @@ npx agentdb@latest reflexion retrieve "WVWO aesthetic photo gallery" --k 10 --on
 6. Add gear category links (hiking gear, cross-country skiing gear)
 
 **Quality gates**:
+
 - Pass WVWO aesthetic checklist
 - Kim's voice authentic (family-friendly, accessible emphasis)
 - Mobile-responsive (375px width)
@@ -173,6 +191,7 @@ npx agentdb@latest reflexion retrieve "WVWO aesthetic photo gallery" --k 10 --on
 - Load time <2s on 3G
 
 **Deliverables**:
+
 - Complete `.astro` page file
 - WaterfallDetails component
 - SeasonalActivities component
@@ -181,6 +200,7 @@ npx agentdb@latest reflexion retrieve "WVWO aesthetic photo gallery" --k 10 --on
 ## Data Requirements
 
 ### Geographic Data
+
 **Shop coordinates**: `38.5858, -80.8581` (Birch River, WV)
 **Destination coordinates**: `39.1151, -79.4876` (Blackwater Falls State Park, WV)
 **Drive time**: ~2.25 hours via US-33 E
@@ -366,14 +386,17 @@ It's not dirty, just tea-colored. Natural and beautiful."
 ## Content Blocks (State Park Template Sections)
 
 ### Hero Block
+
 **Image**: Blackwater Falls (amber water cascading 62 ft)
 **Headline**: "Blackwater Falls: West Virginia's Amber Cascade"
 **Subhead**: "62-foot waterfall with tea-colored water. Accessible boardwalk + base trail. 2.25 hours from our shop."
 **CTA**: "Shop Hiking Gear" (summer) / "Shop Winter Gear" (winter toggle)
 
 ### Waterfall Details Block
+
 **Component**: `<WaterfallDetails waterfall={blackwaterFalls} />`
 **Content**:
+
 - 62 ft drop into Blackwater Canyon
 - Amber water (tannic acid from hemlock/spruce needles)
 - Accessible boardwalk (0.25 mi, paved, wheelchair accessible)
@@ -381,13 +404,16 @@ It's not dirty, just tea-colored. Natural and beautiful."
 **Kim's note**: *"The boardwalk is easy - anyone can see the falls. If you can handle stairs, the base view is worth it. Mist in summer, icicles in winter."*
 
 ### Trail System Block
+
 **Component**: `<TrailList trails={blackwaterTrails} />`
 **Content**: Gentle Trail (overlook), Boardwalk (falls base), Lindy Point (sunrise), Elakala Falls (series), Canyon Rim
 **Kim's note**: *"Lindy Point for sunrise. Elakala Falls if you want a waterfall hike (4 falls in 0.5 mi). Canyon Rim for easy views."*
 
 ### Seasonal Highlights Block
+
 **Component**: `<SeasonalActivities seasons={blackwaterSeasons} />`
 **Content**:
+
 - Winter: Frozen falls, cross-country skiing, snowshoeing
 - Spring: High-flow falls, wildflowers
 - Summer: Hiking, lodge pool, nature programs
@@ -395,7 +421,9 @@ It's not dirty, just tea-colored. Natural and beautiful."
 **Kim's note**: *"Winter frozen falls are a photographer's dream. Fall foliage is peak mid-Oct - book lodging months ahead."*
 
 ### Winter Sports Block (Seasonal)
+
 **Content**:
+
 - Cross-country ski trails (groomed)
 - Snowshoe trails
 - Sled run (family-friendly)
@@ -404,14 +432,18 @@ It's not dirty, just tea-colored. Natural and beautiful."
 **Kim's note**: *"Bring crampons for the falls stairs in winter - they ice up fast. We stock microspikes and crampons."*
 
 ### Park Amenities Block
+
 **Content**:
+
 - Lodging: Blackwater Falls Lodge (54 rooms, restaurant, pool), Cabins (25 cabins)
 - Camping: 65 sites with electric hookups
 - Other: Nature center, playground, volleyball courts
 **Kim's note**: *"Lodge is nice if you want a bed and restaurant. Cabins if you want a kitchen. Camping is cheap and solid."*
 
 ### Access & Logistics Block
+
 **Content**:
+
 - Drive time from WVWO shop: 2.25 hours via US-33 E
 - Entry fees: Day-use free (WV residents), $3 (non-residents), Camping $20-30
 - Lodging reservations: wvstateparks.com (book early for fall foliage)
@@ -419,6 +451,7 @@ It's not dirty, just tea-colored. Natural and beautiful."
 **CTA**: "Stop by WVWO for gear - we're on your route"
 
 ### Local Knowledge Block
+
 **Kim's voice**:
 
 ```
@@ -454,7 +487,6 @@ Stop by on your way - we're 30 minutes south of the park. Grand love ya."
 ```
 
 ## Schema.org Markup (Dual Types)
-
 
 ```typescript
 const blackwaterFallsSchema = {
@@ -543,6 +575,7 @@ npx claude-flow@alpha hooks session-end --export-metrics true
 ## Success Criteria
 
 ### Content Quality
+
 - [ ] Kim's voice authentic (family-friendly, accessible emphasis, amber water education)
 - [ ] Zero AI slop ("nature's masterpiece", "breathtaking", etc.)
 - [ ] Waterfall details accurate (62 ft, amber tannins, stairs count)
@@ -550,6 +583,7 @@ npx claude-flow@alpha hooks session-end --export-metrics true
 - [ ] Gear recommendations match WVWO inventory (hiking/winter sports)
 
 ### Technical Quality
+
 - [ ] Passes WVWO aesthetic checklist
 - [ ] Mobile-responsive (375px width)
 - [ ] Schema.org dual-type validation (StateOrProvincialPark + Waterfall)
@@ -558,6 +592,7 @@ npx claude-flow@alpha hooks session-end --export-metrics true
 - [ ] Load time <2s on 3G
 
 ### Swarm Coordination
+
 - [ ] All scouts completed research in parallel
 - [ ] Queen successfully synthesized findings
 - [ ] Planners built on scout data

@@ -22,7 +22,6 @@
 
 ## AgentDB Context Loading
 
-
 ```bash
 npx agentdb@latest reflexion retrieve "bike trails family-friendly" --k 10 --synthesize-context
 npx agentdb@latest reflexion retrieve "rails-to-trails WV" --k 10 --synthesize-context
@@ -36,12 +35,14 @@ npx agentdb@latest reflexion critique-summary "WVWO"
 ## Research Focus (Researcher Agent)
 
 **Key Queries**:
+
 - "Greenbrier River Trail trailheads parking"
 - "Greenbrier River Trail camping Watoga Seneca State Forest"
 - "Greenbrier Trail bike rentals Marlinton"
 - "Greenbrier Trail distance from I-79"
 
 **Data Priorities**:
+
 - Length: 78 miles (Cass to Caldwell)
 - Grade: <1% (rail-trail flat, family-friendly)
 - Access points: Marlinton, Cass, Watoga State Park
@@ -130,6 +131,7 @@ Grand love ya.
 ## Validation (Tester Agent)
 
 **Checklist**:
+
 - [ ] Family-friendly tone (not hardcore cycling jargon)
 - [ ] Grade/difficulty accurate (flat = beginner-friendly)
 - [ ] Camping connections clear (Watoga/Seneca)

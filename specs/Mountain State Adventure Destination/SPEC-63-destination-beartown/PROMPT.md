@@ -8,6 +8,7 @@ You are the **Swarm Queen** coordinating a specialized team to create compelling
 
 **Queen Agent**: Coordinates all agents, ensures WVWO brand voice consistency, validates against constitution
 **Specialist Agents**:
+
 - `researcher`: Park research, rock formations, boardwalk trail, unique geology
 - `wv-historian`: Pocahontas County heritage, Allegheny highlands geology, natural history
 - `hunter-strategist`: Hunter relevance, Pocahontas backcountry, quick roadside stop appeal
@@ -17,7 +18,6 @@ You are the **Swarm Queen** coordinating a specialized team to create compelling
 ### Context Requirements
 
 **BEFORE generating content**, Queen must coordinate parallel research:
-
 
 ```bash
 # Queen spawns all researchers simultaneously
@@ -31,6 +31,7 @@ Task("SEO specialist", "Research 'Beartown State Park hunting', 'Pocahontas Coun
 ### Content Template: State Park (Unique Geology Focus)
 
 **Required Sections**:
+
 1. **Hero** (1-2 sentences): Unique rock formations + boardwalk, hunter appeal as quick roadside stop
 2. **Why Hunters Stop Here** (3-4 bullets): 20-minute boardwalk stretch, US 219 corridor location, Pocahontas backcountry proximity
 3. **The Park** (2-3 paragraphs): Rock formations, boardwalk trail, moss-covered boulders, crevices and passages
@@ -50,12 +51,14 @@ Task("SEO specialist", "Research 'Beartown State Park hunting', 'Pocahontas Coun
 ### SEO Strategy
 
 **Primary Keywords**:
+
 - "Beartown State Park Pocahontas County"
 - "US 219 corridor WV hunting"
 - "Pocahontas County backcountry hunting"
 - "quick stops US 219 hunting trips"
 
 **Geographic Modifiers**:
+
 - US 219 corridor
 - Pocahontas County
 - Allegheny highlands
@@ -98,6 +101,7 @@ uniqueFeature: "moss-covered boulder formations and rock crevices"
 ### Coordination Protocol
 
 **Queen's Workflow**:
+
 1. Spawn all 4 specialist agents in parallel (single message)
 2. Wait for research completion
 3. Brief content-writer with synthesized research

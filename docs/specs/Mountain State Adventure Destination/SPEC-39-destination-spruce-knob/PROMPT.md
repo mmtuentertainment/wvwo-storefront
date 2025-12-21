@@ -1,6 +1,7 @@
 # SPEC-39: Spruce Knob Destination Page - Swarm Implementation Prompt
 
 ## Objective
+
 Create `/destinations/spruce-knob` page using hierarchical swarm coordination with WebSearch research, AgentDB pattern learning, and backcountry template implementation (highest point in WV, observation tower, backcountry hiking).
 
 ## Swarm Architecture
@@ -8,8 +9,10 @@ Create `/destinations/spruce-knob` page using hierarchical swarm coordination wi
 **Topology**: Hierarchical (1 queen → 3 scouts → 2 planners → 1 coder)
 
 ### Queen Agent (Coordinator)
+
 **Role**: Orchestrate research → planning → implementation for WV's highest point + backcountry destination
 **Responsibilities**:
+
 - Initialize swarm memory namespace `swarm/spruce-knob`
 - Assign tasks to scouts (NFS official info, observation tower/summit, trail system/backcountry)
 - Synthesize scout findings for planners
@@ -19,6 +22,7 @@ Create `/destinations/spruce-knob` page using hierarchical swarm coordination wi
 ### Scout Agents (3 Parallel Researchers)
 
 #### Scout 1: National Forest Official Information
+
 **Research targets**:
 
 ```bash
@@ -37,6 +41,7 @@ npx agentdb@latest skill search "highest point summit destination" 5
 ```
 
 **Deliverables**:
+
 - Official NFS URLs (fs.usda.gov, Monongahela National Forest)
 - Elevation (4,863 ft - highest point in WV)
 - Permits/fees (free access, backcountry camping dispersed)
@@ -44,6 +49,7 @@ npx agentdb@latest skill search "highest point summit destination" 5
 - Access road (paved to parking, gravel final section)
 
 #### Scout 2: Observation Tower & Summit Experience
+
 **Research targets**:
 
 ```bash
@@ -62,6 +68,7 @@ npx agentdb@latest recall with-certificate "alpine summit conditions" 12
 ```
 
 **Deliverables**:
+
 - Observation tower (stone tower, 360° views)
 - Summit trail (0.5 mi paved, wheelchair accessible to tower base)
 - Views (on clear days: Shenandoah Valley, Allegheny Mountains)
@@ -69,6 +76,7 @@ npx agentdb@latest recall with-certificate "alpine summit conditions" 12
 - Summit vegetation (red spruce, alpine tundra-like conditions)
 
 #### Scout 3: Trail System & Backcountry
+
 **Research targets**:
 
 ```bash
@@ -87,6 +95,7 @@ npx agentdb@latest skill search "alpine hiking high-elevation trails" 5
 ```
 
 **Deliverables**:
+
 - Summit loop trail (0.5 mi paved)
 - Huckleberry Trail (longer backcountry option)
 - Spruce Knob Lake (nearby, short trail around lake)
@@ -96,6 +105,7 @@ npx agentdb@latest skill search "alpine hiking high-elevation trails" 5
 ### Planner Agents (2 Sequential Architects)
 
 #### Planner 1: Content Architecture
+
 **Input**: Synthesized scout findings from queen
 **Template**: Backcountry template (`docs/templates/destination-backcountry.md`)
 
@@ -109,6 +119,7 @@ npx agentdb@latest reflexion retrieve "WV pride highest point" --k 10
 ```
 
 **Responsibilities**:
+
 1. Map scout data to backcountry template sections
 2. Design hero content (observation tower, summit views)
 3. Plan summit experience (tower, paved trail, weather prep)
@@ -116,6 +127,7 @@ npx agentdb@latest reflexion retrieve "WV pride highest point" --k 10
 5. Voice design: WV pride (highest point), weather realism (cold, windy), accessible summit
 
 **Deliverables**:
+
 - Content outline with backcountry template headers
 - Hero messaging ("Spruce Knob: West Virginia's Rooftop at 4,863 Feet")
 - Summit details (observation tower, paved accessible trail, weather prep)
@@ -124,6 +136,7 @@ npx agentdb@latest reflexion retrieve "WV pride highest point" --k 10
 - Gear callout placements (layers, wind protection, hiking gear)
 
 #### Planner 2: Technical Architecture
+
 **Input**: Content architecture from Planner 1
 
 **AgentDB retrieval**:
@@ -135,6 +148,7 @@ npx agentdb@latest skill search "observation tower component" 5
 ```
 
 **Responsibilities**:
+
 1. Component selection (SummitDetails, ObservationTower, TrailList, WeatherWarning)
 2. Data structure design (summit info, tower, trails, weather conditions)
 3. Schema.org markup (TouristAttraction + Mountain types)
@@ -143,12 +157,14 @@ npx agentdb@latest skill search "observation tower component" 5
 6. Image strategy (observation tower, 360° views, red spruce forest)
 
 **Deliverables**:
+
 - Component tree with summit/weather focus
 - JSON data structure (summit, tower, trails, weather)
 - Schema markup template (TouristAttraction + Mountain)
 - Performance budget (summit view photos lazy load)
 
 ### Coder Agent (Implementation)
+
 **Input**: Content + technical architecture from planners
 
 **AgentDB retrieval**:
@@ -160,6 +176,7 @@ npx agentdb@latest reflexion retrieve "WVWO aesthetic alpine summit" --k 10 --on
 ```
 
 **Responsibilities**:
+
 1. Implement `/wv-wild-web/src/pages/destinations/spruce-knob.astro`
 2. Create SummitDetails component (elevation, tower, accessible trail)
 3. Create WeatherWarning component (cold/windy conditions, layers emphasis)
@@ -169,6 +186,7 @@ npx agentdb@latest reflexion retrieve "WVWO aesthetic alpine summit" --k 10 --on
 7. Add gear category links (layers, wind protection, hiking gear)
 
 **Quality gates**:
+
 - Pass WVWO aesthetic checklist
 - Kim's voice authentic (WV pride, weather realism)
 - Mobile-responsive (375px width)
@@ -176,6 +194,7 @@ npx agentdb@latest reflexion retrieve "WVWO aesthetic alpine summit" --k 10 --on
 - Load time <2s on 3G
 
 **Deliverables**:
+
 - Complete `.astro` page file
 - SummitDetails component
 - WeatherWarning component
@@ -185,6 +204,7 @@ npx agentdb@latest reflexion retrieve "WVWO aesthetic alpine summit" --k 10 --on
 ## Data Requirements
 
 ### Geographic Data
+
 **Shop coordinates**: `38.5858, -80.8581` (Birch River, WV)
 **Destination coordinates**: `38.7000, -79.5333` (Spruce Knob, WV)
 **Elevation**: 4,863 ft (highest point in West Virginia)
@@ -352,13 +372,16 @@ NEVER: "Conquer WV's peak", "Summit the ultimate challenge", "Alpine paradise", 
 ## Content Blocks (Backcountry Template Sections)
 
 ### Hero Block
+
 **Image**: Observation tower at summit or 360° view
 **Headline**: "Spruce Knob: West Virginia's Rooftop at 4,863 Feet"
 **Subhead**: "Highest point in WV. Paved accessible summit trail, observation tower, 360° views. 2.75 hours from our shop."
 **CTA**: "Shop Layers & Wind Gear"
 
 ### Summit Overview Block
+
 **Content**:
+
 - Elevation: 4,863 ft (highest point in West Virginia)
 - Observation tower: Stone tower with 360° views
 - Summit trail: 0.5 mi paved loop (wheelchair accessible to tower base)
@@ -367,8 +390,10 @@ NEVER: "Conquer WV's peak", "Summit the ultimate challenge", "Alpine paradise", 
 **Kim's note**: *"Spruce Knob is our state's high point. Summit trail is paved and easy - anyone can get up here."*
 
 ### Observation Tower Block
+
 **Component**: `<ObservationTower tower={spruceKnobSummit.observationTower} />`
 **Content**:
+
 - Stone tower (~20 ft above summit)
 - 360° panoramic views
 - Short stairs to top (not wheelchair accessible to tower top, but tower base offers views)
@@ -376,8 +401,10 @@ NEVER: "Conquer WV's peak", "Summit the ultimate challenge", "Alpine paradise", 
 **Kim's note**: *"Tower gives you views in every direction. Bring binoculars - on clear days you can see Virginia."*
 
 ### Weather Warning Block (Prominent)
+
 **Component**: `<WeatherWarning conditions={spruceKnobWeather} />`
 **Content**:
+
 - 10-20°F cooler than valleys
 - Windy year-round (exposed summit)
 - Rapid weather changes (fog, rain, wind)
@@ -387,12 +414,15 @@ NEVER: "Conquer WV's peak", "Summit the ultimate challenge", "Alpine paradise", 
 **Kim's note**: *"Even in July, I've seen 50-degree temps and heavy wind. Bring layers. Seriously."*
 
 ### Trail System Block
+
 **Component**: `<TrailList trails={spruceKnobTrails} />`
 **Content**: Summit Loop (paved, accessible), Huckleberry Trail (backcountry), Spruce Knob Lake (nearby easy loop), Seneca Creek access (backcountry)
 **Kim's note**: *"Summit Loop is the main draw - paved and easy. Huckleberry Trail if you want backcountry solitude."*
 
 ### Backcountry Camping Block
+
 **Content**:
+
 - Dispersed backcountry camping (free, no facilities)
 - Leave No Trace principles
 - Permits: None required for dispersed camping
@@ -402,7 +432,9 @@ NEVER: "Conquer WV's peak", "Summit the ultimate challenge", "Alpine paradise", 
 **Kim's note**: *"Backcountry camping is dispersed - no designated sites. Pack it in, pack it out."*
 
 ### Access & Logistics Block
+
 **Content**:
+
 - Drive time from WVWO shop: 2.75 hours via US-33 E
 - Road: Paved to parking area, gravel final section (passable for cars, rough in winter)
 - Parking: Free lot at trailhead
@@ -411,6 +443,7 @@ NEVER: "Conquer WV's peak", "Summit the ultimate challenge", "Alpine paradise", 
 **CTA**: "Stock up on layers and wind gear before you drive east"
 
 ### Local Knowledge Block
+
 **Kim's voice**:
 
 ```
@@ -445,7 +478,6 @@ head east - Spruce Knob weather is no joke, even in summer. Grand love ya."
 ```
 
 ## Schema.org Markup (Dual Types)
-
 
 ```typescript
 const spruceKnobSchema = {
@@ -533,6 +565,7 @@ npx claude-flow@alpha hooks session-end --export-metrics true
 ## Success Criteria
 
 ### Content Quality
+
 - [ ] Kim's voice authentic (WV pride, weather realism, layers emphasis)
 - [ ] Zero AI slop ("conquer peak", "alpine paradise", etc.)
 - [ ] Summit details accurate (4,863 ft, tower, paved accessible trail)
@@ -540,6 +573,7 @@ npx claude-flow@alpha hooks session-end --export-metrics true
 - [ ] Gear recommendations match WVWO inventory (wind layers, insulation, hiking)
 
 ### Technical Quality
+
 - [ ] Passes WVWO aesthetic checklist
 - [ ] Mobile-responsive (375px width)
 - [ ] Schema.org dual-type validation (TouristAttraction + Mountain)
@@ -548,6 +582,7 @@ npx claude-flow@alpha hooks session-end --export-metrics true
 - [ ] Load time <2s on 3G
 
 ### Swarm Coordination
+
 - [ ] All scouts completed research in parallel
 - [ ] Queen successfully synthesized findings
 - [ ] Planners built on scout data

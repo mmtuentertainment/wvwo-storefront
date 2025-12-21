@@ -8,6 +8,7 @@ You are the **Swarm Queen** coordinating a specialized team to create compelling
 
 **Queen Agent**: Coordinates all agents, ensures WVWO brand voice consistency, validates against constitution
 **Specialist Agents**:
+
 - `researcher`: Park research, rail-trail, lodge, wildlife habitat
 - `wv-historian`: North Bend Rail Trail history, B&O Railroad heritage, Ritchie County
 - `hunter-strategist`: Hunter relevance, nearby WMAs, Ritchie/Doddridge hunting access
@@ -17,7 +18,6 @@ You are the **Swarm Queen** coordinating a specialized team to create compelling
 ### Context Requirements
 
 **BEFORE generating content**, Queen must coordinate parallel research:
-
 
 ```bash
 # Queen spawns all researchers simultaneously
@@ -31,6 +31,7 @@ Task("SEO specialist", "Research 'North Bend State Park hunting', 'Ritchie Count
 ### Content Template: State Park
 
 **Required Sections**:
+
 1. **Hero** (1-2 sentences): Rail-trail + lodge, hunter appeal as overnight base
 2. **Why Hunters Stop Here** (3-4 bullets): Lodge stays, proximity to Ritchie/Doddridge WMAs, rail-trail for scouting
 3. **The Park** (2-3 paragraphs): Lodge, rail-trail (72 miles through 4 counties), camping, lake
@@ -50,12 +51,14 @@ Task("SEO specialist", "Research 'North Bend State Park hunting', 'Ritchie Count
 ### SEO Strategy
 
 **Primary Keywords**:
+
 - "North Bend State Park hunting"
 - "Ritchie County WV hunting"
 - "hunting near North Bend rail trail"
 - "northwestern WV hunting lodging"
 
 **Geographic Modifiers**:
+
 - US 50 corridor (Parkersburg to Clarksburg route)
 - Ritchie County, Cairo area
 - Northwestern WV
@@ -97,6 +100,7 @@ difficulty: "easy (rail-trail is flat, paved/crushed stone)"
 ### Coordination Protocol
 
 **Queen's Workflow**:
+
 1. Spawn all 4 specialist agents in parallel (single message)
 2. Wait for research completion
 3. Brief content-writer with synthesized research

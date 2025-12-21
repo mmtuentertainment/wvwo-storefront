@@ -10,7 +10,6 @@
 
 Before starting, load relevant patterns:
 
-
 ```bash
 # Parallel context loading
 npx agentdb@latest reflexion retrieve "content migration" --k 10 --synthesize-context
@@ -41,6 +40,7 @@ Read ./wv-wild-web\src\pages\near\burnsville-lake.astro
 ```
 
 **Extract placeSchema data**:
+
 - `name`, `type`, `coordinates`, `address`, `description`
 - `amenities[]`, `activities[]`, `seasons[]`
 - `safety`, `regulations`, `website`, `phoneNumber`
@@ -59,12 +59,14 @@ npx claude-flow@alpha hooks post-edit --file "burnsville-lake.astro" --memory-ke
 **Transform to .md file**:
 
 **Frontmatter (YAML)**:
+
 - All placeSchema fields from explorer's report
 - Schema-compliant structure (see SPEC-01)
 - Add `slug: "burnsville-lake-wma"`
 - Add `featured: false` (default)
 
 **Body content (Markdown)**:
+
 - Kim's voice: authentic, faith-forward, humble
 - Structure:
   1. Opening hook (what makes this special)
@@ -115,7 +117,6 @@ Before marking complete:
 ---
 
 ## Store Pattern (After Completion)
-
 
 ```bash
 # If successful

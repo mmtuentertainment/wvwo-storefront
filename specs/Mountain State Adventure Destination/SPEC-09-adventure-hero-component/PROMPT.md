@@ -22,7 +22,6 @@
 
 ## AgentDB Context Loading (BEFORE Starting)
 
-
 ```bash
 # Parallel context retrieval (Opus 4.5 strength)
 npx agentdb@latest reflexion retrieve "hero sections" --k 10 --synthesize-context
@@ -65,6 +64,7 @@ npx claude-flow@alpha hooks post-edit \
 ## WVWO Context (Critical Constraints)
 
 **From CLAUDE.md**:
+
 - **Aesthetic**: Weathered earth palette, brand-brown camo background pattern
 - **Typography**: font-display (Bitter) for heading, font-body (Noto Sans) for description
 - **Layout**: Asymmetric layout (text-heavy left, photo right on desktop)
@@ -97,6 +97,7 @@ Read "./wv-wild-web\src\pages\adventures\summersville-lake.astro" --offset 67 --
 ```
 
 **Key Patterns to Extract**:
+
 - Background styling (brand-brown gradient + camo pattern)
 - Badge placement and styling (difficulty, season)
 - Heading hierarchy (h1 size, font-display)
@@ -137,6 +138,7 @@ interface Props {
 ```
 
 **Design Constraints**:
+
 - **Background**: brand-brown gradient + subtle camo SVG pattern
 - **Layout**: Grid with text content (lg:col-span-1) + image (lg:col-span-1)
 - **Badges**: Absolute positioned top-left, stacked vertically
@@ -157,7 +159,6 @@ npx claude-flow@alpha hooks post-edit \
 ### 3️⃣ Coder: Implement AdventureHero.astro
 
 **Implementation Requirements**:
-
 
 ```astro
 ---
@@ -279,6 +280,7 @@ const difficultyColors = {
 **Save Location**: `./wv-wild-web\src\components\adventure\AdventureHero.astro`
 
 **Code Quality Checks**:
+
 - [ ] Brand-brown gradient background matches WVWO palette
 - [ ] Camo SVG pattern overlay at 10% opacity
 - [ ] Badges use approved difficulty colors (sign-green, brand-orange, brand-mud)
@@ -356,12 +358,14 @@ echo "SPEC-09 Complete: AdventureHero.astro component ready at wv-wild-web/src/c
 ## Success Criteria
 
 ✅ **Component Implemented**:
+
 - AdventureHero.astro created with brand-brown camo background
 - Slot system working (default + cta slots)
 - Badge system with difficulty colors
 - Responsive layout (mobile stacked, desktop grid)
 
 ✅ **WVWO Compliance**:
+
 - Typography: font-display (Bitter) + font-body (Noto Sans)
 - Colors: brand-brown gradient, brand-cream text, badge colors
 - Camo pattern: Subtle SVG overlay at 10% opacity
@@ -369,6 +373,7 @@ echo "SPEC-09 Complete: AdventureHero.astro component ready at wv-wild-web/src/c
 - Motion: Gentle reveal respects prefers-reduced-motion
 
 ✅ **Quality Checks**:
+
 - Flexible content via slots tested
 - Responsive behavior validated (mobile/tablet/desktop)
 - Accessibility: semantic heading hierarchy, image alt text

@@ -22,7 +22,6 @@
 
 ## AgentDB Context Loading
 
-
 ```bash
 npx agentdb@latest reflexion retrieve "rock climbing WV" --k 10 --synthesize-context
 npx agentdb@latest reflexion retrieve "scenic overlooks state parks" --k 10 --synthesize-context
@@ -36,12 +35,14 @@ npx agentdb@latest reflexion critique-summary "WVWO"
 ## Research Focus (Researcher Agent)
 
 **Key Queries**:
+
 - "Coopers Rock State Forest overlook Cheat River Gorge"
 - "Coopers Rock climbing routes grades"
 - "Coopers Rock hiking trails mountain biking"
 - "Coopers Rock distance from I-79"
 
 **Data Priorities**:
+
 - Overlook: 1,200-foot view of Cheat River Gorge
 - Rock climbing: 100+ trad routes (5.5 to 5.12)
 - Trails: 50+ miles hiking, mountain biking allowed
@@ -124,6 +125,7 @@ Grand love ya.
 ## Validation (Tester Agent)
 
 **Checklist**:
+
 - [ ] Climbing grades accurate (5.5 to 5.12 range)
 - [ ] Trad vs sport climbing clarified (rack required)
 - [ ] Overlook accessibility noted (paved platform)

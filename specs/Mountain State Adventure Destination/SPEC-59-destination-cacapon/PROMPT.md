@@ -8,6 +8,7 @@ You are the **Swarm Queen** coordinating a specialized team to create compelling
 
 **Queen Agent**: Coordinates all agents, ensures WVWO brand voice consistency, validates against constitution
 **Specialist Agents**:
+
 - `researcher`: Park research, resort facilities, trails, Cacapon Mountain
 - `wv-historian`: Morgan County history, Eastern Panhandle heritage, resort history
 - `hunter-strategist`: Hunter relevance, Eastern Panhandle WMAs, out-of-state hunter appeal
@@ -17,7 +18,6 @@ You are the **Swarm Queen** coordinating a specialized team to create compelling
 ### Context Requirements
 
 **BEFORE generating content**, Queen must coordinate parallel research:
-
 
 ```bash
 # Queen spawns all researchers simultaneously
@@ -31,6 +31,7 @@ Task("SEO specialist", "Research 'Cacapon hunting', 'Eastern Panhandle WV huntin
 ### Content Template: State Park
 
 **Required Sections**:
+
 1. **Hero** (1-2 sentences): Resort mountain setting, hunter appeal for out-of-state hunters
 2. **Why Hunters Stop Here** (3-4 bullets): Out-of-state hunter base camp, resort amenities, Eastern Panhandle WMA access
 3. **The Park** (2-3 paragraphs): Lodge, cabins, golf, trails, Cacapon Mountain views
@@ -50,12 +51,14 @@ Task("SEO specialist", "Research 'Cacapon hunting', 'Eastern Panhandle WV huntin
 ### SEO Strategy
 
 **Primary Keywords**:
+
 - "Cacapon hunting"
 - "Eastern Panhandle WV hunting"
 - "Maryland hunters West Virginia"
 - "out-of-state hunting WV lodging"
 
 **Geographic Modifiers**:
+
 - I-81 corridor (Virginia border)
 - Morgan County, Berkeley Springs area
 - Eastern Panhandle
@@ -99,6 +102,7 @@ outOfStateAppeal: "high (Maryland/Virginia hunter base camp)"
 ### Coordination Protocol
 
 **Queen's Workflow**:
+
 1. Spawn all 4 specialist agents in parallel (single message)
 2. Wait for research completion
 3. Brief content-writer with synthesized research

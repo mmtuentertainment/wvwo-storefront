@@ -1,6 +1,7 @@
 # SPEC-40: Dolly Sods Wilderness Destination Page - Swarm Implementation Prompt
 
 ## Objective
+
 Create `/destinations/dolly-sods` page using hierarchical swarm coordination with WebSearch research, AgentDB pattern learning, and backcountry template implementation (designated wilderness, alpine plateau, backcountry camping/hiking).
 
 ## Swarm Architecture
@@ -8,8 +9,10 @@ Create `/destinations/dolly-sods` page using hierarchical swarm coordination wit
 **Topology**: Hierarchical (1 queen → 3 scouts → 2 planners → 1 coder)
 
 ### Queen Agent (Coordinator)
+
 **Role**: Orchestrate research → planning → implementation for WV's premier wilderness backcountry destination
 **Responsibilities**:
+
 - Initialize swarm memory namespace `swarm/dolly-sods`
 - Assign tasks to scouts (NFS wilderness official, unique ecosystem/plateau, trail system/backcountry camping)
 - Synthesize scout findings for planners
@@ -19,6 +22,7 @@ Create `/destinations/dolly-sods` page using hierarchical swarm coordination wit
 ### Scout Agents (3 Parallel Researchers)
 
 #### Scout 1: Wilderness Official Information
+
 **Research targets**:
 
 ```bash
@@ -37,6 +41,7 @@ npx agentdb@latest skill search "wilderness permit backcountry rules" 5
 ```
 
 **Deliverables**:
+
 - Official NFS URLs (Monongahela National Forest, Dolly Sods Wilderness)
 - Wilderness designation (federally protected, no motorized vehicles/bikes)
 - Permits/fees (free access, no permits required for day use or camping)
@@ -44,6 +49,7 @@ npx agentdb@latest skill search "wilderness permit backcountry rules" 5
 - Access roads (gravel Forest Service roads, 4WD recommended)
 
 #### Scout 2: Unique Ecosystem & Plateau Landscape
+
 **Research targets**:
 
 ```bash
@@ -62,6 +68,7 @@ npx agentdb@latest recall with-certificate "wilderness landscape content" 12
 ```
 
 **Deliverables**:
+
 - High-elevation plateau (4,000 ft average, feels like Canada)
 - Unique ecosystem (alpine meadows, red spruce bogs, boulder fields)
 - Rare plants (alpine species, northern latitude plants at southern range)
@@ -69,6 +76,7 @@ npx agentdb@latest recall with-certificate "wilderness landscape content" 12
 - Weather extremes (cold, windy, fog, rapid changes)
 
 #### Scout 3: Trail System & Backcountry Camping
+
 **Research targets**:
 
 ```bash
@@ -87,6 +95,7 @@ npx agentdb@latest skill search "navigation cairns fog wilderness" 5
 ```
 
 **Deliverables**:
+
 - Trail system (extensive network, loops, point-to-point)
 - Popular trails (Bear Rocks Trail, Red Creek Trail, Dobbin Grade)
 - Navigation challenges (cairns, fog common, map/compass essential)
@@ -97,6 +106,7 @@ npx agentdb@latest skill search "navigation cairns fog wilderness" 5
 ### Planner Agents (2 Sequential Architects)
 
 #### Planner 1: Content Architecture
+
 **Input**: Synthesized scout findings from queen
 **Template**: Backcountry template (`docs/templates/destination-backcountry.md`)
 
@@ -110,6 +120,7 @@ npx agentdb@latest reflexion retrieve "Leave No Trace wilderness ethics" --k 10
 ```
 
 **Responsibilities**:
+
 1. Map scout data to backcountry template sections
 2. Design hero content (alpine plateau, boulder fields, dramatic landscape)
 3. Plan unique ecosystem messaging (alpine meadows, bogs, rare plants)
@@ -117,6 +128,7 @@ npx agentdb@latest reflexion retrieve "Leave No Trace wilderness ethics" --k 10
 5. Voice design: Respectful of wilderness, navigation realism, Leave No Trace emphasis
 
 **Deliverables**:
+
 - Content outline with backcountry template headers
 - Hero messaging ("Dolly Sods: West Virginia's Alpine Wilderness")
 - Ecosystem highlights (plateau, boulder fields, bogs, seasonal berries)
@@ -125,6 +137,7 @@ npx agentdb@latest reflexion retrieve "Leave No Trace wilderness ethics" --k 10
 - Gear callout placements (navigation, layers, backpacking, water filter)
 
 #### Planner 2: Technical Architecture
+
 **Input**: Content architecture from Planner 1
 
 **AgentDB retrieval**:
@@ -136,6 +149,7 @@ npx agentdb@latest skill search "navigation warning component" 5
 ```
 
 **Responsibilities**:
+
 1. Component selection (WildernessDetails, EcosystemHighlights, NavigationWarning, TrailList, LNTGuidelines)
 2. Data structure design (wilderness rules, ecosystem, trails, navigation, LNT)
 3. Schema.org markup (TouristAttraction + NaturalFeature types)
@@ -144,12 +158,14 @@ npx agentdb@latest skill search "navigation warning component" 5
 6. Image strategy (alpine meadows, boulder fields, red spruce, fog)
 
 **Deliverables**:
+
 - Component tree with wilderness/navigation emphasis
 - JSON data structure (wilderness, ecosystem, trails, navigation, LNT)
 - Schema markup template (TouristAttraction + NaturalFeature)
 - Performance budget (landscape photos lazy load)
 
 ### Coder Agent (Implementation)
+
 **Input**: Content + technical architecture from planners
 
 **AgentDB retrieval**:
@@ -161,6 +177,7 @@ npx agentdb@latest reflexion retrieve "WVWO aesthetic wilderness landscape" --k 
 ```
 
 **Responsibilities**:
+
 1. Implement `/wv-wild-web/src/pages/destinations/dolly-sods.astro`
 2. Create WildernessDetails component (designation, regulations, access)
 3. Create EcosystemHighlights component (plateau, bogs, boulder fields, seasonal)
@@ -172,6 +189,7 @@ npx agentdb@latest reflexion retrieve "WVWO aesthetic wilderness landscape" --k 
 9. Add gear category links (navigation, layers, backpacking, water filter)
 
 **Quality gates**:
+
 - Pass WVWO aesthetic checklist
 - Kim's voice authentic (wilderness respect, navigation realism, LNT emphasis)
 - Mobile-responsive (375px width)
@@ -179,6 +197,7 @@ npx agentdb@latest reflexion retrieve "WVWO aesthetic wilderness landscape" --k 
 - Load time <2.5s on 3G (complex wilderness page tolerance)
 
 **Deliverables**:
+
 - Complete `.astro` page file
 - WildernessDetails component
 - EcosystemHighlights component
@@ -189,6 +208,7 @@ npx agentdb@latest reflexion retrieve "WVWO aesthetic wilderness landscape" --k 
 ## Data Requirements
 
 ### Geographic Data
+
 **Shop coordinates**: `38.5858, -80.8581` (Birch River, WV)
 **Destination coordinates**: `39.1100, -79.3300` (Dolly Sods Wilderness, WV)
 **Elevation**: ~4,000 ft average (plateau)
@@ -406,14 +426,17 @@ NEVER: "Conquer the wilderness", "Ultimate backcountry challenge", "Untouched pa
 ## Content Blocks (Backcountry Template Sections)
 
 ### Hero Block
+
 **Image**: Alpine plateau, boulder fields, or red spruce bog
 **Headline**: "Dolly Sods: West Virginia's Alpine Wilderness"
 **Subhead**: "10,215-acre federally designated wilderness. Alpine plateau, boulder fields, backcountry camping. 3 hours from our shop."
 **CTA**: "Shop Backpacking & Navigation Gear"
 
 ### Wilderness Overview Block
+
 **Component**: `<WildernessDetails wilderness={dollySodsWilderness} />`
 **Content**:
+
 - Designated Wilderness (1975, federally protected)
 - 10,215 acres, Monongahela National Forest
 - No motorized vehicles or bikes
@@ -423,8 +446,10 @@ NEVER: "Conquer the wilderness", "Ultimate backcountry challenge", "Untouched pa
 **Kim's note**: *"Dolly Sods is designated wilderness - federally protected. No motors, no bikes, pack it in/pack it out."*
 
 ### Unique Ecosystem Block
+
 **Component**: `<EcosystemHighlights ecosystem={dollySodsEcosystem} />`
 **Content**:
+
 - High-elevation plateau (~4,000 ft)
 - Alpine meadows, red spruce bogs, boulder fields
 - Unique northern plants (rare in WV, typically found in Canada/New England)
@@ -432,8 +457,10 @@ NEVER: "Conquer the wilderness", "Ultimate backcountry challenge", "Untouched pa
 **Kim's note**: *"Dolly Sods feels like Canada - high-elevation plateau with alpine meadows and boulder fields. Unique ecosystem for WV."*
 
 ### Navigation Warning Block (Prominent)
+
 **Component**: `<NavigationWarning challenges={navigationChallenges} />`
 **Content**:
+
 - Cairns only (rock piles mark trails in open areas)
 - Fog common (visibility <50 ft, cairns disappear)
 - Map and compass ESSENTIAL (USGS Blackbird Knob quad)
@@ -443,13 +470,16 @@ NEVER: "Conquer the wilderness", "Ultimate backcountry challenge", "Untouched pa
 **Kim's note**: *"Navigation is serious. Fog is common, cairns vanish, trails aren't obvious. Bring map and compass. Know how to use them."*
 
 ### Trail System Block
+
 **Component**: `<TrailList trails={dollySodsTrails} />`
 **Content**: Bear Rocks (easy day hike, boulder fields), Red Creek (water access), Dobbin Grade (plateau traverse), Breathed Mountain Loop (multi-day backcountry)
 **Kim's note**: *"Bear Rocks is the easiest - still requires map, but well-cairned. Breathed Mountain Loop is backcountry - advanced navigation only."*
 
 ### Backcountry Camping Block
+
 **Component**: `<LNTGuidelines camping={backcountryCamping} />`
 **Content**:
+
 - Dispersed camping (no designated sites)
 - Camp 200+ ft from water
 - Pack it in, pack it out (no trash facilities)
@@ -459,7 +489,9 @@ NEVER: "Conquer the wilderness", "Ultimate backcountry challenge", "Untouched pa
 **Kim's note**: *"Dispersed camping - pick a spot, set up, leave no trace. Camp stove, not fires. Pack out ALL trash."*
 
 ### Seasonal Highlights Block
+
 **Content**:
+
 - Spring: Wildflowers, mud season, snow lingering
 - Summer: Blueberry/huckleberry picking, alpine meadows, thunderstorms
 - Fall: Peak foliage early Oct, blueberry bushes red, crowds
@@ -467,7 +499,9 @@ NEVER: "Conquer the wilderness", "Ultimate backcountry challenge", "Untouched pa
 **Kim's note**: *"Fall foliage is stunning - blueberry bushes turn crimson, meadows golden. Peak early Oct. Crowds get heavy - go midweek."*
 
 ### Access & Logistics Block
+
 **Content**:
+
 - Drive time from WVWO shop: 3 hours via US-33 E + Forest Service roads
 - Access roads: Gravel Forest Service roads (4WD recommended, passable for careful 2WD in dry conditions)
 - Trailheads: Bear Rocks, Red Creek, Dobbin Grade (multiple access points)
@@ -476,6 +510,7 @@ NEVER: "Conquer the wilderness", "Ultimate backcountry challenge", "Untouched pa
 **CTA**: "Stock up on navigation gear, backpacking essentials, and layers before you drive east"
 
 ### Local Knowledge Block
+
 **Kim's voice**:
 
 ```
@@ -523,7 +558,6 @@ Sods - it's serious backcountry, and you need to be prepared. Grand love ya."
 ```
 
 ## Schema.org Markup (Dual Types)
-
 
 ```typescript
 const dollySodsSchema = {
@@ -611,6 +645,7 @@ npx claude-flow@alpha hooks session-end --export-metrics true
 ## Success Criteria
 
 ### Content Quality
+
 - [ ] Kim's voice authentic (wilderness respect, navigation realism, Leave No Trace emphasis)
 - [ ] Zero AI slop ("conquer wilderness", "untouched paradise", etc.)
 - [ ] Wilderness regulations clear (designated, no motors, pack it out)
@@ -620,6 +655,7 @@ npx claude-flow@alpha hooks session-end --export-metrics true
 - [ ] Gear recommendations match WVWO inventory (navigation, backpacking, layers)
 
 ### Technical Quality
+
 - [ ] Passes WVWO aesthetic checklist
 - [ ] Mobile-responsive (375px width)
 - [ ] Schema.org dual-type validation (TouristAttraction + NaturalFeature)
@@ -628,6 +664,7 @@ npx claude-flow@alpha hooks session-end --export-metrics true
 - [ ] Load time <2.5s on 3G (complex wilderness page tolerance)
 
 ### Swarm Coordination
+
 - [ ] All scouts completed research in parallel
 - [ ] Queen successfully synthesized findings
 - [ ] Planners built on scout data
@@ -675,6 +712,7 @@ All 12 SPEC-29 through SPEC-40 destination prompts have been created with:
 ✅ **Success criteria** and implementation orders
 
 **Prompts created**:
+
 1. SPEC-29: Gauley River (river, Class V whitewater)
 2. SPEC-30: New River Gorge (hybrid multi-activity, 4 scouts)
 3. SPEC-31: Snowshoe Mountain (ski resort, seasonal toggle)

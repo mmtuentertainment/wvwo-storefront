@@ -24,7 +24,6 @@
 
 ## AgentDB Context Loading (BEFORE Starting)
 
-
 ```bash
 # Parallel context retrieval
 npx agentdb@latest reflexion retrieve "wilderness backcountry" --k 10 --synthesize-context
@@ -41,12 +40,14 @@ npx agentdb@latest db stats
 ## WVWO Context (Critical Constraints)
 
 **From CLAUDE.md**:
+
 - **Identity**: FFL dealer, DNR agent (Kim's regulatory expertise)
 - **Audience**: Bear hunters, backpackers, out-of-state hunters on I-79
 - **Voice**: Safety-focused but not preachy, Kim's humble expertise
 - **Phase**: Phase 3B - Highway Hunter Capture (backcountry hunting content)
 
 **Backcountry Page Priorities**:
+
 - Bear hunting regulations (WV DNR zones, baiting laws)
 - Trail access and trailhead parking
 - Wilderness camping regulations (Leave No Trace)
@@ -84,6 +85,7 @@ WebSearch "Monongahela National Forest wilderness rules"
 ```
 
 **Data to Extract**:
+
 - Distance from WVWO shop (minutes via I-79 to Richwood)
 - Bear hunting zones (WV DNR district boundaries)
 - Baiting regulations (legal or prohibited)
@@ -107,7 +109,6 @@ npx claude-flow@alpha hooks post-task \
 ### 2️⃣ Architect: Design Content Structure
 
 **Content Outline**:
-
 
 ```markdown
 # Frontmatter (schema.org compliant)
@@ -164,6 +165,7 @@ npx claude-flow@alpha hooks post-task \
 ```
 
 **Schema.org Markup**:
+
 - PlaceSchema: Park (Wilderness Area subtype)
 - sportsActivityLocation: Hunting, Backpacking, Camping
 - touristType: Experienced outdoorsmen, backcountry hunters
@@ -199,7 +201,6 @@ npx claude-flow@alpha hooks post-edit \
 **File Path**: `./wv-wild-web\src\content\adventures\cranberry-wilderness.md`
 
 **Implementation Requirements**:
-
 
 ```markdown
 ---
@@ -327,6 +328,7 @@ Grand love ya.
 ```
 
 **Code Quality Checks**:
+
 - [ ] Frontmatter matches schema.org PlaceSchema
 - [ ] Bear hunting regulations accurate (WV DNR verified)
 - [ ] Safety warnings prominent (backcountry danger)
@@ -352,12 +354,14 @@ npx claude-flow@alpha hooks post-edit \
 **Validation Checklist**:
 
 **WVWO Voice Audit**:
+
 - [ ] NO corporate wilderness romanticism ("pristine", "reconnect with nature")
 - [ ] YES Kim's safety-focused expertise ("rewards experience, punishes mistakes")
 - [ ] Personal anecdotes included (Bryan/Kim camping story)
 - [ ] Humble, realistic tone (not preachy or salesy)
 
 **Hunting Accuracy** (DNR Compliance):
+
 - [ ] Bear seasons accurate (archery Sept, gun Nov-Dec)
 - [ ] Baiting prohibition clearly stated (federal wilderness rule)
 - [ ] License requirements correct (WV + Class XS bear stamp)
@@ -365,6 +369,7 @@ npx claude-flow@alpha hooks post-edit \
 - [ ] Dog hunting prohibition noted
 
 **Safety Protocol**:
+
 - [ ] Backcountry danger warnings prominent
 - [ ] Bear-proof food storage required
 - [ ] Navigation gear mandatory (maps, compass)
@@ -372,6 +377,7 @@ npx claude-flow@alpha hooks post-edit \
 - [ ] Weather change risks noted
 
 **Geographic Accuracy**:
+
 - [ ] Distance from shop verified (90 miles)
 - [ ] Driving directions from I-79 Exit 57 clear
 - [ ] Trailhead locations accurate
@@ -417,18 +423,21 @@ echo "SPEC-42 Complete: Cranberry Wilderness destination page ready at wv-wild-w
 ## Success Criteria
 
 ✅ **Content Complete**:
+
 - Cranberry Wilderness page created with backcountry template
 - Bear hunting regulations accurate (DNR verified)
 - Backcountry access and camping detailed
 - I-79 highway hunter positioning clear
 
 ✅ **WVWO Compliance**:
+
 - Kim's safety-focused voice (not preachy)
 - DNR regulatory expertise evident
 - Personal touch (camping anecdote)
 - Faith-forward, humble tone
 
 ✅ **Quality Checks**:
+
 - Schema.org markup validated
 - Hunting regulations current (WV DNR)
 - Safety protocols comprehensive

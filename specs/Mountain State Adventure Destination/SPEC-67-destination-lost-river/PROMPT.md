@@ -8,6 +8,7 @@ You are the **Swarm Queen** coordinating a specialized team to create compelling
 
 **Queen Agent**: Coordinates all agents, ensures WVWO brand voice consistency, validates against constitution
 **Specialist Agents**:
+
 - `researcher`: Park research, cabins, trails, Lee family history, facilities
 - `wv-historian`: Hardy County heritage, Lee cabin connection, Eastern Panhandle history
 - `hunter-strategist`: Hunter relevance, Eastern Panhandle WMAs, out-of-state hunter appeal (VA/MD)
@@ -17,7 +18,6 @@ You are the **Swarm Queen** coordinating a specialized team to create compelling
 ### Context Requirements
 
 **BEFORE generating content**, Queen must coordinate parallel research:
-
 
 ```bash
 # Queen spawns all researchers simultaneously
@@ -31,6 +31,7 @@ Task("SEO specialist", "Research 'Lost River State Park hunting', 'Hardy County 
 ### Content Template: State Park
 
 **Required Sections**:
+
 1. **Hero** (1-2 sentences): Mountain cabins + Lee family history, hunter appeal for out-of-state cabin stays
 2. **Why Hunters Stop Here** (3-4 bullets): Cabin stays during season, Eastern Panhandle WMA access, out-of-state hunter base camp
 3. **The Park** (2-3 paragraphs): Cabins, trails, Lee family cabin, mountain views, facilities
@@ -50,12 +51,14 @@ Task("SEO specialist", "Research 'Lost River State Park hunting', 'Hardy County 
 ### SEO Strategy
 
 **Primary Keywords**:
+
 - "Lost River State Park hunting"
 - "Hardy County WV hunting cabins"
 - "Eastern Panhandle WV hunting"
 - "Virginia hunters West Virginia cabins"
 
 **Geographic Modifiers**:
+
 - Eastern Panhandle
 - Hardy County
 - Virginia/Maryland proximity
@@ -99,6 +102,7 @@ historicFeature: "Lee family cabin (Robert E. Lee's family summer retreat)"
 ### Coordination Protocol
 
 **Queen's Workflow**:
+
 1. Spawn all 4 specialist agents in parallel (single message)
 2. Wait for research completion
 3. Brief content-writer with synthesized research

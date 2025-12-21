@@ -16,6 +16,7 @@ You're building the **Mountain State Adventure Destination Hub**—an integrated
 4. **Proves the Value** – A high-traffic authority site that makes the family business the "Gateway to the Mountains."
 
 **Your role after launch:** You manage all systems. Kim only:
+
 - Updates the "Bait & Bullet" line for store status.
 - Manages the product showroom via simple JSON/forms.
 - Coordinates with Matt on new "Adventure Guides" for local spots.
@@ -32,6 +33,7 @@ You're building the **Mountain State Adventure Destination Hub**—an integrated
 **Goal:** Gather intel naturally, don't tip off the surprise.
 
 **Conversation 1: Store Opening**
+
 ```
 "Hey! Quick question for a research project — 
 what year did WV Wild start, and what was 
@@ -42,6 +44,7 @@ brand story details
 ```
 
 **Conversation 2: Flood & Resilience**
+
 ```
 "I was researching Braxton County history and 
 saw there was a major flood in 2016. Did that 
@@ -53,6 +56,7 @@ inventory value/location, FEMA outcome
 ```
 
 **Conversation 3: Current Products & Suppliers**
+
 ```
 "What brands do you guys stock that locals 
 really trust? Like, what do hunters come 
@@ -64,6 +68,7 @@ selection, fishing gear brands, accessories
 ```
 
 **Conversation 4: Customer Personas**
+
 ```
 "I'm curious — on a typical Saturday, who walks 
 in? Locals, travelers, both? What are they 
@@ -74,6 +79,7 @@ what drives repeat visits (used guns? licenses?)
 ```
 
 **Conversation 5: Store Logistics**
+
 ```
 "What time do you guys open/close? Holiday hours? 
 And for customers who call ahead — what are the 
@@ -84,6 +90,7 @@ schedule, most common questions (to answer on FAQ)
 ```
 
 **Conversation 6: Photos & Imagery**
+
 ```
 "I'm putting together a family history thing — 
 could you send me a few photos of the store 
@@ -95,6 +102,7 @@ products, people, exterior, counter
 ```
 
 **Conversation 7: Story Elements**
+
 ```
 (Later, after she's comfortable)
 "I've been thinking about that flood you 
@@ -107,12 +115,14 @@ helping hands, Bryan's determination,
 faith perspective)
 ```
 
-**What NOT to ask directly:** 
+**What NOT to ask directly:**
+
 - ❌ "Can I see your financials?"
 - ❌ "What's your exact inventory value?"
 - ❌ "Can I see your website?" (drop breadcrumbs instead)
 
 **What to gather from public sources:**
+
 - Google their current Google Business Profile
 - Screenshot their Facebook page (follower count, recent posts)
 - Take a photo of their store exterior yourself
@@ -132,6 +142,7 @@ faith perspective)
 - [ ] Create `/wv-wild-outdoors` project directory
 - [ ] Initialize Git repo: `git init`
 - [ ] Create `.env.local` file (never commit):
+
   ```
   # Database
   DIRECTUS_DB_HOST=localhost
@@ -177,8 +188,9 @@ faith perspective)
 #### 1.2 Directus Setup (Product Catalog Backend)
 
 - [ ] Install Directus in Docker container
-- [ ] Access http://localhost:8055/admin
+- [ ] Access <http://localhost:8055/admin>
 - [ ] Create database collections:
+
   ```
   - Products
     - id (primary key)
@@ -259,7 +271,7 @@ faith perspective)
 #### 1.3 Ghost Blog Setup (Content Publishing)
 
 - [ ] Install Ghost in Docker container (SQLite for local, will migrate to PostgreSQL for production)
-- [ ] Access http://localhost:2368/admin
+- [ ] Access <http://localhost:2368/admin>
 - [ ] Create Ghost staff account for Kim (Editor role)
 - [ ] Configure blog:
   - [ ] Site title: "WV Wild Outdoors Blog"
@@ -282,10 +294,13 @@ faith perspective)
 
 - [ ] Create Astro project: `npm create astro@latest wv-wild-web`
 - [ ] Install dependencies:
+
   ```
   npm install @astrojs/node @astrojs/image dotenv axios
   ```
+
 - [ ] Create project structure:
+
   ```
   src/
   ├── components/
@@ -323,6 +338,7 @@ faith perspective)
   ```
 
 - [ ] Configure Astro for Static Site Generation (SSG) + On-Demand ISR:
+
   ```
   // astro.config.mjs
   export default defineConfig({
@@ -332,6 +348,7 @@ faith perspective)
   ```
 
 - [ ] Create design system CSS with your color variables:
+
   ```css
   :root {
     --color-forest-green: #2d5016;
@@ -358,7 +375,7 @@ faith perspective)
 #### 1.5 Listmonk Email Setup (Newsletter Engine)
 
 - [ ] Install Listmonk in Docker container
-- [ ] Access http://localhost:9000
+- [ ] Access <http://localhost:9000>
 - [ ] Create lists:
   - [ ] "Main Newsletter" (all subscribers)
   - [ ] "Hunters" (hunting content)
@@ -367,6 +384,7 @@ faith perspective)
   
 - [ ] Create subscriber table in Directus to sync with Listmonk (via API)
 - [ ] Configure template:
+
   ```
   Subject line: [Newsletter Title]
   
@@ -386,9 +404,10 @@ faith perspective)
 #### 1.6 Mixpost Social Scheduler Setup
 
 - [ ] Install Mixpost Lite in Docker container
-- [ ] Access http://localhost:8000
+- [ ] Access <http://localhost:8000>
 - [ ] Connect Facebook page (will do in training session with Kim)
 - [ ] Create content templates:
+
   ```
   - The Caliber Call: "This week: [product/topic]"
   - The Season Countdown: "[Weeks] until [season]"
@@ -396,6 +415,7 @@ faith perspective)
   - The Local Intel: "[Local fishing/hunting tip]"
   - The Customer Win: "[Success story]"
   ```
+
 - [ ] Set up scheduling calendar
 - [ ] Load placeholder posts (will replace with real content in training)
 
@@ -418,6 +438,7 @@ faith perspective)
 **Purpose:** Prove they're real, local, and trustworthy. 30-second impression.
 
 **Content structure:**
+
 ```
 1. STATUS BAR (sticky header)
    ├─ Phone: [CLICK TO CALL]
@@ -483,6 +504,7 @@ faith perspective)
 ```
 
 **Design notes:**
+
 - Hero image: Real store or local hunting scene (not stock photo)
 - Color scheme: Forest green + rust brown + warm accents on cream background
 - Typography: Merriweather for headings, Open Sans for body
@@ -555,10 +577,11 @@ Button: "Visit Us"
 ```
 
 **Writing approach:**
+
 - Voice: Kim's voice (captured through conversations)
 - Structure: "We Were Already Here" — open with present, show depth
 - Faith: Show through action, not declaration
-  - Good: "The church ladies' casserole delivery schedule told us 
+  - Good: "The church ladies' casserole delivery schedule told us
     the community needed us here"
   - Not: "God blessed our business"
 - Length: Exactly 900–1,100 words (readable in 5–7 minutes)
@@ -569,6 +592,7 @@ Button: "Visit Us"
 **Purpose:** Searchable catalog. Prove inventory. Drive engagement.
 
 **Layout:**
+
 ```
 [HERO]
 Headline: "What We Stock"
@@ -599,6 +623,7 @@ Detail pages have "Call for pricing" or "Email for availability"
 ```
 
 **Technical:**
+
 - Fetch from Directus API at build time
 - Regenerate daily (or on-demand when inventory updates)
 - Search via JavaScript (client-side filtering)
@@ -885,64 +910,109 @@ TERMS OF SERVICE
 **The core pivot: Moving from a retail store to a geographic destination resource.**
 
 #### 3.1 Adventure Content Collections (SPEC-06/12)
-- [ ] Implement `src/content/adventures/` schema
-- [ ] Seed base data for Elk River WMA, Sutton Lake, and Birch River
-- [ ] Build geographic waypointing UI (distance from shop badges)
-- [ ] Implement "The Highway Hunter" waypoint SEO strategy
+
+**Data Schema Setup**:
+
+- [ ] Implement `src/content/adventures/` schema with frontmatter fields (name, type, slug, coordinates, amenities, activities, difficulty, season, distanceFromShop, regulations, safety)
+- [ ] Create TypeScript interface for Adventure type
+- [ ] Seed base data: Elk River WMA, Sutton Lake, Birch River, Canaan Valley, Cranberry Wilderness
+
+**Content Blocks Standardization**:
+
+- [ ] Hero block (image + headline + subhead + waypoint badge)
+- [ ] Activity/Feature grid (categorized by season/type)
+- [ ] Regulations & Safety (Kim's voice, WV-specific)
+- [ ] Access & Logistics (drive time from shop, parking, nearest town)
+- [ ] Local Knowledge (Kim's insights + "ask us" CTA)
+- [ ] Gear recommendations (linked to product catalog)
+
+**Destination Page Templates**:
+
+- [ ] Collection setup for WMAs, Lakes, State Parks
+- [ ] SEO/schema.org markup (TouristAttraction, Place)
+- [ ] Waypoint badges ("X miles from WV Wild Outdoors")
+- [ ] Mobile PWA/PageSpeed checks (90+ score)
+
+**Build & Deploy**:
+
+- [ ] Test SSG with 20+ adventure pages
+- [ ] Verify image optimization (WebP, lazy load, srcsets)
+- [ ] Schema.org validation (Google Rich Results Test)
+- [ ] Cross-link verification (adventures ↔ products ↔ services)
 
 #### 3.2 Product Showcase (SPEC-05)
+
 - [ ] Preserve product catalog but disable e-commerce UI
 - [ ] Implement "Call to Order" logic for all items
 - [ ] Add FFL inquiry forms for firearms categories
-- [ ] Maintain latent Stripe/Cart infrastructure (hidden by flag)
+- [ ] Maintain latent Stripe/Cart infrastructure (hidden by flag for future reactivation)
 
 #### 3.3 Highway SEO & Launch Readiness
-- [ ] Capturing "near me" searches for US-19 travelers
-- [ ] Verifying mobile PageSpeed (90+) for rural connectivity
-- [ ] Final voice audit (Kim's authentic WV tone)
-   
-2. "The Best Boots for Deer Hunting"
+
+- [ ] Implement "near me" + waypoint SEO for US-19 travelers
+  - [ ] "hunting near I-79 exit 57"
+  - [ ] "fishing near Sutton WV"
+  - [ ] "WMA near Braxton County"
+- [ ] Verify mobile PageSpeed (90+) for rural connectivity
+- [ ] Final voice audit (Kim's authentic WV tone across all adventure content)
+- [ ] Local Business Schema updated with adventure links
+- [ ] Google Business Profile integration (link to adventure pages from GBP posts)
+
+---
+
+### PHASE 4: CONTENT SEEDING & LEGACY CLEANUP (Week 7)
+
+#### 4.1 Blog Posts (Ghost/Content Seeding)
+
+**Create 12 placeholder posts (4 per main category):**
+
+**HUNTING (4 posts):**
+
+
+1. "The Best Boots for Deer Hunting"
    - Excerpt: "Worn-out boots can ruin a hunt. Here's why we stock Danner and LaCrosse, and how to pick the right pair for Braxton County terrain."
    - Tags: hunting, boots, gear
-   
-3. "Safety First: Firearm Handling 101"
+
+2. "Safety First: Firearm Handling 101"
    - Excerpt: "Before you head to the woods, know the rules. We break down the four rules of firearm safety every hunter should follow."
    - Tags: hunting, safety, firearms
-   
-4. "Local Hotspots: Where to Hunt in Braxton County"
+
+3. "Local Hotspots: Where to Hunt in Braxton County"
    - Excerpt: "[PLACEHOLDER: Kim can add local knowledge here] — public land, private land partnerships, and spots for out-of-state visitors."
    - Tags: hunting, local, braxton-county
 
 **FISHING (4 posts):**
+
 1. "Spring Trout Season Starts April 1"
    - Excerpt: "Trout season is coming. Get your license, stock up on flies, and prepare for opening day on WV streams."
    - Tags: fishing, seasons, trout
-   
+
 2. "Bass Fishing Tips for Summer"
    - Excerpt: "Summer bass fishing in WV requires patience and the right gear. Here's what works in our local lakes."
    - Tags: fishing, bass, summer
-   
+
 3. "Choosing Your First Fishing Rod"
    - Excerpt: "Overwhelmed by rod choices? We walk through spinning rods, fly rods, and what to buy if you're just starting out."
    - Tags: fishing, gear, beginner
-   
+
 4. "Local Fishing Spots Worth Visiting"
    - Excerpt: "[PLACEHOLDER: Kim adds local knowledge] — streams, lakes, and secret spots accessible from Braxton County."
    - Tags: fishing, local, braxton-county
 
 **GEAR REVIEWS (4 posts):**
+
 1. "Danner Pronghorn vs. LaCrosse Alpha: Boot Showdown"
    - Excerpt: "Both are rugged hunting boots. We've worn both. Here's what we found after 100+ hours in the field."
    - Tags: boots, gear, review
-   
+
 2. "Vortex Viper Scopes: Why We Stock Them"
    - Excerpt: "Vortex scopes are a favorite in Braxton County. Here's what makes them worth the investment, from entry-level to premium."
    - Tags: optics, firearms, review
-   
+
 3. "The Perfect Hunting Backpack"
    - Excerpt: "You need hands free for your rifle. Here's what to look for in a hunting pack that doesn't compromise."
    - Tags: gear, hunting, accessories
-   
+
 4. "Ammunition Choices: Federal vs. Winchester"
    - Excerpt: "Both are reliable. Here's how to choose the right round for your hunt, based on your rifle and target."
    - Tags: ammunition, firearms, guide
@@ -953,7 +1023,7 @@ TERMS OF SERVICE
 1. "WV Hunting License Guide 2024"
    - Excerpt: "All the license types, prices, and where to buy them. We sell licenses here, so stop by to pick one up."
    - Tags: licenses, regulations, wv
-   
+
 2. "Understanding Hunting Stamps & Endorsements"
    - Excerpt: "Bonus endorsements unlock more hunting opportunities. Here's what each one costs and what access it gives you."
    - Tags: licenses, regulations, wv
@@ -966,6 +1036,7 @@ TERMS OF SERVICE
    - Tags: stories, community, braxton-county
 
 **All posts:**
+
 - Status: "Draft" (not published yet)
 - Author: Admin (you create them, Kim reviews)
 - Featured image: Placeholder (real photos in training)
@@ -1019,6 +1090,7 @@ TERMS OF SERVICE
 - [ ] Create 2GB VPS in us-east-1
 - [ ] Configure SSH key access (no password)
 - [ ] Set up UFW firewall:
+
   ```bash
   ufw allow 22/tcp  # SSH
   ufw allow 80/tcp  # HTTP
@@ -1027,6 +1099,7 @@ TERMS OF SERVICE
   ```
 
 - [ ] Install base packages:
+
   ```bash
   apt update && apt upgrade -y
   apt install -y docker.io docker-compose curl git
@@ -1034,6 +1107,7 @@ TERMS OF SERVICE
   ```
 
 - [ ] Add non-root deploy user:
+
   ```bash
   useradd -m -s /bin/bash deploy
   usermod -aG docker deploy
@@ -1044,6 +1118,7 @@ TERMS OF SERVICE
 - [ ] Register domain: `wvwildoutdoors.com` (or similar)
 - [ ] Point nameservers to Cloudflare
 - [ ] Create DNS records:
+
   ```
   @ (root)          → A record → VPS IP
   www               → CNAME → @ (root)
@@ -1179,6 +1254,7 @@ networks:
 - [ ] Create Backblaze B2 account
 - [ ] Create bucket: `wv-wild-outdoors-backups`
 - [ ] Set up daily backup script:
+
   ```bash
   #!/bin/bash
   # Backup all databases + uploads to B2
@@ -1258,7 +1334,7 @@ networks:
 - [ ] Lighthouse score: 85+
 - [ ] Load time: <3s on 4G (rural broadband)
 - [ ] Core Web Vitals: all green
-- [ ] Test with https://webpagetest.org
+- [ ] Test with <https://webpagetest.org>
 
 #### 5.7 Security Audit
 
@@ -1301,6 +1377,7 @@ networks:
 **Timeline: Weeks 1-2 (during local build)**
 
 **Conv 1: Business History**
+
 ```
 You: "Hey! Quick question for a research 
 project I'm working on — what year did 
@@ -1315,6 +1392,7 @@ Kim's Answer Will Give You:
 ```
 
 **Conv 2: Survivor Story (Gentle Approach)**
+
 ```
 You: "I was reading about Braxton County 
 history and saw there was a major flood 
@@ -1330,6 +1408,7 @@ Kim's Answer Will Give You:
 ```
 
 **Conv 3: Current Product Mix**
+
 ```
 You: "What brands do hunters in Braxton 
 County ask for the most? Like boots, 
@@ -1344,6 +1423,7 @@ Kim's Answer Will Give You:
 ```
 
 **Conv 4: Customer Mix**
+
 ```
 You: "I'm curious about your typical 
 Saturday. Who usually comes in? Locals 
@@ -1357,6 +1437,7 @@ Kim's Answer Will Give You:
 ```
 
 **Conv 5: Operations**
+
 ```
 You: "What time do you guys open 
 and close? Do your hours change 
@@ -1371,6 +1452,7 @@ Kim's Answer Will Give You:
 ```
 
 **Conv 6: Photos**
+
 ```
 You: "Hey, I'm putting together a 
 family history thing and would love 
@@ -1387,6 +1469,7 @@ Kim's Answer Will Give You:
 ```
 
 **Conv 7: Story Deep Dive (Later)**
+
 ```
 You: "I've been reading about resilience 
 in small businesses, and I think your 
@@ -1405,6 +1488,7 @@ Kim's Answer Will Give You:
 ```
 
 **Conversation Tips:**
+
 - Ask via Messenger (feels casual, Kim not in work mode)
 - Space out questions (don't dump them all at once)
 - Ask follow-ups ("And then what?" / "What was that like?")
@@ -1439,6 +1523,7 @@ Kim's Answer Will Give You:
 ### What You Build Without Kim's Input
 
 **Can build immediately (use placeholders):**
+
 - ✅ Website structure and pages
 - ✅ Blog template with placeholder posts
 - ✅ Product catalog with sample products
@@ -1451,6 +1536,7 @@ Kim's Answer Will Give You:
 - ✅ Legal pages (Privacy, Terms)
 
 **Cannot build without Kim (needs placeholders, then update in training):**
+
 - ❌ Real product photos
 - ❌ Exact inventory (stock quantities, prices)
 - ❌ Store hours (confirm exact times)
@@ -1750,13 +1836,15 @@ src/components/
 #### 1. Directus (Product & FAQ Management)
 
 **Kim's dashboard:**
-- Admin username: kim@wvwildoutdoors.com
+
+- Admin username: <kim@wvwildoutdoors.com>
 - Login: admin.wvwildoutdoors.com
 - Permissions: "Editor" role (can create/edit products; cannot delete users)
 
 **What Kim does:**
 
 **Task: Update Product Stock**
+
 1. Log in to Directus
 2. Click "Products" in left sidebar
 3. Find product in list
@@ -1766,6 +1854,7 @@ src/components/
 7. Done (site updates automatically within 1 hour)
 
 **Task: Add New Product**
+
 1. Click "Products" in left sidebar
 2. Click blue "+" button (top right)
 3. Fill in form:
@@ -1779,24 +1868,28 @@ src/components/
 5. Product appears on website automatically
 
 **Task: Update Store Hours (Seasonal)**
+
 1. Click "Store Info" in left sidebar
 2. Find hours field
 3. Update times (e.g., "Mon-Fri 9am-6pm winter, 9am-5pm summer")
 4. Click "Save"
 
 **Task: Update FAQ**
+
 1. Click "FAQs" in left sidebar
 2. Find question
 3. Update answer
 4. Click "Save"
 
 **Task: Edit About Page Story**
+
 1. Click "Store Info"
 2. Scroll to "Story Content" field
 3. Edit markdown (formatted text)
 4. Click "Save"
 
 **Kim's Directus Role Restrictions:**
+
 - ✅ Can create/edit/delete products
 - ✅ Can create/edit FAQs
 - ✅ Can edit store hours, address, info
@@ -1809,12 +1902,14 @@ src/components/
 #### 2. Ghost Blog (Publishing)
 
 **Kim's dashboard:**
+
 - Login: blog.wvwildoutdoors.com
 - Credentials: you create in advance
 
 **What Kim does:**
 
 **Task: Write & Publish Blog Post**
+
 1. Log in to Ghost
 2. Click "Create Story" (green button, top left)
 3. Write post:
@@ -1827,6 +1922,7 @@ src/components/
 5. Post appears on blog immediately
 
 **Task: Edit Existing Post**
+
 1. Click "Stories" (left menu)
 2. Find post in list
 3. Click to open
@@ -1834,6 +1930,7 @@ src/components/
 5. Click "Update"
 
 **Task: Schedule Future Post**
+
 1. Create post as above
 2. Click "Publish" dropdown (not the button, the arrow next to it)
 3. Select "Schedule for later"
@@ -1841,6 +1938,7 @@ src/components/
 5. Post automatically publishes at that time
 
 **Kim's Ghost Role:**
+
 - ✅ Can write and publish posts
 - ✅ Can edit own posts
 - ✅ Can add images
@@ -1854,21 +1952,25 @@ src/components/
 **Kim's weekly workflow:**
 
 **Monday (15 min prep):**
+
 - Log into Facebook as page manager
 - Check messages and comments
 - Reply to customer questions
 - Screenshot any questions for you to handle in social strategy
 
 **Tuesday 6pm (post goes live):**
+
 - You pre-schedule a post (via Mixpost, but Kim doesn't see that)
 - Post appears on Kim's Facebook page
 - Kim checks it, verifies it looks good
 - (Mixpost is your tool, Kim just manages Facebook engagement)
 
 **Saturday 9am (second post goes live):**
+
 - Same as above
 
 **Throughout week:**
+
 - Kim checks comments and messages
 - Kim forwards interesting customer questions to you
 - (You might write a blog post or social answer based on Kim's intel)
@@ -1880,6 +1982,7 @@ src/components/
 **Kim's workflow:**
 
 **Step 1: (Week 1 of month) Provide Content**
+
 - You send Kim a Google Doc with draft newsletter
 - Newsletter has sections:
   - Feature: "This Month's Product Spotlight"
@@ -1890,11 +1993,13 @@ src/components/
 - You finalize
 
 **Step 2: (Week 2 of month) Preview & Approve**
+
 - You show Kim the newsletter as it will appear
 - Kim approves or suggests changes
 - You make final edits
 
 **Step 3: (Week 3 of month) Send**
+
 - You send newsletter via Listmonk
 - Kim watches for bounces/issues
 - Subscribers receive newsletter
@@ -1958,6 +2063,7 @@ KIM'S DASHBOARD
 ```
 
 **Kim's mental model:**
+
 - Directus = "Where I manage products and store info"
 - Ghost = "Where I write blog posts"
 - Facebook = "Where I chat with customers"
@@ -2108,24 +2214,28 @@ KIM'S DASHBOARD
 ### Seasonal Content Calendar (Example)
 
 **JANUARY-MARCH (Winter/Spring)**
+
 - Blog: "New Year Hunting Tips" "Ice Fishing Season" "Spring Turkey Prep"
 - Social: Early season discounts, new stock arrivals, licensing reminders
 - Newsletter: 1x/month (slow season)
 - Facebook: 2x/week
 
 **APRIL-JUNE (Spring Fishing)**
+
 - Blog: "Trout Openers" "Bass Season Guide" "Summer Gear Reviews"
 - Social: Fishing season content, license reminders, gear spotlights
 - Newsletter: 1x/month
 - Facebook: 2x/week
 
 **JULY-SEPTEMBER (Summer Lull)**
+
 - Blog: Deep dives, gear reviews, maintenance tips, local stories
 - Social: Slow updates, mostly customer stories, boots/gear focus
 - Newsletter: 1x/month (or skip if slow)
 - Facebook: 1x/week (Kim is busier with other work)
 
 **OCTOBER-DECEMBER (Peak Season)**
+
 - Blog: "Buck Season 2024" "Gift Guides" "Black Friday Deals"
 - Social: HEAVY posting (3-4x/week), season updates, in-stock alerts
 - Newsletter: 2x/month (October-November)
@@ -2216,6 +2326,7 @@ as my role in the family business."
 **Format:** Walk through each section, show how it works, explain why.
 
 **Page 1: Homepage**
+
 ```
 "This is what someone sees when they type in 
 your domain. We have:
@@ -2255,6 +2366,7 @@ change things in the backend."
 ```
 
 **Page 2: About Page**
+
 ```
 "This is the story page. This is where you tell 
 people who you are.
@@ -2282,6 +2394,7 @@ you too."
 ```
 
 **Page 3: Products**
+
 ```
 "This is your catalog. It pulls directly from 
 the database you manage.
@@ -2308,6 +2421,7 @@ It's a SHOWROOM. People browse here, then call you."
 ```
 
 **Page 4: FFL Transfers**
+
 ```
 "This page explains your FFL service.
 
@@ -2327,6 +2441,7 @@ No mystery. Legal compliance built in."
 ```
 
 **Page 5: Blog**
+
 ```
 "This is your content engine.
 
@@ -2351,6 +2466,7 @@ you have a library. That's traffic. That's trust."
 ```
 
 **Page 6: Legal/FFL Compliance**
+
 ```
 "Firearms have special legal requirements.
 
@@ -2460,6 +2576,7 @@ She watches it appear on the website.
 **What you do TOGETHER (need her passwords/accounts):**
 
 #### 1. Facebook OAuth Setup
+
 ```
 You: "Let me connect your Facebook page to the 
      social scheduler."
@@ -2477,6 +2594,7 @@ them appear on her page (she doesn't manage Mixpost).
 ```
 
 #### 2. Email Account Verification (Amazon SES)
+
 ```
 You: "Let's verify that your email actually works 
      from the newsletter system."
@@ -2492,6 +2610,7 @@ Next newsletter will actually reach people."
 ```
 
 #### 3. Google Business Profile Update
+
 ```
 You: "Let's make sure your Google Business Profile 
      is current."
@@ -2533,6 +2652,7 @@ Timing: Aim for Tuesday evening or Wednesday morning
 ```
 
 **Final Checklist Before Live:**
+
 ```
 □ All pages load without errors
 □ Forms submit successfully
@@ -2558,6 +2678,7 @@ Timing: Aim for Tuesday evening or Wednesday morning
 ### What Gets Seeded as Demo Content
 
 **Products (10-15 placeholder items):**
+
 ```
 1. [PLACEHOLDER] Vortex Viper PST Gen II 4-12x44
    Category: Optics
@@ -2577,6 +2698,7 @@ Kim fills in real prices, stock, photos.]
 ```
 
 **Blog Posts (12 placeholder posts):**
+
 ```
 Title: "[DRAFT] Deer Hunting Season 2024: 
          WV Regulations & Tips"
@@ -2602,6 +2724,7 @@ Date: Scheduled for Nov 1
 ```
 
 **FAQs (Placeholder answers):**
+
 ```
 Q: When does hunting season start?
 A: [PLACEHOLDER: Kim knows the exact dates. 
@@ -2614,6 +2737,7 @@ A: Yes! We're a Type 02 FFL.
 ```
 
 **Store Info (Directus StoreInfo collection):**
+
 ```
 store_name: "WV Wild Outdoors LLC"
 address: "[PLACEHOLDER - Get from Kim]"
@@ -2622,6 +2746,7 @@ hours_monday_friday: "[PLACEHOLDER - Get from Kim]"
 ```
 
 **Newsletter Template (Listmonk):**
+
 ```
 Subject: "[PLACEHOLDER - Monthly Newsletter Title]"
 
@@ -2636,6 +2761,7 @@ Local Tip: [PLACEHOLDER - Kim writes seasonal tip]
 ```
 
 **Social Posts (Mixpost):**
+
 ```
 Post 1 (Tuesday 6pm):
 "This week: [PLACEHOLDER - Stock update]
@@ -2651,6 +2777,7 @@ Post 2 (Saturday 9am):
 ### How to Mark Placeholders
 
 **In Directus:**
+
 ```
 Name field: "[PLACEHOLDER] Product Name"
 Description: "[PLACEHOLDER: Replace with real description. 
@@ -2659,6 +2786,7 @@ Status field: "draft"  (← User must change to "published")
 ```
 
 **In Ghost:**
+
 ```
 Title: "[DRAFT] Blog Post Title"
 Status: "Draft"
@@ -2668,6 +2796,7 @@ Content: "=== KIM: REPLACE THIS CONTENT ===
 ```
 
 **In Astro (frontend):**
+
 ```
 <!-- Placeholder image in homepage product widget -->
 <img src="/placeholder.png" alt="Product image - 
@@ -2678,6 +2807,7 @@ Content: "=== KIM: REPLACE THIS CONTENT ===
 ```
 
 **Display Logic:**
+
 - Directus products with status="draft" → NOT shown on public website
 - Ghost posts with status="draft" → NOT shown on public blog
 - Only public-facing items visible to customers
@@ -2690,20 +2820,24 @@ Content: "=== KIM: REPLACE THIS CONTENT ===
 ### Week 1: Stabilization
 
 **Daily (5 min each):**
+
 - [ ] Monitor uptime dashboard
 - [ ] Check error logs (none should exist)
 - [ ] Spot-check homepage loads
 
 **Mid-week (30 min):**
+
 - [ ] Call Kim: "Any issues? Anything feels weird?"
 - [ ] Monitor analytics for first traffic
 
 **End of week (1 hour):**
+
 - [ ] Review first newsletter signups
 - [ ] Check contact form submissions
 - [ ] Verify backups are running
 
 **What to watch for:**
+
 - Any crashes (unlikely if built well)
 - Newsletter signup failures
 - Slow page loads
@@ -2712,17 +2846,20 @@ Content: "=== KIM: REPLACE THIS CONTENT ===
 ### Week 2: Content
 
 **Monday (30 min):**
+
 - [ ] Kim writes first real blog post
 - [ ] You review and publish
 - [ ] Monitor traffic to new post
 
 **Wednesday (15 min):**
+
 - [ ] Update "Bait & Bullet" ticker with this week's inventory
 - [ ] Schedule social post
 
 **Friday (30 min):**
+
 - [ ] Review analytics
-- [ ] Call Kim with numbers: "X people viewed products, 
+- [ ] Call Kim with numbers: "X people viewed products,
                           X newsletter signups, X blog readers"
 
 **Goal:** Prove the website is working through data.
@@ -2730,18 +2867,21 @@ Content: "=== KIM: REPLACE THIS CONTENT ===
 ### Week 3: Optimization
 
 **Monday (1 hour):**
+
 - [ ] Run Google Search Console test
   - Submit sitemap
   - Check for crawl errors
   - Monitor indexing
   
 **Wednesday (30 min):**
+
 - [ ] Google Business Profile full audit
   - Update photos (add 5-10 new pictures)
   - Verify all info current
   - Check reviews
   
 **Friday (45 min):**
+
 - [ ] Lightho use audit
   - Check homepage performance
   - Identify any bottlenecks
@@ -2750,17 +2890,20 @@ Content: "=== KIM: REPLACE THIS CONTENT ===
 ### Week 4: Handoff
 
 **Monday (1 hour call with Kim):**
+
 - [ ] Review 4-week analytics
 - [ ] Show her dashboard
 - [ ] Ask: "What's working? What's not?"
 - [ ] Gather feedback for improvements
 
 **Wednesday (30 min):**
+
 - [ ] Document any bugs
 - [ ] Make minor fixes
 - [ ] Write maintenance guide for Kim
 
 **Friday (1 hour):**
+
 - [ ] Final checklist:
   - [ ] All systems stable
   - [ ] Kim comfortable with Directus
@@ -2942,18 +3085,21 @@ WV Wild Outdoors team
 ## SUCCESS CRITERIA: How You'll Know This Worked
 
 **The website launches and Kim says:**
+
 - ✅ "I understand how to update products"
 - ✅ "I can write blog posts"
 - ✅ "This looks like our store"
 - ✅ "I'm willing to try this"
 
 **After 30 days, Kim has:**
+
 - ✅ Updated product stock 3+ times independently
 - ✅ Written at least one blog post
 - ✅ Read her first newsletter results
 - ✅ Checked a customer email from the website
 
 **After 6 months, the business has:**
+
 - ✅ 200+ newsletter subscribers
 - ✅ 50+ blog visits per month (organic traffic)
 - ✅ 5-10 product inquiries per month via contact form
@@ -2962,6 +3108,7 @@ WV Wild Outdoors team
 - ✅ Positive reviews from customers about website
 
 **Your role is established:**
+
 - ✅ Kim trusts you with the digital systems
 - ✅ Bryan sees value in online presence
 - ✅ You're claimed as "digital guy" in the family
@@ -3024,6 +3171,7 @@ This isn't just building a website. You're:
 **The website is the proof. Your stewardship is the gift.**
 
 When hunters in Braxton County search "FFL dealer near me" and find WV Wild Outdoors, and they click through and see:
+
 - Real people (Kim & Bryan)
 - Real story (the flood, the rebuild)
 - Real products (what's in stock)
@@ -3038,6 +3186,7 @@ That's the work.
 **End of Blueprint**
 
 **Next Steps:**
+
 1. Week 1: Gather intel via Messenger (conversation 1-3)
 2. Week 2-3: Local build (infrastructure, content seeding)
 3. Week 4: Deployment prep (VPS, domain, backups)
