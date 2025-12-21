@@ -1,5 +1,8 @@
 ---
 import HeaderCart from './cart/HeaderCart';
+
+// Feature flag: E-commerce UI (cart, checkout)
+const commerceEnabled = import.meta.env.PUBLIC_COMMERCE_ENABLED === 'true';
 ---
 <header class="sticky top-0 z-50 bg-brand-brown text-white shadow-lg border-b-4 border-sign-green">
   <div class="container mx-auto px-4 py-3 flex justify-between items-center">
@@ -31,14 +34,14 @@ import HeaderCart from './cart/HeaderCart';
           Contact
         </a>
         <!-- Shopping Cart (Desktop) -->
-        <HeaderCart client:load />
+        {commerceEnabled && <HeaderCart client:load />}
       </nav>
     </div>
 
     <!-- Mobile: Cart + Menu -->
     <div class="md:hidden flex items-center space-x-2">
       <!-- Shopping Cart (Mobile) -->
-      <HeaderCart client:load />
+      {commerceEnabled && <HeaderCart client:load />}
 
       <!-- Mobile Menu Button -->
       <button

@@ -4,6 +4,9 @@ import { SITE_CONTACT } from '../config/siteContact';
 import StickyPhone from '../components/StickyPhone.astro';
 import { CartDrawer, CartErrorBoundary } from '../components/cart';
 
+// Feature flag: E-commerce UI (cart, checkout)
+const commerceEnabled = import.meta.env.PUBLIC_COMMERCE_ENABLED === 'true';
+
 interface Props {
 	title: string;
     description?: string;
@@ -200,8 +203,10 @@ const schemaData = {
 		<slot />
 		<StickyPhone />
 		<!-- Cart Drawer (shared state via nanostores) -->
-		<CartErrorBoundary client:load>
-			<CartDrawer client:load />
-		</CartErrorBoundary>
+		{commerceEnabled && (
+			<CartErrorBoundary client:load>
+				<CartDrawer client:load />
+			</CartErrorBoundary>
+		)}
 	</body>
 </html>
