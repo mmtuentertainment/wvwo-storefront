@@ -8,17 +8,18 @@
 
 ## EXECUTIVE SUMMARY
 
-You're building an integrated digital ecosystem that does THREE things simultaneously:
+You're building the **Mountain State Adventure Destination Hub**—an integrated digital ecosystem that does THREE things simultaneously:
 
-1. **Honors their business** – Authentic story, rural voice, real store, real people
-2. **Solves their problem** – Kim can update from her phone, you handle the heavy lift
-3. **Proves your value** – Complete, working, trained, immediately useful
+1. **Honors their business** – The **Physical Retail Store** is the core foundation. This digital strategy serves to drive neighbors and US-19 travelers to the shop in Birch River.
+2. **Solves their problem** – Kim can update products and adventure knowledge from her phone; you handle the technical architecture.
+3. **Pivots for the Future** – Shifting the *online focus* from e-commerce to a professional **Destination Hub** that serves as a multi-modal income stream for Matt while funneling massive traffic and "eyes" to the physical storefront.
+4. **Proves the Value** – A high-traffic authority site that makes the family business the "Gateway to the Mountains."
 
 **Your role after launch:** You manage all systems. Kim only:
-- Types new product info into a form field
-- Checks Facebook messages
-- Asks customers for emails at checkout
-- Reviews monthly newsletter draft
+- Updates the "Bait & Bullet" line for store status.
+- Manages the product showroom via simple JSON/forms.
+- Coordinates with Matt on new "Adventure Guides" for local spots.
+- Reviews monthly newsletter draft.
 
 **Timeline:** 6 weeks stealth build → 1 week pre-reveal polish → 5-hour reveal/train session → you deploy live
 
@@ -879,44 +880,26 @@ TERMS OF SERVICE
 
 ---
 
-### PHASE 3: CONTENT SEEDING & PLACEHOLDERS (Week 3)
+### PHASE 3: MOUNTAIN STATE ADVENTURE DESTINATION (Weeks 4-6)
 
-#### 3.1 Product Catalog (Directus Seeding)
+**The core pivot: Moving from a retail store to a geographic destination resource.**
 
-**What you can add without Kim:**
-- Products: Create 10-15 "PLACEHOLDER" products (categories, prices, descriptions)
-- Categories: Firearms, Ammunition, Boots, Optics, Fishing Gear, Accessories
-- Brands: Danner, LaCrosse, Muck, Vortex, Federal, Winchester, Remington
-- Services: FFL Transfers ($25), License Sales, Buy/Sell Firearms
+#### 3.1 Adventure Content Collections (SPEC-06/12)
+- [ ] Implement `src/content/adventures/` schema
+- [ ] Seed base data for Elk River WMA, Sutton Lake, and Birch River
+- [ ] Build geographic waypointing UI (distance from shop badges)
+- [ ] Implement "The Highway Hunter" waypoint SEO strategy
 
-**Example placeholder product:**
-```json
-{
-  "name": "[PLACEHOLDER] Vortex Viper PST Gen II 4-12x44",
-  "category": "optics",
-  "brand": "Vortex",
-  "description": "[PLACEHOLDER: Add real description from Vortex specs]",
-  "price": "[PLACEHOLDER: Check current MSRP]",
-  "stock_quantity": "[PLACEHOLDER: Ask Kim about current stock]",
-  "sku": "[PLACEHOLDER: Add SKU from Vortex]",
-  "status": "draft"
-}
-```
+#### 3.2 Product Showcase (SPEC-05)
+- [ ] Preserve product catalog but disable e-commerce UI
+- [ ] Implement "Call to Order" logic for all items
+- [ ] Add FFL inquiry forms for firearms categories
+- [ ] Maintain latent Stripe/Cart infrastructure (hidden by flag)
 
-**What you CANNOT add:**
-- ❌ Actual prices (vary by stock, need Kim's approval)
-- ❌ Exact stock quantities (need real inventory count)
-- ❌ Detailed firearms specs (need Kim to verify)
-- ❌ Product photos (need real store photos)
-
-#### 3.2 Blog Posts (Ghost Seeding)
-
-**Create 12 placeholder posts (4 per main category):**
-
-**HUNTING (4 posts):**
-1. "Deer Hunting Season 2024: WV Regulations & Tips"
-   - Excerpt: "Buck season starts November 16 in WV. Here's what you need to know about tags, licenses, and local hotspots."
-   - Tags: hunting, seasons, regulations
+#### 3.3 Highway SEO & Launch Readiness
+- [ ] Capturing "near me" searches for US-19 travelers
+- [ ] Verifying mobile PageSpeed (90+) for rural connectivity
+- [ ] Final voice audit (Kim's authentic WV tone)
    
 2. "The Best Boots for Deer Hunting"
    - Excerpt: "Worn-out boots can ruin a hunt. Here's why we stock Danner and LaCrosse, and how to pick the right pair for Braxton County terrain."

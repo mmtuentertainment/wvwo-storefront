@@ -394,19 +394,21 @@ npm run preview  # Preview production build
 - Mobile-first responsive design
 
 ## Recent Changes
+- 2025-12-21: Strategic Pivot - Mountain State Adventure Destination
+  - SPEC-05: Disabled e-commerce UI (cart/checkout) via `PUBLIC_COMMERCE_ENABLED` flag.
+  - Pivot focus: Transforming from a retail site to an outdoor adventure destination hub.
+  - Content Collections: Migrating to structured geographic guides using Astro Content Collections.
 - 2025-12-12: Constitution v2.1.0 - Phase 3 Strategy & Geographic Positioning
-  - Added Principle VII: Appalachian Gateway Positioning (US 19 / I-79 Exit 57)
-  - E-commerce now IN SCOPE (Phase 3C)
-  - Anti-Speed Clause added (no artificial deadlines)
 - 2025-12-09: Constitution v2.0.0 - Pivoted to simple static site approach
 - Removed: Docker, Directus, Ghost, Listmonk, Mixpost, PostgreSQL, Redis
 - Added: Web3Forms (forms), Buttondown (newsletter), YouTube (embeds)
 
-## Current Phase: 3 - Highway Hunter Capture
-**Goal:** Capture out-of-state hunters traveling the I-79 corridor
-- Phase 3A: Geographic SEO Foundation (GBP, schema, "near I-79" content)
-- Phase 3B: Hunter Content Hub (season guides, WMA maps, local knowledge)
-- Phase 3C: E-Commerce Foundation (cart for shippable items, Stripe, FFL compliance)
+## Current Phase: 3 - Mountain State Adventure Destination (PIVOT)
+**Goal**: Build a high-traffic destination hub that serves as a **professional income source for Matt** while driving massive **in-store foot traffic** for Kim & Bryan along the I-79/US-19 corridor.
+- Phase 3A: Adventure Content Foundation (Astro Content Collections for WMAs/Lakes).
+- Phase 3B: Geographic SEO (Capturing "near me" and waypoint searches for US-19 to drive **In-Store Traffic**).
+- Phase 3C: Static Inventory Showroom (Product catalog persists with "Call to Order" logic for physical fulfillment).
+- Phase 3D: E-Commerce Guardrails (Commerce capability preserved but disabled by flag).
 
 <!-- MANUAL ADDITIONS START -->
 
@@ -457,7 +459,9 @@ Your context window will be automatically compacted as it approaches its limit. 
 <wvwo_constraints>
 APPROVED: Astro 5.x, Tailwind CSS 4.x, React/shadcn (with WVWO aesthetic overrides)
 NEVER: Vue, Angular, Svelte, Next.js, corporate tone, purple/neon colors
+NEVER: Suggest enabling e-commerce while flag is set to false (SPEC-05 requirement)
 ALWAYS: rounded-sm (never rounded-md/lg), brand-brown/sign-green/brand-cream palette, Kim's authentic voice
+ALWAYS: Use Astro Content Collections for ALL new adventure/destination content (SPEC-06/12)
 </wvwo_constraints>
 
 After loading context, acknowledge with:
