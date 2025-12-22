@@ -155,7 +155,7 @@ npx claude-flow@alpha hooks post-task --task-id "spec-28-redirects"
 Before marking complete:
 
 - [ ] Researcher documented Cloudflare Pages `_redirects` syntax
-- [ ] File created at correct path (`wv-wild-web/public/_redirects`)
+- [ ] File created at correct path (`./public/_redirects`)
 - [ ] All 8 source URLs mapped to 7 destinations
 - [ ] Special case handled (2 URLs → 1 destination for Burnsville Lake)
 - [ ] 301 status codes specified
@@ -168,7 +168,7 @@ Before marking complete:
 
 ## Success Criteria
 
-1. Valid `_redirects` file at `/wv-wild-web/public/_redirects`
+1. Valid `_redirects` file at `./public/_redirects`
 2. All 8 migrated URLs redirect with 301 status
 3. Burnsville Lake merge case handled (2 → 1)
 4. File syntax validated against Cloudflare docs

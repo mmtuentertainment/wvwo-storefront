@@ -66,10 +66,20 @@ npx claude-flow@alpha hooks post-edit --file "burnsville-lake-recreation.astro" 
 
 **Frontmatter updates**:
 
-- Merge `activities[]` arrays (dedupe, sort by relevance)
-- Merge `amenities[]` arrays (dedupe, organize by type)
-- Combine safety notes
+- Merge `activities[]`:
+  - Sort order: Hunting Season > Spring/Fall Rec > Summer Water
+  - Dedupe: Exact match first, then fuzzy match > 85% similarity
+- Merge `amenities[]`:
+  - Group by type (e.g., "boat-ramps", "beaches", "campgrounds")
+  - Dedupe per type
+- Safety Notes Strategy:
+  - Keep hunting-specific and recreation-specific sections separate
+  - Concatenate with source attribution
+  - Remove exact duplicates
 - Update description to reflect BOTH hunting and recreation
+- Keep Kim's voice throughout
+  - Example: "Don't trust a laser bore sight alone. We mount it level, torque it right." — reflects practical expertise, no corporate jargon.
+- Organize by season where relevant (hunting season vs summer recreation)
 
 **Body content merge**:
 
@@ -112,7 +122,7 @@ Before marking complete:
 
 ## Success Criteria
 
-1. Single comprehensive `.md` file at `/content/adventures/burnsville-lake-wma.md`
+1. Single comprehensive `.md` file at `wv-wild-web/src/content/adventures/burnsville-lake-wma.md`
 2. Covers BOTH hunting/WMA and general recreation
 3. Frontmatter passes schema validation
 4. Body content flows naturally (not frankensteined)
