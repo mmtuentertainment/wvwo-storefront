@@ -1,10 +1,10 @@
 # SPEC-27: Burnsville Lake Recreation Content Merge
 
 **Status**: Ready for implementation
-**Assigned Agent**: `coder` (simple 2-agent pattern)
+**Assigned Agents**: `code-explorer + coder` (2-agent orchestration)
 **Dependencies**: SPEC-21 (Burnsville Lake WMA migration)
 
-**Prerequisite**: SPEC-21 must complete successfully and create `/wv-wild-web/src/content/adventures/burnsville-lake-wma.md` before SPEC-27 starts.
+**Prerequisite**: SPEC-21 must complete successfully and create `wv-wild-web/src/content/adventures/burnsville-lake-wma.md` before SPEC-27 starts.
 
 ---
 
@@ -24,7 +24,7 @@ npx agentdb@latest reflexion retrieve "WVWO" --k 15 --only-successes --min-rewar
 
 ## Task Overview
 
-**SPECIAL CASE**: Merge `/wv-wild-web/src/pages/near/burnsville-lake-recreation.astro` INTO existing `/wv-wild-web/src/content/adventures/burnsville-lake-wma.md` (created in SPEC-21).
+**SPECIAL CASE**: Merge `wv-wild-web/src/pages/near/burnsville-lake-recreation.astro` INTO existing `wv-wild-web/src/content/adventures/burnsville-lake-wma.md` (created in SPEC-21).
 
 **Why merge**: Burnsville Lake WMA and recreation area are the same location, just different activity focuses (hunting vs general recreation). Consolidate into single comprehensive entry.
 
