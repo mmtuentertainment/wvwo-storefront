@@ -78,7 +78,7 @@ npx claude-flow@alpha hooks post-edit --file "burnsville-lake-recreation.astro" 
 
 **Output**: Update existing file at:
 
-```
+```plaintext
 ./wv-wild-web\src\content\adventures\burnsville-lake-wma.md
 
 ```

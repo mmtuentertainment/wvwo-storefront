@@ -317,7 +317,7 @@ const gearMappings = {
 
 **Approved phrases**:
 
-```
+```text
 "Canaan Valley is our go-to for families. Smaller than Snowshoe, way less crowded, easier on the wallet."
 "The valley's a birding hotspot. 200+ species, rare wetland plants. Bring binoculars."
 "Winter skiing's solid - not extreme, but perfect for learning or cruising with the kids."
@@ -328,14 +328,14 @@ const gearMappings = {
 
 **Forbidden phrases**:
 
-```
+```text
 NEVER: "Premier destination", "Luxury resort", "World-class slopes", "Ultimate escape"
 
 ```
 
 **Affordability emphasis**:
 
-```
+```text
 "Canaan's lift tickets are cheaper than Snowshoe. Same WV snow, less sticker shock."
 "State park camping is $20-30/night. Lodge is reasonable too. Family trip that won't break the bank."
 
@@ -408,7 +408,7 @@ NEVER: "Premier destination", "Luxury resort", "World-class slopes", "Ultimate e
 
 **Kim's voice**:
 
-```
+```text
 "Canaan Valley is underrated. Most folks head to Snowshoe and miss this gem.
 
 Winter skiing is family-friendly. 40% beginner terrain, tubing park for kids,

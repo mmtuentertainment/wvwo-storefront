@@ -466,6 +466,107 @@ interface CaveTemplateProps {
   </div>
 </section>
 
+#### Safety Guidelines Section
+
+<section class="py-16 bg-white">
+  <div class="container mx-auto px-4">
+    <h2 class="font-display text-3xl md:text-4xl font-bold text-brand-brown mb-12">
+      Safety Guidelines
+    </h2>
+    <div class="border-l-4 border-l-brand-orange bg-brand-cream p-8 rounded-sm">
+      <div class="mb-6">
+        <h3 class="font-display text-lg font-bold text-brand-brown mb-4">
+          Rules & Requirements
+        </h3>
+        <ul class="space-y-2">
+          {safety.rules.map(rule => (
+            <li class="font-body text-brand-mud flex items-start gap-2">
+              <span class="text-brand-orange mt-1">•</span>
+              <span>{rule}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="font-display text-lg font-bold text-brand-brown mb-4">
+          Prohibited Items & Activities
+        </h3>
+        <ul class="space-y-2">
+          {safety.prohibited.map(item => (
+            <li class="font-body text-brand-mud flex items-start gap-2">
+              <span class="text-brand-orange mt-1">✕</span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {safety.emergencyContact && (
+        <div class="mt-6 pt-6 border-t border-brand-mud/20">
+          <p class="font-body text-brand-mud">
+            <span class="font-bold">Emergency Contact:</span> {safety.emergencyContact}
+          </p>
+        </div>
+      )}
+    </div>
+  </div>
+</section>
+
+#### History Section
+
+<section class="py-16 bg-brand-cream">
+  <div class="container mx-auto px-4">
+    <h2 class="font-display text-3xl md:text-4xl font-bold text-brand-brown mb-12">
+      History & Geology
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+      <div>
+        <h3 class="font-display text-xl font-bold text-brand-brown mb-4">
+          Discovery & Formation
+        </h3>
+        <p class="font-body text-brand-mud leading-relaxed mb-6">
+          {history.discovery}
+        </p>
+        <p class="font-body text-brand-brown font-bold">
+          Geological Age: <span class="font-normal text-brand-mud">{history.geologicalAge}</span>
+        </p>
+      </div>
+
+      <div class="space-y-8">
+        <div>
+          <h3 class="font-display text-xl font-bold text-brand-brown mb-4">
+            Notable Events
+          </h3>
+          <ul class="space-y-3">
+            {history.notableEvents.map(event => (
+              <li class="font-body text-brand-mud flex items-start gap-2">
+                <span class="text-brand-green mt-1">•</span>
+                <span>{event}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {history.localLegends && history.localLegends.length > 0 && (
+          <div>
+            <h3 class="font-display text-xl font-bold text-brand-brown mb-4">
+              Local Legends
+            </h3>
+            <ul class="space-y-3">
+              {history.localLegends.map(legend => (
+                <li class="font-body text-brand-mud italic border-l-2 border-brand-green pl-4">
+                  "{legend}"
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+</section>
+
 ```
 
 ---

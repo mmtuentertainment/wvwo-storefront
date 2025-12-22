@@ -94,7 +94,7 @@ npx claude-flow@alpha hooks post-edit --file "cloudflare-redirects-research.md" 
 
 **File format** (based on researcher's findings):
 
-```
+```plaintext
 # Adventure content migrations (SPEC-21 through SPEC-27)
 # Format: <source_path> <destination_path> <status_code>
 

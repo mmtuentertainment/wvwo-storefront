@@ -239,7 +239,7 @@ const staggerDelay = `${index * 60}ms`;
 
 ```
 
-**Save Location**: `./wv-wild-web\src\components\adventure\AdventureCard.astro`
+**Save Location**: `src/components/adventure/AdventureCard.astro`
 
 **Code Quality Checks**:
 

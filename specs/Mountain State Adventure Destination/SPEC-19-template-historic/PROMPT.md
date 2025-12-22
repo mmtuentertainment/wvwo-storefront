@@ -19,7 +19,7 @@ Create a reusable Astro template for West Virginia historic sites and battlefiel
 
 **researcher WebSearch queries**:
 
-```
+```text
 "Carnifex Ferry Battlefield website structure"
 "Bulltown Historic Area guide layout"
 "historic site website design best practices"
@@ -90,7 +90,7 @@ interface HistoricTemplateProps {
     type: string; // "Original Structure", "Reconstruction", "Monument", etc.
     year?: string;
     description: string;
-    condition: string; // "Restored", "Ruins", "Preserved", etc.
+    condition: "Restored" | "Ruins" | "Preserved" | "Reconstructed";
     accessible: boolean;
   }[];
   tours: {
