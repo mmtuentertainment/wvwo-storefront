@@ -1,0 +1,68 @@
+﻿2025-12-22T13:03:40.3740236Z ##[group]Run npm run build
+2025-12-22T13:03:40.3740655Z [36;1mnpm run build[0m
+2025-12-22T13:03:40.3782467Z shell: /usr/bin/bash -e {0}
+2025-12-22T13:03:40.3782835Z ##[endgroup]
+2025-12-22T13:03:40.5414993Z 
+2025-12-22T13:03:40.5415711Z > ppms-frontend@1.0.0 build
+2025-12-22T13:03:40.5416277Z > tsc && vite build
+2025-12-22T13:03:40.5416508Z 
+2025-12-22T13:03:48.3488552Z [36mvite v7.2.7 [32mbuilding client environment for production...[36m[39m
+2025-12-22T13:03:48.6605554Z transforming...
+2025-12-22T13:03:53.9515746Z [32m✓[39m 2276 modules transformed.
+2025-12-22T13:03:54.3229626Z rendering chunks...
+2025-12-22T13:03:54.3351740Z computing gzip size...
+2025-12-22T13:03:54.3535258Z [2mdist/[22m[32mindex.html                                                 [39m[1m[2m  1.39 kB[22m[1m[22m[2m │ gzip:   0.70 kB[22m
+2025-12-22T13:03:54.3537220Z [2mdist/[22m[2massets/[22m[32mjetbrains-mono-greek-400-normal-C190GLew.woff2      [39m[1m[2m  4.23 kB[22m[1m[22m
+2025-12-22T13:03:54.3548615Z [2mdist/[22m[2massets/[22m[32mjetbrains-mono-greek-700-normal-C6CZE3T8.woff2      [39m[1m[2m  4.30 kB[22m[1m[22m
+2025-12-22T13:03:54.3550620Z [2mdist/[22m[2massets/[22m[32minter-vietnamese-400-normal-DMkecbls.woff2          [39m[1m[2m  4.97 kB[22m[1m[22m
+2025-12-22T13:03:54.3552512Z [2mdist/[22m[2massets/[22m[32minter-vietnamese-700-normal-DlLaEgI2.woff2          [39m[1m[2m  5.10 kB[22m[1m[22m
+2025-12-22T13:03:54.3554392Z [2mdist/[22m[2massets/[22m[32minter-greek-ext-400-normal-DGGRlc-M.woff2           [39m[1m[2m  5.26 kB[22m[1m[22m
+2025-12-22T13:03:54.3555932Z [2mdist/[22m[2massets/[22m[32mjetbrains-mono-cyrillic-400-normal-BEIGL1Tu.woff2   [39m[1m[2m  5.33 kB[22m[1m[22m
+2025-12-22T13:03:54.3558006Z [2mdist/[22m[2massets/[22m[32mjetbrains-mono-cyrillic-700-normal-BWTpRfYl.woff2   [39m[1m[2m  5.34 kB[22m[1m[22m
+2025-12-22T13:03:54.3559601Z [2mdist/[22m[2massets/[22m[32mjetbrains-mono-vietnamese-400-normal-CqNFfHCs.woff  [39m[1m[2m  5.37 kB[22m[1m[22m
+2025-12-22T13:03:54.3561128Z [2mdist/[22m[2massets/[22m[32minter-greek-ext-700-normal-qfdV9bQt.woff2           [39m[1m[2m  5.44 kB[22m[1m[22m
+2025-12-22T13:03:54.3562683Z [2mdist/[22m[2massets/[22m[32mjetbrains-mono-vietnamese-700-normal-BDLVIk2r.woff  [39m[1m[2m  5.45 kB[22m[1m[22m
+2025-12-22T13:03:54.3603410Z [2mdist/[22m[2massets/[22m[32mjetbrains-mono-greek-400-normal-B9oWc5Lo.woff       [39m[1m[2m  5.66 kB[22m[1m[22m
+2025-12-22T13:03:54.3605527Z [2mdist/[22m[2massets/[22m[32mjetbrains-mono-greek-700-normal-DEigVDxa.woff       [39m[1m[2m  5.70 kB[22m[1m[22m
+2025-12-22T13:03:54.3607189Z [2mdist/[22m[2massets/[22m[32minter-vietnamese-400-normal-Bbgyi5SW.woff           [39m[1m[2m  6.50 kB[22m[1m[22m
+2025-12-22T13:03:54.3608786Z [2mdist/[22m[2massets/[22m[32minter-vietnamese-700-normal-BZaoP0fm.woff           [39m[1m[2m  6.63 kB[22m[1m[22m
+2025-12-22T13:03:54.3610534Z [2mdist/[22m[2massets/[22m[32mjetbrains-mono-cyrillic-400-normal-ugxPyKxw.woff    [39m[1m[2m  6.98 kB[22m[1m[22m
+2025-12-22T13:03:54.3612244Z [2mdist/[22m[2massets/[22m[32mjetbrains-mono-cyrillic-700-normal-CEoEElIJ.woff    [39m[1m[2m  7.02 kB[22m[1m[22m
+2025-12-22T13:03:54.3629247Z [2mdist/[22m[2massets/[22m[32minter-greek-ext-400-normal-KugGGMne.woff            [39m[1m[2m  7.06 kB[22m[1m[22m
+2025-12-22T13:03:54.3631029Z [2mdist/[22m[2massets/[22m[32minter-greek-ext-700-normal-BoQ6DsYi.woff            [39m[1m[2m  7.22 kB[22m[1m[22m
+2025-12-22T13:03:54.3632681Z [2mdist/[22m[2massets/[22m[32mjetbrains-mono-latin-ext-400-normal-Bc8Ftmh3.woff2  [39m[1m[2m  7.34 kB[22m[1m[22m
+2025-12-22T13:03:54.3634951Z [2mdist/[22m[2massets/[22m[32mjetbrains-mono-latin-ext-700-normal-CZipNAKV.woff2  [39m[1m[2m  7.47 kB[22m[1m[22m
+2025-12-22T13:03:54.3636620Z [2mdist/[22m[2massets/[22m[32minter-cyrillic-400-normal-obahsSVq.woff2            [39m[1m[2m  7.71 kB[22m[1m[22m
+2025-12-22T13:03:54.3638240Z [2mdist/[22m[2massets/[22m[32minter-greek-400-normal-B4URO6DV.woff2               [39m[1m[2m  7.78 kB[22m[1m[22m
+2025-12-22T13:03:54.3640111Z [2mdist/[22m[2massets/[22m[32minter-cyrillic-700-normal-CjBOestx.woff2            [39m[1m[2m  7.90 kB[22m[1m[22m
+2025-12-22T13:03:54.3641674Z [2mdist/[22m[2massets/[22m[32minter-greek-700-normal-C3JjAnD8.woff2               [39m[1m[2m  7.92 kB[22m[1m[22m
+2025-12-22T13:03:54.3643225Z [2mdist/[22m[2massets/[22m[32minter-cyrillic-400-normal-HOLc17fK.woff             [39m[1m[2m  9.78 kB[22m[1m[22m
+2025-12-22T13:03:54.3665700Z [2mdist/[22m[2massets/[22m[32minter-cyrillic-700-normal-DrXBdSj3.woff             [39m[1m[2m  9.91 kB[22m[1m[22m
+2025-12-22T13:03:54.3666721Z [33m
+2025-12-22T13:03:54.3667339Z (!) Some chunks are larger than 500 kB after minification. Consider:
+2025-12-22T13:03:54.3668098Z - Using dynamic import() to code-split the application
+2025-12-22T13:03:54.3669414Z - Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+2025-12-22T13:03:54.3670873Z - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.[39m
+2025-12-22T13:03:54.3672283Z [2mdist/[22m[2massets/[22m[32minter-greek-400-normal-q2sYcFCs.woff                [39m[1m[2m  9.92 kB[22m[1m[22m
+2025-12-22T13:03:54.3689347Z [2mdist/[22m[2massets/[22m[32minter-greek-700-normal-BUv2fZ6O.woff                [39m[1m[2m  9.98 kB[22m[1m[22m
+2025-12-22T13:03:54.3691142Z [2mdist/[22m[2massets/[22m[32mjetbrains-mono-latin-ext-400-normal-fXTG6kC5.woff   [39m[1m[2m 10.13 kB[22m[1m[22m
+2025-12-22T13:03:54.3692804Z [2mdist/[22m[2massets/[22m[32minter-cyrillic-ext-400-normal-BQZuk6qB.woff2        [39m[1m[2m 10.23 kB[22m[1m[22m
+2025-12-22T13:03:54.3694705Z [2mdist/[22m[2massets/[22m[32mjetbrains-mono-latin-ext-700-normal-CxPITLHs.woff   [39m[1m[2m 10.30 kB[22m[1m[22m
+2025-12-22T13:03:54.3696370Z [2mdist/[22m[2massets/[22m[32minter-cyrillic-ext-700-normal-BjwYoWNd.woff2        [39m[1m[2m 10.50 kB[22m[1m[22m
+2025-12-22T13:03:54.3697968Z [2mdist/[22m[2massets/[22m[32minter-cyrillic-ext-400-normal-DQukG94-.woff         [39m[1m[2m 13.34 kB[22m[1m[22m
+2025-12-22T13:03:54.3699569Z [2mdist/[22m[2massets/[22m[32minter-cyrillic-ext-700-normal-LO58E6JB.woff         [39m[1m[2m 13.41 kB[22m[1m[22m
+2025-12-22T13:03:54.3701198Z [2mdist/[22m[2massets/[22m[32mjetbrains-mono-latin-400-normal-V6pRDFza.woff2      [39m[1m[2m 21.17 kB[22m[1m[22m
+2025-12-22T13:03:54.3702916Z [2mdist/[22m[2massets/[22m[32mjetbrains-mono-latin-700-normal-BYuf6tUa.woff2      [39m[1m[2m 21.91 kB[22m[1m[22m
+2025-12-22T13:03:54.3704726Z [2mdist/[22m[2massets/[22m[32minter-latin-400-normal-C38fXH4l.woff2               [39m[1m[2m 23.66 kB[22m[1m[22m
+2025-12-22T13:03:54.3706327Z [2mdist/[22m[2massets/[22m[32minter-latin-700-normal-Yt3aPRUw.woff2               [39m[1m[2m 24.36 kB[22m[1m[22m
+2025-12-22T13:03:54.3707931Z [2mdist/[22m[2massets/[22m[32mjetbrains-mono-latin-400-normal-6-qcROiO.woff       [39m[1m[2m 27.50 kB[22m[1m[22m
+2025-12-22T13:03:54.3709566Z [2mdist/[22m[2massets/[22m[32mjetbrains-mono-latin-700-normal-D3wTyLJW.woff       [39m[1m[2m 28.21 kB[22m[1m[22m
+2025-12-22T13:03:54.3711370Z [2mdist/[22m[2massets/[22m[32minter-latin-400-normal-CyCys3Eg.woff                [39m[1m[2m 30.70 kB[22m[1m[22m
+2025-12-22T13:03:54.3712926Z [2mdist/[22m[2massets/[22m[32minter-latin-700-normal-BLAVimhd.woff                [39m[1m[2m 31.32 kB[22m[1m[22m
+2025-12-22T13:03:54.3714713Z [2mdist/[22m[2massets/[22m[32minter-latin-ext-400-normal-C1nco2VV.woff2           [39m[1m[2m 35.00 kB[22m[1m[22m
+2025-12-22T13:03:54.3716335Z [2mdist/[22m[2massets/[22m[32minter-latin-ext-700-normal-Ca8adRJv.woff2           [39m[1m[2m 36.24 kB[22m[1m[22m
+2025-12-22T13:03:54.3717891Z [2mdist/[22m[2massets/[22m[32minter-latin-ext-400-normal-77YHD8bZ.woff            [39m[1m[2m 47.56 kB[22m[1m[22m
+2025-12-22T13:03:54.3719644Z [2mdist/[22m[2massets/[22m[32minter-latin-ext-700-normal-TidjK2hL.woff            [39m[1m[2m 48.63 kB[22m[1m[22m
+2025-12-22T13:03:54.3721293Z [2mdist/[22m[2massets/[22m[35mindex-DNTMpABU.css                                  [39m[1m[2m 63.79 kB[22m[1m[22m[2m │ gzip:  21.67 kB[22m
+2025-12-22T13:03:54.3722844Z [2mdist/[22m[2massets/[22m[36mindex-BSpuCyaS.js                                   [39m[1m[33m565.41 kB[39m[22m[2m │ gzip: 172.95 kB[22m
+2025-12-22T13:03:54.3723714Z [32m✓ built in 5.98s[39m

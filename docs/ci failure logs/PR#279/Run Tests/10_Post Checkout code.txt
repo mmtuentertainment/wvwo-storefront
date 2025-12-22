@@ -1,0 +1,11 @@
+﻿2025-12-22T13:05:32.3170223Z Post job cleanup.
+2025-12-22T13:05:32.3929593Z [command]/usr/bin/git version
+2025-12-22T13:05:32.3965950Z git version 2.52.0
+2025-12-22T13:05:32.4005876Z Temporarily overriding HOME='/home/runner/work/_temp/edacd521-d332-4a8d-bc31-fa2f4afdd275' before making global git config changes
+2025-12-22T13:05:32.4008023Z Adding repository directory to the temporary git global config as a safe directory
+2025-12-22T13:05:32.4010034Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/PPMS/PPMS
+2025-12-22T13:05:32.4039573Z Removing SSH command configuration
+2025-12-22T13:05:32.4046482Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2025-12-22T13:05:32.4076916Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2025-12-22T13:05:32.4250616Z fatal: No url found for submodule path 'spec-kit' in .gitmodules
+2025-12-22T13:05:32.4274796Z ##[warning]The process '/usr/bin/git' failed with exit code 128

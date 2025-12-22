@@ -1,0 +1,30 @@
+﻿2025-12-22T13:02:52.2657070Z ##[group]Run actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f
+2025-12-22T13:02:52.2657492Z with:
+2025-12-22T13:02:52.2657691Z   node-version: 20.19.0
+2025-12-22T13:02:52.2657893Z   cache: npm
+2025-12-22T13:02:52.2658136Z   cache-dependency-path: frontend/package-lock.json
+2025-12-22T13:02:52.2658445Z   check-latest: false
+2025-12-22T13:02:52.2658756Z   token: ***
+2025-12-22T13:02:52.2659015Z   package-manager-cache: true
+2025-12-22T13:02:52.2659244Z ##[endgroup]
+2025-12-22T13:02:52.4052591Z Attempting to download 20.19.0...
+2025-12-22T13:02:52.4219154Z (node:1963) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2025-12-22T13:02:52.4222113Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2025-12-22T13:02:53.1625295Z Acquiring 20.19.0 - x64 from https://github.com/actions/node-versions/releases/download/20.19.0-13838090974/node-20.19.0-linux-x64.tar.gz
+2025-12-22T13:02:53.8711932Z Extracting ...
+2025-12-22T13:02:53.8851233Z [command]/usr/bin/tar xz --strip 1 --warning=no-unknown-keyword --overwrite -C /home/runner/work/_temp/cde9c353-2812-4ad0-a7ad-2b446247b5b4 -f /home/runner/work/_temp/9a6ff50a-3c87-40c4-9671-f9bd0de22603
+2025-12-22T13:02:55.0226675Z Adding to the cache ...
+2025-12-22T13:02:57.1639790Z ##[group]Environment details
+2025-12-22T13:02:57.4371746Z node: v20.19.0
+2025-12-22T13:02:57.4373573Z npm: 10.8.2
+2025-12-22T13:02:57.4375085Z yarn: 1.22.22
+2025-12-22T13:02:57.4377226Z ##[endgroup]
+2025-12-22T13:02:57.4406036Z [command]/opt/hostedtoolcache/node/20.19.0/x64/bin/npm config get cache
+2025-12-22T13:02:57.5530568Z /home/runner/.npm
+2025-12-22T13:02:57.7592850Z Cache hit for: node-cache-Linux-x64-npm-bca6f708ac92160854699230d5880a6f5767c34d74c3ce0c19eba7bf8d348b52
+2025-12-22T13:02:57.7765170Z (node:1963) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2025-12-22T13:02:58.9859065Z Received 47399253 of 47399253 (100.0%), 45.0 MBs/sec
+2025-12-22T13:02:58.9864048Z Cache Size: ~45 MB (47399253 B)
+2025-12-22T13:02:58.9894184Z [command]/usr/bin/tar -xf /home/runner/work/_temp/82ae7f51-0e00-4f97-9f34-eaf8da8361ee/cache.tzst -P -C /home/runner/work/PPMS/PPMS --use-compress-program unzstd
+2025-12-22T13:02:59.1743494Z Cache restored successfully
+2025-12-22T13:02:59.1843813Z Cache restored from key: node-cache-Linux-x64-npm-bca6f708ac92160854699230d5880a6f5767c34d74c3ce0c19eba7bf8d348b52

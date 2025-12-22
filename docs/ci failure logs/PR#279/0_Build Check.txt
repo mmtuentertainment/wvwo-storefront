@@ -1,0 +1,251 @@
+﻿2025-12-22T13:03:22.3750104Z Current runner version: '2.330.0'
+2025-12-22T13:03:22.3787150Z ##[group]Runner Image Provisioner
+2025-12-22T13:03:22.3788513Z Hosted Compute Agent
+2025-12-22T13:03:22.3789531Z Version: 20251211.462
+2025-12-22T13:03:22.3790643Z Commit: 6cbad8c2bb55d58165063d031ccabf57e2d2db61
+2025-12-22T13:03:22.3791862Z Build Date: 2025-12-11T16:28:49Z
+2025-12-22T13:03:22.3793120Z Worker ID: {cb0337fd-c956-4e4f-ad56-28a937d39b4a}
+2025-12-22T13:03:22.3794826Z ##[endgroup]
+2025-12-22T13:03:22.3796040Z ##[group]Operating System
+2025-12-22T13:03:22.3796916Z Ubuntu
+2025-12-22T13:03:22.3797626Z 24.04.3
+2025-12-22T13:03:22.3798413Z LTS
+2025-12-22T13:03:22.3799212Z ##[endgroup]
+2025-12-22T13:03:22.3799987Z ##[group]Runner Image
+2025-12-22T13:03:22.3800921Z Image: ubuntu-24.04
+2025-12-22T13:03:22.3801759Z Version: 20251215.174.1
+2025-12-22T13:03:22.3803431Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20251215.174/images/ubuntu/Ubuntu2404-Readme.md
+2025-12-22T13:03:22.3806344Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20251215.174
+2025-12-22T13:03:22.3807985Z ##[endgroup]
+2025-12-22T13:03:22.3809639Z ##[group]GITHUB_TOKEN Permissions
+2025-12-22T13:03:22.3812522Z Contents: read
+2025-12-22T13:03:22.3813495Z Metadata: read
+2025-12-22T13:03:22.3814567Z ##[endgroup]
+2025-12-22T13:03:22.3817447Z Secret source: Actions
+2025-12-22T13:03:22.3819115Z Prepare workflow directory
+2025-12-22T13:03:22.4180951Z Prepare all required actions
+2025-12-22T13:03:22.4236596Z Getting action download info
+2025-12-22T13:03:22.7519396Z Download action repository 'actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8' (SHA:8e8c483db84b4bee98b60c0593521ed34d9990e8)
+2025-12-22T13:03:22.8872343Z Download action repository 'actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f' (SHA:395ad3262231945c25e8478fd5baf05154b1d79f)
+2025-12-22T13:03:23.0887543Z Complete job name: Build Check
+2025-12-22T13:03:23.1561419Z ##[group]Run actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+2025-12-22T13:03:23.1562535Z with:
+2025-12-22T13:03:23.1562994Z   repository: mmtuentertainment/PPMS
+2025-12-22T13:03:23.1563713Z   token: ***
+2025-12-22T13:03:23.1564426Z   ssh-strict: true
+2025-12-22T13:03:23.1564965Z   ssh-user: git
+2025-12-22T13:03:23.1565406Z   persist-credentials: true
+2025-12-22T13:03:23.1565908Z   clean: true
+2025-12-22T13:03:23.1566346Z   sparse-checkout-cone-mode: true
+2025-12-22T13:03:23.1566865Z   fetch-depth: 1
+2025-12-22T13:03:23.1567279Z   fetch-tags: false
+2025-12-22T13:03:23.1567720Z   show-progress: true
+2025-12-22T13:03:23.1568168Z   lfs: false
+2025-12-22T13:03:23.1568594Z   submodules: false
+2025-12-22T13:03:23.1569032Z   set-safe-directory: true
+2025-12-22T13:03:23.1570038Z ##[endgroup]
+2025-12-22T13:03:23.2554309Z Syncing repository: mmtuentertainment/PPMS
+2025-12-22T13:03:23.2557148Z ##[group]Getting Git version info
+2025-12-22T13:03:23.2558405Z Working directory is '/home/runner/work/PPMS/PPMS'
+2025-12-22T13:03:23.2560805Z [command]/usr/bin/git version
+2025-12-22T13:03:23.2682760Z git version 2.52.0
+2025-12-22T13:03:23.2707572Z ##[endgroup]
+2025-12-22T13:03:23.2722474Z Temporarily overriding HOME='/home/runner/work/_temp/6b710d44-859f-4c97-8ef7-013b3dccce7d' before making global git config changes
+2025-12-22T13:03:23.2726989Z Adding repository directory to the temporary git global config as a safe directory
+2025-12-22T13:03:23.2730287Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/PPMS/PPMS
+2025-12-22T13:03:23.2778565Z Deleting the contents of '/home/runner/work/PPMS/PPMS'
+2025-12-22T13:03:23.2780488Z ##[group]Initializing the repository
+2025-12-22T13:03:23.2784755Z [command]/usr/bin/git init /home/runner/work/PPMS/PPMS
+2025-12-22T13:03:23.2922388Z hint: Using 'master' as the name for the initial branch. This default branch name
+2025-12-22T13:03:23.2924699Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2025-12-22T13:03:23.2926801Z hint: to use in all of your new repositories, which will suppress this warning,
+2025-12-22T13:03:23.2929998Z hint: call:
+2025-12-22T13:03:23.2931593Z hint:
+2025-12-22T13:03:23.2932871Z hint: 	git config --global init.defaultBranch <name>
+2025-12-22T13:03:23.2934072Z hint:
+2025-12-22T13:03:23.2937466Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2025-12-22T13:03:23.2939192Z hint: 'development'. The just-created branch can be renamed via this command:
+2025-12-22T13:03:23.2941348Z hint:
+2025-12-22T13:03:23.2942182Z hint: 	git branch -m <name>
+2025-12-22T13:03:23.2943087Z hint:
+2025-12-22T13:03:23.2944476Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2025-12-22T13:03:23.2946730Z Initialized empty Git repository in /home/runner/work/PPMS/PPMS/.git/
+2025-12-22T13:03:23.2950771Z [command]/usr/bin/git remote add origin https://github.com/mmtuentertainment/PPMS
+2025-12-22T13:03:23.3015867Z ##[endgroup]
+2025-12-22T13:03:23.3017364Z ##[group]Disabling automatic garbage collection
+2025-12-22T13:03:23.3019530Z [command]/usr/bin/git config --local gc.auto 0
+2025-12-22T13:03:23.3052098Z ##[endgroup]
+2025-12-22T13:03:23.3056023Z ##[group]Setting up auth
+2025-12-22T13:03:23.3057884Z Removing SSH command configuration
+2025-12-22T13:03:23.3061542Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2025-12-22T13:03:23.3093164Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2025-12-22T13:03:23.3613140Z Removing HTTP extra header
+2025-12-22T13:03:23.3625728Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2025-12-22T13:03:23.3631943Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2025-12-22T13:03:23.3781870Z Removing includeIf entries pointing to credentials config files
+2025-12-22T13:03:23.3785183Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2025-12-22T13:03:23.3815870Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2025-12-22T13:03:23.4771123Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-02298c0f-390f-41c0-974c-f973d669d7fd.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2025-12-22T13:03:23.4775273Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/PPMS/PPMS/.git.path /home/runner/work/_temp/git-credentials-02298c0f-390f-41c0-974c-f973d669d7fd.config
+2025-12-22T13:03:23.4779037Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/PPMS/PPMS/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-02298c0f-390f-41c0-974c-f973d669d7fd.config
+2025-12-22T13:03:23.4784372Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-02298c0f-390f-41c0-974c-f973d669d7fd.config
+2025-12-22T13:03:23.4790919Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-02298c0f-390f-41c0-974c-f973d669d7fd.config
+2025-12-22T13:03:23.4796271Z ##[endgroup]
+2025-12-22T13:03:23.4797593Z ##[group]Fetching the repository
+2025-12-22T13:03:23.4800354Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +4d3e57baab173907129ac654fb87a0146f0fb8f1:refs/remotes/pull/267/merge
+2025-12-22T13:03:25.4477198Z From https://github.com/mmtuentertainment/PPMS
+2025-12-22T13:03:25.4482843Z  * [new ref]         4d3e57baab173907129ac654fb87a0146f0fb8f1 -> pull/267/merge
+2025-12-22T13:03:25.4515675Z ##[endgroup]
+2025-12-22T13:03:25.4518134Z ##[group]Determining the checkout info
+2025-12-22T13:03:25.4520396Z ##[endgroup]
+2025-12-22T13:03:25.4522896Z [command]/usr/bin/git sparse-checkout disable
+2025-12-22T13:03:25.4568524Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2025-12-22T13:03:25.4600398Z ##[group]Checking out the ref
+2025-12-22T13:03:25.4603814Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/267/merge
+2025-12-22T13:03:25.7988521Z Note: switching to 'refs/remotes/pull/267/merge'.
+2025-12-22T13:03:25.7989477Z 
+2025-12-22T13:03:25.7991179Z You are in 'detached HEAD' state. You can look around, make experimental
+2025-12-22T13:03:25.7992011Z changes and commit them, and you can discard any commits you make in this
+2025-12-22T13:03:25.7992833Z state without impacting any branches by switching back to a branch.
+2025-12-22T13:03:25.7993341Z 
+2025-12-22T13:03:25.7993673Z If you want to create a new branch to retain commits you create, you may
+2025-12-22T13:03:25.7994576Z do so (now or later) by using -c with the switch command. Example:
+2025-12-22T13:03:25.7995023Z 
+2025-12-22T13:03:25.7995251Z   git switch -c <new-branch-name>
+2025-12-22T13:03:25.7995604Z 
+2025-12-22T13:03:25.7995808Z Or undo this operation with:
+2025-12-22T13:03:25.7996093Z 
+2025-12-22T13:03:25.7996267Z   git switch -
+2025-12-22T13:03:25.7996521Z 
+2025-12-22T13:03:25.7996875Z Turn off this advice by setting config variable advice.detachedHead to false
+2025-12-22T13:03:25.7997425Z 
+2025-12-22T13:03:25.7998001Z HEAD is now at 4d3e57b Merge 289922a89707ca0356a150bbb86011325651bdd7 into 5efa2187273fbd60bbc0e703f5adc75f26365e4e
+2025-12-22T13:03:25.8012544Z ##[endgroup]
+2025-12-22T13:03:25.8051931Z [command]/usr/bin/git log -1 --format=%H
+2025-12-22T13:03:25.8075738Z 4d3e57baab173907129ac654fb87a0146f0fb8f1
+2025-12-22T13:03:25.8317330Z ##[group]Run actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f
+2025-12-22T13:03:25.8317839Z with:
+2025-12-22T13:03:25.8318063Z   node-version: 20.19.0
+2025-12-22T13:03:25.8318291Z   cache: npm
+2025-12-22T13:03:25.8318553Z   cache-dependency-path: frontend/package-lock.json
+2025-12-22T13:03:25.8318878Z   check-latest: false
+2025-12-22T13:03:25.8319231Z   token: ***
+2025-12-22T13:03:25.8319502Z   package-manager-cache: true
+2025-12-22T13:03:25.8319763Z ##[endgroup]
+2025-12-22T13:03:25.9689905Z Attempting to download 20.19.0...
+2025-12-22T13:03:25.9853232Z (node:1962) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2025-12-22T13:03:25.9856148Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2025-12-22T13:03:26.4766587Z Acquiring 20.19.0 - x64 from https://github.com/actions/node-versions/releases/download/20.19.0-13838090974/node-20.19.0-linux-x64.tar.gz
+2025-12-22T13:03:26.9783060Z Extracting ...
+2025-12-22T13:03:26.9903548Z [command]/usr/bin/tar xz --strip 1 --warning=no-unknown-keyword --overwrite -C /home/runner/work/_temp/a7a077ba-1cf2-4986-9fbe-44d5ba63c277 -f /home/runner/work/_temp/40b0b8a1-6cab-4944-9e2c-af632724bc6b
+2025-12-22T13:03:28.1362229Z Adding to the cache ...
+2025-12-22T13:03:30.2076980Z ##[group]Environment details
+2025-12-22T13:03:30.4826786Z node: v20.19.0
+2025-12-22T13:03:30.4829287Z npm: 10.8.2
+2025-12-22T13:03:30.4829650Z yarn: 1.22.22
+2025-12-22T13:03:30.4830423Z ##[endgroup]
+2025-12-22T13:03:30.4866562Z [command]/opt/hostedtoolcache/node/20.19.0/x64/bin/npm config get cache
+2025-12-22T13:03:30.5916068Z /home/runner/.npm
+2025-12-22T13:03:30.7243917Z Cache hit for: node-cache-Linux-x64-npm-bca6f708ac92160854699230d5880a6f5767c34d74c3ce0c19eba7bf8d348b52
+2025-12-22T13:03:30.7405540Z (node:1962) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2025-12-22T13:03:31.8810832Z Received 43204949 of 47399253 (91.2%), 41.2 MBs/sec
+2025-12-22T13:03:32.6414482Z Received 47399253 of 47399253 (100.0%), 25.7 MBs/sec
+2025-12-22T13:03:32.6417800Z Cache Size: ~45 MB (47399253 B)
+2025-12-22T13:03:32.6451469Z [command]/usr/bin/tar -xf /home/runner/work/_temp/3b9fb681-1d5e-4be9-b54d-983137cbb7f8/cache.tzst -P -C /home/runner/work/PPMS/PPMS --use-compress-program unzstd
+2025-12-22T13:03:32.8343915Z Cache restored successfully
+2025-12-22T13:03:32.8443725Z Cache restored from key: node-cache-Linux-x64-npm-bca6f708ac92160854699230d5880a6f5767c34d74c3ce0c19eba7bf8d348b52
+2025-12-22T13:03:32.8716641Z ##[group]Run npm ci
+2025-12-22T13:03:32.8716913Z [36;1mnpm ci[0m
+2025-12-22T13:03:32.8757448Z shell: /usr/bin/bash -e {0}
+2025-12-22T13:03:32.8757692Z ##[endgroup]
+2025-12-22T13:03:40.3145728Z 
+2025-12-22T13:03:40.3157117Z added 541 packages, and audited 542 packages in 7s
+2025-12-22T13:03:40.3158261Z 
+2025-12-22T13:03:40.3158603Z 179 packages are looking for funding
+2025-12-22T13:03:40.3159147Z   run `npm fund` for details
+2025-12-22T13:03:40.3159447Z 
+2025-12-22T13:03:40.3159652Z found 0 vulnerabilities
+2025-12-22T13:03:40.3740247Z ##[group]Run npm run build
+2025-12-22T13:03:40.3740659Z [36;1mnpm run build[0m
+2025-12-22T13:03:40.3782475Z shell: /usr/bin/bash -e {0}
+2025-12-22T13:03:40.3782838Z ##[endgroup]
+2025-12-22T13:03:40.5415033Z 
+2025-12-22T13:03:40.5415717Z > ppms-frontend@1.0.0 build
+2025-12-22T13:03:40.5416284Z > tsc && vite build
+2025-12-22T13:03:40.5416512Z 
+2025-12-22T13:03:48.3488603Z [36mvite v7.2.7 [32mbuilding client environment for production...[36m[39m
+2025-12-22T13:03:48.6605594Z transforming...
+2025-12-22T13:03:53.9515874Z [32m✓[39m 2276 modules transformed.
+2025-12-22T13:03:54.3229670Z rendering chunks...
+2025-12-22T13:03:54.3351762Z computing gzip size...
+2025-12-22T13:03:54.3535278Z [2mdist/[22m[32mindex.html                                                 [39m[1m[2m  1.39 kB[22m[1m[22m[2m │ gzip:   0.70 kB[22m
+2025-12-22T13:03:54.3537234Z [2mdist/[22m[2massets/[22m[32mjetbrains-mono-greek-400-normal-C190GLew.woff2      [39m[1m[2m  4.23 kB[22m[1m[22m
+2025-12-22T13:03:54.3548720Z [2mdist/[22m[2massets/[22m[32mjetbrains-mono-greek-700-normal-C6CZE3T8.woff2      [39m[1m[2m  4.30 kB[22m[1m[22m
+2025-12-22T13:03:54.3550634Z [2mdist/[22m[2massets/[22m[32minter-vietnamese-400-normal-DMkecbls.woff2          [39m[1m[2m  4.97 kB[22m[1m[22m
+2025-12-22T13:03:54.3552527Z [2mdist/[22m[2massets/[22m[32minter-vietnamese-700-normal-DlLaEgI2.woff2          [39m[1m[2m  5.10 kB[22m[1m[22m
+2025-12-22T13:03:54.3554404Z [2mdist/[22m[2massets/[22m[32minter-greek-ext-400-normal-DGGRlc-M.woff2           [39m[1m[2m  5.26 kB[22m[1m[22m
+2025-12-22T13:03:54.3555938Z [2mdist/[22m[2massets/[22m[32mjetbrains-mono-cyrillic-400-normal-BEIGL1Tu.woff2   [39m[1m[2m  5.33 kB[22m[1m[22m
+2025-12-22T13:03:54.3558015Z [2mdist/[22m[2massets/[22m[32mjetbrains-mono-cyrillic-700-normal-BWTpRfYl.woff2   [39m[1m[2m  5.34 kB[22m[1m[22m
+2025-12-22T13:03:54.3559620Z [2mdist/[22m[2massets/[22m[32mjetbrains-mono-vietnamese-400-normal-CqNFfHCs.woff  [39m[1m[2m  5.37 kB[22m[1m[22m
+2025-12-22T13:03:54.3561142Z [2mdist/[22m[2massets/[22m[32minter-greek-ext-700-normal-qfdV9bQt.woff2           [39m[1m[2m  5.44 kB[22m[1m[22m
+2025-12-22T13:03:54.3562688Z [2mdist/[22m[2massets/[22m[32mjetbrains-mono-vietnamese-700-normal-BDLVIk2r.woff  [39m[1m[2m  5.45 kB[22m[1m[22m
+2025-12-22T13:03:54.3603427Z [2mdist/[22m[2massets/[22m[32mjetbrains-mono-greek-400-normal-B9oWc5Lo.woff       [39m[1m[2m  5.66 kB[22m[1m[22m
+2025-12-22T13:03:54.3605534Z [2mdist/[22m[2massets/[22m[32mjetbrains-mono-greek-700-normal-DEigVDxa.woff       [39m[1m[2m  5.70 kB[22m[1m[22m
+2025-12-22T13:03:54.3607195Z [2mdist/[22m[2massets/[22m[32minter-vietnamese-400-normal-Bbgyi5SW.woff           [39m[1m[2m  6.50 kB[22m[1m[22m
+2025-12-22T13:03:54.3608792Z [2mdist/[22m[2massets/[22m[32minter-vietnamese-700-normal-BZaoP0fm.woff           [39m[1m[2m  6.63 kB[22m[1m[22m
+2025-12-22T13:03:54.3610551Z [2mdist/[22m[2massets/[22m[32mjetbrains-mono-cyrillic-400-normal-ugxPyKxw.woff    [39m[1m[2m  6.98 kB[22m[1m[22m
+2025-12-22T13:03:54.3612249Z [2mdist/[22m[2massets/[22m[32mjetbrains-mono-cyrillic-700-normal-CEoEElIJ.woff    [39m[1m[2m  7.02 kB[22m[1m[22m
+2025-12-22T13:03:54.3629264Z [2mdist/[22m[2massets/[22m[32minter-greek-ext-400-normal-KugGGMne.woff            [39m[1m[2m  7.06 kB[22m[1m[22m
+2025-12-22T13:03:54.3631035Z [2mdist/[22m[2massets/[22m[32minter-greek-ext-700-normal-BoQ6DsYi.woff            [39m[1m[2m  7.22 kB[22m[1m[22m
+2025-12-22T13:03:54.3632687Z [2mdist/[22m[2massets/[22m[32mjetbrains-mono-latin-ext-400-normal-Bc8Ftmh3.woff2  [39m[1m[2m  7.34 kB[22m[1m[22m
+2025-12-22T13:03:54.3634969Z [2mdist/[22m[2massets/[22m[32mjetbrains-mono-latin-ext-700-normal-CZipNAKV.woff2  [39m[1m[2m  7.47 kB[22m[1m[22m
+2025-12-22T13:03:54.3636625Z [2mdist/[22m[2massets/[22m[32minter-cyrillic-400-normal-obahsSVq.woff2            [39m[1m[2m  7.71 kB[22m[1m[22m
+2025-12-22T13:03:54.3638530Z [2mdist/[22m[2massets/[22m[32minter-greek-400-normal-B4URO6DV.woff2               [39m[1m[2m  7.78 kB[22m[1m[22m
+2025-12-22T13:03:54.3640116Z [2mdist/[22m[2massets/[22m[32minter-cyrillic-700-normal-CjBOestx.woff2            [39m[1m[2m  7.90 kB[22m[1m[22m
+2025-12-22T13:03:54.3641680Z [2mdist/[22m[2massets/[22m[32minter-greek-700-normal-C3JjAnD8.woff2               [39m[1m[2m  7.92 kB[22m[1m[22m
+2025-12-22T13:03:54.3643230Z [2mdist/[22m[2massets/[22m[32minter-cyrillic-400-normal-HOLc17fK.woff             [39m[1m[2m  9.78 kB[22m[1m[22m
+2025-12-22T13:03:54.3665717Z [2mdist/[22m[2massets/[22m[32minter-cyrillic-700-normal-DrXBdSj3.woff             [39m[1m[2m  9.91 kB[22m[1m[22m
+2025-12-22T13:03:54.3666726Z [33m
+2025-12-22T13:03:54.3667344Z (!) Some chunks are larger than 500 kB after minification. Consider:
+2025-12-22T13:03:54.3668103Z - Using dynamic import() to code-split the application
+2025-12-22T13:03:54.3669433Z - Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+2025-12-22T13:03:54.3670878Z - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.[39m
+2025-12-22T13:03:54.3672288Z [2mdist/[22m[2massets/[22m[32minter-greek-400-normal-q2sYcFCs.woff                [39m[1m[2m  9.92 kB[22m[1m[22m
+2025-12-22T13:03:54.3689364Z [2mdist/[22m[2massets/[22m[32minter-greek-700-normal-BUv2fZ6O.woff                [39m[1m[2m  9.98 kB[22m[1m[22m
+2025-12-22T13:03:54.3691148Z [2mdist/[22m[2massets/[22m[32mjetbrains-mono-latin-ext-400-normal-fXTG6kC5.woff   [39m[1m[2m 10.13 kB[22m[1m[22m
+2025-12-22T13:03:54.3692808Z [2mdist/[22m[2massets/[22m[32minter-cyrillic-ext-400-normal-BQZuk6qB.woff2        [39m[1m[2m 10.23 kB[22m[1m[22m
+2025-12-22T13:03:54.3694712Z [2mdist/[22m[2massets/[22m[32mjetbrains-mono-latin-ext-700-normal-CxPITLHs.woff   [39m[1m[2m 10.30 kB[22m[1m[22m
+2025-12-22T13:03:54.3696387Z [2mdist/[22m[2massets/[22m[32minter-cyrillic-ext-700-normal-BjwYoWNd.woff2        [39m[1m[2m 10.50 kB[22m[1m[22m
+2025-12-22T13:03:54.3697972Z [2mdist/[22m[2massets/[22m[32minter-cyrillic-ext-400-normal-DQukG94-.woff         [39m[1m[2m 13.34 kB[22m[1m[22m
+2025-12-22T13:03:54.3699574Z [2mdist/[22m[2massets/[22m[32minter-cyrillic-ext-700-normal-LO58E6JB.woff         [39m[1m[2m 13.41 kB[22m[1m[22m
+2025-12-22T13:03:54.3701203Z [2mdist/[22m[2massets/[22m[32mjetbrains-mono-latin-400-normal-V6pRDFza.woff2      [39m[1m[2m 21.17 kB[22m[1m[22m
+2025-12-22T13:03:54.3702921Z [2mdist/[22m[2massets/[22m[32mjetbrains-mono-latin-700-normal-BYuf6tUa.woff2      [39m[1m[2m 21.91 kB[22m[1m[22m
+2025-12-22T13:03:54.3704733Z [2mdist/[22m[2massets/[22m[32minter-latin-400-normal-C38fXH4l.woff2               [39m[1m[2m 23.66 kB[22m[1m[22m
+2025-12-22T13:03:54.3706333Z [2mdist/[22m[2massets/[22m[32minter-latin-700-normal-Yt3aPRUw.woff2               [39m[1m[2m 24.36 kB[22m[1m[22m
+2025-12-22T13:03:54.3707945Z [2mdist/[22m[2massets/[22m[32mjetbrains-mono-latin-400-normal-6-qcROiO.woff       [39m[1m[2m 27.50 kB[22m[1m[22m
+2025-12-22T13:03:54.3709572Z [2mdist/[22m[2massets/[22m[32mjetbrains-mono-latin-700-normal-D3wTyLJW.woff       [39m[1m[2m 28.21 kB[22m[1m[22m
+2025-12-22T13:03:54.3711376Z [2mdist/[22m[2massets/[22m[32minter-latin-400-normal-CyCys3Eg.woff                [39m[1m[2m 30.70 kB[22m[1m[22m
+2025-12-22T13:03:54.3712931Z [2mdist/[22m[2massets/[22m[32minter-latin-700-normal-BLAVimhd.woff                [39m[1m[2m 31.32 kB[22m[1m[22m
+2025-12-22T13:03:54.3714720Z [2mdist/[22m[2massets/[22m[32minter-latin-ext-400-normal-C1nco2VV.woff2           [39m[1m[2m 35.00 kB[22m[1m[22m
+2025-12-22T13:03:54.3716340Z [2mdist/[22m[2massets/[22m[32minter-latin-ext-700-normal-Ca8adRJv.woff2           [39m[1m[2m 36.24 kB[22m[1m[22m
+2025-12-22T13:03:54.3718081Z [2mdist/[22m[2massets/[22m[32minter-latin-ext-400-normal-77YHD8bZ.woff            [39m[1m[2m 47.56 kB[22m[1m[22m
+2025-12-22T13:03:54.3719650Z [2mdist/[22m[2massets/[22m[32minter-latin-ext-700-normal-TidjK2hL.woff            [39m[1m[2m 48.63 kB[22m[1m[22m
+2025-12-22T13:03:54.3721299Z [2mdist/[22m[2massets/[22m[35mindex-DNTMpABU.css                                  [39m[1m[2m 63.79 kB[22m[1m[22m[2m │ gzip:  21.67 kB[22m
+2025-12-22T13:03:54.3722850Z [2mdist/[22m[2massets/[22m[36mindex-BSpuCyaS.js                                   [39m[1m[33m565.41 kB[39m[22m[2m │ gzip: 172.95 kB[22m
+2025-12-22T13:03:54.3723719Z [32m✓ built in 5.98s[39m
+2025-12-22T13:03:54.4139660Z Post job cleanup.
+2025-12-22T13:03:54.5295484Z (node:2079) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2025-12-22T13:03:54.5297597Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2025-12-22T13:03:54.5301438Z Cache hit occurred on the primary key node-cache-Linux-x64-npm-bca6f708ac92160854699230d5880a6f5767c34d74c3ce0c19eba7bf8d348b52, not saving cache.
+2025-12-22T13:03:54.5422444Z Post job cleanup.
+2025-12-22T13:03:54.6207683Z [command]/usr/bin/git version
+2025-12-22T13:03:54.6248618Z git version 2.52.0
+2025-12-22T13:03:54.6290449Z Temporarily overriding HOME='/home/runner/work/_temp/84b37078-be32-4f7b-b693-07ed3fd8e703' before making global git config changes
+2025-12-22T13:03:54.6292522Z Adding repository directory to the temporary git global config as a safe directory
+2025-12-22T13:03:54.6297234Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/PPMS/PPMS
+2025-12-22T13:03:54.6329901Z Removing SSH command configuration
+2025-12-22T13:03:54.6337287Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2025-12-22T13:03:54.6376115Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2025-12-22T13:03:54.6615582Z fatal: No url found for submodule path 'spec-kit' in .gitmodules
+2025-12-22T13:03:54.6660500Z ##[warning]The process '/usr/bin/git' failed with exit code 128
+2025-12-22T13:03:54.6752659Z Cleaning up orphan processes

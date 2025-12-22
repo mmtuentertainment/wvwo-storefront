@@ -1,0 +1,95 @@
+﻿2025-12-22T13:03:23.1703412Z ##[group]Run actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+2025-12-22T13:03:23.1704699Z with:
+2025-12-22T13:03:23.1705200Z   repository: mmtuentertainment/PPMS
+2025-12-22T13:03:23.1706012Z   token: ***
+2025-12-22T13:03:23.1706423Z   ssh-strict: true
+2025-12-22T13:03:23.1706975Z   ssh-user: git
+2025-12-22T13:03:23.1707424Z   persist-credentials: true
+2025-12-22T13:03:23.1707927Z   clean: true
+2025-12-22T13:03:23.1708423Z   sparse-checkout-cone-mode: true
+2025-12-22T13:03:23.1708938Z   fetch-depth: 1
+2025-12-22T13:03:23.1709383Z   fetch-tags: false
+2025-12-22T13:03:23.1710061Z   show-progress: true
+2025-12-22T13:03:23.1710550Z   lfs: false
+2025-12-22T13:03:23.1710966Z   submodules: false
+2025-12-22T13:03:23.1711454Z   set-safe-directory: true
+2025-12-22T13:03:23.1712205Z ##[endgroup]
+2025-12-22T13:03:23.2941998Z Syncing repository: mmtuentertainment/PPMS
+2025-12-22T13:03:23.2944435Z ##[group]Getting Git version info
+2025-12-22T13:03:23.2945509Z Working directory is '/home/runner/work/PPMS/PPMS'
+2025-12-22T13:03:23.2948211Z [command]/usr/bin/git version
+2025-12-22T13:03:23.2949233Z git version 2.52.0
+2025-12-22T13:03:23.2952774Z ##[endgroup]
+2025-12-22T13:03:23.2958326Z Temporarily overriding HOME='/home/runner/work/_temp/e6df9fce-8501-42c2-a5b5-3ba518722106' before making global git config changes
+2025-12-22T13:03:23.2960315Z Adding repository directory to the temporary git global config as a safe directory
+2025-12-22T13:03:23.2961727Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/PPMS/PPMS
+2025-12-22T13:03:23.2964319Z Deleting the contents of '/home/runner/work/PPMS/PPMS'
+2025-12-22T13:03:23.2965776Z ##[group]Initializing the repository
+2025-12-22T13:03:23.2966848Z [command]/usr/bin/git init /home/runner/work/PPMS/PPMS
+2025-12-22T13:03:23.2987992Z hint: Using 'master' as the name for the initial branch. This default branch name
+2025-12-22T13:03:23.2990484Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2025-12-22T13:03:23.2992342Z hint: to use in all of your new repositories, which will suppress this warning,
+2025-12-22T13:03:23.2993963Z hint: call:
+2025-12-22T13:03:23.2994584Z hint:
+2025-12-22T13:03:23.2995560Z hint: 	git config --global init.defaultBranch <name>
+2025-12-22T13:03:23.2996408Z hint:
+2025-12-22T13:03:23.2997249Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2025-12-22T13:03:23.2998730Z hint: 'development'. The just-created branch can be renamed via this command:
+2025-12-22T13:03:23.2999900Z hint:
+2025-12-22T13:03:23.3000541Z hint: 	git branch -m <name>
+2025-12-22T13:03:23.3001240Z hint:
+2025-12-22T13:03:23.3002157Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2025-12-22T13:03:23.3004225Z Initialized empty Git repository in /home/runner/work/PPMS/PPMS/.git/
+2025-12-22T13:03:23.3008247Z [command]/usr/bin/git remote add origin https://github.com/mmtuentertainment/PPMS
+2025-12-22T13:03:23.3041860Z ##[endgroup]
+2025-12-22T13:03:23.3043446Z ##[group]Disabling automatic garbage collection
+2025-12-22T13:03:23.3045665Z [command]/usr/bin/git config --local gc.auto 0
+2025-12-22T13:03:23.3072707Z ##[endgroup]
+2025-12-22T13:03:23.3073875Z ##[group]Setting up auth
+2025-12-22T13:03:23.3074777Z Removing SSH command configuration
+2025-12-22T13:03:23.3079906Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2025-12-22T13:03:23.3112311Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2025-12-22T13:03:23.3387469Z Removing HTTP extra header
+2025-12-22T13:03:23.3393629Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2025-12-22T13:03:23.3423803Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2025-12-22T13:03:23.3600969Z Removing includeIf entries pointing to credentials config files
+2025-12-22T13:03:23.3604951Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2025-12-22T13:03:23.3634265Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2025-12-22T13:03:23.3814744Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-e962ca6f-76bf-471b-99c2-4291a2ce6fcb.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2025-12-22T13:03:23.4000949Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/PPMS/PPMS/.git.path /home/runner/work/_temp/git-credentials-e962ca6f-76bf-471b-99c2-4291a2ce6fcb.config
+2025-12-22T13:03:23.4005883Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/PPMS/PPMS/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-e962ca6f-76bf-471b-99c2-4291a2ce6fcb.config
+2025-12-22T13:03:23.4010435Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-e962ca6f-76bf-471b-99c2-4291a2ce6fcb.config
+2025-12-22T13:03:23.4015029Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-e962ca6f-76bf-471b-99c2-4291a2ce6fcb.config
+2025-12-22T13:03:23.4018575Z ##[endgroup]
+2025-12-22T13:03:23.4019625Z ##[group]Fetching the repository
+2025-12-22T13:03:23.4025728Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +4d3e57baab173907129ac654fb87a0146f0fb8f1:refs/remotes/pull/267/merge
+2025-12-22T13:03:25.0119692Z From https://github.com/mmtuentertainment/PPMS
+2025-12-22T13:03:25.0123757Z  * [new ref]         4d3e57baab173907129ac654fb87a0146f0fb8f1 -> pull/267/merge
+2025-12-22T13:03:25.0146705Z ##[endgroup]
+2025-12-22T13:03:25.0148610Z ##[group]Determining the checkout info
+2025-12-22T13:03:25.0151434Z ##[endgroup]
+2025-12-22T13:03:25.0154563Z [command]/usr/bin/git sparse-checkout disable
+2025-12-22T13:03:25.0192752Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2025-12-22T13:03:25.0221757Z ##[group]Checking out the ref
+2025-12-22T13:03:25.0225086Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/267/merge
+2025-12-22T13:03:25.3447627Z Note: switching to 'refs/remotes/pull/267/merge'.
+2025-12-22T13:03:25.3449259Z 
+2025-12-22T13:03:25.3450129Z You are in 'detached HEAD' state. You can look around, make experimental
+2025-12-22T13:03:25.3454148Z changes and commit them, and you can discard any commits you make in this
+2025-12-22T13:03:25.3456429Z state without impacting any branches by switching back to a branch.
+2025-12-22T13:03:25.3457964Z 
+2025-12-22T13:03:25.3458848Z If you want to create a new branch to retain commits you create, you may
+2025-12-22T13:03:25.3460573Z do so (now or later) by using -c with the switch command. Example:
+2025-12-22T13:03:25.3461566Z 
+2025-12-22T13:03:25.3462250Z   git switch -c <new-branch-name>
+2025-12-22T13:03:25.3463391Z 
+2025-12-22T13:03:25.3463833Z Or undo this operation with:
+2025-12-22T13:03:25.3464456Z 
+2025-12-22T13:03:25.3464888Z   git switch -
+2025-12-22T13:03:25.3465559Z 
+2025-12-22T13:03:25.3466474Z Turn off this advice by setting config variable advice.detachedHead to false
+2025-12-22T13:03:25.3467935Z 
+2025-12-22T13:03:25.3469552Z HEAD is now at 4d3e57b Merge 289922a89707ca0356a150bbb86011325651bdd7 into 5efa2187273fbd60bbc0e703f5adc75f26365e4e
+2025-12-22T13:03:25.3474911Z ##[endgroup]
+2025-12-22T13:03:25.3505599Z [command]/usr/bin/git log -1 --format=%H
+2025-12-22T13:03:25.3527733Z 4d3e57baab173907129ac654fb87a0146f0fb8f1

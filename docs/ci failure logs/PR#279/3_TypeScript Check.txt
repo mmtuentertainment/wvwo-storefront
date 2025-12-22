@@ -1,0 +1,186 @@
+﻿2025-12-22T13:02:48.6541955Z Current runner version: '2.330.0'
+2025-12-22T13:02:48.6577681Z ##[group]Runner Image Provisioner
+2025-12-22T13:02:48.6579121Z Hosted Compute Agent
+2025-12-22T13:02:48.6580196Z Version: 20251211.462
+2025-12-22T13:02:48.6581317Z Commit: 6cbad8c2bb55d58165063d031ccabf57e2d2db61
+2025-12-22T13:02:48.6582512Z Build Date: 2025-12-11T16:28:49Z
+2025-12-22T13:02:48.6583758Z Worker ID: {ca90eb31-cab8-40e9-93d1-151d4d8bbc3e}
+2025-12-22T13:02:48.6585016Z ##[endgroup]
+2025-12-22T13:02:48.6586028Z ##[group]Operating System
+2025-12-22T13:02:48.6587363Z Ubuntu
+2025-12-22T13:02:48.6588412Z 24.04.3
+2025-12-22T13:02:48.6589181Z LTS
+2025-12-22T13:02:48.6590023Z ##[endgroup]
+2025-12-22T13:02:48.6591177Z ##[group]Runner Image
+2025-12-22T13:02:48.6592188Z Image: ubuntu-24.04
+2025-12-22T13:02:48.6593243Z Version: 20251215.174.1
+2025-12-22T13:02:48.6595381Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20251215.174/images/ubuntu/Ubuntu2404-Readme.md
+2025-12-22T13:02:48.6598842Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20251215.174
+2025-12-22T13:02:48.6600776Z ##[endgroup]
+2025-12-22T13:02:48.6602519Z ##[group]GITHUB_TOKEN Permissions
+2025-12-22T13:02:48.6605369Z Contents: read
+2025-12-22T13:02:48.6606693Z Metadata: read
+2025-12-22T13:02:48.6607673Z ##[endgroup]
+2025-12-22T13:02:48.6610772Z Secret source: Actions
+2025-12-22T13:02:48.6612099Z Prepare workflow directory
+2025-12-22T13:02:48.7036402Z Prepare all required actions
+2025-12-22T13:02:48.7073437Z Getting action download info
+2025-12-22T13:02:49.0841002Z Download action repository 'actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8' (SHA:8e8c483db84b4bee98b60c0593521ed34d9990e8)
+2025-12-22T13:02:49.2013851Z Download action repository 'actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f' (SHA:395ad3262231945c25e8478fd5baf05154b1d79f)
+2025-12-22T13:02:49.4555856Z Complete job name: TypeScript Check
+2025-12-22T13:02:49.5229919Z ##[group]Run actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+2025-12-22T13:02:49.5230983Z with:
+2025-12-22T13:02:49.5231402Z   repository: mmtuentertainment/PPMS
+2025-12-22T13:02:49.5232096Z   token: ***
+2025-12-22T13:02:49.5232478Z   ssh-strict: true
+2025-12-22T13:02:49.5232880Z   ssh-user: git
+2025-12-22T13:02:49.5233274Z   persist-credentials: true
+2025-12-22T13:02:49.5233727Z   clean: true
+2025-12-22T13:02:49.5234146Z   sparse-checkout-cone-mode: true
+2025-12-22T13:02:49.5234634Z   fetch-depth: 1
+2025-12-22T13:02:49.5235029Z   fetch-tags: false
+2025-12-22T13:02:49.5235428Z   show-progress: true
+2025-12-22T13:02:49.5235834Z   lfs: false
+2025-12-22T13:02:49.5236371Z   submodules: false
+2025-12-22T13:02:49.5236795Z   set-safe-directory: true
+2025-12-22T13:02:49.5237491Z ##[endgroup]
+2025-12-22T13:02:49.6364199Z Syncing repository: mmtuentertainment/PPMS
+2025-12-22T13:02:49.6368890Z ##[group]Getting Git version info
+2025-12-22T13:02:49.6371159Z Working directory is '/home/runner/work/PPMS/PPMS'
+2025-12-22T13:02:49.6374370Z [command]/usr/bin/git version
+2025-12-22T13:02:49.6375317Z git version 2.52.0
+2025-12-22T13:02:49.6384846Z ##[endgroup]
+2025-12-22T13:02:49.6401500Z Temporarily overriding HOME='/home/runner/work/_temp/b48dac6f-4f31-4b28-80d9-5408f7d2be4a' before making global git config changes
+2025-12-22T13:02:49.6405301Z Adding repository directory to the temporary git global config as a safe directory
+2025-12-22T13:02:49.6410072Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/PPMS/PPMS
+2025-12-22T13:02:49.6461186Z Deleting the contents of '/home/runner/work/PPMS/PPMS'
+2025-12-22T13:02:49.6465614Z ##[group]Initializing the repository
+2025-12-22T13:02:49.6469866Z [command]/usr/bin/git init /home/runner/work/PPMS/PPMS
+2025-12-22T13:02:49.6587080Z hint: Using 'master' as the name for the initial branch. This default branch name
+2025-12-22T13:02:49.6588740Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2025-12-22T13:02:49.6590326Z hint: to use in all of your new repositories, which will suppress this warning,
+2025-12-22T13:02:49.6591783Z hint: call:
+2025-12-22T13:02:49.6592953Z hint:
+2025-12-22T13:02:49.6593934Z hint: 	git config --global init.defaultBranch <name>
+2025-12-22T13:02:49.6595029Z hint:
+2025-12-22T13:02:49.6596291Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2025-12-22T13:02:49.6599644Z hint: 'development'. The just-created branch can be renamed via this command:
+2025-12-22T13:02:49.6600966Z hint:
+2025-12-22T13:02:49.6601673Z hint: 	git branch -m <name>
+2025-12-22T13:02:49.6602451Z hint:
+2025-12-22T13:02:49.6603548Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2025-12-22T13:02:49.6607535Z Initialized empty Git repository in /home/runner/work/PPMS/PPMS/.git/
+2025-12-22T13:02:49.6610628Z [command]/usr/bin/git remote add origin https://github.com/mmtuentertainment/PPMS
+2025-12-22T13:02:49.6681541Z ##[endgroup]
+2025-12-22T13:02:49.6684683Z ##[group]Disabling automatic garbage collection
+2025-12-22T13:02:49.6685773Z [command]/usr/bin/git config --local gc.auto 0
+2025-12-22T13:02:49.6717674Z ##[endgroup]
+2025-12-22T13:02:49.6720410Z ##[group]Setting up auth
+2025-12-22T13:02:49.6723253Z Removing SSH command configuration
+2025-12-22T13:02:49.6726968Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2025-12-22T13:02:49.6761530Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2025-12-22T13:02:49.7982607Z Removing HTTP extra header
+2025-12-22T13:02:49.7984228Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2025-12-22T13:02:49.7989318Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2025-12-22T13:02:49.7993667Z Removing includeIf entries pointing to credentials config files
+2025-12-22T13:02:49.7995403Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2025-12-22T13:02:49.7998825Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2025-12-22T13:02:49.8003494Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-817b5781-4a23-422e-9a8c-1b097c2b369f.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2025-12-22T13:02:49.8010202Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/PPMS/PPMS/.git.path /home/runner/work/_temp/git-credentials-817b5781-4a23-422e-9a8c-1b097c2b369f.config
+2025-12-22T13:02:49.8032408Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/PPMS/PPMS/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-817b5781-4a23-422e-9a8c-1b097c2b369f.config
+2025-12-22T13:02:49.8070582Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-817b5781-4a23-422e-9a8c-1b097c2b369f.config
+2025-12-22T13:02:49.8098477Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-817b5781-4a23-422e-9a8c-1b097c2b369f.config
+2025-12-22T13:02:49.8129718Z ##[endgroup]
+2025-12-22T13:02:49.8132988Z ##[group]Fetching the repository
+2025-12-22T13:02:49.8158257Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +4d3e57baab173907129ac654fb87a0146f0fb8f1:refs/remotes/pull/267/merge
+2025-12-22T13:02:51.8673491Z From https://github.com/mmtuentertainment/PPMS
+2025-12-22T13:02:51.8675272Z  * [new ref]         4d3e57baab173907129ac654fb87a0146f0fb8f1 -> pull/267/merge
+2025-12-22T13:02:51.8718245Z ##[endgroup]
+2025-12-22T13:02:51.8719473Z ##[group]Determining the checkout info
+2025-12-22T13:02:51.8728816Z ##[endgroup]
+2025-12-22T13:02:51.8729760Z [command]/usr/bin/git sparse-checkout disable
+2025-12-22T13:02:51.8781321Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2025-12-22T13:02:51.8812583Z ##[group]Checking out the ref
+2025-12-22T13:02:51.8815584Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/267/merge
+2025-12-22T13:02:52.2267058Z Note: switching to 'refs/remotes/pull/267/merge'.
+2025-12-22T13:02:52.2268090Z 
+2025-12-22T13:02:52.2269340Z You are in 'detached HEAD' state. You can look around, make experimental
+2025-12-22T13:02:52.2270713Z changes and commit them, and you can discard any commits you make in this
+2025-12-22T13:02:52.2272508Z state without impacting any branches by switching back to a branch.
+2025-12-22T13:02:52.2273471Z 
+2025-12-22T13:02:52.2275212Z If you want to create a new branch to retain commits you create, you may
+2025-12-22T13:02:52.2275958Z do so (now or later) by using -c with the switch command. Example:
+2025-12-22T13:02:52.2276651Z 
+2025-12-22T13:02:52.2276878Z   git switch -c <new-branch-name>
+2025-12-22T13:02:52.2277206Z 
+2025-12-22T13:02:52.2277400Z Or undo this operation with:
+2025-12-22T13:02:52.2277684Z 
+2025-12-22T13:02:52.2277831Z   git switch -
+2025-12-22T13:02:52.2278073Z 
+2025-12-22T13:02:52.2278446Z Turn off this advice by setting config variable advice.detachedHead to false
+2025-12-22T13:02:52.2278989Z 
+2025-12-22T13:02:52.2279581Z HEAD is now at 4d3e57b Merge 289922a89707ca0356a150bbb86011325651bdd7 into 5efa2187273fbd60bbc0e703f5adc75f26365e4e
+2025-12-22T13:02:52.2306337Z ##[endgroup]
+2025-12-22T13:02:52.2375226Z [command]/usr/bin/git log -1 --format=%H
+2025-12-22T13:02:52.2413480Z 4d3e57baab173907129ac654fb87a0146f0fb8f1
+2025-12-22T13:02:52.2657087Z ##[group]Run actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f
+2025-12-22T13:02:52.2657496Z with:
+2025-12-22T13:02:52.2657694Z   node-version: 20.19.0
+2025-12-22T13:02:52.2657896Z   cache: npm
+2025-12-22T13:02:52.2658140Z   cache-dependency-path: frontend/package-lock.json
+2025-12-22T13:02:52.2658447Z   check-latest: false
+2025-12-22T13:02:52.2658759Z   token: ***
+2025-12-22T13:02:52.2659018Z   package-manager-cache: true
+2025-12-22T13:02:52.2659248Z ##[endgroup]
+2025-12-22T13:02:52.4052624Z Attempting to download 20.19.0...
+2025-12-22T13:02:52.4219184Z (node:1963) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2025-12-22T13:02:52.4222129Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2025-12-22T13:02:53.1625328Z Acquiring 20.19.0 - x64 from https://github.com/actions/node-versions/releases/download/20.19.0-13838090974/node-20.19.0-linux-x64.tar.gz
+2025-12-22T13:02:53.8712027Z Extracting ...
+2025-12-22T13:02:53.8851268Z [command]/usr/bin/tar xz --strip 1 --warning=no-unknown-keyword --overwrite -C /home/runner/work/_temp/cde9c353-2812-4ad0-a7ad-2b446247b5b4 -f /home/runner/work/_temp/9a6ff50a-3c87-40c4-9671-f9bd0de22603
+2025-12-22T13:02:55.0226711Z Adding to the cache ...
+2025-12-22T13:02:57.1639822Z ##[group]Environment details
+2025-12-22T13:02:57.4371782Z node: v20.19.0
+2025-12-22T13:02:57.4373583Z npm: 10.8.2
+2025-12-22T13:02:57.4375094Z yarn: 1.22.22
+2025-12-22T13:02:57.4377233Z ##[endgroup]
+2025-12-22T13:02:57.4406048Z [command]/opt/hostedtoolcache/node/20.19.0/x64/bin/npm config get cache
+2025-12-22T13:02:57.5530605Z /home/runner/.npm
+2025-12-22T13:02:57.7592879Z Cache hit for: node-cache-Linux-x64-npm-bca6f708ac92160854699230d5880a6f5767c34d74c3ce0c19eba7bf8d348b52
+2025-12-22T13:02:57.7765227Z (node:1963) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2025-12-22T13:02:58.9859120Z Received 47399253 of 47399253 (100.0%), 45.0 MBs/sec
+2025-12-22T13:02:58.9864060Z Cache Size: ~45 MB (47399253 B)
+2025-12-22T13:02:58.9894200Z [command]/usr/bin/tar -xf /home/runner/work/_temp/82ae7f51-0e00-4f97-9f34-eaf8da8361ee/cache.tzst -P -C /home/runner/work/PPMS/PPMS --use-compress-program unzstd
+2025-12-22T13:02:59.1743527Z Cache restored successfully
+2025-12-22T13:02:59.1843831Z Cache restored from key: node-cache-Linux-x64-npm-bca6f708ac92160854699230d5880a6f5767c34d74c3ce0c19eba7bf8d348b52
+2025-12-22T13:02:59.2140342Z ##[group]Run npm ci
+2025-12-22T13:02:59.2140642Z [36;1mnpm ci[0m
+2025-12-22T13:02:59.2180613Z shell: /usr/bin/bash -e {0}
+2025-12-22T13:02:59.2180878Z ##[endgroup]
+2025-12-22T13:03:06.0457291Z 
+2025-12-22T13:03:06.0474971Z added 541 packages, and audited 542 packages in 7s
+2025-12-22T13:03:06.0475626Z 
+2025-12-22T13:03:06.0475966Z 179 packages are looking for funding
+2025-12-22T13:03:06.0476720Z   run `npm fund` for details
+2025-12-22T13:03:06.0486596Z 
+2025-12-22T13:03:06.0487004Z found 0 vulnerabilities
+2025-12-22T13:03:06.0894889Z ##[group]Run npx tsc --noEmit
+2025-12-22T13:03:06.0895212Z [36;1mnpx tsc --noEmit[0m
+2025-12-22T13:03:06.0928051Z shell: /usr/bin/bash -e {0}
+2025-12-22T13:03:06.0928301Z ##[endgroup]
+2025-12-22T13:03:15.7429955Z Post job cleanup.
+2025-12-22T13:03:15.9285943Z (node:2059) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2025-12-22T13:03:15.9292237Z Cache hit occurred on the primary key node-cache-Linux-x64-npm-bca6f708ac92160854699230d5880a6f5767c34d74c3ce0c19eba7bf8d348b52, not saving cache.
+2025-12-22T13:03:15.9307021Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2025-12-22T13:03:15.9421359Z Post job cleanup.
+2025-12-22T13:03:16.0215114Z [command]/usr/bin/git version
+2025-12-22T13:03:16.0256966Z git version 2.52.0
+2025-12-22T13:03:16.0337193Z Temporarily overriding HOME='/home/runner/work/_temp/e0f475e2-1861-4c79-b55b-f3f94b4245ad' before making global git config changes
+2025-12-22T13:03:16.0340597Z Adding repository directory to the temporary git global config as a safe directory
+2025-12-22T13:03:16.0349226Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/PPMS/PPMS
+2025-12-22T13:03:16.0389053Z Removing SSH command configuration
+2025-12-22T13:03:16.0398274Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2025-12-22T13:03:16.0442668Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2025-12-22T13:03:16.0674375Z fatal: No url found for submodule path 'spec-kit' in .gitmodules
+2025-12-22T13:03:16.0719986Z ##[warning]The process '/usr/bin/git' failed with exit code 128
+2025-12-22T13:03:16.0815814Z Cleaning up orphan processes

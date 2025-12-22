@@ -181,7 +181,7 @@ Before marking complete:
 
 **Why 301 redirects matter**:
 
-- Phase 3 Strategy: Geographic SEO foundation for I-79 highway hunters
+- Phase 3 Strategy: Folks coming off I‑79 need to find the content. Old links break, they leave.
 - Preserve existing search rankings for "near Birch River" queries
 - Prevent 404s for users/bots visiting old `/near/*` URLs
 - Signal to Google that content moved permanently (transfer SEO equity)
@@ -190,7 +190,7 @@ Before marking complete:
 
 - Quality over speed: Get redirects right, don't rush
 - Local + highway: Serve both existing visitors and new I-79 traffic
-- SEO matters: We're capturing out-of-state hunters via search
+- SEO matters: Out-of-state hunters find us through search. Old links have to point the right way or we lose ’em.
 
 ---
 

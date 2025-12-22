@@ -534,19 +534,21 @@ interface CaveTemplateProps {
       </div>
 
       <div class="space-y-8">
-        <div>
-          <h3 class="font-display text-xl font-bold text-brand-brown mb-4">
-            Notable Events
-          </h3>
-          <ul class="space-y-3">
-            {history.notableEvents.map(event => (
-              <li class="font-body text-brand-mud flex items-start gap-2">
-                <span class="text-sign-green mt-1">•</span>
-                <span>{event}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
+        {history.notableEvents && history.notableEvents.length > 0 && (
+          <div>
+            <h3 class="font-display text-xl font-bold text-brand-brown mb-4">
+              Notable Events
+            </h3>
+            <ul class="space-y-3">
+              {history.notableEvents.map(event => (
+                <li class="font-body text-brand-mud flex items-start gap-2">
+                  <span class="text-sign-green mt-1">•</span>
+                  <span>{event}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         {history.localLegends && history.localLegends.length > 0 && (
           <div>

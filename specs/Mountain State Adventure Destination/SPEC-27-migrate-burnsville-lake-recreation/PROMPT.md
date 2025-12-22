@@ -4,6 +4,8 @@
 **Assigned Agent**: `coder` (simple 2-agent pattern)
 **Dependencies**: SPEC-21 (Burnsville Lake WMA migration)
 
+**Prerequisite**: SPEC-21 must complete successfully and create `/wv-wild-web/src/content/adventures/burnsville-lake-wma.md` before SPEC-27 starts.
+
 ---
 
 ## AgentDB Context Loading

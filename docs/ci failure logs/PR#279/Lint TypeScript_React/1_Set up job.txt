@@ -1,0 +1,30 @@
+﻿2025-12-22T13:02:46.4317368Z Current runner version: '2.330.0'
+2025-12-22T13:02:46.4383901Z ##[group]Runner Image Provisioner
+2025-12-22T13:02:46.4385253Z Hosted Compute Agent
+2025-12-22T13:02:46.4386127Z Version: 20251211.462
+2025-12-22T13:02:46.4387056Z Commit: 6cbad8c2bb55d58165063d031ccabf57e2d2db61
+2025-12-22T13:02:46.4388172Z Build Date: 2025-12-11T16:28:49Z
+2025-12-22T13:02:46.4389248Z Worker ID: {604d4eff-6ca1-4c05-8689-af29131c071d}
+2025-12-22T13:02:46.4390254Z ##[endgroup]
+2025-12-22T13:02:46.4391109Z ##[group]Operating System
+2025-12-22T13:02:46.4391958Z Ubuntu
+2025-12-22T13:02:46.4392678Z 24.04.3
+2025-12-22T13:02:46.4393459Z LTS
+2025-12-22T13:02:46.4394304Z ##[endgroup]
+2025-12-22T13:02:46.4395055Z ##[group]Runner Image
+2025-12-22T13:02:46.4395860Z Image: ubuntu-24.04
+2025-12-22T13:02:46.4396558Z Version: 20251215.174.1
+2025-12-22T13:02:46.4397856Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20251215.174/images/ubuntu/Ubuntu2404-Readme.md
+2025-12-22T13:02:46.4399274Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20251215.174
+2025-12-22T13:02:46.4400737Z ##[endgroup]
+2025-12-22T13:02:46.4401865Z ##[group]GITHUB_TOKEN Permissions
+2025-12-22T13:02:46.4404846Z Contents: read
+2025-12-22T13:02:46.4405927Z Metadata: read
+2025-12-22T13:02:46.4407068Z ##[endgroup]
+2025-12-22T13:02:46.4410136Z Secret source: Actions
+2025-12-22T13:02:46.4411703Z Prepare workflow directory
+2025-12-22T13:02:46.4992220Z Prepare all required actions
+2025-12-22T13:02:46.5051020Z Getting action download info
+2025-12-22T13:02:46.8072659Z Download action repository 'actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8' (SHA:8e8c483db84b4bee98b60c0593521ed34d9990e8)
+2025-12-22T13:02:48.4422069Z Download action repository 'actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f' (SHA:395ad3262231945c25e8478fd5baf05154b1d79f)
+2025-12-22T13:02:48.6587580Z Complete job name: Lint TypeScript/React

@@ -1,0 +1,4 @@
+﻿2025-12-22T13:03:54.4139649Z Post job cleanup.
+2025-12-22T13:03:54.5295439Z (node:2079) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2025-12-22T13:03:54.5297586Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2025-12-22T13:03:54.5301425Z Cache hit occurred on the primary key node-cache-Linux-x64-npm-bca6f708ac92160854699230d5880a6f5767c34d74c3ce0c19eba7bf8d348b52, not saving cache.
