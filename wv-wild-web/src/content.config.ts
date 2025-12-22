@@ -111,6 +111,66 @@ const locations = defineCollection({
 });
 
 // ============================================================================
+// PRODUCTS COLLECTION (Commerce-Ready)
+// Product catalog for future e-commerce integration
+// Fields: title, sku, price, availability_status, commerce_enabled, specs, related_adventures
+// ============================================================================
+
+/** Availability status for products */
+const AvailabilityStatusEnum = z.enum([
+    'in_stock',
+    'out_of_stock',
+    'pre_order',
+    'call_to_order', // For BOPIS items (kayaks, safes, heavy gear)
+]);
+
+/** Fulfillment type for products */
+const FulfillmentTypeEnum = z.enum([
+    'ship_or_pickup',  // Can be shipped or picked up
+    'pickup_only',     // Heavy items, BOPIS permanent
+    'reserve_hold',    // Firearms (FFL required)
+]);
+
+const products = defineCollection({
+    loader: glob({ pattern: '**/*.md', base: './src/content/products' }),
+    schema: z.object({
+        title: z.string(),
+        sku: z.string(), // Critical for future inventory syncing
+        price: z.number(), // In dollars (not cents)
+        availability_status: AvailabilityStatusEnum.default('call_to_order'),
+
+        // Per-item commerce toggle (overrides global PUBLIC_COMMERCE_ENABLED)
+        commerce_enabled: z.boolean().default(false),
+
+        // Fulfillment constraints based on shipping logistics research
+        fulfillment_type: FulfillmentTypeEnum.default('pickup_only'),
+
+        // Product specifications
+        specs: z.object({
+            weight_lbs: z.number().optional(),
+            dimensions: z.string().optional(), // e.g., "12 x 8 x 6 inches"
+            brand: z.string().optional(),
+            model: z.string().optional(),
+        }).optional(),
+
+        // Content-to-commerce bridge: "Best trails for this boot"
+        related_adventures: z.array(reference('adventures')).optional(),
+
+        // Images for product display
+        images: z.array(ImageSchema).optional(),
+
+        // Category for filtering/grouping
+        category: z.string().optional(), // e.g., "kayaks", "hunting-gear", "apparel"
+
+        // FFL compliance (firearms)
+        ffl_required: z.boolean().default(false),
+
+        // Age restriction (ammunition, firearms)
+        age_restriction: z.number().optional(), // 18 or 21
+    }),
+});
+
+// ============================================================================
 // EXPORT COLLECTIONS
 // ============================================================================
 
@@ -119,4 +179,5 @@ export const collections = {
     stories,
     resources,
     locations,
+    products,
 };
