@@ -46,9 +46,8 @@ To support the "pivot back to commerce" later, the content schema in **SPEC-06**
 Critical Schema Addition:  
 The research identifies a gap in the current templates. We must add a product\_data object to the schema now, even if it's unused (or used for Catalog Mode display only).
 
-TypeScript
-
-// Proposed Enhancement to SPEC-06 for "Future-Proof" Commerce  
+```typescript
+// Proposed Enhancement to SPEC-06 for "Future-Proof" Commerce
 import { defineCollection, z } from 'astro:content';
 
 export const products \= defineCollection({  
@@ -116,7 +115,7 @@ Many premium outdoor brands (Stihl, Specialized, Hobie) restrict shipping.
 3. How to avoid keyword cannibalization on ecommerce products? : r/SEO \- Reddit, accessed December 22, 2025, [https://www.reddit.com/r/SEO/comments/1gzm17h/how\_to\_avoid\_keyword\_cannibalization\_on\_ecommerce/](https://www.reddit.com/r/SEO/comments/1gzm17h/how_to_avoid_keyword_cannibalization_on_ecommerce/)  
 4. Ecommerce Catalog Management : Top 5 Challenges In 2024 | Vue.ai, accessed December 22, 2025, [https://www.vue.ai/blog/ai-in-retail/ecommerce-catalog-management-challenges/](https://www.vue.ai/blog/ai-in-retail/ecommerce-catalog-management-challenges/)  
 5. Stop Losing Customers: 5 E-Commerce Retention Strategies that are Proven to Work, accessed December 22, 2025, [https://emarsys.com/learn/blog/stop-losing-customers-5-e-commerce-retention-strategies-that-are-proven-to-work/](https://emarsys.com/learn/blog/stop-losing-customers-5-e-commerce-retention-strategies-that-are-proven-to-work/)  
-6. Migrating our 10000+ article wordpress blog to astro : r/astrojs \- Reddit, accessed December 22, 2025, [https://www.reddit.com/r/astrojs/comments/1p6mlde/migrating\_our\_10000\_article\_wordpress\_blog\_to/](https://www.reddit.com/r/astrojs/comments/1p6mlde/migrating_our_10000_article_wordpress_blog_to/)  
+6. Migrating our 10000+ article WordPress blog to astro : r/astrojs \- Reddit, accessed December 22, 2025, [https://www.reddit.com/r/astrojs/comments/1p6mlde/migrating\_our\_10000\_article\_wordpress\_blog\_to/](https://www.reddit.com/r/astrojs/comments/1p6mlde/migrating_our_10000_article_wordpress_blog_to/)  
 7. Content collections \- Astro Docs, accessed December 22, 2025, [https://docs.astro.build/en/guides/content-collections/](https://docs.astro.build/en/guides/content-collections/)  
 8. Content Layer: A Deep Dive | Astro, accessed December 22, 2025, [https://astro.build/blog/content-layer-deep-dive/](https://astro.build/blog/content-layer-deep-dive/)  
 9. Ranking for E-commerce in 2025: Navigating the Changing SERPs and Beyond, accessed December 22, 2025, [https://www.innovationvisual.com/knowledge-hub/resources/2025-ecommerce-seo-ranking-strategies/](https://www.innovationvisual.com/knowledge-hub/resources/2025-ecommerce-seo-ranking-strategies/)  

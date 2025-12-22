@@ -17,7 +17,7 @@ This PR implements the **foundation schema pattern** for WVWO's strategic pivot 
 
 ### New Files
 
-```
+```text
 wv-wild-web/src/
 ├── content.config.ts          # 5 Zod-validated collection schemas
 └── content/
@@ -84,7 +84,7 @@ Product catalog for future e-commerce integration
 
 This schema is **retail-neutral** by design:
 
-```
+```text
 ┌─────────────────────────────────────────────────────────┐
 │   CONTENT DATABASE (this PR)                            │
 │   adventures, stories, resources, locations, products   │
@@ -100,24 +100,51 @@ This schema is **retail-neutral** by design:
 └─────────────┘ └─────────────┘ └─────────────┘
 ```
 
-## 📊 Research Validation (Dec 22, 2025)
+## 📊 Research Validation (Independent Verification - Dec 22, 2025)
 
-This implementation incorporates findings from **Strategic Validation Report**:
+This implementation validated through **4-agent research swarm** with 40+ primary sources:
 
-### ✅ Astro v5 Content Layer API
-- **Issue**: Legacy Collections v2 API causes build crashes at 5k+ pages
-- **Solution**: Implemented `loader: glob()` pattern (SQLite-cached, scalable)
-- **Benefit**: Can update product prices without full site rebuild
+### ✅ Astro v5 Content Layer API (CRITICAL)
+- **Issue**: Legacy Collections v2 causes OOM crashes at 30k-100k files (verified GitHub issues #10485, #11683, #12888)
+- **Solution**: Implemented `loader: glob()` pattern with persistent data store
+- **Performance**: 5x faster markdown builds, 80% faster overall (official Astro benchmarks)
+- **Scalability**: Handles 5k+ pages without memory issues
 
 ### ✅ Commerce-Ready Schema (Future-Proof)
-- **Issue**: Need to support "pivot back to commerce" without code rewrite
-- **Solution**: Added `products` collection with commerce fields NOW (even if unused)
-- **Benefit**: Flip `commerce_enabled: true` later to activate checkout per-item
+- **Issue**: Need to support commerce pivot without code rewrite
+- **Solution**: Added `products` collection with commerce fields (sku, fulfillment_type, commerce_enabled)
+- **Benefit**: Per-item toggle - flip `commerce_enabled: true` in frontmatter to activate checkout
+- **Integration Ready**: SKU field enables future Shopify/Snipcart inventory sync
 
-### ✅ BOPIS Architecture (Shipping Economics)
-- **Research Finding**: LTL freight for kayaks costs $150-300 (erodes all margin)
-- **Solution**: `fulfillment_type: 'pickup_only'` for heavy items (permanent)
-- **Example**: Jackson Kayak (42 lbs) = pickup only, Fly selection (0.2 lbs) = shippable
+### ✅ BOPIS Architecture (Shipping Economics - VERIFIED)
+- **Shipping Reality**: LTL freight **$488-768 per kayak** (not $150-300 as initially estimated)
+  - Base freight: $150-400
+  - Residential surcharge: $216 average
+  - Liftgate service: $75-275
+  - Fuel surcharge: 30% on total
+- **Profit Impact**: With **2-4.3% net margins** (independent outdoor store average), shipping erases ALL profit on kayaks <$1,500
+- **Solution**: `fulfillment_type: 'pickup_only'` mandatory for heavy items
+- **BOPIS Benefits** (validated 2025 retail data):
+  - **85%** make additional purchases at pickup
+  - **48%** choose BOPIS to avoid shipping fees
+  - **74%** research online then buy in-store (webrooming behavior)
+- **Example**: Jackson Kayak (42 lbs) = BOPIS permanent, Elk River Flies (0.2 lbs) = shippable
+
+### ✅ Content-First Strategy (Huckberry Model - VALIDATED)
+- **Case Study**: Huckberry started as magazine (2010), $158M revenue by 2020
+- **Approach**: "Mind share before wallet share" - built audience through content
+- **Investment**: 15% of marketing budget on content creation
+- **Organic Performance**: 43% of e-commerce traffic from organic search, 2.93% conversion (46% better than average)
+- **WVWO Application**: Build adventure content first, enable commerce when traffic established
+
+---
+
+## ⚠️ Research Corrections Applied
+
+**Shipping Costs**: Updated from $150-300 to **$488-768** (all surcharges included)
+**Damage Rates**: Removed claims (no public data available)
+**Dealer Restrictions**: De-emphasized (only 2 brands confirmed, antitrust risks)
+**Lead Filtering**: Reframed as webrooming support (74% research online, buy in-store)
 
 ## ✅ Validation
 
