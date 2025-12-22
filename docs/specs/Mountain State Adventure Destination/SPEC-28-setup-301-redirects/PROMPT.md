@@ -69,8 +69,8 @@ npx claude-flow@alpha hooks post-edit --file "cloudflare-redirects-research.md" 
 
 **File location**:
 
-```
-./wv-wild-web\public\_redirects
+```plaintext
+./public/_redirects
 
 ```
 
@@ -124,7 +124,7 @@ npx claude-flow@alpha hooks post-task --task-id "spec-28-redirects"
 
 1. **Test old URLs** (should 301 redirect):
 
-   ```
+   ```plaintext
    https://wvwild.com/near/burnsville-lake → /adventures/burnsville-lake-wma
    https://wvwild.com/near/burnsville-lake-recreation → /adventures/burnsville-lake-wma
    https://wvwild.com/near/elk-river-wma → /adventures/elk-river-wma

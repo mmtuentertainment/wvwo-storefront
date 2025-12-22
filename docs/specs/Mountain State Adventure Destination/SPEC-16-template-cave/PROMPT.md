@@ -19,7 +19,7 @@ Create a reusable Astro template for West Virginia caves and caverns focused on 
 
 **researcher WebSearch queries**:
 
-```
+```text
 "Seneca Caverns website structure tour information"
 "cave tour website design best practices"
 "cavern geological formation display"
@@ -541,7 +541,7 @@ interface CaveTemplateProps {
           <ul class="space-y-3">
             {history.notableEvents.map(event => (
               <li class="font-body text-brand-mud flex items-start gap-2">
-                <span class="text-brand-green mt-1">•</span>
+                <span class="text-sign-green mt-1">•</span>
                 <span>{event}</span>
               </li>
             ))}
@@ -555,7 +555,7 @@ interface CaveTemplateProps {
             </h3>
             <ul class="space-y-3">
               {history.localLegends.map(legend => (
-                <li class="font-body text-brand-mud italic border-l-2 border-brand-green pl-4">
+                <li class="font-body text-brand-mud italic border-l-2 border-sign-green pl-4">
                   "{legend}"
                 </li>
               ))}

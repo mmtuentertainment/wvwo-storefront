@@ -37,8 +37,8 @@ npx agentdb@latest reflexion retrieve "WVWO" --k 15 --only-successes --min-rewar
 **Read BOTH files completely**:
 
 ```bash
-Read ./wv-wild-web\src\pages\near\burnsville-lake-recreation.astro
-Read ./wv-wild-web\src\content\adventures\burnsville-lake-wma.md
+Read wv-wild-web/src/pages/near/burnsville-lake-recreation.astro
+Read wv-wild-web/src/content/adventures/burnsville-lake-wma.md
 
 ```
 
@@ -79,7 +79,7 @@ npx claude-flow@alpha hooks post-edit --file "burnsville-lake-recreation.astro" 
 **Output**: Update existing file at:
 
 ```plaintext
-./wv-wild-web\src\content\adventures\burnsville-lake-wma.md
+wv-wild-web/src/content/adventures/burnsville-lake-wma.md
 
 ```
 

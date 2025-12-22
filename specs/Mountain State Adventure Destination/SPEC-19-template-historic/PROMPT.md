@@ -165,6 +165,12 @@ interface HistoricTemplateProps {
    - Respectful: "This battlefield saw 244 casualties in a single afternoon"
    - Educational: "The Civil War divided West Virginia families - neighbor against neighbor"
    - Storytelling: "General Floyd's retreat marked the beginning of Confederate losses in WV"
+   
+**Quality Gate (Kim's Voice)**:
+
+- [ ] Run the "Counter Test": Does this sound like Kim explaining it?
+- [ ] Blacklisted phrases: "unlock potential", "seamless experience", "user journey", "curated", "bespoke"
+- [ ] Rule: Plain, conversational, locally rooted phrasing only.
 
 **Sections to Build**:
 
@@ -319,7 +325,7 @@ interface HistoricTemplateProps {
               </p>
             </div>
             {structure.accessible && (
-              <span class="text-brand-orange text-xl">♿</span>
+              <span class="text-brand-orange text-xl" aria-label="Wheelchair accessible">♿</span>
             )}
           </div>
           {structure.year && (
@@ -559,7 +565,7 @@ interface HistoricTemplateProps {
         <ul class="space-y-2">
           {visitorInfo.accessibility.map(item => (
             <li class="font-body text-sm text-brand-mud flex items-start gap-2">
-              <span class="text-sign-green mt-1">✓</span>
+              <span class="text-sign-green mt-1" aria-label="Accessible">✓</span>
               <span>{item}</span>
             </li>
           ))}
@@ -570,7 +576,7 @@ interface HistoricTemplateProps {
     {/* Contact */}
     <div class="mt-8 text-center">
       <p class="font-body text-brand-mud mb-2">
-        <span class="font-bold">Phone:</span> {visitorInfo.contact.phone}
+        <span class="font-bold">Phone:</span> <a href={`tel:${visitorInfo.contact.phone}`} class="font-body text-sign-green hover:underline">{visitorInfo.contact.phone}</a>
       </p>
       {visitorInfo.contact.email && (
         <a
