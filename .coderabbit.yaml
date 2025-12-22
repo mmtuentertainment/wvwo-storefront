@@ -86,21 +86,22 @@ reviews:
     # Explicit includes (required for CodeRabbit to review)
     - "wv-wild-web/src/**/*.astro"
     - "wv-wild-web/src/**/*.ts"
+    - "wv-wild-web/src/**/*.tsx"
     - "wv-wild-web/src/**/*.js"
     - "wv-wild-web/src/**/*.json"
+    - "wv-wild-web/src/content/**/*.md"  # Content collections markdown
     - "docs/**/*.md"
     - "*.yaml"
     - "*.yml"
-    # Exclusions
-    - "!node_modules/**"
-    - "!dist/**"
-    - "!build/**"
-    - "!*.lock"
-    - "!package-lock.json"
-    - "!pnpm-lock.yaml"
-    - "!yarn.lock"
-    - "!.pnpm-store/**"
-    - "!.astro/**"
+    # Exclusions (MUST start with !)
+    - "!**/node_modules/**"
+    - "!**/dist/**"
+    - "!**/build/**"
+    - "!**/.astro/**"
+    - "!**/package-lock.json"
+    - "!**/pnpm-lock.yaml"
+    - "!**/yarn.lock"
+    - "!**/.pnpm-store/**"
     - "!spec-kit/**"  # Submodule with own review process
 
   # Path-specific instructions aligned with Constitution v2.1.0
