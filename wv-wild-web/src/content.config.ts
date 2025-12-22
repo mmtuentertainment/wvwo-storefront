@@ -82,7 +82,7 @@ const resources = defineCollection({
         updated_date: z.coerce.date().optional(),
         pdf_url: z.string().url().optional(),
         description: z.string().optional(),
-        related_adventures: z.array(z.string()).optional(), // Adventure slugs
+        related_adventures: z.array(reference('adventures')).optional(), // Type-safe adventure refs
     }),
 });
 
