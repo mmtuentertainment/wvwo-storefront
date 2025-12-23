@@ -355,7 +355,7 @@ Never save working files, text/mds and tests to the root folder.
 
 # wvwo-storefront Development Guidelines
 
-Auto-generated from constitution v2.1.0. Last updated: 2025-12-12
+Auto-generated from constitution v2.3.0. Last updated: 2025-12-22
 
 ## Active Technologies
 - Astro 5.x (static site generation)
@@ -552,7 +552,7 @@ npx agentdb@latest learner run 3 0.6 0.7
 | **TECH OWNER** | **Matt handles ALL technical work.** Kim runs the store. React/shadcn complexity is fine. |
 | **LOCATION** | **121 WV-82 (Birch River Rd), Birch River, WV 26610** (I-79 Exit 57 access) |
 | **IDENTITY** | FFL dealer, DNR agent, family-owned since 2008 |
-| **PHASE** | Phase 3: Highway Hunter Capture (SEO + Content Hub + E-Commerce) |
+| **PHASE** | Phase 3: Mountain State Adventure Destination (Content-First Hub, E-Commerce DISABLED via SPEC-05, BOPIS for heavy items) |
 | **TECH** | Astro 5.x + Tailwind CSS 4.x + React/shadcn (full stack approved) |
 | **HOSTING** | Cloudflare Pages |
 | **VOICE** | Faith-forward, humble, rural WV authentic, "Grand love ya" |
@@ -1077,7 +1077,13 @@ Unsaved changes: "Hold up - you've got unsaved changes. Want to save first?"
 Session timeout: "You've been away a while. For security, we logged you out."
 ```
 
-## E-COMMERCE PATTERNS (Phase 3C)
+## E-COMMERCE PATTERNS (LATENT - PUBLIC_COMMERCE_ENABLED=false)
+
+**Status**: These patterns are **DISABLED** per SPEC-05. E-commerce UI (cart, checkout, "Add to Cart" buttons) is hidden via PUBLIC_COMMERCE_ENABLED=false feature flag. They remain documented for future re-enablement when fraud concerns resolved and business value justifies risk.
+
+**Current State**: Products display with "Call to Order: (304) 649-5765" CTAs. Product catalog browsable, cart/checkout hidden.
+
+**When PUBLIC_COMMERCE_ENABLED=true** (not current state):
 
 Professional retail patterns adapted for WVWO aesthetic.
 
