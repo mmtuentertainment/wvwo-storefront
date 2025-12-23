@@ -28,7 +28,11 @@ Build the Adventures Hub (`/adventures/`) with dual-axis filtering (season + dif
 
 **Data Source**: Query `getCollection('adventures')` from SPEC-06 Content Collections (not hardcoded data).
 
-**Phase 1 Scope**: Season + difficulty filtering (distance/activities deferred until schema extended).
+**Phase 1 Scope**: Season + difficulty filtering.
+
+**Deferred to Future Specs**:
+- **Activities filtering**: Schema has `gear[]` not `activities[]` - needs ActivityEnum field added
+- **Distance filtering**: FREE options exist (HERE API: 30k routes/month), just needs one-time batch calculation (70 API calls) + schema fields (`i79_distance_miles`, `i79_drive_minutes`). Deferred to keep SPEC-07 focused, not because it's hard.
 
 ---
 
@@ -174,7 +178,7 @@ npx agentdb@latest skill search "hub page structure CollectionPage" 5
      * `difficulty` → `data-difficulty={adventure.data.difficulty}`
      * `location` → `data-location={adventure.data.location}`
    - Test with `spring-gobbler-burnsville.md` (first real adventure from SPEC-06)
-   - **Distance filtering**: DEFER to later spec (schema lacks driveTime/distance field)
+   - **Distance filtering**: DEFER to later spec (needs one-time batch calculation with HERE API free tier - 30k routes/month covers 70 destinations, then store in schema as `i79_distance_miles` field)
 
 6. **Empty states**
    - No results: Kim's voice message + "Clear Filters" CTA
