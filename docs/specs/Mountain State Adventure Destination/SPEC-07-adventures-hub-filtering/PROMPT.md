@@ -4,14 +4,31 @@
 **Status:** 🚧 READY FOR IMPLEMENTATION
 **Output:** `src/pages/adventures/index.astro`
 **Pattern:** Foundation Pattern (Scout → Architect → Implement)
+**Dependencies:** SPEC-06 (Content Collections schema - COMPLETED ✅)
+
+---
+
+## 🛡️ Governance Compliance
+
+**Constitution v2.3.0 Requirements**:
+- ✅ Use Astro Content Collections (Principle II) - Adventures schema from SPEC-06
+- ✅ No e-commerce UI concerns (SPEC-05: PUBLIC_COMMERCE_ENABLED=false)
+- ✅ Mobile-first performance (Principle V)
+- ✅ Kim's authentic voice (Principle II)
+
+**AgentDB Status**: 125 episodes (includes SPEC-05/06 patterns in episodes 118-125)
 
 ---
 
 ## 🎯 Mission
 
-Build the Adventures Hub (`/adventures/`) with triple-axis filtering (activity + season + distance) using the proven vanilla JS pattern from `shop/index.astro`. Reuse the hub page structure from `/near/index.astro` for consistent navigation and SEO.
+Build the Adventures Hub (`/adventures/`) with dual-axis filtering (season + difficulty) using the proven vanilla JS pattern from `shop/index.astro` and **real adventures from SPEC-06 Content Collections**. Reuse the hub page structure from `/near/index.astro` for consistent navigation and SEO.
 
-**User Story:** Highway travelers and locals can filter 70+ WV outdoor destinations by what they want to do, when they're visiting, and how far they'll drive - without page reloads.
+**User Story:** Highway travelers and locals can filter WV outdoor destinations by season and difficulty - without page reloads.
+
+**Data Source**: Query `getCollection('adventures')` from SPEC-06 Content Collections (not hardcoded data).
+
+**Phase 1 Scope**: Season + difficulty filtering (distance/activities deferred until schema extended).
 
 ---
 
@@ -21,15 +38,20 @@ Build the Adventures Hub (`/adventures/`) with triple-axis filtering (activity +
 
 ```bash
 # Run ALL of these in PARALLEL (Opus 4.5 strength)
+npx agentdb@latest reflexion retrieve "WVWO" --k 15 --synthesize-context
+npx agentdb@latest reflexion retrieve "SPEC-06 content collections" --k 10 --synthesize-context
+npx agentdb@latest reflexion retrieve "getCollection adventures schema" --k 10 --synthesize-context
 npx agentdb@latest reflexion retrieve "vanilla JS filtering" --k 10 --synthesize-context
 npx agentdb@latest reflexion retrieve "hub pages SEO" --k 10 --synthesize-context
-npx agentdb@latest reflexion retrieve "data attributes filtering" --k 10 --synthesize-context
 npx agentdb@latest skill search "shop filtering vanilla JavaScript" 5
+npx agentdb@latest skill search "adventures collection schema" 5
 npx agentdb@latest skill search "hub page structure CollectionPage" 5
 
 ```
 
-**Why:** Avoid reinventing filtering logic. The shop/index.astro pattern is proven, performant, and matches our no-framework constraint.
+**Why:** SPEC-06 provides real Content Collections schema - query adventures, don't hardcode data. The shop/index.astro filtering pattern is proven and reusable.
+
+**Context**: AgentDB has 125 episodes (8 new from SPEC-05/06: episodes 118-125 with pivot patterns).
 
 ---
 
@@ -73,23 +95,25 @@ npx agentdb@latest skill search "hub page structure CollectionPage" 5
 
 **Architect 1: Code Architecture (code-architect agent)**
 
-- **Inputs:** Scout 1 findings + triple-axis requirements
+- **Inputs:** Scout 1 findings + SPEC-06 schema fields
 - **Design:**
-  1. Filter state management (3 independent axes: activity, season, distance)
-  2. Data attribute schema for adventure cards
+  1. Filter state management (2 independent axes: season, difficulty)
+  2. Data attribute schema for adventure cards (from SPEC-06 schema)
 
      ```typescript
-     // Example:
+     // Based on real adventures collection fields:
      data-adventure
-     data-activities="hiking,fishing,camping"  // Comma-separated
-     data-seasons="spring,summer,fall"         // Comma-separated
-     data-distance="15-30"                     // Range bucket
-     data-name="Burnsville Lake WMA"
-     data-slug="burnsville-lake"
+     data-seasons={adventure.data.season.join(',')}  // z.array(SeasonEnum)
+     data-difficulty={adventure.data.difficulty}     // DifficultyEnum
+     data-location={adventure.data.location}         // String
+     data-slug={adventure.id}                        // Auto-generated from filename
+
+     // Phase 1: Season + Difficulty only
+     // Future Phase: Add activities/distance when schema extended
      ```
 
-  3. Filter UI component structure (radio groups for season/distance, checkboxes for activities)
-  4. URL param naming (`?activity=hiking&season=fall&distance=15-30`)
+  3. Filter UI component structure (radio groups for season, radio/buttons for difficulty)
+  4. URL param naming (`?season=fall&difficulty=moderate`)
   5. Results count + empty state logic
   6. ViewTransitions cleanup strategy
 - **Output:** Architecture diagram in memory + pseudocode
@@ -142,10 +166,15 @@ npx agentdb@latest skill search "hub page structure CollectionPage" 5
    - "Learn More" link to detail page
    - Match WVWO aesthetic (rounded-sm, brand colors)
 
-5. **Populate with placeholder data** (10-15 destinations for testing)
-   - Use real destinations from existing `/near/` data
-   - Add mock activity/season data
-   - Calculate distances from shop (use existing driveTime)
+5. **Query adventures collection and render cards**
+   - Import: `import { getCollection } from 'astro:content';`
+   - Query: `const adventures = await getCollection('adventures');`
+   - Map SPEC-06 schema fields to data attributes:
+     * `season[]` → `data-seasons={adventure.data.season.join(',')}`
+     * `difficulty` → `data-difficulty={adventure.data.difficulty}`
+     * `location` → `data-location={adventure.data.location}`
+   - Test with `spring-gobbler-burnsville.md` (first real adventure from SPEC-06)
+   - **Distance filtering**: DEFER to later spec (schema lacks driveTime/distance field)
 
 6. **Empty states**
    - No results: Kim's voice message + "Clear Filters" CTA
@@ -324,10 +353,16 @@ Empty state: "Hmm, nothing matches those filters. Try widening your search - or 
 
 ### REQUIRED Reading
 
-1. `wv-wild-web/src/pages/shop/index.astro` (lines 207-330)
+1. `wv-wild-web/src/content.config.ts` (SPEC-06 schema)
+   **Why:** Adventures collection schema - real fields available to query (season[], difficulty, location, coordinates, gear[])
+
+2. `wv-wild-web/src/content/adventures/spring-gobbler-burnsville.md` (SPEC-06 example)
+   **Why:** First real adventure entry - use as test case for filtering
+
+3. `wv-wild-web/src/pages/shop/index.astro` (lines 207-330)
    **Why:** Proven vanilla JS filtering pattern, URL sync, idempotency
 
-2. `wv-wild-web/src/pages/near/index.astro`
+4. `wv-wild-web/src/pages/near/index.astro`
    **Why:** Hub page structure, CollectionPage schema, card design
 
 ### Aesthetic Reference
