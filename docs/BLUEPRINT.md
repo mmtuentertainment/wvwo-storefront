@@ -2,18 +2,18 @@
 
 **A Stealth Build Gift for Growing a Family Business**
 
-**Version 1.0** | Built with love for Kim & Bryan | Birch River, WV | December 2025
+**Version 2.0 (Pivot Edition)** | Built with love for Kim & Bryan | Birch River, WV | December 2025
 
 ---
 
 ## EXECUTIVE SUMMARY
 
-You're building the **Mountain State Adventure Destination Hub**—an integrated digital ecosystem that does THREE things simultaneously:
+You're building the **Mountain State Adventure Destination Hub**—an integrated digital ecosystem that does FOUR things simultaneously:
 
 1. **Honors their business** – The **Physical Retail Store** is the core foundation. This digital strategy serves to drive neighbors and US-19 travelers to the shop in Birch River.
 2. **Solves their problem** – Kim can update products and adventure knowledge from her phone; you handle the technical architecture.
 3. **Pivots for the Future** – Shifting the *online focus* from e-commerce to a professional **Destination Hub** that serves as a multi-modal income stream for Matt while funneling massive traffic and "eyes" to the physical storefront.
-4. **Proves the Value** – A high-traffic authority site that makes the family business the "Gateway to the Mountains."
+4. **Validates Economics** – Research proves shipping costs ($488-768 per kayak) make online fulfillment impossible for heavy items (erases 2-4.3% net margins). Content-first strategy mirrors Huckberry ($158M revenue) webrooming model: 74% research online, buy in-store. BOPIS drives 85% additional purchase rate.
 
 **Your role after launch:** You manage all systems. Kim only:
 
@@ -22,7 +22,7 @@ You're building the **Mountain State Adventure Destination Hub**—an integrated
 - Coordinates with Matt on new "Adventure Guides" for local spots.
 - Reviews monthly newsletter draft.
 
-**Timeline:** 6 weeks stealth build → 1 week pre-reveal polish → 5-hour reveal/train session → you deploy live
+**Timeline:** COMPLETED base site (Dec 2025). NOW: Phase 3 adventure content buildout (4-6 weeks for 66 destination specs)
 
 ---
 
@@ -131,9 +131,32 @@ faith perspective)
 
 ---
 
-## SECTION 1: COMPLETE BUILD CHECKLIST
+## ⚠️ DEPRECATION NOTICE
 
-### PHASE 1: INFRASTRUCTURE & LOCAL SETUP (Weeks 1-2)
+**Phase 1-2 below describe the ORIGINAL architecture** (Docker, Directus, Ghost, PostgreSQL, Redis, Listmonk, Mixpost).
+
+**Constitution v2.0.0 (2025-12-09) REMOVED these technologies.**
+
+**Current architecture** (as of December 2025):
+- Astro 5.x + Tailwind CSS 4.x (static site generation)
+- Cloudflare Pages (hosting)
+- Web3Forms (contact forms)
+- Buttondown (newsletter)
+- Content Collections (geographic/adventure content)
+- React + shadcn/ui (interactive components)
+
+**E-commerce status** (as of December 2025):
+- PUBLIC_COMMERCE_ENABLED=false (SPEC-05 - disabled by feature flag)
+- Product catalog browsable with "Call to Order" CTAs
+- Cart/checkout UI hidden (preserved for future re-enablement)
+
+**SKIP TO**: Phase 3 (line 908+) for current build plan and active specifications.
+
+---
+
+## SECTION 1: COMPLETE BUILD CHECKLIST (OBSOLETE - Historical Reference Only)
+
+### PHASE 1: INFRASTRUCTURE & LOCAL SETUP (Weeks 1-2) - DEPRECATED
 
 **All done locally on your machine; nothing touches production yet.**
 

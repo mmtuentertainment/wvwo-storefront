@@ -1,17 +1,19 @@
 <!--
 SYNC IMPACT REPORT
 ==================
-Version change: 2.1.0 (Phase 3 Strategy) → 2.2.0 (Matt Runs Tech)
+Version change: 2.2.0 (Matt Runs Tech) → 2.3.0 (Strategic Pivot - Adventure Destination)
 
-MINOR VERSION BUMP - Tech ownership clarified, React/shadcn approved.
+MINOR VERSION BUMP - E-commerce disabled via feature flag, Content Collections mandated, BOPIS economics enforced.
 
 Modified sections:
-- Principle IV: Clarified Matt has FULL tech autonomy (architecture, frameworks, paid services)
-- Technology Stack: Added React + shadcn/ui for interactive components
-- Removed "No client-side JavaScript frameworks" constraint (React approved Dec 2025)
-- Removed "free tier" emphasis - Matt decides on paid services based on business value
+- Principle I: Added PUBLIC_COMMERCE_ENABLED flag governance (SPEC-05)
+- Principle II: Added Content Collections requirement (SPEC-06/12 mandate)
+- Principle VII: Added BOPIS mandatory rule for heavy items (shipping economics research)
+- Boundary Rules: Updated e-commerce scope to reflect disabled state (line 241-242)
+- Technology Stack: Content Collections architecture now foundational
 
 Previous versions:
+- 2.2.0: Matt Runs Tech - Full technical autonomy, React/shadcn approved
 - 2.1.0: Phase 3 Strategy & Geographic Positioning
 - 2.0.0: Simple Static Approach - architecture pivot from enterprise to static
 - 1.1.3: December 2025 dependency updates
@@ -44,9 +46,10 @@ no configuration files, no database queries required for routine tasks.
 - Error messages MUST be human-readable, not technical stack traces
 - All admin interfaces MUST be mobile-responsive and touch-friendly
 - Training time for any new feature MUST NOT exceed 15 minutes
+- **E-commerce UI** MUST respect PUBLIC_COMMERCE_ENABLED flag (SPEC-05). When false, all cart/checkout UI hidden, "Add to Cart" replaced with "Call to Order". Flag changes require Matt's approval and rebuild.
 
 **Rationale:** Kim runs a retail store. Her time is spent with customers, not computers.
-Every minute spent fighting technology is a minute not spent growing the business.
+Every minute spent fighting technology is a minute not spent growing the business. E-commerce capability is preserved but controlled via feature flag to address fraud concerns while maintaining product catalog for browsing.
 
 ### II. Heart of West Virginia
 
@@ -63,10 +66,12 @@ of Birch River. Authenticity over corporate polish.
 - Marketing MUST prioritize community trust over conversion optimization
 - Homepage MUST emphasize US 19 location and I-79 Exit 57 access
 - Content MUST serve both local customers AND highway travelers
+- **All new adventure/destination content** MUST use Astro Content Collections schema (SPEC-06/12). Hardcoded pages in src/pages/near/ are DEPRECATED. Geographic content requires structured data for filtering, cross-referencing, and SEO.
 
 **Rationale:** WV Wild Outdoors succeeds because it's a real store run by real people
 who know their customers by name. The digital presence must amplify this, not replace it.
 Kim sees out-of-state hunters walk in daily — the website must capture the same traffic.
+Content Collections ensure adventure content is discoverable, filterable, and maintainable as the destination hub scales to 100+ pages.
 
 ### III. Modular Service Architecture
 
@@ -183,10 +188,11 @@ WV Wild Outdoors sits at the strategic heart of West Virginia's hunting economy:
 - Content MUST serve both local customers AND highway travelers
 - SEO MUST target out-of-state hunter searches
 - Geographic positioning MUST appear in schema markup and metadata
+- **Products >40 lbs** MUST use BOPIS (Buy Online Pickup In-Store) or call-to-order fulfillment. Shipping cost economics ($488-768 per kayak with residential surcharge + liftgate + fuel) make direct-to-consumer fulfillment impossible for heavy outdoor gear. Research validates 74% webrooming behavior (research online, buy in-store) and 85% BOPIS additional purchase rate.
 
 **Rationale:** Kim sees out-of-state hunters walk in daily. The digital presence
 must capture the same traffic the physical location does. The I-79 corridor is
-WV's hunting highway — we position accordingly.
+WV's hunting highway — we position accordingly. Research proves shipping heavy items erases 2-4.3% net margins entirely, making BOPIS not optional but economically mandatory.
 
 ## Technology Stack
 
@@ -238,8 +244,8 @@ The following technologies are approved for this project. Matt may add tools as 
 - If it requires GitHub: Matt's responsibility
 - If it requires any login Kim doesn't have: Matt's responsibility
 - If it involves customer-facing content accuracy: Kim's responsibility (Matt supports)
-- If it involves money/transactions: E-commerce IS in scope (Phase 3C, with proper
-  FFL compliance and security measures)
+- If it involves adventure/destination content: Kim's local knowledge validation required
+- If it involves money/transactions: E-commerce capability preserved but **disabled via PUBLIC_COMMERCE_ENABLED=false** (SPEC-05). Re-enablement requires fraud concern resolution, business value justification, and Matt's technical approval. When enabled: FFL compliance and security measures mandatory (Phase 3D)
 
 ## Governance
 
