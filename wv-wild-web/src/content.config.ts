@@ -23,10 +23,13 @@ const SeasonEnum = z.enum(['spring', 'summer', 'fall', 'winter']);
 /** Difficulty levels for adventures */
 const DifficultyEnum = z.enum(['easy', 'moderate', 'challenging', 'rugged']);
 
+/** Suitability flags for accessibility and family-friendliness (SPEC-07) */
+const SuitabilityEnum = z.enum(['dog-friendly', 'kid-friendly', 'wheelchair-accessible', 'paved']);
+
 // ============================================================================
 // ADVENTURES COLLECTION
 // Hunting guides, trail maps, seasonal calendars
-// Fields: title, description, season, difficulty, location, coordinates, gear, images, body
+// Fields: title, description, season, difficulty, location, coordinates, gear, elevation_gain, suitability, images, body
 // ============================================================================
 
 const adventures = defineCollection({
@@ -42,6 +45,8 @@ const adventures = defineCollection({
             lng: z.number(),
         }).optional(),
         gear: z.array(z.string()).optional(), // e.g., ["turkey vest", "box call"]
+        elevation_gain: z.number().optional(), // SPEC-07: Elevation in feet for filtering (e.g., 1200)
+        suitability: z.array(SuitabilityEnum).optional(), // SPEC-07: Accessibility flags
         images: z.array(ImageSchema).optional(),
     }),
 });

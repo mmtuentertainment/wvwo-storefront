@@ -8,6 +8,9 @@ location: "Burnsville Lake WMA"
 coordinates:
   lat: 38.8567
   lng: -80.5331
+elevation_gain: 1450
+suitability:
+  - dog-friendly
 gear:
   - turkey vest
   - box call

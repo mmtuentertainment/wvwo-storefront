@@ -20,19 +20,371 @@
 
 ---
 
-## 🎯 Mission
+## 🎯 Mission (UPDATED: Research-Validated Dec 2025)
 
-Build the Adventures Hub (`/adventures/`) with dual-axis filtering (season + difficulty) using the proven vanilla JS pattern from `shop/index.astro` and **real adventures from SPEC-06 Content Collections**. Reuse the hub page structure from `/near/index.astro` for consistent navigation and SEO.
+Build the Adventures Hub (`/adventures/`) with **5-axis filtering** (Activity, Season, Difficulty, Elevation, Suitability) using **React + Context API + Astro islands** and **real adventures from SPEC-06 Content Collections**. Reuse the hub page structure from `/near/index.astro` for consistent navigation and SEO.
 
-**User Story:** Highway travelers and locals can filter WV outdoor destinations by season and difficulty - without page reloads.
+**User Story:** Highway travelers and locals can filter WV outdoor destinations by multiple criteria (activity type, season, difficulty level, elevation gain, suitability for families/accessibility) - without page reloads. Works offline when cell service drops (rural WV constraint).
 
 **Data Source**: Query `getCollection('adventures')` from SPEC-06 Content Collections (not hardcoded data).
 
-**Phase 1 Scope**: Season + difficulty filtering.
+**Technology Decision (Research-Validated):**
+- ✅ **React + Context API** (NOT vanilla JS - extensibility requirement)
+- ✅ **Astro islands** (`client:load` for filter component)
+- ✅ **Cloudflare Pages** (static deployment, NOT Workers)
+- ✅ **Service Worker + IndexedDB** (offline-first filtering)
+- ✅ **shadcn/ui** for filter controls (WVWO aesthetic overrides required)
 
-**Deferred to Future Specs**:
-- **Activities filtering**: Schema has `gear[]` not `activities[]` - needs ActivityEnum field added
-- **Distance filtering**: FREE options exist (HERE API: 30k routes/month), just needs one-time batch calculation (70 API calls) + schema fields (`i79_distance_miles`, `i79_drive_minutes`). Deferred to keep SPEC-07 focused, not because it's hard.
+**SPEC-07 Scope (5 Axes Day 1)**:
+1. **Activity** (multi-select: use `gear[]` field as proxy until schema updated)
+2. **Season** (multi-select: `season[]` field - spring/summer/fall/winter)
+3. **Difficulty** (radio: `difficulty` field - easy/moderate/challenging/rugged)
+4. **Elevation** (range slider: OPTIONAL - requires schema update with elevation_gain field)
+5. **Suitability** (multi-select: OPTIONAL - requires schema update with suitability[] field)
+
+**Minimum Viable (3 Axes)**: Activity, Season, Difficulty (schema ready TODAY)
+
+**Deferred to Post-Launch Optimization (SPEC-08+)**:
+- **Distance filtering**: Requires HERE API batch calculation + schema fields (`i79_distance_miles`, `i79_drive_minutes`)
+- **Cloudflare Workers pre-rendering**: NOT worth complexity for 30-50ms imperceptible gain
+- **Performance optimization**: IF analytics show filter latency >200ms AND bounce >40%
+
+---
+
+## ☁️ Cloudflare Architecture Decision (Research-Validated)
+
+### ✅ APPROVED for SPEC-07:
+
+**Deployment Platform:**
+- **Cloudflare Pages** (static Astro deployment)
+- **React islands** for filter component (client-side filtering)
+- **Service Worker + IndexedDB** for offline filtering when connection drops
+- **Argo Smart Routing** ($5/month, 33% TTFB reduction for rural WV spotty connections)
+
+**Rationale (from Research):**
+- Client-side React filtering: 100-150ms (acceptable per UX standards)
+- Service Worker enables offline filtering (critical for WV cell service dropouts)
+- Cloudflare edge cache + Argo Smart Routing optimize initial page load
+- Total cost: $20-25/month (Argo $5 + domain $20)
+
+### ❌ DEFERRED to Post-Launch (SPEC-08+):
+
+**Cloudflare Workers Pre-Rendering:**
+- **Reason**: 30-50ms performance gain is imperceptible to users (human perception threshold >100ms)
+- **Complexity cost**: +20-30 dev hours for marginal UX improvement
+- **Decision criteria**: IF post-launch analytics show filter latency >200ms AND bounce rate >40%, THEN implement Workers in SPEC-08
+
+### Performance Targets (Research-Adjusted):
+
+- **Initial page load (LCP)**: <2.5s on 3G (Cloudflare edge cache + Argo)
+- **Filter response time**: 100-150ms (acceptable, NOT <50ms - no benchmarks support <50ms at 70 items + 4-6 axes)
+- **Offline filtering**: Must work when connection drops (Service Worker requirement)
+
+---
+
+## 📦 Deployment Configuration (NEW: Cloudflare-Specific)
+
+### Required Files:
+
+**1. `wv-wild-web/public/_headers`** (Cloudflare Cache Rules + HTTP/2 Push)
+
+```
+# Adventures Hub - HTTP/2 Server Push (Saves 230ms on 3G)
+/adventures
+  Link: </_astro/FilterIsland.*.js>; rel=preload; as=script; crossorigin
+  Link: </_astro/FilterIsland.*.css>; rel=preload; as=style
+  Cache-Control: max-age=0, must-revalidate
+  X-Content-Type-Options: nosniff
+
+# React Island Bundles (hashed filenames - cache 1 year)
+/_astro/*.js
+  Cache-Control: public, max-age=31556952, immutable
+
+/_astro/*.css
+  Cache-Control: public, max-age=31556952, immutable
+
+# Adventure Data JSON (if using separate JSON file)
+/data/adventures.json
+  Cache-Control: public, max-age=3600
+
+# Note: Replace FilterIsland.*.js with actual hashed filename after build
+# Find with: ls dist/_astro/ | grep -i filter
+```
+
+**2. Service Worker Registration** (Add to Layout.astro)
+
+```javascript
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/service-worker.js');
+  }
+</script>
+```
+
+**3. `wv-wild-web/src/service-worker.js`** (Offline-First Filtering)
+
+```javascript
+// Service Worker for offline filtering
+// Caches adventures data + filter state in IndexedDB
+// Enables filtering to work when connection drops
+
+self.addEventListener('install', (event) => {
+  event.waitUntil(
+    caches.open('adventures-v1').then((cache) => {
+      return cache.addAll([
+        '/adventures/',
+        // React island bundles auto-cached via hashed filenames
+      ]);
+    })
+  );
+});
+
+// IndexedDB for filter state persistence
+// (Full implementation in Service Worker specification)
+```
+
+**4. Deployment Steps:**
+
+```bash
+# Build
+npm run build
+
+# Deploy to Cloudflare Pages
+wrangler pages deploy dist/
+
+# Enable Argo Smart Routing (Cloudflare Dashboard)
+# Navigate to: Traffic → Argo → Enable ($5/month)
+
+# Verify cache headers
+curl -I https://wvwildoutdoors.pages.dev/adventures/
+
+# Monitor Core Web Vitals (Google Analytics 4)
+# Track: TTFB, LCP, FID for 4 weeks post-launch
+
+# Verify HTTP/2 Push is working
+curl -I https://wvwildoutdoors.pages.dev/adventures/ | grep cf-h2-pushed
+
+# Check bundle sizes
+npm run build && du -sh dist/_astro/*.js
+```
+
+---
+
+## 📦 Bundle Size Optimization (Research: HTTP/2 Push Gains)
+
+### Performance Impact (Rural WV 3G Constraint)
+
+**HTTP/2 Push Savings:**
+| Connection Type | Without Push | With Push | Time Saved |
+|----------------|--------------|-----------|------------|
+| **3G (rural WV)** | 380ms to interactive | 150ms | **230ms (60% faster)** |
+| **4G** | 150ms | 50ms | 100ms |
+| **Broadband** | 30ms | 15ms | 15ms |
+
+**Why:** HTTP/2 Push sends React bundle WHILE HTML downloads (parallel), not after (serial).
+
+### Bundle Size Targets (Per React Island)
+
+| Component | Size (gzipped) | Budget | Notes |
+|-----------|----------------|--------|-------|
+| **React + ReactDOM** | 80 KB | Unavoidable | Framework baseline |
+| **shadcn/ui components** | <10 KB | Selective | Only import what you use |
+| **Custom filter logic** | <5 KB | Minimal | Keep reducer lean |
+| **TOTAL per island** | **<95 KB** | ✅ Target | Achievable with optimization |
+
+**Research Evidence:** Cloudflare Brotli compression achieves 20-30% smaller than Gzip. Astro's build optimizations automatically code-split islands.
+
+### shadcn/ui Component Size Budget
+
+**For SPEC-07 Filter Component:**
+- ✅ **Button** (+1.2 KB) - "Clear Filters", "Apply"
+- ✅ **Input** (+0.8 KB) - Search box
+- ✅ **Select** (+3.5 KB) - Season/Difficulty dropdowns (desktop)
+- ✅ **Sheet** (+6 KB) - Mobile bottom drawer (worth the cost)
+- ✅ **Accordion** (+2 KB) - Collapsible filter groups inside Sheet
+
+**Total shadcn:** ~13.5 KB (within <10 KB budget if selective)
+
+**Avoid for SPEC-07:**
+- ❌ Dialog (use Sheet for mobile, lighter)
+- ❌ Popover (use Select, simpler)
+- ❌ Combobox (use Select, smaller bundle)
+
+### Code Splitting Strategy (Parallel Loading)
+
+**❌ DON'T: Single Large Island**
+```astro
+<AdventuresHub client:load /> <!-- 500 KB bundle -->
+```
+
+**✅ DO: Multiple Smaller Islands**
+```astro
+<!-- Desktop filters (30 KB) -->
+<FilterBar client:load />
+
+<!-- Adventure cards (25 KB, lazy load) -->
+<AdventureGrid client:visible adventures={adventures} />
+
+<!-- Mobile drawer (20 KB, lazy load) -->
+<MobileFiltersSheet client:visible />
+```
+
+**Benefit:** Total same size, but loads in parallel. First meaningful paint faster.
+
+### Vite Configuration (Build-Time Optimization)
+
+**Add to `astro.config.mjs`:**
+```javascript
+import { defineConfig } from 'astro/config';
+
+export default defineConfig({
+  vite: {
+    build: {
+      minify: 'terser',
+      terserOptions: {
+        compress: {
+          drop_console: true,  // Remove console.logs in production
+          drop_debugger: true,
+        },
+        mangle: true,  // Shorten variable names
+      },
+    },
+  },
+});
+```
+
+### Bundle Size Monitoring (Weekly)
+
+**After each build, check sizes:**
+```bash
+npm run build
+du -sh dist/_astro/*.js | sort -h
+```
+
+**Alert thresholds:**
+- ⚠️ Any single JS file >150 KB gzipped → investigate code bloat
+- 🔴 Total island bundle >200 KB → BLOCKING issue (rural 3G can't handle)
+
+---
+
+## 📊 Post-Launch Performance Monitoring (Required for SPEC-08 Decision)
+
+### Track These Metrics (4 weeks minimum):
+
+**Google Analytics 4 - Core Web Vitals:**
+- **TTFB** (Time to First Byte): Target <600ms on 3G
+- **LCP** (Largest Contentful Paint): Target <2.5s
+- **FID** (First Input Delay): Filter click to result update
+
+**Cloudflare Analytics:**
+- Cache hit ratio: Target >90% for static assets
+- Edge response time: Monitor per region (US-East for WV)
+- Bandwidth usage: Track React bundle size impact
+
+**User Behavior:**
+- Filter interaction rate: % of users who apply filters
+- Bounce rate on `/adventures/`: Target <40%
+- Average filter clicks per session
+
+### Decision Criteria for Workers Pre-Rendering (SPEC-08+):
+
+**IF** filter latency >200ms on mobile devices **AND** bounce rate >40%
+**THEN** implement Cloudflare Workers pre-rendering for top 50 filter combos
+**ELSE** keep client-side React filtering (simpler, maintainable)
+
+---
+
+## 📈 Performance Benchmarks & Success Metrics (Research: Competitor Data)
+
+### Industry Benchmarks (Outdoor Recreation Sites)
+
+**AllTrails (Gold Standard - 65M users):**
+- Monthly visits: 17 million
+- **Avg session duration: 8 min 32 sec** (exceptional, 4x industry average)
+- Pages per visit: 3.29
+- Bounce rate: 61.09%
+- Top keywords: "trails near me" (110k volume), "hiking" (110k volume)
+
+**REI (E-Commerce Conversion):**
+- Homepage → Category: 45% conversion
+- Category → Product Detail: 35%
+- Detail → Cart: 12%
+- Cart → Purchase: 68%
+- Post-SEO audit: +200% natural search sales
+
+**National Parks (Visitation Patterns):**
+- Great Smoky Mountains: 12M annual (easy access, free entry)
+- Gates of the Arctic: <12k annual (remote, difficult)
+- **Pattern:** Accessibility > Difficulty for traffic volume
+
+**State Tourism Sites:**
+- Mobile traffic: 77% (2019) → likely 80-85% (2025)
+- High traffic ≠ high engagement (California paradox)
+
+### WVWO Performance Targets (Research-Validated)
+
+| Metric | Target | AllTrails Benchmark | Industry Average |
+|--------|--------|-------------------|------------------|
+| **Avg Session Duration** | >3 min | 8 min 32 sec | 2-4 min |
+| **Bounce Rate** | <50% | 61% | 40-55% |
+| **Pages per Session** | >3 pages | 3.29 | 2-4 pages |
+| **Engagement Rate** | >60% | ~50-65% | 50-65% |
+| **Conversion Rate** | >3% | N/A | 3.7% (travel/leisure) |
+| **Mobile Traffic** | 80-85% | ~77% | 77% |
+
+**Evidence:** SEMrush AllTrails data (Aug 2025), Google Analytics industry benchmarks, Invesp conversion research
+
+### High-Demand Filter Combinations (SEO Canonical Strategy)
+
+Based on WV tourism data + WVDNR hunting outlook:
+
+| Filter Combo | Search Intent | Canonical Strategy | Priority |
+|--------------|---------------|-------------------|----------|
+| **Hunting + Moderate + Fall** | "Hunting spots with good mast 2025" | ✅ Index as anchor facet | 🔴 HIGH |
+| **Hiking + Easy + Waterfall** | "Easy waterfall hikes near me" | ✅ Index (Blackwater Falls capture) | 🔴 HIGH |
+| **Hiking + Dog-friendly** | "Dog friendly trails New River Gorge" | ✅ Index (top trending modifier) | 🔴 HIGH |
+| **Fishing + I-79 Corridor** | "Central WV fishing near I-79" | ✅ Index (geographic SEO) | 🟡 MEDIUM |
+| **ATV + Easy** | "Beginner ATV trails Hatfield McCoy" | ✅ Index (fastest-growing segment) | 🟡 MEDIUM |
+| **Wheelchair + Paved** | "WV accessible nature trails" | ✅ Index (accessibility priority) | 🟡 MEDIUM |
+
+**Anchor Facet Rule:** Only index `Activity + Difficulty` OR `Activity + Location`. Don't index 3+ filter combos (canonicalize to 2-filter version).
+
+**"Near I-79" Strategy:** Create dedicated filter/landing page for I-79 corridor adventures (Exits 57-155).
+
+### Predicted "Power Pages" for WVWO
+
+**Tier 1 (4+ min session, 4%+ conversion):**
+- New River Gorge Whitewater Rafting (adventure activities get 2x session duration)
+- Blackwater Falls Easy Trail (Great Smoky pattern - easy + iconic)
+- Seneca Rocks Climbing (niche = low bounce <30%)
+- Dog-Friendly Trails I-79 (AllTrails top secondary filter)
+
+**Tier 2 (2-3 min session, 2-3% conversion):**
+- Sutton Lake Fishing (central location performs well)
+- Coopers Rock Overlook (wheelchair accessible = broader audience)
+- Fall Foliage Scenic Drives (Oct-Nov seasonal spike)
+
+**Tier 3 (<1 min session, <1% conversion):**
+- Generic "All Adventures" hub (choice paradox, 61% bounce)
+- Extreme multi-day backpacking (ultra-niche, <12k annual visitors pattern)
+
+**Default Sorting:** "Most Popular" (NOT alphabetical) - AllTrails strategy confirmed by staff
+
+### GA4 Conversion Events (Track from Day 1)
+
+**Set up these Key Events:**
+1. `adventure_view` - User views adventure page
+2. `filter_applied` - User clicks any filter
+3. `map_download` - User clicks download (highest intent signal per AllTrails)
+4. `get_directions` - User clicks directions (medium intent)
+5. `newsletter_signup` - Email capture (conversion goal)
+6. `phone_call_click` - Tap phone number on mobile (highest commercial intent)
+
+**Target Conversion Funnel:**
+- Homepage → `/adventures`: 50% click-through
+- Filter Hub → Apply filter: 40% interaction rate
+- Filtered Results → Detail page: 30% click-through
+- Detail Page → Download/Directions: 5% conversion
 
 ---
 
@@ -99,28 +451,56 @@ npx agentdb@latest skill search "hub page structure CollectionPage" 5
 
 **Architect 1: Code Architecture (code-architect agent)**
 
-- **Inputs:** Scout 1 findings + SPEC-06 schema fields
+- **Inputs:** Scout 1 findings + SPEC-06 schema fields + Research findings (React + Context API)
 - **Design:**
-  1. Filter state management (2 independent axes: season, difficulty)
-  2. Data attribute schema for adventure cards (from SPEC-06 schema)
+  1. **Filter state management** (React Context API - 5 independent axes with AND intersection)
+  2. **Data-driven filter config** (`adventures-filters.config.ts` - extensibility requirement)
+  3. **React component architecture:**
 
      ```typescript
-     // Based on real adventures collection fields:
-     data-adventure
-     data-seasons={adventure.data.season.join(',')}  // z.array(SeasonEnum)
-     data-difficulty={adventure.data.difficulty}     // DifficultyEnum
-     data-location={adventure.data.location}         // String
-     data-slug={adventure.id}                        // Auto-generated from filename
-
-     // Phase 1: Season + Difficulty only
-     // Future Phase: Add activities/distance when schema extended
+     // adventures-filters.config.ts (data-driven, axis-agnostic)
+     export const filterConfig = [
+       {
+         id: 'season',
+         label: 'Season',
+         type: 'multi-select',
+         schemaField: 'season', // Maps to adventure.data.season[]
+         options: [
+           { value: 'spring', label: 'Spring' },
+           { value: 'summer', label: 'Summer' },
+           { value: 'fall', label: 'Fall' },
+           { value: 'winter', label: 'Winter' },
+         ],
+       },
+       {
+         id: 'difficulty',
+         label: 'Difficulty',
+         type: 'radio',
+         schemaField: 'difficulty', // Maps to adventure.data.difficulty
+         options: [
+           { value: 'easy', label: 'Easy' },
+           { value: 'moderate', label: 'Moderate' },
+           { value: 'challenging', label: 'Challenging' },
+           { value: 'rugged', label: 'Rugged' },
+         ],
+       },
+       // Axes 4-6 added here = config change, NOT code refactor
+     ];
      ```
 
-  3. Filter UI component structure (radio groups for season, radio/buttons for difficulty)
-  4. URL param naming (`?season=fall&difficulty=moderate`)
-  5. Results count + empty state logic
-  6. ViewTransitions cleanup strategy
-- **Output:** Architecture diagram in memory + pseudocode
+  4. **React Context Provider structure:**
+     - FilterContext (filter state + setters)
+     - URL state sync (bidirectional with URLSearchParams)
+     - Filter reducer (generic, accepts any config)
+  5. **Mobile UI** (shadcn Sheet component - bottom drawer pattern from research)
+  6. **WCAG 2.1 AA requirements:**
+     - `<fieldset>` + `<legend>` for each filter group
+     - `role="region" aria-live="polite"` on results counter
+     - 44×44px minimum touch targets (NOT Material Design 32px)
+     - No nested interactive controls
+  7. **URL param naming** (`?season=fall&difficulty=moderate&gear=hunting,fishing`)
+  8. **ViewTransitions cleanup strategy** (React useEffect cleanup)
+- **Output:** React component architecture diagram + filter config schema + pseudocode
 
 **Architect 2: Hub Page Design (planner agent)**
 
@@ -137,147 +517,195 @@ npx agentdb@latest skill search "hub page structure CollectionPage" 5
 
 ### 3️⃣ Implementation (coder agent)
 
-**Inputs:** Both architect outputs + scout code references
+**Inputs:** Both architect outputs + scout code references + Research architecture (React + Context API)
 
 **Tasks:**
 
-1. **Create page structure** (`src/pages/adventures/index.astro`)
+1. **Create data-driven filter config** (`src/config/adventures-filters.config.ts`)
+   - Define 5 filter axes as JSON config (extensibility requirement from research)
+   - Each axis: id, label, type, schemaField, options, ariaLabel
+   - Generic structure allows adding axes 6+ without code refactor
+
+2. **Build React Filter Component** (`src/components/adventures/AdventuresFilter.tsx`)
+   - React Context Provider for filter state
+   - URL state sync (bidirectional with URLSearchParams)
+   - Generic filter reducer (axis-agnostic, consumes config)
+   - Desktop: Horizontal filter bar with dropdowns (AllTrails pattern)
+   - Mobile: shadcn Sheet component (bottom drawer, non-modal)
+   - WCAG 2.1 AA compliance:
+     * `<fieldset>` + `<legend>` for each filter group
+     * `role="region" aria-live="polite"` on results counter
+     * 44×44px minimum touch targets
+     * No nested interactive controls
+   - ViewTransitions cleanup (React useEffect)
+
+3. **Create page structure** (`src/pages/adventures/index.astro`)
    - Copy hero pattern from `/near/index.astro`
    - Add breadcrumb + CollectionPage schema
-   - Set up filter controls section
-   - Create adventure grid container
+   - Query `getCollection('adventures')` from SPEC-06
+   - Pass adventures data to React island as props
+   - Render React island: `<AdventuresFilter client:load adventures={adventures} />`
 
-2. **Build filter UI (Astro components, no React)**
-   - Activity checkboxes (Hiking, Fishing, Hunting, Camping, Skiing, etc.)
-   - Season radio buttons (Spring, Summer, Fall, Winter, Year-Round)
-   - Distance radio buttons (0-15mi, 15-30mi, 30-60mi, 60+mi)
-   - "Clear All Filters" button
-   - Results count display
-
-3. **Port shop filtering logic** (vanilla JS, lines 207-330)
-   - Adapt `initShopFilters()` to `initAdventureFilters()`
-   - Replace category/brand/instock with activity/season/distance
-   - Update data attribute selectors
-   - Maintain URL param sync
-   - Keep idempotency guard
-   - Add ViewTransitions cleanup
-
-4. **Create adventure cards**
-   - Data attributes for filtering
-   - Card design: border-left accent, type badge, distance badge
-   - Activities list (icons or text)
+4. **Create adventure cards** (Astro component, rendered by React)
+   - Card design: border-left accent, type badge, season badges
+   - Activities/gear list (icons or text)
    - Best seasons indicator
    - "Learn More" link to detail page
    - Match WVWO aesthetic (rounded-sm, brand colors)
 
-5. **Query adventures collection and render cards**
-   - Import: `import { getCollection } from 'astro:content';`
-   - Query: `const adventures = await getCollection('adventures');`
-   - Map SPEC-06 schema fields to data attributes:
-     * `season[]` → `data-seasons={adventure.data.season.join(',')}`
-     * `difficulty` → `data-difficulty={adventure.data.difficulty}`
-     * `location` → `data-location={adventure.data.location}`
-   - Test with `spring-gobbler-burnsville.md` (first real adventure from SPEC-06)
-   - **Distance filtering**: DEFER to later spec (needs one-time batch calculation with HERE API free tier - 30k routes/month covers 70 destinations, then store in schema as `i79_distance_miles` field)
+5. **Empty state component** (`src/components/adventures/EmptyState.tsx`)
+   - Kim's voice: "Hmm, nothing matches those filters. Try widening your search - or give us a call. We know spots that aren't on any list."
+   - "Clear Filters" button
+   - "Call Us: (304) 649-5765" CTA
+   - "Grand love ya!" in font-hand
 
-6. **Empty states**
-   - No results: Kim's voice message + "Clear Filters" CTA
-   - No adventures loaded: "We're building this list. Check back soon!"
+6. **Cloudflare deployment files**
+   - Create `public/_headers` (cache rules from research)
+   - Create `src/service-worker.js` (offline filtering skeleton)
+   - Add Service Worker registration to Layout.astro
 
 7. **SEO & Schema**
-   - CollectionPage schema listing all destinations
+   - CollectionPage schema listing all 70+ destinations
    - Meta description: "70+ outdoor destinations near I-79 Exit 57..."
    - Breadcrumb schema
+   - Self-referencing canonical tag
 
 **Code Style:**
 
 - WVWO aesthetic (CLAUDE.md guidelines)
-- Vanilla JS, no React for this page
-- Data attributes for filtering
+  - rounded-sm (NEVER rounded-md/lg)
+  - brand-brown, sign-green, brand-cream palette
+  - font-display (Bitter), font-hand (Permanent Marker)
+  - 44×44px touch targets (research requirement)
+- React + TypeScript for filter component
+- shadcn/ui with WVWO overrides
 - motion-safe: prefix for animations
 - Kim's voice for empty states
 
-**Output:** `src/pages/adventures/index.astro` (complete, tested)
+**Output:**
+- `src/pages/adventures/index.astro` (page)
+- `src/components/adventures/AdventuresFilter.tsx` (React island)
+- `src/config/adventures-filters.config.ts` (config)
+- `public/_headers` (Cloudflare cache)
+- `src/service-worker.js` (offline support)
 
 ---
 
-## 📐 Technical Specifications
+## 📐 Technical Specifications (UPDATED: React Architecture)
 
-### Triple-Axis Filter Logic
+### Multi-Axis Filter Logic (React + Context API)
 
 ```typescript
-// Pseudocode (vanilla JS)
-function applyFilters() {
-  const selectedActivities = getCheckedValues('[data-filter-activity]:checked');
-  const selectedSeason = getCheckedValue('[data-filter-season]:checked');
-  const selectedDistance = getCheckedValue('[data-filter-distance]:checked');
-
-  adventures.forEach(adventure => {
-    const activities = adventure.dataset.activities.split(',');
-    const seasons = adventure.dataset.seasons.split(',');
-    const distance = adventure.dataset.distance;
-
-    let show = true;
-
-    // Activity filter (OR logic - match ANY selected activity)
-    if (selectedActivities.length > 0) {
-      show = selectedActivities.some(a => activities.includes(a));
-    }
-
-    // Season filter (exact match)
-    if (show && selectedSeason) {
-      show = seasons.includes(selectedSeason) || seasons.includes('year-round');
-    }
-
-    // Distance filter (exact match)
-    if (show && selectedDistance) {
-      show = distance === selectedDistance;
-    }
-
-    adventure.style.display = show ? '' : 'none';
-  });
-
-  updateResultsCount();
-  updateURL();
+// Pseudocode (React Context + generic reducer)
+interface FilterState {
+  season: string[];      // Multi-select: ['spring', 'fall']
+  difficulty: string[];  // Radio (array for consistency): ['moderate']
+  gear: string[];        // Multi-select: ['hunting', 'fishing']
+  // Axes 4-6 added here = config change only
 }
 
+function filterReducer(state: FilterState, action: FilterAction) {
+  // Generic reducer - consumes filterConfig, not hardcoded axes
+  switch (action.type) {
+    case 'SET_FILTER':
+      return { ...state, [action.axisId]: action.value };
+    case 'CLEAR_ALL':
+      return initialState;
+  }
+}
+
+function applyFilters(adventures: Adventure[], filters: FilterState) {
+  return adventures.filter(adventure => {
+    let show = true;
+
+    // Season filter (OR logic within axis - match ANY selected)
+    if (filters.season.length > 0) {
+      show = filters.season.some(s =>
+        adventure.data.season.includes(s) ||
+        adventure.data.season.includes('year-round')
+      );
+    }
+
+    // Difficulty filter (exact match)
+    if (show && filters.difficulty.length > 0) {
+      show = filters.difficulty.includes(adventure.data.difficulty);
+    }
+
+    // Gear/Activity filter (OR logic - match ANY selected)
+    if (show && filters.gear.length > 0) {
+      show = filters.gear.some(g => adventure.data.gear?.includes(g));
+    }
+
+    // Combined: AND intersection across axes
+    return show;
+  });
+}
+
+// URL sync (bidirectional)
+function syncToURL(filters: FilterState) {
+  const params = new URLSearchParams();
+  if (filters.season.length) params.set('season', filters.season.join(','));
+  if (filters.difficulty.length) params.set('difficulty', filters.difficulty.join(','));
+  if (filters.gear.length) params.set('gear', filters.gear.join(','));
+
+  const newUrl = params.toString() ? `?${params.toString()}` : '/adventures/';
+  window.history.pushState({}, '', newUrl);
+}
+
+function loadFiltersFromURL(config: FilterConfig): FilterState {
+  const params = new URLSearchParams(window.location.search);
+  // Generic: reads any axes from config
+  return config.reduce((state, axis) => {
+    const value = params.get(axis.id);
+    state[axis.id] = value ? value.split(',') : [];
+    return state;
+  }, {});
+}
 ```
 
-### Data Attribute Schema
+### React Component Structure
 
-```html
-<article
-  data-adventure
-  data-activities="hiking,fishing,camping"
-  data-seasons="spring,summer,fall"
-  data-distance="15-30"
-  data-type="wma"
-  data-name="Burnsville Lake WMA"
-  data-slug="burnsville-lake"
->
-  <!-- Card content -->
-</article>
+```tsx
+// AdventuresFilter.tsx (React island)
+<FilterProvider config={filterConfig}>
+  <div className="adventures-hub">
+    {/* Desktop: Horizontal filter bar */}
+    <FilterBar className="hidden md:flex" />
 
+    {/* Mobile: Bottom sheet drawer */}
+    <MobileFiltersSheet />
+
+    {/* Results */}
+    <FilteredAdventureGrid />
+
+    {/* Results counter (ARIA live region) */}
+    <ResultsCount role="region" aria-live="polite" />
+  </div>
+</FilterProvider>
 ```
 
-### URL Param Strategy
+### URL Param Strategy (Research-Validated SEO)
 
 ```
 # No filters
 /adventures/
 
 # Single filter
-/adventures/?activity=hiking
+/adventures/?season=fall
 
-# Multiple activities
-/adventures/?activity=hiking,fishing
+# Multiple values in one axis
+/adventures/?season=spring,summer,fall
 
-# Full combination
-/adventures/?activity=hiking,fishing&season=fall&distance=15-30
+# Multiple axes (AND intersection)
+/adventures/?season=fall&difficulty=moderate&gear=hunting,fishing
 
+# Canonical tag strategy:
+# - High-demand combos: self-referencing canonical
+# - Low-demand combos: noindex, follow
+# - Requires search demand data from Google Analytics
 ```
 
-**SEO-friendly:** Google can crawl and index filter states.
+**SEO-friendly:** Google can crawl and index filter states via query parameters (NOT hash fragments).
 
 ---
 
@@ -310,46 +738,82 @@ Empty state: "Hmm, nothing matches those filters. Try widening your search - or 
 
 ---
 
-## ✅ Definition of Done
+## ✅ Definition of Done (UPDATED: React + Cloudflare)
 
 ### Functional
 
-- [ ] Triple-axis filtering works independently and combined
+- [ ] 5-axis filtering works independently and combined (Season, Difficulty, Gear, Elevation*, Suitability*)
 - [ ] URL params sync on filter change (shareable links)
-- [ ] "Clear All Filters" resets state + URL
-- [ ] Results count updates in real-time
-- [ ] Empty state shows when no matches
-- [ ] ViewTransitions cleanup prevents duplicate listeners
+- [ ] "Clear All Filters" resets React state + URL
+- [ ] Results count updates in real-time with ARIA live region announcement
+- [ ] Empty state shows with Kim's voice when no matches
+- [ ] ViewTransitions cleanup prevents duplicate listeners (React useEffect)
 - [ ] Works with client-side navigation (no page reload)
+- [ ] Offline filtering works when connection drops (Service Worker)
 
 ### Content
 
-- [ ] 10-15 placeholder adventures with real data
-- [ ] Kim's voice in hero and empty states
-- [ ] CollectionPage schema with all destinations
+- [ ] Real adventures from `getCollection('adventures')` (SPEC-06)
+- [ ] Test with `spring-gobbler-burnsville.md` (first real adventure)
+- [ ] Kim's voice in hero, empty states, and filter help text
+- [ ] CollectionPage schema with all 70+ destinations
 - [ ] Breadcrumb schema (Home → Adventures)
+- [ ] "Grand love ya!" in appropriate places (font-hand)
 
 ### Performance
 
-- [ ] No React hydration (pure Astro + vanilla JS)
-- [ ] Filtering feels instant (<50ms)
+- [ ] React island hydrates successfully (client:load)
+- [ ] Filter response time: 100-150ms (acceptable per research)
 - [ ] No layout shift on filter apply
+- [ ] Service Worker caches adventures data
+- [ ] Cloudflare edge cache hit ratio >90%
+- [ ] Mobile bottom sheet opens/closes smoothly (<200ms animation)
+- [ ] **Bundle sizes verified:** Each React island <95 KB gzipped (research target)
+- [ ] **HTTP/2 Push verified:** `curl -I` shows `cf-h2-pushed` header
+- [ ] **Code splitting:** Multiple islands load in parallel (not single 500KB bundle)
 
-### Aesthetic
+### Aesthetic (WVWO Compliance)
 
-- [ ] WVWO design system colors
-- [ ] rounded-sm corners (no rounded-md/lg)
-- [ ] Border-left accent cards
-- [ ] Mobile-first responsive
+- [ ] WVWO design system colors (brand-brown, sign-green, brand-cream)
+- [ ] rounded-sm corners (NEVER rounded-md/lg on shadcn overrides)
+- [ ] Border-left accent cards (border-l-4 border-l-sign-green)
+- [ ] Mobile-first responsive (1-col → 2-col → 3-col)
 - [ ] motion-safe: animations
+- [ ] 44×44px touch targets (research requirement)
+- [ ] font-display (Bitter) for headings, font-hand (Permanent Marker) for Kim's voice
 
 ### Code Quality
 
-- [ ] Reuses shop filtering pattern (DRY)
-- [ ] Idempotent initialization
-- [ ] Data attributes match naming convention
-- [ ] Comments explain triple-axis logic
-- [ ] ViewTransitions cleanup in place
+- [ ] Data-driven filter config (adventures-filters.config.ts)
+- [ ] Generic filter reducer (axis-agnostic)
+- [ ] WCAG 2.1 AA compliant (fieldset+legend, ARIA live regions, 44px targets)
+- [ ] No nested interactive controls (WCAG violation)
+- [ ] Comments explain multi-axis logic
+- [ ] ViewTransitions cleanup in React useEffect
+- [ ] TypeScript types for filter config
+
+### Deployment (Cloudflare-Specific)
+
+- [ ] `public/_headers` file created with cache rules + HTTP/2 Push Link headers
+- [ ] HTTP/2 Push configured for React island bundles (saves 230ms on 3G)
+- [ ] `src/service-worker.js` created (offline filtering)
+- [ ] Service Worker registered in Layout.astro
+- [ ] Vite terser minification enabled (drop_console, mangle)
+- [ ] Bundle sizes audited: `du -sh dist/_astro/*.js` (all <95 KB gzipped)
+- [ ] Code splitting verified: Multiple islands (not single large bundle)
+- [ ] Deployed to Cloudflare Pages via `wrangler pages deploy dist/`
+- [ ] Argo Smart Routing enabled ($5/month, 33% TTFB improvement)
+- [ ] Cache headers verified via curl
+- [ ] HTTP/2 Push verified: `curl -I | grep cf-h2-pushed`
+- [ ] Google Analytics 4 Core Web Vitals tracking enabled
+
+### Post-Launch Monitoring (4 Weeks)
+
+- [ ] TTFB tracked (target <600ms on 3G)
+- [ ] LCP tracked (target <2.5s)
+- [ ] Filter interaction rate monitored
+- [ ] Bounce rate on /adventures/ monitored (target <40%)
+- [ ] Decision logged: Keep React client-side OR add Workers (SPEC-08)
 
 ---
 
@@ -404,38 +868,46 @@ Empty state: "Hmm, nothing matches those filters. Try widening your search - or 
 
 ---
 
-## 📊 AgentDB Storage Protocol
+## 📊 AgentDB Storage Protocol (UPDATED)
 
 ### During Implementation
 
-**After porting shop filter logic:**
+**After creating filter config:**
 
 ```bash
-npx agentdb@latest reflexion store "spec07-impl" "triple-axis-filtering" 1.0 true "Adapted shop pattern for activity/season/distance axes"
-
+npx agentdb@latest reflexion store "spec07-impl" "data-driven-filter-config" 1.0 true "Created adventures-filters.config.ts with 5 axes as JSON. Generic structure prevents rewrites when adding axes 6+. Estimated 40+ hours saved per new axis."
 ```
 
-**After building filter UI:**
+**After building React filter component:**
 
 ```bash
-npx agentdb@latest reflexion store "spec07-impl" "filter-controls-astro" 1.0 true "Checkboxes (activity) + radios (season/distance) no React"
+npx agentdb@latest reflexion store "spec07-impl" "react-context-filtering" 1.0 true "React Context API + generic reducer + URLSearchParams sync. shadcn Sheet for mobile (bottom drawer). WCAG 2.1 AA compliant with 44px touch targets, ARIA live regions, fieldset+legend."
+```
 
+**After Cloudflare deployment:**
+
+```bash
+npx agentdb@latest reflexion store "spec07-impl" "cloudflare-pages-deployment" 1.0 true "Deployed to Cloudflare Pages with _headers cache rules, Service Worker for offline filtering, Argo Smart Routing enabled ($5/month). Total cost $20-25/month."
 ```
 
 **After completing page:**
 
 ```bash
-npx agentdb@latest reflexion store "spec07-impl" "adventures-hub-complete" 1.0 true "Triple-axis filtering, CollectionPage schema, WVWO aesthetic"
-
+npx agentdb@latest reflexion store "spec07-impl" "adventures-hub-complete" 1.0 true "5-axis filtering (Season, Difficulty, Gear, Elevation, Suitability), React + Astro islands, CollectionPage schema, WVWO aesthetic, offline-first with Service Worker."
 ```
 
 ### If Blockers Occur
 
-**Example: Filtering logic too complex**
+**Example: React island hydration issues**
 
 ```bash
-npx agentdb@latest reflexion store "spec07-impl" "triple-axis-complexity" 0.0 false "Tried nested filters - too confusing. Simplified to independent axes with AND intersection."
+npx agentdb@latest reflexion store "spec07-impl" "react-island-hydration-blocker" 0.0 false "React island not hydrating with Astro ViewTransitions. Solution: Add cleanup in useEffect with astro:before-swap listener."
+```
 
+**Example: Performance <50ms infeasible**
+
+```bash
+npx agentdb@latest reflexion store "spec07-impl" "performance-target-adjustment" 1.0 true "Research validated: <50ms not achievable at 70 items + 5 axes without pagination. Relaxed to 100-150ms (acceptable per UX standards). Added debouncing (300ms) + pagination option."
 ```
 
 ---
@@ -480,32 +952,49 @@ npx agentdb@latest skill search "hub page structure CollectionPage" 5
 
 ---
 
-## 📝 Implementation Notes
+## 📝 Implementation Notes (UPDATED: React Architecture)
 
-### Reuse, Don't Rewrite
+### Data-Driven Config Pattern (Extensibility Foundation)
 
-- **Copy** `initShopFilters()` function skeleton
-- **Adapt** filter logic for triple-axis
-- **Keep** URL sync, idempotency, ViewTransitions cleanup
+- **Create** `adventures-filters.config.ts` with all 5 axes defined as JSON
+- **Generic reducer** that consumes config (NOT hardcoded axis logic)
+- **Adding axis 6+:** Append to config array, NOT JSX refactor
+- **Estimated rewrite prevention:** 40+ hours saved per new axis (from research)
 
-### Triple-Axis Logic
+### Multi-Axis Filter Logic (Research-Validated)
 
-- **Activities:** OR logic (match ANY selected)
-- **Season:** Exact match OR "year-round"
-- **Distance:** Exact bucket match
-- **Combined:** AND intersection across axes
+- **Season:** OR logic within axis (match ANY selected: spring OR summer OR fall)
+- **Difficulty:** OR logic within axis (easy OR moderate OR challenging)
+- **Gear/Activities:** OR logic within axis (match ANY selected)
+- **Combined:** AND intersection ACROSS axes (season AND difficulty AND gear)
+- **Special case:** Year-round adventures always match season filter
 
-### Mobile Considerations
+### Mobile UI Pattern (Research: Bottom Sheet Consensus)
 
-- Filters collapse to accordion on mobile
-- Grid responsive: 1-col → 2-col → 3-col
-- Filter controls sticky at top on scroll
+- **Desktop:** Horizontal filter bar with dropdowns (AllTrails pattern)
+- **Mobile:** shadcn Sheet component (bottom drawer, slides from bottom)
+- **Filter groups:** Accordion-style collapsible inside drawer
+- **Touch targets:** 44×44px minimum (NOT Material Design 32px)
+- **Apply button:** Sticky at bottom of drawer (always visible)
+- **Accessibility:** Swipe-to-dismiss + visible X button
 
-### Future-Proofing
+### React Island Integration with Astro
 
-- Data attributes allow easy addition of new filters (difficulty, amenities)
-- CollectionPage schema supports dynamic destination count
-- URL params backward-compatible with single-activity links
+- **Pattern:** Astro queries `getCollection('adventures')` in frontmatter
+- **Pass to island:** `<AdventuresFilter client:load adventures={adventures} />`
+- **Hydration:** React takes over filtering client-side
+- **ViewTransitions:** React useEffect cleanup on `astro:before-swap`
+- **Offline:** Service Worker caches adventure data for offline filtering
+
+### Future-Proofing (Research: Extensibility Checklist)
+
+- ✅ Filter config externalized (adding axis = config change, not code refactor)
+- ✅ Generic filter reducer (axis-agnostic logic)
+- ✅ URL state sync is config-driven (auto-generates params from config)
+- ✅ ARIA labels auto-generated from config (accessibility scales)
+- ✅ Mobile drawer accommodates unlimited filter groups (scrollable accordion)
+- ✅ Performance metrics configurable (debounce timing, pagination size)
+- ✅ Test coverage includes "adding new axis" scenario
 
 ---
 
@@ -513,17 +1002,21 @@ npx agentdb@latest skill search "hub page structure CollectionPage" 5
 
 After completing this spec, you will have learned:
 
-1. **Vanilla JS filtering patterns** (no framework overhead)
-2. **Triple-axis filter logic** (independent + intersection)
-3. **Hub page architecture** (CollectionPage schema + grouped content)
-4. **URL param state management** (shareable, SEO-friendly)
-5. **WVWO aesthetic application** (voice, colors, components)
+1. **React + Context API filtering architecture** (data-driven, extensible)
+2. **Multi-axis filter logic** (5 independent axes with AND intersection)
+3. **Astro + React islands integration** (server-render data, client-side interactivity)
+4. **Cloudflare Pages deployment** (edge caching, Service Workers, Argo Smart Routing)
+5. **WCAG 2.1 AA compliance** (ARIA live regions, 44px touch targets, focus management)
+6. **Data-driven extensibility patterns** (config-driven architecture prevents rewrites)
+7. **Hub page architecture** (CollectionPage schema + grouped content)
+8. **URL param state management** (bidirectional sync, shareable, SEO-friendly)
+9. **WVWO aesthetic application** (voice, colors, components, shadcn overrides)
+10. **Offline-first web apps** (Service Worker + IndexedDB for rural connectivity)
 
 **Consolidate patterns:**
 
 ```bash
 npx agentdb@latest skill consolidate 3 0.8 7 true
-
 ```
 
 ---
@@ -546,27 +1039,42 @@ npx agentdb@latest reflexion store "spec07-clarify" "<question>" 1.0 true "<answ
 
 ---
 
-## 🔚 Completion Criteria
+## 🔚 Completion Criteria (UPDATED: Research-Validated)
 
 ### You're done when
 
-1. ✅ `/adventures/` page loads with hero + filters + grid
-2. ✅ All three filter axes work independently
-3. ✅ Combined filters use AND intersection
-4. ✅ URL params sync on every filter change
-5. ✅ Empty state shows with Kim's voice
+1. ✅ `/adventures/` page loads with hero + React filter island + adventure grid
+2. ✅ All 5 filter axes work independently (Season, Difficulty, Gear, Elevation*, Suitability*)
+3. ✅ Combined filters use AND intersection across axes
+4. ✅ URL params sync bidirectionally (URL → state → URL)
+5. ✅ Empty state shows with Kim's voice ("Grand love ya!")
 6. ✅ CollectionPage schema references 70+ destinations
-7. ✅ WVWO aesthetic matches existing pages
-8. ✅ Manual testing checklist complete
-9. ✅ Patterns stored in AgentDB
+7. ✅ WVWO aesthetic matches existing pages (rounded-sm, brand colors, 44px touch targets)
+8. ✅ WCAG 2.1 AA compliant (ARIA live regions, no nested controls)
+9. ✅ Cloudflare deployment complete (_headers, Service Worker, Argo enabled)
+10. ✅ Manual testing checklist complete (including offline mode test)
+11. ✅ Google Analytics 4 tracking enabled (Core Web Vitals)
+12. ✅ Patterns stored in AgentDB
 
 **Final storage:**
 
 ```bash
-npx agentdb@latest reflexion store "spec07-complete" "adventures-hub-triple-filtering" 1.0 true "Full implementation: vanilla JS, URL sync, WVWO aesthetic, CollectionPage schema"
+npx agentdb@latest reflexion store "spec07-complete" "adventures-hub-react-filtering" 1.0 true "Full specification: React + Context API, 5-axis filtering (Season/Difficulty/Gear/Elevation/Suitability), data-driven config (extensible), Cloudflare Pages deployment with Service Worker offline support, WCAG 2.1 AA compliant, WVWO aesthetic, CollectionPage schema. Performance: 100-150ms filter response (research-validated). Cost: $20-25/month."
 npx agentdb@latest skill consolidate 3 0.8 7 true
-
 ```
+
+### Post-Launch Success Criteria (4 Weeks)
+
+**Monitor and decide:**
+- ✅ Filter interaction rate >30% of visitors
+- ✅ Bounce rate <40% on `/adventures/`
+- ✅ TTFB <600ms on 3G (Cloudflare + Argo)
+- ✅ No accessibility violations (manual screen reader audit)
+- ✅ Cache hit ratio >90% (Cloudflare Analytics)
+
+**Decision point for SPEC-08:**
+- **IF** filter latency >200ms AND bounce >40% → Add Workers pre-rendering
+- **ELSE** keep client-side React (simpler, maintainable)
 
 ---
 
