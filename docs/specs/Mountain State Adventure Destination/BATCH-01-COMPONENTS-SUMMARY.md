@@ -61,7 +61,7 @@
 
 **Matt sends ONE thread with 4 screenshots:**
 
-```
+```text
 Hi Kim! I finished all 4 adventure page components.
 Can you look at these screenshots and give quick feedback?
 
