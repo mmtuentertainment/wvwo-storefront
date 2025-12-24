@@ -21,7 +21,6 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-  SheetClose,
 } from '@/components/ui/sheet';
 import {
   Accordion,
@@ -94,7 +93,12 @@ export function MobileFiltersSheet() {
             Filter Adventures
           </SheetTitle>
           {activeFilterCount > 0 && (
-            <p className="text-sm text-brand-mud/60 font-body mt-1">
+            <p
+              className="text-sm text-brand-mud/60 font-body mt-1"
+              role="region"
+              aria-live="polite"
+              aria-atomic="true"
+            >
               {activeFilterCount} filter{activeFilterCount !== 1 ? 's' : ''} active
             </p>
           )}
