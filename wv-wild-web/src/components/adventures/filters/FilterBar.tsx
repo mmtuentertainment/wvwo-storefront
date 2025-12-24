@@ -7,12 +7,21 @@
 import React from 'react';
 import { useFilters } from '@/lib/adventures/FilterContext';
 import { hasActiveFilters } from '@/lib/adventures/filter-utils';
-import { SeasonFilter } from './filters/SeasonFilter';
-import { DifficultyFilter } from './filters/DifficultyFilter';
-import { GearFilter } from './filters/GearFilter';
-import { ElevationSlider } from './filters/ElevationSlider';
-import { SuitabilityFilter } from './filters/SuitabilityFilter';
+import { SeasonFilter } from './SeasonFilter';
+import { DifficultyFilter } from './DifficultyFilter';
+import { GearFilter } from './GearFilter';
+import { ElevationSlider } from './ElevationSlider';
+import { SuitabilityFilter } from './SuitabilityFilter';
 
+/**
+ * Render the desktop sidebar containing all adventure filters, results count, and a clear-all action.
+ *
+ * Renders a sticky aside for medium+ screens that includes an ARIA live region showing the number
+ * of filtered adventures, a skip-to-results link, individual filter controls (season, difficulty,
+ * gear, elevation, suitability), and a conditional "Clear All Filters" button when any filters are active.
+ *
+ * @returns A sidebar JSX element with filter controls, results count, accessibility link, and a conditional clear-all button
+ */
 export function FilterBar() {
   const { state, dispatch, filteredAdventures, totalCount } = useFilters();
 
