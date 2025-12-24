@@ -7,6 +7,15 @@
 // import React from 'react';
 import { useFilters } from '@/lib/adventures/FilterContext';
 
+/**
+ * Render an empty-state UI shown when no adventures match the current filters.
+ *
+ * The component displays an icon, a brief message in "Kim's voice", a "Clear Filters"
+ * button that resets all filters (dispatches a `RESET_ALL` action via the FilterContext),
+ * and a "Call Us" tel link. It provides accessible, brand-styled CTAs and a signature line.
+ *
+ * @returns The React element tree for the empty-state UI
+ */
 export function EmptyState() {
   const { dispatch } = useFilters();
 

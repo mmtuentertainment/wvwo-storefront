@@ -11,6 +11,12 @@ interface AdventureCardProps {
   adventure: Adventure;
 }
 
+/**
+ * Render a clickable preview card for an adventure that links to the adventure's detail page.
+ *
+ * @param adventure - The Adventure data used to populate the card (title, image, metadata, tags, etc.)
+ * @returns A JSX anchor element representing the adventure card populated with image (if present), location badge, title, description, difficulty and optional elevation, season tags, and optional suitability icons
+ */
 export function AdventureCard({ adventure }: AdventureCardProps) {
   const { title, description, season, difficulty, location, elevation_gain, suitability } =
     adventure.data;

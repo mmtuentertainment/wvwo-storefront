@@ -10,6 +10,14 @@ import ReactSlider from 'react-slider';
 import { useFilters } from '@/lib/adventures/FilterContext';
 import { FILTER_CONFIG } from '@/lib/adventures/filters.config';
 
+/**
+ * Render a dual-thumb elevation-gain slider with current min/max readout and accessible controls.
+ *
+ * Displays the configured label and the current minimum and maximum elevation values (formatted in feet),
+ * and dispatches a `SET_RANGE` action to update the elevation filter when the slider range changes.
+ *
+ * @returns The React element for the elevation range slider control.
+ */
 export function ElevationSlider() {
   const { state, dispatch } = useFilters();
   const config = FILTER_CONFIG.find((c) => c.id === 'elevation')!;
