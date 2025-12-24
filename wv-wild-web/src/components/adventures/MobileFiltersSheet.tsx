@@ -48,7 +48,7 @@ import { SuitabilityFilter } from './filters/SuitabilityFilter';
  * @returns The rendered React element for the mobile filters sheet.
  */
 export function MobileFiltersSheet() {
-  const { activeFilterCount, dispatch, state } = useFilters();
+  const { activeFilterCount, dispatch } = useFilters();
   const [open, setOpen] = React.useState(false);
 
   const handleApplyFilters = () => {
