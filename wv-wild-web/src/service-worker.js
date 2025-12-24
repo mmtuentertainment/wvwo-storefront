@@ -100,11 +100,13 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(
       fetch(request)
         .then((response) => {
-          // Cache the fresh HTML
+          // Cache the fresh HTML (async, don't block response)
           const responseClone = response.clone();
-          caches.open(CACHE_NAME).then((cache) => {
-            cache.put(request, responseClone);
-          });
+          caches.open(CACHE_NAME)
+            .then((cache) => cache.put(request, responseClone))
+            .catch((error) => {
+              console.warn('[Service Worker] Failed to cache HTML:', error);
+            });
           return response;
         })
         .catch(() => {
