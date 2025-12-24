@@ -177,7 +177,7 @@ export function MobileFiltersSheet() {
               variant="outline"
               size="lg"
               onClick={handleResetAll}
-              className="w-full min-h-[44px] font-display font-medium border-2 border-brand-mud/40 text-brand-brown hover:bg-brand-cream hover:border-brand-orange"
+              className="w-full min-h-[44px] font-display font-medium border-2 border-brand-mud/40 text-brand-brown hover:bg-brand-orange/10 hover:border-brand-orange"
             >
               <X className="w-4 h-4" />
               Reset All Filters
