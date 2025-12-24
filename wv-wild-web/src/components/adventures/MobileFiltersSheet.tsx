@@ -40,6 +40,13 @@ import { GearFilter } from './filters/GearFilter';
 import { ElevationSlider } from './filters/ElevationSlider';
 import { SuitabilityFilter } from './filters/SuitabilityFilter';
 
+/**
+ * Render a mobile bottom-sheet interface for adjusting adventure filters.
+ *
+ * Presents a fixed mobile trigger button (shows an active-filter count when present) that opens a bottom sheet containing collapsible filter groups (Season, Difficulty, Activities, Elevation Gain, Suitability). Includes an Apply action that closes the sheet and a Reset All action that clears all filters via the filters context when active filters exist.
+ *
+ * @returns The rendered React element for the mobile filters sheet.
+ */
 export function MobileFiltersSheet() {
   const { activeFilterCount, dispatch, state } = useFilters();
   const [open, setOpen] = React.useState(false);
