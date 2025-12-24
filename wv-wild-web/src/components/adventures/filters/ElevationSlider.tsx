@@ -55,9 +55,9 @@ export function ElevationSlider() {
         pearling               // Thumbs push each other when dragged
         ariaLabel={['Minimum elevation gain in feet', 'Maximum elevation gain in feet']}
         ariaValuetext={(state) => `${state.valueNow} feet`}
-        renderThumb={(props, state) => (
+        renderThumb={(props) => (
           <div {...props}>
-            <span className="sr-only">{formatElevation(state.valueNow)}</span>
+            <span className="sr-only">Thumb</span>
           </div>
         )}
       />

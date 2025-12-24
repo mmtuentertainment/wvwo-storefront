@@ -1,0 +1,101 @@
+/**
+ * SPEC-07: Adventure Card Component
+ * Grid item for adventures hub - displays adventure preview
+ * WVWO Aesthetic: border-l-4 accent, rounded-sm, brand colors
+ */
+
+// import React from 'react';
+import type { Adventure } from '@/lib/adventures/filters.config';
+
+interface AdventureCardProps {
+  adventure: Adventure;
+}
+
+export function AdventureCard({ adventure }: AdventureCardProps) {
+  const { title, description, season, difficulty, location, elevation_gain, suitability } =
+    adventure.data;
+
+  return (
+    <a
+      href={`/adventures/${adventure.id}/`}
+      className="group block bg-white rounded-sm border-2 border-stone-200 border-l-4 border-l-sign-green overflow-hidden hover:border-l-brand-orange motion-safe:transition-all motion-safe:duration-300 motion-reduce:transition-none focus:outline-none focus:ring-2 focus:ring-sign-green"
+    >
+      {/* Image */}
+      {adventure.data.images?.[0] && (
+        <div className="aspect-[4/3] overflow-hidden bg-brand-mud/10">
+          <img
+            src={adventure.data.images[0].src}
+            alt={adventure.data.images[0].alt}
+            loading="lazy"
+            className="w-full h-full object-cover group-hover:scale-105 motion-safe:transition-transform motion-safe:duration-500 motion-reduce:transition-none"
+          />
+        </div>
+      )}
+
+      {/* Content */}
+      <div className="p-4">
+        {/* Location Badge */}
+        <span className="inline-block bg-sign-green/10 text-sign-green text-xs font-bold px-2 py-1 rounded-sm mb-2">
+          {location}
+        </span>
+
+        {/* Title */}
+        <h3 className="font-display font-bold text-lg text-brand-brown mb-2 line-clamp-2 group-hover:text-sign-green motion-safe:transition-colors motion-reduce:transition-none">
+          {title}
+        </h3>
+
+        {/* Description */}
+        <p className="font-body text-sm text-brand-mud/80 mb-3 line-clamp-2">
+          {description}
+        </p>
+
+        {/* Metadata Row */}
+        <div className="flex flex-wrap gap-3 text-xs text-brand-mud mb-3">
+          {/* Difficulty */}
+          <span className="inline-flex items-center gap-1">
+            <span className="font-bold text-brand-brown">Difficulty:</span>
+            <span className="capitalize">{difficulty}</span>
+          </span>
+
+          {/* Elevation (if present) */}
+          {elevation_gain !== undefined && (
+            <span className="inline-flex items-center gap-1">
+              <span className="font-bold text-brand-brown">Elevation:</span>
+              <span>{elevation_gain.toLocaleString()} ft</span>
+            </span>
+          )}
+        </div>
+
+        {/* Season Tags */}
+        <div className="flex flex-wrap gap-1">
+          {season.map((s) => (
+            <span
+              key={s}
+              className="inline-block bg-brand-cream text-brand-brown text-xs font-medium px-2 py-1 rounded-sm border border-brand-mud/20"
+            >
+              {s.charAt(0).toUpperCase() + s.slice(1)}
+            </span>
+          ))}
+        </div>
+
+        {/* Suitability Icons (if present) */}
+        {suitability && suitability.length > 0 && (
+          <div className="flex flex-wrap gap-2 mt-3 pt-3 border-t border-brand-mud/10">
+            {suitability.map((item) => (
+              <span
+                key={item}
+                className="text-xs text-sign-green font-medium"
+                title={item.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}
+              >
+                {item === 'dog-friendly' && '🐕'}
+                {item === 'kid-friendly' && '👶'}
+                {item === 'wheelchair-accessible' && '♿'}
+                {item === 'paved' && '🛤️'}
+              </span>
+            ))}
+          </div>
+        )}
+      </div>
+    </a>
+  );
+}
