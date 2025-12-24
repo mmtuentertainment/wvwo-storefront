@@ -7,11 +7,11 @@
 import React from 'react';
 import { useFilters } from '@/lib/adventures/FilterContext';
 import { hasActiveFilters } from '@/lib/adventures/filter-utils';
-import { SeasonFilter } from './filters/SeasonFilter';
-import { DifficultyFilter } from './filters/DifficultyFilter';
-import { GearFilter } from './filters/GearFilter';
-import { ElevationSlider } from './filters/ElevationSlider';
-import { SuitabilityFilter } from './filters/SuitabilityFilter';
+import { SeasonFilter } from './SeasonFilter';
+import { DifficultyFilter } from './DifficultyFilter';
+import { GearFilter } from './GearFilter';
+import { ElevationSlider } from './ElevationSlider';
+import { SuitabilityFilter } from './SuitabilityFilter';
 
 export function FilterBar() {
   const { state, dispatch, filteredAdventures, totalCount } = useFilters();
