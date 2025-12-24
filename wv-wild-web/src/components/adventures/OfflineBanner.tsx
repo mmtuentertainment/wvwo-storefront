@@ -10,7 +10,7 @@
  *
  * WVWO Aesthetic:
  * - bg-brand-brown text-brand-cream (warm, reassuring)
- * - rounded-sm (not rounded-md/lg)
+ * - Sharp corners (WVWO standard)
  * - Kim's voice: "You're offline, but don't worry..."
  * - Grand love ya!
  *
