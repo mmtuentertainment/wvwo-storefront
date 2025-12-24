@@ -61,7 +61,7 @@ export function FilterBar() {
         {hasActiveFilters(state) && (
           <button
             onClick={handleClearAll}
-            className="w-full min-h-[44px] px-4 py-2 bg-white border-2 border-brand-brown text-brand-brown font-display font-bold rounded-sm hover:bg-brand-cream transition-colors focus:ring-2 focus:ring-sign-green focus:outline-none"
+            className="w-full min-h-[44px] px-4 py-2 bg-white border-2 border-brand-brown text-brand-brown font-display font-bold rounded-sm hover:bg-brand-cream motion-safe:transition-colors motion-reduce:transition-none focus:ring-2 focus:ring-sign-green focus:outline-none"
             type="button"
           >
             Clear All Filters
