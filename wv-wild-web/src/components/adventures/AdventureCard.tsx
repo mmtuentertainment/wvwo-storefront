@@ -92,6 +92,8 @@ export function AdventureCard({ adventure }: AdventureCardProps) {
                 key={item}
                 className="text-xs text-sign-green font-medium"
                 title={item.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}
+                aria-label={item.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}
+                role="img"
               >
                 {item === 'dog-friendly' && '🐕'}
                 {item === 'kid-friendly' && '👶'}

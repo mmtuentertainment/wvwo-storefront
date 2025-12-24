@@ -60,11 +60,11 @@ export function FilteredGrid() {
           {filteredAdventures.map((adventure, index) => (
             <div
               key={adventure.id}
-              className="motion-safe:animate-[fadeIn_0.5s_ease-out_forwards] motion-reduce:animate-none"
+              className="motion-safe:animate-[gentle-reveal_0.8s_cubic-bezier(0.25,0.46,0.45,0.94)_both] motion-reduce:animate-none"
               style={{
-                animationDelay: `${index * 60}ms`, // Stagger entrance (60ms per card)
                 opacity: 0,
               }}
+              style={{ animationDelay: `${index * 100}ms` }}
             >
               <AdventureCard adventure={adventure} />
             </div>
