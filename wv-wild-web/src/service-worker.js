@@ -117,13 +117,12 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Adventure data (JSON): Cache-first
-  if (
-    url.pathname.includes('/adventures') ||
-    request.destination === 'script' ||
-    request.destination === 'style' ||
-    request.destination === 'image'
-  ) {
+  // Adventure-related assets: Cache-first (first-party only)
+  // Only cache our own assets, not third-party CDN/analytics
+  const isFirstParty = url.origin === self.location.origin;
+  const isAdventureAsset = url.pathname.includes('/adventures');
+
+  if (isFirstParty && isAdventureAsset) {
     event.respondWith(
       caches.match(request)
         .then((cachedResponse) => {
