@@ -134,6 +134,7 @@ self.addEventListener('fetch', (event) => {
 
           // Not in cache, fetch from network
           return fetch(request)
+            .then((response) => {
               // Cache the fresh response for next time
               if (response.status === 200) {
                 const responseClone = response.clone();
@@ -170,8 +171,17 @@ self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'REFRESH_CACHE') {
     console.log('[Service Worker] Refreshing cache...');
 
-    caches.delete(CACHE_NAME).then(() => {
-      return self.clients.claim();
-    });
+    caches.delete(CACHE_NAME)
+      .then(() => caches.open(CACHE_NAME))
+      .then((cache) => cache.addAll(STATIC_ASSETS))
+      .then(() => self.clients.claim())
+      .then(() => {
+        console.log('[Service Worker] Cache refreshed successfully');
+      })
+      .catch((error) => {
+        console.error('[Service Worker] Cache refresh failed:', error);
+        // Still claim clients even if cache refresh fails
+        return self.clients.claim();
+      });
   }
 });

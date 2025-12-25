@@ -74,13 +74,13 @@ export async function openDB(): Promise<IDBDatabase> {
 
       // Create adventures object store (keyed by slug)
       if (!db.objectStoreNames.contains(ADVENTURES_STORE)) {
-        const adventuresStore = db.createObjectStore(ADVENTURES_STORE, { keyPath: 'slug' });
+        db.createObjectStore(ADVENTURES_STORE, { keyPath: 'slug' });
         console.log('[IndexedDB] Created adventures store');
       }
 
       // Create metadata object store
       if (!db.objectStoreNames.contains(METADATA_STORE)) {
-        const metadataStore = db.createObjectStore(METADATA_STORE, { keyPath: 'key' });
+        db.createObjectStore(METADATA_STORE, { keyPath: 'key' });
         console.log('[IndexedDB] Created metadata store');
       }
     };
