@@ -134,7 +134,6 @@ self.addEventListener('fetch', (event) => {
 
           // Not in cache, fetch from network
           return fetch(request)
-            .then((response) => {
               // Cache the fresh response for next time
               if (response.status === 200) {
                 const responseClone = response.clone();
