@@ -3,6 +3,7 @@ import '../styles/global.css';
 import { SITE_CONTACT } from '../config/siteContact';
 import StickyPhone from '../components/StickyPhone.astro';
 import { CartDrawer, CartErrorBoundary } from '../components/cart';
+import IndexedDBUnsupportedBanner from '../components/IndexedDBUnsupportedBanner.astro';
 
 // Feature flag: E-commerce UI (cart, checkout)
 const commerceEnabled = import.meta.env.PUBLIC_COMMERCE_ENABLED === 'true';
@@ -216,8 +217,14 @@ const schemaData = {
 				console.warn('[WVWO] Service Worker not supported in this browser');
 			}
 		</script>
+		<!-- SW Notification Toast Handler (SPEC-07 PR #5) -->
+		<script>
+			import '../scripts/sw-notifications';
+		</script>
 	</head>
 	<body class="bg-brand-cream text-brand-brown min-h-screen flex flex-col font-body bg-noise selection:bg-brand-brown selection:text-brand-cream">
+		<!-- IndexedDB Unsupported Banner (SPEC-07 IDB-4) -->
+		<IndexedDBUnsupportedBanner />
 		<slot />
 		<StickyPhone />
 		<!-- Cart Drawer (shared state via nanostores) -->

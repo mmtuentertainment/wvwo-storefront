@@ -12,12 +12,14 @@ type SWMessageType =
   | 'SW_ACTIVATED'
   | 'SW_ACTIVATION_FAILED'
   | 'CACHE_REFRESH_SUCCESS'
-  | 'CACHE_REFRESH_FAILED';
+  | 'CACHE_REFRESH_FAILED'
+  | 'CACHE_UPDATED';
 
 interface SWMessage {
   type: SWMessageType;
   message?: string;
   error?: string;
+  url?: string;
 }
 
 /**
@@ -96,6 +98,11 @@ function getMessageForType(type: SWMessageType, error?: string): { message: stri
       return {
         message: "Couldn't update offline content - try again when you have better signal.",
         toastType: 'error'
+      };
+    case 'CACHE_UPDATED':
+      return {
+        message: "Fresh adventure data loaded in the background.",
+        toastType: 'info'
       };
     default:
       return {

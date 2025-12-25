@@ -269,6 +269,12 @@ self.addEventListener('fetch', (event) => {
           // No cache, must wait for network
           return fetchWithRetry(request, 3)
             .then((response) => {
+              // For adventure assets without cache, non-OK responses should error
+              // so the caller knows to show an error state
+              if (!response.ok) {
+                console.error('[Service Worker] Network response not OK:', response.status);
+                throw new Error(`Network failed: ${response.status}`);
+              }
               if (response.status === 200) {
                 const responseClone = response.clone();
                 caches.open(CACHE_NAME)
@@ -280,7 +286,7 @@ self.addEventListener('fetch', (event) => {
               return response;
             })
             .catch((error) => {
-              console.error('[Service Worker] Fetch failed:', error);
+              console.error('[Service Worker] Fetch failed, no cache available:', error);
               throw error;
             });
         })
