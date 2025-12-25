@@ -1,0 +1,76 @@
+---
+// IndexedDB Unsupported Banner
+// SPEC-07 (IDB-4): Alert users when IndexedDB not available
+// WVWO aesthetic: bg-brand-mud, border-l-brand-orange, Kim's voice
+// WCAG 2.1 AA: role="alert", aria-live="polite", dismissible
+---
+
+<div
+  id="idb-unsupported-banner"
+  class="hidden fixed top-0 left-0 right-0 z-50 bg-brand-mud text-brand-cream border-l-4 border-l-brand-orange rounded-sm shadow-lg mx-4 mt-4 p-4 md:p-6"
+  role="alert"
+  aria-live="polite"
+>
+  <div class="flex items-start gap-4">
+    <!-- Warning Icon -->
+    <div class="flex-shrink-0 mt-1">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-6 w-6 text-brand-orange"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        aria-hidden="true"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+        />
+      </svg>
+    </div>
+
+    <!-- Message Content -->
+    <div class="flex-1">
+      <p class="font-display font-medium text-brand-cream mb-2">
+        Your browser doesn't support offline mode.
+      </p>
+      <p class="text-sm text-brand-cream/90">
+        You'll need an internet connection to browse adventures. For offline access, try Chrome, Firefox, or Edge.
+      </p>
+    </div>
+
+    <!-- Dismiss Button -->
+    <button
+      type="button"
+      class="flex-shrink-0 text-brand-cream/80 hover:text-brand-cream transition-colors duration-200"
+      aria-label="Dismiss offline mode warning"
+      onclick="document.getElementById('idb-unsupported-banner').classList.add('hidden')"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-5 w-5"
+        viewBox="0 0 20 20"
+        fill="currentColor"
+        aria-hidden="true"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+          clip-rule="evenodd"
+        />
+      </svg>
+    </button>
+  </div>
+</div>
+
+<script>
+  // Check IndexedDB support on page load
+  if (!('indexedDB' in window)) {
+    const banner = document.getElementById('idb-unsupported-banner');
+    if (banner) {
+      banner.classList.remove('hidden');
+    }
+  }
+</script>

@@ -42,6 +42,43 @@ interface CacheMetadata {
 }
 
 /**
+ * Cache operation result
+ */
+export interface CacheResult {
+  success: boolean;
+  totalCount: number;
+  successCount: number;
+  failedCount: number;
+  failedSlugs: string[];
+  error?: string;
+  userMessage: string;
+}
+
+/**
+ * Cache retrieval result (IDB-2)
+ */
+export interface CacheRetrievalResult {
+  success: boolean;
+  data: Adventure[] | null;
+  reason: 'found' | 'not-found' | 'expired' | 'error' | 'unsupported';
+  cacheAgeMinutes?: number;
+  error?: string;
+  userMessage: string;
+}
+
+/**
+ * Cache clearing result (IDB-3)
+ */
+export interface ClearCacheResult {
+  success: boolean;
+  cleared: boolean;
+  reason: 'cleared' | 'not-expired' | 'not-found' | 'error';
+  cacheAgeHours?: number;
+  error?: string;
+  userMessage: string;
+}
+
+/**
  * Open IndexedDB connection
  *
  * Creates database with two object stores:
@@ -92,11 +129,15 @@ export async function openDB(): Promise<IDBDatabase> {
  *
  * Stores all adventures and updates lastSync timestamp.
  * Clears existing data before storing new data.
+ * Uses Promise.allSettled to track partial write failures.
  *
  * @param adventures Array of adventure objects
- * @returns Promise<void>
+ * @returns Promise<CacheResult> Result with success/failure counts and user-friendly message
  */
-export async function cacheAdventures(adventures: Adventure[]): Promise<void> {
+export async function cacheAdventures(adventures: Adventure[]): Promise<CacheResult> {
+  const totalCount = adventures.length;
+  const failedSlugs: string[] = [];
+
   try {
     const db = await openDB();
     const transaction = db.transaction([ADVENTURES_STORE, METADATA_STORE], 'readwrite');
@@ -104,53 +145,129 @@ export async function cacheAdventures(adventures: Adventure[]): Promise<void> {
     const metadataStore = transaction.objectStore(METADATA_STORE);
 
     // Clear existing adventures
-    await new Promise<void>((resolve, reject) => {
-      const clearRequest = adventuresStore.clear();
-      clearRequest.onsuccess = () => resolve();
-      clearRequest.onerror = () => reject(new Error('Failed to clear adventures'));
-    });
+    try {
+      await new Promise<void>((resolve, reject) => {
+        const clearRequest = adventuresStore.clear();
+        clearRequest.onsuccess = () => resolve();
+        clearRequest.onerror = () => reject(new Error('Failed to clear adventures'));
+      });
+    } catch (error) {
+      console.error('[IndexedDB] Failed to clear adventures:', error);
+      db.close();
+      return {
+        success: false,
+        totalCount,
+        successCount: 0,
+        failedCount: totalCount,
+        failedSlugs: adventures.map((a) => a.slug),
+        error: 'Failed to clear existing cache',
+        userMessage: "Hmm, we couldn't save adventures for offline use. You'll need an internet connection to browse.",
+      };
+    }
 
-    // Store each adventure
+    // Store each adventure using Promise.allSettled
     const storePromises = adventures.map((adventure) => {
-      return new Promise<void>((resolve, reject) => {
+      return new Promise<string>((resolve, reject) => {
         const addRequest = adventuresStore.add(adventure);
-        addRequest.onsuccess = () => resolve();
+        addRequest.onsuccess = () => resolve(adventure.slug);
         addRequest.onerror = () => reject(new Error(`Failed to store adventure: ${adventure.slug}`));
       });
     });
 
-    await Promise.all(storePromises);
+    const results = await Promise.allSettled(storePromises);
 
-    // Update lastSync metadata
-    const metadata: CacheMetadata = {
-      lastSync: Date.now(),
-      version: DB_VERSION.toString(),
-    };
-
-    await new Promise<void>((resolve, reject) => {
-      const putRequest = metadataStore.put({ key: 'cache', ...metadata });
-      putRequest.onsuccess = () => resolve();
-      putRequest.onerror = () => reject(new Error('Failed to update metadata'));
+    // Track successes and failures
+    let successCount = 0;
+    results.forEach((result, index) => {
+      if (result.status === 'fulfilled') {
+        successCount++;
+      } else {
+        failedSlugs.push(adventures[index].slug);
+      }
     });
 
-    console.log(`[IndexedDB] Cached ${adventures.length} adventures`);
+    const failedCount = totalCount - successCount;
+
+    // Update lastSync metadata only if at least one adventure succeeded
+    if (successCount > 0) {
+      const metadata: CacheMetadata = {
+        lastSync: Date.now(),
+        version: DB_VERSION.toString(),
+      };
+
+      try {
+        await new Promise<void>((resolve, reject) => {
+          const putRequest = metadataStore.put({ key: 'cache', ...metadata });
+          putRequest.onsuccess = () => resolve();
+          putRequest.onerror = () => reject(new Error('Failed to update metadata'));
+        });
+      } catch (error) {
+        console.error('[IndexedDB] Failed to update metadata:', error);
+        // Non-critical - we still cached adventures
+      }
+    }
+
+    console.log(`[IndexedDB] Cached ${successCount}/${totalCount} adventures`);
+    if (failedCount > 0) {
+      console.warn(`[IndexedDB] Failed to cache ${failedCount} adventures:`, failedSlugs);
+    }
     db.close();
+
+    // Generate user-friendly message based on results
+    let userMessage: string;
+    if (successCount === totalCount) {
+      // All success
+      userMessage = `All ${totalCount} adventures saved for offline use. You're all set!`;
+    } else if (successCount > 0) {
+      // Partial success
+      userMessage = `Saved ${successCount} of ${totalCount} adventures. ${failedCount} couldn't be saved, but you can still browse offline.`;
+    } else {
+      // All failed
+      userMessage = "Hmm, we couldn't save adventures for offline use. You'll need an internet connection to browse.";
+    }
+
+    return {
+      success: successCount > 0,
+      totalCount,
+      successCount,
+      failedCount,
+      failedSlugs,
+      userMessage,
+    };
   } catch (error) {
     console.error('[IndexedDB] Failed to cache adventures:', error);
-    throw error;
+    return {
+      success: false,
+      totalCount,
+      successCount: 0,
+      failedCount: totalCount,
+      failedSlugs: adventures.map((a) => a.slug),
+      error: error instanceof Error ? error.message : 'Unknown error',
+      userMessage: "Hmm, we couldn't save adventures for offline use. You'll need an internet connection to browse.",
+    };
   }
 }
 
 /**
  * Retrieve cached adventures from IndexedDB
  *
- * Returns null if cache is expired (>24 hours old).
- * Otherwise returns all cached adventures.
+ * Returns typed result with success status, data, and user-friendly message.
+ * Cache expires after 24 hours.
  *
- * @returns Promise<Adventure[] | null> Cached adventures or null if expired
+ * @returns Promise<CacheRetrievalResult> Typed result with data and status
  */
-export async function getCachedAdventures(): Promise<Adventure[] | null> {
+export async function getCachedAdventures(): Promise<CacheRetrievalResult> {
   try {
+    // Check IndexedDB support
+    if (!('indexedDB' in window)) {
+      return {
+        success: false,
+        data: null,
+        reason: 'unsupported',
+        userMessage: "Your browser doesn't support offline mode. You'll need an internet connection.",
+      };
+    }
+
     const db = await openDB();
     const transaction = db.transaction([ADVENTURES_STORE, METADATA_STORE], 'readonly');
     const adventuresStore = transaction.objectStore(ADVENTURES_STORE);
@@ -169,15 +286,28 @@ export async function getCachedAdventures(): Promise<Adventure[] | null> {
     if (!metadata) {
       console.log('[IndexedDB] No cached data found');
       db.close();
-      return null;
+      return {
+        success: false,
+        data: null,
+        reason: 'not-found',
+        userMessage: 'No offline data saved yet. Browse with internet to cache adventures.',
+      };
     }
 
     // Check if cache is expired
     const cacheAge = Date.now() - metadata.lastSync;
+    const cacheAgeMinutes = Math.floor(cacheAge / 60000);
+
     if (cacheAge > CACHE_DURATION_MS) {
       console.log('[IndexedDB] Cache expired (age: %d hours)', Math.floor(cacheAge / (60 * 60 * 1000)));
       db.close();
-      return null;
+      return {
+        success: false,
+        data: null,
+        reason: 'expired',
+        cacheAgeMinutes,
+        userMessage: 'Offline data is out of date. Connect to internet to refresh.',
+      };
     }
 
     // Retrieve all adventures
@@ -187,12 +317,25 @@ export async function getCachedAdventures(): Promise<Adventure[] | null> {
       getAllRequest.onerror = () => reject(new Error('Failed to get adventures'));
     });
 
-    console.log(`[IndexedDB] Retrieved ${adventures.length} cached adventures (age: ${Math.floor(cacheAge / 60000)} minutes)`);
+    console.log(`[IndexedDB] Retrieved ${adventures.length} cached adventures (age: ${cacheAgeMinutes} minutes)`);
     db.close();
-    return adventures;
+
+    return {
+      success: true,
+      data: adventures,
+      reason: 'found',
+      cacheAgeMinutes,
+      userMessage: `Showing ${adventures.length} adventures from offline cache (updated ${cacheAgeMinutes} minutes ago).`,
+    };
   } catch (error) {
     console.error('[IndexedDB] Failed to retrieve cached adventures:', error);
-    return null;
+    return {
+      success: false,
+      data: null,
+      reason: 'error',
+      error: error instanceof Error ? error.message : 'Unknown error',
+      userMessage: "Couldn't load offline data. Try refreshing or check your connection.",
+    };
   }
 }
 
@@ -202,9 +345,9 @@ export async function getCachedAdventures(): Promise<Adventure[] | null> {
  * Deletes all adventures if cache is >24 hours old.
  * Used for cleanup and forcing fresh data fetch.
  *
- * @returns Promise<boolean> True if cache was cleared, false otherwise
+ * @returns Promise<ClearCacheResult> Typed result with clearing status and reason
  */
-export async function clearExpiredCache(): Promise<boolean> {
+export async function clearExpiredCache(): Promise<ClearCacheResult> {
   try {
     const db = await openDB();
     // Use readwrite transaction from start (optimized - single transaction)
@@ -223,10 +366,16 @@ export async function clearExpiredCache(): Promise<boolean> {
 
     if (!metadata) {
       db.close();
-      return false;
+      return {
+        success: true,
+        cleared: false,
+        reason: 'not-found',
+        userMessage: 'No cache found to clear.',
+      };
     }
 
     const cacheAge = Date.now() - metadata.lastSync;
+    const cacheAgeHours = Math.floor(cacheAge / (60 * 60 * 1000));
 
     // Clear if expired (within same transaction - optimized)
     if (cacheAge > CACHE_DURATION_MS) {
@@ -249,14 +398,32 @@ export async function clearExpiredCache(): Promise<boolean> {
 
       console.log('[IndexedDB] Cleared expired cache');
       db.close();
-      return true;
+      return {
+        success: true,
+        cleared: true,
+        reason: 'cleared',
+        cacheAgeHours,
+        userMessage: `Cleared expired cache (${cacheAgeHours} hours old).`,
+      };
     }
 
     db.close();
-    return false;
+    return {
+      success: true,
+      cleared: false,
+      reason: 'not-expired',
+      cacheAgeHours,
+      userMessage: `Cache is still fresh (${cacheAgeHours} hours old). No clearing needed.`,
+    };
   } catch (error) {
     console.error('[IndexedDB] Failed to clear expired cache:', error);
-    return false;
+    return {
+      success: false,
+      cleared: false,
+      reason: 'error',
+      error: error instanceof Error ? error.message : 'Unknown error',
+      userMessage: "Couldn't clear cache. Try refreshing the page.",
+    };
   }
 }
 
@@ -270,8 +437,8 @@ export async function clearExpiredCache(): Promise<boolean> {
  */
 export async function isOfflineModeAvailable(): Promise<boolean> {
   try {
-    const adventures = await getCachedAdventures();
-    return adventures !== null && adventures.length > 0;
+    const result = await getCachedAdventures();
+    return result.success && result.data !== null && result.data.length > 0;
   } catch {
     return false;
   }
