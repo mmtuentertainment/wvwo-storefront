@@ -27,7 +27,7 @@ export function FilteredGrid() {
   const { filteredAdventures, totalCount } = useFilters();
 
   return (
-    <main className="flex-1" role="main" id="adventure-results">
+    <main className="flex-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sign-green focus-visible:ring-offset-2" role="main" id="adventure-results" tabIndex={-1}>
       {/* Results Header with ARIA Live Region */}
       <div
         className="mb-6"

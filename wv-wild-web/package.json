@@ -14,6 +14,7 @@
     "optimize-images": "node scripts/optimize-images.mjs"
   },
   "dependencies": {
+    "@babel/runtime": "^7.26.0",
     "@astrojs/check": "^0.9.6",
     "@astrojs/react": "^4.4.2",
     "@astrojs/sitemap": "^3.6.0",
@@ -40,6 +41,8 @@
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
     "react-hook-form": "^7.68.0",
+    "react-slider": "^2.0.6",
+    "_comment_react-slider": "react-slider@2.0.6 peer deps require React 16-18, but works with React 19 via legacy-peer-deps. Test thoroughly if React 19 concurrent features are used.",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.4.0",
     "tailwindcss": "^4.1.17",
@@ -48,6 +51,7 @@
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20251217.0",
+    "@types/react-slider": "^1.3.6",
     "@vitest/coverage-v8": "^4.0.16",
     "@vitest/ui": "^4.0.16",
     "jsdom": "^27.3.0",

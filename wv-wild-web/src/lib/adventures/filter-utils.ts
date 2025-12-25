@@ -38,8 +38,9 @@ export function filterAdventures(
     // ========================================================================
     // GEAR FILTER (multi-select, OR logic within axis)
     // Uses exact matching to prevent false positives (e.g., "bow" shouldn't match "rainbow")
+    // Note: Check .length > 0 to handle empty arrays correctly ([] is truthy but has no items)
     // ========================================================================
-    if (filters.gear.length > 0 && adventure.data.gear) {
+    if (filters.gear.length > 0 && adventure.data.gear && adventure.data.gear.length > 0) {
       const hasMatchingGear = adventure.data.gear.some((g) =>
         filters.gear.some((filterGear) =>
           g.toLowerCase() === filterGear.toLowerCase()
@@ -65,8 +66,9 @@ export function filterAdventures(
     // ========================================================================
     // SUITABILITY FILTER (multi-select, OR logic within axis)
     // Only apply if adventure has suitability data
+    // Note: Check .length > 0 to handle empty arrays correctly ([] is truthy but has no items)
     // ========================================================================
-    if (filters.suitability.length > 0 && adventure.data.suitability) {
+    if (filters.suitability.length > 0 && adventure.data.suitability && adventure.data.suitability.length > 0) {
       const hasMatchingSuitability = adventure.data.suitability.some((s) =>
         filters.suitability.includes(s)
       );

@@ -36,12 +36,11 @@ export function FilterBar() {
       aria-label="Adventure filters"
     >
       <div className="space-y-6">
-        {/* Results Count with ARIA Live Region */}
+        {/* Results Count (aria-live=off to avoid duplicate announcements with FilteredGrid) */}
         <div
           className="bg-white rounded-sm border-2 border-brand-mud/30 p-4"
           role="region"
-          aria-live="polite"
-          aria-atomic="true"
+          aria-live="off"
         >
           <p className="font-display font-bold text-brand-brown text-lg">
             {filteredAdventures.length} of {totalCount}

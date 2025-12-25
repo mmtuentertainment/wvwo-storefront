@@ -22,9 +22,11 @@ export function ElevationSlider() {
   const { state, dispatch } = useFilters();
   const config = FILTER_CONFIG.find((c) => c.id === 'elevation')!;
 
-  const handleChange = (value: number | number[]) => {
+  const handleChange = (value: number | readonly number[]) => {
     // react-slider returns [min, max] tuple for dual-thumb
-    const range = Array.isArray(value) ? (value as [number, number]) : [value, value];
+    const range: [number, number] = Array.isArray(value)
+      ? [value[0], value[1]]
+      : [value, value];
 
     dispatch({
       type: 'SET_RANGE',
@@ -63,9 +65,11 @@ export function ElevationSlider() {
         pearling               // Thumbs push each other when dragged
         ariaLabel={['Minimum elevation gain in feet', 'Maximum elevation gain in feet']}
         ariaValuetext={(state) => `${state.valueNow} feet`}
-        renderThumb={(props) => (
-          <div {...props}>
-            <span className="sr-only">Thumb</span>
+        renderThumb={(props, state) => (
+          <div {...props} key={state.index}>
+            <span className="sr-only">
+              {state.index === 0 ? 'Minimum elevation' : 'Maximum elevation'}: {state.valueNow} feet
+            </span>
           </div>
         )}
       />
