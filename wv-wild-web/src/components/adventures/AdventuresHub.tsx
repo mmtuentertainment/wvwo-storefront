@@ -5,14 +5,13 @@
  * This is the single React island for the adventures page.
  *
  * Research-backed decisions:
- * - client:idle directive (filters can wait for browser idle)
- * - ViewTransitions cleanup handlers
+ * - client:only="react" directive (skip SSR - uses browser APIs)
+ * - ViewTransitions cleanup handled by FilterProvider (avoids duplication)
  * - OfflineBanner with client:load (separate island)
  *
  * WVWO Aesthetic: Two-column layout on desktop, stacked on mobile
  */
 
-import { useEffect } from 'react';
 import { FilterProvider } from '@/lib/adventures/FilterContext';
 import { FilterBar } from './filters/FilterBar';
 import { FilteredGrid } from './FilteredGrid';
@@ -27,31 +26,11 @@ interface AdventuresHubProps {
  * Main adventures hub component with filter sidebar and results grid.
  *
  * Wraps all filter functionality in FilterProvider context.
- * Handles Astro ViewTransitions cleanup for proper SPA navigation.
+ * Note: ViewTransitions cleanup is handled by FilterProvider to avoid duplication.
  */
 export function AdventuresHub({ adventures }: AdventuresHubProps) {
-  // ==========================================================================
-  // ASTRO VIEW TRANSITIONS CLEANUP (PR #6 Research)
-  // ==========================================================================
-  useEffect(() => {
-    const handleBeforeSwap = () => {
-      // Clean up React state before Astro navigates away
-      console.log('[AdventuresHub] Cleaning up for view transition');
-    };
-
-    const handlePageLoad = () => {
-      // Reinitialize if needed after navigation
-      console.log('[AdventuresHub] Page loaded, reinitializing');
-    };
-
-    document.addEventListener('astro:before-swap', handleBeforeSwap);
-    document.addEventListener('astro:page-load', handlePageLoad);
-
-    return () => {
-      document.removeEventListener('astro:before-swap', handleBeforeSwap);
-      document.removeEventListener('astro:page-load', handlePageLoad);
-    };
-  }, []);
+  // ViewTransitions cleanup handled by FilterProvider (line 83-94)
+  // No duplicate listeners needed here
 
   return (
     <FilterProvider adventures={adventures}>
