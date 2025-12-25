@@ -207,7 +207,8 @@ export async function getCachedAdventures(): Promise<Adventure[] | null> {
 export async function clearExpiredCache(): Promise<boolean> {
   try {
     const db = await openDB();
-    const transaction = db.transaction([METADATA_STORE], 'readonly');
+    // Use readwrite transaction from start (optimized - single transaction)
+    const transaction = db.transaction([ADVENTURES_STORE, METADATA_STORE], 'readwrite');
     const metadataStore = transaction.objectStore(METADATA_STORE);
 
     // Check cache age
@@ -227,11 +228,11 @@ export async function clearExpiredCache(): Promise<boolean> {
 
     const cacheAge = Date.now() - metadata.lastSync;
 
+    // Clear if expired (within same transaction - optimized)
     if (cacheAge > CACHE_DURATION_MS) {
-      // Clear both stores
-      const writeTransaction = db.transaction([ADVENTURES_STORE, METADATA_STORE], 'readwrite');
-      const adventuresStore = writeTransaction.objectStore(ADVENTURES_STORE);
-      const metaStore = writeTransaction.objectStore(METADATA_STORE);
+      // Use the same transaction to clear (we already have readwrite access)
+      const adventuresStore = transaction.objectStore(ADVENTURES_STORE);
+      const metaStore = transaction.objectStore(METADATA_STORE);
 
       await Promise.all([
         new Promise<void>((resolve, reject) => {
