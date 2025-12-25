@@ -4,7 +4,6 @@
  * WVWO Aesthetic: Sticky sidebar, 1/4 width, rounded-sm, brand colors
  */
 
-import React from 'react';
 import { useFilters } from '@/lib/adventures/FilterContext';
 import { hasActiveFilters } from '@/lib/adventures/filter-utils';
 import { SeasonFilter } from './SeasonFilter';

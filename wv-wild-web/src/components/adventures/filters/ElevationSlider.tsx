@@ -5,7 +5,6 @@
  * WVWO Aesthetic: 44×44px thumbs, rounded-sm, sign-green accent
  */
 
-import React from 'react';
 import ReactSlider from 'react-slider';
 import { useFilters } from '@/lib/adventures/FilterContext';
 import { FILTER_CONFIG } from '@/lib/adventures/filters.config';
