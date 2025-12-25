@@ -22,9 +22,11 @@ export function ElevationSlider() {
   const { state, dispatch } = useFilters();
   const config = FILTER_CONFIG.find((c) => c.id === 'elevation')!;
 
-  const handleChange = (value: number | number[]) => {
+  const handleChange = (value: number | readonly number[]) => {
     // react-slider returns [min, max] tuple for dual-thumb
-    const range = Array.isArray(value) ? (value as [number, number]) : [value, value];
+    const range: [number, number] = Array.isArray(value)
+      ? [value[0], value[1]]
+      : [value, value];
 
     dispatch({
       type: 'SET_RANGE',

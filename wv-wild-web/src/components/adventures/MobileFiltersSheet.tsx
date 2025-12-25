@@ -177,7 +177,7 @@ export function MobileFiltersSheet() {
             size="lg"
             onClick={handleApplyFilters}
             className="w-full min-h-[44px] font-display font-bold"
-            aria-live="polite"
+            aria-label={`Show ${resultCount} ${resultCount === 1 ? 'Adventure' : 'Adventures'} - closes filter panel`}
           >
             Show {resultCount} {resultCount === 1 ? 'Adventure' : 'Adventures'}
           </Button>

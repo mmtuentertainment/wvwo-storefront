@@ -58,10 +58,28 @@ export type FilterAction =
   | { type: 'LOAD_FROM_URL'; state: Partial<FilterState> };
 
 // ============================================================================
-// ADVENTURE TYPE (from Astro Content Collections)
+// ADVENTURE TYPE (Serializable subset for React islands)
 // ============================================================================
 
-export type Adventure = CollectionEntry<'adventures'>;
+// Full type from Astro Content Collections (for server-side use)
+export type AdventureEntry = CollectionEntry<'adventures'>;
+
+// Serializable type for passing to client components via client:only
+// Stripped of non-serializable render functions and unused fields
+export interface Adventure {
+  id: string;
+  data: {
+    title: string;
+    description: string;
+    season: ('spring' | 'summer' | 'fall' | 'winter')[];
+    difficulty: 'easy' | 'moderate' | 'challenging' | 'rugged';
+    location: string;
+    gear?: string[];
+    elevation_gain?: number;
+    suitability?: ('dog-friendly' | 'kid-friendly' | 'wheelchair-accessible' | 'paved')[];
+    images?: { src: string; alt: string }[];
+  };
+}
 
 // ============================================================================
 // FILTER CONFIGURATION (5 AXES - SPEC-07)
