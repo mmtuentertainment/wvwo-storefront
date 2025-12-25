@@ -137,9 +137,11 @@ self.addEventListener('fetch', (event) => {
               // Cache the fresh response for next time
               if (response.status === 200) {
                 const responseClone = response.clone();
-                caches.open(CACHE_NAME).then((cache) => {
-                  cache.put(request, responseClone);
-                });
+                caches.open(CACHE_NAME)
+                  .then((cache) => cache.put(request, responseClone))
+                  .catch((error) => {
+                    console.warn('[Service Worker] Failed to cache adventure data:', error);
+                  });
               }
               return response;
             })
