@@ -87,7 +87,12 @@ export function MobileFiltersSheet() {
       <SheetContent
         side="bottom"
         className="h-[90vh] overflow-y-auto bg-brand-cream border-t-2 border-brand-mud rounded-t-sm p-0"
+        aria-describedby="sheet-dismiss-hint"
       >
+        {/* Hidden hint for screen readers explaining how to dismiss */}
+        <p id="sheet-dismiss-hint" className="sr-only">
+          Swipe down or press Escape to close this filter panel.
+        </p>
         {/* HEADER: Title + Close Button */}
         <SheetHeader className="sticky top-0 bg-brand-cream border-b-2 border-brand-mud/30 p-6 z-10">
           <SheetTitle className="font-display font-bold text-2xl text-brand-brown">

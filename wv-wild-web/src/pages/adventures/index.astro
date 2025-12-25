@@ -23,16 +23,15 @@ const adventuresRaw = await getCollection('adventures');
 
 // Transform to match Adventure type expected by filter components
 // Note: We serialize only the data we need to avoid passing render functions
+// Removed: coordinates (unused), slug (duplicates id)
 const adventures = adventuresRaw.map((adventure) => ({
   id: adventure.id,
-  slug: adventure.id, // Use id as slug (file path without extension)
   data: {
     title: adventure.data.title,
     description: adventure.data.description,
     season: adventure.data.season,
     difficulty: adventure.data.difficulty,
     location: adventure.data.location,
-    coordinates: adventure.data.coordinates,
     gear: adventure.data.gear,
     elevation_gain: adventure.data.elevation_gain,
     suitability: adventure.data.suitability,
@@ -56,6 +55,7 @@ const collectionPageSchema = {
       "mainEntity": { "@id": "#adventure-list" },
       "breadcrumb": {
         "@type": "BreadcrumbList",
+        "itemListOrder": "ItemListOrderAscending",
         "itemListElement": [
           {
             "@type": "ListItem",

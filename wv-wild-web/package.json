@@ -42,6 +42,7 @@
     "react-dom": "^19.2.3",
     "react-hook-form": "^7.68.0",
     "react-slider": "^2.0.6",
+    "_comment_react-slider": "react-slider@2.0.6 peer deps require React 16-18, but works with React 19 via legacy-peer-deps. Test thoroughly if React 19 concurrent features are used.",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.4.0",
     "tailwindcss": "^4.1.17",

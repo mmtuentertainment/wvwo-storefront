@@ -4,7 +4,7 @@
  * WVWO Aesthetic: border-l-4 accent, rounded-sm, brand colors
  */
 
-// import React from 'react';
+import React from 'react';
 import type { Adventure } from '@/lib/adventures/filters.config';
 
 interface AdventureCardProps {
@@ -13,11 +13,13 @@ interface AdventureCardProps {
 
 /**
  * Render a clickable preview card for an adventure that links to the adventure's detail page.
+ * Wrapped in React.memo to prevent unnecessary re-renders when filter state changes
+ * but this card's adventure data hasn't changed.
  *
  * @param adventure - The Adventure data used to populate the card (title, image, metadata, tags, etc.)
  * @returns A JSX anchor element representing the adventure card populated with image (if present), location badge, title, description, difficulty and optional elevation, season tags, and optional suitability icons
  */
-export function AdventureCard({ adventure }: AdventureCardProps) {
+export const AdventureCard = React.memo(function AdventureCard({ adventure }: AdventureCardProps) {
   const { title, description, season, difficulty, location, elevation_gain, suitability } =
     adventure.data;
 
@@ -106,4 +108,4 @@ export function AdventureCard({ adventure }: AdventureCardProps) {
       </div>
     </a>
   );
-}
+});

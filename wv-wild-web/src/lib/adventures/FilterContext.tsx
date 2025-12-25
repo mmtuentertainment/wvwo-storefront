@@ -83,7 +83,7 @@ export function FilterProvider({ children, adventures }: FilterProviderProps) {
   useEffect(() => {
     const handleBeforeSwap = () => {
       // Clean up before Astro navigates away
-      console.log('[FilterContext] Cleaning up for view transition');
+      // Listeners auto-removed by { once: true }
     };
 
     document.addEventListener('astro:before-swap', handleBeforeSwap, { once: true });
