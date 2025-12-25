@@ -7,7 +7,7 @@
  * - Reuses all 5 filter components from PR #2
  * - Accordion groups for collapsible sections
  * - Active filter count badge (orange if count > 0)
- * - Sticky "Apply Filters" button at bottom
+ * - Sticky "Show X Adventures" button with live count (PR #6 research)
  * - Swipe-to-dismiss + visible X button
  * - WCAG 2.1 AA compliant (44×44px touch targets)
  * - WVWO aesthetic (bg-brand-cream, rounded-sm, brand colors)
@@ -47,8 +47,9 @@ import { SuitabilityFilter } from './filters/SuitabilityFilter';
  * @returns The rendered React element for the mobile filters sheet.
  */
 export function MobileFiltersSheet() {
-  const { activeFilterCount, dispatch } = useFilters();
+  const { activeFilterCount, filteredAdventures, dispatch } = useFilters();
   const [open, setOpen] = React.useState(false);
+  const resultCount = filteredAdventures.length;
 
   const handleApplyFilters = () => {
     setOpen(false); // Close drawer when Apply is clicked
@@ -165,14 +166,15 @@ export function MobileFiltersSheet() {
             STICKY BOTTOM BUTTONS (Apply + Reset)
             ==================================================================== */}
         <div className="fixed bottom-0 left-0 right-0 bg-brand-cream border-t-2 border-brand-mud/30 p-4 space-y-3 z-10">
-          {/* Apply Filters Button */}
+          {/* Show Results Button - Live count per research recommendation */}
           <Button
             variant="cta"
             size="lg"
             onClick={handleApplyFilters}
             className="w-full min-h-[44px] font-display font-bold"
+            aria-live="polite"
           >
-            Apply Filters
+            Show {resultCount} {resultCount === 1 ? 'Adventure' : 'Adventures'}
           </Button>
 
           {/* Reset All Button (only show if filters active) */}

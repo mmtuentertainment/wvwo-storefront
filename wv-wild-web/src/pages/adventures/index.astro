@@ -1,0 +1,170 @@
+---
+/**
+ * SPEC-07 PR #6: Adventures Hub Page
+ *
+ * Main listing page for all outdoor adventures with filtering.
+ * Research-backed implementation:
+ * - client:only="react" for filter components (skip SSR - uses browser APIs)
+ * - CollectionPage + ItemList schema via @graph approach
+ * - Offline banner with client:load (immediate hydration)
+ * - ViewTransitions-compatible React islands
+ *
+ * WVWO Aesthetic: Two-column layout, Kim's voice in copy
+ */
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { AdventuresHub } from '../../components/adventures/AdventuresHub';
+import { OfflineBanner } from '../../components/adventures/OfflineBanner';
+
+// Fetch all adventures from content collection
+const adventuresRaw = await getCollection('adventures');
+
+// Transform to match Adventure type expected by filter components
+// Note: We serialize only the data we need to avoid passing render functions
+const adventures = adventuresRaw.map((adventure) => ({
+  id: adventure.id,
+  slug: adventure.id, // Use id as slug (file path without extension)
+  data: {
+    title: adventure.data.title,
+    description: adventure.data.description,
+    season: adventure.data.season,
+    difficulty: adventure.data.difficulty,
+    location: adventure.data.location,
+    coordinates: adventure.data.coordinates,
+    gear: adventure.data.gear,
+    elevation_gain: adventure.data.elevation_gain,
+    suitability: adventure.data.suitability,
+    images: adventure.data.images,
+  },
+}));
+
+// Build Schema.org CollectionPage + ItemList (@graph approach per research)
+const collectionPageSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      "@id": "https://wvwildoutdoors.pages.dev/adventures",
+      "name": "West Virginia Outdoor Adventures",
+      "description": "Discover hunting, fishing, hiking, and kayaking adventures near I-79 Exit 57 in Birch River, WV. Filter by season, difficulty, and activity.",
+      "url": "https://wvwildoutdoors.pages.dev/adventures",
+      "mainEntity": { "@id": "#adventure-list" },
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://wvwildoutdoors.pages.dev/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Adventures",
+            "item": "https://wvwildoutdoors.pages.dev/adventures"
+          }
+        ]
+      }
+    },
+    {
+      "@type": "ItemList",
+      "@id": "#adventure-list",
+      "name": "Available Adventures",
+      "numberOfItems": adventures.length,
+      "itemListOrder": "Unordered",
+      "itemListElement": adventures.map((adventure, index) => ({
+        "@type": "ListItem",
+        "position": index + 1,
+        "url": `https://wvwildoutdoors.pages.dev/adventures/${adventure.id}/`,
+        "name": adventure.data.title
+      }))
+    }
+  ]
+};
+---
+
+<Layout
+  title="Adventures | WV Wild Outdoors"
+  description="Discover hunting, fishing, hiking, and kayaking adventures near I-79 Exit 57. Filter by season, difficulty, and activity. Your gateway to West Virginia's wild places."
+  additionalSchemas={[collectionPageSchema]}
+>
+  <Header />
+
+  {/* Offline Banner - client:load for immediate detection */}
+  <OfflineBanner client:load />
+
+  <main class="bg-brand-cream min-h-screen">
+    {/* Hero Section */}
+    <section class="bg-brand-brown text-white py-10 md:py-14">
+      <div class="container mx-auto px-4">
+        <h1 class="font-display font-black text-4xl md:text-5xl mb-3">
+          Find Your Next Adventure
+        </h1>
+        <p class="text-brand-cream/80 text-lg max-w-2xl font-body">
+          Hunting, fishing, hiking, and more — all within reach of our shop.
+          Filter by what matters to you, and we'll point you in the right direction.
+        </p>
+        <p class="font-hand text-brand-orange text-xl mt-4">
+          Grand love ya!
+        </p>
+      </div>
+    </section>
+
+    {/* Breadcrumb Navigation */}
+    <nav class="bg-white border-b border-brand-mud/20 py-3" aria-label="Breadcrumb">
+      <div class="container mx-auto px-4">
+        <ol class="flex items-center gap-2 text-sm font-body">
+          <li>
+            <a href="/" class="text-brand-mud hover:text-sign-green transition-colors">
+              Home
+            </a>
+          </li>
+          <li class="text-brand-mud/40">/</li>
+          <li class="text-brand-brown font-medium" aria-current="page">
+            Adventures
+          </li>
+        </ol>
+      </div>
+    </nav>
+
+    {/* Main Content: Filters + Grid */}
+    <section class="py-8 md:py-12">
+      <div class="container mx-auto px-4">
+        {/* React Island: AdventuresHub with client:only (skip SSR - uses window/URL APIs) */}
+        <AdventuresHub adventures={adventures} client:only="react" />
+      </div>
+    </section>
+
+    {/* Call to Action Banner */}
+    <section class="bg-white border-t-2 border-brand-mud/10 py-8">
+      <div class="container mx-auto px-4 text-center">
+        <p class="font-display font-bold text-xl text-brand-brown mb-2">
+          Need Gear for Your Adventure?
+        </p>
+        <p class="font-body text-brand-mud/80 mb-4 max-w-xl mx-auto">
+          Stop by the shop before you head out. We'll make sure you've got everything you need —
+          licenses, gear, and local knowledge.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-3 justify-center">
+          <a
+            href="/shop"
+            class="inline-flex items-center justify-center min-h-[44px] px-6 py-2 bg-sign-green text-white font-display font-bold rounded-sm hover:bg-sign-green/90 transition-colors"
+          >
+            Browse Gear
+          </a>
+          <a
+            href="tel:+13046495765"
+            class="inline-flex items-center justify-center min-h-[44px] px-6 py-2 bg-white border-2 border-brand-brown text-brand-brown font-display font-bold rounded-sm hover:bg-brand-cream transition-colors"
+          >
+            Call Us: (304) 649-5765
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

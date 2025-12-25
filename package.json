@@ -7,6 +7,7 @@
         "preview": "cd wv-wild-web && npm run preview"
     },
     "dependencies": {
+        "@babel/runtime": "^7.28.4",
         "react-slider": "^2.0.6"
     },
     "devDependencies": {
