@@ -3,6 +3,7 @@ import '../styles/global.css';
 import { SITE_CONTACT } from '../config/siteContact';
 import StickyPhone from '../components/StickyPhone.astro';
 import { CartDrawer, CartErrorBoundary } from '../components/cart';
+import IndexedDBUnsupportedBanner from '../components/IndexedDBUnsupportedBanner.astro';
 
 // Feature flag: E-commerce UI (cart, checkout)
 const commerceEnabled = import.meta.env.PUBLIC_COMMERCE_ENABLED === 'true';
@@ -198,8 +199,32 @@ const schemaData = {
 		{additionalSchemas.map(schema => (
 			<script type="application/ld+json" set:html={JSON.stringify(schema)} />
 		))}
+
+		<!-- Service Worker Registration (SPEC-07 PR #5: Offline Support) -->
+		<script>
+			// Register Service Worker for offline support
+			if ('serviceWorker' in navigator) {
+				window.addEventListener('load', () => {
+					navigator.serviceWorker.register('/service-worker.js')
+						.then((registration) => {
+							console.log('[WVWO] Service Worker registered successfully:', registration.scope);
+						})
+						.catch((error) => {
+							console.error('[WVWO] Service Worker registration failed:', error);
+						});
+				});
+			} else {
+				console.warn('[WVWO] Service Worker not supported in this browser');
+			}
+		</script>
+		<!-- SW Notification Toast Handler (SPEC-07 PR #5) -->
+		<script>
+			import '../scripts/sw-notifications';
+		</script>
 	</head>
 	<body class="bg-brand-cream text-brand-brown min-h-screen flex flex-col font-body bg-noise selection:bg-brand-brown selection:text-brand-cream">
+		<!-- IndexedDB Unsupported Banner (SPEC-07 IDB-4) -->
+		<IndexedDBUnsupportedBanner />
 		<slot />
 		<StickyPhone />
 		<!-- Cart Drawer (shared state via nanostores) -->
