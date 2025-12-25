@@ -4,7 +4,6 @@
  * WVWO Aesthetic: 44×44px touch targets, rounded-sm, brand colors
  */
 
-import React from 'react';
 import { useFilters } from '@/lib/adventures/FilterContext';
 import { FILTER_CONFIG } from '@/lib/adventures/filters.config';
 
