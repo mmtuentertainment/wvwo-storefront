@@ -66,7 +66,7 @@ export function FilteredGrid() {
                 animationDelay: `${index * 100}ms`,
               }}
             >
-              <AdventureCard adventure={adventure} />
+              <AdventureCard adventure={adventure} index={index} />
             </div>
           ))}
         </div>

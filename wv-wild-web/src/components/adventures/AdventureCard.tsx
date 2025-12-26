@@ -1,14 +1,17 @@
 /**
- * SPEC-07: Adventure Card Component
+ * SPEC-07/08: Adventure Card Component
  * Grid item for adventures hub - displays adventure preview
  * WVWO Aesthetic: border-l-4 accent, rounded-sm, brand colors
+ * SPEC-08: Added drive time badge, index prop for stagger animation
  */
 
 import React from 'react';
+import { Car } from 'lucide-react';
 import type { Adventure } from '@/lib/adventures/filters.config';
 
 interface AdventureCardProps {
   adventure: Adventure;
+  index?: number;  // SPEC-08: For stagger animation delay calculation
 }
 
 /**
@@ -19,8 +22,11 @@ interface AdventureCardProps {
  * @param adventure - The Adventure data used to populate the card (title, image, metadata, tags, etc.)
  * @returns A JSX anchor element representing the adventure card populated with image (if present), location badge, title, description, difficulty and optional elevation, season tags, and optional suitability icons
  */
-export const AdventureCard = React.memo(function AdventureCard({ adventure }: AdventureCardProps) {
-  const { title, description, season, difficulty, location, elevation_gain, suitability } =
+export const AdventureCard = React.memo(function AdventureCard({
+  adventure,
+  index = 0
+}: AdventureCardProps) {
+  const { title, description, season, difficulty, location, elevation_gain, suitability, drive_time } =
     adventure.data;
 
   return (
@@ -42,6 +48,14 @@ export const AdventureCard = React.memo(function AdventureCard({ adventure }: Ad
 
       {/* Content */}
       <div className="p-4">
+        {/* SPEC-08: Drive Time Badge - Proximity anchor to shop */}
+        {drive_time && (
+          <span className="inline-flex items-center gap-1 bg-sign-green text-white text-xs font-bold px-2 py-1 rounded-sm mb-2 mr-2">
+            <Car className="w-3 h-3" aria-hidden="true" />
+            {drive_time} from shop
+          </span>
+        )}
+
         {/* Location Badge */}
         <span className="inline-block bg-sign-green/10 text-sign-green text-xs font-bold px-2 py-1 rounded-sm mb-2">
           {location}
