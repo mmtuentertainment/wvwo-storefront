@@ -32,6 +32,12 @@ playwright-profile/
 .auth/
 screenshots/
 
+# Test artifacts (Playwright E2E)
+test-screenshots/
+test-*.js
+*-test-results/
+.playwright/
+
 # OS files
 .DS_Store
 Thumbs.db
