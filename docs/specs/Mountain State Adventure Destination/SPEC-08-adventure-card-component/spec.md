@@ -141,10 +141,10 @@ Cards reveal with a gentle stagger animation on initial load for visual polish.
 | Requirement | Status | Notes |
 |-------------|--------|-------|
 | FR-001: Adventure data | ✅ Complete | Uses `Adventure` type from filters.config |
-| FR-002: Core fields | ⚠️ Gap | Missing drive time from shop |
+| FR-002: Core fields | ✅ Complete | Drive time badge implemented with Car icon |
 | FR-003: Suitability icons | ✅ Complete | Emoji-based icons with labels |
-| FR-004: Clickable link | ✅ Complete | Wraps entire card |
-| FR-005: Index prop | ⚠️ Gap | Stagger animation required - add 60ms delay per index |
+| FR-004: Clickable link | ✅ Complete | Wraps entire card with aria-label |
+| FR-005: Stagger animation | ✅ Complete | Handled by FilteredGrid wrapper (100ms stagger, capped at 10) |
 | FR-006: React.memo | ✅ Complete | Wrapped for performance |
 | VR-001: Border-l-4 | ✅ Complete | `border-l-4 border-l-sign-green` |
 | VR-002: Rounded-sm | ✅ Complete | `rounded-sm` applied |
@@ -157,23 +157,16 @@ Cards reveal with a gentle stagger animation on initial load for visual polish.
 | AR-003: Focus ring | ✅ Complete | `focus:ring-2 focus:ring-sign-green` |
 | AR-004: Motion respect | ✅ Complete | `motion-safe:` prefix used |
 
-### Implementation Gaps Summary
+### Implementation Summary
 
-| Gap | Priority | Implementation |
-|-----|----------|----------------|
-| **FR-002: Drive Time** | High | Add `drive_time` field to Adventure schema, display in metadata row |
-| **FR-005: Stagger Animation** | Medium | Add CSS animation with `animation-delay: calc(var(--index) * 60ms)` |
+All requirements have been implemented:
 
-**Drive Time Implementation**:
-1. Add `drive_time: string` to Adventure content schema (e.g., "45 min")
-2. Calculate from shop coordinates (38.8106, -80.6492) to adventure coordinates
-3. Display in metadata row with car icon
-
-**Stagger Animation Implementation**:
-1. Accept `index` prop (already in interface)
-2. Apply inline style: `style={{ animationDelay: \`${index * 60}ms\` }}`
-3. Add `@keyframes gentle-reveal` with opacity + translateY
-4. Wrap in `motion-safe:` media query
+| Feature | Implementation |
+|---------|----------------|
+| **Drive Time Badge** | `drive_time` field in schema, displayed with Car icon in sign-green badge |
+| **Stagger Animation** | CSS `gentle-reveal` keyframes in FilteredGrid, 100ms delay per card, capped at 1s |
+| **Accessibility** | aria-label on card link, decoding="async" on images, motion-safe prefixes |
+| **Type Safety** | Adventure interface includes coordinates, caption, drive_time, kim_hook fields |
 
 ---
 

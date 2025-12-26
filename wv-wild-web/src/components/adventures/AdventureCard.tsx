@@ -11,7 +11,7 @@ import type { Adventure } from '@/lib/adventures/filters.config';
 
 interface AdventureCardProps {
   adventure: Adventure;
-  index?: number;  // SPEC-08: For stagger animation delay calculation
+  // Note: index prop removed - stagger animation handled by FilteredGrid wrapper
 }
 
 /**
@@ -24,7 +24,6 @@ interface AdventureCardProps {
  */
 export const AdventureCard = React.memo(function AdventureCard({
   adventure,
-  index = 0
 }: AdventureCardProps) {
   const { title, description, season, difficulty, location, elevation_gain, suitability, drive_time } =
     adventure.data;

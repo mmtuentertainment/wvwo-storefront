@@ -4,7 +4,6 @@
  * WVWO Aesthetic: responsive 1-3 col grid, ARIA live region
  */
 
-// import React from 'react';
 import { useFilters } from '@/lib/adventures/FilterContext';
 import { AdventureCard } from './AdventureCard';
 import { EmptyState } from './EmptyState';
@@ -66,7 +65,7 @@ export function FilteredGrid() {
                 animationDelay: `${Math.min(index, 10) * 100}ms`,
               }}
             >
-              <AdventureCard adventure={adventure} index={index} />
+              <AdventureCard adventure={adventure} />
             </div>
           ))}
         </div>
