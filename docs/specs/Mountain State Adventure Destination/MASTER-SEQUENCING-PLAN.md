@@ -14,7 +14,8 @@
 **Current State:**
 - ✅ SPEC-07: Adventures Hub Filtering (PR #1-8 complete, merged)
 - ✅ SPEC-07B: Navigation Consolidation (PR #60 merged, all silent failures fixed)
-- ⏸️ SPEC-08-70: 63 specs planned but not executed
+- ✅ SPEC-08: Adventure Card Component (PR #61 merged, drive time badge + stagger animation)
+- ⏸️ SPEC-09-70: 62 specs planned but not executed
 
 **Goal:**
 Systematically execute all 64 specs using hierarchical hive mind coordination with:
@@ -109,7 +110,7 @@ Systematically execute all 64 specs using hierarchical hive mind coordination wi
 
 | Spec | Component | LOC Est | Kim Input |
 |------|-----------|---------|-----------|
-| SPEC-08 | Adventure Card | ~110 | Design review: "Does card feel like us?" |
+| ✅ SPEC-08 | Adventure Card | ~110 | Design review: "Does card feel like us?" |
 | SPEC-09 | Adventure Hero | ~120 | Design review: "Hero section layout OK?" |
 | SPEC-10 | Quick Stats | ~80 | Structure review: "What stats matter?" |
 | SPEC-11 | Shared Components | ~150 | Design review: "Breadcrumb, CTA sections?" |
