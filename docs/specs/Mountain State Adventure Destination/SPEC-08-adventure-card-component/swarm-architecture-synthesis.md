@@ -14,7 +14,7 @@ The current AdventureCard is **technically sound but emotionally flat**. It disp
 
 ## The Unified Vision: "Kim's Field Guide Card"
 
-```
+```text
 +------------------------------------------------------------------+
 |  [IMAGE - 4:3, evocative not stock]                              |
 |                                                                  |
@@ -43,6 +43,7 @@ The current AdventureCard is **technically sound but emotionally flat**. It disp
 ## 5 Key Enhancements (Swarm Consensus)
 
 ### 1. PROXIMITY BADGE: "25 min from shop"
+
 **Source**: Conversion + Storytelling Architects
 
 | Why | Implementation |
@@ -60,6 +61,7 @@ The current AdventureCard is **technically sound but emotionally flat**. It disp
 ---
 
 ### 2. KIM'S HOOK: Personal Voice Element
+
 **Source**: Storytelling + Differentiation Architects
 
 The single most differentiating element. Transforms generic content into local expertise.
@@ -86,6 +88,7 @@ kim_hook: "Toms gobble here til mid-May"  # Kim's personal note
 ---
 
 ### 3. FIELD-FIRST INFORMATION HIERARCHY
+
 **Source**: Mobile/Field Use Architect
 
 **The 5-Second Scan Priority**:
@@ -116,6 +119,7 @@ kim_hook: "Toms gobble here til mid-May"  # Kim's personal note
 ---
 
 ### 4. HUNTER TERMINOLOGY FOR SEASONS
+
 **Source**: Storytelling + Differentiation Architects
 
 Replace generic seasons with Kim's language:
@@ -136,11 +140,12 @@ Replace generic seasons with Kim's language:
 ---
 
 ### 5. CONSISTENT VISUAL ZONES
+
 **Source**: Information Architect
 
 Fixed positions create "scan once, know forever" patterns:
 
-```
+```text
 +------------------------------------------------------------------+
 | IMAGE ZONE                                                        |
 |   [SEASONS] bottom-left          [DIFFICULTY] top-right          |

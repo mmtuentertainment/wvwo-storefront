@@ -8,7 +8,7 @@
 
 ## Dependency Graph
 
-```
+```text
 ┌─────────────────────────────────────────────────────────────────┐
 │                         PHASE 1                                  │
 │  ┌──────────┐    ┌──────────┐    ┌──────────┐                   │
@@ -54,6 +54,7 @@
 ## Phase 1: Schema & Type Updates
 
 ### Task 1.1: Add schema fields to content.config.ts [S]
+
 **File**: `wv-wild-web/src/content.config.ts`
 **LOC**: ~8
 
@@ -73,6 +74,7 @@ kim_hook: z.string().optional(),         // Kim's personal note (future use)
 ---
 
 ### Task 1.2: Update Adventure type in filters.config.ts [S]
+
 **File**: `wv-wild-web/src/lib/adventures/filters.config.ts`
 **LOC**: ~4
 **Depends on**: Task 1.1
@@ -99,6 +101,7 @@ export type Adventure = {
 ---
 
 ### Task 1.3: Add drive_time to sample adventure content [P]
+
 **File**: `wv-wild-web/src/content/adventures/spring-gobbler-burnsville.md`
 **LOC**: ~2
 **Can run parallel to**: Task 1.2 (after 1.1 complete)
@@ -119,6 +122,7 @@ drive_time: "25 min"
 ## Phase 2: Drive Time Display
 
 ### Task 2.1: Add drive time badge to AdventureCard [S]
+
 **File**: `wv-wild-web/src/components/adventures/AdventureCard.tsx`
 **LOC**: ~20
 **Depends on**: Task 1.1, Task 1.2
@@ -160,6 +164,7 @@ import { Car } from 'lucide-react';
 ## Phase 3: Stagger Animation
 
 ### Task 3.1: Add CSS keyframes for gentle-reveal animation [P]
+
 **File**: `wv-wild-web/tailwind.config.mjs` OR `wv-wild-web/src/styles/global.css`
 **LOC**: ~15
 **Can run parallel to**: Phase 2
@@ -211,6 +216,7 @@ keyframes: {
 ---
 
 ### Task 3.2: Add index prop and stagger delay to AdventureCard [S]
+
 **File**: `wv-wild-web/src/components/adventures/AdventureCard.tsx`
 **LOC**: ~15
 **Depends on**: Task 3.1
@@ -259,6 +265,7 @@ export const AdventureCard = React.memo(function AdventureCard({
 ## Phase 4: Integration & Testing
 
 ### Task 4.1: Wire up FilteredGrid to pass index prop [S]
+
 **File**: `wv-wild-web/src/components/adventures/FilteredGrid.tsx`
 **LOC**: ~5
 **Depends on**: Task 3.2
@@ -283,6 +290,7 @@ export const AdventureCard = React.memo(function AdventureCard({
 ---
 
 ### Task 4.2: Manual Testing & Build Verification [S]
+
 **LOC**: 0 (testing only)
 **Depends on**: All previous tasks
 
@@ -323,7 +331,7 @@ export const AdventureCard = React.memo(function AdventureCard({
 
 ## Execution Order (Optimal)
 
-```
+```text
 Sequential: 1.1 → 1.2 → 2.1 → 3.2 → 4.1 → 4.2
 Parallel:   1.3 (after 1.1)
             3.1 (anytime after start)

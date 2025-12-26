@@ -18,7 +18,7 @@ SPEC-08 enhances the existing `AdventureCard.tsx` component with two core gaps i
 
 ## Component Structure
 
-```
+```text
 wv-wild-web/src/
 ├── content.config.ts          # [MODIFY] Add kim_hook, drive_time fields
 ├── content/adventures/
@@ -41,6 +41,7 @@ wv-wild-web/src/
 **Goal**: Extend the Adventure content schema with new fields from swarm synthesis.
 
 **Tasks**:
+
 1. Add `drive_time` field to adventures schema in `content.config.ts`
 2. Add `kim_hook` field to adventures schema (optional, for future differentiation)
 3. Update `Adventure` type in `filters.config.ts` to include new fields
@@ -61,6 +62,7 @@ kim_hook: z.string().optional(),         // Kim's personal note (future use)
 ---
 
 ### Phase 2: Drive Time Display (~30 LOC)
+
 
 **Goal**: Display proximity badge on card to reinforce shop as home base.
 
@@ -87,6 +89,7 @@ kim_hook: z.string().optional(),         // Kim's personal note (future use)
 
 ### Phase 3: Stagger Animation (~40 LOC)
 
+
 **Goal**: Cards fade in with 60ms stagger delay for polished grid reveal.
 
 **Tasks**:
@@ -100,6 +103,7 @@ kim_hook: z.string().optional(),         // Kim's personal note (future use)
 - `src/components/adventures/FilteredGrid.tsx` (+5 LOC) - Pass index to card
 
 **Animation Addition**:
+
 ```tsx
 // AdventureCard.tsx
 interface AdventureCardProps {
@@ -120,6 +124,7 @@ const staggerDelay = index !== undefined ? `${index * 60}ms` : '0ms';
 ```
 
 **CSS Addition**:
+
 ```css
 /* In Tailwind config or global CSS */
 @keyframes gentle-reveal {
@@ -148,6 +153,7 @@ const staggerDelay = index !== undefined ? `${index * 60}ms` : '0ms';
 
 ### Phase 4: Integration & Testing (~20 LOC)
 
+
 **Goal**: Wire up changes and verify functionality.
 
 **Tasks**:
@@ -161,6 +167,7 @@ const staggerDelay = index !== undefined ? `${index * 60}ms` : '0ms';
 - `src/components/adventures/FilteredGrid.tsx` (+5 LOC)
 
 **Test Checklist**:
+
 - [ ] Grid loads with stagger animation visible
 - [ ] motion-reduce disables animation
 - [ ] Drive time badge shows when field present
@@ -171,6 +178,7 @@ const staggerDelay = index !== undefined ? `${index * 60}ms` : '0ms';
 ---
 
 ## Technical Decisions
+
 
 | Decision | Choice | Rationale |
 |----------|--------|-----------|

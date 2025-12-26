@@ -180,11 +180,13 @@ Cards reveal with a gentle stagger animation on initial load for visual polish.
 ## Dependencies
 
 ### Internal
+
 - `src/lib/adventures/filters.config.ts` - Adventure type definition
 - `src/content/adventures/*.md` - Adventure content entries
 - `src/components/adventures/FilteredGrid.tsx` - Parent grid component
 
 ### External
+
 - Astro Content Collections (data source)
 - Tailwind CSS (styling)
 - React (client-side interactivity)
@@ -202,6 +204,7 @@ Cards reveal with a gentle stagger animation on initial load for visual polish.
 ## Clarifications
 
 ### Session 2025-12-26
+
 - Q: Should cards display distance from shop? → A: Yes, show drive time (e.g., "45 min from store") - Reinforces shop as home base for highway travelers
 - Q: Should there be a separate type badge (WMA/Lake/River)? → A: No, location name already includes type (e.g., "Burnsville Lake WMA") - avoids clutter
 - Q: Implement 60ms stagger animation on grid load? → A: Yes, add 60ms delay per card index for polished reveal effect
