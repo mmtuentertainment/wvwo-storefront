@@ -64,12 +64,15 @@ Tested with iPhone 12 viewport (390×844px)
 ## Key Technical Validations
 
 ### React Island Hydration
+
 The `client:only="react"` directive successfully hydrates the AdventuresHub component client-side. The test waits for the "Showing X adventures" text to confirm React has mounted and rendered.
 
 ### URL State Synchronization
+
 Filter selections correctly sync to URL query parameters (e.g., `?season=spring&difficulty=moderate`), enabling shareable filter states and browser back/forward navigation.
 
 ### Mobile Bottom Sheet
+
 The MobileFiltersSheet component:
 - Opens as a bottom drawer on mobile viewports
 - Contains all 5 filter axes (Season, Difficulty, Gear, Elevation, Suitability)
@@ -77,6 +80,7 @@ The MobileFiltersSheet component:
 - Meets 44px minimum touch target requirement
 
 ### Offline Support
+
 The OfflineBanner component is present and ready to display when network connectivity is lost (tested via `client:load` hydration).
 
 ## Screenshots
