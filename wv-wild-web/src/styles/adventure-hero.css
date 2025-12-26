@@ -1,0 +1,104 @@
+/**
+ * Adventure Hero Component Styles
+ * SPEC-09: Motion Architecture & Print Optimization
+ *
+ * Custom CSS for animations and print styles that cannot be achieved
+ * with inline Tailwind utilities.
+ */
+
+/* ==========================================================================
+   Morning Mist Lift Animation
+   ========================================================================== */
+
+/**
+ * Signature WVWO animation - gentle rise like morning mist lifting
+ * from the hollers. Subtle, tactile, not bouncy.
+ */
+@keyframes morning-mist-lift {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================================================
+   Animation Application
+   ========================================================================== */
+
+.adventure-hero__animated {
+  animation: morning-mist-lift 0.6s ease-out both;
+}
+
+/* ==========================================================================
+   Stagger Classes
+   ========================================================================== */
+
+.hero-stagger-0 {
+  animation-delay: 0ms;
+}
+
+.hero-stagger-1 {
+  animation-delay: 100ms;
+}
+
+.hero-stagger-2 {
+  animation-delay: 180ms;
+}
+
+.hero-stagger-3 {
+  animation-delay: 260ms;
+}
+
+/* ==========================================================================
+   Title Truncation
+   ========================================================================== */
+
+/**
+ * Multi-line text truncation with ellipsis.
+ * Limits long titles to 3 lines maximum.
+ */
+.adventure-hero__title--truncate {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   Reduced Motion Protection
+   ========================================================================== */
+
+/**
+ * CRITICAL: Respect user preferences for reduced motion.
+ * Animations are disabled but content remains visible.
+ */
+@media (prefers-reduced-motion: reduce) {
+  .adventure-hero__animated {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ==========================================================================
+   Print Styles
+   ========================================================================== */
+
+@media print {
+  .adventure-hero {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .adventure-hero__cta {
+    display: none;
+  }
+
+  .adventure-hero img {
+    max-width: 100%;
+  }
+}

@@ -1,0 +1,71 @@
+---
+/**
+ * AdventureHeroBadge.astro
+ * SPEC-09: Adventure Hero Badge Component
+ *
+ * Displays contextual badges for difficulty, season, or drive time.
+ * Uses shape icons for color-blind accessibility on difficulty badges.
+ */
+
+interface Props {
+  type: 'difficulty' | 'season' | 'drive-time';
+  value: string;
+  difficulty?: 'easy' | 'moderate' | 'advanced' | 'rugged';
+}
+
+const { type, value, difficulty } = Astro.props;
+
+/**
+ * Shape icons for color-blind accessibility
+ * Each difficulty level has a unique shape that remains distinguishable
+ * regardless of color perception.
+ */
+const difficultyShapes: Record<NonNullable<Props['difficulty']>, string> = {
+  easy: '\u25CF',      // ● (circle)
+  moderate: '\u25B2',  // ▲ (triangle)
+  advanced: '\u25A0',  // ■ (square)
+  rugged: '\u25C6',    // ◆ (diamond)
+};
+
+/**
+ * Color classes for each difficulty level
+ * Colors tied to physical WV objects per WVWO aesthetic guidelines.
+ */
+const difficultyColors: Record<NonNullable<Props['difficulty']>, string> = {
+  easy: 'bg-sign-green text-white',
+  moderate: 'bg-brand-orange text-white',
+  advanced: 'bg-brand-mud text-brand-cream',
+  rugged: 'bg-red-800 text-white',
+};
+
+/**
+ * Determine badge styling based on type
+ */
+function getBadgeClasses(): string {
+  const baseClasses = 'inline-flex items-center gap-1.5 px-4 py-2 rounded-sm font-display font-bold text-sm';
+
+  switch (type) {
+    case 'difficulty':
+      return `${baseClasses} ${difficulty ? difficultyColors[difficulty] : 'bg-brand-brown text-brand-cream'}`;
+    case 'season':
+      return `${baseClasses} bg-brand-cream text-brand-brown`;
+    case 'drive-time':
+      return `${baseClasses} bg-brand-brown/80 text-brand-cream`;
+    default:
+      return baseClasses;
+  }
+}
+
+const badgeClasses = getBadgeClasses();
+const shapeIcon = type === 'difficulty' && difficulty ? difficultyShapes[difficulty] : null;
+---
+
+<span class={badgeClasses}>
+  {type === 'difficulty' && shapeIcon && (
+    <span aria-hidden="true">{shapeIcon}</span>
+  )}
+  {type === 'drive-time' && (
+    <span aria-hidden="true" class="text-base">🚗</span>
+  )}
+  <span>{value}</span>
+</span>

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+<defs><pattern id="appalachian-woodland" patternUnits="userSpaceOnUse" width="100" height="100">
+<rect width="100" height="100" fill="#6D4C41" opacity=".4"/>
+<path d="M-5 25Q15 15 35 28 55 42 45 60 30 75 10 65-10 50-5 25" fill="#558B2F" opacity=".5"/>
+<path d="M70 5Q90 15 95 35 98 55 80 50 60 45 65 25 68 10 70 5" fill="#558B2F" opacity=".45"/>
+<path d="M55 70Q75 65 90 80 105 95 85 100 65 105 50 90 40 80 55 70" fill="#558B2F" opacity=".55"/>
+<path d="M20 0Q40-5 50 15 58 35 40 45 20 50 15 30 10 10 20 0" fill="#5D4037" opacity=".5"/>
+<path d="M60 35Q80 30 85 50 88 70 70 75 50 78 48 58 45 40 60 35" fill="#5D4037" opacity=".45"/>
+<path d="M0 70Q20 60 30 80 35 100 15 105-5 108-8 88-10 75 0 70" fill="#5D4037" opacity=".5"/>
+<ellipse cx="25" cy="50" rx="12" ry="8" fill="#7CB342" opacity=".35" transform="rotate(-15 25 50)"/>
+<ellipse cx="75" cy="20" rx="10" ry="6" fill="#7CB342" opacity=".3" transform="rotate(20 75 20)"/>
+<ellipse cx="85" cy="85" rx="11" ry="7" fill="#7CB342" opacity=".4" transform="rotate(-25 85 85)"/>
+<ellipse cx="10" cy="10" rx="8" ry="5" fill="#7CB342" opacity=".35" transform="rotate(10 10 10)"/>
+<path d="M45 5Q55 0 60 10 62 20 50 22 40 23 42 12 43 5 45 5" fill="#6D4C41" opacity=".6"/>
+<path d="M5 45Q15 38 22 48 25 58 15 62 5 65 2 55 0 48 5 45" fill="#6D4C41" opacity=".55"/>
+</pattern></defs>
+<rect width="100" height="100" fill="url(#appalachian-woodland)"/>
+</svg>

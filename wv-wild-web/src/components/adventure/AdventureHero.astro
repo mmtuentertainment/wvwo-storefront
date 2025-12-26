@@ -1,0 +1,238 @@
+---
+/**
+ * AdventureHero.astro
+ * SPEC-09: Adventure Hero Component
+ *
+ * Full-bleed hero for adventure guides with 7/5 asymmetric grid layout.
+ * Combines difficulty badges, responsive images, and 5-slot architecture.
+ */
+import { Image } from 'astro:assets';
+import AdventureHeroBadge from './AdventureHeroBadge.astro';
+import camoPattern from '../../assets/patterns/appalachian-woodland.svg';
+import '../../styles/adventure-hero.css';
+
+interface Props {
+  // Required - Core Display
+  title: string;
+  description: string;
+  difficulty: 'easy' | 'moderate' | 'advanced' | 'rugged';
+  season: string;
+  driveTime?: string;
+
+  // Required - Image
+  image: ImageMetadata;
+  imageAlt: string;
+
+  // Optional - Image Control
+  imagePosition?: 'center' | 'top' | 'bottom';
+  loading?: 'lazy' | 'eager';
+
+  // Optional - SEO & Content
+  publishedDate?: string;
+  updatedDate?: string;
+  coordinates?: { lat: number; lng: number };
+  schemaType?: 'Place' | 'Article' | 'Event';
+  slug?: string;
+}
+
+const {
+  title,
+  description,
+  difficulty,
+  season,
+  driveTime,
+  image,
+  imageAlt,
+  imagePosition = 'center',
+  loading = 'eager',
+  publishedDate,
+  updatedDate,
+  coordinates,
+  schemaType = 'Place',
+  slug,
+} = Astro.props;
+
+// Generate unique ID for accessibility
+const heroId = `adventure-hero-${slug || 'main'}`;
+
+// Map image position to object-position class
+const imagePositionClass = {
+  center: 'object-center',
+  top: 'object-top',
+  bottom: 'object-bottom',
+}[imagePosition];
+
+// Difficulty labels for display
+const difficultyLabels: Record<Props['difficulty'], string> = {
+  easy: 'Easy Trail',
+  moderate: 'Moderate',
+  advanced: 'Advanced',
+  rugged: 'Rugged Terrain',
+};
+
+// Check for slot content
+const hasDefaultSlot = Astro.slots.has('default');
+const hasCtaSlot = Astro.slots.has('cta');
+const hasBadgeExtraSlot = Astro.slots.has('badge-extra');
+const hasAsideSlot = Astro.slots.has('aside');
+const hasSchemaExtraSlot = Astro.slots.has('schema-extra');
+---
+
+<section
+  class="adventure-hero relative w-full overflow-hidden bg-gradient-to-br from-brand-brown to-brand-mud"
+  aria-labelledby={heroId}
+>
+  <!-- Camo Pattern Overlay -->
+  <div
+    class="absolute inset-0 opacity-10 pointer-events-none"
+    style={`background-image: url(${camoPattern.src}); background-repeat: repeat;`}
+    role="presentation"
+    aria-hidden="true"
+  ></div>
+
+  <!-- Main Grid Container -->
+  <div class="relative max-w-7xl mx-auto px-4 py-12 lg:py-16">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+
+      <!-- Image Column (First on mobile, second on desktop) -->
+      <div class="order-1 lg:order-2 lg:col-span-5">
+        <div class="relative rounded-sm overflow-hidden shadow-xl">
+          {image ? (
+            <Image
+              src={image}
+              alt={imageAlt}
+              widths={[400, 800, 1200]}
+              sizes="(max-width: 1024px) 100vw, 42vw"
+              loading={loading}
+              class={`w-full h-64 sm:h-80 lg:h-96 object-cover ${imagePositionClass}`}
+            />
+          ) : (
+            <div
+              class="w-full h-64 sm:h-80 lg:h-96 bg-brand-mud/50 flex items-center justify-center"
+              aria-label="Image not available"
+            >
+              <span class="text-brand-cream/60 font-display text-lg">
+                Image Coming Soon
+              </span>
+            </div>
+          )}
+
+          {/* Aside Slot - Overlays on image */}
+          {hasAsideSlot && (
+            <div class="absolute bottom-4 left-4 right-4">
+              <slot name="aside" />
+            </div>
+          )}
+        </div>
+      </div>
+
+      <!-- Content Column -->
+      <div class="order-2 lg:order-1 lg:col-span-7">
+        <!-- Badges Row -->
+        <div class="flex flex-wrap gap-3 mb-6 adventure-hero__animated hero-stagger-0">
+          <AdventureHeroBadge
+            type="difficulty"
+            value={difficultyLabels[difficulty]}
+            difficulty={difficulty}
+          />
+          <AdventureHeroBadge
+            type="season"
+            value={season}
+          />
+          {driveTime && (
+            <AdventureHeroBadge
+              type="drive-time"
+              value={driveTime}
+            />
+          )}
+          {hasBadgeExtraSlot && (
+            <slot name="badge-extra" />
+          )}
+        </div>
+
+        <!-- Title -->
+        <h1
+          id={heroId}
+          class="font-display font-black text-3xl sm:text-4xl lg:text-5xl xl:text-6xl text-white leading-tight mb-6 adventure-hero__animated hero-stagger-1 adventure-hero__title--truncate"
+        >
+          {title}
+        </h1>
+
+        <!-- Description -->
+        <p class="font-body text-lg sm:text-xl text-brand-cream/90 leading-relaxed max-w-prose mb-6 adventure-hero__animated hero-stagger-2">
+          {description}
+        </p>
+
+        <!-- Default Slot - Additional content below description -->
+        {hasDefaultSlot && (
+          <div class="mb-6 adventure-hero__animated hero-stagger-3">
+            <slot />
+          </div>
+        )}
+
+        <!-- CTA Slot -->
+        {hasCtaSlot && (
+          <div class="flex flex-wrap gap-4 adventure-hero__cta adventure-hero__animated hero-stagger-3">
+            <slot name="cta" />
+          </div>
+        )}
+
+        <!-- Meta Information -->
+        {(publishedDate || updatedDate || coordinates) && (
+          <div class="mt-8 pt-6 border-t border-brand-cream/20">
+            <dl class="flex flex-wrap gap-x-6 gap-y-2 text-sm text-brand-cream/70 font-body">
+              {publishedDate && (
+                <div class="flex gap-2">
+                  <dt class="sr-only">Published</dt>
+                  <dd>
+                    <time datetime={publishedDate}>
+                      Published: {new Date(publishedDate).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                      })}
+                    </time>
+                  </dd>
+                </div>
+              )}
+              {updatedDate && (
+                <div class="flex gap-2">
+                  <dt class="sr-only">Updated</dt>
+                  <dd>
+                    <time datetime={updatedDate}>
+                      Updated: {new Date(updatedDate).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                      })}
+                    </time>
+                  </dd>
+                </div>
+              )}
+              {coordinates && (
+                <div class="flex gap-2">
+                  <dt class="sr-only">Coordinates</dt>
+                  <dd>
+                    <a
+                      href={`https://maps.google.com/?q=${coordinates.lat},${coordinates.lng}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="hover:text-brand-cream underline underline-offset-2"
+                    >
+                      {coordinates.lat.toFixed(4)}, {coordinates.lng.toFixed(4)}
+                    </a>
+                  </dd>
+                </div>
+              )}
+            </dl>
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+
+  <!-- Schema Extra Slot - For custom JSON-LD injection -->
+  {hasSchemaExtraSlot && (
+    <slot name="schema-extra" />
+  )}
+</section>
