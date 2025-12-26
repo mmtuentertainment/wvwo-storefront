@@ -676,9 +676,20 @@ lighthouse https://wvwildoutdoors.pages.dev/adventures/ --view
 
 ---
 
-## Phase 9: Monitoring Setup (Day 10, 4 hours)
+## Phase 9: Monitoring Setup → MOVED TO SPEC-71
 
-### 9.1 Google Analytics 4 Configuration
+**NOTE:** Phase 9 monitoring and analytics setup has been moved to a separate spec:
+
+**SPEC-71: Monitoring & Analytics Setup**
+- Location: `docs/specs/Mountain State Adventure Destination/SPEC-71-monitoring-analytics-setup/`
+- Execute: After Launch Checkpoint (SPEC-29-38 complete)
+- Duration: 3.5 hours
+
+This change allows monitoring to be set up as post-launch infrastructure (site-wide, not just Adventures Hub).
+
+---
+
+### ~~9.1 Google Analytics 4 Configuration~~ (MOVED TO SPEC-71)
 
 **Task:** Set up conversion tracking
 **Effort:** 2 hours
@@ -839,8 +850,10 @@ lighthouse https://wvwildoutdoors.pages.dev/adventures/ --view
 | Phase 6: Integration | 3 tasks | 12-14 | 1.5-1.75 |
 | Phase 7: Deployment | 3 tasks | 8-10 | 1-1.25 |
 | Phase 8: Testing | 4 tasks | 12-16 | 1.5-2 |
-| Phase 9: Monitoring | 3 tasks | 4 | 0.5 |
-| **TOTAL** | **27 tasks** | **90-108 hrs** | **11-13.5 days** |
+| ~~Phase 9: Monitoring~~ | ~~3 tasks~~ | ~~4~~ | ~~0.5~~ |
+| **TOTAL (Phases 1-8)** | **24 tasks** | **86-104 hrs** | **10.5-13 days** |
+
+**Note:** Phase 9 (Monitoring) moved to SPEC-71 (execute post-launch)
 
 **Timeline:** ~2.5 weeks at 40 hrs/week (or 1.5 weeks at 60 hrs/week if focused)
 

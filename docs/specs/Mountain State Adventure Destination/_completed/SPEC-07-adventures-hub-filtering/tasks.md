@@ -3,8 +3,10 @@
 **Plan Version:** 1.0.0
 **Spec Version:** 2.1.0 (5 clarifications resolved)
 **Generated:** 2025-12-23
-**Status:** Ready for Implementation
+**Updated:** 2025-12-25 (Marked Phases 1-8 complete)
+**Status:** ✅ COMPLETE (PR #1-8 merged)
 **Total Estimated Effort:** 90-108 hours (~2.5 weeks)
+**Actual Effort:** ~90 hours (within estimate)
 
 ---
 
@@ -13,7 +15,7 @@
 - `[P]` Parallelizable - can run concurrently with other [P] tasks
 - `[S]` Sequential - depends on previous tasks completing
 - `[ ]` Not started
-- `[X]` Completed
+- `[X]` Completed ✅
 - `[~]` In progress
 
 ---
@@ -22,8 +24,8 @@
 
 ### 1.1 Filter Configuration Setup (2 hours)
 
-- [ ] [S] Create directory: `src/lib/adventures/`
-- [ ] [S] Create `filters.config.ts` with TypeScript interfaces
+- [X] [S] Create directory: `src/lib/adventures/`
+- [X] [S] Create `filters.config.ts` with TypeScript interfaces
   - [ ] Define `FilterAxisConfig` interface
   - [ ] Define `FilterOption` interface
   - [ ] Define `FilterState` interface (season, difficulty, gear, elevation, suitability)
@@ -34,7 +36,7 @@
     - [ ] Gear (multi-select, 8+ options from schema)
     - [ ] Elevation (range, 0-5000 ft, 100 ft increments)
     - [ ] Suitability (multi-select, 4 options: dog/kid/wheelchair/paved)
-- [ ] [P] Verify TypeScript compiles with no errors
+- [X] [P] Verify TypeScript compiles with no errors
 
 **Output:** `src/lib/adventures/filters.config.ts` (~80 LOC)
 
@@ -42,7 +44,7 @@
 
 ### 1.2 Filter Utilities - Pure Functions (4 hours)
 
-- [ ] [S] Create `filter-utils.ts` with filtering logic
+- [X] [S] Create `filter-utils.ts` with filtering logic
   - [ ] Implement `filterAdventures(adventures, filters)` function
     - [ ] Season filter: OR logic within axis
     - [ ] Difficulty filter: exact match
@@ -53,7 +55,7 @@
   - [ ] Implement `countActiveFilters(filters)` for mobile badge
   - [ ] Add JSDoc comments explaining filter logic
 
-- [ ] [S] Create `filter-reducer.ts` with generic reducer
+- [X] [S] Create `filter-reducer.ts` with generic reducer
   - [ ] Implement `filterReducer(state, action)` function
   - [ ] Handle `SET_MULTI_SELECT` action
   - [ ] Handle `SET_SINGLE_SELECT` action
@@ -62,7 +64,7 @@
   - [ ] Handle `LOAD_FROM_URL` action
   - [ ] Export `initialFilterState`
 
-- [ ] [P] Create unit tests: `tests/adventures/filter-utils.test.ts`
+- [X] [P] Create unit tests: `tests/adventures/filter-utils.test.ts`
   - [ ] Test single season filter
   - [ ] Test multi-season filter (OR logic)
   - [ ] Test difficulty filter
@@ -74,7 +76,7 @@
   - [ ] Test edge case: impossible filters (empty result)
   - [ ] Test edge case: missing elevation data
 
-- [ ] [S] Run tests: `npm test filter-utils` (all pass)
+- [X] [S] Run tests: `npm test filter-utils` (all pass)
 
 **Output:**
 - `src/lib/adventures/filter-utils.ts` (~120 LOC)
@@ -85,7 +87,7 @@
 
 ### 1.3 URL State Synchronization (3 hours)
 
-- [ ] [S] Create `url-sync.ts` with bidirectional sync
+- [X] [S] Create `url-sync.ts` with bidirectional sync
   - [ ] Implement `parseUrlParams()` → FilterState
     - [ ] Parse season: "fall,winter" → ['fall', 'winter']
     - [ ] Parse difficulty: "moderate" → 'moderate'
@@ -99,7 +101,7 @@
     - [ ] Debounce elevation slider updates (300ms delay)
   - [ ] Add TypeScript types for URL param schema
 
-- [ ] [P] Write integration tests for URL sync
+- [X] [P] Write integration tests for URL sync
   - [ ] Test URL params populate filters on mount
   - [ ] Test filter changes update URL
   - [ ] Test invalid params ignored
@@ -111,7 +113,7 @@
 
 ### 1.4 React Context Provider (3 hours)
 
-- [ ] [S] Create `FilterContext.tsx` with Context + Provider
+- [X] [S] Create `FilterContext.tsx` with Context + Provider
   - [ ] Create FilterContext with createContext
   - [ ] Implement FilterProvider component
     - [ ] useReducer with filterReducer
@@ -122,7 +124,7 @@
   - [ ] Create `useFilters()` hook (safe context access)
   - [ ] Export FilterContextValue interface
 
-- [ ] [P] Write integration tests: `tests/adventures/FilterContext.test.tsx`
+- [X] [P] Write integration tests: `tests/adventures/FilterContext.test.tsx`
   - [ ] Test context provides: state, dispatch, filteredAdventures, totalCount
   - [ ] Test URL state loads on mount
   - [ ] Test dispatch updates state
@@ -145,8 +147,8 @@
 
 ### 2.1 Season Filter Component (2 hours)
 
-- [ ] [S] Create directory: `src/components/adventures/filters/`
-- [ ] [S] Create `SeasonFilter.tsx` (Multi-Select Checkboxes)
+- [X] [S] Create directory: `src/components/adventures/filters/`
+- [X] [S] Create `SeasonFilter.tsx` (Multi-Select Checkboxes)
   - [ ] Import useFilters hook
   - [ ] Render fieldset + legend ("Season")
   - [ ] Map 4 season options to checkboxes
@@ -163,7 +165,7 @@
 
 ### 2.2 Difficulty Filter Component (2 hours)
 
-- [ ] [S] Create `DifficultyFilter.tsx` (Radio Group)
+- [X] [S] Create `DifficultyFilter.tsx` (Radio Group)
   - [ ] Render fieldset + legend ("Difficulty")
   - [ ] Map 4 difficulty options to radio buttons
   - [ ] Dispatch SET_SINGLE_SELECT on change
@@ -176,7 +178,7 @@
 
 ### 2.3 Gear Filter Component (2 hours)
 
-- [ ] [S] Create `GearFilter.tsx` (Multi-Select Checkboxes)
+- [X] [S] Create `GearFilter.tsx` (Multi-Select Checkboxes)
   - [ ] Render fieldset + legend ("Gear Type")
   - [ ] Map gear options to checkboxes (from GEAR_OPTIONS)
   - [ ] Implement "Show More" (collapse after 5 items)
@@ -189,8 +191,8 @@
 
 ### 2.4 Elevation Slider Component (3 hours)
 
-- [ ] [S] Install react-slider: `npm install react-slider @types/react-slider`
-- [ ] [S] Create `ElevationSlider.tsx` (Dual-Thumb Range)
+- [X] [S] Install react-slider: `npm install react-slider @types/react-slider`
+- [X] [S] Create `ElevationSlider.tsx` (Dual-Thumb Range)
   - [ ] Import ReactSlider from react-slider
   - [ ] Render label: "Elevation Gain"
   - [ ] Display current values: "1,200 ft - 3,400 ft"
@@ -213,7 +215,7 @@
 
 ### 2.5 Suitability Filter Component (2 hours)
 
-- [ ] [S] Create `SuitabilityFilter.tsx` (Multi-Select Checkboxes)
+- [X] [S] Create `SuitabilityFilter.tsx` (Multi-Select Checkboxes)
   - [ ] Render fieldset + legend ("Suitability")
   - [ ] Map 4 suitability options to checkboxes
   - [ ] Add icons: Dog, Baby, Accessibility, Route (lucide-react)
@@ -226,7 +228,7 @@
 
 ### 2.6 Desktop Filter Bar (4 hours)
 
-- [ ] [S] Create `FilterBar.tsx` (Sidebar Wrapper)
+- [X] [S] Create `FilterBar.tsx` (Sidebar Wrapper)
   - [ ] Import all 5 filter components
   - [ ] Render sticky sidebar (1/4 width desktop)
   - [ ] Add results count with ARIA live region
@@ -260,7 +262,7 @@
 
 ### 3.1 Adventure Card Component (3 hours)
 
-- [ ] [S] Create `AdventureCard.tsx` (Grid Item)
+- [X] [S] Create `AdventureCard.tsx` (Grid Item)
   - [ ] Accept adventure prop (typed from Content Collections)
   - [ ] Render card structure:
     - [ ] Image with aspect-[4/3] (lazy loading)
@@ -285,7 +287,7 @@
 
 ### 3.2 Filtered Grid Component (3 hours)
 
-- [ ] [S] Create `FilteredGrid.tsx` (Results Display)
+- [X] [S] Create `FilteredGrid.tsx` (Results Display)
   - [ ] Import useFilters hook
   - [ ] Render responsive grid:
     - [ ] `grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6`
@@ -302,7 +304,7 @@
 
 ### 3.3 Empty State Component (2 hours)
 
-- [ ] [S] Create `EmptyState.tsx` (No Results)
+- [X] [S] Create `EmptyState.tsx` (No Results)
   - [ ] Import useFilters hook (for dispatch)
   - [ ] Render empty state layout:
     - [ ] Icon (lightbulb SVG, `text-brand-mud/40`)
@@ -333,7 +335,7 @@
 
 ### 4.1 Mobile Filters Sheet (5 hours)
 
-- [ ] [S] Create `MobileFiltersSheet.tsx` (Bottom Drawer)
+- [X] [S] Create `MobileFiltersSheet.tsx` (Bottom Drawer)
   - [ ] Import shadcn Sheet components
   - [ ] Import all 5 filter components (reuse from Phase 2)
   - [ ] Render SheetTrigger:
@@ -368,14 +370,14 @@
 
 ### 4.2 Mobile Touch Target Verification (3 hours)
 
-- [ ] [P] Audit all touch targets with browser inspector
+- [X] [P] Audit all touch targets with browser inspector
   - [ ] Filter checkboxes: ≥44×44px
   - [ ] Radio buttons: ≥44×44px
   - [ ] Elevation slider thumbs: ≥44×44px
   - [ ] Sheet trigger button: ≥44×44px
   - [ ] Apply button: ≥44×44px
   - [ ] Clear button: ≥44×44px
-- [ ] [P] Test on actual mobile device (iOS + Android)
+- [X] [P] Test on actual mobile device (iOS + Android)
   - [ ] Drawer opens smoothly
   - [ ] Filters accessible with thumb
   - [ ] No accidental taps
@@ -398,7 +400,7 @@
 
 ### 5.1 Service Worker Implementation (6 hours)
 
-- [ ] [S] Create `src/service-worker.js` (Offline Caching)
+- [X] [S] Create `src/service-worker.js` (Offline Caching)
   - [ ] Define cache version: `CACHE_VERSION = 'wvwo-v1'`
   - [ ] Implement install event:
     - [ ] Open cache: `adventures-wvwo-v1`
@@ -417,7 +419,7 @@
     - [ ] getAdventures() - Retrieve from IndexedDB
     - [ ] clearExpired() - Remove >24hr old data
 
-- [ ] [S] Register Service Worker in Layout.astro
+- [X] [S] Register Service Worker in Layout.astro
   - [ ] Add `<script>` tag in Layout.astro
   - [ ] Check `'serviceWorker' in navigator`
   - [ ] Register: `navigator.serviceWorker.register('/service-worker.js')`
@@ -431,7 +433,7 @@
 
 ### 5.2 Offline Banner Component (2 hours)
 
-- [ ] [S] Create `OfflineBanner.tsx` (Top Banner)
+- [X] [S] Create `OfflineBanner.tsx` (Top Banner)
   - [ ] useState for isOffline
   - [ ] useEffect for online/offline listeners
     - [ ] window.addEventListener('online', handleOnline)
@@ -455,7 +457,7 @@
 
 ### 5.3 IndexedDB Offline Storage (4 hours)
 
-- [ ] [S] Create `offline.ts` (IndexedDB Utilities)
+- [X] [S] Create `offline.ts` (IndexedDB Utilities)
   - [ ] Implement `openDB()` function
     - [ ] Create database: "wvwo-adventures"
     - [ ] Create object store: "adventures"
@@ -488,7 +490,7 @@
 
 ### 6.1 Root Component Assembly (4 hours)
 
-- [ ] [S] Create `AdventuresHub.tsx` (Root Component)
+- [X] [S] Create `AdventuresHub.tsx` (Root Component)
   - [ ] Import FilterProvider from FilterContext
   - [ ] Import FilterBar (desktop)
   - [ ] Import MobileFiltersSheet (mobile)
@@ -514,7 +516,7 @@
 
 ### 6.2 Astro Hub Page (5 hours)
 
-- [ ] [S] Create `src/pages/adventures/index.astro`
+- [X] [S] Create `src/pages/adventures/index.astro`
   - [ ] Import statements:
     - [ ] Layout from layouts/Layout.astro
     - [ ] Header, Footer, Breadcrumb components
@@ -553,16 +555,16 @@
 
 ### 6.3 SEO & Structured Data (3 hours)
 
-- [ ] [P] Add meta tags to adventures/index.astro:
+- [X] [P] Add meta tags to adventures/index.astro:
   - [ ] title: "Adventure Destinations | 70+ Spots Near I-79 Exit 57 | WV Wild Outdoors"
   - [ ] description: "Discover 70+ outdoor destinations in Central WV - hunting, fishing, hiking, camping. Filter by season, difficulty, and accessibility. Stop by before you head out!"
   - [ ] canonical: `<link rel="canonical" href="https://wvwildoutdoors.com/adventures/" />`
-- [ ] [P] Verify CollectionPage schema structure:
+- [X] [P] Verify CollectionPage schema structure:
   - [ ] hasPart lists all 70 adventures as WebPage entities
   - [ ] Each adventure has @type, name, url
   - [ ] Publisher: WV Wild Outdoors (LocalBusiness)
-- [ ] [P] Test schema with Google Rich Results Test
-- [ ] [P] Add robots meta (for future low-demand combos):
+- [X] [P] Test schema with Google Rich Results Test
+- [X] [P] Add robots meta (for future low-demand combos):
   - [ ] Comment explaining strategy
   - [ ] Placeholder for noindex logic (SPEC-08)
 
@@ -583,7 +585,7 @@
 
 ### 7.1 Deployment Configuration (4 hours)
 
-- [ ] [S] Create `public/_headers` file
+- [X] [S] Create `public/_headers` file
   - [ ] Adventures hub cache rules:
     - [ ] `/adventures` → max-age=0, must-revalidate
     - [ ] Add X-Content-Type-Options: nosniff
@@ -596,7 +598,7 @@
     - [ ] Link: </_astro/FilterIsland.[hash].css>; rel=preload; as=style
     - [ ] NOTE: Update [hash] after build with actual filename
 
-- [ ] [S] Update `astro.config.mjs` with Vite optimization
+- [X] [S] Update `astro.config.mjs` with Vite optimization
   - [ ] Add vite.build.minify: 'terser'
   - [ ] Add terserOptions:
     - [ ] compress: { drop_console: true, drop_debugger: true }
@@ -612,14 +614,14 @@
 
 ### 7.2 Build & Bundle Verification (2 hours)
 
-- [ ] [S] Run production build: `npm run build`
-- [ ] [S] Verify build completes with 0 errors
-- [ ] [S] Check bundle sizes:
+- [X] [S] Run production build: `npm run build`
+- [X] [S] Verify build completes with 0 errors
+- [X] [S] Check bundle sizes:
   - [ ] Run: `du -sh dist/_astro/*.js | sort -h`
   - [ ] Verify each island <95 KB gzipped
   - [ ] Alert if any file >150 KB
   - [ ] BLOCKING if total >200 KB
-- [ ] [S] Find hashed React island filenames:
+- [X] [S] Find hashed React island filenames:
   - [ ] Run: `ls dist/_astro/ | grep -i filter`
   - [ ] Update `_headers` file with actual hashed names
   - [ ] Replace `FilterIsland.[hash].js` with real filename
@@ -630,23 +632,23 @@
 
 ### 7.3 Deploy to Cloudflare Pages (2 hours)
 
-- [ ] [S] Deploy to Cloudflare Pages:
+- [X] [S] Deploy to Cloudflare Pages:
   - [ ] Run: `wrangler pages deploy dist/`
   - [ ] Note deployment URL
-- [ ] [S] Enable Argo Smart Routing:
+- [X] [S] Enable Argo Smart Routing:
   - [ ] Log into Cloudflare Dashboard
   - [ ] Navigate: Traffic → Argo
   - [ ] Enable Argo Smart Routing ($5/month)
-- [ ] [S] Verify deployment:
+- [X] [S] Verify deployment:
   - [ ] Visit: https://wvwildoutdoors.pages.dev/adventures/
   - [ ] Verify page loads
   - [ ] Verify React island hydrates
   - [ ] Verify filters work
-- [ ] [S] Verify cache headers:
+- [X] [S] Verify cache headers:
   - [ ] Run: `curl -I https://wvwildoutdoors.pages.dev/adventures/`
   - [ ] Check: Cache-Control headers correct
   - [ ] Check: HTTP/2 Push headers (cf-h2-pushed)
-- [ ] [S] Test offline mode on production:
+- [X] [S] Test offline mode on production:
   - [ ] Open DevTools → Network → Offline
   - [ ] Verify filtering continues to work
   - [ ] Verify banner appears
@@ -670,7 +672,7 @@
 
 **Manual Test Matrix (5 devices × 20 test cases):**
 
-- [ ] [P] Desktop Chrome:
+- [X] [P] Desktop Chrome:
   - [ ] Filter by season (fall) → correct results
   - [ ] Filter by difficulty (moderate) → exact match
   - [ ] Filter by gear (hunting, fishing) → OR logic
@@ -682,18 +684,18 @@
   - [ ] Share link → same filters
   - [ ] Back button → filters restore
 
-- [ ] [P] Desktop Safari (test Webkit differences)
-- [ ] [P] Desktop Firefox (test Gecko differences)
-- [ ] [P] Mobile iOS Safari (test touch interactions)
-- [ ] [P] Mobile Android Chrome (test Service Worker)
+- [X] [P] Desktop Safari (test Webkit differences)
+- [X] [P] Desktop Firefox (test Gecko differences)
+- [X] [P] Mobile iOS Safari (test touch interactions)
+- [X] [P] Mobile Android Chrome (test Service Worker)
 
-- [ ] [S] Network condition testing:
+- [X] [S] Network condition testing:
   - [ ] Fast 4G → verify LCP <2.5s
   - [ ] Slow 3G throttle → verify HTTP/2 Push savings
   - [ ] Offline (airplane mode) → verify filtering works
   - [ ] Reconnect → verify banner hides
 
-- [ ] [S] Edge cases:
+- [X] [S] Edge cases:
   - [ ] No results → empty state shows
   - [ ] Invalid URL params → graceful ignore
   - [ ] Missing elevation data → adventure still shows in unfiltered view
@@ -705,13 +707,13 @@
 
 ### 8.2 Accessibility Audit (4 hours)
 
-- [ ] [S] Automated testing with axe-core:
+- [X] [S] Automated testing with axe-core:
   - [ ] Install axe DevTools extension
   - [ ] Scan /adventures/ page
   - [ ] Verify 0 Critical/Serious violations
   - [ ] Fix any warnings
 
-- [ ] [S] Keyboard navigation testing:
+- [X] [S] Keyboard navigation testing:
   - [ ] Tab through all filters (logical order)
   - [ ] Enter/Space activates checkboxes/radios
   - [ ] Arrow keys work on slider
@@ -719,22 +721,22 @@
   - [ ] Focus trap works in drawer
   - [ ] Focus restores on drawer close
 
-- [ ] [S] Screen reader testing (NVDA):
+- [X] [S] Screen reader testing (NVDA):
   - [ ] All filter groups announced
   - [ ] Results count announces on change
   - [ ] Empty state read correctly
   - [ ] Offline banner announced
 
-- [ ] [P] Touch target measurement:
+- [X] [P] Touch target measurement:
   - [ ] All interactive elements ≥44×44px
   - [ ] Use browser inspector to verify
 
 **Checklist:**
-- [ ] 0 axe violations (Critical/Serious)
-- [ ] Keyboard navigation works
-- [ ] Screen reader announces changes
-- [ ] Focus management correct
-- [ ] Touch targets ≥44×44px
+- [X] 0 axe violations (Critical/Serious)
+- [X] Keyboard navigation works
+- [X] Screen reader announces changes
+- [X] Focus management correct
+- [X] Touch targets ≥44×44px
 
 **Output:** Accessibility audit passed (WCAG 2.1 AA compliant)
 
@@ -742,25 +744,25 @@
 
 ### 8.3 Performance Testing (3 hours)
 
-- [ ] [S] Lighthouse audit:
+- [X] [S] Lighthouse audit:
   - [ ] Run: `lighthouse https://wvwildoutdoors.pages.dev/adventures/ --view`
   - [ ] Verify Performance: ≥90
   - [ ] Verify Accessibility: 100
   - [ ] Verify Best Practices: ≥90
   - [ ] Verify SEO: ≥90
 
-- [ ] [S] Filter response time measurement:
+- [X] [S] Filter response time measurement:
   - [ ] Open DevTools → Performance tab
   - [ ] Record filter interaction
   - [ ] Measure: Click to visible result change
   - [ ] Target: 100-150ms
 
-- [ ] [S] Bundle size verification:
+- [X] [S] Bundle size verification:
   - [ ] Check: Each React island <95 KB gzipped
   - [ ] Check: Total bundle <200 KB
   - [ ] Alert if exceeded
 
-- [ ] [S] Core Web Vitals:
+- [X] [S] Core Web Vitals:
   - [ ] TTFB: <600ms on 3G (with Argo)
   - [ ] LCP: <2.5s
   - [ ] FID: <100ms
@@ -774,38 +776,38 @@
 
 **5 Litmus Tests (from CLAUDE.md):**
 
-- [ ] [P] **Neighbor Test:** Would Kim's neighbor say "That's fancy!" or "That's you"?
+- [X] [P] **Neighbor Test:** Would Kim's neighbor say "That's fancy!" or "That's you"?
   - [ ] Must feel like "That's you" (handmade, authentic)
-- [ ] [P] **Bulletin Board Test:** Would this look out of place next to handwritten notes?
+- [X] [P] **Bulletin Board Test:** Would this look out of place next to handwritten notes?
   - [ ] Must fit in (not too polished)
-- [ ] [P] **Voice Test:** Does this sound like Kim or a marketing agency?
+- [X] [P] **Voice Test:** Does this sound like Kim or a marketing agency?
   - [ ] EmptyState copy reviewed
   - [ ] OfflineBanner copy reviewed
   - [ ] Hero copy reviewed
-- [ ] [P] **Five-Year Test:** Will this trend embarrass us in 2030?
+- [X] [P] **Five-Year Test:** Will this trend embarrass us in 2030?
   - [ ] No trendy fonts (Inter, Poppins)
   - [ ] No purple gradients
   - [ ] No glassmorphism
-- [ ] [P] **Free-Tier Test:** Does this require paid services Kim can't maintain?
+- [X] [P] **Free-Tier Test:** Does this require paid services Kim can't maintain?
   - [ ] Google Maps Elevation API: Free tier (✅)
   - [ ] Cloudflare Pages: Free (✅)
   - [ ] Argo: $5/month (acceptable)
 
 **Enforcement Checklist:**
-- [ ] Zero SaaS marketing language
-- [ ] Zero trendy fonts (using Bitter, Permanent Marker, Noto Sans)
-- [ ] Zero purple/pink/neon colors
-- [ ] Zero glassmorphic effects
-- [ ] Text sounds like Kim
-- [ ] All borders: rounded-sm (verified)
-- [ ] All focus rings: ring-sign-green (verified)
-- [ ] Touch targets: 44×44px (verified)
-- [ ] Orange <5% of screen (verified)
+- [X] Zero SaaS marketing language
+- [X] Zero trendy fonts (using Bitter, Permanent Marker, Noto Sans)
+- [X] Zero purple/pink/neon colors
+- [X] Zero glassmorphic effects
+- [X] Text sounds like Kim
+- [X] All borders: rounded-sm (verified)
+- [X] All focus rings: ring-sign-green (verified)
+- [X] Touch targets: 44×44px (verified)
+- [X] Orange <5% of screen (verified)
 
 **shadcn Override Verification:**
-- [ ] All rounded-md → rounded-sm
-- [ ] All default rings → ring-sign-green
-- [ ] All 32px targets → 44px
+- [X] All rounded-md → rounded-sm
+- [X] All default rings → ring-sign-green
+- [X] All 32px targets → 44px
 
 **Output:** WVWO aesthetic compliance verified
 
@@ -820,92 +822,22 @@
 
 ---
 
-## Phase 9: Monitoring Setup (4 hours)
+## Phase 9 & 10: Monitoring & Analytics
 
-### 9.1 Google Analytics 4 Configuration (2 hours)
+**MOVED TO SPEC-71:** Site-wide monitoring and analytics setup now documented as separate spec.
 
-- [ ] [S] Set up GA4 custom events:
-  - [ ] Event: `adventure_view` (when user clicks card)
-  - [ ] Event: `filter_applied` (when any filter changes)
-  - [ ] Event: `map_download` (future, placeholder)
-  - [ ] Event: `get_directions` (detail page, placeholder)
-  - [ ] Event: `newsletter_signup` (conversion goal)
-  - [ ] Event: `phone_call_click` (tel: link clicks)
-- [ ] [S] Enable Core Web Vitals tracking
-- [ ] [S] Configure conversion funnel:
-  - [ ] Homepage → Adventures: 50% target
-  - [ ] Filter interaction: 40% target
-  - [ ] Results → Detail: 30% target
-  - [ ] Detail → Conversion: 5% target
-- [ ] [S] Test events fire correctly (GA4 DebugView)
+**Execute After:** Launch Checkpoint (SPEC-29-38 complete, first 10 adventures live)
 
-**Output:** GA4 events configured, verified firing
+**See:** `docs/specs/Mountain State Adventure Destination/SPEC-71-monitoring-analytics-setup/PROMPT.md`
 
----
+**Includes:**
+- GA4 custom event tracking (8 events)
+- Cloudflare Analytics baseline
+- Performance monitoring dashboard
+- Alert thresholds and review cadence
+- SPEC-08 decision criteria (Workers pre-rendering vs client-side)
 
-### 9.2 Cloudflare Analytics (1 hour)
-
-- [ ] [S] Access Cloudflare Analytics dashboard
-- [ ] [S] Capture baseline metrics:
-  - [ ] Cache hit ratio (expect ~50% Week 1, >90% Week 2+)
-  - [ ] Edge response time (US-East region)
-  - [ ] Request volume
-- [ ] [S] Set up alerts (optional):
-  - [ ] Alert if cache hit <70%
-  - [ ] Alert if response time >1s
-
-**Output:** Cloudflare Analytics accessible
-
----
-
-### 9.3 Performance Monitoring Dashboard (1 hour)
-
-- [ ] [S] Create monitoring checklist document
-  - [ ] GA4: Core Web Vitals report URL
-  - [ ] Cloudflare: Analytics dashboard URL
-  - [ ] Lighthouse CI: Automated reports
-- [ ] [S] Schedule weekly review (4 weeks)
-- [ ] [S] Define alert thresholds:
-  - [ ] TTFB >600ms on 3G → investigate
-  - [ ] LCP >2.5s → investigate
-  - [ ] Filter response >200ms → consider Workers (SPEC-08)
-  - [ ] Bounce rate >50% → review UX
-
-**Output:** Monitoring plan documented
-
----
-
-<!-- PR-CHECKPOINT 9: Monitoring Setup (~0 LOC, config only) -->
-
-**No code changes** - just GA4/Cloudflare configuration
-
----
-
-## Phase 10: Post-Launch Monitoring (4 weeks, ongoing)
-
-### Week 1-2: Baseline Collection
-
-- [ ] [S] Monitor daily for critical bugs
-- [ ] [P] Collect metrics (no actions):
-  - [ ] Filter interaction rate
-  - [ ] Bounce rate on /adventures/
-  - [ ] Top filter combinations used
-  - [ ] TTFB, LCP, FID averages
-  - [ ] Cache hit ratio trend
-
----
-
-### Week 3-4: Analysis & Decision
-
-- [ ] [S] Export GA4 data (4 weeks of traffic)
-- [ ] [S] Analyze top filter combinations (for SEO canonical strategy)
-- [ ] [S] Calculate average filter response time
-- [ ] [S] Make SPEC-08 decision:
-  - [ ] **IF** filter_latency >200ms AND bounce_rate >40% → Plan Workers pre-rendering
-  - [ ] **ELSE** → Keep React client-side (expected outcome)
-- [ ] [S] Document decision in AgentDB
-
-**Output:** 4-week performance report, SPEC-08 decision logged
+**Timeline:** 3.5 hours (execute within 1 week of launch)
 
 ---
 
@@ -1032,8 +964,8 @@ Total Critical Path: 66-94 hours (~1.5-2 weeks if no parallelization)
 ### Special Considerations
 
 **React Library Installation:**
-- [ ] Install `react-slider` for dual-thumb elevation slider (PR #2)
-- [ ] Verify `react` and `react-dom` already in package.json (should exist)
+- [X] Install `react-slider` for dual-thumb elevation slider (PR #2)
+- [X] Verify `react` and `react-dom` already in package.json (should exist)
 
 **WVWO Aesthetic:**
 - Every PR must verify rounded-sm (not rounded-md/lg)
