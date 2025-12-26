@@ -10,18 +10,15 @@ import { AdventureCard } from './AdventureCard';
 import { EmptyState } from './EmptyState';
 
 /**
- * Render a responsive, accessible results region for filtered adventures.
+ * Render the main results region for filtered adventures with accessible status text.
  *
- * Displays an ARIA-live header that either states "No Adventures Found" or
- * "Showing {count} of {totalCount} Adventure(s)" with correct singular/plural wording,
- * and a contextual subtext prompting the user to adjust or narrow filters.
+ * Displays an ARIA-live header that reports either that no adventures were found
+ * or the number of shown results out of the total, followed by contextual subtext.
+ * When there are no results, renders the EmptyState component. When results exist,
+ * renders a responsive 1–3 column grid of AdventureCard components; each item is
+ * assigned a staggered entrance delay and receives its list `index` as a prop.
  *
- * When there are no filtered adventures, renders an EmptyState. When results exist,
- * renders a responsive 1–3 column grid of AdventureCard items; each card enters with
- * a staggered fade-in animation.
- *
- * @returns A React element containing the main results region with either an empty state
- *          or a responsive grid of adventure cards.
+ * @returns The main results element containing either an empty state or a responsive grid of adventure cards
  */
 export function FilteredGrid() {
   const { filteredAdventures, totalCount } = useFilters();
