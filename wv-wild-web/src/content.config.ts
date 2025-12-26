@@ -46,6 +46,8 @@ const adventures = defineCollection({
         }).optional(),
         gear: z.array(z.string()).optional(), // e.g., ["turkey vest", "box call"]
         elevation_gain: z.number().optional(), // SPEC-07: Elevation in feet for filtering (e.g., 1200)
+        drive_time: z.string().optional(),    // SPEC-08: Drive time from shop (e.g., "25 min")
+        kim_hook: z.string().optional(),      // SPEC-08: Kim's personal teaser for card display (future use)
         suitability: z.array(SuitabilityEnum).optional(), // SPEC-07: Accessibility flags
         images: z.array(ImageSchema).optional(),
     }),
