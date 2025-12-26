@@ -32,6 +32,7 @@ export const AdventureCard = React.memo(function AdventureCard({
   return (
     <a
       href={`/adventures/${adventure.id}/`}
+      aria-label={`View ${title} adventure at ${location}`}
       className="group block bg-white rounded-sm border-2 border-stone-200 border-l-4 border-l-sign-green overflow-hidden hover:border-l-brand-orange motion-safe:transition-all motion-safe:duration-300 motion-reduce:transition-none focus:outline-none focus:ring-2 focus:ring-sign-green"
     >
       {/* Image */}
@@ -41,6 +42,7 @@ export const AdventureCard = React.memo(function AdventureCard({
             src={adventure.data.images[0].src}
             alt={adventure.data.images[0].alt}
             loading="lazy"
+            decoding="async"
             className="w-full h-full object-cover group-hover:scale-105 motion-safe:transition-transform motion-safe:duration-500 motion-reduce:transition-none"
           />
         </div>

@@ -74,12 +74,13 @@ export interface Adventure {
     season: ('spring' | 'summer' | 'fall' | 'winter')[];
     difficulty: 'easy' | 'moderate' | 'challenging' | 'rugged';
     location: string;
+    coordinates?: { lat: number; lng: number };  // Optional GPS coordinates
     gear?: string[];
     elevation_gain?: number;
     drive_time?: string;    // SPEC-08: Drive time from shop (e.g., "25 min")
     kim_hook?: string;      // SPEC-08: Kim's personal teaser for card display
     suitability?: ('dog-friendly' | 'kid-friendly' | 'wheelchair-accessible' | 'paved')[];
-    images?: { src: string; alt: string }[];
+    images?: { src: string; alt: string; caption?: string }[];  // Added caption field
   };
 }
 

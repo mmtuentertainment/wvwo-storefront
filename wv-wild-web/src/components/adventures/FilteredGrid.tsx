@@ -63,7 +63,7 @@ export function FilteredGrid() {
               className="motion-safe:animate-[gentle-reveal_0.8s_cubic-bezier(0.25,0.46,0.45,0.94)_both] motion-reduce:animate-none"
               style={{
                 opacity: 0,
-                animationDelay: `${index * 100}ms`,
+                animationDelay: `${Math.min(index, 10) * 100}ms`,
               }}
             >
               <AdventureCard adventure={adventure} index={index} />
