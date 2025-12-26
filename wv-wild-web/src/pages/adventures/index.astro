@@ -17,6 +17,12 @@ import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import { AdventuresHub } from '../../components/adventures/AdventuresHub';
 import { OfflineBanner } from '../../components/adventures/OfflineBanner';
+import { GuideBanner } from '../../components/GuideBanner';
+
+// Extract URL parameters for GuideBanner
+const url = new URL(Astro.request.url);
+const season = url.searchParams.getAll('season');
+const activity = url.searchParams.getAll('activity');
 
 // Fetch all adventures from content collection
 const adventuresRaw = await getCollection('adventures');
@@ -136,6 +142,9 @@ const collectionPageSchema = {
     {/* Main Content: Filters + Grid */}
     <section class="py-8 md:py-12">
       <div class="container mx-auto px-4">
+        {/* Guide Banner - Shows active filters and provides feedback */}
+        <GuideBanner season={season} activity={activity} client:visible />
+
         {/* React Island: AdventuresHub with client:only (skip SSR - uses window/URL APIs) */}
         <AdventuresHub adventures={adventures} client:only="react" />
       </div>
