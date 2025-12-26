@@ -4,8 +4,12 @@ interface GuideBannerProps {
 }
 
 export function GuideBanner({ season = [], activity = [] }: GuideBannerProps) {
+  // Normalize to lowercase for case-insensitive matching
+  const normalizedSeason = season.map(s => s.toLowerCase());
+  const normalizedActivity = activity.map(a => a.toLowerCase());
+
   // Buck Season: fall + hunting
-  if (season.includes('fall') && activity.includes('hunting')) {
+  if (normalizedSeason.includes('fall') && normalizedActivity.includes('hunting')) {
     return (
       <div className="bg-brand-brown/10 border-l-4 border-l-brand-orange p-4 mb-6 rounded-sm">
         <p className="text-brand-brown font-body">
@@ -22,7 +26,7 @@ export function GuideBanner({ season = [], activity = [] }: GuideBannerProps) {
   }
 
   // Turkey Season: spring + hunting
-  if (season.includes('spring') && activity.includes('hunting')) {
+  if (normalizedSeason.includes('spring') && normalizedActivity.includes('hunting')) {
     return (
       <div className="bg-brand-brown/10 border-l-4 border-l-brand-orange p-4 mb-6 rounded-sm">
         <p className="text-brand-brown font-body">
