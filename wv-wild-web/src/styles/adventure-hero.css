@@ -91,7 +91,6 @@
 @media print {
   .adventure-hero {
     break-inside: avoid;
-    page-break-inside: avoid;
   }
 
   .adventure-hero__cta {

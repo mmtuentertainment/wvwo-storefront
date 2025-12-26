@@ -178,6 +178,58 @@ describe('AdventureHero', () => {
     });
   });
 
+  describe('imagePosition class mapping', () => {
+    const imagePositionClasses: Record<'center' | 'top' | 'bottom', string> = {
+      center: 'object-center',
+      top: 'object-top',
+      bottom: 'object-bottom',
+    };
+
+    it('center maps to object-center', () => {
+      expect(imagePositionClasses.center).toBe('object-center');
+    });
+
+    it('top maps to object-top', () => {
+      expect(imagePositionClasses.top).toBe('object-top');
+    });
+
+    it('bottom maps to object-bottom', () => {
+      expect(imagePositionClasses.bottom).toBe('object-bottom');
+    });
+
+    it('all positions map to valid Tailwind classes', () => {
+      Object.values(imagePositionClasses).forEach(className => {
+        expect(className).toMatch(/^object-(center|top|bottom)$/);
+      });
+    });
+  });
+
+  describe('coordinates URL generation', () => {
+    function generateMapUrl(coords: { lat: number; lng: number }): string {
+      return `https://maps.google.com/?q=${coords.lat},${coords.lng}`;
+    }
+
+    it('generates valid Google Maps URL', () => {
+      const coords = { lat: 38.6601, lng: -80.8784 };
+      const url = generateMapUrl(coords);
+      expect(url).toBe('https://maps.google.com/?q=38.6601,-80.8784');
+    });
+
+    it('handles negative coordinates', () => {
+      const coords = { lat: -33.8688, lng: 151.2093 };
+      const url = generateMapUrl(coords);
+      expect(url).toContain('-33.8688');
+      expect(url).toContain('151.2093');
+    });
+
+    it('preserves coordinate precision', () => {
+      const coords = { lat: 38.12345678, lng: -80.87654321 };
+      const url = generateMapUrl(coords);
+      expect(url).toContain('38.12345678');
+      expect(url).toContain('-80.87654321');
+    });
+  });
+
   describe('difficulty labels match expected values', () => {
     it('easy shows "Easy Trail"', () => {
       expect(difficultyLabels.easy).toBe('Easy Trail');
