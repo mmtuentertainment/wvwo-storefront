@@ -32,7 +32,7 @@ interface PaymentSectionProps {
 
 export function PaymentSection({
   total,
-  onPaymentSuccess,
+  onPaymentSuccess: _onPaymentSuccess, // Reserved for future payment integration
   onPaymentError,
   isProcessing,
   setIsProcessing,

@@ -1,0 +1,227 @@
+/**
+ * Adventure Hero Component Styles
+ * SPEC-09: Motion Architecture & Print Optimization
+ *
+ * Custom CSS for animations, focus indicators, print styles, and
+ * container queries that cannot be achieved with inline Tailwind utilities.
+ *
+ * @accessibility
+ * - Focus indicators meet WCAG 2.2 2.4.13 requirements (3px, 3:1 contrast)
+ * - Reduced motion support disables all animations
+ * - High contrast mode support for Windows users
+ * - Print styles optimize for paper output
+ */
+
+/* ==========================================================================
+   Morning Mist Lift Animation (GPU-Accelerated)
+   ========================================================================== */
+
+/**
+ * Signature WVWO animation - gentle rise like morning mist lifting
+ * from the hollers. Uses GPU-accelerated properties exclusively.
+ *
+ * Performance optimizations:
+ * - translate3d() forces GPU compositor layer
+ * - opacity is compositor-only property
+ * - No layout or paint triggers
+ */
+@keyframes morning-mist-lift {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 12px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* ==========================================================================
+   Animation Application with GPU Optimization
+   ========================================================================== */
+
+.adventure-hero__animated {
+  animation: morning-mist-lift 0.6s ease-out both;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* ==========================================================================
+   Container Query Support
+   ========================================================================== */
+
+/**
+ * Container queries enable component-level responsiveness.
+ * Allows AdventureHero to adapt when placed in sidebars, modals, or cards.
+ *
+ * Browser Support: 91.5%+ (Chrome 105+, Firefox 110+, Safari 16+)
+ */
+.adventure-hero {
+  container-type: inline-size;
+  container-name: adventure-hero;
+}
+
+@container adventure-hero (max-width: 640px) {
+  .adventure-hero h1 {
+    font-size: clamp(1.5rem, 5cqi, 2rem);
+  }
+}
+
+/* ==========================================================================
+   Stagger Classes
+   ========================================================================== */
+
+.hero-stagger-0 {
+  animation-delay: 0ms;
+}
+
+.hero-stagger-1 {
+  animation-delay: 100ms;
+}
+
+.hero-stagger-2 {
+  animation-delay: 180ms;
+}
+
+.hero-stagger-3 {
+  animation-delay: 260ms;
+}
+
+/* ==========================================================================
+   Title Truncation
+   ========================================================================== */
+
+/**
+ * Multi-line text truncation with ellipsis.
+ * Limits long titles to 3 lines maximum.
+ */
+.adventure-hero__title--truncate {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   CRITICAL-5: Focus Indicators (WCAG 2.2 2.4.13)
+   ========================================================================== */
+
+/**
+ * Focus indicators for interactive elements.
+ * Meets WCAG 2.2 Focus Appearance (Enhanced) requirements:
+ * - Minimum 3px outline thickness
+ * - 3:1 contrast against adjacent colors
+ */
+.adventure-hero__cta:focus-visible,
+.adventure-hero__maps-link:focus-visible,
+.adventure-hero a:focus-visible {
+  outline: 3px solid var(--brand-orange, #FF6F00);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* High Contrast Mode support (Windows) */
+@media (forced-colors: active) {
+  .adventure-hero__cta:focus-visible,
+  .adventure-hero__maps-link:focus-visible,
+  .adventure-hero a:focus-visible {
+    outline: 3px solid CanvasText;
+  }
+}
+
+/* ==========================================================================
+   Reduced Motion Protection
+   ========================================================================== */
+
+/**
+ * CRITICAL: Respect user preferences for reduced motion.
+ * Animations are disabled but content remains visible.
+ */
+@media (prefers-reduced-motion: reduce) {
+  .adventure-hero__animated {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    will-change: auto;
+  }
+
+  /* Ensure all stagger elements are visible */
+  .hero-stagger-0,
+  .hero-stagger-1,
+  .hero-stagger-2,
+  .hero-stagger-3 {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ==========================================================================
+   High Contrast Mode Support
+   ========================================================================== */
+
+@media (prefers-contrast: high) {
+  .adventure-hero {
+    border: 2px solid white;
+  }
+
+  .adventure-hero h1 {
+    text-shadow: none;
+  }
+}
+
+/* ==========================================================================
+   Print Styles - Comprehensive Optimization
+   ========================================================================== */
+
+@media print {
+  /* Prevent page breaks within the hero */
+  .adventure-hero {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    background: #fff !important;
+  }
+
+  /* Hide decorative and interactive elements */
+  .adventure-hero__cta,
+  .adventure-hero > [role="presentation"],
+  .adventure-hero > [aria-hidden="true"]:not(img),
+  .adventure-hero .absolute.inset-0.opacity-10 {
+    display: none !important;
+  }
+
+  /* Disable animations for print rendering */
+  .adventure-hero__animated {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* Image optimization */
+  .adventure-hero img {
+    max-width: 100%;
+    page-break-inside: avoid;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  /* Text readability */
+  .adventure-hero h1,
+  .adventure-hero p {
+    color: #000 !important;
+  }
+
+  /* Show link destinations for reference */
+  .adventure-hero a[href]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    font-style: italic;
+    color: #666;
+  }
+
+  /* Special handling for map links */
+  .adventure-hero a[href^="https://maps"]::after {
+    content: " [Map Link]";
+  }
+}

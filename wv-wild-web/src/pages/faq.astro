@@ -137,14 +137,14 @@ const faqSchema = {
       <div class="container mx-auto px-4">
         <div class="max-w-3xl mx-auto space-y-12">
 
-          {faqs.map((category, catIndex) => (
+          {faqs.map((category) => (
             <div>
               <h2 class="font-display font-bold text-xl text-brand-brown mb-6 pb-2 border-b border-brand-brown/15">
                 {category.category}
               </h2>
 
               <div class="space-y-4">
-                {category.questions.map((faq, qIndex) => (
+                {category.questions.map((faq) => (
                   <details class="group bg-white rounded-sm border border-brand-brown/15">
                     <summary class="flex items-center justify-between cursor-pointer p-5 list-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange">
                       <span class="font-medium text-brand-brown group-hover:text-sign-green motion-safe:transition-colors motion-reduce:transition-none pr-4">

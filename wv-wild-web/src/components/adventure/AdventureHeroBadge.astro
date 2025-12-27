@@ -1,0 +1,68 @@
+---
+/**
+ * AdventureHeroBadge.astro
+ * SPEC-09: Adventure Hero Badge Component
+ *
+ * Displays contextual badges for difficulty, season, or drive time.
+ * Uses shape icons for color-blind accessibility on difficulty badges.
+ *
+ * @accessibility
+ * - Screen reader labels provide context (e.g., "Difficulty level: Moderate")
+ * - Shape icons remain distinguishable regardless of color perception
+ * - Color contrast meets WCAG 2.1 AA (4.5:1 minimum)
+ */
+import type { Difficulty, BadgeType } from '../../types/adventure';
+import {
+  DIFFICULTY_SHAPES,
+  DIFFICULTY_COLORS,
+  BADGE_SR_LABELS,
+} from '../../types/adventure';
+
+interface Props {
+  /** Badge category: difficulty, season, or drive-time */
+  type: BadgeType;
+  /** Display text for the badge */
+  value: string;
+  /** Difficulty level - required when type='difficulty' */
+  difficulty?: Difficulty;
+}
+
+const { type, value, difficulty } = Astro.props;
+
+/**
+ * Determine badge styling based on type.
+ * Uses centralized DIFFICULTY_COLORS for consistent contrast ratios.
+ */
+function getBadgeClasses(): string {
+  const baseClasses = 'inline-flex items-center gap-1.5 px-4 py-2 rounded-sm font-display font-bold text-sm';
+
+  switch (type) {
+    case 'difficulty':
+      return `${baseClasses} ${difficulty ? DIFFICULTY_COLORS[difficulty] : 'bg-brand-brown text-brand-cream'}`;
+    case 'season':
+      return `${baseClasses} bg-brand-cream text-brand-brown`;
+    case 'drive-time':
+      return `${baseClasses} bg-brand-brown/80 text-brand-cream`;
+    default:
+      return baseClasses;
+  }
+}
+
+const badgeClasses = getBadgeClasses();
+const shapeIcon = type === 'difficulty' && difficulty ? DIFFICULTY_SHAPES[difficulty] : null;
+const srLabel = BADGE_SR_LABELS[type];
+---
+
+<span class={badgeClasses}>
+  {type === 'difficulty' && shapeIcon && (
+    <span aria-hidden="true">{shapeIcon}</span>
+  )}
+  {type === 'drive-time' && (
+    <svg aria-hidden="true" class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/>
+    </svg>
+  )}
+  {/* CRITICAL-1: Screen reader context for badge type */}
+  <span class="sr-only">{srLabel}</span>
+  <span>{value}</span>
+</span>

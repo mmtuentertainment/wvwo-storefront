@@ -193,11 +193,11 @@ const schemaData = {
 		<title>{title}</title>
 
 		<!-- Schema.org LocalBusiness structured data -->
-		<script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
+		<script is:inline type="application/ld+json" set:html={JSON.stringify(schemaData)} />
 
 		<!-- Additional page-specific schemas (Product, Breadcrumb, etc.) -->
 		{additionalSchemas.map(schema => (
-			<script type="application/ld+json" set:html={JSON.stringify(schema)} />
+			<script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
 		))}
 
 		<!-- Service Worker Registration (SPEC-07 PR #5: Offline Support) -->

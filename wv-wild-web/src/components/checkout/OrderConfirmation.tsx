@@ -86,7 +86,7 @@ export function OrderConfirmation() {
    * Polls the status endpoint until webhook updates order status to "paid".
    * Maximum 5 attempts with 2-second intervals (10 seconds total).
    */
-  const pollPaymentStatus = async (orderId: string, initialStatus: PaymentStatus): Promise<void> => {
+  const pollPaymentStatus = async (orderId: string, _initialStatus: PaymentStatus): Promise<void> => {
     const maxAttempts = 5;
     const pollInterval = 2000; // 2 seconds
 

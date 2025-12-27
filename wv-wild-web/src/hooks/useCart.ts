@@ -17,9 +17,6 @@ import {
   toggleCart,
   clearCartRestoreError,
   clearCartPersistenceWarning,
-  type CartItem,
-  type CartSummaryData,
-  type PersistenceMode
 } from '@/stores/cartStore';
 
 /**

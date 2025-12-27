@@ -101,30 +101,15 @@
           {
             "type": "command",
             "command": "npx claude-flow@alpha hooks session-end --generate-summary true --persist-state true --export-metrics true"
-          },
-          {
-            "type": "command",
-            "command": "pkill -f 'node.*claude-flow.*hooks' 2>/dev/null; pkill -f 'node.*agentdb' 2>/dev/null; echo 'Session cleanup complete'; exit 0"
           }
         ]
       }
     ]
   },
   "includeCoAuthoredBy": true,
-  "enabledMcpjsonServers": ["claude-flow"],
+  "enabledMcpjsonServers": ["claude-flow", "ruv-swarm"],
   "statusLine": {
     "type": "command",
     "command": ".claude/statusline-command.sh"
-  },
-  "extraKnownMarketplaces": {
-    "wvwo-local": {
-      "source": {
-        "source": "directory",
-        "path": "./plugins"
-      }
-    }
-  },
-  "enabledPlugins": {
-    "wvwo-speckit@wvwo-local": true
   }
 }

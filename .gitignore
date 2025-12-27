@@ -36,6 +36,7 @@ screenshots/
 test-screenshots/
 test-*.js
 *-test-results/
+test-results/
 .playwright/
 
 # OS files
@@ -84,17 +85,32 @@ backup/
 *.bak
 
 # Docker local development
-.env
-.env.local
 docker-compose.override.yml
 volumes/
 
 # Docker artifacts
 *.tar
-*.tar.gz
 
 # Spec-kit (separate git repository)
 spec-kit/
+
+
+# Removed Windows wrapper files per user request
+hive-mind-prompt-*.txt
+
+# Local dev files
+claude-flow.cmd
+old session.txt
+
+# Source images (processed versions in public/)
+docs/store pictures/
+
+# Claude Intelligence System (local memory)
+.agentdb/
+docs/CLAUDE_INTELLIGENCE_ENHANCEMENT_ANALYSIS.md
+docs/WVWO-INTELLIGENCE-CHEATSHEET.md
+docs/research/
+refernec for claude agents/
 
 # Claude Flow generated files
 .mcp.json
@@ -112,26 +128,8 @@ memory/agents/*
 coordination/memory_bank/*
 coordination/subtasks/*
 coordination/orchestration/*
-*.db
 *.db-journal
 *.db-wal
-*.sqlite
 *.sqlite-journal
 *.sqlite-wal
 claude-flow
-# Removed Windows wrapper files per user request
-hive-mind-prompt-*.txt
-
-# Local dev files
-claude-flow.cmd
-old session.txt
-
-# Source images (processed versions in public/)
-docs/store pictures/
-
-# Claude Intelligence System (local memory)
-.agentdb/
-docs/CLAUDE_INTELLIGENCE_ENHANCEMENT_ANALYSIS.md
-docs/WVWO-INTELLIGENCE-CHEATSHEET.md
-docs/research/
-refernec for claude agents/

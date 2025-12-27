@@ -124,9 +124,9 @@ npx claude-flow@alpha hooks post-task \
 interface Props {
   title: string;                      // Adventure name (h1)
   description: string;                // Lead paragraph
-  difficulty: 'easy' | 'moderate' | 'advanced';
+  difficulty: 'easy' | 'moderate' | 'challenging' | 'rugged';
   season: string;                     // "Year-round", "Spring-Fall", etc.
-  image: string;                      // Hero image path
+  image: ImageMetadata;               // Hero image (Astro asset)
   imageAlt: string;                   // Accessibility
   imagePosition?: 'center' | 'top' | 'bottom';  // object-position
 }
@@ -166,9 +166,9 @@ npx claude-flow@alpha hooks post-edit \
 interface Props {
   title: string;
   description: string;
-  difficulty: 'easy' | 'moderate' | 'advanced';
+  difficulty: 'easy' | 'moderate' | 'challenging' | 'rugged';
   season: string;
-  image: string;
+  image: ImageMetadata;
   imageAlt: string;
   imagePosition?: 'center' | 'top' | 'bottom';
 }
