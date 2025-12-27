@@ -118,3 +118,64 @@ export const BADGE_SR_LABELS: Record<BadgeType, string> = {
   season: 'Best season: ',
   'drive-time': 'Drive time from shop: ',
 };
+
+// ============================================================================
+// QUICK STATS TYPES (SPEC-10)
+// ============================================================================
+
+/**
+ * Predefined icon names for AdventureQuickStats component.
+ * Maps to SVG paths in STAT_ICON_PATHS.
+ */
+export const StatIconSchema = z.enum([
+  'distance',
+  'time',
+  'calendar',
+  'check',
+  'info',
+  'location',
+  'area',
+  'none',
+]);
+
+/** Stat icon type - predefined icon names */
+export type StatIcon = z.infer<typeof StatIconSchema>;
+
+/**
+ * Individual stat item for AdventureQuickStats.
+ * Represents a single statistic with value, label, and optional icon.
+ */
+export const StatItemSchema = z.object({
+  /** Display value (e.g., "2,790", "30 min", "Year-Round") */
+  value: z.string(),
+  /** Label below value (e.g., "Acres", "From Shop", "Access") */
+  label: z.string(),
+  /** Optional predefined icon name */
+  icon: StatIconSchema.optional(),
+  /** Optional custom SVG path data (overrides predefined icon) */
+  customIconPath: z.string().optional(),
+});
+
+/** Stat item type for AdventureQuickStats */
+export type StatItem = z.infer<typeof StatItemSchema>;
+
+/** Column count options for AdventureQuickStats grid */
+export type StatColumns = 2 | 3 | 4;
+
+/**
+ * SVG path data for predefined stat icons.
+ * Uses Heroicons-style stroke paths (24x24 viewBox).
+ */
+export const STAT_ICON_PATHS: Record<StatIcon, string | null> = {
+  distance:
+    'M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7',
+  time: 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z',
+  calendar:
+    'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z',
+  check: 'M5 13l4 4L19 7',
+  info: 'M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
+  location:
+    'M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z',
+  area: 'M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6z',
+  none: null,
+};

@@ -190,3 +190,106 @@ swarm/spec-09/blockers → Current impediments
 - SC-005: 100% test coverage
 - SC-006: Zero axe violations
 - SC-007: Kim approval
+
+---
+
+# SPEC-10 AdventureQuickStats Memory State
+
+**Added**: 2025-12-27
+**Session ID**: spec-10-adventure-quick-stats
+**Status**: COMPLETE
+
+---
+
+## Implementation Summary
+
+### Component: AdventureQuickStats.astro
+
+Reusable component for displaying key statistics (distance, drive time, facilities, etc.) in a responsive grid. Replaces hardcoded "Quick Info" sections on adventure pages.
+
+### Files Created
+
+| File | Size | Purpose |
+|------|------|---------|
+| `src/components/adventure/AdventureQuickStats.astro` | ~3KB | Main stats grid component |
+| `src/components/adventure/__tests__/AdventureQuickStats.test.ts` | ~4KB | Unit tests |
+
+### Files Modified
+
+| File | Changes |
+|------|---------|
+| `src/types/adventure.ts` | Added `StatIcon`, `StatItem`, `StatColumns` types and `STAT_ICON_PATHS` |
+
+---
+
+## Props Interface
+
+```typescript
+interface Props {
+  stats: StatItem[];              // Array of stat items (2-6 recommended)
+  columns?: 2 | 3 | 4;           // Desktop columns (default: 4)
+  variant?: 'cream' | 'white';   // Background (default: 'cream')
+  ariaLabel?: string;            // Section label (default: 'Quick statistics')
+  animate?: boolean;             // Gentle reveal (default: true)
+}
+
+interface StatItem {
+  value: string;                 // Display value (e.g., "2,790", "30 min")
+  label: string;                 // Label text (e.g., "Acres", "From Shop")
+  icon?: StatIcon;               // Optional predefined icon
+  customIconPath?: string;       // Optional custom SVG path
+}
+```
+
+---
+
+## Predefined Icons
+
+| Icon Name | Description | SVG Path |
+|-----------|-------------|----------|
+| `distance` | Map/ruler | Heroicons outline map |
+| `time` | Clock | Heroicons outline clock |
+| `calendar` | Calendar | Heroicons outline calendar |
+| `check` | Checkmark | Heroicons outline check |
+| `info` | Info circle | Heroicons outline info |
+| `location` | Map pin | Heroicons outline map-pin |
+| `area` | Grid/area | Heroicons outline grid |
+| `none` | No icon | null |
+
+---
+
+## Usage Example
+
+```astro
+---
+import AdventureQuickStats from '../components/adventure/AdventureQuickStats.astro';
+
+const stats = [
+  { value: '2,790', label: 'Acres', icon: 'area' },
+  { value: '30 min', label: 'From Shop', icon: 'time' },
+  { value: 'Nicholas Co.', label: 'Location', icon: 'location' },
+  { value: 'Year-Round', label: 'Access', icon: 'calendar' },
+];
+---
+
+<AdventureQuickStats stats={stats} variant="white" />
+```
+
+---
+
+## WVWO Compliance
+
+- **Typography**: `font-display` for values, `font-body` for labels
+- **Colors**: `brand-brown` values, `brand-mud/60` labels, `sign-green` icons
+- **Background**: `bg-brand-cream` or `bg-white`
+- **Grid**: Mobile-first `grid-cols-2`, scales to `md:grid-cols-{columns}`
+- **Animation**: Gentle reveal respects `prefers-reduced-motion`
+
+---
+
+## Success Patterns (Reward 1.0)
+
+1. **Semantic HTML with `<dl>/<dt>/<dd>`** - Proper definition list structure for stats
+2. **Flexible icon system** - Predefined icons + custom SVG path support
+3. **Column configuration** - 2/3/4 columns with mobile-first responsive grid
+4. **Variant backgrounds** - cream (default) or white to match page context
