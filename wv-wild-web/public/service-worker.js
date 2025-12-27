@@ -233,7 +233,7 @@ self.addEventListener('fetch', (event) => {
       caches.match(request)
         .then((cachedResponse) => {
           // Start background fetch (don't await - fire and forget)
-          const fetchPromise = fetchWithRetry(request, 2)
+          void fetchWithRetry(request, 2)
             .then((networkResponse) => {
               if (networkResponse.status === 200) {
                 const responseClone = networkResponse.clone();

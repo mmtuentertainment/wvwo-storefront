@@ -4,39 +4,25 @@
  *
  * Tests component logic, difficulty mappings, and accessibility patterns.
  * Uses logic extraction since Astro components don't have native test renderer.
+ *
+ * @note Uses centralized types from types/adventure.ts to ensure consistency.
  */
 
 import { describe, it, expect } from 'vitest';
+import type { Difficulty } from '../../../types/adventure';
+import {
+  DIFFICULTY_SHAPES,
+  DIFFICULTY_COLORS,
+  DIFFICULTY_LABELS,
+} from '../../../types/adventure';
 
 // ============================================================================
-// Component Logic (extracted from AdventureHero.astro + AdventureHeroBadge.astro)
+// Alias centralized constants for test readability
 // ============================================================================
 
-type Difficulty = 'easy' | 'moderate' | 'challenging' | 'rugged';
-
-/** Shape icons for color-blind accessibility (from AdventureHeroBadge) */
-const difficultyShapes: Record<Difficulty, string> = {
-  easy: '\u25CF',      // ● (circle)
-  moderate: '\u25B2',  // ▲ (triangle)
-  challenging: '\u25A0',  // ■ (square)
-  rugged: '\u25C6',    // ◆ (diamond)
-};
-
-/** Color classes for each difficulty level (from AdventureHeroBadge) */
-const difficultyColors: Record<Difficulty, string> = {
-  easy: 'bg-sign-green text-white',
-  moderate: 'bg-brand-orange text-white',
-  challenging: 'bg-brand-mud text-brand-cream',
-  rugged: 'bg-red-800 text-white',
-};
-
-/** Difficulty labels for display (from AdventureHero) */
-const difficultyLabels: Record<Difficulty, string> = {
-  easy: 'Easy Trail',
-  moderate: 'Moderate',
-  challenging: 'Challenging',
-  rugged: 'Rugged Terrain',
-};
+const difficultyShapes = DIFFICULTY_SHAPES;
+const difficultyColors = DIFFICULTY_COLORS;
+const difficultyLabels = DIFFICULTY_LABELS;
 
 /** Generate hero ID for aria-labelledby (from AdventureHero) */
 function generateHeroId(slug?: string): string {
@@ -97,9 +83,10 @@ describe('AdventureHero', () => {
       expect(difficultyColors.easy).toContain('text-white');
     });
 
-    it('moderate maps to brand-orange', () => {
+    it('moderate maps to brand-orange with brown text for WCAG contrast', () => {
       expect(difficultyColors.moderate).toContain('bg-brand-orange');
-      expect(difficultyColors.moderate).toContain('text-white');
+      // text-brand-brown provides 5.81:1 contrast ratio (WCAG AA compliant)
+      expect(difficultyColors.moderate).toContain('text-brand-brown');
     });
 
     it('challenging maps to brand-mud', () => {

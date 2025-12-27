@@ -1,8 +1,11 @@
 import { test, expect } from '@playwright/test';
+import AxeBuilder from '@axe-core/playwright';
 
 /**
  * Adventure Hero Component E2E Tests
  * SPEC-09: Slot rendering, responsive layout, reduced motion
+ *
+ * Includes axe-core accessibility auditing for WCAG 2.2 compliance.
  */
 
 test.describe('AdventureHero Component', () => {
@@ -173,6 +176,90 @@ test.describe('AdventureHero Component', () => {
         // Element should have visible focus indicator
         expect(outlineStyle).toBeTruthy();
       }
+    });
+
+    test('badge container has role="group" with aria-label', async ({ page }) => {
+      await page.goto(testPagePath);
+
+      const heroSection = page.locator('section[aria-labelledby^="adventure-hero"]');
+      const badgeContainer = heroSection.locator('[role="group"][aria-label]');
+
+      await expect(badgeContainer).toBeVisible();
+      const ariaLabel = await badgeContainer.getAttribute('aria-label');
+      expect(ariaLabel).toContain('badge');
+    });
+
+    test('external links have "(opens in new tab)" sr-only text', async ({ page }) => {
+      await page.goto(testPagePath);
+
+      const heroSection = page.locator('section[aria-labelledby^="adventure-hero"]');
+      const externalLink = heroSection.locator('a[target="_blank"]').first();
+
+      if (await externalLink.count() > 0) {
+        // Check for sr-only text within the link
+        const srText = externalLink.locator('.sr-only');
+        const srTextContent = await srText.textContent();
+        expect(srTextContent?.toLowerCase()).toContain('new tab');
+      }
+    });
+
+    test('badges have sr-only context labels', async ({ page }) => {
+      await page.goto(testPagePath);
+
+      const heroSection = page.locator('section[aria-labelledby^="adventure-hero"]');
+      const badgeContainer = heroSection.locator('[role="group"]').first();
+      const srLabels = badgeContainer.locator('.sr-only');
+
+      // Should have sr-only labels for context
+      const count = await srLabels.count();
+      expect(count).toBeGreaterThan(0);
+    });
+  });
+
+  test.describe('Axe-Core Accessibility Audit', () => {
+    test('hero section passes WCAG 2.1 AA', async ({ page }) => {
+      await page.goto(testPagePath);
+
+      // Run axe-core audit on the hero section specifically
+      const accessibilityScanResults = await new AxeBuilder({ page })
+        .include('section[aria-labelledby^="adventure-hero"]')
+        .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
+        .analyze();
+
+      // Log any violations for debugging
+      if (accessibilityScanResults.violations.length > 0) {
+        console.log('Accessibility violations:', JSON.stringify(accessibilityScanResults.violations, null, 2));
+      }
+
+      expect(accessibilityScanResults.violations).toEqual([]);
+    });
+
+    test('color contrast meets WCAG AA requirements', async ({ page }) => {
+      await page.goto(testPagePath);
+
+      const accessibilityScanResults = await new AxeBuilder({ page })
+        .include('section[aria-labelledby^="adventure-hero"]')
+        .withTags(['wcag2aa'])
+        .options({ runOnly: ['color-contrast'] })
+        .analyze();
+
+      expect(accessibilityScanResults.violations).toEqual([]);
+    });
+
+    test('full page accessibility scan', async ({ page }) => {
+      await page.goto(testPagePath);
+
+      // Full page scan for comprehensive testing
+      const accessibilityScanResults = await new AxeBuilder({ page })
+        .withTags(['wcag2a', 'wcag2aa'])
+        .analyze();
+
+      // Report violations but don't fail on issues outside the hero component
+      const heroViolations = accessibilityScanResults.violations.filter(
+        (v) => v.nodes.some((n) => n.html.includes('adventure-hero'))
+      );
+
+      expect(heroViolations).toEqual([]);
     });
   });
 

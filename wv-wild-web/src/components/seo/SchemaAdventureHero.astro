@@ -1,0 +1,197 @@
+---
+/**
+ * SchemaAdventureHero.astro
+ * SPEC-09: JSON-LD Structured Data for Adventure Destinations
+ *
+ * Generates TouristAttraction + optional Article/Event schema
+ * using the @graph pattern for related entities.
+ *
+ * @see https://schema.org/TouristAttraction
+ * @see https://developers.google.com/search/docs/appearance/structured-data
+ */
+import type { BreadcrumbItem } from '../../types/breadcrumb';
+import type { Coordinates, Difficulty, SchemaType } from '../../types/adventure';
+import { formatSchemaDate } from '../../lib/utils/date-formatter';
+
+interface Props {
+  /** Adventure destination name */
+  title: string;
+  /** Description of the adventure */
+  description: string;
+  /** URL-safe slug for the adventure */
+  slug: string;
+  /** Location name (e.g., "Sutton, WV") */
+  location?: string;
+  /** GPS coordinates */
+  coordinates?: Coordinates;
+  /** ISO 8601 publish date */
+  publishedDate?: string;
+  /** ISO 8601 update date */
+  updatedDate?: string;
+  /** Schema.org type selection */
+  schemaType?: SchemaType;
+  /** Difficulty level for TouristAttraction additionalProperty */
+  difficulty?: Difficulty;
+  /** Absolute URL for hero image (for schema, not ImageMetadata) */
+  imageUrl?: string;
+  /** Breadcrumb items for BreadcrumbList schema */
+  breadcrumbs?: BreadcrumbItem[];
+  /** Event-specific: start date */
+  eventStartDate?: string;
+  /** Event-specific: end date */
+  eventEndDate?: string;
+}
+
+const {
+  title,
+  description,
+  slug,
+  location,
+  coordinates,
+  publishedDate,
+  updatedDate,
+  schemaType = 'Place',
+  difficulty,
+  imageUrl,
+  breadcrumbs,
+  eventStartDate,
+  eventEndDate,
+} = Astro.props;
+
+// Base URL for absolute URLs
+const BASE_URL = 'https://wvwildoutdoors.pages.dev';
+const pageUrl = `${BASE_URL}/adventures/${slug}/`;
+
+// Build the @graph array with multiple connected entities
+const graphEntities: object[] = [];
+
+// 1. TouristAttraction (always included for adventure content)
+const touristAttraction: Record<string, unknown> = {
+  '@type': 'TouristAttraction',
+  '@id': `${pageUrl}#attraction`,
+  'name': title,
+  'description': description,
+  'url': pageUrl,
+  'isAccessibleForFree': true,
+  'touristType': ['Outdoor Enthusiast', 'Hunter', 'Angler', 'Hiker'],
+};
+
+if (coordinates) {
+  touristAttraction.geo = {
+    '@type': 'GeoCoordinates',
+    'latitude': coordinates.lat,
+    'longitude': coordinates.lng,
+  };
+}
+
+if (location) {
+  touristAttraction.address = {
+    '@type': 'PostalAddress',
+    'addressLocality': location,
+    'addressRegion': 'WV',
+    'addressCountry': 'US',
+  };
+}
+
+if (imageUrl) {
+  touristAttraction.image = imageUrl;
+}
+
+if (difficulty) {
+  touristAttraction.additionalProperty = {
+    '@type': 'PropertyValue',
+    'name': 'difficulty',
+    'value': difficulty,
+  };
+}
+
+graphEntities.push(touristAttraction);
+
+// 2. Article schema (if schemaType is 'Article' or dates are provided)
+if (schemaType === 'Article' || publishedDate) {
+  const article: Record<string, unknown> = {
+    '@type': 'Article',
+    '@id': `${pageUrl}#article`,
+    'headline': title,
+    'description': description,
+    'url': pageUrl,
+    'mainEntityOfPage': { '@id': pageUrl },
+    'about': { '@id': `${pageUrl}#attraction` },
+    'author': {
+      '@type': 'Organization',
+      'name': 'WV Wild Outdoors',
+      'url': BASE_URL,
+    },
+    'publisher': {
+      '@type': 'Organization',
+      'name': 'WV Wild Outdoors',
+      'url': BASE_URL,
+      'logo': {
+        '@type': 'ImageObject',
+        'url': `${BASE_URL}/og-wvwo-storefront.png`,
+      },
+    },
+  };
+
+  if (publishedDate) {
+    article.datePublished = formatSchemaDate(publishedDate);
+  }
+  if (updatedDate) {
+    article.dateModified = formatSchemaDate(updatedDate);
+  }
+  if (imageUrl) {
+    article.image = imageUrl;
+  }
+
+  graphEntities.push(article);
+}
+
+// 3. Event schema (if schemaType is 'Event')
+if (schemaType === 'Event' && eventStartDate) {
+  const event: Record<string, unknown> = {
+    '@type': 'Event',
+    '@id': `${pageUrl}#event`,
+    'name': title,
+    'description': description,
+    'url': pageUrl,
+    'startDate': eventStartDate,
+    'location': { '@id': `${pageUrl}#attraction` },
+    'organizer': {
+      '@type': 'Organization',
+      'name': 'WV Wild Outdoors',
+      'url': BASE_URL,
+    },
+  };
+
+  if (eventEndDate) {
+    event.endDate = eventEndDate;
+  }
+  if (imageUrl) {
+    event.image = imageUrl;
+  }
+
+  graphEntities.push(event);
+}
+
+// 4. BreadcrumbList (if breadcrumbs provided)
+if (breadcrumbs && breadcrumbs.length > 0) {
+  graphEntities.push({
+    '@type': 'BreadcrumbList',
+    '@id': `${pageUrl}#breadcrumb`,
+    'itemListElement': breadcrumbs.map((item, index) => ({
+      '@type': 'ListItem',
+      'position': index + 1,
+      'name': item.name,
+      'item': item.url.startsWith('http') ? item.url : `${BASE_URL}${item.url}`,
+    })),
+  });
+}
+
+// Final schema with @graph
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': graphEntities,
+};
+---
+
+<script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />

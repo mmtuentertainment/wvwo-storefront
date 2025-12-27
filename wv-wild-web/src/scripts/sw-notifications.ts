@@ -72,7 +72,7 @@ function showToast(message: string, type: 'success' | 'error' | 'info') {
 /**
  * Get user-friendly message for SW event (Kim's voice)
  */
-function getMessageForType(type: SWMessageType, error?: string): { message: string; toastType: 'success' | 'error' | 'info' } {
+function getMessageForType(type: SWMessageType, _error?: string): { message: string; toastType: 'success' | 'error' | 'info' } {
   switch (type) {
     case 'SW_ACTIVATED':
       return {
