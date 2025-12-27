@@ -1,0 +1,196 @@
+---
+/**
+ * AdventureGettingThere.astro
+ * SPEC-11: Getting There Component
+ *
+ * Displays directions from the WVWO shop to an adventure destination with
+ * drive time, distance, and optional Google Maps link.
+ *
+ * @accessibility
+ * - Uses semantic section with aria-labelledby
+ * - External links open in new tab with rel="noopener noreferrer"
+ * - Icons are aria-hidden, info conveyed in text
+ * - prefers-reduced-motion respected
+ *
+ * @example
+ * ```astro
+ * <AdventureGettingThere
+ *   directions="<ol><li>Head north on WV-82</li><li>Turn left onto CR-15</li></ol>"
+ *   driveTime="30 minutes"
+ *   distance="18 miles"
+ *   mapLink="https://maps.google.com/?q=..."
+ * />
+ * ```
+ */
+import { STAT_ICON_PATHS, type StatIcon } from '../../types/adventure';
+
+interface Props {
+  /** Section title (default: 'Getting There') */
+  title?: string;
+  /** Starting location text (default: WVWO shop address) */
+  fromLocation?: string;
+  /** HTML directions content - supports ol/ul lists */
+  directions: string;
+  /** Optional Google Maps link */
+  mapLink?: string;
+  /** Drive time display text (e.g., "30 minutes") */
+  driveTime?: string;
+  /** Distance display text (e.g., "18 miles") */
+  distance?: string;
+  /** Background variant (default: 'white') */
+  variant?: 'white' | 'cream';
+  /** Enable gentle reveal animation (default: true) */
+  animate?: boolean;
+}
+
+const {
+  title = 'Getting There',
+  fromLocation = 'From our shop (121 WV-82, Birch River)',
+  directions,
+  mapLink,
+  driveTime,
+  distance,
+  variant = 'white',
+  animate = true,
+} = Astro.props;
+
+const sectionId = `adventure-getting-there-${Math.random().toString(36).substring(2, 9)}`;
+const bgClass = variant === 'white' ? 'bg-white' : 'bg-brand-cream';
+
+/**
+ * Get SVG path for a predefined icon.
+ * Returns null for 'none' or undefined icons.
+ */
+function getIconPath(iconName: StatIcon): string | null {
+  if (iconName === 'none') return null;
+  return STAT_ICON_PATHS[iconName] ?? null;
+}
+
+const timeIconPath = getIconPath('time');
+const distanceIconPath = getIconPath('distance');
+---
+
+<section
+  class:list={[
+    'py-12 md:py-16',
+    bgClass,
+    animate && 'adventure-getting-there',
+  ]}
+  aria-labelledby={sectionId}
+>
+  <div class="container mx-auto px-4">
+    <div class="max-w-3xl mx-auto">
+      <h2
+        id={sectionId}
+        class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-8"
+      >
+        {title}
+      </h2>
+
+      <div class="bg-brand-cream p-6 rounded-sm border-l-4 border-sign-green mb-6">
+        <h3 class="font-bold text-brand-brown mb-2">{fromLocation}</h3>
+
+        {(driveTime || distance) && (
+          <div class="flex flex-wrap gap-4 mb-4 text-sm text-brand-mud">
+            {driveTime && (
+              <span class="flex items-center gap-1.5">
+                {timeIconPath && (
+                  <svg
+                    aria-hidden="true"
+                    class="w-4 h-4 text-sign-green"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d={timeIconPath} />
+                  </svg>
+                )}
+                {driveTime}
+              </span>
+            )}
+            {distance && (
+              <span class="flex items-center gap-1.5">
+                {distanceIconPath && (
+                  <svg
+                    aria-hidden="true"
+                    class="w-4 h-4 text-sign-green"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d={distanceIconPath} />
+                  </svg>
+                )}
+                {distance}
+              </span>
+            )}
+          </div>
+        )}
+
+        <div class="text-brand-brown/75 prose prose-sm max-w-none [&_ol]:list-decimal [&_ol]:list-inside [&_ol]:space-y-2 [&_ul]:list-disc [&_ul]:list-inside [&_ul]:space-y-2">
+          <Fragment set:html={directions} />
+        </div>
+      </div>
+
+      {mapLink && (
+        <a
+          href={mapLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 bg-sign-green text-white font-bold px-5 py-2.5 rounded-sm hover:bg-sign-green/90 transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2"
+        >
+          <svg
+            aria-hidden="true"
+            class="w-5 h-5"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+            <path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+          Open in Google Maps
+          <span class="sr-only">(opens in new tab)</span>
+        </a>
+      )}
+
+      {Astro.slots.has('default') && (
+        <div class="mt-6 pt-4 border-t border-brand-brown/15">
+          <slot />
+        </div>
+      )}
+    </div>
+  </div>
+</section>
+
+<style>
+  .adventure-getting-there {
+    animation: gentle-reveal 0.6s ease-out both;
+  }
+
+  @keyframes gentle-reveal {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .adventure-getting-there {
+      animation: none;
+    }
+  }
+</style>

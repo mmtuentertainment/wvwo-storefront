@@ -1,0 +1,173 @@
+---
+/**
+ * AdventureGearChecklist.astro
+ * SPEC-11: Gear Checklist Component
+ *
+ * Displays a responsive grid of gear items with visual distinction between
+ * required (checkmark) and optional (circle) items.
+ *
+ * @accessibility
+ * - Uses semantic section with aria-labelledby
+ * - ul/li structure for screen readers
+ * - Icons are aria-hidden, info conveyed in text
+ * - "(optional)" text provides context without relying on color
+ *
+ * @example
+ * ```astro
+ * <AdventureGearChecklist
+ *   title="What to Bring"
+ *   intro="Essential and optional gear for your trip."
+ *   items={[
+ *     { name: 'Fishing license', optional: false },
+ *     { name: 'Sunscreen', optional: true },
+ *   ]}
+ *   columns={2}
+ *   variant="cream"
+ * />
+ * ```
+ */
+import type { GearItem, GearColumns, StatIcon } from '../../types/adventure';
+import { STAT_ICON_PATHS } from '../../types/adventure';
+
+interface Props {
+  /** Section heading (default: 'Gear Checklist') */
+  title?: string;
+  /** Optional intro paragraph below heading */
+  intro?: string;
+  /** Array of gear items to display */
+  items: GearItem[];
+  /** Number of columns on desktop (default: 2) */
+  columns?: GearColumns;
+  /** Background style (default: 'cream') */
+  variant?: 'white' | 'cream';
+  /** Enable gentle reveal animation (default: true) */
+  animate?: boolean;
+}
+
+const {
+  title = 'Gear Checklist',
+  intro,
+  items,
+  columns = 2,
+  variant = 'cream',
+  animate = true,
+} = Astro.props;
+
+const sectionId = `adventure-gear-checklist-${Math.random().toString(36).substring(2, 9)}`;
+const bgClass = variant === 'white' ? 'bg-white' : 'bg-brand-cream';
+
+const columnClasses: Record<GearColumns, string> = {
+  1: 'grid-cols-1',
+  2: 'grid-cols-1 md:grid-cols-2',
+  3: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
+};
+
+/**
+ * Get SVG path for a predefined icon.
+ */
+function getIconPath(iconName: StatIcon): string | null {
+  if (iconName === 'none') return null;
+  return STAT_ICON_PATHS[iconName] ?? null;
+}
+
+const checkIconPath = getIconPath('check');
+const circleIconPath = getIconPath('circle');
+---
+
+<section
+  class:list={[
+    'py-12 md:py-16',
+    bgClass,
+    animate && 'adventure-gear-checklist',
+  ]}
+  aria-labelledby={sectionId}
+>
+  <div class="container mx-auto px-4">
+    <div class="max-w-3xl mx-auto">
+      <h2
+        id={sectionId}
+        class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-4"
+      >
+        {title}
+      </h2>
+
+      {intro && (
+        <p class="text-brand-brown/75 mb-8">{intro}</p>
+      )}
+
+      {items.length > 0 && (
+        <ul class:list={['grid gap-3', columnClasses[columns]]}>
+          {items.map((item) => (
+            <li class="flex items-center gap-3 bg-white p-4 rounded-sm border border-brand-brown/15">
+              {item.optional ? (
+                <>
+                  <svg
+                    aria-hidden="true"
+                    class="w-5 h-5 text-brand-mud/50 flex-shrink-0"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d={circleIconPath} />
+                  </svg>
+                  <span class="text-brand-brown/75">
+                    {item.name}
+                    <span class="text-brand-mud/60 text-sm ml-1">(optional)</span>
+                  </span>
+                </>
+              ) : (
+                <>
+                  <svg
+                    aria-hidden="true"
+                    class="w-5 h-5 text-sign-green flex-shrink-0"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d={checkIconPath} />
+                  </svg>
+                  <span class="text-brand-brown">{item.name}</span>
+                </>
+              )}
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {Astro.slots.has('footer') && (
+        <div class="mt-8 text-center">
+          <slot name="footer" />
+        </div>
+      )}
+    </div>
+  </div>
+</section>
+
+<style>
+  .adventure-gear-checklist {
+    animation: gentle-reveal 0.6s ease-out both;
+  }
+
+  @keyframes gentle-reveal {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .adventure-gear-checklist {
+      animation: none;
+    }
+  }
+</style>
