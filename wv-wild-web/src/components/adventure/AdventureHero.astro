@@ -16,7 +16,7 @@ interface Props {
   // Required - Core Display
   title: string;
   description: string;
-  difficulty: 'easy' | 'moderate' | 'advanced' | 'rugged';
+  difficulty: 'easy' | 'moderate' | 'challenging' | 'rugged';
   season: string;
   driveTime?: string;
 
@@ -67,7 +67,7 @@ const imagePositionClass = {
 const difficultyLabels: Record<Props['difficulty'], string> = {
   easy: 'Easy Trail',
   moderate: 'Moderate',
-  advanced: 'Advanced',
+  challenging: 'Challenging',
   rugged: 'Rugged Terrain',
 };
 

@@ -10,7 +10,7 @@
 interface Props {
   type: 'difficulty' | 'season' | 'drive-time';
   value: string;
-  difficulty?: 'easy' | 'moderate' | 'advanced' | 'rugged';
+  difficulty?: 'easy' | 'moderate' | 'challenging' | 'rugged';
 }
 
 const { type, value, difficulty } = Astro.props;
@@ -23,7 +23,7 @@ const { type, value, difficulty } = Astro.props;
 const difficultyShapes: Record<NonNullable<Props['difficulty']>, string> = {
   easy: '\u25CF',      // ● (circle)
   moderate: '\u25B2',  // ▲ (triangle)
-  advanced: '\u25A0',  // ■ (square)
+  challenging: '\u25A0',  // ■ (square)
   rugged: '\u25C6',    // ◆ (diamond)
 };
 
@@ -34,7 +34,7 @@ const difficultyShapes: Record<NonNullable<Props['difficulty']>, string> = {
 const difficultyColors: Record<NonNullable<Props['difficulty']>, string> = {
   easy: 'bg-sign-green text-white',
   moderate: 'bg-brand-orange text-white',
-  advanced: 'bg-brand-mud text-brand-cream',
+  challenging: 'bg-brand-mud text-brand-cream',
   rugged: 'bg-red-800 text-white',
 };
 

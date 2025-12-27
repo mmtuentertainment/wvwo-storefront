@@ -12,13 +12,13 @@ import { describe, it, expect } from 'vitest';
 // Component Logic (extracted from AdventureHero.astro + AdventureHeroBadge.astro)
 // ============================================================================
 
-type Difficulty = 'easy' | 'moderate' | 'advanced' | 'rugged';
+type Difficulty = 'easy' | 'moderate' | 'challenging' | 'rugged';
 
 /** Shape icons for color-blind accessibility (from AdventureHeroBadge) */
 const difficultyShapes: Record<Difficulty, string> = {
   easy: '\u25CF',      // ● (circle)
   moderate: '\u25B2',  // ▲ (triangle)
-  advanced: '\u25A0',  // ■ (square)
+  challenging: '\u25A0',  // ■ (square)
   rugged: '\u25C6',    // ◆ (diamond)
 };
 
@@ -26,7 +26,7 @@ const difficultyShapes: Record<Difficulty, string> = {
 const difficultyColors: Record<Difficulty, string> = {
   easy: 'bg-sign-green text-white',
   moderate: 'bg-brand-orange text-white',
-  advanced: 'bg-brand-mud text-brand-cream',
+  challenging: 'bg-brand-mud text-brand-cream',
   rugged: 'bg-red-800 text-white',
 };
 
@@ -34,7 +34,7 @@ const difficultyColors: Record<Difficulty, string> = {
 const difficultyLabels: Record<Difficulty, string> = {
   easy: 'Easy Trail',
   moderate: 'Moderate',
-  advanced: 'Advanced',
+  challenging: 'Challenging',
   rugged: 'Rugged Terrain',
 };
 
@@ -86,7 +86,7 @@ describe('AdventureHero', () => {
     });
 
     it('difficulty is valid enum value', () => {
-      const validDifficulties: Difficulty[] = ['easy', 'moderate', 'advanced', 'rugged'];
+      const validDifficulties: Difficulty[] = ['easy', 'moderate', 'challenging', 'rugged'];
       expect(validDifficulties).toContain(requiredProps.difficulty);
     });
   });
@@ -102,9 +102,9 @@ describe('AdventureHero', () => {
       expect(difficultyColors.moderate).toContain('text-white');
     });
 
-    it('advanced maps to brand-mud', () => {
-      expect(difficultyColors.advanced).toContain('bg-brand-mud');
-      expect(difficultyColors.advanced).toContain('text-brand-cream');
+    it('challenging maps to brand-mud', () => {
+      expect(difficultyColors.challenging).toContain('bg-brand-mud');
+      expect(difficultyColors.challenging).toContain('text-brand-cream');
     });
 
     it('rugged maps to red-800', () => {
@@ -124,9 +124,9 @@ describe('AdventureHero', () => {
       expect(difficultyShapes.moderate).toBe('▲');
     });
 
-    it('advanced uses square (U+25A0)', () => {
-      expect(difficultyShapes.advanced).toBe('\u25A0');
-      expect(difficultyShapes.advanced).toBe('■');
+    it('challenging uses square (U+25A0)', () => {
+      expect(difficultyShapes.challenging).toBe('\u25A0');
+      expect(difficultyShapes.challenging).toBe('■');
     });
 
     it('rugged uses diamond (U+25C6)', () => {
@@ -239,8 +239,8 @@ describe('AdventureHero', () => {
       expect(difficultyLabels.moderate).toBe('Moderate');
     });
 
-    it('advanced shows "Advanced"', () => {
-      expect(difficultyLabels.advanced).toBe('Advanced');
+    it('challenging shows "Challenging"', () => {
+      expect(difficultyLabels.challenging).toBe('Challenging');
     });
 
     it('rugged shows "Rugged Terrain"', () => {

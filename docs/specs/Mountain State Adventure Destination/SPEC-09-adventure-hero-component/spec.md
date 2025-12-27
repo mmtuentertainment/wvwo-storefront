@@ -283,6 +283,7 @@ it('image srcset is generated correctly');
 ## Clarifications
 
 ### Session 2025-12-26
+
 - Q: Should breadcrumbs be rendered IN the hero or above it? → A: **Above hero** - Breadcrumbs handled in page layout, hero component starts at title. Matches existing summersville-lake.astro pattern.
 - Q: Do we need a "drive time from shop" badge? → A: **Yes** - Add optional `driveTime` prop that displays as third badge (e.g., "20 min drive" from Birch River shop).
 - Q: Default image loading strategy? → A: **eager** - Hero is above-fold, load immediately for better LCP.

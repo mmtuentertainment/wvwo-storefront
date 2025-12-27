@@ -234,7 +234,7 @@
 
 ## Dependencies Graph
 
-```
+```text
 PR 1: Core Component
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 [T-001 Setup] ─────────────────────────────────────────────────┐
@@ -311,6 +311,7 @@ PR 3: Integration & Polish
 ## Execution Order (Recommended)
 
 ### Day 1: PR 1 Tasks (Core)
+
 1. T-001 → T-002, T-003 (parallel)
 2. T-004 (after T-002, T-003)
 3. T-005, T-006, T-007 (parallel, after T-004)
@@ -319,11 +320,13 @@ PR 3: Integration & Polish
 6. T-012 (after all above)
 
 ### Day 2: PR 2 Tasks (Schema & A11y)
+
 1. T-013 → T-014, T-015, T-016 (parallel after T-013)
 2. T-017 → T-018 (sequential)
 3. T-019 (after T-018)
 
 ### Day 3: PR 3 Tasks (Integration)
+
 1. T-020 → T-021 (parallel)
 2. T-022 → T-023 (sequential)
 3. T-024, T-025 (parallel)
@@ -345,6 +348,7 @@ PR 3: Integration & Polish
 ## Quick Start
 
 Begin with Task T-001:
+
 ```bash
 # Create directory structure
 mkdir -p wv-wild-web/src/components/adventure/__tests__

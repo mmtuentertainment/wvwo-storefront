@@ -278,6 +278,7 @@ Since this exceeds the 500 LOC threshold for single PRs, recommend splitting:
 **Checkpoint**: Hero renders with visual elements, basic tests pass
 
 ### PR 2: Schema & Accessibility (~150 LOC)
+
 - `AdventureHeroSchema.astro` (~60 LOC)
 - Accessibility attributes + animation
 - axe-core tests (~60 LOC)
@@ -286,6 +287,7 @@ Since this exceeds the 500 LOC threshold for single PRs, recommend splitting:
 **Checkpoint**: Schema valid, axe returns zero violations
 
 ### PR 3: Integration & Polish (~120 LOC)
+
 - `hero-factory.ts` (~40 LOC)
 - summersville-lake.astro refactor
 - E2E tests (~40 LOC)

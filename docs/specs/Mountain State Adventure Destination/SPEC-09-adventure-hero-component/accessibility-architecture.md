@@ -229,7 +229,7 @@ Link the hero description to the section for richer context:
 
 Focus order MUST match visual/logical reading order:
 
-```
+```text
 [Tab 1] → Skip to main content link (hidden until focused)
 [Tab 2] → First CTA button (if present in hero)
 [Tab 3] → Second CTA button (if present)
@@ -256,6 +256,7 @@ Add skip link BEFORE hero section in page layout (not in component):
 ```
 
 **Skip link CSS pattern (Tailwind)**:
+
 ```css
 /* Already exists in Tailwind as sr-only + focus:not-sr-only */
 .skip-link {
@@ -289,6 +290,7 @@ Add skip link BEFORE hero section in page layout (not in component):
 ```
 
 **Focus indicator specifications**:
+
 | Property | Value | Reasoning |
 |----------|-------|-----------|
 | Ring width | `2px` (Tailwind `ring-2`) | Visible at all sizes |
@@ -551,7 +553,7 @@ Windows High Contrast Mode forces system colors. Test that:
 
 Badges MUST appear in the same order across ALL adventure heroes:
 
-```
+```text
 ┌─────────────────────────────────────────────┐
 │  [Drive Time] [Difficulty] [Season]         │  ← Fixed order
 │                                             │
@@ -778,7 +780,8 @@ it('meets color contrast requirements', async () => {
 ```
 
 **Manual verification tools**:
-- WebAIM Contrast Checker: https://webaim.org/resources/contrastchecker/
+
+- [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/)
 - Stark browser extension (Chrome/Firefox)
 - Lighthouse accessibility audit
 

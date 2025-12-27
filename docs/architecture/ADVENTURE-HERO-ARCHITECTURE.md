@@ -182,7 +182,7 @@ function isImageMetadata(src: unknown): src is ImageMetadata {
 
 ### Slot Diagram
 
-```
+```text
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │ AdventureHero                                                                │
 │ ┌─────────────────────────────────────────────────────────────────────────┐ │
@@ -1067,7 +1067,7 @@ const schema = buildSchema(Astro.props, siteUrl);
 
 ## Component File Structure
 
-```
+```text
 wv-wild-web/src/components/adventures/
 ├── AdventureHero.astro       # Main hero component
 ├── AdventureCard.tsx         # Grid card (existing)
@@ -1102,4 +1102,4 @@ wv-wild-web/src/components/adventures/
 
 ---
 
-*Architecture Document v1.0 | December 2025*
+**Architecture Document v1.0 | December 2025**

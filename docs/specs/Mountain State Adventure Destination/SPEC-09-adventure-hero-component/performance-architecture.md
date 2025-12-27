@@ -70,7 +70,8 @@ const positionMap = {
 | 1024px+ (desktop) | 2-column, image ~50vw | 512-600px | 800w srcset |
 
 **sizes Attribute Calculation**:
-```
+
+```text
 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 600px"
 ```
 
@@ -86,7 +87,8 @@ Astro Image automatically negotiates:
 3. **JPEG** - Fallback for older browsers
 
 **Build Output** (per image):
-```
+
+```text
 /adventures/summersville-lake/hero.avif   → 45KB (AVIF 1200w)
 /adventures/summersville-lake/hero.webp   → 72KB (WebP 1200w)
 /adventures/summersville-lake/hero.jpg    → 95KB (JPEG 1200w - fallback)
@@ -449,14 +451,14 @@ const schema = {
 
 Astro automatically fingerprints built assets:
 
-```
+```text
 /_astro/AdventureHero.abc123.css   → Immutable
 /_astro/hero-image.def456.webp     → Immutable
 ```
 
 **Cloudflare Headers** (already configured in `public/_headers`):
 
-```
+```text
 /_astro/*
   Cache-Control: public, max-age=31536000, immutable
 ```
@@ -465,14 +467,14 @@ Astro automatically fingerprints built assets:
 
 Adventure images in `/public/adventures/`:
 
-```
+```text
 /adventures/summersville-lake/hero.jpg
 /adventures/elk-river-wma/hero.jpg
 ```
 
 **Recommended Headers**:
 
-```
+```text
 /adventures/*
   Cache-Control: public, max-age=86400, stale-while-revalidate=604800
 ```
@@ -608,7 +610,7 @@ For production monitoring, add web-vitals reporting:
 
 ### 7.2 Loading Sequence
 
-```
+```text
 T+0ms    HTML arrives (hero markup inline)
 T+10ms   Critical CSS parsed (inlined in <style>)
 T+15ms   Camo data URI renders (no network)

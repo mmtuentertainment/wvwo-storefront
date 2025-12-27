@@ -157,7 +157,7 @@ interface Props {
 
 ### 2.2 Slot Architecture
 
-```
+```text
 +------------------------------------------------------------------+
 | AdventureHero                                                     |
 | +--------------------------------------------------------------+ |
@@ -402,7 +402,8 @@ Shape icons differentiate difficulty levels without relying on color:
 ### 5.5 Screen Reader Experience
 
 **Badge Announcement Pattern**:
-```
+
+```text
 "Adventure details, group.
  From our shop: 20 minutes.
  Difficulty: Moderate.
@@ -496,7 +497,7 @@ Inspired by West Virginia morning fog lifting from hollows:
 
 ### 7.1 File Structure
 
-```
+```text
 wv-wild-web/src/
 ├── components/
 │   └── adventures/

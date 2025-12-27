@@ -526,6 +526,8 @@ Use `travelTime` to capture drive time from shop:
 - PT1H = 1 hour
 - PT1H30M = 1 hour 30 minutes
 
+> **Note**: The `travelTime` property wrapped in a `PropertyValue` provides semantic value for search engines but **will not appear in Google Rich Results**. This is intentional - it enriches the knowledge graph without expecting visual SERP display. The drive time badge in the UI serves as the user-facing representation.
+
 ### 4.3 potentialAction for Shop Visits
 
 ```json
