@@ -84,6 +84,81 @@ This project uses SPARC (Specification, Pseudocode, Architecture, Refinement, Co
 - **Clean Architecture**: Separate concerns
 - **Documentation**: Keep updated
 
+## 🎨 WVWO Frontend Aesthetics (CRITICAL for PR Review)
+
+This project is for WV Wild Outdoors - a family-owned hunting shop in rural West Virginia. NOT a tech startup. All frontend must reflect authentic rural WV identity.
+
+### FORBIDDEN (Instant PR Rejection)
+
+**Fonts - NEVER USE:**
+```
+Inter, DM Sans, Space Grotesk, Poppins, Outfit, Montserrat, Raleway, Open Sans, system-ui
+```
+*Why: These scream "SaaS startup" - wrong for Appalachian storefront*
+
+**Colors - NEVER USE:**
+```
+- Purple gradients (AI tool landing pages)
+- Hot pink (#ec4899)
+- Neon anything
+- Corporate blue (#0066cc)
+- Diagonal multi-stop gradients
+```
+
+**Styles - NEVER USE:**
+```
+- Glassmorphism / backdrop-blur
+- rounded-md, rounded-lg, rounded-xl, rounded-3xl (use rounded-sm ONLY)
+- Parallax scrolling
+- Bouncy button animations
+- Confetti effects
+- Neumorphic designs
+```
+
+**Copy - NEVER USE:**
+```
+"Unlock potential" | "Seamless experience" | "Revolutionize" | "Next-level"
+"Transform the way you" | "All-in-one platform" | "Cutting-edge solutions"
+```
+
+### REQUIRED (Must Use)
+
+**Fonts:**
+```css
+--font-display: 'Bitter', serif;           /* Display headings */
+--font-hand: 'Permanent Marker', cursive;  /* Kim's personal touches */
+--font-body: 'Noto Sans', sans-serif;      /* Body text */
+```
+
+**Colors (WVWO Palette):**
+```css
+--brand-brown: #3E2723;    /* Rifle stocks, weathered barn wood */
+--sign-green: #2E7D32;     /* Old metal signs, forest canopy */
+--brand-cream: #FFF8E1;    /* Aged paper, deer hide */
+--brand-orange: #FF6F00;   /* Blaze orange - CTAs ONLY, <5% of screen */
+```
+
+**Design Rules:**
+- Sharp corners: `rounded-sm` ONLY (hardware store aesthetic)
+- Typography: Bold weights 700-900, size jumps 2.5x+ between levels
+- Orange: <5% of screen (primary CTAs only, never backgrounds)
+- Voice: Kim's authentic rural WV - direct, humble, faith-forward
+
+### PR Review Checklist (Frontend)
+```
+[ ] Zero forbidden fonts (Inter, Poppins, etc.)
+[ ] Zero purple/pink/neon colors
+[ ] Zero glassmorphic or backdrop-blur effects
+[ ] Zero rounded-md/lg/xl corners - only rounded-sm
+[ ] Zero marketing buzzwords in copy
+[ ] Colors match WVWO palette
+[ ] Text sounds like Kim, not a marketing agency
+```
+
+### The Litmus Test
+> "Would Kim's neighbors recognize this as 'their shop' online?"
+> If it looks like a tech startup or SaaS landing page, **reject it**.
+
 ## 🚀 Available Agents (54 Total)
 
 ### Core Development

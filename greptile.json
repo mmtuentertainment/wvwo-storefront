@@ -1,0 +1,95 @@
+{
+  "strictness": 3,
+  "commentTypes": ["logic", "syntax", "style", "info"],
+  "triggerOnUpdates": true,
+  "statusCheck": true,
+  "fixWithAI": true,
+
+  "instructions": "You are reviewing code for WV Wild Outdoors - a family-owned hunting/outdoor shop in Birch River, WV. NOT a tech startup. All code must follow the WVWO Constitution and Frontend Aesthetics.\n\nCRITICAL REJECTION CRITERIA:\n- FORBIDDEN FONTS: Inter, DM Sans, Space Grotesk, Poppins, Outfit, Montserrat, Raleway, Open Sans, system-ui\n- FORBIDDEN COLORS: Purple gradients, hot pink (#ec4899), neon colors, corporate blue (#0066cc)\n- FORBIDDEN STYLES: Glassmorphism, backdrop-blur, rounded-md/lg/xl/3xl (use rounded-sm ONLY), parallax, bouncy animations\n- FORBIDDEN COPY: 'Unlock potential', 'Seamless experience', 'Revolutionize', 'Next-level', 'Transform the way you', marketing buzzwords\n\nREQUIRED:\n- Fonts: Bitter (display), Permanent Marker (hand), Noto Sans (body)\n- Colors: brand-brown #3E2723, sign-green #2E7D32, brand-cream #FFF8E1, brand-orange #FF6F00 (CTAs only, <5%)\n- Corners: rounded-sm ONLY (sharp hardware store aesthetic)\n- Voice: Kim's authentic rural WV - direct, humble, faith-forward\n\nLITMUS TEST: Would Kim's neighbors recognize this as 'their shop' online? If it looks like a tech startup, REJECT IT.\n\nFILE ORGANIZATION: Never save files to root. Use /src, /tests, /docs, /config, /scripts.\nCODE QUALITY: Files under 500 lines, no hardcoded secrets, no TODO comments, test-first development.",
+
+  "customContext": {
+    "rules": [
+      {
+        "rule": "NEVER use Inter, DM Sans, Space Grotesk, Poppins, Outfit, Montserrat, Raleway, Open Sans, or system-ui fonts - these are SaaS startup fonts forbidden for WVWO",
+        "scope": ["**/*.css", "**/*.scss", "**/*.tsx", "**/*.ts", "**/*.astro"]
+      },
+      {
+        "rule": "NEVER use purple gradients, hot pink (#ec4899), neon colors, or corporate blue (#0066cc) - use WVWO palette: brand-brown #3E2723, sign-green #2E7D32, brand-cream #FFF8E1, brand-orange #FF6F00",
+        "scope": ["**/*.css", "**/*.scss", "**/*.tsx", "**/*.ts", "**/*.astro"]
+      },
+      {
+        "rule": "NEVER use rounded-md, rounded-lg, rounded-xl, or rounded-3xl - only rounded-sm is allowed for WVWO's hardware store aesthetic",
+        "scope": ["**/*.css", "**/*.scss", "**/*.tsx", "**/*.ts", "**/*.astro"]
+      },
+      {
+        "rule": "NEVER use glassmorphism, backdrop-blur, parallax scrolling, bouncy animations, or confetti effects",
+        "scope": ["**/*.css", "**/*.scss", "**/*.tsx", "**/*.ts", "**/*.astro"]
+      },
+      {
+        "rule": "NEVER use marketing buzzwords like 'Unlock potential', 'Seamless experience', 'Revolutionize', 'Next-level', 'Transform the way you', 'All-in-one platform'",
+        "scope": ["**/*.md", "**/*.tsx", "**/*.astro", "**/*.ts"]
+      },
+      {
+        "rule": "Files must be under 500 lines for modular design",
+        "scope": ["**/*.ts", "**/*.tsx", "**/*.astro"]
+      },
+      {
+        "rule": "Never hardcode secrets or API keys - use environment variables (PUBLIC_* for browser-safe)",
+        "scope": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.astro"]
+      },
+      {
+        "rule": "Use Astro Content Collections for all geographic/adventure content - no legacy .astro page creation for guides",
+        "scope": ["wv-wild-web/src/**/*.astro", "wv-wild-web/src/**/*.ts"]
+      },
+      {
+        "rule": "E-commerce UI is disabled by PUBLIC_COMMERCE_ENABLED flag - do not enable or add e-commerce features",
+        "scope": ["**/*.ts", "**/*.tsx", "**/*.astro"]
+      },
+      {
+        "rule": "Orange color (#FF6F00) must occupy less than 5% of any screen - use for CTAs only, never backgrounds",
+        "scope": ["**/*.css", "**/*.scss", "**/*.tsx", "**/*.astro"]
+      }
+    ],
+    "files": [
+      {
+        "path": "CLAUDE.md",
+        "description": "Development standards, SPARC methodology, file organization rules, and WVWO frontend aesthetics - the authoritative guide for all code standards",
+        "scope": ["**/*"]
+      },
+      {
+        "path": "docs/constitution.md",
+        "description": "Project constitution defining strategic direction, core principles (authentic WV voice, owner-first simplicity, mobile-first, anti-MVP bias), and governance rules",
+        "scope": ["**/*"]
+      },
+      {
+        "path": "docs/WVWO_FRONTEND_AESTHETICS.md",
+        "description": "Complete frontend design system with forbidden/required fonts, colors, animations, layouts, and the 5 litmus tests for design validation",
+        "scope": ["**/*.css", "**/*.scss", "**/*.tsx", "**/*.ts", "**/*.astro"]
+      }
+    ]
+  },
+
+  "patternRepositories": [],
+
+  "ignorePatterns": "node_modules/**\ndist/**\n.astro/**\n**/*.generated.*\n**/*.min.js\n**/*.min.css\npackage-lock.json\npnpm-lock.yaml\n.git/**\ncoverage/**\ntest-results/**\n.serena/**",
+
+  "includeBranches": ["main", "develop"],
+  "excludeAuthors": ["dependabot[bot]", "renovate[bot]"],
+
+  "includeIssuesTable": true,
+  "includeConfidenceScore": true,
+  "shouldUpdateDescription": false,
+  "updateExistingSummaryComment": true,
+  "hideFooter": false,
+
+  "summarySection": {
+    "included": true,
+    "collapsible": false,
+    "defaultOpen": true
+  },
+  "issuesTableSection": {
+    "included": true,
+    "collapsible": false,
+    "defaultOpen": true
+  }
+}
