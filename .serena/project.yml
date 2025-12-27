@@ -1,190 +1,39 @@
-# WVWO Storefront - Serena Project Configuration
-# West Virginia Wild Outdoors - Adventure Destination Hub
-# Created: 2025-12-26
-# Timeline: Launch Q1 2026
+# Serena Project Configuration for wvwo-storefront
+# Rich documentation moved to Serena memory: wvwo-project-context.md
 
-project:
-  name: "wvwo-storefront"
-  description: "West Virginia Wild Outdoors - Adventure Destination Hub for outdoor enthusiasts traveling I-79"
+# Languages (auto-detected, but explicit for TypeScript/Astro project)
+languages:
+  - typescript
+  - javascript
 
-  # Project identity
-  identity:
-    business: "WVWO - outdoor/hunting shop at I-79 Exit 57, WV-82 (38.5858, -80.8581)"
-    owners:
-      - "Kim (shop owner, voice of brand, truth-checker)"
-      - "Matt (developer, 45 hrs/week Mon-Fri 8AM-5PM)"
-    pivot: "Dec 2025: E-commerce → Adventure Destination Hub (Kim fraud concerns + shipping economics)"
-    revenue_model: "Adventure content SEO → affiliate marketing + local shop visits"
+# Paths to ignore
+ignored_paths:
+  - node_modules
+  - dist
+  - .astro
+  - .git
+  - coverage
+  - playwright-report
+  - .swarm
 
-  # Tech stack
-  stack:
-    framework: "Astro 5 with Content Collections"
-    language: "TypeScript + Zod validation"
-    styling: "Tailwind 4.x (CSS-first @theme blocks in global.css, NOT JS config)"
-    components: "shadcn/ui + React (Context API for state)"
-    state: "Nanostores (cart disabled via PUBLIC_COMMERCE_ENABLED=false)"
-    deployment: "Cloudflare Pages"
-    memory: "ReasoningBank (.swarm/memory.db) - 172 WVWO patterns migrated"
+# Tools to disable for this project
+excluded_tools: []
 
-  # Current status (as of 2025-12-26)
-  status:
-    completed:
-      - "SPEC-07: Adventures Hub Filtering (PR #1-8)"
-      - "SPEC-07B: Navigation Consolidation (PR #60)"
-      - "SPEC-08: AdventureCard Component (PR #61)"
-      - "SPEC-09: AdventureHero Component (PR #63 - E2E tests, date formatter)"
-    in_progress:
-      - "SPEC-09 PR 2: Schema & Accessibility"
-    remaining: "SPEC-10-70 (61 specs: components, templates, migrations, 42 destinations)"
+# Optional tools to enable
+included_optional_tools: []
 
-  # Timeline (updated for 2026)
-  timeline:
-    current_date: "2025-12-26"
-    launch_target: "February 2026 (10-20 adventures)"
-    full_completion: "May 2026 (42 destinations)"
-    batches:
-      - "Batch 1: Components SPEC-08-11 (4 specs) - Jan 2026"
-      - "Batch 2: Templates SPEC-12-20 (9 specs) - Jan-Feb 2026"
-      - "Batch 3: Migrations SPEC-21-28 (8 specs) - Feb 2026"
-      - "Batch 4-6: Destinations SPEC-29-70 (42 specs) - Feb-May 2026"
+# Prevent file modifications
+read_only: false
 
-# WVWO Design System (CRITICAL - enforce in all code reviews)
-design_system:
-  # Border radius - ONLY rounded-sm
-  borders:
-    allowed: ["rounded-sm"]
-    forbidden: ["rounded-md", "rounded-lg", "rounded-xl", "rounded-full"]
+# Respect .gitignore patterns
+ignore_all_files_in_gitignore: true
 
-  # Colors - ONLY brand palette
-  colors:
-    allowed:
-      - "brand-brown (primary)"
-      - "sign-green (accent/CTA)"
-      - "brand-cream (backgrounds)"
-      - "brand-orange (<5% of screen, highlights only)"
-    forbidden:
-      - "stone-* (never use gray tones)"
-      - "gray-*"
-      - "slate-*"
-      - "zinc-*"
+# Project context for Serena
+initial_prompt: |
+  WVWO Storefront - West Virginia Wild Outdoors adventure destination hub.
+  Stack: Astro 5, TypeScript, Tailwind 4, React, shadcn/ui.
+  Design: ONLY rounded-sm, brand colors only, Kim's authentic rural WV voice.
+  See memory file 'wvwo-project-context.md' for full design system and guidelines.
 
-  # Typography
-  fonts:
-    allowed: ["font-display", "font-body", "font-hand"]
-    forbidden: ["Inter", "Poppins", "system-ui defaults"]
-
-  # Animations
-  animations:
-    pattern: "Morning Mist Lift (staggered reveal)"
-    keyframes: "translateY(12px) to 0 with opacity"
-    delays: ["0ms", "100ms", "180ms", "260ms"]
-    required: "@media (prefers-reduced-motion: reduce) protection on ALL animations"
-
-  # Layout patterns
-  layouts:
-    hero: "7/5 asymmetric grid (lg:col-span-7 content, lg:col-span-5 image)"
-    components: "5-slot architecture (default, cta, badge-extra, aside, schema-extra)"
-
-  # Accessibility (WCAG 2.1 AA)
-  accessibility:
-    tap_targets: "44px minimum"
-    forms: "fieldset + legend for groups"
-    aria: "Required on all interactive elements"
-    colorblind: "Shape+color for difficulty (circle/triangle/square/diamond)"
-
-# Kim's Voice Guidelines (CRITICAL for content)
-kims_voice:
-  # Counter Test: Does it sound like a local shop owner?
-  tone:
-    - "Local knowledge ('Some folks say...', 'Old-timers will tell you...')"
-    - "Practical specifics (exact drive times, real species, facility details)"
-    - "Humble pride ('We aren't just a store off the highway...')"
-    - "Warm closing ('Grand love ya!')"
-
-  forbidden_phrases:
-    - "seamless"
-    - "curated"
-    - "elevate"
-    - "bespoke"
-    - "leverage"
-    - "synergy"
-    - "best-in-class"
-    - "game-changer"
-
-  litmus_tests:
-    - "Neighbor Test: Would I say this to my neighbor?"
-    - "Counter Test: Does it sound like Kim at the shop counter?"
-    - "Five-Year Test: Will this still be true in 5 years?"
-
-# Code Patterns (learned from 172 ReasoningBank episodes)
-patterns:
-  # Component patterns
-  components:
-    slots: "Use Astro.slots.has() for conditional wrappers"
-    props: "TypeScript interfaces with sensible defaults"
-    testing: "Vitest unit + Playwright E2E"
-
-  # Error handling
-  errors:
-    pattern: "Typed result objects: { success, reason, data, userMessage }"
-    avoid: "Silent failures (boolean/null returns)"
-
-  # URL handling
-  urls:
-    pattern: "Case-insensitive normalization before .includes() checks"
-    warning: "Dev-mode warnings for common typos (plural params)"
-
-  # Animations
-  motion:
-    pattern: "motion-safe:* and motion-reduce:* Tailwind variants"
-    required: "@media (prefers-reduced-motion: reduce) on all keyframes"
-
-  # File organization
-  files:
-    specs: "docs/specs/Mountain State Adventure Destination/"
-    components: "src/components/"
-    content: "src/content/adventures/"
-    utilities: "src/lib/utils/"
-    tests: "src/components/**/__tests__/ and tests/e2e/"
-
-# Memory namespaces (ReasoningBank queries)
-memory:
-  namespaces:
-    - "wvwo-successes: Successful patterns (146 episodes)"
-    - "wvwo-failures: Anti-patterns to avoid (6 episodes)"
-    - "wvwo-components: Component architecture patterns (3 episodes)"
-    - "wvwo-ui: shadcn/UI patterns (7 episodes)"
-    - "wvwo-ecommerce: Cart/checkout patterns (8 episodes)"
-    - "wvwo-astro: Astro-specific patterns (2 episodes)"
-
-  query_examples:
-    - "npx claude-flow@alpha memory query 'animation' --reasoningbank"
-    - "cd .swarm && node -e \"require('better-sqlite3')('./memory.db').prepare('SELECT * FROM memory_entries WHERE namespace LIKE \\'wvwo%\\' LIMIT 10').all()\""
-
-# Serena modes for this project
-modes:
-  default: ["interactive", "editing"]
-  planning: ["planning", "one-shot"]
-  code_review: ["editing", "no-onboarding"]
-
-# Source of truth documents
-sources_of_truth:
-  master_plan: "docs/specs/Mountain State Adventure Destination/MASTER-SEQUENCING-PLAN.md"
-  claude_md: "CLAUDE.md"
-  constitution: "docs/WVWO_CONSTITUTION.md (governance v2.3.0)"
-  aesthetics: "docs/WVWO_FRONTEND_AESTHETICS.md"
-
-# Feature flags
-feature_flags:
-  PUBLIC_COMMERCE_ENABLED: false
-  description: "E-commerce disabled pending Kim's comfort with online transactions"
-
-# Hive mind coordination
-coordination:
-  pattern: "Hierarchical (Queen → Scouts → Workers → Kim → Integration)"
-  agents:
-    - "queen-coordinator: Sequences specs, enforces quality gates"
-    - "scout-explorer: Research destinations (parallel)"
-    - "worker-specialist: Draft content, integrate feedback"
-    - "swarm-memory-manager: Store patterns in ReasoningBank"
-  kim_review: "Async Messenger batches (10 destinations at a time, ~1 hr/week)"
+# Source encoding
+encoding: utf-8
