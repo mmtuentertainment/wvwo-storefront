@@ -3,6 +3,14 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { OrderConfirmation as OrderConfirmationUI } from '../components/checkout';
+
+// Feature flag: E-commerce UI (cart, checkout, order confirmation)
+const commerceEnabled = import.meta.env.PUBLIC_COMMERCE_ENABLED === 'true';
+
+// Redirect to shop if commerce is disabled (consistent with checkout.astro)
+if (!commerceEnabled) {
+  return Astro.redirect('/shop', 307);
+}
 ---
 
 <Layout

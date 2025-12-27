@@ -17,7 +17,8 @@ interface Props {
 }
 
 const { items } = Astro.props;
-const BASE_URL = 'https://wvwildoutdoors.pages.dev';
+// Uses Astro.site from config with fallback
+const BASE_URL = Astro.site?.href.replace(/\/$/, '') || 'https://wvwildoutdoors.pages.dev';
 
 const schema = {
   "@context": "https://schema.org",

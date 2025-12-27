@@ -48,7 +48,7 @@ interface Props {
   // Required
   title: string;
   description: string;
-  difficulty: 'easy' | 'moderate' | 'advanced' | 'rugged';
+  difficulty: 'easy' | 'moderate' | 'challenging' | 'rugged';
   season: string;
   image: ImageMetadata;
   imageAlt: string;
@@ -100,7 +100,7 @@ interface Props {
 |------------|-------------|------------|
 | easy | `bg-sign-green text-white` | (circle) |
 | moderate | `bg-brand-orange text-white` | (triangle) |
-| advanced | `bg-brand-mud text-brand-cream` | (square) |
+| challenging | `bg-brand-mud text-brand-cream` | (square) |
 | rugged | `bg-red-800 text-white` | (diamond) |
 
 ---

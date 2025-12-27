@@ -58,8 +58,8 @@ const {
   eventEndDate,
 } = Astro.props;
 
-// Base URL for absolute URLs
-const BASE_URL = 'https://wvwildoutdoors.pages.dev';
+// Base URL for absolute URLs (uses Astro.site from config with fallback)
+const BASE_URL = Astro.site?.href.replace(/\/$/, '') || 'https://wvwildoutdoors.pages.dev';
 const pageUrl = `${BASE_URL}/adventures/${slug}/`;
 
 // Build the @graph array with multiple connected entities
