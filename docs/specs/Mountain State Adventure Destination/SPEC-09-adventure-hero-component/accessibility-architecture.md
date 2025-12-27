@@ -657,7 +657,7 @@ No special handling needed - these are CSS properties, not DOM elements.
 **File**: `wv-wild-web/tests/components/AdventureHero.a11y.test.ts`
 
 ```typescript
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { axe, toHaveNoViolations } from 'jest-axe';
 import { render } from '@testing-library/react'; // or Astro testing utils
 

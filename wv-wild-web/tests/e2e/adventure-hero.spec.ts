@@ -44,7 +44,7 @@ test.describe('AdventureHero Component', () => {
       const heroSection = page.locator('section[aria-labelledby^="adventure-hero"]');
 
       // Check for difficulty badge
-      const difficultyBadge = heroSection.locator('text=/Easy|Moderate|Advanced|Rugged/i');
+      const difficultyBadge = heroSection.locator('text=/Easy|Moderate|Challenging|Rugged/i');
       await expect(difficultyBadge.first()).toBeVisible();
 
       // Check for season badge

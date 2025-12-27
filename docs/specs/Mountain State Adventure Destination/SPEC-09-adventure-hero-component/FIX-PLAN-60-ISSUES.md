@@ -2,7 +2,7 @@
 
 **Generated**: December 27, 2025
 **PR**: #63 - AdventureHero Component
-**Research Sources**: WCAG 2.2 (ISO/IEC 40500:2025), Astro 5.10 Docs, Schema.org 2025, MDN Web Docs
+**Research Sources**: WCAG 2.2 (W3C Recommendation October 2023), Astro 5.x Docs, Schema.org, MDN Web Docs
 
 ---
 

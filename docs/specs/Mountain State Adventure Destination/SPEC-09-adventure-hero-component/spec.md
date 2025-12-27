@@ -128,7 +128,7 @@ Visitors can print adventure pages as reference guides for their trip.
 #### Core (Must Have)
 
 - **FR-001**: Component MUST render title as h1 with `id` for aria-labelledby
-- **FR-002**: Component MUST display difficulty badge with correct WVWO colors (easy=sign-green, moderate=brand-orange, advanced=brand-mud)
+- **FR-002**: Component MUST display difficulty badge with correct WVWO colors (easy=sign-green, moderate=brand-orange, challenging=brand-mud)
 - **FR-003**: Component MUST display season badge with brand-cream background
 - **FR-003a**: Component MUST display drive time badge when `driveTime` prop provided (e.g., "20 min drive")
 - **FR-004**: Component MUST render hero image using Astro Image component with srcset
@@ -156,7 +156,7 @@ interface Props {
   // Required - Core Display
   title: string;                                    // Adventure name (h1)
   description: string;                              // Lead paragraph
-  difficulty: 'easy' | 'moderate' | 'advanced' | 'rugged';
+  difficulty: 'easy' | 'moderate' | 'challenging' | 'rugged';
   season: string;                                   // "Year-round", "Spring-Fall", etc.
   driveTime?: string;                               // "20 min", "1 hr" from Birch River shop
 
@@ -305,7 +305,6 @@ it('image srcset is generated correctly');
 - [Astro Images Docs](https://docs.astro.build/en/guides/images/)
 - [WCAG 2.2 Animation Guidelines](https://www.w3.org/WAI/WCAG21/Understanding/animation-from-interactions.html)
 - [Schema.org Place](https://schema.org/Place)
-- [Hivemind Research Report](../../plans/inherited-petting-origami.md)
 - [WVWO Frontend Aesthetics](../../../CLAUDE.md#wvwo-frontend-aesthetics)
 - [Existing Hero Pattern](../../../wv-wild-web/src/pages/near/summersville-lake.astro) (lines 67-92)
 
