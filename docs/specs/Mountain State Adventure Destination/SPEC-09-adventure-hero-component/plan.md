@@ -32,7 +32,7 @@ The AdventureHero.astro component is a **zero-JS static hero** for adventure des
 
 ## Component Structure
 
-```
+```text
 wv-wild-web/
 ├── src/
 │   ├── components/
@@ -71,6 +71,7 @@ wv-wild-web/
 ## Implementation Phases
 
 ### Phase 1: Foundation (P1 - Core Display)
+
 **Goal**: Render hero with title, description, image, and badges
 
 **Tasks**:
@@ -92,6 +93,7 @@ wv-wild-web/
 ---
 
 ### Phase 2: Accessibility & Motion (P1 - WCAG Compliance)
+
 **Goal**: Full WCAG 2.2 AA compliance with motion safety
 
 **Tasks**:
@@ -111,6 +113,7 @@ wv-wild-web/
 ---
 
 ### Phase 3: Schema.org & SEO (P1 - Geographic SEO)
+
 **Goal**: Valid structured data for "near me" search capture
 
 **Tasks**:
@@ -130,6 +133,7 @@ wv-wild-web/
 ---
 
 ### Phase 4: Slots & Content Flexibility (P2)
+
 **Goal**: Enable content customization without component modification
 
 **Tasks**:

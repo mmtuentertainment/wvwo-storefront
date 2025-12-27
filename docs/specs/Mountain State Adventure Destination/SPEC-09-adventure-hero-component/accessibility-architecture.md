@@ -437,7 +437,7 @@ Per WVWO Frontend Aesthetics, NEVER use in hero:
 
 **Minimum text opacity on hero**: `brand-cream/60` for AAA compliance on small text.
 
-### 5.2 Badge Colors for Color Blind Users
+### 5.2 Badge Colors for Color-Blind Users
 
 **Problem**: Difficulty badges use color to convey meaning (easy=green, moderate=orange, advanced=brown, rugged=dark).
 
@@ -782,8 +782,8 @@ it('meets color contrast requirements', async () => {
 **Manual verification tools**:
 
 - [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/)
-- Stark browser extension (Chrome/Firefox)
-- Lighthouse accessibility audit
+- [Stark browser extension](https://www.getstark.co/) (Chrome/Firefox)
+- [Lighthouse accessibility audit](https://developers.google.com/web/tools/lighthouse)
 
 ---
 

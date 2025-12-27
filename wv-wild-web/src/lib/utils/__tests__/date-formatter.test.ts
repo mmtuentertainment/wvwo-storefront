@@ -49,26 +49,38 @@ describe('date-formatter', () => {
   });
 
   describe('formatSchemaDate', () => {
-    it('returns ISO 8601 format from string', () => {
-      const result = formatSchemaDate('2025-12-26T15:30:00Z');
+    it('returns ISO 8601 format from string using local date components', () => {
+      // Use explicit local time to avoid timezone conversion issues
+      const result = formatSchemaDate('2025-12-26T12:00:00');
       expect(result).toBe('2025-12-26');
     });
 
-    it('returns ISO 8601 format from Date object', () => {
-      // Use UTC to avoid timezone issues
-      const date = new Date(Date.UTC(2025, 6, 4, 12, 0, 0)); // July 4, 2025
+    it('returns ISO 8601 format from Date object using local date', () => {
+      // Create date in local timezone - uses getFullYear/getMonth/getDate (local)
+      const date = new Date(2025, 6, 4, 12, 0, 0); // July 4, 2025 at noon local time
       const result = formatSchemaDate(date);
       expect(result).toBe('2025-07-04');
     });
 
     it('handles start of year', () => {
-      const result = formatSchemaDate('2025-01-01T00:00:00Z');
+      // Use local time to test local date extraction
+      const result = formatSchemaDate('2025-01-01T12:00:00');
       expect(result).toBe('2025-01-01');
     });
 
     it('handles end of year', () => {
-      const result = formatSchemaDate('2025-12-31T23:59:59Z');
+      // Use local time to test local date extraction
+      const result = formatSchemaDate('2025-12-31T12:00:00');
       expect(result).toBe('2025-12-31');
+    });
+
+    it('avoids off-by-one errors from UTC conversion', () => {
+      // This is the key fix - formatSchemaDate now uses local date components
+      // instead of toISOString() which converts to UTC
+      const localDate = new Date(2025, 0, 15, 0, 30, 0); // Jan 15, 2025 at 12:30 AM local
+      const result = formatSchemaDate(localDate);
+      // Should be Jan 15 in local time, not Jan 14 (which toISOString might return in some timezones)
+      expect(result).toBe('2025-01-15');
     });
   });
 
@@ -99,17 +111,19 @@ describe('date-formatter', () => {
     });
 
     it('returns "X weeks ago" for dates within a month', () => {
+      expect(getRelativeTime('2025-12-19T10:00:00Z')).toBe('1 week ago');
       expect(getRelativeTime('2025-12-12T10:00:00Z')).toBe('2 weeks ago');
       expect(getRelativeTime('2025-12-05T10:00:00Z')).toBe('3 weeks ago');
     });
 
     it('returns "X months ago" for dates within a year', () => {
+      expect(getRelativeTime('2025-11-26T10:00:00Z')).toBe('1 month ago');
       expect(getRelativeTime('2025-10-26T10:00:00Z')).toBe('2 months ago');
       expect(getRelativeTime('2025-06-26T10:00:00Z')).toBe('6 months ago');
     });
 
     it('returns "X years ago" for older dates', () => {
-      expect(getRelativeTime('2024-12-26T10:00:00Z')).toBe('1 years ago');
+      expect(getRelativeTime('2024-12-26T10:00:00Z')).toBe('1 year ago');
       expect(getRelativeTime('2023-12-26T10:00:00Z')).toBe('2 years ago');
     });
 

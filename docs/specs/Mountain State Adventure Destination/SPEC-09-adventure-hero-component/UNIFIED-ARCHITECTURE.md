@@ -392,10 +392,8 @@ Shape icons differentiate difficulty levels without relying on color:
 
 ```css
 .cta-button:focus-visible {
-  outline: none;
-  ring: 2px solid var(--color-brand-orange);
-  ring-offset: 2px;
-  ring-offset-color: var(--color-brand-brown);
+  outline: 2px solid var(--color-brand-orange);
+  outline-offset: 2px;
 }
 ```
 

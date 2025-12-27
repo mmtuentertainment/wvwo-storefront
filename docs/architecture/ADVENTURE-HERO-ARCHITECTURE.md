@@ -1102,4 +1102,6 @@ wv-wild-web/src/components/adventures/
 
 ---
 
+---
+
 **Architecture Document v1.0 | December 2025**

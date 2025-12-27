@@ -727,7 +727,7 @@ Create a schema validation utility:
 **File**: `src/utils/schema-validator.ts`
 
 ```typescript
-import { z } from 'astro/zod';
+import { z } from 'zod';
 
 // Schema validation for required properties
 export const AdventureSchemaValidator = z.object({
