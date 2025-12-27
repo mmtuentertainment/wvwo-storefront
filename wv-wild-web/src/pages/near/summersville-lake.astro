@@ -5,7 +5,16 @@ import Footer from '../../components/Footer.astro';
 import EmailCapture from '../../components/EmailCapture.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import SchemaBreadcrumb from '../../components/seo/SchemaBreadcrumb.astro';
+import AdventureQuickStats from '../../components/adventure/AdventureQuickStats.astro';
 import { SITE_CONTACT } from '../../config/siteContact';
+
+// Quick stats for Summersville Lake
+const summersvilleStats = [
+  { value: '2,790', label: 'Acres', icon: 'area' as const },
+  { value: '30 min', label: 'From Shop', icon: 'time' as const },
+  { value: 'Nicholas Co.', label: 'Location', icon: 'location' as const },
+  { value: 'Year-Round', label: 'Access', icon: 'calendar' as const },
+];
 
 // Place schema for geographic SEO
 // LOCATION: Summersville Lake, Nicholas Co., WV
@@ -91,29 +100,8 @@ const breadcrumbItems = [
       </div>
     </section>
 
-    <!-- Quick Info -->
-    <section class="py-8 bg-white border-b border-brand-brown/15">
-      <div class="container mx-auto px-4">
-        <div class="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-          <div>
-            <span class="block text-2xl font-bold text-brand-brown">2,790</span>
-            <span class="text-sm text-brand-brown/60">Acres</span>
-          </div>
-          <div>
-            <span class="block text-2xl font-bold text-brand-brown">30 min</span>
-            <span class="text-sm text-brand-brown/60">From Shop</span>
-          </div>
-          <div>
-            <span class="block text-2xl font-bold text-brand-brown">Nicholas Co.</span>
-            <span class="text-sm text-brand-brown/60">Location</span>
-          </div>
-          <div>
-            <span class="block text-2xl font-bold text-brand-brown">Year-Round</span>
-            <span class="text-sm text-brand-brown/60">Access</span>
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- Quick Info (SPEC-10) -->
+    <AdventureQuickStats stats={summersvilleStats} variant="white" />
 
     <!-- What to Fish -->
     <section class="py-12 md:py-16">

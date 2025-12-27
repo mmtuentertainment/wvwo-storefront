@@ -1,0 +1,135 @@
+---
+/**
+ * AdventureQuickStats.astro
+ * SPEC-10: Quick Stats Component
+ *
+ * Displays key statistics (distance, drive time, facilities, etc.) in a
+ * responsive grid. Replaces hardcoded "Quick Info" sections on adventure pages.
+ *
+ * @example
+ * ```astro
+ * <AdventureQuickStats
+ *   stats={[
+ *     { value: '2,790', label: 'Acres', icon: 'area' },
+ *     { value: '30 min', label: 'From Shop', icon: 'time' },
+ *   ]}
+ *   columns={4}
+ *   variant="white"
+ * />
+ * ```
+ */
+import type { StatItem, StatColumns, StatIcon } from '../../types/adventure';
+import { STAT_ICON_PATHS } from '../../types/adventure';
+
+interface Props {
+  /** Array of stat items to display (2-6 recommended) */
+  stats: StatItem[];
+  /** Number of columns on desktop (default: 4) */
+  columns?: StatColumns;
+  /** Background style (default: 'cream') */
+  variant?: 'cream' | 'white';
+  /** Section aria-label for accessibility (default: 'Quick statistics') */
+  ariaLabel?: string;
+  /** Enable gentle reveal animation (default: true) */
+  animate?: boolean;
+}
+
+const {
+  stats,
+  columns = 4,
+  variant = 'cream',
+  ariaLabel = 'Quick statistics',
+  animate = true,
+} = Astro.props;
+
+// Map columns to Tailwind grid classes
+const columnClasses: Record<StatColumns, string> = {
+  2: 'grid-cols-2',
+  3: 'grid-cols-2 md:grid-cols-3',
+  4: 'grid-cols-2 md:grid-cols-4',
+};
+
+// Map variant to background class
+const bgClass = variant === 'white' ? 'bg-white' : 'bg-brand-cream';
+
+/**
+ * Get SVG path for an icon.
+ * Returns custom path if provided, otherwise looks up predefined path.
+ */
+function getIconPath(stat: StatItem): string | null {
+  if (stat.customIconPath) return stat.customIconPath;
+  if (stat.icon && stat.icon !== 'none') return STAT_ICON_PATHS[stat.icon];
+  return null;
+}
+---
+
+<section
+  class:list={[
+    'py-8 border-b border-brand-brown/15',
+    bgClass,
+    animate && 'adventure-quick-stats',
+  ]}
+  aria-label={ariaLabel}
+>
+  <div class="container mx-auto px-4">
+    <dl
+      class:list={[
+        'max-w-4xl mx-auto grid gap-4 text-center',
+        columnClasses[columns],
+      ]}
+    >
+      {
+        stats.map((stat) => {
+          const iconPath = getIconPath(stat);
+          return (
+            <div class="flex flex-col items-center space-y-2">
+              {iconPath && (
+                <svg
+                  aria-hidden="true"
+                  class="w-6 h-6 text-sign-green"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d={iconPath} />
+                </svg>
+              )}
+              <dt class="font-display text-2xl md:text-3xl font-bold text-brand-brown">
+                {stat.value}
+              </dt>
+              <dd class="text-sm font-body text-brand-mud">
+                {stat.label}
+              </dd>
+            </div>
+          );
+        })
+      }
+    </dl>
+  </div>
+</section>
+
+<style>
+  .adventure-quick-stats {
+    animation: gentle-reveal 0.6s ease-out both;
+  }
+
+  @keyframes gentle-reveal {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .adventure-quick-stats {
+      animation: none;
+    }
+  }
+</style>
