@@ -462,11 +462,11 @@ Per WVWO Frontend Aesthetics, NEVER use in hero:
 </span>
 
 <span class="badge bg-brand-mud text-brand-cream">
-  <!-- Square icon for "advanced" -->
+  <!-- Square icon for "challenging" -->
   <svg aria-hidden="true" class="w-3 h-3 mr-1 inline-block" viewBox="0 0 12 12">
     <rect x="1" y="1" width="10" height="10" fill="currentColor"/>
   </svg>
-  Advanced
+  Challenging
 </span>
 
 <span class="badge bg-brand-brown-faded text-brand-cream border border-brand-cream/30">
@@ -864,7 +864,7 @@ import { Image } from 'astro:assets';
 interface Props {
   title: string;
   description: string;
-  difficulty: 'easy' | 'moderate' | 'advanced' | 'rugged';
+  difficulty: 'easy' | 'moderate' | 'challenging' | 'rugged';
   season: string;
   driveTime?: string;
   image: ImageMetadata;

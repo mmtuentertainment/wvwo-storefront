@@ -118,7 +118,7 @@ Rustic wood frame effect with hard shadows:
 ```typescript
 import type { ImageMetadata } from 'astro';
 
-type Difficulty = 'easy' | 'moderate' | 'advanced' | 'rugged';
+type Difficulty = 'easy' | 'moderate' | 'challenging' | 'rugged';
 type Season = 'spring' | 'summer' | 'fall' | 'winter';
 type SchemaType = 'Place' | 'Article' | 'Event';
 
@@ -198,10 +198,10 @@ interface Props {
 ### 2.3 Content Collections Factory
 
 ```typescript
-// src/lib/adventures/heroFactory.ts
+// src/lib/adventure/heroFactory.ts (FUTURE: Not yet implemented)
 
 import type { CollectionEntry } from 'astro:content';
-import type { Props as AdventureHeroProps } from '../components/adventures/AdventureHero.astro';
+import type { Props as AdventureHeroProps } from '../components/adventure/AdventureHero.astro';
 
 export function createHeroProps(
   entry: CollectionEntry<'adventures'>,
@@ -498,20 +498,20 @@ Inspired by West Virginia morning fog lifting from hollows:
 ```text
 wv-wild-web/src/
 ├── components/
-│   └── adventures/
-│       ├── AdventureHero.astro      # Main component
-│       ├── AdventureSchema.astro    # Schema.org generator
-│       ├── AdventureBadge.astro     # Badge with shape icons
-│       └── types.ts                 # Shared TypeScript interfaces
-├── lib/
-│   └── adventures/
-│       └── heroFactory.ts           # Content Collections helpers
+│   └── adventure/
+│       ├── AdventureHero.astro          # Main component
+│       ├── AdventureHeroBadge.astro     # Badge with shape icons
+│       └── MEMORY.md                    # Swarm coordination
+│   └── seo/
+│       └── SchemaAdventureHero.astro    # Schema.org generator
 ├── styles/
-│   └── adventures/
-│       └── hero.css                 # Component-specific styles
+│   └── adventure-hero.css               # Component-specific styles
+├── types/
+│   └── adventure.ts                     # Shared TypeScript interfaces
 └── tests/
     └── components/
-        └── AdventureHero.test.ts    # Unit + a11y tests
+        └── adventure/
+            └── AdventureHero.test.ts    # Unit + a11y tests
 ```
 
 ### 7.2 Complete Component Template
@@ -521,8 +521,8 @@ wv-wild-web/src/
 // AdventureHero.astro - Unified Implementation
 
 import { Image } from 'astro:assets';
-import AdventureSchema from './AdventureSchema.astro';
-import AdventureBadge from './AdventureBadge.astro';
+import SchemaAdventureHero from '../seo/SchemaAdventureHero.astro';
+import AdventureHeroBadge from './AdventureHeroBadge.astro';
 import type { Props } from './types';
 
 const {

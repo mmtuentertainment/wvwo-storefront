@@ -76,7 +76,7 @@ interface Props {
 
 ```bash
 # Create file
-Write wv-wild-web/src/components/adventures/AdventureHero.astro
+Write wv-wild-web/src/components/adventure/AdventureHero.astro
 
 # Implement:
 # - Camo background pattern (CSS or SVG)
@@ -99,7 +99,7 @@ Write wv-wild-web/src/components/adventures/AdventureHero.astro
 ```astro
 ---
 // Example: Burnsville Turkey page
-import AdventureHero from '@/components/adventures/AdventureHero.astro';
+import AdventureHero from '@/components/adventure/AdventureHero.astro';
 const adventure = await getEntry('adventures', 'spring-gobbler-burnsville');
 ---
 
@@ -161,7 +161,7 @@ Thanks!
 ## Deliverables
 
 **Code:**
-- [ ] `wv-wild-web/src/components/adventures/AdventureHero.astro` (~120 LOC)
+- [ ] `wv-wild-web/src/components/adventure/AdventureHero.astro` (~120 LOC)
 - [ ] Camo background pattern (CSS or inline SVG)
 - [ ] Badge components (season pills, difficulty badge)
 - [ ] Slot-based composition (flexible content)

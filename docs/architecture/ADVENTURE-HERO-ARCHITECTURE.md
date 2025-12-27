@@ -2,7 +2,7 @@
 
 > **Component Type**: Astro (.astro)
 > **Purpose**: Unified hero section for 50+ adventure detail pages
-> **Location**: `wv-wild-web/src/components/adventures/AdventureHero.astro`
+> **Location**: `wv-wild-web/src/components/adventure/AdventureHero.astro`
 
 ---
 
@@ -44,7 +44,7 @@
 ### Primary Props Interface
 
 ```typescript
-// wv-wild-web/src/components/adventures/AdventureHero.astro
+// wv-wild-web/src/components/adventure/AdventureHero.astro
 
 import type { ImageMetadata } from 'astro';
 import type { CollectionEntry } from 'astro:content';
@@ -517,7 +517,7 @@ const uniqueId = Astro.props.id || heroId;
 ---
 // In: src/pages/adventures/[...slug].astro
 import { getCollection, getEntry } from 'astro:content';
-import AdventureHero from '../../components/adventures/AdventureHero.astro';
+import AdventureHero from '../../components/adventure/AdventureHero.astro';
 import Layout from '../../layouts/Layout.astro';
 
 export async function getStaticPaths() {
@@ -566,10 +566,10 @@ const heroProps = {
 ### Pattern 2: Factory Helper Function
 
 ```typescript
-// src/lib/adventures/heroFactory.ts
+// src/lib/adventure/heroFactory.ts (FUTURE: Not yet implemented)
 
 import type { CollectionEntry } from 'astro:content';
-import type { Props as AdventureHeroProps } from '../components/adventures/AdventureHero.astro';
+import type { Props as AdventureHeroProps } from '../components/adventure/AdventureHero.astro';
 
 /**
  * Transform a Content Collection entry to AdventureHero props
@@ -645,8 +645,8 @@ export function createLocationHeroProps(
 ---
 // For pages that need to customize beyond Content Collection data
 import { getEntry } from 'astro:content';
-import { createHeroProps } from '../../lib/adventures/heroFactory';
-import AdventureHero from '../../components/adventures/AdventureHero.astro';
+import { createHeroProps } from '../../lib/adventure/heroFactory';
+import AdventureHero from '../../components/adventure/AdventureHero.astro';
 
 const entry = await getEntry('adventures', 'spring-gobbler-burnsville');
 
@@ -700,7 +700,7 @@ const heroProps = createHeroProps(entry, {
 
 ```astro
 ---
-import AdventureHero from '../components/adventures/AdventureHero.astro';
+import AdventureHero from '../components/adventure/AdventureHero.astro';
 ---
 
 <AdventureHero
@@ -723,7 +723,7 @@ import AdventureHero from '../components/adventures/AdventureHero.astro';
 
 ```astro
 ---
-import AdventureHero from '../components/adventures/AdventureHero.astro';
+import AdventureHero from '../components/adventure/AdventureHero.astro';
 import { SITE_CONTACT } from '../config/siteContact';
 ---
 
@@ -771,7 +771,7 @@ import { SITE_CONTACT } from '../config/siteContact';
 
 ```astro
 ---
-import AdventureHero from '../components/adventures/AdventureHero.astro';
+import AdventureHero from '../components/adventure/AdventureHero.astro';
 import WeatherWidget from '../components/WeatherWidget.astro';
 import { SITE_CONTACT } from '../config/siteContact';
 
@@ -1068,27 +1068,33 @@ const schema = buildSchema(Astro.props, siteUrl);
 ## Component File Structure
 
 ```text
-wv-wild-web/src/components/adventures/
-├── AdventureHero.astro       # Main hero component
-├── AdventureCard.tsx         # Grid card (existing)
-├── heroFactory.ts            # Content Collection -> Props helpers
-├── types.ts                  # Shared TypeScript interfaces
-└── styles/
-    └── adventure-hero.css    # Scoped styles (optional)
+wv-wild-web/src/components/adventure/
+├── AdventureHero.astro          # Main hero component
+├── AdventureHeroBadge.astro     # Badge with shape icons
+└── MEMORY.md                    # Swarm coordination
+
+wv-wild-web/src/components/seo/
+└── SchemaAdventureHero.astro    # Schema.org generator
+
+wv-wild-web/src/styles/
+└── adventure-hero.css           # Component styles
+
+wv-wild-web/src/types/
+└── adventure.ts                 # Shared TypeScript interfaces
 ```
 
 ---
 
 ## Checklist for Implementation
 
-- [ ] Create `AdventureHero.astro` with full Props interface
-- [ ] Implement slot detection pattern (`Astro.slots.has()`)
-- [ ] Add runtime validation for difficulty enum
-- [ ] Create `heroFactory.ts` for Content Collection integration
-- [ ] Add CSS custom properties for theming
-- [ ] Build Schema.org generator function
+- [x] Create `AdventureHero.astro` with full Props interface
+- [x] Implement slot detection pattern (`Astro.slots.has()`)
+- [x] Add runtime validation for difficulty enum
+- [ ] Create `heroFactory.ts` for Content Collection integration (FUTURE)
+- [x] Add CSS custom properties for theming
+- [x] Build Schema.org generator function (`SchemaAdventureHero.astro`)
 - [ ] Create usage examples in Storybook or test pages
-- [ ] Document in component JSDoc comments
+- [x] Document in component JSDoc comments
 - [ ] Test with all 5 Content Collections (adventures, locations, stories, resources, products)
 
 ---

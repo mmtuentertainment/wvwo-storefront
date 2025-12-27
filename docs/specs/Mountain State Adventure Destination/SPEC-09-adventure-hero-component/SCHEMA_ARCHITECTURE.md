@@ -792,7 +792,9 @@ Add to GitHub Actions workflow:
 
 ### 9.1 Schema Generation Component
 
-**File**: `src/components/adventure/AdventureSchema.astro`
+**File**: `src/components/seo/SchemaAdventureHero.astro`
+> **Note**: The implemented schema component uses a different API than shown below.
+> See the actual implementation for the current Props interface.
 
 ```astro
 ---
@@ -984,7 +986,7 @@ const schema = {
 
 ```astro
 ---
-import AdventureSchema from './AdventureSchema.astro';
+import SchemaAdventureHero from '../seo/SchemaAdventureHero.astro';
 
 // ... existing props
 ---
@@ -1076,4 +1078,4 @@ To maximize knowledge panel appearance:
 ---
 
 **Document Status**: Ready for implementation
-**Next Steps**: Implement AdventureSchema.astro component, integrate with AdventureHero.astro
+**Status**: Implemented as `SchemaAdventureHero.astro` in `src/components/seo/`
