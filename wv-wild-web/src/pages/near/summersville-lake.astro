@@ -6,6 +6,10 @@ import EmailCapture from '../../components/EmailCapture.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import SchemaBreadcrumb from '../../components/seo/SchemaBreadcrumb.astro';
 import AdventureQuickStats from '../../components/adventure/AdventureQuickStats.astro';
+import AdventureGettingThere from '../../components/adventure/AdventureGettingThere.astro';
+import AdventureGearChecklist from '../../components/adventure/AdventureGearChecklist.astro';
+import AdventureRelatedShop from '../../components/adventure/AdventureRelatedShop.astro';
+import type { GearItem, RelatedCategory } from '../../types/adventure';
 import { SITE_CONTACT } from '../../config/siteContact';
 
 // Quick stats for Summersville Lake
@@ -58,6 +62,25 @@ const breadcrumbItems = [
   { name: 'Home', url: '/' },
   { name: 'Hunt Near Us', url: '/near/' },
   { name: 'Summersville Lake', url: '/near/summersville-lake/' }
+];
+
+// SPEC-11: Gear checklist data
+const summersvilleGear: GearItem[] = [
+  { name: 'WV fishing license', optional: false },
+  { name: 'Light line (clear water needs finesse)', optional: false },
+  { name: 'Tube jigs, soft plastics', optional: false },
+  { name: 'Drop shot rigs', optional: false },
+  { name: 'Snorkel gear', optional: true },
+  { name: 'Water shoes', optional: true },
+  { name: 'Sunscreen and towels', optional: false },
+  { name: 'Cooler and drinks', optional: true },
+];
+
+// SPEC-11: Related shop categories
+const summersvilleCategories: RelatedCategory[] = [
+  { name: 'Fishing Gear', description: 'Rods, reels, line, and tackle', href: '/shop/fishing' },
+  { name: 'Camping Supplies', description: 'Tents, coolers, and camp gear', href: '/shop/camping' },
+  { name: 'Water Sports', description: 'Snorkels, water shoes, floats', href: '/shop/water-sports' },
 ];
 ---
 
@@ -418,125 +441,44 @@ const breadcrumbItems = [
       </div>
     </section>
 
-    <!-- Getting There -->
-    <section class="py-12 md:py-16 bg-white">
-      <div class="container mx-auto px-4">
-        <div class="max-w-3xl mx-auto">
-          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-8">
-            Getting There
-          </h2>
+    <!-- Getting There (SPEC-11) -->
+    <AdventureGettingThere
+      directions="<ol class='list-decimal list-inside space-y-2'><li>Head south on US-19 from Birch River</li><li>Continue through Summersville (~40 miles)</li><li>Turn right on WV-129 toward the lake</li><li>Follow signs to Battle Run or your destination</li></ol>"
+      mapLink="https://maps.google.com/?q=Summersville+Lake+Battle+Run+WV"
+      driveTime="30 minutes"
+      distance="40 miles"
+    >
+      <p class="text-brand-mud/80 italic">
+        <strong>Pro tip:</strong> Stop by our shop on US-19 before heading to the lake. We'll get you set up with tackle, bait, and local tips.
+      </p>
+    </AdventureGettingThere>
 
-          <div class="bg-brand-cream p-6 rounded-sm border-l-4 border-sign-green mb-6">
-            <h3 class="font-bold text-brand-brown mb-2">From Our Shop</h3>
-            <ol class="text-brand-brown/75 space-y-2 list-decimal list-inside">
-              <li>Head south on US-19 from Birch River</li>
-              <li>Continue through Summersville (~40 miles)</li>
-              <li>Turn right on WV-129 toward the lake</li>
-              <li>Follow signs to Battle Run or your destination (~30 minutes total)</li>
-            </ol>
-          </div>
+    <!-- Gear Checklist (SPEC-11) -->
+    <AdventureGearChecklist
+      title="What to Bring"
+      intro="We've got most of this in stock. Stop by before you head out."
+      items={summersvilleGear}
+      columns={2}
+      variant="cream"
+    >
+      <a
+        slot="footer"
+        href="/shop"
+        class="inline-flex items-center gap-2 bg-sign-green text-white font-bold px-6 py-3 rounded-sm hover:bg-sign-green/90 transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange"
+      >
+        Browse Our Gear
+      </a>
+    </AdventureGearChecklist>
 
-          <div class="bg-brand-cream p-6 rounded-sm border-l-4 border-brand-orange">
-            <h3 class="font-bold text-brand-brown mb-2">From I-79 (Northbound)</h3>
-            <ol class="text-brand-brown/75 space-y-2 list-decimal list-inside">
-              <li>Take I-79 to US-19 South (Beckley direction)</li>
-              <li>Follow US-19 through Summersville</li>
-              <li>Turn right on WV-129</li>
-              <li>Stop by our shop on your way back — we're at I-79 Exit 57, across from GoMart</li>
-            </ol>
-          </div>
-
-          <p class="mt-6 text-sm text-brand-brown/60">
-            U.S. Army Corps of Engineers - Battle Run: <a href="tel:+13048723459" class="text-sign-green hover:underline">(304) 872-3459</a>
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- What to Bring -->
-    <section class="py-12 md:py-16">
-      <div class="container mx-auto px-4">
-        <div class="max-w-3xl mx-auto">
-          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-4">
-            What to Bring
-          </h2>
-          <p class="text-brand-brown/75 mb-8">
-            We've got most of this in stock. Stop by before you head out.
-          </p>
-
-          <div class="grid md:grid-cols-2 gap-6">
-            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
-              <h3 class="font-bold text-brand-brown mb-3">For Fishing</h3>
-              <ul class="space-y-2 text-brand-brown/75 text-sm">
-                <li class="flex items-center gap-2">
-                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                  </svg>
-                  WV fishing license
-                </li>
-                <li class="flex items-center gap-2">
-                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                  </svg>
-                  Light line (clear water needs finesse)
-                </li>
-                <li class="flex items-center gap-2">
-                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                  </svg>
-                  Tube jigs, soft plastics
-                </li>
-                <li class="flex items-center gap-2">
-                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                  </svg>
-                  Drop shot rigs (smallmouth love them)
-                </li>
-              </ul>
-            </div>
-
-            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
-              <h3 class="font-bold text-brand-brown mb-3">For Swimming & Diving</h3>
-              <ul class="space-y-2 text-brand-brown/75 text-sm">
-                <li class="flex items-center gap-2">
-                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                  </svg>
-                  Snorkel gear (worth it here)
-                </li>
-                <li class="flex items-center gap-2">
-                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                  </svg>
-                  Water shoes (rocky shoreline)
-                </li>
-                <li class="flex items-center gap-2">
-                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                  </svg>
-                  Sunscreen and towels
-                </li>
-                <li class="flex items-center gap-2">
-                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                  </svg>
-                  Cooler and drinks
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="mt-8 text-center">
-            <a
-              href="/shop"
-              class="inline-flex items-center gap-2 bg-sign-green text-white font-bold px-6 py-3 rounded-sm hover:bg-sign-green/90 motion-safe:transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange"
-            >
-              Browse Our Gear
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- Related Shop (SPEC-11) -->
+    <AdventureRelatedShop
+      title="Shop for Your Trip"
+      intro="Everything you need for a great day at Summersville Lake."
+      categories={summersvilleCategories}
+      ctaText="Visit Our Shop"
+      ctaHref="/shop"
+      variant="white"
+    />
 
     <!-- CTA -->
     <section class="bg-sign-green text-white py-12">

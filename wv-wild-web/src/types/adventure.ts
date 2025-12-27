@@ -135,6 +135,7 @@ export const StatIconSchema = z.enum([
   'info',
   'location',
   'area',
+  'circle',  // SPEC-11: For optional gear items
   'none',
 ]);
 
@@ -177,5 +178,45 @@ export const STAT_ICON_PATHS: Record<StatIcon, string | null> = {
   location:
     'M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z',
   area: 'M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6z',
+  circle: 'M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z',
   none: null,
 };
+
+// ============================================================================
+// SPEC-11: SHARED COMPONENT SCHEMAS
+// ============================================================================
+
+/**
+ * Gear item for AdventureGearChecklist component.
+ * Represents a single piece of recommended gear.
+ */
+export const GearItemSchema = z.object({
+  /** Gear item name (e.g., "Fishing rod & tackle") */
+  name: z.string().min(1),
+  /** True if item is optional (default: false = required) */
+  optional: z.boolean().default(false),
+  /** Optional predefined icon name */
+  icon: StatIconSchema.optional(),
+});
+
+export type GearItem = z.infer<typeof GearItemSchema>;
+
+/** Column count options for AdventureGearChecklist grid */
+export type GearColumns = 1 | 2 | 3;
+
+/**
+ * Related shop category for AdventureRelatedShop component.
+ * Links to shop category pages.
+ */
+export const RelatedCategorySchema = z.object({
+  /** Category name (e.g., "Fishing Gear") */
+  name: z.string().min(1),
+  /** Brief description (optional) */
+  description: z.string().optional(),
+  /** Link to category page (e.g., "/shop/fishing") */
+  href: z.string().startsWith('/'),
+  /** Optional predefined icon name */
+  icon: StatIconSchema.optional(),
+});
+
+export type RelatedCategory = z.infer<typeof RelatedCategorySchema>;

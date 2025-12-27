@@ -1,0 +1,173 @@
+---
+/**
+ * AdventureRelatedShop.astro
+ * SPEC-11: Related Shop Component
+ *
+ * Displays a grid of shop category cards with hover effects and a main CTA
+ * button linking to the shop.
+ *
+ * @accessibility
+ * - Uses semantic section with aria-labelledby
+ * - Cards are links with focus-visible states
+ * - Hover effects respect prefers-reduced-motion
+ * - Internal links only (no external link handling needed)
+ *
+ * @example
+ * ```astro
+ * <AdventureRelatedShop
+ *   intro="Everything you need for your adventure."
+ *   categories={[
+ *     { name: 'Fishing Gear', description: 'Rods, reels, tackle', href: '/shop/fishing' },
+ *     { name: 'Camping', description: 'Tents, coolers', href: '/shop/camping' },
+ *   ]}
+ *   ctaText="Browse All Gear"
+ * />
+ * ```
+ */
+import type { RelatedCategory } from '../../types/adventure';
+
+interface Props {
+  /** Section heading (default: "Shop Related Items") */
+  title?: string;
+  /** Intro text (default: "Planning a trip? We've got you covered.") */
+  intro?: string;
+  /** Array of shop categories to display */
+  categories: RelatedCategory[];
+  /** CTA button text (default: "Visit Our Shop") */
+  ctaText?: string;
+  /** CTA button href (default: "/shop") */
+  ctaHref?: string;
+  /** Background variant (default: 'white') */
+  variant?: 'white' | 'cream';
+  /** Enable gentle reveal animation (default: true) */
+  animate?: boolean;
+}
+
+const {
+  title = 'Shop Related Items',
+  intro = "Planning a trip? We've got you covered.",
+  categories,
+  ctaText = 'Visit Our Shop',
+  ctaHref = '/shop',
+  variant = 'white',
+  animate = true,
+} = Astro.props;
+
+// Generate unique ID for aria-labelledby
+const sectionId = `adventure-related-shop-${Math.random().toString(36).substring(2, 9)}`;
+
+// Background class based on variant
+const bgClass = variant === 'white' ? 'bg-white' : 'bg-brand-cream';
+
+// Determine grid columns based on category count
+function getGridClass(count: number): string {
+  if (count === 1) return 'grid-cols-1';
+  if (count === 2) return 'grid-cols-1 md:grid-cols-2';
+  return 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3';
+}
+
+const gridClass = getGridClass(categories.length);
+---
+
+<section
+  class:list={[
+    'py-12 md:py-16',
+    bgClass,
+    animate && 'adventure-related-shop',
+  ]}
+  aria-labelledby={sectionId}
+>
+  <div class="container mx-auto px-4">
+    <div class="max-w-3xl mx-auto">
+      <h2
+        id={sectionId}
+        class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-4"
+      >
+        {title}
+      </h2>
+
+      {intro && (
+        <p class="text-brand-brown/75 mb-8">{intro}</p>
+      )}
+
+      {categories.length > 0 && (
+        <div class:list={['grid gap-4 mb-8', gridClass]}>
+          {categories.map((category) => (
+            <a
+              href={category.href}
+              class="related-category-card block bg-brand-cream p-5 rounded-sm border-l-4 border-sign-green hover:border-brand-orange focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2"
+            >
+              <h3 class="font-display font-bold text-lg text-brand-brown mb-1">
+                {category.name}
+              </h3>
+              {category.description && (
+                <p class="text-sm text-brand-mud">{category.description}</p>
+              )}
+            </a>
+          ))}
+        </div>
+      )}
+
+      {/* Main CTA Button */}
+      <div class="text-center">
+        <a
+          href={ctaHref}
+          class="inline-flex items-center gap-2 bg-brand-orange text-white font-bold px-6 py-3 rounded-sm hover:bg-brand-orange/90 transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2"
+        >
+          {ctaText}
+          <svg
+            aria-hidden="true"
+            class="w-5 h-5"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .adventure-related-shop {
+    animation: gentle-reveal 0.6s ease-out both;
+  }
+
+  @keyframes gentle-reveal {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .related-category-card {
+    transition: border-color 0.3s ease, transform 0.3s ease;
+  }
+
+  .related-category-card:hover {
+    transform: translateY(-2px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .adventure-related-shop {
+      animation: none;
+    }
+
+    .related-category-card {
+      transition: none;
+    }
+
+    .related-category-card:hover {
+      transform: none;
+    }
+  }
+</style>
