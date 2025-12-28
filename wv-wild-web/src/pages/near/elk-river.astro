@@ -5,7 +5,15 @@ import Footer from '../../components/Footer.astro';
 import EmailCapture from '../../components/EmailCapture.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import SchemaBreadcrumb from '../../components/seo/SchemaBreadcrumb.astro';
+
 import { SITE_CONTACT } from '../../config/siteContact';
+import AdventureFeatureSection from '../../components/adventure/AdventureFeatureSection.astro';
+import AdventureWhatToHunt from '../../components/adventure/AdventureWhatToHunt.astro';
+import AdventureWhatToFish from '../../components/adventure/AdventureWhatToFish.astro';
+import AdventureCampingList from '../../components/adventure/AdventureCampingList.astro';
+import AdventureAmenitiesGrid from '../../components/adventure/AdventureAmenitiesGrid.astro';
+import AdventureCTA from '../../components/adventure/AdventureCTA.astro';
+import type { CampingFacility } from '../../types/adventure';
 
 // Place schema for geographic SEO
 // GPS: Approximate center of Elk River WMA, east of Sutton
@@ -34,6 +42,93 @@ const breadcrumbItems = [
   { name: 'Home', url: '/' },
   { name: 'Hunt Near Us', url: '/near/' },
   { name: 'Elk River WMA', url: '/near/elk-river/' }
+];
+
+// Hunting species data for AdventureWhatToHunt component
+const huntingFeatures = [
+  {
+    title: 'White-tailed Deer',
+    description: 'Brushlands and mixed timber provide excellent deer hunting here. Buck firearms season runs November through December. Archery opens in late September.',
+    notes: 'Brushland edges and regenerating cuts. Creek bottoms when the rut kicks in. Wind can be tricky in the steep terrain — play it carefully.'
+  },
+  {
+    title: 'Wild Turkey',
+    description: 'The mature hardwood forests make turkey hunting particularly good here. Spring gobbler season brings birds working the ridges at dawn.',
+    notes: 'Ridge tops in mature timber for roosting birds. Old logging roads and field edges for strutting.'
+  },
+  {
+    title: 'Small Game',
+    description: 'Squirrel hunting is excellent in the mature hardwoods — all that oak and hickory produces good mast. Grouse in the younger timber, plus dove and woodcock.',
+    notes: 'Oak flats for squirrel. Regenerating cuts and creek edges for grouse.'
+  },
+  {
+    title: 'Waterfowl',
+    description: 'Habitat improvements have increased waterfowl potential. The area borders Sutton Lake and has multiple water sources throughout.',
+    notes: 'Beaver ponds and backwaters. Sutton Lake edges during migration.'
+  },
+  {
+    title: 'Black Bear',
+    description: 'Braxton County is in West Virginia\'s bear zone. The mature hardwoods and thick cover provide good habitat. Multiple seasons run mid-September through December.',
+    notes: 'Bear Damage Stamp required in addition to hunting license. Check <a href="https://wvdnr.gov/frequently-asked-questions/black-bear-seasons-regulations/" target="_blank" rel="noopener noreferrer" class="text-sign-green hover:underline">WV DNR bear regulations</a> for current season dates and zone rules.'
+  }
+];
+
+// Fishing waters data
+const fishingWaters = [
+  {
+    name: 'Elk River & Holly River',
+    description: 'Good smallmouth bass fishing in the river sections running through the WMA. Also largemouth, spotted bass, and channel catfish. Bring waders for creek fishing.',
+    species: 'Smallmouth bass, largemouth bass, spotted bass, channel catfish, trout'
+  },
+  {
+    name: 'Sutton Lake & Tailwaters',
+    description: 'The WMA borders Sutton Lake — good for bass, crappie, walleye, and muskie. Multiple access points along the lake edges within the management area. The tailwaters below the dam are stocked with trout from February through May.',
+    species: 'Largemouth bass, crappie, bluegill, walleye, muskellunge, stocked trout (tailwaters)',
+    note: '<strong>Trout stocking:</strong> Check the <a href="https://wvdnr.gov/fishing/fish-stocking/" target="_blank" rel="noopener noreferrer" class="text-sign-green hover:underline">WV DNR stocking schedule</a> for dates.'
+  }
+];
+
+// Fishing features for AdventureWhatToFish component
+const fishingFeatures = [
+  {
+    title: 'Elk River & Holly River',
+    description: 'Good smallmouth bass fishing in the river sections running through the WMA. Also largemouth, spotted bass, and channel catfish. Bring waders for creek fishing.',
+    notes: 'Species: Smallmouth bass, largemouth bass, spotted bass, channel catfish, trout',
+  },
+  {
+    title: 'Sutton Lake & Tailwaters',
+    description: 'The WMA borders Sutton Lake — good for bass, crappie, walleye, and muskie. Multiple access points along the lake edges within the management area. The tailwaters below the dam are stocked with trout from February through May.',
+    notes: 'Species: Largemouth bass, crappie, bluegill, walleye, muskellunge, stocked trout (tailwaters). Trout stocking: Check the WV DNR stocking schedule for dates.',
+  },
+];
+
+// Facilities data for AdventureCampingList (SPEC-12: T-017)
+const facilities: CampingFacility[] = [
+  {
+    type: 'Camping Sites',
+    count: 240,
+    description: 'Tent and trailer sites available. Mix of primitive and improved sites with electric hookups. Open year-round.',
+  },
+  {
+    type: 'Primitive Camping',
+    count: 12,
+    description: 'Backcountry sites for hunters. First-come, first-served.',
+  },
+  {
+    type: 'Shooting Ranges',
+    count: 2,
+    description: '100-yard and 175-yard rifle ranges. Open dawn to dusk.',
+  },
+  {
+    type: 'Accessible Areas',
+    description: 'Class-Q accessible areas throughout the WMA.',
+    accessibility: 'Multiple accessible hunting and fishing areas available',
+  },
+  {
+    type: 'Resources',
+    description: 'Download maps, check trout stocking schedules, and access WV DNR resources for Elk River WMA.',
+    link: 'https://wvdnr.gov/varying-habitat-makes-elk-river-wma-a-great-place-to-hunt/',
+  },
 ];
 ---
 
@@ -101,112 +196,14 @@ const breadcrumbItems = [
     </section>
 
     <!-- What to Hunt -->
-    <section class="py-12 md:py-16">
-      <div class="container mx-auto px-4">
-        <div class="max-w-3xl mx-auto">
-          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-8">
-            What to Hunt
-          </h2>
-
-          <div class="space-y-6">
-            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
-              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">White-tailed Deer</h3>
-              <p class="text-brand-brown/75 mb-3">
-                Brushlands and mixed timber provide excellent deer hunting here. Buck firearms
-                season runs November through December. Archery opens in late September.
-              </p>
-              <p class="text-sm text-brand-brown/60">
-                <strong>Best areas:</strong> Brushland edges and regenerating cuts. Creek bottoms when the rut kicks in.
-                Wind can be tricky in the steep terrain — play it carefully.
-              </p>
-            </div>
-
-            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
-              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Wild Turkey</h3>
-              <p class="text-brand-brown/75 mb-3">
-                The mature hardwood forests make turkey hunting particularly good here.
-                Spring gobbler season brings birds working the ridges at dawn.
-              </p>
-              <p class="text-sm text-brand-brown/60">
-                <strong>Best areas:</strong> Ridge tops in mature timber for roosting birds. Old logging roads and field edges for strutting.
-              </p>
-            </div>
-
-            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
-              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Small Game</h3>
-              <p class="text-brand-brown/75 mb-3">
-                Squirrel hunting is excellent in the mature hardwoods — all that oak and hickory
-                produces good mast. Grouse in the younger timber, plus dove and woodcock.
-              </p>
-              <p class="text-sm text-brand-brown/60">
-                <strong>Best areas:</strong> Oak flats for squirrel. Regenerating cuts and creek edges for grouse.
-              </p>
-            </div>
-
-            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
-              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Waterfowl</h3>
-              <p class="text-brand-brown/75 mb-3">
-                Habitat improvements have increased waterfowl potential. The area borders
-                Sutton Lake and has multiple water sources throughout.
-              </p>
-              <p class="text-sm text-brand-brown/60">
-                <strong>Best areas:</strong> Beaver ponds and backwaters. Sutton Lake edges during migration.
-              </p>
-            </div>
-
-            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
-              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Black Bear</h3>
-              <p class="text-brand-brown/75 mb-3">
-                Braxton County is in West Virginia's bear zone. The mature hardwoods and
-                thick cover provide good habitat. Multiple seasons run mid-September
-                through December.
-              </p>
-              <p class="text-sm text-brand-brown/60">
-                <strong>Note:</strong> Bear Damage Stamp required in addition to hunting license.
-                Check <a href="https://wvdnr.gov/frequently-asked-questions/black-bear-seasons-regulations/" target="_blank" rel="noopener noreferrer" class="text-sign-green hover:underline">WV DNR bear regulations</a> for current season dates and zone rules.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <AdventureWhatToHunt features={huntingFeatures} />
 
     <!-- What to Fish -->
-    <section class="py-12 md:py-16 bg-white">
-      <div class="container mx-auto px-4">
-        <div class="max-w-3xl mx-auto">
-          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-8">
-            Fishing Waters
-          </h2>
-
-          <div class="space-y-6">
-            <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
-              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Elk River & Holly River</h3>
-              <p class="text-brand-brown/75 mb-3">
-                Good smallmouth bass fishing in the river sections running through the WMA.
-                Also largemouth, spotted bass, and channel catfish. Bring waders for creek fishing.
-              </p>
-              <p class="text-sm text-brand-brown/60">
-                <strong>Species:</strong> Smallmouth bass, largemouth bass, spotted bass, channel catfish, trout
-              </p>
-            </div>
-
-            <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
-              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Sutton Lake & Tailwaters</h3>
-              <p class="text-brand-brown/75 mb-3">
-                The WMA borders Sutton Lake — good for bass, crappie, walleye, and muskie.
-                Multiple access points along the lake edges within the management area.
-                The tailwaters below the dam are stocked with trout from February through May.
-              </p>
-              <p class="text-sm text-brand-brown/60">
-                <strong>Species:</strong> Largemouth bass, crappie, bluegill, walleye, muskellunge, stocked trout (tailwaters)<br>
-                <strong>Trout stocking:</strong> Check the <a href="https://wvdnr.gov/fishing/fish-stocking/" target="_blank" rel="noopener noreferrer" class="text-sign-green hover:underline">WV DNR stocking schedule</a> for dates.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <AdventureWhatToFish
+      title="Fishing Waters"
+      features={fishingFeatures}
+      variant="white"
+    />
 
     <!-- Getting There -->
     <section class="py-12 md:py-16">
@@ -244,87 +241,13 @@ const breadcrumbItems = [
       </div>
     </section>
 
-    <!-- Facilities -->
-    <section class="py-12 md:py-16 bg-white">
-      <div class="container mx-auto px-4">
-        <div class="max-w-3xl mx-auto">
-          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-8">
-            Facilities
-          </h2>
-
-          <div class="grid md:grid-cols-2 gap-6">
-            <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
-              <h3 class="font-bold text-brand-brown mb-3">Camping</h3>
-              <ul class="space-y-2 text-brand-brown/75 text-sm">
-                <li class="flex items-center gap-2">
-                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                  </svg>
-                  240+ tent and trailer sites
-                </li>
-                <li class="flex items-center gap-2">
-                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                  </svg>
-                  12 primitive camping sites
-                </li>
-                <li class="flex items-center gap-2">
-                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                  </svg>
-                  Open year-round
-                </li>
-              </ul>
-            </div>
-
-            <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
-              <h3 class="font-bold text-brand-brown mb-3">Other Facilities</h3>
-              <ul class="space-y-2 text-brand-brown/75 text-sm">
-                <li class="flex items-center gap-2">
-                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                  </svg>
-                  100-yard shooting range
-                </li>
-                <li class="flex items-center gap-2">
-                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                  </svg>
-                  175-yard shooting range
-                </li>
-                <li class="flex items-center gap-2">
-                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                  </svg>
-                  Class-Q accessible areas
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="mt-6 bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
-            <h3 class="font-bold text-brand-brown mb-3">Useful Links</h3>
-            <ul class="space-y-2 text-brand-brown/75 text-sm">
-              <li>
-                <a href="https://wvdnr.gov/varying-habitat-makes-elk-river-wma-a-great-place-to-hunt/" target="_blank" rel="noopener noreferrer" class="text-sign-green hover:underline">
-                  WV DNR Elk River WMA Page →
-                </a>
-              </li>
-              <li>
-                <a href="https://wvdnr.gov/wp-content/uploads/2022/11/ElkRiverWMA_11x17.pdf" target="_blank" rel="noopener noreferrer" class="text-sign-green hover:underline">
-                  Download WMA Map (PDF) →
-                </a>
-              </li>
-              <li>
-                <a href="https://wvdnr.gov/fishing/fish-stocking/" target="_blank" rel="noopener noreferrer" class="text-sign-green hover:underline">
-                  Trout Stocking Schedule →
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- Facilities (SPEC-12: T-017) -->
+    <AdventureCampingList
+      title="Facilities"
+      facilities={facilities}
+      columns={3}
+      variant="white"
+    />
 
     <!-- What to Bring -->
     <section class="py-12 md:py-16">
@@ -412,37 +335,17 @@ const breadcrumbItems = [
     </section>
 
     <!-- CTA -->
-    <section class="bg-sign-green text-white py-12">
-      <div class="container mx-auto px-4 text-center">
-        <h2 class="font-display font-bold text-2xl mb-4">
-          Stop By Before You Head Out
-        </h2>
-        <p class="text-white/80 mb-6 max-w-xl mx-auto">
-          We're on your way. Grab your license, stock up on ammo, and we'll point you
-          to the best spots on the WMA.
-        </p>
-        <div class="flex flex-wrap justify-center gap-4">
-          <a
-            href={SITE_CONTACT.mapsUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 bg-white text-sign-green font-bold px-6 py-3 rounded-sm hover:bg-brand-cream motion-safe:transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
-          >
-            <svg aria-hidden="true" focusable="false" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-            </svg>
-            Get Directions to Shop
-          </a>
-          <a
-            href={SITE_CONTACT.phoneHref}
-            class="inline-flex items-center gap-2 bg-white/10 border border-white/30 text-white font-bold px-6 py-3 rounded-sm hover:bg-white/20 motion-safe:transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
-          >
-            {SITE_CONTACT.phoneDisplay}
-          </a>
-        </div>
-      </div>
-    </section>
+    <AdventureCTA
+      heading="Stop By Before You Head Out"
+      description="We're on your way. Grab your license, stock up on ammo, and we'll point you to the best spots on the WMA."
+      primaryText="Get Directions to Shop"
+      primaryHref={SITE_CONTACT.mapsUrl}
+      primaryExternal
+      showLocationIcon
+      secondaryText={SITE_CONTACT.phoneDisplay}
+      secondaryHref={SITE_CONTACT.phoneHref}
+      showPhoneIcon
+    />
 
     <!-- Newsletter -->
     <section class="py-12 md:py-16">

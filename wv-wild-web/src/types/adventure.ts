@@ -220,3 +220,75 @@ export const RelatedCategorySchema = z.object({
 });
 
 export type RelatedCategory = z.infer<typeof RelatedCategorySchema>;
+
+// ============================================================================
+// SPEC-12: WMA Template Type System Extensions
+// ============================================================================
+
+/**
+ * Camping facility for AdventureCampingList component.
+ * Used to render facility cards with optional count badges, contact info, and external links.
+ */
+export const CampingFacilitySchema = z.object({
+  /** Facility type (e.g., "Camping Sites", "Shooting Ranges") */
+  type: z.string().min(1),
+  /** Optional count (e.g., 240 camping sites) - renders as badge */
+  count: z.number().int().positive().optional(),
+  /** Facility description */
+  description: z.string().min(1),
+  /** Optional phone number for reservations (formatted as tel: link) */
+  contact: z.string().optional(),
+  /** Optional external link (e.g., reservation system) */
+  link: z.string().url().optional(),
+  /** Optional accessibility info */
+  accessibility: z.string().optional(),
+});
+
+export type CampingFacility = z.infer<typeof CampingFacilitySchema>;
+
+/**
+ * Feature item for AdventureFeatureSection component.
+ * Used for "What to Hunt" and "What to Fish" sections with species/waters.
+ */
+export const FeatureItemSchema = z.object({
+  /** Feature name (e.g., "White-tailed Deer", "Elk River") */
+  name: z.string().min(1),
+  /** Feature description (habitat, behavior, techniques) */
+  description: z.string().min(1),
+  /** Optional metadata (season dates, regulations) */
+  metadata: z.string().optional(),
+  /** Optional Kim's personal tip (renders in font-hand) */
+  kimNote: z.string().optional(),
+  /** Optional icon from STAT_ICON_PATHS */
+  icon: z.enum(['distance', 'time', 'calendar', 'check', 'info', 'location', 'area', 'circle', 'none']).optional(),
+});
+
+export type FeatureItem = z.infer<typeof FeatureItemSchema>;
+
+/**
+ * Accent color options for border-left accents in components.
+ * Maps to WVWO brand palette.
+ */
+export type AccentColor = 'green' | 'orange' | 'brown' | 'mud';
+
+/**
+ * Type guard to check if an adventure is a WMA (Wildlife Management Area).
+ * Enables conditional rendering of WMA-specific components.
+ *
+ * @param adventure - CollectionEntry from Astro Content Collections
+ * @returns true if adventure.data.type === 'wma'
+ *
+ * @example
+ * ```astro
+ * ---
+ * import { getCollection } from 'astro:content';
+ * import { isWMAAdventure } from '../types/adventure';
+ *
+ * const adventures = await getCollection('adventures');
+ * const wmas = adventures.filter(isWMAAdventure);
+ * ---
+ * ```
+ */
+export function isWMAAdventure(adventure: any): boolean {
+  return adventure.data.type === 'wma';
+}

@@ -1,0 +1,191 @@
+---
+/**
+ * AdventureFeatureSection.astro
+ * SPEC-12: Generic Feature Grid Component
+ *
+ * Displays repeating feature cards in a responsive 2-3 column grid with optional
+ * Kim's notes in font-hand. Base component for AdventureWhatToHunt/Fish wrappers.
+ *
+ * @example
+ * ```astro
+ * <AdventureFeatureSection
+ *   title="What to Hunt"
+ *   features={[
+ *     { title: 'White-tailed Deer', description: 'Season: Nov 1-Dec 31', notes: 'Creek bottoms at dawn.' }
+ *   ]}
+ *   columns={2}
+ *   variant="white"
+ *   accentColor="sign-green"
+ * />
+ * ```
+ */
+
+interface FeatureItem {
+  /** Feature title (e.g., "White-tailed Deer", "Burnsville Lake") */
+  title: string;
+  /** Feature description (e.g., "Season: Archery Sep 15-Dec 31") */
+  description: string;
+  /** Optional Kim's tips/notes (renders in font-hand) */
+  notes?: string;
+  /** Optional icon type */
+  icon?: 'check' | 'info' | 'location' | 'none';
+}
+
+type AccentColor = 'sign-green' | 'brand-orange' | 'brand-brown' | 'brand-mud';
+
+interface Props {
+  /** Section heading (e.g., "What to Hunt") */
+  title: string;
+  /** Optional intro text above cards */
+  intro?: string;
+  /** Array of features to display */
+  features: FeatureItem[];
+  /** Background variant (default: 'white') */
+  variant?: 'white' | 'cream';
+  /** Grid columns on desktop (default: 2) */
+  columns?: 2 | 3;
+  /** Border-left accent color (default: 'sign-green') */
+  accentColor?: AccentColor;
+  /** Enable gentle reveal animation (default: true) */
+  animate?: boolean;
+  /** Section aria-label for accessibility (default: undefined, uses title) */
+  ariaLabel?: string;
+}
+
+const {
+  title,
+  intro,
+  features,
+  variant = 'white',
+  columns = 2,
+  accentColor = 'sign-green',
+  animate = true,
+  ariaLabel,
+} = Astro.props;
+
+// Hide section if no features
+if (!features || features.length === 0) {
+  return null;
+}
+
+// Map columns to Tailwind grid classes
+const columnClasses: Record<2 | 3, string> = {
+  2: 'grid-cols-1 md:grid-cols-2',
+  3: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
+};
+
+// Map variant to background class
+const bgClass = variant === 'white' ? 'bg-white' : 'bg-brand-cream';
+
+// Map accent color to border class
+const accentClasses: Record<AccentColor, string> = {
+  'sign-green': 'border-l-sign-green',
+  'brand-orange': 'border-l-brand-orange',
+  'brand-brown': 'border-l-brand-brown',
+  'brand-mud': 'border-l-brand-mud',
+};
+
+const accentClass = accentClasses[accentColor];
+---
+
+<section
+  class:list={[
+    'py-12 md:py-16 border-b border-brand-brown/15',
+    bgClass,
+    animate && 'adventure-feature-section',
+  ]}
+  aria-label={ariaLabel}
+>
+  <div class="container mx-auto px-4">
+    <!-- Section Header -->
+    <h2 class="font-display text-4xl md:text-5xl font-bold text-brand-brown mb-4">
+      {title}
+    </h2>
+
+    {intro && (
+      <p class="text-lg text-brand-brown/80 mb-8 max-w-3xl">
+        {intro}
+      </p>
+    )}
+
+    <!-- Intro Slot (alternative to intro prop) -->
+    {Astro.slots.has('intro') && (
+      <div class="mb-8 max-w-3xl">
+        <slot name="intro" />
+      </div>
+    )}
+
+    <!-- Feature Grid -->
+    <ul
+      class:list={[
+        'grid gap-6 max-w-6xl',
+        columnClasses[columns],
+      ]}
+    >
+      {features.map((feature, index) => (
+        <li
+          class:list={[
+            'border-l-4 pl-4 py-3',
+            accentClass,
+          ]}
+          style={animate ? `animation-delay: ${index * 0.1}s` : undefined}
+        >
+          <!-- Feature Title -->
+          <h3 class="font-display text-2xl font-bold text-brand-brown mb-2">
+            {feature.title}
+          </h3>
+
+          <!-- Feature Description -->
+          <p class="text-brand-brown/80 mb-3 leading-relaxed">
+            {feature.description}
+          </p>
+
+          <!-- Kim's Notes (if provided) -->
+          {feature.notes && (
+            <p class="font-hand text-lg text-sign-green italic mt-3 border-t border-brand-brown/10 pt-3">
+              "{feature.notes}"
+            </p>
+          )}
+        </li>
+      ))}
+    </ul>
+
+    <!-- Footer Slot (for regulation links, etc.) -->
+    {Astro.slots.has('footer') && (
+      <div class="mt-8 text-center">
+        <slot name="footer" />
+      </div>
+    )}
+
+    <!-- Default Slot (for additional content) -->
+    <slot />
+  </div>
+</section>
+
+<style>
+  .adventure-feature-section {
+    animation: gentle-reveal 0.6s ease-out both;
+  }
+
+  .adventure-feature-section ul li {
+    animation: gentle-reveal 0.6s ease-out both;
+  }
+
+  @keyframes gentle-reveal {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .adventure-feature-section,
+    .adventure-feature-section ul li {
+      animation: none;
+    }
+  }
+</style>

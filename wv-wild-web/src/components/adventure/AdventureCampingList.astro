@@ -1,0 +1,203 @@
+---
+/**
+ * AdventureCampingList.astro
+ * SPEC-12: Complex Facility Display Component
+ *
+ * Displays facility cards with count badges, contact info, external links,
+ * and accessibility notes in a responsive grid layout.
+ *
+ * @accessibility
+ * - Semantic section with aria-labelledby
+ * - Phone numbers as clickable tel: links
+ * - External links with rel="noopener noreferrer" security
+ * - Count badges with readable contrast (sign-green on white)
+ * - Accessibility notes with icon + text
+ *
+ * @example
+ * ```astro
+ * <AdventureCampingList
+ *   title="Facilities & Access"
+ *   intro="Elk River WMA provides extensive facilities."
+ *   facilities={[
+ *     {
+ *       type: 'Camping Sites',
+ *       count: 240,
+ *       description: 'Electric hookups, restrooms. $15-25/night.',
+ *       contact: '(304) 555-CAMP',
+ *       link: 'https://reservations.example.com',
+ *       accessibility: '5 ADA-accessible sites'
+ *     }
+ *   ]}
+ *   columns={3}
+ *   variant="cream"
+ * />
+ * ```
+ */
+import type { CampingFacility } from '../../types/adventure';
+
+interface Props {
+  /** Section heading (default: 'Facilities & Access') */
+  title?: string;
+  /** Optional intro paragraph below heading */
+  intro?: string;
+  /** Array of facilities to display */
+  facilities: CampingFacility[];
+  /** Number of columns on desktop (default: 3) */
+  columns?: 2 | 3 | 4;
+  /** Background style (default: 'cream') */
+  variant?: 'white' | 'cream';
+}
+
+const {
+  title = 'Facilities & Access',
+  intro,
+  facilities,
+  columns = 3,
+  variant = 'cream',
+} = Astro.props;
+
+const sectionId = `adventure-camping-list-${Math.random().toString(36).substring(2, 9)}`;
+const bgClass = variant === 'white' ? 'bg-white' : 'bg-brand-cream';
+
+const columnClasses: Record<2 | 3 | 4, string> = {
+  2: 'grid-cols-1 md:grid-cols-2',
+  3: 'grid-cols-1 md:grid-cols-3',
+  4: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-4',
+};
+
+/**
+ * Format phone number for tel: link by stripping non-digits.
+ * Example: "(304) 555-1234" -> "3045551234"
+ */
+function formatPhoneForTelLink(phone: string): string {
+  return phone.replace(/\D/g, '');
+}
+
+/**
+ * Get SVG path for predefined icon.
+ */
+function getIconPath(iconName: 'phone' | 'accessibility'): string | null {
+  // Using simple inline SVG paths instead of STAT_ICON_PATHS for these icons
+  if (iconName === 'phone') {
+    return 'M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z';
+  }
+  if (iconName === 'accessibility') {
+    return 'M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4';
+  }
+  return null;
+}
+---
+
+<section
+  class:list={['py-12 md:py-16', bgClass]}
+  aria-labelledby={sectionId}
+>
+  <div class="container mx-auto px-4">
+    <div class="max-w-6xl mx-auto">
+      <h2
+        id={sectionId}
+        class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-4"
+      >
+        {title}
+      </h2>
+
+      {intro && (
+        <p class="text-brand-brown/75 mb-8 max-w-3xl">{intro}</p>
+      )}
+
+      {facilities.length > 0 ? (
+        <div class:list={['grid gap-6', columnClasses[columns]]}>
+          {facilities.map((facility) => (
+            <div class="bg-white rounded-sm border-2 border-brand-brown/10 p-6">
+              <!-- Facility Header with Optional Count Badge -->
+              <div class="flex items-center gap-3 mb-3">
+                <h3 class="font-display text-xl md:text-2xl font-bold text-brand-brown">
+                  {facility.type}
+                </h3>
+
+                {facility.count && (
+                  <span class="bg-sign-green text-white px-3 py-1 rounded-sm text-sm font-bold">
+                    {facility.count}
+                  </span>
+                )}
+              </div>
+
+              <!-- Description -->
+              <p class="text-brand-brown/80 mb-4">
+                {facility.description}
+              </p>
+
+              <!-- Contact Phone (if provided) -->
+              {facility.contact && (
+                <div class="flex items-center gap-2 mb-2">
+                  <svg
+                    class="w-4 h-4 text-sign-green flex-shrink-0"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d={getIconPath('phone')}
+                    />
+                  </svg>
+                  <a
+                    href={`tel:${formatPhoneForTelLink(facility.contact)}`}
+                    class="text-sign-green hover:text-sign-green/80 transition-colors duration-300"
+                  >
+                    {facility.contact}
+                  </a>
+                </div>
+              )}
+
+              <!-- External Link (if provided) -->
+              {facility.link && (
+                <div class="mt-3">
+                  <a
+                    href={facility.link}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                    class="text-sign-green hover:text-sign-green/80 underline transition-colors duration-300"
+                  >
+                    Reserve Now →
+                  </a>
+                </div>
+              )}
+
+              <!-- Accessibility Notes (if provided) -->
+              {facility.accessibility && (
+                <div class="mt-4 pt-4 border-t border-brand-brown/10">
+                  <p class="text-sm text-brand-brown/70 flex items-start gap-2">
+                    <svg
+                      class="w-4 h-4 text-sign-green flex-shrink-0 mt-0.5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d={getIconPath('accessibility')}
+                      />
+                    </svg>
+                    <span>{facility.accessibility}</span>
+                  </p>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      ) : (
+        <!-- Empty State -->
+        <p class="text-brand-brown/60 italic">
+          No facilities listed. Check WV DNR for current information.
+        </p>
+      )}
+    </div>
+  </div>
+</section>

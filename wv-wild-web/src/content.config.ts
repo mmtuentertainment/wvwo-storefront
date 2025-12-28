@@ -30,7 +30,51 @@ const SuitabilityEnum = z.enum(['dog-friendly', 'kid-friendly', 'wheelchair-acce
 // ADVENTURES COLLECTION
 // Hunting guides, trail maps, seasonal calendars
 // Fields: title, description, season, difficulty, location, coordinates, gear, elevation_gain, suitability, images, body
+// SPEC-12 Extension: WMA-specific fields (type, acreage, county, species, fishingWaters, facilities, accessPoints, regulations, seasonHighlights, mapUrl)
 // ============================================================================
+
+// SPEC-12: Nested Zod schemas for WMA-specific data structures
+const SpeciesSchema = z.object({
+    name: z.string().min(1),
+    season: z.string().min(1),
+    notes: z.string().optional(),
+    regulationUrl: z.string().url().optional(),
+});
+
+const FishingWaterSchema = z.object({
+    name: z.string().min(1),
+    species: z.array(z.string().min(1)),
+    access: z.string().min(1),
+    notes: z.string().optional(),
+});
+
+const FacilitySchema = z.object({
+    type: z.string().min(1),
+    count: z.number().int().positive().optional(),
+    description: z.string().min(1),
+    contact: z.string().optional(),
+    link: z.string().url().optional(),
+    accessibility: z.string().optional(),
+});
+
+const AccessPointSchema = z.object({
+    name: z.string().min(1),
+    coords: z.string().optional(),
+    features: z.array(z.string().min(1)),
+    mapLink: z.string().url().optional(),
+});
+
+const RegulationsSchema = z.object({
+    zone: z.string().optional(),
+    restrictions: z.array(z.string().min(1)),
+    regulationsUrl: z.string().url().optional(),
+});
+
+const SeasonHighlightSchema = z.object({
+    season: z.string().min(1),
+    target: z.string().min(1),
+    tips: z.string().min(1),
+});
 
 const adventures = defineCollection({
     loader: glob({ pattern: '**/*.md', base: './src/content/adventures' }),
@@ -50,6 +94,20 @@ const adventures = defineCollection({
         kim_hook: z.string().optional(),      // SPEC-08: Kim's personal teaser for card display (future use)
         suitability: z.array(SuitabilityEnum).optional(), // SPEC-07: Accessibility flags
         images: z.array(ImageSchema).optional(),
+
+        // SPEC-12: Explicit type field for adventure discrimination (Session 2025-12-27)
+        type: z.enum(['adventure', 'wma']).optional(),
+
+        // SPEC-12: WMA-specific optional fields (zero breaking changes)
+        acreage: z.number().int().positive().optional(),
+        county: z.string().optional(),
+        species: z.array(SpeciesSchema).optional(),
+        fishingWaters: z.array(FishingWaterSchema).optional(),
+        facilities: z.array(FacilitySchema).optional(),
+        accessPoints: z.array(AccessPointSchema).optional(),
+        regulations: RegulationsSchema.optional(),
+        seasonHighlights: z.array(SeasonHighlightSchema).optional(),
+        mapUrl: z.string().url().optional(),
     }),
 });
 

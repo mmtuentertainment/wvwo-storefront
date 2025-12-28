@@ -1,0 +1,341 @@
+---
+/**
+ * __test-wma-integration.astro
+ * INTEGRATION TEST PAGE: Complete WMA Adventure Page with All 10 Components
+ *
+ * Purpose:
+ * - Test integration of SPEC-10, SPEC-11, and SPEC-12 components
+ * - Validate background alternation pattern (cream → white → cream)
+ * - Ensure responsive behavior across breakpoints
+ * - Verify component composition and data flow
+ *
+ * Component Stack (canonical order):
+ * 1. Layout wrapper (structural)
+ * 2. Header component (structural)
+ * 3. Breadcrumb (existing)
+ * 4. Hero section (custom for test)
+ * 5. AdventureQuickStats (SPEC-10 - reuse)
+ * 6. AdventureFeatureSection - Hunting (NEW - SPEC-12)
+ * 7. AdventureFeatureSection - Fishing (NEW - SPEC-12)
+ * 8. AdventureGettingThere (SPEC-11 - reuse)
+ * 9. AdventureCampingList (NEW - SPEC-12)
+ * 10. AdventureAmenitiesGrid (NEW - SPEC-12)
+ * 11. AdventureGearChecklist (SPEC-11 - reuse)
+ * 12. AdventureCTA (NEW - SPEC-12)
+ * 13. AdventureRelatedShop (SPEC-11 - reuse)
+ * 14. EmailCapture (existing)
+ * 15. Footer component (structural)
+ *
+ * Background Pattern:
+ * - QuickStats: cream
+ * - Hunting Features: white
+ * - Fishing Features: cream
+ * - Getting There: white
+ * - Camping List: cream
+ * - Amenities Grid: white
+ * - Gear Checklist: cream
+ * - CTA: sign-green (colored)
+ * - Related Shop: white
+ * - Email Capture: cream (built-in)
+ */
+
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import EmailCapture from '../components/EmailCapture.astro';
+
+// SPEC-10 Component
+import AdventureQuickStats from '../components/adventure/AdventureQuickStats.astro';
+
+// SPEC-11 Components
+import AdventureGettingThere from '../components/adventure/AdventureGettingThere.astro';
+import AdventureGearChecklist from '../components/adventure/AdventureGearChecklist.astro';
+import AdventureRelatedShop from '../components/adventure/AdventureRelatedShop.astro';
+
+// SPEC-12 Components (NEW)
+import AdventureFeatureSection from '../components/adventure/AdventureFeatureSection.astro';
+import AdventureCampingList from '../components/adventure/AdventureCampingList.astro';
+import AdventureAmenitiesGrid from '../components/adventure/AdventureAmenitiesGrid.astro';
+import AdventureCTA from '../components/adventure/AdventureCTA.astro';
+
+import type { StatItem, GearItem, RelatedCategory, CampingFacility } from '../types/adventure';
+
+// ============================================================================
+// MOCK DATA: Test WMA
+// ============================================================================
+
+const wmaName = 'Test Wildlife Management Area';
+
+// Quick Stats Data (4 items)
+const quickStats: StatItem[] = [
+  { value: '2,790', label: 'Acres', icon: 'area' },
+  { value: '30 min', label: 'From Shop', icon: 'time' },
+  { value: 'Nicholas', label: 'County', icon: 'location' },
+  { value: 'Public', label: 'Access', icon: 'check' },
+];
+
+// Hunting Features (3 species)
+const huntingFeatures = [
+  {
+    title: 'White-tailed Deer',
+    description: 'Season: Archery Sep 15-Dec 31, Firearms Nov 18-Dec 2. Abundant population with trophy bucks in creek bottoms.',
+    notes: 'Best spots are creek bottoms at dawn. Look for oak ridges.'
+  },
+  {
+    title: 'Wild Turkey',
+    description: 'Season: Spring Apr 20-May 21, Fall Oct 15-Nov 15. Eastern subspecies with strong gobbler activity.',
+    notes: 'Listen for roosting birds at dusk. Set up near field edges.'
+  },
+  {
+    title: 'Ruffed Grouse',
+    description: 'Season: Oct 15-Feb 28. Found in young hardwood stands and brushy areas. Challenging upland game bird.',
+    notes: 'Work the logging roads early morning. Bring a good dog.'
+  },
+];
+
+// Fishing Features (2 waters)
+const fishingFeatures = [
+  {
+    title: 'Elk River Access',
+    description: 'Species: Smallmouth bass, rock bass, catfish. 3 public access points with parking. Best fishing spring through fall.',
+    notes: 'Try topwater lures at dawn. Crawfish patterns work great.'
+  },
+  {
+    title: 'Twin Creek Pond',
+    description: 'Species: Largemouth bass, bluegill, crappie. Shoreline fishing available. Catch-and-release recommended for bass over 15 inches.',
+    notes: 'Bluegill bite all day. Bass hide under the overhangs.'
+  },
+];
+
+// Getting There Data
+const gettingThereDirections = `
+  <ol>
+    <li>Head north on WV-82 from our shop (2.5 miles)</li>
+    <li>Turn right onto County Route 15 (10 miles)</li>
+    <li>Turn left at WMA entrance sign (marked with brown DNR sign)</li>
+    <li>Follow gravel road 1 mile to main parking area</li>
+  </ol>
+`;
+
+// Camping Facilities (3 items)
+const campingFacilities: CampingFacility[] = [
+  {
+    type: 'Primitive Campsites',
+    count: 12,
+    description: 'No hookups or facilities. Fire rings and cleared tent pads. Free of charge. First-come, first-served.',
+    accessibility: '2 sites accessible via gravel path from parking',
+  },
+  {
+    type: 'Boat Ramp',
+    description: 'Single-lane concrete ramp at north end. Suitable for canoes, kayaks, and small motorboats. Free parking for 10+ vehicles with trailers.',
+  },
+  {
+    type: 'Parking Areas',
+    count: 5,
+    description: 'Main parking area holds 30+ vehicles. Additional pull-offs at trail heads and fishing access points.',
+    accessibility: 'Main lot is gravel with accessible spaces marked',
+  },
+];
+
+// Amenities Grid (6 items)
+const amenities = [
+  'Parking (30+ vehicles)',
+  'Vault toilets (seasonal)',
+  'Picnic tables',
+  'Fire rings',
+  'Boat ramp access',
+  'Trail maps at kiosks',
+];
+
+// Gear Checklist (8 items: required + optional)
+const gearItems: GearItem[] = [
+  { name: 'Valid WV hunting/fishing license', optional: false },
+  { name: 'Blaze orange (required for hunting)', optional: false },
+  { name: 'First aid kit', optional: false },
+  { name: 'Water (1 gallon per person)', optional: false },
+  { name: 'Trail map or GPS', optional: false },
+  { name: 'Binoculars', optional: true },
+  { name: 'Game bags or cooler', optional: true },
+  { name: 'Camping gear (if staying overnight)', optional: true },
+];
+
+// Related Shop Categories (3 items)
+const shopCategories: RelatedCategory[] = [
+  {
+    name: 'Hunting Gear',
+    description: 'Rifles, ammo, tree stands, game calls',
+    href: '/products#hunting',
+  },
+  {
+    name: 'Fishing Tackle',
+    description: 'Rods, reels, lures, line',
+    href: '/products#fishing',
+  },
+  {
+    name: 'Camping Supplies',
+    description: 'Tents, coolers, camp stoves',
+    href: '/products#camping',
+  },
+];
+
+// Breadcrumb data
+const breadcrumbs = [
+  { label: 'Home', href: '/' },
+  { label: 'Adventures', href: '/adventures' },
+  { label: 'Test WMA', href: '#' },
+];
+---
+
+<Layout
+  title={`${wmaName} | WV Wild Outdoors`}
+  description={`Hunt, fish, and camp at ${wmaName}. Get directions, gear tips, and local advice from WV Wild Outdoors.`}
+>
+  <Header />
+
+  <main>
+    <!-- Breadcrumb Navigation -->
+    <Breadcrumb items={breadcrumbs} />
+
+    <!-- Hero Section (Custom for Test) -->
+    <section class="py-16 bg-brand-brown text-white">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto text-center">
+          <h1 class="font-display text-5xl md:text-7xl font-black mb-4">
+            {wmaName}
+          </h1>
+          <p class="text-xl md:text-2xl text-white/90">
+            2,790 acres of premier hunting and fishing in Nicholas County
+          </p>
+          <p class="mt-4 text-brand-cream/80">
+            Integration Test Page - All 10 Adventure Components
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 1. AdventureQuickStats (SPEC-10) - CREAM background -->
+    <AdventureQuickStats
+      stats={quickStats}
+      columns={4}
+      variant="cream"
+      ariaLabel="Test WMA quick facts"
+    />
+
+    <!-- 2. AdventureFeatureSection - Hunting (SPEC-12) - WHITE background -->
+    <AdventureFeatureSection
+      title="What to Hunt"
+      intro="Test WMA offers excellent hunting opportunities for multiple game species. Check WV DNR regulations for current seasons and bag limits."
+      features={huntingFeatures}
+      columns={2}
+      variant="white"
+      accentColor="sign-green"
+    >
+      <div slot="footer">
+        <a
+          href="https://wvdnr.gov/hunting-regulations/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-sign-green hover:text-sign-green/80 underline transition-colors"
+        >
+          View WV Hunting Regulations →
+        </a>
+      </div>
+    </AdventureFeatureSection>
+
+    <!-- 3. AdventureFeatureSection - Fishing (SPEC-12) - CREAM background -->
+    <AdventureFeatureSection
+      title="What to Fish"
+      intro="Multiple fishing opportunities from river access to stocked ponds. Valid WV fishing license required."
+      features={fishingFeatures}
+      columns={2}
+      variant="cream"
+      accentColor="sign-green"
+    >
+      <div slot="footer">
+        <a
+          href="https://wvdnr.gov/fishing-regulations/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-sign-green hover:text-sign-green/80 underline transition-colors"
+        >
+          View WV Fishing Regulations →
+        </a>
+      </div>
+    </AdventureFeatureSection>
+
+    <!-- 4. AdventureGettingThere (SPEC-11) - WHITE background -->
+    <AdventureGettingThere
+      title="Getting There"
+      fromLocation="From our shop (121 WV-82, Birch River)"
+      directions={gettingThereDirections}
+      driveTime="30 minutes"
+      distance="18 miles"
+      mapLink="https://maps.google.com/?q=Test+WMA+Nicholas+County+WV"
+      variant="white"
+    />
+
+    <!-- 5. AdventureCampingList (SPEC-12) - CREAM background -->
+    <AdventureCampingList
+      title="Facilities & Access"
+      intro="Test WMA provides primitive camping and basic facilities. All facilities are free and first-come, first-served."
+      facilities={campingFacilities}
+      columns={3}
+      variant="cream"
+    />
+
+    <!-- 6. AdventureAmenitiesGrid (SPEC-12) - WHITE background -->
+    <AdventureAmenitiesGrid
+      title="What's Available"
+      intro="Available facilities and services at Test WMA."
+      amenities={amenities}
+      columns={3}
+      variant="white"
+    />
+
+    <!-- 7. AdventureGearChecklist (SPEC-11) - CREAM background -->
+    <AdventureGearChecklist
+      title="What to Bring"
+      intro="Essential and optional gear for your adventure. Don't forget your licenses and safety equipment."
+      items={gearItems}
+      columns={2}
+      variant="cream"
+    />
+
+    <!-- 8. AdventureCTA (SPEC-12) - SIGN-GREEN background (colored section) -->
+    <AdventureCTA
+      heading="Ready to Explore Test WMA?"
+      description="Stop by our shop for licenses, gear, and local tips from hunters who know this land."
+      primaryText="Get Directions"
+      primaryHref="https://maps.google.com/?q=WV+Wild+Outdoors+Birch+River"
+      secondaryText="Call the Shop"
+      secondaryHref="tel:+13045551234"
+      variant="sign-green"
+    />
+
+    <!-- 9. AdventureRelatedShop (SPEC-11) - WHITE background -->
+    <AdventureRelatedShop
+      title="Shop Related Items"
+      intro="Planning a trip to Test WMA? We've got everything you need right here in Birch River."
+      categories={shopCategories}
+      ctaText="Browse All Gear"
+      ctaHref="/products"
+      variant="white"
+    />
+
+    <!-- 10. EmailCapture (existing component) - CREAM background (built-in) -->
+    <EmailCapture />
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  /**
+   * Test page specific styles (minimal)
+   * Most styling comes from components themselves
+   */
+  main {
+    min-height: 100vh;
+  }
+</style>

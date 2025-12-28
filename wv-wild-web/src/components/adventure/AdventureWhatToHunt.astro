@@ -1,0 +1,112 @@
+---
+/**
+ * AdventureWhatToHunt.astro
+ * SPEC-12: Hunting Wrapper Component
+ *
+ * Thin wrapper around AdventureFeatureSection with hunting-specific defaults.
+ * Delegates all rendering to the base component.
+ *
+ * @example
+ * ```astro
+ * <AdventureWhatToHunt
+ *   features={[
+ *     {
+ *       title: 'White-tailed Deer',
+ *       description: 'Season: Archery Sep 15-Dec 31, Firearms Nov 1-Dec 31',
+ *       notes: 'Bucks here run 100-150 inches. Creek bottoms at dawn.'
+ *     },
+ *     {
+ *       title: 'Wild Turkey',
+ *       description: 'Season: Spring Apr 15-May 15, Fall Oct 1-Nov 15',
+ *       notes: 'Best gobbling 6-9am. Eastern strain.'
+ *     },
+ *     {
+ *       title: 'Black Bear',
+ *       description: 'Season: Archery Sep 15-Dec 31, Firearms varies by county',
+ *       notes: 'Oak ridges, berry patches.'
+ *     }
+ *   ]}
+ * />
+ * ```
+ *
+ * With slots:
+ * ```astro
+ * <AdventureWhatToHunt features={huntingData}>
+ *   <Fragment slot="intro">
+ *     <p>Our area offers diverse hunting opportunities...</p>
+ *   </Fragment>
+ *   <Fragment slot="footer">
+ *     <a href="https://wvdnr.gov/hunting">WV DNR Hunting Regulations</a>
+ *   </Fragment>
+ * </AdventureWhatToHunt>
+ * ```
+ */
+
+import AdventureFeatureSection from './AdventureFeatureSection.astro';
+
+interface FeatureItem {
+  /** Species name (e.g., "White-tailed Deer", "Wild Turkey") */
+  title: string;
+  /** Season info (e.g., "Season: Nov 1-Dec 31") */
+  description: string;
+  /** Optional Kim's hunting tips (renders in font-hand) */
+  notes?: string;
+  /** Optional icon type */
+  icon?: 'check' | 'info' | 'location' | 'none';
+}
+
+type AccentColor = 'sign-green' | 'brand-orange' | 'brand-brown' | 'brand-mud';
+
+interface Props {
+  /** Array of hunting species/seasons to display */
+  features: FeatureItem[];
+  /** Section heading (default: "What to Hunt") */
+  title?: string;
+  /** Optional intro text above species cards */
+  intro?: string;
+  /** Grid columns on desktop (default: 2) */
+  columns?: 2 | 3;
+  /** Background variant (default: 'cream' for hunting) */
+  variant?: 'white' | 'cream';
+  /** Border-left accent color (default: 'sign-green') */
+  accentColor?: AccentColor;
+  /** Enable gentle reveal animation (default: true) */
+  animate?: boolean;
+  /** Section aria-label for accessibility */
+  ariaLabel?: string;
+}
+
+const {
+  features,
+  title = 'What to Hunt',
+  intro,
+  columns = 2,
+  variant = 'cream',
+  accentColor = 'sign-green',
+  animate = true,
+  ariaLabel,
+} = Astro.props;
+
+// Delegate conditional rendering to base component
+// Base component will return null if features is empty
+---
+
+<AdventureFeatureSection
+  title={title}
+  intro={intro}
+  features={features}
+  variant={variant}
+  columns={columns}
+  accentColor={accentColor}
+  animate={animate}
+  ariaLabel={ariaLabel}
+>
+  <!-- Pass through intro slot -->
+  <slot name="intro" slot="intro" />
+
+  <!-- Pass through footer slot -->
+  <slot name="footer" slot="footer" />
+
+  <!-- Pass through default slot -->
+  <slot />
+</AdventureFeatureSection>

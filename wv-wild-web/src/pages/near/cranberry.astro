@@ -1,0 +1,385 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import EmailCapture from '../../components/EmailCapture.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import SchemaBreadcrumb from '../../components/seo/SchemaBreadcrumb.astro';
+
+import { SITE_CONTACT } from '../../config/siteContact';
+import AdventureWhatToHunt from '../../components/adventure/AdventureWhatToHunt.astro';
+import AdventureWhatToFish from '../../components/adventure/AdventureWhatToFish.astro';
+import AdventureCampingList from '../../components/adventure/AdventureCampingList.astro';
+import AdventureCTA from '../../components/adventure/AdventureCTA.astro';
+import type { CampingFacility } from '../../types/adventure';
+
+// Place schema for geographic SEO
+// GPS: Approximate center of Cranberry Wilderness, Pocahontas/Webster County
+const placeSchema = {
+  "@context": "https://schema.org",
+  "@type": "Place",
+  "name": "Cranberry Wilderness / Cranberry Backcountry WMA",
+  "description": "47,815 acres of wilderness area and backcountry public hunting land in Pocahontas and Webster Counties, West Virginia. 40 minutes from WV Wild Outdoors.",
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 38.2667,
+    "longitude": -80.2833
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Monongahela National Forest",
+    "addressLocality": "Richwood",
+    "addressRegion": "WV",
+    "postalCode": "26261",
+    "addressCountry": "US"
+  }
+};
+
+// Breadcrumb schema data (3-level: Home → Hunt Near Us → Cranberry Wilderness)
+const breadcrumbItems = [
+  { name: 'Home', url: '/' },
+  { name: 'Hunt Near Us', url: '/near/' },
+  { name: 'Cranberry Wilderness', url: '/near/cranberry/' }
+];
+
+// Hunting species data for AdventureWhatToHunt component
+const huntingFeatures = [
+  {
+    title: 'Black Bear',
+    description: 'Cranberry Wilderness is in West Virginia\'s bear zone. The remote backcountry and abundant mast make this prime bear habitat. Multiple bear seasons run mid-September through December. This is serious bear country - pack accordingly.',
+    notes: 'Bear Damage Stamp required in addition to hunting license. Check <a href="https://wvdnr.gov/frequently-asked-questions/black-bear-seasons-regulations/" target="_blank" rel="noopener noreferrer" class="text-sign-green hover:underline">WV DNR bear regulations</a> for current season dates and zone rules. Use bear-resistant food storage.'
+  },
+  {
+    title: 'White-tailed Deer',
+    description: 'Good deer population in the backcountry hardwoods, but they\'re wild and wary. Buck firearms season runs November through December. Archery opens in late September. Expect steep terrain and long hauls.',
+    notes: 'High-elevation oak ridges for acorn mast. Creek bottoms and draws during the rut. Wind swirls in steep terrain - plan your setup carefully.'
+  },
+  {
+    title: 'Wild Turkey',
+    description: 'Spring gobbler season in wilderness terrain. Birds roost in the mature timber and work the high ridges at dawn. Expect to hike in the day before and camp to be in position.',
+    notes: 'Ridge tops in old-growth timber. Creek drainages for roosting birds. Call sparingly - these birds are wild.'
+  },
+  {
+    title: 'Ruffed Grouse',
+    description: 'Grouse habitat is excellent in the younger timber and along creek edges. Cranberry is known for grouse hunting, especially in the backcountry regenerating areas.',
+    notes: 'Creek edges and regenerating cuts. Thick laurel and rhododendron patches. Bring a good dog if you have one.'
+  }
+];
+
+// Fishing waters data for AdventureWhatToFish component
+const fishingFeatures = [
+  {
+    title: 'Cranberry River',
+    description: 'Native brook trout in the headwaters. This is wild trout water - catch-and-release only in designated sections. The Cranberry River runs through the wilderness area with excellent native trout populations.',
+    notes: 'Species: Native brook trout. Wild trout regulations apply - check <a href="https://wvdnr.gov/fishing/trout-fishing/" target="_blank" rel="noopener noreferrer" class="text-sign-green hover:underline">WV DNR wild trout rules</a>. No bait in some sections.',
+  },
+  {
+    title: 'Williams River',
+    description: 'Wild trout stream running through the backcountry. Native brook trout and some stocked browns in the lower sections. Beautiful water, but remote access.',
+    notes: 'Species: Native brook trout, stocked brown trout (lower sections). Bring waders and plan for creek crossings.',
+  },
+];
+
+// Facilities data for AdventureCampingList
+const facilities: CampingFacility[] = [
+  {
+    type: 'Wilderness Camping',
+    description: 'Primitive backcountry camping only. No developed sites. Leave No Trace principles required. This is designated wilderness - pack out everything you pack in.',
+  },
+  {
+    type: 'Backcountry Regulations',
+    description: 'Wilderness area rules apply: No vehicles, no ATVs, no bicycles. Foot and horseback travel only. Group size limits may apply.',
+  },
+  {
+    type: 'Bear Safety',
+    description: 'Bear-resistant food storage required. Hang food or use bear canisters. Do not leave food unattended in camp.',
+  },
+  {
+    type: 'Access Points',
+    description: 'Multiple trailheads accessed via FR-76 (Highland Scenic Highway) and FR-102. Parking areas have limited space - arrive early.',
+  },
+  {
+    type: 'Resources',
+    description: 'Download wilderness maps, check regulations, and access USFS Monongahela National Forest resources for Cranberry Wilderness.',
+    link: 'https://www.fs.usda.gov/recarea/mnf/recarea/?recid=12366',
+  },
+];
+---
+
+<Layout
+  title="Cranberry Wilderness Backcountry Hunting Guide | WV Wild Outdoors"
+  description="Backcountry hunting guide for Cranberry Wilderness. 47,815 acres of wilderness area, 40 minutes from our shop. Black bear, deer, turkey, and native trout."
+  additionalSchemas={[placeSchema]}
+>
+  <Header />
+  <Breadcrumb items={breadcrumbItems} />
+  <SchemaBreadcrumb items={breadcrumbItems} />
+
+  <main class="bg-brand-cream min-h-screen">
+
+    <!-- Hero -->
+    <section class="bg-brand-brown text-white py-16 md:py-24 relative overflow-hidden">
+      <div class="absolute inset-0 bg-camo opacity-5 pointer-events-none"></div>
+
+      <div class="container mx-auto px-4 relative">
+        <div class="max-w-3xl">
+          <div class="flex flex-wrap items-center gap-3 mb-4">
+            <span class="inline-block bg-sign-green text-white px-4 py-1 rounded-sm font-bold text-sm">
+              40 min from shop
+            </span>
+            <span class="inline-block bg-brand-orange text-white px-4 py-1 rounded-sm font-bold text-sm">
+              47,815 Acres
+            </span>
+            <span class="inline-block bg-brand-orange text-white px-4 py-1 rounded-sm font-bold text-sm">
+              Wilderness Area
+            </span>
+          </div>
+          <h1 class="font-display font-black text-4xl md:text-6xl mb-4">
+            Cranberry Wilderness
+          </h1>
+          <p class="text-xl md:text-2xl text-brand-cream/80 mb-6">
+            Real backcountry hunting. 47,815 acres of wilderness area in Central West Virginia.
+            Black bear, deer, turkey, grouse, and native brook trout.
+          </p>
+          <p class="text-brand-cream/60">
+            This is backcountry - pack extra food, first aid. Stop by the shop before you head out — we'll get you set up with gear and backcountry essentials.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Info -->
+    <section class="py-8 bg-white border-b border-brand-brown/15">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+          <div>
+            <span class="block text-2xl font-bold text-brand-brown">47,815</span>
+            <span class="text-sm text-brand-brown/60">Acres</span>
+          </div>
+          <div>
+            <span class="block text-2xl font-bold text-brand-brown">40 min</span>
+            <span class="text-sm text-brand-brown/60">From Shop</span>
+          </div>
+          <div>
+            <span class="block text-2xl font-bold text-brand-brown">Pocahontas Co.</span>
+            <span class="text-sm text-brand-brown/60">Location</span>
+          </div>
+          <div>
+            <span class="block text-2xl font-bold text-brand-brown">Wilderness</span>
+            <span class="text-sm text-brand-brown/60">Designation</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- What to Hunt -->
+    <AdventureWhatToHunt features={huntingFeatures} />
+
+    <!-- What to Fish -->
+    <AdventureWhatToFish
+      title="Fishing Waters"
+      features={fishingFeatures}
+      variant="white"
+    />
+
+    <!-- Getting There -->
+    <section class="py-12 md:py-16">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-8">
+            Getting There
+          </h2>
+
+          <div class="bg-white p-6 rounded-sm border-l-4 border-sign-green mb-6">
+            <h3 class="font-bold text-brand-brown mb-2">From Our Shop</h3>
+            <ol class="text-brand-brown/75 space-y-2 list-decimal list-inside">
+              <li>Head south on US-19 toward Summersville</li>
+              <li>Take US-60 East toward Rainelle</li>
+              <li>Follow WV-20 South to Cranberry Mountain Visitor Center</li>
+              <li>Access wilderness trailheads via FR-76 (Highland Scenic Highway)</li>
+              <li>About 40 minutes total drive time</li>
+            </ol>
+          </div>
+
+          <div class="bg-white p-6 rounded-sm border-l-4 border-brand-orange">
+            <h3 class="font-bold text-brand-brown mb-2">Trailhead Access</h3>
+            <ol class="text-brand-brown/75 space-y-2 list-decimal list-inside">
+              <li>From Cranberry Mountain Visitor Center, access FR-76 (Highland Scenic Highway)</li>
+              <li>Multiple trailheads along FR-76 and FR-102</li>
+              <li>Parking areas limited - arrive early, especially during hunting season</li>
+              <li>Download wilderness maps and GPS coordinates before you go</li>
+            </ol>
+          </div>
+
+          <p class="mt-6 text-sm text-brand-brown/60">
+            Multiple wilderness access points. This is backcountry - cell service is unreliable.
+            USFS Gauley Ranger District: (304) 846-2695
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Facilities -->
+    <AdventureCampingList
+      title="Wilderness Regulations & Facilities"
+      facilities={facilities}
+      columns={2}
+      variant="white"
+    />
+
+    <!-- What to Bring -->
+    <section class="py-12 md:py-16">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-4">
+            What to Bring
+          </h2>
+          <p class="text-brand-brown/75 mb-8">
+            This is backcountry. Bring everything you'd need to spend a night in the woods even if you're planning a day hunt. We've got most of this in stock.
+          </p>
+
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-bold text-brand-brown mb-3">Essential Backcountry Gear</h3>
+              <ul class="space-y-2 text-brand-brown/75 text-sm">
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Backpack (50L+ for overnight)
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Water filter or purification tablets
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Topographic map + compass/GPS
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  First aid kit (comprehensive)
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Bear canister or rope for hanging food
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Extra food (more than you think you need)
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Emergency shelter (tarp/bivy)
+                </li>
+              </ul>
+            </div>
+
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-bold text-brand-brown mb-3">For Hunting</h3>
+              <ul class="space-y-2 text-brand-brown/75 text-sm">
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Rifle/shotgun + appropriate ammo
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Blaze orange (500 sq in required)
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  WV license + bear/deer/turkey stamps
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Game bags and knife
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Turkey calls (if spring hunting)
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Full camo or blaze orange (season dependent)
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="mt-8 bg-brand-orange/10 p-6 rounded-sm border-l-4 border-brand-orange">
+            <h3 class="font-bold text-brand-brown mb-2">Kim's Backcountry Tips</h3>
+            <ul class="text-brand-brown/75 space-y-2 text-sm">
+              <li>"Pack extra food - more than you think you need."</li>
+              <li>"Tell someone where you're going and when you'll be back."</li>
+              <li>"Cell service is unreliable. Bring a map and compass."</li>
+              <li>"Native brook trout in the headwaters if you want to fish while you're out there."</li>
+              <li>"Don't go alone."</li>
+            </ul>
+          </div>
+
+          <div class="mt-8 text-center">
+            <a
+              href="/shop"
+              class="inline-flex items-center gap-2 bg-sign-green text-white font-bold px-6 py-3 rounded-sm hover:bg-sign-green/90 motion-safe:transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange"
+            >
+              Browse Backcountry Gear
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <AdventureCTA
+      heading="Stop By Before You Head to the Backcountry"
+      description="We'll get you set up with licenses, backcountry essentials, and local knowledge. This is wilderness - be prepared."
+      primaryText="Get Directions to Shop"
+      primaryHref={SITE_CONTACT.mapsUrl}
+      primaryExternal
+      showLocationIcon
+      secondaryText={SITE_CONTACT.phoneDisplay}
+      secondaryHref={SITE_CONTACT.phoneHref}
+      showPhoneIcon
+    />
+
+    <!-- Newsletter -->
+    <section class="py-12 md:py-16">
+      <div class="container mx-auto px-4">
+        <div class="max-w-xl mx-auto">
+          <EmailCapture
+            variant="card"
+            heading="Get Local Hunting Updates"
+            subheading="Season reminders, backcountry tips, and gear restocks delivered to your inbox."
+          />
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Layout>

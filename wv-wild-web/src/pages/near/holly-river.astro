@@ -1,0 +1,402 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import EmailCapture from '../../components/EmailCapture.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import SchemaBreadcrumb from '../../components/seo/SchemaBreadcrumb.astro';
+import AdventureQuickStats from '../../components/adventure/AdventureQuickStats.astro';
+import AdventureGettingThere from '../../components/adventure/AdventureGettingThere.astro';
+import AdventureGearChecklist from '../../components/adventure/AdventureGearChecklist.astro';
+import AdventureRelatedShop from '../../components/adventure/AdventureRelatedShop.astro';
+import type { GearItem, RelatedCategory } from '../../types/adventure';
+import { SITE_CONTACT } from '../../config/siteContact';
+
+// Quick stats for Holly River WMA
+const hollyRiverStats = [
+  { value: '8,286', label: 'Acres', icon: 'area' as const },
+  { value: '35 min', label: 'From Shop', icon: 'time' as const },
+  { value: 'Webster Co.', label: 'Location', icon: 'location' as const },
+  { value: 'Steep', label: 'Difficulty', icon: 'difficulty' as const },
+];
+
+// Place schema for geographic SEO
+// LOCATION: Holly River WMA, Webster County, WV
+// TRAVEL TIME: 35 min from shop (US-19 north to WV-20)
+// COORDINATES: 38.6547, -80.4236 (Holly River State Park area, approximate)
+// ACCESS: Via Holly River State Park, primitive camping and trails
+const placeSchema = {
+  "@context": "https://schema.org",
+  "@type": "Place",
+  "name": "Holly River WMA",
+  "description": "8,286-acre mountainous Wildlife Management Area in Webster County, WV. Hunting for deer, black bear, turkey, grouse, and rabbit in steep hollows. Trout fishing in Holly River. 35 minutes from WV Wild Outdoors.",
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 38.6547,
+    "longitude": -80.4236
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Hacker Valley",
+    "addressRegion": "WV",
+    "postalCode": "26222",
+    "addressCountry": "US"
+  },
+  "containedInPlace": {
+    "@type": "City",
+    "name": "Webster County",
+    "address": { "addressRegion": "WV" }
+  },
+  "amenityFeature": [
+    { "@type": "LocationFeatureSpecification", "name": "Hunting", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Fishing", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Primitive Camping", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Hiking Trails", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Waterfalls", "value": true }
+  ]
+};
+
+// Breadcrumb schema data (3-level: Home → Hunt Near Us → Holly River WMA)
+const breadcrumbItems = [
+  { name: 'Home', url: '/' },
+  { name: 'Hunt Near Us', url: '/near/' },
+  { name: 'Holly River WMA', url: '/near/holly-river/' }
+];
+
+// SPEC-11: Gear checklist data
+const hollyRiverGear: GearItem[] = [
+  { name: 'WV hunting license', optional: false },
+  { name: 'Bear Damage Stamp (bear season)', optional: false },
+  { name: 'Blaze orange (deer season)', optional: false },
+  { name: 'Good boots (steep terrain)', optional: false },
+  { name: 'Topo map or GPS', optional: false },
+  { name: 'WV fishing license + trout stamp', optional: false },
+  { name: 'Ultra-light tackle', optional: false },
+  { name: 'Water and snacks', optional: false },
+  { name: 'First aid kit', optional: true },
+  { name: 'Compass and backup map', optional: true },
+];
+
+// SPEC-11: Related shop categories
+const hollyRiverCategories: RelatedCategory[] = [
+  { name: 'Hunting Gear', description: 'Rifles, ammo, blaze orange, scent control', href: '/shop/hunting' },
+  { name: 'Fishing Tackle', description: 'Ultra-light rods, trout lures, line', href: '/shop/fishing' },
+  { name: 'Camping Supplies', description: 'Primitive gear, water treatment, maps', href: '/shop/camping' },
+];
+---
+
+<Layout
+  title="Holly River WMA Hunting & Fishing Guide | WV Wild Outdoors"
+  description="Hunting and fishing guide for Holly River WMA - 8,286 acres of steep mountain terrain in Webster County. Deer, black bear, turkey, grouse, and trout fishing. 35 minutes from our shop."
+  additionalSchemas={[placeSchema]}
+>
+  <Header />
+  <Breadcrumb items={breadcrumbItems} />
+  <SchemaBreadcrumb items={breadcrumbItems} />
+
+  <main class="bg-brand-cream min-h-screen">
+
+    <!-- Hero -->
+    <section class="bg-brand-brown text-white py-16 md:py-24 relative overflow-hidden">
+      <div class="absolute inset-0 bg-camo opacity-5 pointer-events-none"></div>
+
+      <div class="container mx-auto px-4 relative">
+        <div class="max-w-3xl">
+          <div class="flex flex-wrap items-center gap-3 mb-4">
+            <span class="inline-block bg-sign-green text-white px-4 py-1 rounded-sm font-bold text-sm">
+              35 min from shop
+            </span>
+            <span class="inline-block bg-brand-orange text-white px-4 py-1 rounded-sm font-bold text-sm">
+              8,286 Acres
+            </span>
+          </div>
+          <h1 class="font-display font-black text-4xl md:text-6xl mb-4">
+            Holly River WMA
+          </h1>
+          <p class="text-xl md:text-2xl text-brand-cream/80 mb-6">
+            Steep hollows, mountain bears, and wild trout. This is real mountain country
+            where the ridges top out over 2,800 feet and you'll earn every step.
+          </p>
+          <p class="text-brand-cream/60">
+            Good boots required. Bears active September through November. Stop by the shop for licenses and local tips.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Info (SPEC-10) -->
+    <AdventureQuickStats stats={hollyRiverStats} variant="white" />
+
+    <!-- What to Hunt -->
+    <section class="py-12 md:py-16">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-8">
+            What to Hunt
+          </h2>
+
+          <div class="space-y-6">
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">White-tailed Deer</h3>
+              <p class="text-brand-brown/75 mb-3">
+                The mature hardwood forests and mixed timber provide solid deer habitat. Oak and
+                hickory mast in the hollows, bedding cover on the ridges, and creek bottoms for
+                travel corridors. The steep terrain means deer move between feeding and bedding
+                areas on predictable routes.
+              </p>
+              <p class="text-sm text-brand-brown/60">
+                <strong>Kim's tip:</strong> The hollows hold deer during the day. Set up where ridges
+                funnel down to creek crossings. Good boots are non-negotiable — the terrain will test you.
+                GPS or topo map required.
+              </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Black Bear</h3>
+              <p class="text-brand-brown/75 mb-3">
+                Webster County is prime bear country. Holly River WMA sits in the heart of the
+                bear zone with multiple seasons running mid-September through December. The thick
+                cover, oak mast, and remote hollows make this excellent bear habitat.
+              </p>
+              <p class="text-sm text-brand-brown/60">
+                <strong>Kim's tip:</strong> Bears are active September through November — oak acorns
+                bring them down from the high country. Check WV DNR bear regulations for current season
+                dates. Bear Damage Stamp required in addition to hunting license.
+              </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Wild Turkey</h3>
+              <p class="text-brand-brown/75 mb-3">
+                Spring gobbler season brings birds working the ridges at dawn. The mature hardwoods
+                make turkey hunting particularly good here. Fall turkey season is also available.
+              </p>
+              <p class="text-sm text-brand-brown/60">
+                <strong>Kim's tip:</strong> Ridge tops in mature timber for roosting birds. Listen for
+                gobbles at first light. The hollows carry sound — you can hear birds a long way off.
+                Don't overcall. Let them come to you.
+              </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Ruffed Grouse</h3>
+              <p class="text-brand-brown/75 mb-3">
+                Grouse hold in the younger timber and regenerating cuts along the ridges. The birds
+                flush hard and fast in thick cover. Good grouse numbers in the right habitat.
+              </p>
+              <p class="text-sm text-brand-brown/60">
+                <strong>Kim's tip:</strong> Work the edges where mature forest meets younger growth.
+                These birds sit tight until you're on top of them, then explode out of the brush.
+                Be ready for fast shooting.
+              </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Rabbit & Squirrel</h3>
+              <p class="text-brand-brown/75 mb-3">
+                Rabbits in the brush piles and brambles along creek bottoms. Squirrels in the mature
+                oak and hickory stands. Both provide good small game hunting throughout the season.
+              </p>
+              <p class="text-sm text-brand-brown/60">
+                <strong>Kim's tip:</strong> Squirrel hunting is excellent in the mature hardwoods —
+                all that oak and hickory produces good mast. For rabbits, work the creek bottoms
+                and brush piles after a light snow.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- What to Fish -->
+    <section class="py-12 md:py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-8">
+            What to Fish
+          </h2>
+
+          <div class="space-y-6">
+            <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
+              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Trout in Holly River</h3>
+              <p class="text-brand-brown/75 mb-3">
+                The Left Fork of Holly River is stocked with rainbow and brook trout. The WV DNR
+                stocks once in February and once every two weeks in March, April, and May. Small
+                stream fishing with native brookies in the headwater tributaries.
+              </p>
+              <p class="text-sm text-brand-brown/60">
+                <strong>Kim's tip:</strong> You're fishing small mountain water. Ultra-light tackle,
+                4-6 lb test, and small spinners or flies. The native brookies in the headwaters are
+                wild and spooky — use stealth and light line. Check WVdnr.gov/fish-stocking for current
+                updates. Trout stamp required.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Facilities -->
+    <section class="py-12 md:py-16">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-8">
+            Facilities
+          </h2>
+
+          <div class="space-y-6">
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+              <div class="flex justify-between items-start mb-3">
+                <h3 class="font-display font-bold text-lg text-brand-brown">Primitive Camping</h3>
+                <span class="text-sm text-brand-orange font-bold">Backcountry</span>
+              </div>
+              <p class="text-brand-brown/75 mb-3">
+                Primitive camping is permitted on the WMA. No developed sites, no hookups. Pack in,
+                pack out. This is backcountry camping.
+              </p>
+              <p class="text-sm text-brand-brown/60">
+                <strong>Kim's tip:</strong> Come prepared for primitive conditions. Water from streams
+                needs treatment. The terrain is steep, so camp near water sources if you can find flat ground.
+              </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+              <div class="flex justify-between items-start mb-3">
+                <h3 class="font-display font-bold text-lg text-brand-brown">Hiking Trails</h3>
+                <span class="text-sm text-sign-green font-bold">42+ Miles</span>
+              </div>
+              <p class="text-brand-brown/75 mb-3">
+                Over 42 miles of hiking trails wind through the area. Trails to two waterfalls —
+                Tecumseh Falls and Tenskwatawa Falls — are popular destinations. Potato Knob offers
+                commanding views at 2,480 feet.
+              </p>
+              <ul class="text-sm text-brand-brown/60 space-y-1">
+                <li>• Tecumseh Falls Trail (waterfall access)</li>
+                <li>• Tenskwatawa Falls Trail (waterfall access)</li>
+                <li>• Potato Knob Trail (2,480 ft views)</li>
+                <li>• Ridge Road Trail (horse trail)</li>
+                <li>• Rock Camp Trail (horse trail)</li>
+              </ul>
+              <p class="text-sm text-brand-brown/60 mt-3">
+                <strong>Kim's tip:</strong> The trails are steep and rugged. Good boots, water, and a
+                map are required. Don't underestimate the elevation gain.
+              </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+              <div class="flex justify-between items-start mb-3">
+                <h3 class="font-display font-bold text-lg text-brand-brown">Holly River State Park (Adjacent)</h3>
+                <span class="text-sm text-sign-green font-bold">Developed</span>
+              </div>
+              <p class="text-brand-brown/75 mb-3">
+                The 8,101-acre state park sits adjacent to the WMA and offers developed facilities
+                including cabins, campground, swimming pool, and restaurant. Good base camp option
+                for hunting or fishing the WMA.
+              </p>
+              <ul class="text-sm text-brand-brown/60 space-y-1">
+                <li>• 10 furnished cabins with stone fireplaces</li>
+                <li>• 88-site campground with electric hookups</li>
+                <li>• Seasonal swimming pool</li>
+                <li>• Restaurant and small store</li>
+                <li>• Call <a href="tel:+13044936353" class="text-sign-green hover:underline">304-493-6353</a> for reservations</li>
+              </ul>
+              <p class="text-sm text-brand-brown/60 mt-3">
+                <strong>Kim's tip:</strong> If you want a base camp with facilities, stay at the state
+                park and hunt or fish the WMA. The park campground has showers and flush toilets.
+                Reserve early for peak season.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Getting There (SPEC-11) -->
+    <AdventureGettingThere
+      directions="<ol class='list-decimal list-inside space-y-2'><li>Head north on US-19 toward Summersville</li><li>Turn right on US-19/WV-4 toward Webster Springs</li><li>Follow WV-20 north to Hacker Valley</li><li>Follow signs to Holly River State Park</li></ol>"
+      mapLink="https://maps.google.com/?q=Holly+River+State+Park+Hacker+Valley+WV"
+      driveTime="35 minutes"
+      distance="45 miles"
+    >
+      <p class="text-brand-mud/80 italic">
+        <strong>Pro tip:</strong> Stop by our shop on US-19 before heading out. We'll get you set up with licenses, bear stamps, and local tips.
+      </p>
+    </AdventureGettingThere>
+
+    <!-- Gear Checklist (SPEC-11) -->
+    <AdventureGearChecklist
+      title="What to Bring"
+      intro="This is mountain country. Come prepared for steep terrain and primitive conditions."
+      items={hollyRiverGear}
+      columns={2}
+      variant="cream"
+    >
+      <a
+        slot="footer"
+        href="/shop"
+        class="inline-flex items-center gap-2 bg-sign-green text-white font-bold px-6 py-3 rounded-sm hover:bg-sign-green/90 transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange"
+      >
+        Browse Our Gear
+      </a>
+    </AdventureGearChecklist>
+
+    <!-- Related Shop (SPEC-11) -->
+    <AdventureRelatedShop
+      title="Shop for Your Trip"
+      intro="Everything you need for a mountain hunt or backcountry fishing trip."
+      categories={hollyRiverCategories}
+      ctaText="Visit Our Shop"
+      ctaHref="/shop"
+      variant="white"
+    />
+
+    <!-- CTA -->
+    <section class="bg-sign-green text-white py-12">
+      <div class="container mx-auto px-4 text-center">
+        <h2 class="font-display font-bold text-2xl mb-4">
+          Stop By Before You Head Out
+        </h2>
+        <p class="text-white/80 mb-6 max-w-xl mx-auto">
+          We're on US-19 between the interstate and Holly River. Grab your hunting license,
+          bear stamp, and we'll point you to the best hollows.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a
+            href={SITE_CONTACT.mapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 bg-white text-sign-green font-bold px-6 py-3 rounded-sm hover:bg-brand-cream motion-safe:transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+          >
+            <svg aria-hidden="true" focusable="false" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            </svg>
+            Get Directions to Shop
+          </a>
+          <a
+            href={SITE_CONTACT.phoneHref}
+            class="inline-flex items-center gap-2 bg-white/10 border border-white/30 text-white font-bold px-6 py-3 rounded-sm hover:bg-white/20 motion-safe:transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+          >
+            {SITE_CONTACT.phoneDisplay}
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="py-12 md:py-16">
+      <div class="container mx-auto px-4">
+        <div class="max-w-xl mx-auto">
+          <EmailCapture
+            variant="card"
+            heading="Get Hunting & Fishing Updates"
+            subheading="Season dates, stocking schedules, and gear restocks delivered to your inbox."
+          />
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Layout>
