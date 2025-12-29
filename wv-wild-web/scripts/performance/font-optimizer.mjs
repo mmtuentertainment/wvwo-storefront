@@ -167,7 +167,7 @@ ${strategy.async.map(font => `
 </style>
 `;
 
-  const componentPath = join('src/components', 'FontPreload.astro');
+  const componentPath = join(process.cwd(), 'src/components', 'FontPreload.astro');
   await writeFile(componentPath, component);
   console.log(`✅ Created: ${componentPath}`);
 

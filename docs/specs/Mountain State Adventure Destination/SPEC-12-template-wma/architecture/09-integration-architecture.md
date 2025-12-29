@@ -112,7 +112,7 @@ const {
 
   <!-- Call to Action (NEW in SPEC-12) -->
   <AdventureCTA
-    heading="Ready to Hunt {title.replace(' WMA', '')}?"
+    heading={`Ready to Hunt ${title.replace(' WMA', '')}?`}
     description={kim_hook || "Stop by the shop for licenses, ammo, and local tips before you head out."}
     primaryText="Get Directions"
     primaryHref={`https://maps.google.com/?q=${coordinates.lat},${coordinates.lng}`}

@@ -16,8 +16,8 @@ This architecture defines the accessibility implementation patterns for SPEC-12'
 1. **Multi-modal indicators**: Never rely on color alone
 2. **Semantic HTML first**: ARIA only when HTML5 elements insufficient
 3. **4.5:1 contrast minimum**: All text readable in bright sunlight
-3. **Keyboard-first navigation**: Touch/mouse are enhancements, not requirements
-4. **Printable regulations**: High-contrast print styles for field reference
+4. **Keyboard-first navigation**: Touch/mouse are enhancements, not requirements
+5. **Printable regulations**: High-contrast print styles for field reference
 
 ---
 

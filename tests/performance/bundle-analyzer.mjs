@@ -10,8 +10,8 @@
  * - Verify Tailwind tree-shaking (3MB → 15KB)
  */
 
-import { readdir, stat, readFile } from 'fs/promises';
-import { join, extname } from 'path';
+import { readdir, stat } from 'fs/promises';
+import { join } from 'path';
 import { existsSync } from 'fs';
 
 const BUNDLE_CONFIG = {

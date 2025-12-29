@@ -82,10 +82,12 @@ const variantClasses = {
   'sign-green': {
     section: 'bg-sign-green',
     primaryText: 'text-sign-green',
+    secondaryHover: 'hover:bg-white hover:text-sign-green',
   },
   'brand-brown': {
     section: 'bg-brand-brown',
     primaryText: 'text-brand-brown',
+    secondaryHover: 'hover:bg-white hover:text-brand-brown',
   },
 };
 
@@ -143,7 +145,7 @@ const currentVariant = variantClasses[variant];
         <!-- Secondary Button (Outlined) -->
         <a
           href={secondaryHref}
-          class={`inline-flex items-center gap-2 px-8 py-4 border-2 border-white text-white font-display font-bold text-lg rounded-sm hover:bg-white hover:${currentVariant.primaryText} motion-safe:transition-colors motion-safe:duration-300 motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60`}
+          class={`inline-flex items-center gap-2 px-8 py-4 border-2 border-white text-white font-display font-bold text-lg rounded-sm ${currentVariant.secondaryHover} motion-safe:transition-colors motion-safe:duration-300 motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60`}
           {...(isSecondaryExternal && {
             target: '_blank',
             rel: 'noopener noreferrer',

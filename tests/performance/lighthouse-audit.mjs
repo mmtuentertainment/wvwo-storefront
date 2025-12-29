@@ -182,9 +182,9 @@ async function generateReport(results) {
 
   // Calculate averages
   const validResults = results.filter(r => r !== null);
-  const avgPerformance = validResults.reduce((sum, r) => sum + r.metrics.scores.performance, 0) / validResults.length;
-  const avgLCP = validResults.reduce((sum, r) => sum + r.metrics.vitals.lcp, 0) / validResults.length;
-  const avgCLS = validResults.reduce((sum, r) => sum + r.metrics.vitals.cls, 0) / validResults.length;
+  const avgPerformance = validResults.length > 0 ? validResults.reduce((sum, r) => sum + r.metrics.scores.performance, 0) / validResults.length : 0;
+  const avgLCP = validResults.length > 0 ? validResults.reduce((sum, r) => sum + r.metrics.vitals.lcp, 0) / validResults.length : 0;
+  const avgCLS = validResults.length > 0 ? validResults.reduce((sum, r) => sum + r.metrics.vitals.cls, 0) / validResults.length : 0;
 
   console.log('\n📈 Average Metrics:');
   console.log(`   Performance Score: ${Math.round(avgPerformance)}/100`);

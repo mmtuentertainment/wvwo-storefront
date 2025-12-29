@@ -59,7 +59,7 @@ const breadcrumbItems = [
               {adventure.data.drive_time} from shop
             </span>
             <span class="inline-block bg-brand-orange text-white px-4 py-1 rounded-sm font-bold text-sm">
-              12,579 Acres
+              {adventure.data.acreage?.toLocaleString() || '12,579'} Acres
             </span>
           </div>
           <h1 class="font-display font-black text-4xl md:text-6xl mb-4">
@@ -80,7 +80,7 @@ const breadcrumbItems = [
       <div class="container mx-auto px-4">
         <div class="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
           <div>
-            <span class="block text-2xl font-bold text-brand-brown">12,579</span>
+            <span class="block text-2xl font-bold text-brand-brown">{adventure.data.acreage?.toLocaleString() || '12,579'}</span>
             <span class="text-sm text-brand-brown/60">Acres</span>
           </div>
           <div>

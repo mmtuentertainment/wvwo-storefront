@@ -675,8 +675,8 @@ jobs:
         uses: treosh/lighthouse-ci-action@v10
         with:
           urls: |
-            https://deploy-preview-${{ github.event.pull_request.number }}--wvwildoutdoors.netlify.app/near/elk-river/
-            https://deploy-preview-${{ github.event.pull_request.number }}--wvwildoutdoors.netlify.app/near/stonewall-jackson-lake/
+            https://deploy-preview-${{ github.event.pull_request.number }}.wvwildoutdoors.pages.dev/near/elk-river/
+            https://deploy-preview-${{ github.event.pull_request.number }}.wvwildoutdoors.pages.dev/near/stonewall-jackson-lake/
           configPath: './.lighthouserc.json'
           uploadArtifacts: true
           temporaryPublicStorage: true
