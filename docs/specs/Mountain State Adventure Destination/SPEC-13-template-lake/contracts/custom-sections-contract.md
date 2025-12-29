@@ -64,7 +64,7 @@ Display lake name, key statistics, and quick highlights in visually striking her
 
     <!-- Stats Grid (4 columns desktop, 2 mobile) -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-      <div class="bg-white/90 backdrop-blur-sm p-4 rounded-sm">
+      <div class="bg-white/90 p-4 rounded-sm">
         <div class="font-display text-3xl font-bold text-brand-brown">
           {acreage.toLocaleString()}
         </div>
@@ -73,7 +73,7 @@ Display lake name, key statistics, and quick highlights in visually striking her
         </div>
       </div>
 
-      <div class="bg-white/90 backdrop-blur-sm p-4 rounded-sm">
+      <div class="bg-white/90 p-4 rounded-sm">
         <div class="font-display text-3xl font-bold text-brand-brown">
           {maxDepth} ft
         </div>
