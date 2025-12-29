@@ -1,0 +1,187 @@
+{
+  "cache_version": "1.0.0",
+  "last_updated": "2025-12-29T18:00:00Z",
+  "session_id": "swarm-spec13-20251229",
+  "compliance_rules": {
+    "border_radius": {
+      "allowed": "rounded-sm ONLY (0.125rem / 2px)",
+      "forbidden": [
+        "rounded-md",
+        "rounded-lg",
+        "rounded-xl",
+        "rounded-2xl",
+        "rounded-3xl"
+      ],
+      "enforcement": "Zero tolerance - Automated tests will fail",
+      "reasoning": "Hardware store sharp corners, NOT tech startup smooth curves"
+    },
+    "typography": {
+      "fonts": {
+        "display": {
+          "name": "Bitter",
+          "type": "serif",
+          "usage": "All headings, stats, species names",
+          "css_class": "font-display"
+        },
+        "hand": {
+          "name": "Permanent Marker",
+          "type": "cursive",
+          "usage": "Kim's personal tips ONLY (with quotes)",
+          "css_class": "font-hand",
+          "critical_rule": "NEVER use outside of Kim's voice context"
+        },
+        "body": {
+          "name": "Noto Sans",
+          "type": "sans-serif",
+          "usage": "Body text, descriptions, lists",
+          "css_class": "font-body"
+        }
+      },
+      "forbidden_fonts": [
+        "Inter",
+        "Poppins",
+        "DM Sans",
+        "system-ui",
+        "Montserrat",
+        "Raleway",
+        "Open Sans",
+        "Space Grotecast",
+        "Outfit"
+      ],
+      "hierarchy": {
+        "hero_heading": "font-display font-black text-4xl md:text-6xl",
+        "section_headers": "font-display text-4xl md:text-5xl font-bold text-brand-brown",
+        "species_names": "font-display text-2xl font-bold text-brand-brown",
+        "kim_tips": "font-hand text-lg text-sign-green italic"
+      }
+    },
+    "colors": {
+      "palette": {
+        "brand_brown": {
+          "hex": "#3E2723",
+          "usage": "Primary dark, rifle stocks, weathered barn wood",
+          "css_var": "brand-brown"
+        },
+        "sign_green": {
+          "hex": "#2E7D32",
+          "usage": "Accent/CTAs, old metal signs, forest canopy",
+          "css_var": "sign-green"
+        },
+        "brand_cream": {
+          "hex": "#FFF8E1",
+          "usage": "Backgrounds, aged paper, deer hide",
+          "css_var": "brand-cream"
+        },
+        "brand_orange": {
+          "hex": "#FF6F00",
+          "usage": "CTAs ONLY - <5% of screen, blaze orange",
+          "css_var": "brand-orange",
+          "critical_rule": "NEVER use for backgrounds or large sections"
+        }
+      },
+      "accent_patterns": {
+        "fishing_species": "border-l-4 border-l-sign-green pl-4",
+        "fishing_spots": "border-l-4 border-l-brand-brown p-6",
+        "safety_regulations": "border-l-4 border-l-brand-orange bg-brand-cream p-6"
+      },
+      "forbidden_colors": [
+        "Purple gradients",
+        "Hot pink (#ec4899)",
+        "Neon colors",
+        "Corporate blue (#0066cc)",
+        "Diagonal multi-stop gradients"
+      ]
+    },
+    "styles": {
+      "forbidden": [
+        "glassmorphism",
+        "backdrop-blur",
+        "parallax scrolling",
+        "bouncy button animations",
+        "confetti effects",
+        "neumorphic designs"
+      ],
+      "animations": {
+        "allowed": "gentle-reveal with prefers-reduced-motion support",
+        "pattern": "opacity: 0 → 1, translateY: 8px → 0, duration: 0.6s ease-out",
+        "accessibility": "Must respect @media (prefers-reduced-motion: reduce)"
+      }
+    },
+    "voice": {
+      "kim_characteristics": [
+        "Direct, practical advice",
+        "Local terminology (e.g., 'gin-clear water', 'stack up')",
+        "Specific techniques (e.g., '6-8 lb test', 'Tube jigs')",
+        "Conversational tone",
+        "Safety awareness"
+      ],
+      "kim_locations": [
+        "Species cards (kimNote field)",
+        "Fishing spots (optional tips)",
+        "Getting There section (pro tips)",
+        "Custom feature sections (inline commentary)"
+      ],
+      "rendering_pattern": "font-hand text-lg text-sign-green italic mt-3 border-t border-brand-brown/10 pt-3",
+      "forbidden_copy": [
+        "Unlock potential",
+        "Seamless experience",
+        "Revolutionize",
+        "Next-level",
+        "Transform the way you",
+        "All-in-one platform",
+        "Cutting-edge solutions"
+      ]
+    }
+  },
+  "test_enforcement": {
+    "playwright_tests": {
+      "border_radius": "tests/compliance/border-radius.spec.ts",
+      "fonts": "tests/compliance/fonts.spec.ts",
+      "color_accents": "tests/compliance/color-accents.spec.ts"
+    },
+    "eslint_rules": {
+      "wvwo_no_forbidden_rounded": "Auto-fix rounded-md/lg/xl → rounded-sm",
+      "wvwo_no_forbidden_fonts": "Ban SaaS fonts at build time",
+      "wvwo_font_hand_context": "Enforce font-hand only for Kim notes",
+      "wvwo_no_glassmorphism": "Ban backdrop-blur effects"
+    },
+    "ci_cd_workflow": ".github/workflows/wvwo-compliance.yml"
+  },
+  "responsive_patterns": {
+    "grid_columns": {
+      "fish_species": "grid-cols-1 md:grid-cols-2",
+      "fishing_spots": "space-y-6 (full-width stacked)",
+      "campgrounds": "grid-cols-1 md:grid-cols-2",
+      "amenities": "grid-cols-2 md:grid-cols-4"
+    },
+    "typography_scale": {
+      "hero_heading": "text-4xl md:text-6xl (2.25rem → 3.75rem)",
+      "section_headers": "text-4xl md:text-5xl (2.25rem → 3rem)",
+      "subsection_headers": "text-2xl md:text-3xl (1.5rem → 1.875rem)",
+      "species_names": "text-2xl (fixed 1.5rem)"
+    },
+    "spacing": {
+      "section_padding": "py-12 md:py-16 (3rem → 4rem)",
+      "section_header_margin": "mb-4 md:mb-6",
+      "grid_gap": "gap-6 (1.5rem)",
+      "stacked_spacing": "space-y-6"
+    }
+  },
+  "litmus_test": {
+    "question": "Would Kim's neighbors recognize this as 'their shop' online?",
+    "pass_criteria": [
+      "Looks like rural WV hunting shop, NOT tech startup",
+      "Authentic Kim voice throughout",
+      "Hardware store aesthetic (sharp corners)",
+      "Natural color palette (no neon/purple)",
+      "Direct, humble language"
+    ],
+    "fail_indicators": [
+      "Looks like SaaS landing page",
+      "Smooth rounded corners everywhere",
+      "Corporate marketing speak",
+      "Gradient backgrounds",
+      "Glassmorphic effects"
+    ]
+  }
+}
