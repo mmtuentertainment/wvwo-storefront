@@ -11,6 +11,12 @@
     "test": "vitest",
     "test:run": "vitest run",
     "test:checkout": "vitest run --coverage src/lib/__tests__ src/components/checkout/schemas/__tests__",
+    "test:compliance": "playwright test ../tests/compliance/",
+    "test:compliance:border": "playwright test ../tests/compliance/border-radius.spec.ts",
+    "test:compliance:fonts": "playwright test ../tests/compliance/fonts.spec.ts",
+    "test:compliance:colors": "playwright test ../tests/compliance/color-accents.spec.ts",
+    "test:visual": "playwright test --grep @visual",
+    "lint:wvwo": "echo 'WVWO ESLint rules - Integration pending'",
     "optimize-images": "node scripts/optimize-images.mjs"
   },
   "dependencies": {

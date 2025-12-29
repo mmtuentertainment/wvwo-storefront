@@ -38,6 +38,7 @@ test-*.js
 *-test-results/
 test-results/
 .playwright/
+playwright-report/
 
 # OS files
 .DS_Store
@@ -138,3 +139,6 @@ docs/T-*.md
 docs/tasks/
 docs/tests/
 docs/SPEC-*-*.md
+
+# Swarm coordination memory (keep committed for pattern learning)
+# docs/swarm-memory/ - KEPT for collaboration context
