@@ -264,25 +264,25 @@ const directions = formatDirections(props.county, props.name);
 
     <!-- Stats Overlay Grid -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-      <div class="bg-white/90 backdrop-blur-sm p-4 rounded-sm">
+      <div class="bg-white/90 p-4 rounded-sm border-l-4 border-l-sign-green">
         <div class="font-display text-2xl font-bold text-brand-brown">
           {props.acreage.toLocaleString()}
         </div>
         <div class="text-brand-brown/75 text-sm uppercase tracking-wide">Acres</div>
       </div>
-      <div class="bg-white/90 backdrop-blur-sm p-4 rounded-sm">
+      <div class="bg-white/90 p-4 rounded-sm border-l-4 border-l-sign-green">
         <div class="font-display text-2xl font-bold text-brand-brown">
           {props.maxDepth} ft
         </div>
         <div class="text-brand-brown/75 text-sm uppercase tracking-wide">Max Depth</div>
       </div>
-      <div class="bg-white/90 backdrop-blur-sm p-4 rounded-sm">
+      <div class="bg-white/90 p-4 rounded-sm border-l-4 border-l-sign-green">
         <div class="font-display text-2xl font-bold text-brand-brown">
           {props.county}
         </div>
         <div class="text-brand-brown/75 text-sm uppercase tracking-wide">County</div>
       </div>
-      <div class="bg-white/90 backdrop-blur-sm p-4 rounded-sm">
+      <div class="bg-white/90 p-4 rounded-sm border-l-4 border-l-sign-green">
         <div class="font-display text-2xl font-bold text-brand-brown">
           Year-Round
         </div>
@@ -590,7 +590,7 @@ const directions = formatDirections(props.county, props.name);
               <span class={`px-3 py-1 rounded-sm text-sm font-bold ${
                 activity.difficulty === 'easy' ? 'bg-sign-green text-white' :
                 activity.difficulty === 'moderate' ? 'bg-brand-orange text-brand-brown' :
-                'bg-brand-mud text-brand-cream'
+                'bg-brand-brown text-brand-cream'
               }`}>
                 {activity.difficulty}
               </span>

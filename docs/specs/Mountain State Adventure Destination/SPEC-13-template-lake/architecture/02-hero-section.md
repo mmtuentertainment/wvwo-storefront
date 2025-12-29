@@ -107,7 +107,7 @@ Display lake name, hero image, key statistics, and quick highlights in a visuall
     <!-- Stats Overlay Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-8 max-w-4xl">
       <!-- Acreage Stat -->
-      <div class="bg-white/90 backdrop-blur-sm rounded-sm p-4 border-l-4 border-l-sign-green">
+      <div class="bg-white/90  rounded-sm p-4 border-l-4 border-l-sign-green">
         <div class="font-display text-3xl md:text-4xl font-bold text-brand-brown">
           {acreage.toLocaleString()}
         </div>
@@ -117,7 +117,7 @@ Display lake name, hero image, key statistics, and quick highlights in a visuall
       </div>
 
       <!-- Max Depth Stat -->
-      <div class="bg-white/90 backdrop-blur-sm rounded-sm p-4 border-l-4 border-l-sign-green">
+      <div class="bg-white/90  rounded-sm p-4 border-l-4 border-l-sign-green">
         <div class="font-display text-3xl md:text-4xl font-bold text-brand-brown">
           {maxDepth}'
         </div>
@@ -127,7 +127,7 @@ Display lake name, hero image, key statistics, and quick highlights in a visuall
       </div>
 
       <!-- County Stat -->
-      <div class="bg-white/90 backdrop-blur-sm rounded-sm p-4 border-l-4 border-l-sign-green">
+      <div class="bg-white/90  rounded-sm p-4 border-l-4 border-l-sign-green">
         <div class="font-display text-lg md:text-xl font-bold text-brand-brown">
           {county}
         </div>
@@ -137,7 +137,7 @@ Display lake name, hero image, key statistics, and quick highlights in a visuall
       </div>
 
       <!-- Distance from Shop (optional 4th stat) -->
-      <div class="bg-white/90 backdrop-blur-sm rounded-sm p-4 border-l-4 border-l-sign-green">
+      <div class="bg-white/90  rounded-sm p-4 border-l-4 border-l-sign-green">
         <div class="font-display text-3xl md:text-4xl font-bold text-brand-brown">
           30
         </div>

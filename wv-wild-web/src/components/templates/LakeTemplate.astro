@@ -541,12 +541,12 @@ const {
     border-radius: 0.125rem;
   }
 
-  /* Ensure no other border radius is used */
-  * {
+  /* WVWO Compliance: Only rounded-sm allowed within this component */
+  .lake-template * {
     border-radius: 0;
   }
 
-  .rounded-sm {
+  .lake-template .rounded-sm {
     border-radius: 0.125rem !important;
   }
 

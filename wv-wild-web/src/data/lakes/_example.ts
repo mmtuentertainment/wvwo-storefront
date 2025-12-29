@@ -12,7 +12,7 @@
  * ```
  */
 
-import type { LakeTemplateProps } from '../types/adventure';
+import type { LakeTemplateProps } from '../../types/adventure';
 
 /**
  * Complete lake data example demonstrating all available fields.
