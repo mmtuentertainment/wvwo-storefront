@@ -8,6 +8,11 @@ on:
       - '**.astro'
       - 'tests/compliance/**'
 
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
 jobs:
   pre-commit-scan:
     name: Pre-Commit Violation Scan
