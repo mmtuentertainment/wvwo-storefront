@@ -1,128 +1,29 @@
 ---
+/**
+ * Summersville Lake WMA Adventure Page
+ * SPEC-13 T128: Refactored to use LakeTemplate component
+ *
+ * BEFORE: 364 lines with inline data and component composition
+ * AFTER: ~80 lines with centralized data and template delegation
+ *
+ * Migration Benefits:
+ * - Single source of truth for lake data (summersville.ts)
+ * - Consistent layout and styling across all lake pages
+ * - Easy content updates without touching component structure
+ * - Preserved SEO and schema markup
+ * - Maintained all breadcrumb functionality
+ */
+
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import EmailCapture from '../../components/EmailCapture.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import SchemaBreadcrumb from '../../components/seo/SchemaBreadcrumb.astro';
-import AdventureQuickStats from '../../components/adventure/AdventureQuickStats.astro';
-import AdventureWhatToHunt from '../../components/adventure/AdventureWhatToHunt.astro';
-import AdventureWhatToFish from '../../components/adventure/AdventureWhatToFish.astro';
-import AdventureFeatureSection from '../../components/adventure/AdventureFeatureSection.astro';
-import AdventureCampingList from '../../components/adventure/AdventureCampingList.astro';
-import AdventureAmenitiesGrid from '../../components/adventure/AdventureAmenitiesGrid.astro';
-import AdventureGettingThere from '../../components/adventure/AdventureGettingThere.astro';
-import AdventureGearChecklist from '../../components/adventure/AdventureGearChecklist.astro';
-import AdventureRelatedShop from '../../components/adventure/AdventureRelatedShop.astro';
-import AdventureCTA from '../../components/adventure/AdventureCTA.astro';
-import type { GearItem, RelatedCategory, CampingFacility, Amenity, HuntingFeature, FishingFeature } from '../../types/adventure';
-import { SITE_CONTACT } from '../../config/siteContact';
+import LakeTemplate from '../../components/templates/LakeTemplate.astro';
+import { summersvilleLakeData } from '../../data/lakes/summersville';
 
-// Quick stats for Summersville Lake
-const summersvilleStats = [
-  { value: '5,974', label: 'WMA Acres', icon: 'area' as const },
-  { value: '30 min', label: 'From Shop', icon: 'time' as const },
-  { value: 'Nicholas Co.', label: 'Location', icon: 'location' as const },
-  { value: 'Year-Round', label: 'Access', icon: 'calendar' as const },
-];
-
-// Hunting species data
-const huntingFeatures: HuntingFeature[] = [
-  {
-    title: 'White-tailed Deer',
-    description: 'The mature hardwoods and mixed forest provide good deer habitat. Buck firearms season runs November through December. Archery opens in late September.',
-    notes: 'The ridges overlooking the lake hold deer year-round. Creek bottoms and oak flats are good for feeding areas. The terrain is steep in places — be prepared for a climb.'
-  },
-  {
-    title: 'Wild Turkey',
-    description: 'Spring gobbler season brings birds working the ridges at dawn. The mature hardwoods make turkey hunting particularly good here. Fall turkey season is also available.',
-    notes: 'Ridge tops in mature timber for roosting birds. Listen for gobbles at dawn and set up between the roost and where they want to go. Don\'t overcall — let them come to you.'
-  },
-  {
-    title: 'Black Bear',
-    description: 'Nicholas County is in West Virginia\'s bear zone. Multiple seasons run mid-September through December. Bear Damage Stamp required in addition to hunting license.',
-    notes: 'Check WV DNR bear regulations for current season dates and zone rules. The thick cover and oak mast make this good bear habitat.'
-  },
-  {
-    title: 'Grouse & Squirrel',
-    description: 'Ruffed grouse in the younger timber and regenerating cuts. Squirrel hunting is excellent in the mature hardwoods — all that oak and hickory produces good mast.',
-    notes: 'Work the oak flats for squirrel in early morning. Grouse hold in regenerating cuts and creek edges.'
-  },
-];
-
-// Fishing species data
-const fishingFeatures: FishingFeature[] = [
-  {
-    title: 'Smallmouth Bass',
-    description: 'Summersville is smallmouth country. The clear, deep water and rocky structure make this lake one of the premier smallmouth fisheries in the state. Fish regularly run 14-18 inches, with bigger ones mixed in.',
-    notes: 'The water\'s gin-clear, so downsize your line to 6-8 lb test and go with natural colors. Tube jigs and drop shot rigs with soft plastics work well. Target rocky points and ledges — the smallmouth stack up on structure.'
-  },
-  {
-    title: 'Largemouth Bass',
-    description: 'Don\'t overlook the largemouth. They hold around cover near the bank and in the backs of coves. Work shallow cover with spinnerbaits and soft plastics.',
-    notes: 'The clear water means bass can see you coming, so keep your distance and make long casts. Early morning and late evening are best windows.'
-  },
-  {
-    title: 'Walleye',
-    description: 'Walleye are present throughout the lake and follow baitfish around points and ledges. Special regulations apply: all walleye from 20 to 30 inches long must be returned immediately. Daily creel limit is eight walleye, only one of which may be over 30 inches.',
-    notes: 'Troll crankbaits along points or jig with live bait near the dam. Low-light periods — dawn, dusk, and overcast days — are your best bet. Night fishing is permitted.'
-  },
-  {
-    title: 'Muskie',
-    description: 'Muskie are present and can run 40+ inches. These fish are the apex predators in the lake and require heavy tackle.',
-    notes: 'Muskie here can run 40+ inches — bring heavy tackle. Large bucktails, jerkbaits, and topwater lures work well. Fish the points and deep ledges near the dam. Be patient — muskie fishing is called the fish of 10,000 casts for a reason.'
-  },
-  {
-    title: 'Crappie & Panfish',
-    description: 'Crappie, bluegill, and yellow perch round out the options. The lake holds the state record for yellow perch. Spring is prime time for crappie spawning in the shallows.',
-    notes: 'Crappie and panfish hold around submerged structure and brush piles. Use small jigs and live minnows.'
-  },
-];
-
-// Camping facilities
-const facilities: CampingFacility[] = [
-  {
-    type: 'Battle Run Campground',
-    count: 117,
-    description: 'Peninsula campground with water on three sides. 110 electric hookup sites plus 7 walk-in tent sites. Showers, flush toilets, laundry, dump station. No pets permitted.',
-    fee: '$24+/night',
-    reservable: true,
-    link: 'https://www.recreation.gov/camping/campgrounds/233422',
-  },
-  {
-    type: 'Mountain Lake Campground',
-    count: 250,
-    description: 'Large family campground with lakefront sites, seasonal pool, mini golf, and on-site restaurant. Themed weekends throughout the season. RV sites (30/50 amp), tent sites, cabins, yurts.',
-    fee: 'Varies',
-    season: 'April 15 - October 31',
-  },
-  {
-    type: 'Long Point Cabins & RV',
-    count: 30,
-    description: 'Located on the lake rim near Long Point overlook. 10 cabins + 20 RV sites with full hookups. High-speed internet, 50/30-amp service. Year-round access.',
-    fee: 'Varies',
-  },
-  {
-    type: 'Summersville Lake Retreat',
-    count: 20,
-    description: 'Award-winning glamping destination with iconic lighthouse. Chalet cabins, tiny cabins, premium RV pull-throughs. Dog park, playground, gift shop. Note: 1.2 miles from nearest lake access.',
-    fee: 'Premium',
-  },
-];
-
-// Amenities
-const amenities: Amenity[] = [
-  { name: 'Battle Run Boat Ramp', icon: 'boat', description: 'Paved, accessible' },
-  { name: 'Salmon Run Boat Ramp', icon: 'boat', description: 'Public access' },
-  { name: 'Long Point Boat Ramp', icon: 'boat', description: 'Public access' },
-  { name: 'Summersville Lake Marina', icon: 'anchor', description: 'Kayak & pontoon rentals' },
-  { name: 'Battle Run Beach', icon: 'water', description: 'Swimming area' },
-  { name: 'Sarge\'s Dive Shop', icon: 'mask', description: 'Scuba gear & certification' },
-  { name: 'Shooting Ranges', icon: 'target', description: 'Available on WMA' },
-  { name: 'Picnic Areas', icon: 'picnic', description: 'Throughout the area' },
-];
-
-// Place schema for geographic SEO
+// Place schema for geographic SEO (preserved from original)
 const placeSchema = {
   "@context": "https://schema.org",
   "@type": "Place",
@@ -130,8 +31,8 @@ const placeSchema = {
   "description": "5,974-acre WMA with 2,790-acre lake known as the 'Little Bahamas of the East.' Crystal clear water with 20-45 feet visibility, world-class smallmouth fishing, scuba diving, and hunting for deer, turkey, and bear. 30 minutes from WV Wild Outdoors.",
   "geo": {
     "@type": "GeoCoordinates",
-    "latitude": 38.2217,
-    "longitude": -80.9097
+    "latitude": summersvilleLakeData.coordinates?.lat || 38.2217,
+    "longitude": summersvilleLakeData.coordinates?.lng || -80.9097
   },
   "address": {
     "@type": "PostalAddress",
@@ -156,30 +57,11 @@ const placeSchema = {
   ]
 };
 
-// Breadcrumb schema data
+// Breadcrumb schema data (preserved from original)
 const breadcrumbItems = [
   { name: 'Home', url: '/' },
   { name: 'Hunt Near Us', url: '/near/' },
   { name: 'Summersville Lake WMA', url: '/near/summersville-lake/' }
-];
-
-// Gear checklist data
-const summersvilleGear: GearItem[] = [
-  { name: 'WV fishing license', optional: false },
-  { name: 'Light line (6-8 lb test for clear water)', optional: false },
-  { name: 'Tube jigs and soft plastics', optional: false },
-  { name: 'Drop shot rigs', optional: false },
-  { name: 'Muskie tackle (heavy for 40"+ fish)', optional: true },
-  { name: 'Hunting license + deer/turkey/bear stamps', optional: true },
-  { name: 'Blaze orange (deer season)', optional: true },
-  { name: 'Sunscreen and towels', optional: false },
-];
-
-// Related shop categories
-const summersvilleCategories: RelatedCategory[] = [
-  { name: 'Fishing Gear', description: 'Rods, reels, line, and tackle for clear water', href: '/shop/fishing' },
-  { name: 'Hunting Supplies', description: 'Licenses, ammo, and game processing', href: '/shop/hunting' },
-  { name: 'Camping Gear', description: 'Tents, coolers, and camp supplies', href: '/shop/camping' },
 ];
 ---
 
@@ -192,172 +74,32 @@ const summersvilleCategories: RelatedCategory[] = [
   <Breadcrumb items={breadcrumbItems} />
   <SchemaBreadcrumb items={breadcrumbItems} />
 
-  <main class="bg-brand-cream min-h-screen">
+  {/*
+    LakeTemplate handles all content sections:
+    - Hero with quick stats
+    - Fishing spots (What to Fish + Where to Fish)
+    - Marina & boat access
+    - Activities (hunting, diving, swimming)
+    - Seasonal fishing guide
+    - Regulations & safety
+    - Gear checklist
+    - Related shop categories
+    - CTA
+  */}
+  <LakeTemplate {...summersvilleLakeData} />
 
-    <!-- Hero -->
-    <section class="bg-brand-brown text-white py-16 md:py-24 relative overflow-hidden">
-      <div class="absolute inset-0 bg-camo opacity-5 pointer-events-none"></div>
-
-      <div class="container mx-auto px-4 relative">
-        <div class="max-w-3xl">
-          <div class="flex flex-wrap items-center gap-3 mb-4">
-            <span class="inline-block bg-sign-green text-white px-4 py-1 rounded-sm font-bold text-sm">
-              30 min from shop
-            </span>
-            <span class="inline-block bg-brand-orange text-white px-4 py-1 rounded-sm font-bold text-sm">
-              5,974 Acres WMA
-            </span>
-          </div>
-          <h1 class="font-display font-black text-4xl md:text-6xl mb-4">
-            Summersville Lake WMA
-          </h1>
-          <p class="text-xl md:text-2xl text-brand-cream/80 mb-6">
-            They call it the Little Bahamas of the East for good reason.
-            West Virginia's largest lake with crystal clear water, world-class smallmouth fishing, scuba diving, and hunting for deer, turkey, and bear in nearly 6,000 acres of forest.
-          </p>
-          <p class="text-brand-cream/60">
-            Stop by the shop before you head out — we'll get you set up with licenses, tackle, ammo, and local tips.
-          </p>
-        </div>
+  {/* Newsletter signup preserved from original */}
+  <section class="py-12 md:py-16 bg-brand-cream">
+    <div class="container mx-auto px-4">
+      <div class="max-w-xl mx-auto">
+        <EmailCapture
+          variant="card"
+          heading="Get Fishing & Lake Updates"
+          subheading="What's biting, campground openings, and gear restocks delivered to your inbox."
+        />
       </div>
-    </section>
-
-    <!-- Quick Info (SPEC-10) -->
-    <AdventureQuickStats stats={summersvilleStats} variant="white" />
-
-    <!-- What to Fish (SPEC-11) -->
-    <AdventureWhatToFish
-      title="What to Fish"
-      features={fishingFeatures}
-      variant="cream"
-    />
-
-    <!-- What to Hunt (SPEC-11) -->
-    <AdventureWhatToHunt
-      title="What to Hunt"
-      features={huntingFeatures}
-      variant="white"
-    />
-
-    <!-- Crystal Clear Waters Feature Section (SPEC-11) -->
-    <AdventureFeatureSection
-      title="Crystal Clear Waters"
-      intro="Skin Diver Magazine called it the cleanest, clearest freshwater lake east of the Mississippi. On a good day, you can see 30-45 feet down. That's why folks come from all over for the scuba diving."
-      variant="cream"
-    >
-      <div class="space-y-6">
-        <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
-          <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Scuba Diving</h3>
-          <p class="text-brand-brown/75 mb-3">
-            Long Point Cliff is the signature dive site — a towering rock formation that plunges
-            40+ feet underwater. The Overlook site offers more diversity with fish viewing,
-            a ledge at 52 feet, tree stumps, and boulders. There's even a small boat that
-            was intentionally sunk for divers to explore.
-          </p>
-          <p class="text-sm text-brand-brown/60">
-            <strong>Note:</strong> Sarge's Dive Shop near the lake offers rentals and certification.
-            Summer water temps run 68-80°F.
-          </p>
-        </div>
-
-        <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
-          <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Swimming & Cliff Jumping</h3>
-          <p class="text-brand-brown/75 mb-3">
-            Battle Run Beach offers swimming access. Long Point has a pyramid-shaped rock
-            formation that's popular for jumping into the water below. Several rock formations
-            around Long Point make for good swim-around areas.
-          </p>
-          <p class="text-sm text-brand-brown/60">
-            <strong>Safety note:</strong> Jumping from the surrounding sandstone cliffs is prohibited
-            due to past accidents. Stick to designated areas.
-          </p>
-        </div>
-      </div>
-    </AdventureFeatureSection>
-
-    <!-- Camping (SPEC-12) -->
-    <AdventureCampingList
-      title="Camping"
-      facilities={facilities}
-      columns={2}
-      variant="white"
-    />
-
-    <!-- Amenities (SPEC-12) -->
-    <AdventureAmenitiesGrid
-      title="On the Water"
-      amenities={amenities}
-      columns={4}
-      variant="cream"
-    />
-
-    <!-- Getting There (SPEC-11) -->
-    <AdventureGettingThere
-      directions="<ol class='list-decimal list-inside space-y-2'><li>Head south on US-19 from Birch River</li><li>Continue through Summersville (~40 miles)</li><li>Turn right on WV-129 toward the lake</li><li>Follow signs to Battle Run or your destination</li></ol>"
-      mapLink="https://maps.google.com/?q=Summersville+Lake+Battle+Run+WV"
-      driveTime="30 minutes"
-      distance="40 miles"
-      variant="white"
-    >
-      <p class="text-brand-brown/80 italic mt-4">
-        <strong>Pro tip:</strong> Stop by our shop on US-19 before heading to the lake. We'll get you set up with licenses, tackle, bait, and local tips on what's been biting.
-      </p>
-    </AdventureGettingThere>
-
-    <!-- Gear Checklist (SPEC-11) -->
-    <AdventureGearChecklist
-      title="What to Bring"
-      intro="We've got most of this in stock. Stop by before you head out."
-      items={summersvilleGear}
-      columns={2}
-      variant="cream"
-    >
-      <a
-        slot="footer"
-        href="/shop"
-        class="inline-flex items-center gap-2 bg-sign-green text-white font-bold px-6 py-3 rounded-sm hover:bg-sign-green/90 transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange"
-      >
-        Browse Our Gear
-      </a>
-    </AdventureGearChecklist>
-
-    <!-- Related Shop (SPEC-11) -->
-    <AdventureRelatedShop
-      title="Shop for Your Trip"
-      intro="Everything you need for a great day at Summersville Lake."
-      categories={summersvilleCategories}
-      ctaText="Visit Our Shop"
-      ctaHref="/shop"
-      variant="white"
-    />
-
-    <!-- CTA (SPEC-11) -->
-    <AdventureCTA
-      heading="Stop By Before You Head Out"
-      description="We're on US-19 between the interstate and the lake. Grab your licenses, stock up on tackle and ammo, and we'll point you to what's been biting and where the game is moving."
-      primaryText="Get Directions to Shop"
-      primaryHref={SITE_CONTACT.mapsUrl}
-      primaryExternal
-      showLocationIcon
-      secondaryText={SITE_CONTACT.phoneDisplay}
-      secondaryHref={SITE_CONTACT.phoneHref}
-      showPhoneIcon
-    />
-
-    <!-- Newsletter -->
-    <section class="py-12 md:py-16">
-      <div class="container mx-auto px-4">
-        <div class="max-w-xl mx-auto">
-          <EmailCapture
-            variant="card"
-            heading="Get Fishing & Lake Updates"
-            subheading="What's biting, campground openings, and gear restocks delivered to your inbox."
-          />
-        </div>
-      </div>
-    </section>
-
-  </main>
+    </div>
+  </section>
 
   <Footer />
 </Layout>
