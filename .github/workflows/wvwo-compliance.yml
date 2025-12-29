@@ -18,12 +18,14 @@ jobs:
       - name: Scan for forbidden rounded classes
         run: |
           echo "🔍 Scanning for rounded-md/lg/xl violations..."
-          if grep -r "rounded-md\|rounded-lg\|rounded-xl\|rounded-2xl\|rounded-3xl" wv-wild-web/src/components/adventure/ wv-wild-web/src/pages/adventures/ 2>/dev/null; then
-            echo "❌ WVWO VIOLATION: Forbidden rounded classes detected"
+          # Exclude __tests__ directories and search only in actual component/page files
+          if find wv-wild-web/src/components/adventure wv-wild-web/src/components/templates wv-wild-web/src/pages/adventures -type f \( -name "*.astro" -o -name "*.tsx" -o -name "*.jsx" \) ! -path "*/__tests__/*" -exec grep -l "rounded-md\|rounded-lg\|rounded-xl\|rounded-2xl\|rounded-3xl" {} + 2>/dev/null; then
+            echo "❌ WVWO VIOLATION: Forbidden rounded classes detected in implementation files"
             echo "Only rounded-sm (0.125rem) is allowed for hardware store aesthetic"
+            echo "Note: Test files in __tests__/ are excluded from this check"
             exit 1
           fi
-          echo "✅ Border radius compliance passed"
+          echo "✅ Border radius compliance passed (implementation files only)"
 
       - name: Scan for forbidden fonts
         run: |
