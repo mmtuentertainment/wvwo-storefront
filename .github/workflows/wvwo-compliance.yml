@@ -30,8 +30,9 @@ jobs:
       - name: Scan for forbidden fonts
         run: |
           echo "🔍 Scanning for SaaS startup fonts..."
-          if grep -ri "Inter\|Poppins\|DM Sans\|system-ui\|Montserrat" wv-wild-web/src/components/adventure/ wv-wild-web/src/pages/adventures/ 2>/dev/null; then
-            echo "❌ WVWO VIOLATION: Forbidden SaaS fonts detected"
+          # Only match font-family declarations, not words containing "Inter" like "interface"
+          if find wv-wild-web/src/components/adventure wv-wild-web/src/components/templates wv-wild-web/src/pages/adventures -type f \( -name "*.astro" -o -name "*.tsx" -o -name "*.jsx" -o -name "*.css" \) ! -path "*/__tests__/*" -exec grep -l "font-family:.*\(Inter\|Poppins\|DM Sans\|system-ui\|Montserrat\|Space Grotesk\)" {} + 2>/dev/null; then
+            echo "❌ WVWO VIOLATION: Forbidden SaaS fonts detected in font-family declarations"
             echo "Use Bitter (display), Permanent Marker (hand), Noto Sans (body) only"
             exit 1
           fi
@@ -40,7 +41,7 @@ jobs:
       - name: Scan for glassmorphism
         run: |
           echo "🔍 Scanning for backdrop-blur..."
-          if grep -r "backdrop-blur" wv-wild-web/src/components/adventure/ wv-wild-web/src/pages/adventures/ 2>/dev/null; then
+          if find wv-wild-web/src/components/adventure wv-wild-web/src/components/templates wv-wild-web/src/pages/adventures -type f \( -name "*.astro" -o -name "*.tsx" -o -name "*.jsx" \) ! -path "*/__tests__/*" -exec grep -l "backdrop-blur" {} + 2>/dev/null; then
             echo "❌ WVWO VIOLATION: Glassmorphism (backdrop-blur) detected"
             echo "Use solid backgrounds for hardware store aesthetic"
             exit 1
