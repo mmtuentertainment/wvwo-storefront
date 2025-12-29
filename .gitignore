@@ -142,3 +142,5 @@ docs/SPEC-*-*.md
 
 # Swarm coordination memory (keep committed for pattern learning)
 # docs/swarm-memory/ - KEPT for collaboration context
+# Swarm coordination (working memory - not for version control)
+docs/swarm-memory/
