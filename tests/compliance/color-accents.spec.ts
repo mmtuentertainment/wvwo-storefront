@@ -15,7 +15,7 @@ import { test, expect } from '@playwright/test';
 
 test.describe('WVWO Color Accent Compliance', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/adventures/__test-wma-integration');
+    await page.goto('/__test-wma-integration');
   });
 
   test('CRITICAL: Fish features use green border-left', async ({ page }) => {
@@ -166,7 +166,7 @@ test.describe('WVWO Color Accent Compliance', () => {
 
 test.describe('WVWO Color Compliance - Computed Values', () => {
   test('Fish cards have green left border (computed)', async ({ page }) => {
-    await page.goto('/adventures/__test-wma-integration');
+    await page.goto('/__test-wma-integration');
 
     const fishSection = page.locator('section:has-text("What to Fish")');
     if (await fishSection.count() === 0) test.skip();
@@ -185,7 +185,7 @@ test.describe('WVWO Color Compliance - Computed Values', () => {
   });
 
   test('Camping cards have brown left border (computed)', async ({ page }) => {
-    await page.goto('/adventures/__test-wma-integration');
+    await page.goto('/__test-wma-integration');
 
     const campingSection = page.locator('section:has-text("Camping")');
     if (await campingSection.count() === 0) test.skip();
@@ -203,7 +203,7 @@ test.describe('WVWO Color Compliance - Computed Values', () => {
   });
 
   test('CTA buttons have orange background (computed)', async ({ page }) => {
-    await page.goto('/adventures/__test-wma-integration');
+    await page.goto('/__test-wma-integration');
 
     const ctaButtons = await page.locator('.adventure-cta a, .adventure-cta button').all();
 
@@ -220,7 +220,7 @@ test.describe('WVWO Color Compliance - Computed Values', () => {
 
 test.describe('WVWO Color Compliance - Visual Checks', () => {
   test('No neon or gradient backgrounds', async ({ page }) => {
-    await page.goto('/adventures/__test-wma-integration');
+    await page.goto('/__test-wma-integration');
 
     // Check for gradient backgrounds
     const elements = await page.locator('section, div').all();

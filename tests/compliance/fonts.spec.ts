@@ -15,7 +15,7 @@ import { test, expect } from '@playwright/test';
 
 test.describe('WVWO Font Compliance', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/adventures/__test-wma-integration');
+    await page.goto('/__test-wma-integration');
   });
 
   test('CRITICAL: font-hand (Permanent Marker) ONLY for Kim notes', async ({ page }) => {
@@ -181,7 +181,7 @@ test.describe('WVWO Font Compliance', () => {
 
 test.describe('WVWO Font Compliance - Component-Specific', () => {
   test('AdventureFeatureSection: notes use font-hand', async ({ page }) => {
-    await page.goto('/adventures/__test-wma-integration');
+    await page.goto('/__test-wma-integration');
 
     // Feature cards with notes field
     const noteElements = await page.locator('section li p.font-hand').all();
@@ -201,7 +201,7 @@ test.describe('WVWO Font Compliance - Component-Specific', () => {
   });
 
   test('AdventureHero: title uses font-display', async ({ page }) => {
-    await page.goto('/adventures/__test-wma-integration');
+    await page.goto('/__test-wma-integration');
 
     const heroTitle = page.locator('.adventure-hero h1');
     const fontFamily = await heroTitle.evaluate((el) =>

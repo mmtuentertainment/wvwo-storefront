@@ -13,7 +13,7 @@ import { test, expect } from '@playwright/test';
 test.describe('WVWO Border Radius Compliance', () => {
   test.beforeEach(async ({ page }) => {
     // Test against WMA template as reference implementation
-    await page.goto('/adventures/__test-wma-integration');
+    await page.goto('/__test-wma-integration');
   });
 
   test('CRITICAL: Zero forbidden rounded classes in DOM', async ({ page }) => {
@@ -146,7 +146,7 @@ test.describe('WVWO Border Radius Compliance', () => {
 
 test.describe('WVWO Border Radius - Component-Specific', () => {
   test('AdventureAmenitiesGrid: amenity cards sharp corners', async ({ page }) => {
-    await page.goto('/adventures/__test-wma-integration');
+    await page.goto('/__test-wma-integration');
 
     const amenityCards = await page.locator('[class*="amenity"] li, section:has-text("Amenities") li').all();
 
@@ -160,7 +160,7 @@ test.describe('WVWO Border Radius - Component-Specific', () => {
   });
 
   test('AdventureFeatureSection: feature cards border-left only', async ({ page }) => {
-    await page.goto('/adventures/__test-wma-integration');
+    await page.goto('/__test-wma-integration');
 
     const featureCards = await page.locator('section li[class*="border-l"]').all();
 
