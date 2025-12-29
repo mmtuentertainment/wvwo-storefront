@@ -48,6 +48,14 @@
       {
         "rule": "Orange color (#FF6F00) must occupy less than 5% of any screen - use for CTAs only, never backgrounds",
         "scope": ["**/*.css", "**/*.scss", "**/*.tsx", "**/*.astro"]
+      },
+      {
+        "rule": "plan.md files are comprehensive implementation roadmaps (1000-2000 lines expected) - exempt from 500-line limit. These document phases, risks, timelines, testing strategies for complex features.",
+        "scope": ["**/plan.md"]
+      },
+      {
+        "rule": "AgentDB and ReasoningBank are real MCP integration systems documented in CLAUDE.md - not fictional. Used for agent coordination, memory management, and pattern learning.",
+        "scope": ["**/*.md", "**/*.ts"]
       }
     ],
     "files": [

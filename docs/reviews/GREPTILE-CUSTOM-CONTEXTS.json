@@ -1,0 +1,71 @@
+[
+  {
+    "name": "plan.md File Exception",
+    "type": "CUSTOM_INSTRUCTION",
+    "body": "plan.md files are comprehensive implementation roadmaps that should be 1000-2000 lines to ensure thorough planning with complete phase breakdowns, risk assessments, testing strategies, and architecture decisions. Do not flag plan.md files for exceeding the 500-line limit. The 500-line limit applies to implementation files (.astro, .ts, .tsx), not planning/specification documents.",
+    "scopes": {
+      "AND": [
+        {
+          "operator": "MATCHES",
+          "field": "filepath",
+          "value": "**/plan.md"
+        }
+      ]
+    },
+    "status": "ACTIVE"
+  },
+  {
+    "name": "Deleted Files Recognition",
+    "type": "PATTERN",
+    "body": "When reviewing PRs, check git diff status prefixes. Files with 'D' prefix are deletions (cleanup), not new empty files. Empty 'deleted' files are expected and correct - they represent successful cleanup of old directory structures. Only flag new files (prefix 'A') that are empty as issues.",
+    "scopes": {
+      "AND": []
+    },
+    "status": "ACTIVE"
+  },
+  {
+    "name": "MCP Systems Recognition",
+    "type": "PATTERN",
+    "body": "AgentDB, ReasoningBank, and Flow-Nexus are real MCP-integrated systems documented in CLAUDE.md for this project. They are used for vector storage, adaptive learning, and swarm orchestration. Do not flag these as 'fictional systems' - they are legitimate infrastructure for Phase 2/3 content generation at scale.",
+    "scopes": {
+      "AND": [
+        {
+          "operator": "MATCHES",
+          "field": "repository",
+          "value": "mmtuentertainment/wvwo-storefront"
+        }
+      ]
+    },
+    "status": "ACTIVE"
+  },
+  {
+    "name": "Specification Document Line Limits",
+    "type": "CUSTOM_INSTRUCTION",
+    "body": "Specification documents (spec.md, architecture.md, pseudocode.md) are exempt from the 500-line limit. These documents should be comprehensive (1500-3000 lines) to ensure complete requirements coverage, architecture decisions, and implementation guidance. Only flag implementation files (.astro, .ts, .tsx, .js) for exceeding line limits.",
+    "scopes": {
+      "AND": [
+        {
+          "operator": "MATCHES",
+          "field": "filepath",
+          "value": "**/spec.md"
+        }
+      ]
+    },
+    "status": "ACTIVE"
+  },
+  {
+    "name": "Architecture Document Line Limits",
+    "type": "CUSTOM_INSTRUCTION",
+    "body": "Architecture documents are exempt from the 500-line limit. These should be thorough and comprehensive to document system design, component relationships, data flow, and technical decisions.",
+    "scopes": {
+      "AND": [
+        {
+          "operator": "MATCHES",
+          "field": "filepath",
+          "value": "**/architecture.md"
+        }
+      ]
+    },
+    "status": "ACTIVE"
+  }
+]
