@@ -1,0 +1,112 @@
+---
+/**
+ * AdventureWhatToFish.astro
+ * SPEC-12: Fishing Wrapper Component
+ *
+ * Thin wrapper around AdventureFeatureSection with fishing-specific defaults.
+ * Delegates all rendering to the base component.
+ *
+ * @example
+ * ```astro
+ * <AdventureWhatToFish
+ *   features={[
+ *     {
+ *       title: 'Smallmouth Bass',
+ *       description: 'Year-round, catch and release encouraged',
+ *       notes: 'Rocky points, use crawfish patterns.'
+ *     },
+ *     {
+ *       title: 'Rainbow Trout',
+ *       description: 'Stocked seasonally Oct-Apr in designated waters',
+ *       notes: 'Pools below riffles. Use PowerBait or spinners.'
+ *     },
+ *     {
+ *       title: 'Channel Catfish',
+ *       description: 'Year-round, best fishing at night',
+ *       notes: 'Deep holes, use chicken liver or stink bait.'
+ *     }
+ *   ]}
+ * />
+ * ```
+ *
+ * With slots:
+ * ```astro
+ * <AdventureWhatToFish features={fishingData}>
+ *   <Fragment slot="intro">
+ *     <p>Local waters offer excellent fishing opportunities...</p>
+ *   </Fragment>
+ *   <Fragment slot="footer">
+ *     <a href="https://wvdnr.gov/fishing">WV DNR Fishing Regulations</a>
+ *   </Fragment>
+ * </AdventureWhatToFish>
+ * ```
+ */
+
+import AdventureFeatureSection from './AdventureFeatureSection.astro';
+
+interface FeatureItem {
+  /** Fish species name (e.g., "Smallmouth Bass", "Rainbow Trout") */
+  title: string;
+  /** Season/availability info (e.g., "Year-round, best spring/fall") */
+  description: string;
+  /** Optional Kim's fishing tips (renders in font-hand) */
+  notes?: string;
+  /** Optional icon type */
+  icon?: 'check' | 'info' | 'location' | 'none';
+}
+
+type AccentColor = 'sign-green' | 'brand-orange' | 'brand-brown' | 'brand-mud';
+
+interface Props {
+  /** Array of fish species/info to display */
+  features: FeatureItem[];
+  /** Section heading (default: "What to Fish") */
+  title?: string;
+  /** Optional intro text above species cards */
+  intro?: string;
+  /** Grid columns on desktop (default: 2) */
+  columns?: 2 | 3;
+  /** Background variant (default: 'white' for fishing) */
+  variant?: 'white' | 'cream';
+  /** Border-left accent color (default: 'sign-green') */
+  accentColor?: AccentColor;
+  /** Enable gentle reveal animation (default: true) */
+  animate?: boolean;
+  /** Section aria-label for accessibility */
+  ariaLabel?: string;
+}
+
+const {
+  features,
+  title = 'What to Fish',
+  intro,
+  columns = 2,
+  variant = 'white',
+  accentColor = 'sign-green',
+  animate = true,
+  ariaLabel,
+} = Astro.props;
+
+// Delegate conditional rendering to base component
+// Base component will return null if features is empty
+---
+
+<AdventureFeatureSection
+  title={title}
+  intro={intro}
+  features={features}
+  variant={variant}
+  columns={columns}
+  accentColor={accentColor}
+  animate={animate}
+  ariaLabel={ariaLabel}
+>
+  <!-- Pass through intro slot -->
+  <slot name="intro" slot="intro" />
+
+  <!-- Pass through footer slot -->
+  <slot name="footer" slot="footer" />
+
+  <!-- Pass through default slot -->
+  <slot />
+</AdventureFeatureSection>

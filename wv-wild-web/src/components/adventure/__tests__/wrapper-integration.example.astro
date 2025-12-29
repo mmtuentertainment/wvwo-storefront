@@ -1,0 +1,118 @@
+---
+/**
+ * Integration Example: AdventureWhatToHunt & AdventureWhatToFish
+ *
+ * This example demonstrates:
+ * 1. Wrapper components set correct hunting/fishing defaults
+ * 2. Slot passthrough works correctly
+ * 3. Delegation to base component is seamless
+ * 4. Props can be overridden when needed
+ *
+ * NOT A TEST FILE - this is an Astro integration example
+ * showing actual component usage patterns.
+ */
+
+import AdventureWhatToHunt from '../AdventureWhatToHunt.astro';
+import AdventureWhatToFish from '../AdventureWhatToFish.astro';
+
+// Example hunting data
+const huntingFeatures = [
+  {
+    title: 'White-tailed Deer',
+    description: 'Season: Archery Sep 15-Dec 31, Firearms Nov 1-Dec 31',
+    notes: 'Bucks here run 100-150 inches. Creek bottoms at dawn.'
+  },
+  {
+    title: 'Wild Turkey',
+    description: 'Season: Spring Apr 15-May 15, Fall Oct 1-Nov 15',
+    notes: 'Best gobbling 6-9am. Eastern strain.'
+  },
+  {
+    title: 'Black Bear',
+    description: 'Season: Archery Sep 15-Dec 31, Firearms varies by county',
+    notes: 'Oak ridges, berry patches.'
+  }
+];
+
+// Example fishing data
+const fishingFeatures = [
+  {
+    title: 'Smallmouth Bass',
+    description: 'Year-round, catch and release encouraged',
+    notes: 'Rocky points, use crawfish patterns.'
+  },
+  {
+    title: 'Rainbow Trout',
+    description: 'Stocked seasonally Oct-Apr in designated waters',
+    notes: 'Pools below riffles. Use PowerBait or spinners.'
+  },
+  {
+    title: 'Channel Catfish',
+    description: 'Year-round, best fishing at night',
+    notes: 'Deep holes, use chicken liver or stink bait.'
+  }
+];
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wrapper Integration Example</title>
+</head>
+<body>
+  <!-- Example 1: Hunting wrapper with default settings -->
+  <!-- Demonstrates: cream background, "What to Hunt" title, sign-green accent -->
+  <AdventureWhatToHunt features={huntingFeatures} />
+
+  <!-- Example 2: Hunting wrapper with intro slot -->
+  <!-- Demonstrates: slot passthrough works correctly -->
+  <AdventureWhatToHunt features={huntingFeatures}>
+    <div slot="intro">
+      <p>Our area offers diverse hunting opportunities for game species.</p>
+    </div>
+    <div slot="footer">
+      <a href="https://wvdnr.gov/hunting">View WV DNR Hunting Regulations</a>
+    </div>
+  </AdventureWhatToHunt>
+
+  <!-- Example 3: Hunting wrapper with overridden title and variant -->
+  <!-- Demonstrates: defaults can be overridden -->
+  <AdventureWhatToHunt
+    features={huntingFeatures}
+    title="Game Species"
+    variant="white"
+    columns={3}
+  />
+
+  <!-- Example 4: Fishing wrapper with default settings -->
+  <!-- Demonstrates: white background, "What to Fish" title, sign-green accent -->
+  <AdventureWhatToFish features={fishingFeatures} />
+
+  <!-- Example 5: Fishing wrapper with intro and footer slots -->
+  <!-- Demonstrates: slot passthrough works correctly -->
+  <AdventureWhatToFish features={fishingFeatures}>
+    <div slot="intro">
+      <p>Local waters offer excellent fishing opportunities year-round.</p>
+    </div>
+    <div slot="footer">
+      <a href="https://wvdnr.gov/fishing">View WV DNR Fishing Regulations</a>
+    </div>
+  </AdventureWhatToFish>
+
+  <!-- Example 6: Fishing wrapper with overridden settings -->
+  <!-- Demonstrates: defaults can be overridden -->
+  <AdventureWhatToFish
+    features={fishingFeatures}
+    title="Fish Species"
+    variant="cream"
+    accentColor="brand-brown"
+  />
+
+  <!-- Example 7: Empty features array -->
+  <!-- Demonstrates: conditional rendering - section hidden when features empty -->
+  <AdventureWhatToHunt features={[]} />
+  <AdventureWhatToFish features={[]} />
+</body>
+</html>

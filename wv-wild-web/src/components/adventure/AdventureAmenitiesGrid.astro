@@ -1,0 +1,159 @@
+---
+/**
+ * AdventureAmenitiesGrid.astro
+ * SPEC-12: Amenities Grid Component
+ *
+ * Displays a responsive grid of amenities with checkmark icons.
+ * Used for simple feature lists like parking, restrooms, facilities.
+ *
+ * @accessibility
+ * - Uses semantic ul/li structure for screen readers
+ * - Icons are aria-hidden (info conveyed in text)
+ * - Section uses aria-labelledby for proper labeling
+ *
+ * @wvwo-compliance
+ * - Checkmarks use sign-green (#2E7D32) from brand palette
+ * - Border radius: rounded-sm ONLY (0.125rem)
+ * - Backgrounds: white or cream variants
+ * - Animation: gentle-reveal with prefers-reduced-motion support
+ *
+ * @example
+ * ```astro
+ * <AdventureAmenitiesGrid
+ *   title="What's Available"
+ *   amenities={[
+ *     'Parking (30+ vehicles)',
+ *     'Restrooms (seasonal)',
+ *     'Picnic areas',
+ *     'ADA-accessible trails',
+ *   ]}
+ *   columns={3}
+ *   variant="white"
+ * />
+ * ```
+ */
+import { STAT_ICON_PATHS } from '../../types/adventure';
+
+/** Column count options for grid */
+export type AmenityColumns = 2 | 3 | 4;
+
+interface Props {
+  /** Section heading (default: 'Amenities') */
+  title?: string;
+  /** Optional intro paragraph below heading */
+  intro?: string;
+  /** Array of amenity strings to display */
+  amenities: string[];
+  /** Number of columns on desktop (default: 3) */
+  columns?: AmenityColumns;
+  /** Background style (default: 'white') */
+  variant?: 'white' | 'cream';
+  /** Enable gentle reveal animation (default: true) */
+  animate?: boolean;
+}
+
+const {
+  title = 'Amenities',
+  intro,
+  amenities,
+  columns = 3,
+  variant = 'white',
+  animate = true,
+} = Astro.props;
+
+const sectionId = `adventure-amenities-grid-${Math.random().toString(36).substring(2, 9)}`;
+const bgClass = variant === 'white' ? 'bg-white' : 'bg-brand-cream';
+const listItemBgClass = variant === 'cream' ? 'bg-white' : 'bg-brand-cream/50';
+
+/**
+ * Responsive grid classes for amenities grid.
+ * Mobile: Always 2 columns for readability
+ * Desktop (md+): Configurable 2/3/4 columns
+ */
+const columnClasses: Record<AmenityColumns, string> = {
+  2: 'grid-cols-2 md:grid-cols-2',
+  3: 'grid-cols-2 md:grid-cols-3',
+  4: 'grid-cols-2 md:grid-cols-4',
+};
+
+/**
+ * Get checkmark icon path from STAT_ICON_PATHS.
+ * Uses Heroicons-style stroke path (24x24 viewBox).
+ */
+const checkIconPath = STAT_ICON_PATHS.check;
+---
+
+{amenities.length > 0 && (
+  <section
+    class:list={[
+      'py-12 md:py-16',
+      bgClass,
+      animate && 'adventure-amenities-grid',
+    ]}
+    aria-labelledby={sectionId}
+  >
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto">
+        <h2
+          id={sectionId}
+          class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-4"
+        >
+          {title}
+        </h2>
+
+        {intro && (
+          <p class="text-brand-brown/75 mb-8">{intro}</p>
+        )}
+
+        <ul class:list={['grid gap-4', columnClasses[columns]]}>
+          {amenities.map((amenity) => (
+            <li class:list={['flex items-center gap-3 p-4 rounded-sm border border-brand-brown/15 transition-colors duration-300 hover:border-sign-green/50', listItemBgClass]}>
+              <svg
+                aria-hidden="true"
+                class="w-5 h-5 text-sign-green flex-shrink-0"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d={checkIconPath} />
+              </svg>
+              <span class="text-brand-brown">{amenity}</span>
+            </li>
+          ))}
+        </ul>
+
+        {Astro.slots.has('footer') && (
+          <div class="mt-8 text-center">
+            <slot name="footer" />
+          </div>
+        )}
+      </div>
+    </div>
+  </section>
+)}
+
+<style>
+  .adventure-amenities-grid {
+    animation: gentle-reveal 0.6s ease-out both;
+  }
+
+  @keyframes gentle-reveal {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .adventure-amenities-grid {
+      animation: none;
+    }
+  }
+</style>

@@ -133,3 +133,8 @@ coordination/orchestration/*
 *.sqlite-journal
 *.sqlite-wal
 claude-flow
+.serena/
+docs/T-*.md
+docs/tasks/
+docs/tests/
+docs/SPEC-*-*.md

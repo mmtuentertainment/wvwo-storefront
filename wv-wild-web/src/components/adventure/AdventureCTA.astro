@@ -1,0 +1,176 @@
+---
+/**
+ * AdventureCTA.astro
+ * SPEC-12: Universal Call-to-Action Component
+ *
+ * Displays dual buttons (primary filled, secondary outlined) with optional
+ * heading and description. Used for driving user actions: Get Directions,
+ * Call the Shop, View Regulations, etc.
+ *
+ * Key Features:
+ * - Dual-button system (primary + secondary)
+ * - Variant system (sign-green or brand-brown backgrounds)
+ * - External link auto-detection
+ * - Optional icons in buttons
+ * - WVWO compliant (rounded-sm, brand colors, Bitter font)
+ *
+ * @example
+ * ```astro
+ * <AdventureCTA
+ *   heading="Ready to Hunt Elk River?"
+ *   description="Stop by the shop for licenses, ammo, and local tips."
+ *   primaryText="Get Directions"
+ *   primaryHref="https://maps.google.com/?q=Elk+River+WMA"
+ *   secondaryText="Call the Shop"
+ *   secondaryHref="tel:+13045551234"
+ *   variant="sign-green"
+ * />
+ * ```
+ */
+
+interface Props {
+  /** Primary button text (default: "Get Directions") */
+  primaryText?: string;
+
+  /** Primary button href (required) */
+  primaryHref: string;
+
+  /** Secondary button text (default: "Call the Shop") */
+  secondaryText?: string;
+
+  /** Secondary button href (required) */
+  secondaryHref: string;
+
+  /** Optional heading above buttons */
+  heading?: string;
+
+  /** Optional description text */
+  description?: string;
+
+  /** Background variant (default: 'sign-green') */
+  variant?: 'sign-green' | 'brand-brown';
+
+  /** Optional SVG icon path for primary button */
+  primaryIcon?: string;
+
+  /** Optional SVG icon path for secondary button */
+  secondaryIcon?: string;
+}
+
+const {
+  primaryText = 'Get Directions',
+  primaryHref,
+  secondaryText = 'Call the Shop',
+  secondaryHref,
+  heading,
+  description,
+  variant = 'sign-green',
+  primaryIcon,
+  secondaryIcon,
+} = Astro.props;
+
+// External link detection (adds target="_blank" and rel attributes)
+function isExternalLink(href: string): boolean {
+  return href.startsWith('http://') || href.startsWith('https://');
+}
+
+const isPrimaryExternal = isExternalLink(primaryHref);
+const isSecondaryExternal = isExternalLink(secondaryHref);
+
+// Variant-specific classes
+const variantClasses = {
+  'sign-green': {
+    section: 'bg-sign-green',
+    primaryText: 'text-sign-green',
+    secondaryHover: 'hover:bg-white hover:text-sign-green',
+  },
+  'brand-brown': {
+    section: 'bg-brand-brown',
+    primaryText: 'text-brand-brown',
+    secondaryHover: 'hover:bg-white hover:text-brand-brown',
+  },
+};
+
+const currentVariant = variantClasses[variant];
+---
+
+<section class={`py-16 ${currentVariant.section} text-white`}>
+  <div class="container mx-auto px-4">
+    <div class="max-w-2xl mx-auto text-center">
+      <!-- Optional Heading -->
+      {heading && (
+        <h2 class="font-display font-bold text-4xl mb-4">
+          {heading}
+        </h2>
+      )}
+
+      <!-- Optional Description -->
+      {description && (
+        <p class="text-lg text-white/90 mb-8">
+          {description}
+        </p>
+      )}
+
+      <!-- Button Group -->
+      <div class="flex flex-col sm:flex-row justify-center gap-4">
+        <!-- Primary Button (Filled) -->
+        <a
+          href={primaryHref}
+          class={`inline-flex items-center gap-2 px-8 py-4 bg-white ${currentVariant.primaryText} font-display font-bold text-lg rounded-sm hover:bg-white/90 motion-safe:transition-colors motion-safe:duration-300 motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60`}
+          {...(isPrimaryExternal && {
+            target: '_blank',
+            rel: 'noopener noreferrer',
+          })}
+        >
+          {primaryIcon && (
+            <svg
+              aria-hidden="true"
+              focusable="false"
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d={primaryIcon}
+              ></path>
+            </svg>
+          )}
+          {primaryText}
+        </a>
+
+        <!-- Secondary Button (Outlined) -->
+        <a
+          href={secondaryHref}
+          class={`inline-flex items-center gap-2 px-8 py-4 border-2 border-white text-white font-display font-bold text-lg rounded-sm ${currentVariant.secondaryHover} motion-safe:transition-colors motion-safe:duration-300 motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60`}
+          {...(isSecondaryExternal && {
+            target: '_blank',
+            rel: 'noopener noreferrer',
+          })}
+        >
+          {secondaryIcon && (
+            <svg
+              aria-hidden="true"
+              focusable="false"
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d={secondaryIcon}
+              ></path>
+            </svg>
+          )}
+          {secondaryText}
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

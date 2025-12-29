@@ -6,30 +6,128 @@ import EmailCapture from '../../components/EmailCapture.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import SchemaBreadcrumb from '../../components/seo/SchemaBreadcrumb.astro';
 import AdventureQuickStats from '../../components/adventure/AdventureQuickStats.astro';
+import AdventureWhatToHunt from '../../components/adventure/AdventureWhatToHunt.astro';
+import AdventureWhatToFish from '../../components/adventure/AdventureWhatToFish.astro';
+import AdventureFeatureSection from '../../components/adventure/AdventureFeatureSection.astro';
+import AdventureCampingList from '../../components/adventure/AdventureCampingList.astro';
+import AdventureAmenitiesGrid from '../../components/adventure/AdventureAmenitiesGrid.astro';
 import AdventureGettingThere from '../../components/adventure/AdventureGettingThere.astro';
 import AdventureGearChecklist from '../../components/adventure/AdventureGearChecklist.astro';
 import AdventureRelatedShop from '../../components/adventure/AdventureRelatedShop.astro';
-import type { GearItem, RelatedCategory } from '../../types/adventure';
+import AdventureCTA from '../../components/adventure/AdventureCTA.astro';
+import type { GearItem, RelatedCategory, CampingFacility, Amenity, HuntingFeature, FishingFeature } from '../../types/adventure';
 import { SITE_CONTACT } from '../../config/siteContact';
 
 // Quick stats for Summersville Lake
 const summersvilleStats = [
-  { value: '2,790', label: 'Acres', icon: 'area' as const },
+  { value: '5,974', label: 'WMA Acres', icon: 'area' as const },
   { value: '30 min', label: 'From Shop', icon: 'time' as const },
   { value: 'Nicholas Co.', label: 'Location', icon: 'location' as const },
   { value: 'Year-Round', label: 'Access', icon: 'calendar' as const },
 ];
 
+// Hunting species data
+const huntingFeatures: HuntingFeature[] = [
+  {
+    title: 'White-tailed Deer',
+    description: 'The mature hardwoods and mixed forest provide good deer habitat. Buck firearms season runs November through December. Archery opens in late September.',
+    notes: 'The ridges overlooking the lake hold deer year-round. Creek bottoms and oak flats are good for feeding areas. The terrain is steep in places — be prepared for a climb.'
+  },
+  {
+    title: 'Wild Turkey',
+    description: 'Spring gobbler season brings birds working the ridges at dawn. The mature hardwoods make turkey hunting particularly good here. Fall turkey season is also available.',
+    notes: 'Ridge tops in mature timber for roosting birds. Listen for gobbles at dawn and set up between the roost and where they want to go. Don\'t overcall — let them come to you.'
+  },
+  {
+    title: 'Black Bear',
+    description: 'Nicholas County is in West Virginia\'s bear zone. Multiple seasons run mid-September through December. Bear Damage Stamp required in addition to hunting license.',
+    notes: 'Check WV DNR bear regulations for current season dates and zone rules. The thick cover and oak mast make this good bear habitat.'
+  },
+  {
+    title: 'Grouse & Squirrel',
+    description: 'Ruffed grouse in the younger timber and regenerating cuts. Squirrel hunting is excellent in the mature hardwoods — all that oak and hickory produces good mast.',
+    notes: 'Work the oak flats for squirrel in early morning. Grouse hold in regenerating cuts and creek edges.'
+  },
+];
+
+// Fishing species data
+const fishingFeatures: FishingFeature[] = [
+  {
+    title: 'Smallmouth Bass',
+    description: 'Summersville is smallmouth country. The clear, deep water and rocky structure make this lake one of the premier smallmouth fisheries in the state. Fish regularly run 14-18 inches, with bigger ones mixed in.',
+    notes: 'The water\'s gin-clear, so downsize your line to 6-8 lb test and go with natural colors. Tube jigs and drop shot rigs with soft plastics work well. Target rocky points and ledges — the smallmouth stack up on structure.'
+  },
+  {
+    title: 'Largemouth Bass',
+    description: 'Don\'t overlook the largemouth. They hold around cover near the bank and in the backs of coves. Work shallow cover with spinnerbaits and soft plastics.',
+    notes: 'The clear water means bass can see you coming, so keep your distance and make long casts. Early morning and late evening are best windows.'
+  },
+  {
+    title: 'Walleye',
+    description: 'Walleye are present throughout the lake and follow baitfish around points and ledges. Special regulations apply: all walleye from 20 to 30 inches long must be returned immediately. Daily creel limit is eight walleye, only one of which may be over 30 inches.',
+    notes: 'Troll crankbaits along points or jig with live bait near the dam. Low-light periods — dawn, dusk, and overcast days — are your best bet. Night fishing is permitted.'
+  },
+  {
+    title: 'Muskie',
+    description: 'Muskie are present and can run 40+ inches. These fish are the apex predators in the lake and require heavy tackle.',
+    notes: 'Muskie here can run 40+ inches — bring heavy tackle. Large bucktails, jerkbaits, and topwater lures work well. Fish the points and deep ledges near the dam. Be patient — muskie fishing is called the fish of 10,000 casts for a reason.'
+  },
+  {
+    title: 'Crappie & Panfish',
+    description: 'Crappie, bluegill, and yellow perch round out the options. The lake holds the state record for yellow perch. Spring is prime time for crappie spawning in the shallows.',
+    notes: 'Crappie and panfish hold around submerged structure and brush piles. Use small jigs and live minnows.'
+  },
+];
+
+// Camping facilities
+const facilities: CampingFacility[] = [
+  {
+    type: 'Battle Run Campground',
+    count: 117,
+    description: 'Peninsula campground with water on three sides. 110 electric hookup sites plus 7 walk-in tent sites. Showers, flush toilets, laundry, dump station. No pets permitted.',
+    fee: '$24+/night',
+    reservable: true,
+    link: 'https://www.recreation.gov/camping/campgrounds/233422',
+  },
+  {
+    type: 'Mountain Lake Campground',
+    count: 250,
+    description: 'Large family campground with lakefront sites, seasonal pool, mini golf, and on-site restaurant. Themed weekends throughout the season. RV sites (30/50 amp), tent sites, cabins, yurts.',
+    fee: 'Varies',
+    season: 'April 15 - October 31',
+  },
+  {
+    type: 'Long Point Cabins & RV',
+    count: 30,
+    description: 'Located on the lake rim near Long Point overlook. 10 cabins + 20 RV sites with full hookups. High-speed internet, 50/30-amp service. Year-round access.',
+    fee: 'Varies',
+  },
+  {
+    type: 'Summersville Lake Retreat',
+    count: 20,
+    description: 'Award-winning glamping destination with iconic lighthouse. Chalet cabins, tiny cabins, premium RV pull-throughs. Dog park, playground, gift shop. Note: 1.2 miles from nearest lake access.',
+    fee: 'Premium',
+  },
+];
+
+// Amenities
+const amenities: Amenity[] = [
+  { name: 'Battle Run Boat Ramp', icon: 'boat', description: 'Paved, accessible' },
+  { name: 'Salmon Run Boat Ramp', icon: 'boat', description: 'Public access' },
+  { name: 'Long Point Boat Ramp', icon: 'boat', description: 'Public access' },
+  { name: 'Summersville Lake Marina', icon: 'anchor', description: 'Kayak & pontoon rentals' },
+  { name: 'Battle Run Beach', icon: 'water', description: 'Swimming area' },
+  { name: 'Sarge\'s Dive Shop', icon: 'mask', description: 'Scuba gear & certification' },
+  { name: 'Shooting Ranges', icon: 'target', description: 'Available on WMA' },
+  { name: 'Picnic Areas', icon: 'picnic', description: 'Throughout the area' },
+];
+
 // Place schema for geographic SEO
-// LOCATION: Summersville Lake, Nicholas Co., WV
-// TRAVEL TIME: 30 min from shop (US-19 south through Summersville to WV-129)
-// COORDINATES: 38.2217, -80.9097 (Battle Run area, approximate)
-// ACCESS: Battle Run boat ramp (primary); Salmon Run, Long Point (secondary)
 const placeSchema = {
   "@context": "https://schema.org",
   "@type": "Place",
-  "name": "Summersville Lake",
-  "description": "2,790-acre Army Corps lake known as the 'Little Bahamas of the East.' Crystal clear water with 20-45 feet visibility, excellent bass fishing, and scuba diving. 30 minutes from WV Wild Outdoors.",
+  "name": "Summersville Lake Wildlife Management Area",
+  "description": "5,974-acre WMA with 2,790-acre lake known as the 'Little Bahamas of the East.' Crystal clear water with 20-45 feet visibility, world-class smallmouth fishing, scuba diving, and hunting for deer, turkey, and bear. 30 minutes from WV Wild Outdoors.",
   "geo": {
     "@type": "GeoCoordinates",
     "latitude": 38.2217,
@@ -49,6 +147,7 @@ const placeSchema = {
     "address": { "addressRegion": "WV" }
   },
   "amenityFeature": [
+    { "@type": "LocationFeatureSpecification", "name": "Hunting", "value": true },
     { "@type": "LocationFeatureSpecification", "name": "Fishing", "value": true },
     { "@type": "LocationFeatureSpecification", "name": "Boat Ramps", "value": true },
     { "@type": "LocationFeatureSpecification", "name": "Camping", "value": true },
@@ -57,36 +156,36 @@ const placeSchema = {
   ]
 };
 
-// Breadcrumb schema data (3-level: Home → Hunt Near Us → Summersville Lake)
+// Breadcrumb schema data
 const breadcrumbItems = [
   { name: 'Home', url: '/' },
   { name: 'Hunt Near Us', url: '/near/' },
-  { name: 'Summersville Lake', url: '/near/summersville-lake/' }
+  { name: 'Summersville Lake WMA', url: '/near/summersville-lake/' }
 ];
 
-// SPEC-11: Gear checklist data
+// Gear checklist data
 const summersvilleGear: GearItem[] = [
   { name: 'WV fishing license', optional: false },
-  { name: 'Light line (clear water needs finesse)', optional: false },
-  { name: 'Tube jigs, soft plastics', optional: false },
+  { name: 'Light line (6-8 lb test for clear water)', optional: false },
+  { name: 'Tube jigs and soft plastics', optional: false },
   { name: 'Drop shot rigs', optional: false },
-  { name: 'Snorkel gear', optional: true },
-  { name: 'Water shoes', optional: true },
+  { name: 'Muskie tackle (heavy for 40"+ fish)', optional: true },
+  { name: 'Hunting license + deer/turkey/bear stamps', optional: true },
+  { name: 'Blaze orange (deer season)', optional: true },
   { name: 'Sunscreen and towels', optional: false },
-  { name: 'Cooler and drinks', optional: true },
 ];
 
-// SPEC-11: Related shop categories
+// Related shop categories
 const summersvilleCategories: RelatedCategory[] = [
-  { name: 'Fishing Gear', description: 'Rods, reels, line, and tackle', href: '/shop/fishing' },
-  { name: 'Camping Supplies', description: 'Tents, coolers, and camp gear', href: '/shop/camping' },
-  { name: 'Water Sports', description: 'Snorkels, water shoes, floats', href: '/shop/water-sports' },
+  { name: 'Fishing Gear', description: 'Rods, reels, line, and tackle for clear water', href: '/shop/fishing' },
+  { name: 'Hunting Supplies', description: 'Licenses, ammo, and game processing', href: '/shop/hunting' },
+  { name: 'Camping Gear', description: 'Tents, coolers, and camp supplies', href: '/shop/camping' },
 ];
 ---
 
 <Layout
-  title="Summersville Lake Fishing & Diving Guide | WV Wild Outdoors"
-  description="Fishing and diving guide for Summersville Lake, the 'Little Bahamas of the East.' 2,790 acres with smallmouth bass, walleye, and crystal clear water for scuba diving. 30 minutes from our shop."
+  title="Summersville Lake WMA Hunting & Fishing Guide | WV Wild Outdoors"
+  description="Complete guide to Summersville Lake WMA. 5,974 acres with 2,790-acre lake - the 'Little Bahamas of the East.' World-class smallmouth fishing, muskie, scuba diving, plus deer, turkey, and bear hunting. 30 minutes from our shop."
   additionalSchemas={[placeSchema]}
 >
   <Header />
@@ -106,18 +205,18 @@ const summersvilleCategories: RelatedCategory[] = [
               30 min from shop
             </span>
             <span class="inline-block bg-brand-orange text-white px-4 py-1 rounded-sm font-bold text-sm">
-              2,790 Acres
+              5,974 Acres WMA
             </span>
           </div>
           <h1 class="font-display font-black text-4xl md:text-6xl mb-4">
-            Summersville Lake
+            Summersville Lake WMA
           </h1>
           <p class="text-xl md:text-2xl text-brand-cream/80 mb-6">
             They call it the Little Bahamas of the East for good reason.
-            Crystal clear water, some of the best smallmouth fishing in West Virginia, and freshwater diving that rivals anywhere east of the Mississippi.
+            West Virginia's largest lake with crystal clear water, world-class smallmouth fishing, scuba diving, and hunting for deer, turkey, and bear in nearly 6,000 acres of forest.
           </p>
           <p class="text-brand-cream/60">
-            Stop by the shop before you head out — we'll get you set up with tackle, bait, and local tips.
+            Stop by the shop before you head out — we'll get you set up with licenses, tackle, ammo, and local tips.
           </p>
         </div>
       </div>
@@ -126,320 +225,71 @@ const summersvilleCategories: RelatedCategory[] = [
     <!-- Quick Info (SPEC-10) -->
     <AdventureQuickStats stats={summersvilleStats} variant="white" />
 
-    <!-- What to Fish -->
-    <section class="py-12 md:py-16">
-      <div class="container mx-auto px-4">
-        <div class="max-w-3xl mx-auto">
-          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-8">
-            What to Fish
-          </h2>
+    <!-- What to Fish (SPEC-11) -->
+    <AdventureWhatToFish
+      title="What to Fish"
+      features={fishingFeatures}
+      variant="cream"
+    />
 
-          <div class="space-y-6">
-            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
-              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Smallmouth Bass</h3>
-              <p class="text-brand-brown/75 mb-3">
-                Summersville is smallmouth country. The clear, deep water and rocky structure
-                make this lake one of the best smallmouth fisheries in the state. Some folks say
-                the smallmouth here rival anything in West Virginia.
-              </p>
-              <p class="text-sm text-brand-brown/60">
-                <strong>Tips:</strong> The water's gin-clear, so downsize your line and go with natural
-                colors. Tube jigs and drop shot rigs with soft plastics work well. Target rocky points
-                and ledges — the smallmouth stack up on structure.
-              </p>
-            </div>
+    <!-- What to Hunt (SPEC-11) -->
+    <AdventureWhatToHunt
+      title="What to Hunt"
+      features={huntingFeatures}
+      variant="white"
+    />
 
-            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
-              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Largemouth Bass</h3>
-              <p class="text-brand-brown/75 mb-3">
-                Don't overlook the largemouth. They hold around cover near the bank and in the
-                backs of coves. Early morning and late evening are your best windows.
-              </p>
-              <p class="text-sm text-brand-brown/60">
-                <strong>Tips:</strong> Work shallow cover with spinnerbaits and soft plastics.
-                The clear water means bass can see you coming, so keep your distance and make long casts.
-              </p>
-            </div>
-
-            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
-              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Walleye</h3>
-              <p class="text-brand-brown/75 mb-3">
-                Walleye are present throughout the lake and follow baitfish around points
-                and ledges. The deep, clear water suits them well. Some years produce better
-                than others, but they're worth targeting.
-              </p>
-              <p class="text-sm text-brand-brown/60">
-                <strong>Tips:</strong> Troll crankbaits along points or jig with live bait near
-                the dam. Low-light periods — dawn, dusk, and overcast days — are your best bet.
-              </p>
-            </div>
-
-            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
-              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Catfish & Panfish</h3>
-              <p class="text-brand-brown/75 mb-3">
-                Channel catfish and flatheads lurk in the deeper holes. Crappie, bluegill,
-                and yellow perch round out the options — the lake holds the state record
-                for yellow perch.
-              </p>
-              <p class="text-sm text-brand-brown/60">
-                <strong>Tips:</strong> For catfish, fish cut bait or chicken liver near the dam.
-                Crappie and panfish hold around submerged structure and brush piles.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Where to Fish -->
-    <section class="py-12 md:py-16 bg-white">
-      <div class="container mx-auto px-4">
-        <div class="max-w-3xl mx-auto">
-          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-8">
-            Where to Fish
-          </h2>
-
-          <div class="space-y-6">
-            <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
-              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Points & Ledges Near Dam</h3>
-              <p class="text-brand-brown/75 mb-3">
-                The area between the marina and Summersville Dam holds consistent fish.
-                Work the points and ledges to establish what depth is productive for the day.
-                Smallmouth and walleye push baitfish up against these structures.
-              </p>
-            </div>
-
-            <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
-              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Long Point</h3>
-              <p class="text-brand-brown/75 mb-3">
-                The signature rock formation at Long Point isn't just for divers. The rocky
-                structure extends underwater and holds bass year-round. Fish the transition
-                zones where rock meets deeper water.
-              </p>
-            </div>
-
-            <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
-              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Salmon Run Area</h3>
-              <p class="text-brand-brown/75 mb-3">
-                The boat ramp area at Salmon Run provides access to productive water.
-                Rocky banks and submerged structure nearby make this a good starting point,
-                especially for bank anglers.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Crystal Clear Waters -->
-    <section class="py-12 md:py-16">
-      <div class="container mx-auto px-4">
-        <div class="max-w-3xl mx-auto">
-          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-4">
-            Crystal Clear Waters
-          </h2>
-          <p class="text-brand-brown/75 mb-8">
-            Skin Diver Magazine called it the cleanest, clearest freshwater lake east of the
-            Mississippi. On a good day, you can see 30-45 feet down. That's why folks come
-            from all over for the scuba diving.
+    <!-- Crystal Clear Waters Feature Section (SPEC-11) -->
+    <AdventureFeatureSection
+      title="Crystal Clear Waters"
+      intro="Skin Diver Magazine called it the cleanest, clearest freshwater lake east of the Mississippi. On a good day, you can see 30-45 feet down. That's why folks come from all over for the scuba diving."
+      variant="cream"
+    >
+      <div class="space-y-6">
+        <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+          <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Scuba Diving</h3>
+          <p class="text-brand-brown/75 mb-3">
+            Long Point Cliff is the signature dive site — a towering rock formation that plunges
+            40+ feet underwater. The Overlook site offers more diversity with fish viewing,
+            a ledge at 52 feet, tree stumps, and boulders. There's even a small boat that
+            was intentionally sunk for divers to explore.
           </p>
+          <p class="text-sm text-brand-brown/60">
+            <strong>Note:</strong> Sarge's Dive Shop near the lake offers rentals and certification.
+            Summer water temps run 68-80°F.
+          </p>
+        </div>
 
-          <div class="space-y-6">
-            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
-              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Scuba Diving</h3>
-              <p class="text-brand-brown/75 mb-3">
-                Long Point Cliff is the signature dive site — a towering rock formation that plunges
-                40+ feet underwater. The Overlook site offers more diversity with fish viewing,
-                a ledge at 52 feet, tree stumps, and boulders. There's even a small boat that
-                was intentionally sunk for divers to explore.
-              </p>
-              <p class="text-sm text-brand-brown/60">
-                <strong>Note:</strong> Sarge's Dive Shop near the lake offers rentals and certification.
-                Summer water temps run 68-80°F.
-              </p>
-            </div>
-
-            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
-              <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Swimming & Cliff Jumping</h3>
-              <p class="text-brand-brown/75 mb-3">
-                Battle Run Beach offers swimming access. Long Point has a pyramid-shaped rock
-                formation that's popular for jumping into the water below. Several rock formations
-                around Long Point make for good swim-around areas.
-              </p>
-              <p class="text-sm text-brand-brown/60">
-                <strong>Safety note:</strong> Jumping from the surrounding sandstone cliffs is prohibited
-                due to past accidents. Stick to designated areas.
-              </p>
-            </div>
-          </div>
+        <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
+          <h3 class="font-display font-bold text-lg text-brand-brown mb-2">Swimming & Cliff Jumping</h3>
+          <p class="text-brand-brown/75 mb-3">
+            Battle Run Beach offers swimming access. Long Point has a pyramid-shaped rock
+            formation that's popular for jumping into the water below. Several rock formations
+            around Long Point make for good swim-around areas.
+          </p>
+          <p class="text-sm text-brand-brown/60">
+            <strong>Safety note:</strong> Jumping from the surrounding sandstone cliffs is prohibited
+            due to past accidents. Stick to designated areas.
+          </p>
         </div>
       </div>
-    </section>
+    </AdventureFeatureSection>
 
-    <!-- Campgrounds -->
-    <section class="py-12 md:py-16 bg-white">
-      <div class="container mx-auto px-4">
-        <div class="max-w-3xl mx-auto">
-          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-8">
-            Camping
-          </h2>
+    <!-- Camping (SPEC-12) -->
+    <AdventureCampingList
+      title="Camping"
+      facilities={facilities}
+      columns={2}
+      variant="white"
+    />
 
-          <div class="space-y-6">
-            <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
-              <div class="flex justify-between items-start mb-3">
-                <h3 class="font-display font-bold text-lg text-brand-brown">Battle Run Campground</h3>
-                <span class="text-sm text-sign-green font-bold">Reservable</span>
-              </div>
-              <p class="text-brand-brown/75 mb-3">
-                The main campground sits on a peninsula with water on three sides. Right by the
-                dam with easy lake access. Large waterfront sites, boat ramp, and fishing dock
-                on site.
-              </p>
-              <ul class="text-sm text-brand-brown/60 space-y-1">
-                <li>• 110 electric hookup sites + 7 walk-in tent sites</li>
-                <li>• Showers, flush toilets, laundry, dump station</li>
-                <li>• Fees: $24+/night</li>
-                <li>• No pets permitted</li>
-                <li>• Reserve at <a href="https://www.recreation.gov/camping/campgrounds/233422" target="_blank" rel="noopener noreferrer" class="text-sign-green hover:underline">Recreation.gov</a> or call <a href="tel:+13048723459" class="text-sign-green hover:underline">304-872-3459</a></li>
-              </ul>
-            </div>
-
-            <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
-              <div class="flex justify-between items-start mb-3">
-                <h3 class="font-display font-bold text-lg text-brand-brown">Summersville Lake State Park</h3>
-                <span class="text-sm text-brand-orange font-bold">State Park</span>
-              </div>
-              <p class="text-brand-brown/75 mb-3">
-                177 acres on the northern shore became West Virginia's newest state park in 2023.
-                Focus on rock climbing, hiking, and biking trails. Water activities and camping areas
-                are being developed.
-              </p>
-              <ul class="text-sm text-brand-brown/60 space-y-1">
-                <li>• Technical rock climbing emphasis</li>
-                <li>• Hiking and biking trails</li>
-                <li>• Call <a href="tel:+16813550328" class="text-sign-green hover:underline">681-355-0328</a> for availability</li>
-              </ul>
-            </div>
-
-            <h3 class="font-display font-bold text-lg text-brand-brown mt-8 mb-4">Private Campgrounds</h3>
-
-            <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
-              <div class="flex justify-between items-start mb-3">
-                <h3 class="font-display font-bold text-lg text-brand-brown">Mountain Lake Campground</h3>
-                <span class="text-sm text-sign-green font-bold">250+ Sites</span>
-              </div>
-              <p class="text-brand-brown/75 mb-3">
-                Large family campground with lakefront sites, seasonal pool, mini golf, and on-site
-                restaurant. Themed weekends throughout the season.
-              </p>
-              <ul class="text-sm text-brand-brown/60 space-y-1">
-                <li>• RV sites (30/50 amp), tent sites, cabins, yurts</li>
-                <li>• Season: April 15 - October 31</li>
-                <li>• Call <a href="tel:+13048726222" class="text-sign-green hover:underline">304-872-6222</a></li>
-              </ul>
-            </div>
-
-            <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
-              <div class="flex justify-between items-start mb-3">
-                <h3 class="font-display font-bold text-lg text-brand-brown">Long Point Cabins & RV</h3>
-                <span class="text-sm text-sign-green font-bold">Year-Round</span>
-              </div>
-              <p class="text-brand-brown/75 mb-3">
-                Located on the lake rim near Long Point overlook. Minutes from public beach and boat ramps.
-              </p>
-              <ul class="text-sm text-brand-brown/60 space-y-1">
-                <li>• 10 cabins + 20 RV sites with full hookups</li>
-                <li>• High-speed internet, 50/30-amp service</li>
-                <li>• Call <a href="tel:+13042463146" class="text-sign-green hover:underline">304-246-3146</a></li>
-              </ul>
-            </div>
-
-            <div class="bg-brand-cream p-6 rounded-sm border border-brand-brown/15">
-              <div class="flex justify-between items-start mb-3">
-                <h3 class="font-display font-bold text-lg text-brand-brown">Summersville Lake Retreat</h3>
-                <span class="text-sm text-brand-orange font-bold">Glamping</span>
-              </div>
-              <p class="text-brand-brown/75 mb-3">
-                Award-winning glamping destination with iconic lighthouse. Cabins, tiny homes, and
-                premium RV sites. Note: 1.2 miles from nearest lake access.
-              </p>
-              <ul class="text-sm text-brand-brown/60 space-y-1">
-                <li>• Chalet cabins, tiny cabins, premium RV pull-throughs</li>
-                <li>• Dog park, playground, gift shop</li>
-                <li>• Call <a href="tel:+13048725975" class="text-sign-green hover:underline">304-872-5975</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- On the Water -->
-    <section class="py-12 md:py-16">
-      <div class="container mx-auto px-4">
-        <div class="max-w-3xl mx-auto">
-          <h2 class="font-display font-bold text-2xl md:text-3xl text-brand-brown mb-8">
-            On the Water
-          </h2>
-
-          <div class="grid md:grid-cols-2 gap-6">
-            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
-              <h3 class="font-bold text-brand-brown mb-3">Boat Ramps</h3>
-              <ul class="space-y-2 text-brand-brown/75 text-sm">
-                <li class="flex items-center gap-2">
-                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                  </svg>
-                  Battle Run (paved, accessible)
-                </li>
-                <li class="flex items-center gap-2">
-                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                  </svg>
-                  Salmon Run
-                </li>
-                <li class="flex items-center gap-2">
-                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                  </svg>
-                  Long Point
-                </li>
-              </ul>
-            </div>
-
-            <div class="bg-white p-6 rounded-sm border border-brand-brown/15">
-              <h3 class="font-bold text-brand-brown mb-3">Marina & Services</h3>
-              <ul class="space-y-2 text-brand-brown/75 text-sm">
-                <li class="flex items-center gap-2">
-                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                  </svg>
-                  Summersville Lake Marina
-                </li>
-                <li class="flex items-center gap-2">
-                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                  </svg>
-                  Kayak & pontoon rentals
-                </li>
-                <li class="flex items-center gap-2">
-                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                  </svg>
-                  Sarge's Dive Shop (scuba gear)
-                </li>
-                <li class="flex items-center gap-2">
-                  <svg aria-hidden="true" focusable="false" class="w-4 h-4 text-sign-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                  </svg>
-                  Battle Run Beach (swimming)
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- Amenities (SPEC-12) -->
+    <AdventureAmenitiesGrid
+      title="On the Water"
+      amenities={amenities}
+      columns={4}
+      variant="cream"
+    />
 
     <!-- Getting There (SPEC-11) -->
     <AdventureGettingThere
@@ -447,9 +297,10 @@ const summersvilleCategories: RelatedCategory[] = [
       mapLink="https://maps.google.com/?q=Summersville+Lake+Battle+Run+WV"
       driveTime="30 minutes"
       distance="40 miles"
+      variant="white"
     >
-      <p class="text-brand-mud/80 italic">
-        <strong>Pro tip:</strong> Stop by our shop on US-19 before heading to the lake. We'll get you set up with tackle, bait, and local tips.
+      <p class="text-brand-brown/80 italic mt-4">
+        <strong>Pro tip:</strong> Stop by our shop on US-19 before heading to the lake. We'll get you set up with licenses, tackle, bait, and local tips on what's been biting.
       </p>
     </AdventureGettingThere>
 
@@ -480,38 +331,18 @@ const summersvilleCategories: RelatedCategory[] = [
       variant="white"
     />
 
-    <!-- CTA -->
-    <section class="bg-sign-green text-white py-12">
-      <div class="container mx-auto px-4 text-center">
-        <h2 class="font-display font-bold text-2xl mb-4">
-          Stop By Before You Head Out
-        </h2>
-        <p class="text-white/80 mb-6 max-w-xl mx-auto">
-          We're on US-19 between the interstate and the lake. Grab your fishing license,
-          stock up on tackle, and we'll point you to what's been biting.
-        </p>
-        <div class="flex flex-wrap justify-center gap-4">
-          <a
-            href={SITE_CONTACT.mapsUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 bg-white text-sign-green font-bold px-6 py-3 rounded-sm hover:bg-brand-cream motion-safe:transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
-          >
-            <svg aria-hidden="true" focusable="false" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-            </svg>
-            Get Directions to Shop
-          </a>
-          <a
-            href={SITE_CONTACT.phoneHref}
-            class="inline-flex items-center gap-2 bg-white/10 border border-white/30 text-white font-bold px-6 py-3 rounded-sm hover:bg-white/20 motion-safe:transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
-          >
-            {SITE_CONTACT.phoneDisplay}
-          </a>
-        </div>
-      </div>
-    </section>
+    <!-- CTA (SPEC-11) -->
+    <AdventureCTA
+      heading="Stop By Before You Head Out"
+      description="We're on US-19 between the interstate and the lake. Grab your licenses, stock up on tackle and ammo, and we'll point you to what's been biting and where the game is moving."
+      primaryText="Get Directions to Shop"
+      primaryHref={SITE_CONTACT.mapsUrl}
+      primaryExternal
+      showLocationIcon
+      secondaryText={SITE_CONTACT.phoneDisplay}
+      secondaryHref={SITE_CONTACT.phoneHref}
+      showPhoneIcon
+    />
 
     <!-- Newsletter -->
     <section class="py-12 md:py-16">
