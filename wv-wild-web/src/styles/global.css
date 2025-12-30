@@ -212,3 +212,13 @@
     }
   }
 }
+
+/* WVWO Compliance: Override focus ring border-radius */
+*:focus-visible {
+  border-radius: 0.125rem !important; /* Force rounded-sm on all focus rings */
+}
+
+/* Ensure no system-ui font fallback */
+body, html {
+  font-family: var(--font-body), 'Noto Sans', sans-serif;
+}
