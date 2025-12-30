@@ -186,7 +186,7 @@ bash scripts/checkpoint-5-validation.sh  # After Phase 5
 ## Related Documentation
 
 ### WVWO Project Standards
-- **c:\Users\matth\Desktop\wvwo-storefront\CLAUDE.md**: Frontend aesthetics, forbidden patterns
+- **CLAUDE.md**: Frontend aesthetics, forbidden patterns (project root)
 - **docs/spec-14-river-template.md**: Full RiverTemplate specification
 
 ### External Standards
@@ -198,7 +198,7 @@ bash scripts/checkpoint-5-validation.sh  # After Phase 5
 
 ## Script Locations
 
-All validation scripts are in `c:\Users\matth\Desktop\wvwo-storefront\scripts\`:
+All validation scripts are in `scripts/`:
 - `checkpoint-1-validation.sh` - Type System Review
 - `checkpoint-2-validation.sh` - WVWO Compliance
 - `checkpoint-3-validation.sh` - Accessibility
@@ -212,7 +212,7 @@ All scripts are executable (`chmod +x` already applied).
 
 ## Test Locations
 
-Integration tests: `c:\Users\matth\Desktop\wvwo-storefront\tests\integration\RiverTemplate.test.ts`
+Integration tests: `tests/integration/RiverTemplate.test.ts`
 
 Run with:
 ```bash
@@ -223,7 +223,7 @@ npm test tests/integration/RiverTemplate.test.ts
 
 ## Checklist Template
 
-Blank checklist template: `c:\Users\matth\Desktop\wvwo-storefront\docs\CHECKPOINT-CHECKLIST.md`
+Blank checklist template: `docs/CHECKPOINT-CHECKLIST.md`
 
 **Usage**:
 1. Make a copy for each implementation: `cp CHECKPOINT-CHECKLIST.md SPEC-14-checklist-YYYY-MM-DD.md`

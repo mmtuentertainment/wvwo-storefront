@@ -10,7 +10,7 @@
 ## QUEEN COORDINATOR STATUS
 
 **Orchestration**: Hierarchical Swarm (9 Worker Agents)
-**Research Input**: [peppy-dancing-dewdrop.md](C:\Users\matth\.claude\plans\peppy-dancing-dewdrop.md) - 10 research agents
+**Research Input**: [peppy-dancing-dewdrop.md](~/.claude/plans/peppy-dancing-dewdrop.md) - 10 research agents
 **Reference**: elk-river.astro (463 lines), SPEC-10/11 components (94/100 PR score)
 
 **Worker Agent Assignments**:
@@ -1632,7 +1632,7 @@ interface Props {
 
 ### Research Artifacts
 
-**Research Plan**: [peppy-dancing-dewdrop.md](C:\Users\matth\.claude\plans\peppy-dancing-dewdrop.md)
+**Research Plan**: [peppy-dancing-dewdrop.md](~/.claude/plans/peppy-dancing-dewdrop.md)
 
 **10 Research Agents**:
 1. elk-river.astro analysis (463 lines, 9 sections)

@@ -302,8 +302,12 @@ export function isWMAAdventure(adventure: any): boolean {
  * Includes base class and optional high/low water modifiers.
  */
 export const RapidClassSchema = z.object({
-  /** Base difficulty class (e.g., "III", "IV", "V+") */
-  base: z.string().min(1),
+  /** Base difficulty class - Roman numerals I through V with optional modifier */
+  base: z.enum(['I', 'II', 'III', 'IV', 'V'], {
+    errorMap: () => ({ message: "Rapid class must be Roman numerals I, II, III, IV, or V" })
+  }),
+  /** Optional precision modifier */
+  modifier: z.enum(['+', '-']).optional(),
   /** Optional low water class (e.g., "II") */
   lowWater: z.string().optional(),
   /** Optional high water class (e.g., "V") */

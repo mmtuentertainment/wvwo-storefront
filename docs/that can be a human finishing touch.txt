@@ -1,6 +1,6 @@
 that can be a human finishing touch to actually do a full inventory of the stock and take the potos but for right now spin up an advanced hive mind to look for real photos of the items and use stock photos of the products and input them into where there needed to be for now use photos of the actually listed items do you understand
 Understood. I'll spin up a hive mind to find real stock photos of the actual products listed (Hornady ammo, Berkley PowerBait, etc.) and place them in the correct locations. Let me first get the full product list, then launch the swarm:
-Read c:\Users\matth\Desktop\wvwo-storefront\wv-wild-web\src\data\store.json
+Read wv-wild-web/src/data/store.json
 Now I'll spin up the hive mind to find images for all 20 items (4 categories + 16 products):
 Update Todos
 
@@ -3406,7 +3406,7 @@ Please continue the conversation from where we left it off without asking the us
 Continuing with image sourcing. Let me check current progress and download the remaining images.
 Bash Check categories images
 IN
-ls -la "c:/Users/matth/Desktop/wvwo-storefront/wv-wild-web/public/images/categories/" 2>/dev/null || echo "Directory empty or not found"
+ls -la "wv-wild-web/public/images/categories/" 2>/dev/null || echo "Directory empty or not found"
 OUT
 total 416
 drwxr-xr-x 1 matth 197609      0 Dec 11 11:49 ./
@@ -3414,7 +3414,7 @@ drwxr-xr-x 1 matth 197609      0 Dec 11 11:45 ../
 -rw-r--r-- 1 matth 197609 423114 Dec 11 11:49 ammo.jpg
 Bash Check products images
 IN
-ls -la "c:/Users/matth/Desktop/wvwo-storefront/wv-wild-web/public/images/products/" 2>/dev/null || echo "Directory empty or not found"
+ls -la "wv-wild-web/public/images/products/" 2>/dev/null || echo "Directory empty or not found"
 OUT
 total 44
 drwxr-xr-x 1 matth 197609     0 Dec 11 11:51 ./
@@ -5096,7 +5096,7 @@ Page Snapshot:
 Got Remington Core-Lokt image. Let me download it and continue gathering more product images in parallel.
 Bash Download Remington Core-Lokt image
 IN
-curl -L -o "c:/Users/matth/Desktop/wvwo-storefront/wv-wild-web/public/images/products/remington-core-lokt.jpg" "https://www.remington.com/dw/image/v2/BKSZ_PRD/on/demandware.static/-/Sites-remington-master-catalog/default/dwe0663f36/images/large/RM_Core-Lokt_27842_Combo_R.jpg?sw=350&sh=250&sm=fit" 2>&1
+curl -L -o "wv-wild-web/public/images/products/remington-core-lokt.jpg" "https://www.remington.com/dw/image/v2/BKSZ_PRD/on/demandware.static/-/Sites-remington-master-catalog/default/dwe0663f36/images/large/RM_Core-Lokt_27842_Combo_R.jpg?sw=350&sh=250&sm=fit" 2>&1
 OUT
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
@@ -5784,7 +5784,7 @@ Page Snapshot:
 Found Winchester Deer Season XP image. Let me download it and continue gathering more product images in parallel.
 Bash Download Winchester Deer Season image
 IN
-curl -L -o "c:/Users/matth/Desktop/wvwo-storefront/wv-wild-web/public/images/products/winchester-deer-season.jpg" "https://wdm2.blob.core.windows.net/winchester/products/symbol/x308ds/images/x308ds-boxshot-front_1-large.png" 2>&1
+curl -L -o "wv-wild-web/public/images/products/winchester-deer-season.jpg" "https://wdm2.blob.core.windows.net/winchester/products/symbol/x308ds/images/x308ds-boxshot-front_1-large.png" 2>&1
 OUT
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
@@ -5794,7 +5794,7 @@ OUT
 100 403053 100 403053   0     0  1557k     0  --:--:-- --:--:-- --:--:--  1561k
 Bash Download PowerBait image
 IN
-curl -L -o "c:/Users/matth/Desktop/wvwo-storefront/wv-wild-web/public/images/products/powerbait-chartreuse.jpg" "https://www.berkley-fishing.com/cdn/shop/files/PowerBait_Nat_Scent_Trout_Bait_Tequila_Sunrise_GrlcWorm_alt1.jpg" 2>&1
+curl -L -o "wv-wild-web/public/images/products/powerbait-chartreuse.jpg" "https://www.berkley-fishing.com/cdn/shop/files/PowerBait_Nat_Scent_Trout_Bait_Tequila_Sunrise_GrlcWorm_alt1.jpg" 2>&1
 OUT
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
@@ -7560,7 +7560,7 @@ Page Snapshot:
 Found Ruger image. Let me download it and continue getting more product images in parallel.
 Bash Download Ruger 10/22 image
 IN
-curl -L -o "c:/Users/matth/Desktop/wvwo-storefront/wv-wild-web/public/images/products/ruger-1022.jpg" "https://www.ruger.com/products/1022Carbine/images/31215.jpg" 2>&1
+curl -L -o "wv-wild-web/public/images/products/ruger-1022.jpg" "https://www.ruger.com/products/1022Carbine/images/31215.jpg" 2>&1
 OUT
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
@@ -9562,7 +9562,7 @@ Summary:
 9. Optional Next Step:
    Download the Mossberg 500 image that was just extracted:
    ```bash
-   curl -L -o "c:/Users/matth/Desktop/wvwo-storefront/wv-wild-web/public/images/products/mossberg-500.jpg" "https://www.mossberg.com/media/catalog/product/cache/691b804531b281b6ea87444e03d5055d/5/6/56436_500_20ga_26in_jaeregystc7t4csp.jpg"
+   curl -L -o "wv-wild-web/public/images/products/mossberg-500.jpg" "https://www.mossberg.com/media/catalog/product/cache/691b804531b281b6ea87444e03d5055d/5/6/56436_500_20ga_26in_jaeregystc7t4csp.jpg"
    ```
    Then continue navigating to Savage Arms and fishing product manufacturer sites (Strike King, Bandit, Eagle Claw, Zoom) to extract remaining product images.
 
@@ -9571,7 +9571,7 @@ Please continue the conversation from where we left it off without asking the us
 Good, I can see the product images are downloading successfully. The Ruger 10/22, Remington Core-Lokt, and Hornady Precision Hunter images all look great - authentic product photos from the manufacturers. Let me continue downloading the remaining images. I'll download the Mossberg 500 and then continue with the other products:
 Bash Download Mossberg 500 product image
 IN
-curl -L -o "c:/Users/matth/Desktop/wvwo-storefront/wv-wild-web/public/images/products/mossberg-500.jpg" "https://www.mossberg.com/media/catalog/product/cache/691b804531b281b6ea87444e03d5055d/5/6/56436_500_20ga_26in_jaeregystc7t4csp.jpg"
+curl -L -o "wv-wild-web/public/images/products/mossberg-500.jpg" "https://www.mossberg.com/media/catalog/product/cache/691b804531b281b6ea87444e03d5055d/5/6/56436_500_20ga_26in_jaeregystc7t4csp.jpg"
 OUT
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
@@ -11152,7 +11152,7 @@ Page Snapshot:
 Got the Savage Axis image URL. Let me download it and continue with the fishing products:
 Bash Download Savage Axis product image
 IN
-curl -L -o "c:/Users/matth/Desktop/wvwo-storefront/wv-wild-web/public/images/products/savage-axis.jpg" "https://saweb.s3.us-east-1.amazonaws.com/product-axis/axis_black_right_profile.png"
+curl -L -o "wv-wild-web/public/images/products/savage-axis.jpg" "https://saweb.s3.us-east-1.amazonaws.com/product-axis/axis_black_right_profile.png"
 OUT
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
@@ -11915,7 +11915,7 @@ Commit and push to PR #16
 Good, I have the PowerBait image. Let me download it for the rainbow variant and continue to the other fishing products. I'll batch download several:
 Bash Download PowerBait Rainbow image
 IN
-curl -L -o "c:/Users/matth/Desktop/wvwo-storefront/wv-wild-web/public/images/products/powerbait-rainbow.jpg" "https://www.berkley-fishing.com/cdn/shop/files/1137006.jpg?v=1748018010&width=1920"
+curl -L -o "wv-wild-web/public/images/products/powerbait-rainbow.jpg" "https://www.berkley-fishing.com/cdn/shop/files/1137006.jpg?v=1748018010&width=1920"
 OUT
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
@@ -12962,7 +12962,7 @@ Page Snapshot:
 Got it. Let me download multiple images now and continue to other fishing product sites:
 Bash Download Trout Magnet Kit image
 IN
-curl -L -o "c:/Users/matth/Desktop/wvwo-storefront/wv-wild-web/public/images/products/trout-magnet-kit.jpg" "https://troutmagnet.com/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/8/7/87699_trout_magnet_big_kit.jpg"
+curl -L -o "wv-wild-web/public/images/products/trout-magnet-kit.jpg" "https://troutmagnet.com/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/8/7/87699_trout_magnet_big_kit.jpg"
 OUT
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
@@ -13774,7 +13774,7 @@ Page Snapshot:
 Got it. Let me download multiple images now and continue to other manufacturers:
 Bash Download Panther Martin Gold spinner
 IN
-curl -L -o "c:/Users/matth/Desktop/wvwo-storefront/wv-wild-web/public/images/products/panther-martin-gold.jpg" "https://www.panthermartin.com/img/LureFamily/Small/PMR_G.jpg"
+curl -L -o "wv-wild-web/public/images/products/panther-martin-gold.jpg" "https://www.panthermartin.com/img/LureFamily/Small/PMR_G.jpg"
 OUT
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
@@ -14904,7 +14904,7 @@ await page.getByRole('link', { name: 'BLUE BLACK HERRING' }).evaluate('(element)
 Got it. Let me download several more images and check what we still need:
 Bash Download Bandit crankbait and Strike King
 IN
-curl -L -o "c:/Users/matth/Desktop/wvwo-storefront/wv-wild-web/public/images/products/bandit-crankbait.jpg" "https://www.lurenet.com/media/catalog/product/cache/18c0e6042146c4ec886a7f4b869005cf/b/d/bdt2_ksb05_2.jpg" && curl -L -o "c:/Users/matth/Desktop/wvwo-storefront/wv-wild-web/public/images/products/strike-king-spinnerbait.jpg" "https://www.lurenet.com/media/catalog/product/cache/18c0e6042146c4ec886a7f4b869005cf/c/k/cksp38-1.jpg"
+curl -L -o "wv-wild-web/public/images/products/bandit-crankbait.jpg" "https://www.lurenet.com/media/catalog/product/cache/18c0e6042146c4ec886a7f4b869005cf/b/d/bdt2_ksb05_2.jpg" && curl -L -o "wv-wild-web/public/images/products/strike-king-spinnerbait.jpg" "https://www.lurenet.com/media/catalog/product/cache/18c0e6042146c4ec886a7f4b869005cf/c/k/cksp38-1.jpg"
 OUT
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
@@ -16269,7 +16269,7 @@ Summary:
 9. Optional Next Step:
    Download the BOOYAH spinnerbait image that was just extracted for strike-king-spinnerbait.jpg:
    ```bash
-   curl -L -o "c:/Users/matth/Desktop/wvwo-storefront/wv-wild-web/public/images/products/strike-king-spinnerbait.jpg" "https://www.lurenet.com/media/catalog/product/cache/18c0e6042146c4ec886a7f4b869005cf/b/y/byxcs299_1_1.png"
+   curl -L -o "wv-wild-web/public/images/products/strike-king-spinnerbait.jpg" "https://www.lurenet.com/media/catalog/product/cache/18c0e6042146c4ec886a7f4b869005cf/b/y/byxcs299_1_1.png"
    ```
    Then continue navigating to Eagle Claw, Zoom Baits, and other manufacturer sites to extract remaining product images.
 

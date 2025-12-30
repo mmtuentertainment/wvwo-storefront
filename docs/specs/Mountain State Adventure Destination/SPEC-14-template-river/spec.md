@@ -746,7 +746,7 @@ interface Props {
 - **Data Files**: `wv-wild-web/src/data/lakes/summersville.ts` (284 lines), `_example.ts` (283 lines)
 
 ### Research Reports
-- **Plan File**: `C:\Users\matth\.claude\plans\parsed-singing-pond.md` - Complete implementation plan with all agent research
+- **Plan File**: `~/.claude/plans/parsed-singing-pond.md` - Complete implementation plan with all agent research
 - **WV Whitewater UX Research**: ACE Adventure Resort, Adventures on the Gorge analysis (agent a9d35b4)
 - **Outdoor Recreation Best Practices**: USGS API integration, accessibility, mobile UX (agent ac74798)
 - **Type System Design**: Zod schemas, Content Collections integration (agent a6c9614)

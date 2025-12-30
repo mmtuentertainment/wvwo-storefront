@@ -58,7 +58,7 @@ Each river follows this standardized workflow:
 
 **Structure**:
 ```typescript
-import type { RiverTemplateProps } from '@/types/river-template';
+import type { RiverTemplateProps } from '@/types/adventure';
 
 export const elkRiverData: RiverTemplateProps = {
   hero: { name, tagline, description, backgroundImage },

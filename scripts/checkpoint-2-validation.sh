@@ -58,8 +58,8 @@ if [ $TOTAL_COLORS -gt 0 ]; then
   ORANGE_PERCENT=$((ORANGE_COUNT * 100 / TOTAL_COLORS))
   echo "   Orange usage: $ORANGE_COUNT / $TOTAL_COLORS colors ($ORANGE_PERCENT%)"
 
-  if [ $ORANGE_PERCENT -gt 20 ]; then
-    echo "⚠️  WARNING: Orange usage >20% (should be <5% for CTAs only)"
+  if [ $ORANGE_PERCENT -gt 5 ]; then
+    echo "⚠️  WARNING: Orange usage >5% (WVWO constitution requires <5% for CTAs only)"
     echo "   Manual review required to assess visual orange coverage"
   else
     echo "✅ PASS: Orange usage within acceptable range"
