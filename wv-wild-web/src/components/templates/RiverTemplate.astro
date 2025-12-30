@@ -606,14 +606,6 @@ function getAttractionIcon(type: string): string {
     }
   }
 
-  /* Ensure no other border-radius values can creep in */
-  .rounded,
-  .rounded-md,
-  .rounded-lg,
-  .rounded-xl,
-  .rounded-2xl,
-  .rounded-3xl,
-  .rounded-full {
-    border-radius: 0.125rem !important;
-  }
+  /* WVWO Compliance: All rounded classes use 0.125rem (rounded-sm) */
+  /* Component uses rounded-sm exclusively - no enforcement override needed */
 </style>
