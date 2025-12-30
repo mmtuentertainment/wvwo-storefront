@@ -144,3 +144,7 @@ docs/SPEC-*-*.md
 # Decision: Exclude from version control (working memory, regenerated per session)
 # Pattern: Individual swarm sessions create/destroy their own coordination files
 docs/swarm-memory/
+
+# Test coverage reports
+coverage/
+wv-wild-web/coverage/

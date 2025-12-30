@@ -1,0 +1,610 @@
+---
+/**
+ * RiverTemplate.astro
+ * SPEC-14: River Adventure Template Component
+ *
+ * Comprehensive template for West Virginia river pages with whitewater rapids,
+ * fishing information, outfitter listings, seasonal flow patterns, access points,
+ * safety information, and nearby attractions.
+ *
+ * USER STORIES IMPLEMENTED:
+ * - US1: Rapids Guide Display (class-coded rapids with hazards and runnable conditions)
+ * - US2: Fishing Information (flow-dependent river fishing with access points)
+ * - US3: Outfitter Directory (guide services with contact validation)
+ * - US4: Seasonal Flow Guide (water level patterns and best activities)
+ * - US5: Access Points Map (put-ins, take-outs, and facilities)
+ * - US6: Safety Information Display (orange warning accents per WVWO)
+ * - US7: Nearby Attractions (multi-day trip planning)
+ *
+ * WVWO COMPLIANCE:
+ * - Fonts: font-display (headings), font-hand (Kim's tips ONLY), font-body (content)
+ * - Colors: brand-brown, sign-green, brand-cream, brand-orange (<5% of screen)
+ * - Borders: rounded-sm ONLY (no other border-radius values allowed)
+ * - Accents: Green (Class I-III rapids), Orange (Class IV, safety), Red (Class V)
+ *
+ * @module components/templates/RiverTemplate
+ */
+
+import Layout from '../../layouts/Layout.astro';
+import AdventureGearChecklist from '../adventure/AdventureGearChecklist.astro';
+import AdventureRelatedShop from '../adventure/AdventureRelatedShop.astro';
+import AdventureCTA from '../adventure/AdventureCTA.astro';
+import type {
+  RiverTemplateProps,
+  Rapid,
+  RiverFishing,
+  Outfitter,
+  SeasonalFlow,
+  RiverAccessPoint,
+  RiverSafety,
+  NearbyAttraction
+} from '../../types/adventure';
+
+interface Props extends RiverTemplateProps {}
+
+const {
+  name,
+  image,
+  imageAlt,
+  tagline,
+  description,
+  stats,
+  length,
+  county,
+  difficultyRange,
+  quickHighlights,
+  rapids,
+  fishing,
+  outfitters,
+  seasonalFlow,
+  accessPoints,
+  safety,
+  nearbyAttractions,
+  gearList,
+  relatedShop,
+  difficulty,
+  bestSeason,
+  coordinates,
+  mapUrl,
+  waterLevelUrl,
+} = Astro.props;
+
+/**
+ * Get badge color class for rapid classification.
+ * Color-coding: I-III (green), IV (orange), V (red)
+ */
+function getRapidColorClass(rapid: Rapid): string {
+  const baseClass = rapid.class.base;
+  if (baseClass === 'I' || baseClass === 'II' || baseClass === 'III') {
+    return 'bg-sign-green text-white';
+  }
+  if (baseClass === 'IV') {
+    return 'bg-brand-orange text-brand-brown';
+  }
+  return 'bg-red-800 text-white'; // Class V
+}
+
+/**
+ * Get badge color class for seasonal flow level.
+ * Badge colors: Low (green), Medium (orange), High (red)
+ */
+function getFlowColorClass(level: string): string {
+  if (level === 'Low') return 'bg-sign-green text-white';
+  if (level === 'Medium') return 'bg-brand-orange text-brand-brown';
+  return 'bg-red-800 text-white'; // High
+}
+
+/**
+ * Get badge color class for access point type.
+ * Badge colors: Put-in (green), Take-out (brown), Both (orange)
+ */
+function getAccessTypeColorClass(type: string): string {
+  if (type === 'Put-in') return 'bg-sign-green text-white';
+  if (type === 'Take-out') return 'bg-brand-mud text-brand-cream';
+  return 'bg-brand-orange text-brand-brown'; // Both
+}
+
+/**
+ * Get icon for nearby attraction type.
+ * Standard types have predefined icons, custom types use fallback.
+ */
+function getAttractionIcon(type: string): string {
+  const iconMap: Record<string, string> = {
+    'Camping': 'M8 21l-7-4V5l7-4 7 4-7 4 7 4-7 4z',
+    'Hiking': 'M12 2L2 7l10 5 10-5-10-5z M2 17l10 5 10-5',
+    'Town': 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16',
+    'State Park': 'M12 2L2 7l10 5 10-5-10-5z',
+    'Restaurant': 'M12 8c-4.4 0-8 1.8-8 4v8h16v-8c0-2.2-3.6-4-8-4z',
+    'Historic Site': 'M12 21v-8.25M15.75 3v16.5M8.25 3v16.5',
+  };
+  return iconMap[type] || 'M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z'; // Default: info icon
+}
+---
+
+<Layout title={`${name} | WV Wild Outdoors`}>
+  <!-- HERO SECTION -->
+  <section
+    class="relative h-[70vh] min-h-[500px] overflow-hidden"
+    aria-label={`${name} hero section`}
+  >
+    <!-- Hero Image -->
+    <img
+      src={image}
+      alt={imageAlt}
+      class="absolute inset-0 w-full h-full object-cover"
+      loading="eager"
+    />
+
+    <!-- Dark Overlay for Text Readability -->
+    <div class="absolute inset-0 bg-brand-brown/50"></div>
+
+    <!-- Hero Content -->
+    <div class="relative h-full container mx-auto px-4">
+      <div class="h-full flex flex-col justify-end pb-16">
+        <!-- River Name -->
+        <h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+          {name}
+        </h1>
+
+        <!-- Tagline -->
+        {tagline && (
+          <p class="font-body text-xl md:text-2xl text-white mb-8 max-w-2xl">
+            {tagline}
+          </p>
+        )}
+
+        <!-- Quick Stats Grid -->
+        {stats.length > 0 && (
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+            {stats.map((stat) => (
+              <div class="bg-white/95 p-4 rounded-sm">
+                <p class="font-display text-2xl font-bold text-brand-brown">{stat.value}</p>
+                <p class="font-body text-sm text-brand-mud">{stat.label}</p>
+              </div>
+            ))}
+          </div>
+        )}
+
+        <!-- Quick Highlights -->
+        {quickHighlights.length > 0 && (
+          <div class="flex flex-wrap gap-2 mb-4">
+            {quickHighlights.map((highlight) => (
+              <span class="bg-brand-orange text-white px-3 py-1 rounded-sm font-body text-sm font-medium">
+                {highlight}
+              </span>
+            ))}
+          </div>
+        )}
+
+        <!-- Real-Time USGS Water Level Link (Conditional) -->
+        {waterLevelUrl && (
+          <a
+            href={waterLevelUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="mt-2 inline-flex items-center gap-2 bg-sign-green text-white px-4 py-2 rounded-sm font-body font-medium hover:bg-sign-green/90 transition-colors"
+          >
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+              <path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM5 10a1 1 0 01-1 1H3a1 1 0 110-2h1a1 1 0 011 1zM8 16v-1h4v1a2 2 0 11-4 0zM12 14c.015-.34.208-.646.477-.859a4 4 0 10-4.954 0c.27.213.462.519.476.859h4.002z" />
+            </svg>
+            Check Real-Time USGS Water Levels
+          </a>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <!-- DESCRIPTION PROSE SECTION -->
+  <section class="bg-brand-cream py-12">
+    <div class="container mx-auto px-4">
+      <p class="font-body text-lg text-brand-mud leading-relaxed max-w-4xl mx-auto text-center">
+        {description}
+      </p>
+    </div>
+  </section>
+
+  <!-- RAPIDS GUIDE SECTION -->
+  {rapids.length > 0 && (
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-brand-brown mb-8 text-center">
+          Rapids Guide
+        </h2>
+        <div class="max-w-5xl mx-auto space-y-6">
+          {rapids.map((rapid) => (
+            <div class="border-l-4 border-sign-green pl-6 py-4 bg-brand-cream/30 rounded-sm">
+              <div class="flex items-start justify-between mb-3">
+                <h3 class="font-display text-2xl font-bold text-brand-brown">
+                  {rapid.name}
+                </h3>
+                <span class={`${getRapidColorClass(rapid)} px-3 py-1 rounded-sm font-body text-sm font-bold`}>
+                  {rapid.displayName}
+                </span>
+              </div>
+              <p class="font-body text-brand-mud mb-3">
+                {rapid.description}
+              </p>
+              {rapid.hazards && rapid.hazards.length > 0 && (
+                <div class="mb-3">
+                  <p class="font-body text-sm font-semibold text-brand-orange mb-1">
+                    Hazards:
+                  </p>
+                  <ul class="list-disc list-inside font-body text-sm text-brand-mud space-y-1">
+                    {rapid.hazards.map((hazard) => (
+                      <li>{hazard}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              <p class="font-body text-sm text-sign-green font-medium">
+                <strong>Runnable:</strong> {rapid.runnable}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- FISHING SECTION -->
+  <section class="py-16 bg-brand-cream">
+    <div class="container mx-auto px-4">
+      <h2 class="font-display text-3xl md:text-4xl font-bold text-brand-brown mb-8 text-center">
+        River Fishing
+      </h2>
+      <div class="max-w-4xl mx-auto">
+        <!-- Species -->
+        <div class="mb-6">
+          <h3 class="font-display text-xl font-bold text-brand-brown mb-3">
+            Target Species
+          </h3>
+          <div class="flex flex-wrap gap-2">
+            {fishing.species.map((species) => (
+              <span class="bg-sign-green text-white px-3 py-1 rounded-sm font-body text-sm">
+                {species}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <!-- Seasons -->
+        <div class="mb-6">
+          <h3 class="font-display text-xl font-bold text-brand-brown mb-3">
+            Best Seasons
+          </h3>
+          <p class="font-body text-brand-mud">
+            {fishing.seasons}
+          </p>
+        </div>
+
+        <!-- Access Points -->
+        <div class="mb-6">
+          <h3 class="font-display text-xl font-bold text-brand-brown mb-3">
+            Fishing Access Points
+          </h3>
+          <div class="space-y-4">
+            {fishing.accessPoints.map((point) => (
+              <div class="border-l-4 border-sign-green pl-4 py-2">
+                <h4 class="font-body font-bold text-brand-brown mb-1">
+                  {point.name}
+                </h4>
+                <p class="font-body text-sm text-brand-mud">
+                  {point.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Techniques -->
+        <div class="mb-6">
+          <h3 class="font-display text-xl font-bold text-brand-brown mb-3">
+            Recommended Techniques
+          </h3>
+          <ul class="list-disc list-inside font-body text-brand-mud space-y-1">
+            {fishing.techniques.map((technique) => (
+              <li>{technique}</li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Kim's Tip (Conditional) -->
+        {fishing.kimsTip && (
+          <div class="bg-brand-orange/10 border-l-4 border-brand-orange pl-4 py-3 rounded-sm">
+            <p class="font-hand text-lg text-brand-brown">
+              "{fishing.kimsTip}"
+            </p>
+            <p class="font-body text-xs text-brand-mud mt-1">
+              — Kim's Tip
+            </p>
+          </div>
+        )}
+      </div>
+    </section>
+
+  <!-- OUTFITTERS SECTION -->
+  {outfitters.length > 0 && (
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-brand-brown mb-8 text-center">
+          Outfitters & Guide Services
+        </h2>
+        <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-6">
+          {outfitters.map((outfitter) => (
+            <div class="border-2 border-sign-green rounded-sm p-6 bg-brand-cream/30">
+              <h3 class="font-display text-2xl font-bold text-brand-brown mb-3">
+                {outfitter.name}
+              </h3>
+
+              <!-- Services -->
+              <div class="mb-4">
+                <p class="font-body text-sm font-semibold text-brand-mud mb-2">
+                  Services:
+                </p>
+                <div class="flex flex-wrap gap-2">
+                  {outfitter.services.map((service) => (
+                    <span class="bg-sign-green text-white px-2 py-1 rounded-sm font-body text-xs">
+                      {service}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <!-- Contact Info -->
+              <div class="mb-4 space-y-1">
+                {outfitter.contact.phone && (
+                  <p class="font-body text-sm text-brand-mud">
+                    <strong>Phone:</strong>{' '}
+                    <a href={`tel:${outfitter.contact.phone}`} class="text-sign-green hover:underline">
+                      {outfitter.contact.phone}
+                    </a>
+                  </p>
+                )}
+                {outfitter.contact.website && (
+                  <p class="font-body text-sm text-brand-mud">
+                    <strong>Website:</strong>{' '}
+                    <a href={outfitter.contact.website} target="_blank" rel="noopener noreferrer" class="text-sign-green hover:underline">
+                      Visit Website
+                    </a>
+                  </p>
+                )}
+                {outfitter.contact.email && (
+                  <p class="font-body text-sm text-brand-mud">
+                    <strong>Email:</strong>{' '}
+                    <a href={`mailto:${outfitter.contact.email}`} class="text-sign-green hover:underline">
+                      {outfitter.contact.email}
+                    </a>
+                  </p>
+                )}
+              </div>
+
+              <!-- Price Range (Conditional) -->
+              {outfitter.priceRange && (
+                <p class="font-body text-sm text-brand-mud mb-2">
+                  <strong>Price Range:</strong> {outfitter.priceRange}
+                </p>
+              )}
+
+              <!-- Seasonal Notes (Conditional) -->
+              {outfitter.seasonalNotes && (
+                <p class="font-body text-xs text-brand-mud italic">
+                  {outfitter.seasonalNotes}
+                </p>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- SEASONAL FLOW SECTION -->
+  {seasonalFlow.length > 0 && (
+    <section class="py-16 bg-brand-cream">
+      <div class="container mx-auto px-4">
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-brand-brown mb-8 text-center">
+          Seasonal Flow Patterns
+        </h2>
+        <div class="max-w-5xl mx-auto space-y-6">
+          {seasonalFlow.map((flow) => (
+            <div class="bg-white p-6 rounded-sm border-l-4 border-sign-green">
+              <div class="flex items-start justify-between mb-3">
+                <h3 class="font-display text-2xl font-bold text-brand-brown">
+                  {flow.season}
+                </h3>
+                <span class={`${getFlowColorClass(flow.level)} px-3 py-1 rounded-sm font-body text-sm font-bold`}>
+                  {flow.level} Flow
+                </span>
+              </div>
+
+              {flow.cfsRange && (
+                <p class="font-body text-sm text-brand-mud mb-2">
+                  <strong>Typical Range:</strong> {flow.cfsRange}
+                </p>
+              )}
+
+              <div class="mb-3">
+                <p class="font-body text-sm font-semibold text-brand-brown mb-1">
+                  Best For:
+                </p>
+                <ul class="list-disc list-inside font-body text-sm text-brand-mud space-y-1">
+                  {flow.bestFor.map((activity) => (
+                    <li>{activity}</li>
+                  ))}
+                </ul>
+              </div>
+
+              <p class="font-body text-sm text-brand-mud italic">
+                {flow.notes}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ACCESS POINTS SECTION -->
+  {accessPoints.length > 0 && (
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-brand-brown mb-8 text-center">
+          River Access Points
+        </h2>
+        <div class="max-w-5xl mx-auto space-y-6">
+          {accessPoints.map((point) => (
+            <div class="border-2 border-sign-green rounded-sm p-6 bg-brand-cream/30">
+              <div class="flex items-start justify-between mb-3">
+                <h3 class="font-display text-2xl font-bold text-brand-brown">
+                  {point.name}
+                </h3>
+                <span class={`${getAccessTypeColorClass(point.type)} px-3 py-1 rounded-sm font-body text-sm font-bold`}>
+                  {point.type}
+                </span>
+              </div>
+
+              {point.typeNotes && (
+                <p class="font-body text-xs text-brand-orange mb-3 italic">
+                  {point.typeNotes}
+                </p>
+              )}
+
+              <div class="mb-3">
+                <p class="font-body text-sm font-semibold text-brand-brown mb-2">
+                  Facilities:
+                </p>
+                <div class="flex flex-wrap gap-2">
+                  {point.facilities.map((facility) => (
+                    <span class="bg-sign-green text-white px-2 py-1 rounded-sm font-body text-xs">
+                      {facility}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {point.coords && (
+                <p class="font-body text-xs text-brand-mud mb-2">
+                  <strong>Coordinates:</strong> {point.coords}
+                </p>
+              )}
+
+              {point.shuttleInfo && (
+                <p class="font-body text-sm text-brand-mud">
+                  <strong>Shuttle:</strong> {point.shuttleInfo}
+                </p>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- SAFETY SECTION -->
+  {safety.length > 0 && (
+    <section class="py-16 bg-brand-cream">
+      <div class="container mx-auto px-4">
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-brand-brown mb-8 text-center">
+          Safety Information
+        </h2>
+        <div class="max-w-4xl mx-auto space-y-6">
+          {safety.map((category) => (
+            <div class={`border-l-4 ${category.important ? 'border-brand-orange' : 'border-sign-green'} pl-6 py-4 bg-white rounded-sm`}>
+              <h3 class="font-display text-xl font-bold text-brand-brown mb-3">
+                {category.category}
+              </h3>
+              <ul class="list-disc list-inside font-body text-brand-mud space-y-2">
+                {category.items.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- NEARBY ATTRACTIONS SECTION -->
+  {nearbyAttractions.length > 0 && (
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-brand-brown mb-8 text-center">
+          Nearby Attractions
+        </h2>
+        <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-6">
+          {nearbyAttractions.map((attraction) => (
+            <div class="border-2 border-sign-green rounded-sm p-6 bg-brand-cream/30">
+              <div class="flex items-start gap-4">
+                <div class="flex-shrink-0 w-10 h-10 bg-sign-green rounded-sm flex items-center justify-center">
+                  <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={getAttractionIcon(attraction.type)} />
+                  </svg>
+                </div>
+                <div class="flex-1">
+                  <div class="flex items-start justify-between mb-2">
+                    <h3 class="font-display text-xl font-bold text-brand-brown">
+                      {attraction.name}
+                    </h3>
+                    <span class="bg-sign-green text-white px-2 py-1 rounded-sm font-body text-xs whitespace-nowrap ml-2">
+                      {attraction.distance}
+                    </span>
+                  </div>
+                  <p class="font-body text-xs text-brand-orange mb-2">
+                    {attraction.type}
+                  </p>
+                  <p class="font-body text-sm text-brand-mud">
+                    {attraction.description}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- GEAR CHECKLIST SECTION -->
+  {gearList.length > 0 && (
+    <section class="py-16 bg-brand-cream">
+      <div class="container mx-auto px-4">
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-brand-brown mb-8 text-center">
+          Recommended Gear
+        </h2>
+        <AdventureGearChecklist gearList={gearList} columns={2} />
+      </div>
+    </section>
+  )}
+
+  <!-- RELATED SHOP CATEGORIES SECTION -->
+  {relatedShop.length > 0 && (
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <AdventureRelatedShop categories={relatedShop} />
+      </div>
+    </section>
+  )}
+
+  <!-- CALL TO ACTION -->
+  <AdventureCTA />
+</Layout>
+
+<style>
+  /* WVWO Compliance: Only rounded-sm allowed */
+  .rounded-sm {
+    border-radius: 0.125rem !important;
+  }
+
+  /* Motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* WVWO Compliance: All rounded classes use 0.125rem (rounded-sm) */
+  /* Component uses rounded-sm exclusively - no enforcement override needed */
+</style>

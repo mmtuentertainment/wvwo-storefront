@@ -29,7 +29,7 @@ This PR introduces critical error handling deficiencies across three key areas:
 
 #### Issue 1.1: Overly Broad Catch Block - Lines 132-135
 
-**Location:** `c:\Users\matth\Desktop\wvwo-storefront\wv-wild-web\scripts\optimize-images.mjs:132-135`
+**Location:** `wv-wild-web/scripts/optimize-images.mjs:132-135`
 
 **Severity:** CRITICAL - Silent Failure Pattern
 
@@ -94,7 +94,7 @@ catch (err) {
 
 #### Issue 1.2: Missing Error Handling in optimizeImage() - Line 38-88
 
-**Location:** `c:\Users\matth\Desktop\wvwo-storefront\wv-wild-web\scripts\optimize-images.mjs:38-88`
+**Location:** `wv-wild-web/scripts/optimize-images.mjs:38-88`
 
 **Severity:** CRITICAL - Unhandled Promise Rejections
 
@@ -254,7 +254,7 @@ async function optimizeImage(filePath, maxWidth, maxHeight, quality) {
 
 #### Issue 1.3: main() Error Handling is Insufficient - Line 151
 
-**Location:** `c:\Users\matth\Desktop\wvwo-storefront\wv-wild-web\scripts\optimize-images.mjs:151`
+**Location:** `wv-wild-web/scripts/optimize-images.mjs:151`
 
 **Severity:** HIGH - Incomplete Error Communication
 
@@ -293,7 +293,7 @@ main().catch(err => {
 
 #### Issue 2.1: Missing Null Check on category - Line 32-33
 
-**Location:** `c:\Users\matth\Desktop\wvwo-storefront\wv-wild-web/src/components/shop/ProductCard.astro:32-33`
+**Location:** `wv-wild-web/src/components/shop/ProductCard.astro:32-33`
 
 **Severity:** CRITICAL - Silent Failure with Wrong Data
 
@@ -348,7 +348,7 @@ const catSlug = categorySlug || category?.slug || product.categoryId;
 
 #### Issue 2.2: Missing Validation on product.images Array - Line 39
 
-**Location:** `c:\Users\matth\Desktop\wvwo-storefront\wv-wild-web/src/components/shop/ProductCard.astro:39`
+**Location:** `wv-wild-web/src/components/shop/ProductCard.astro:39`
 
 **Severity:** HIGH - Silent Fallback, Missing Data
 
@@ -407,7 +407,7 @@ Add validation for both array existence and element validity.
 
 #### Issue 2.3: Missing priceDisplay Validation - Line 72
 
-**Location:** `c:\Users\matth\Desktop\wvwo-storefront\wv-wild-web/src/components/shop/ProductCard.astro:72`
+**Location:** `wv-wild-web/src/components/shop/ProductCard.astro:72`
 
 **Severity:** HIGH - Displays Incorrect Data
 
@@ -453,7 +453,7 @@ Add validation with fallback to raw price if display is missing.
 
 #### Issue 3.1: Silent Failure on Missing tags Array - Line 154
 
-**Location:** `c:\Users\matth\Desktop\wvwo-storefront\wv-wild-web/src/pages/shop/index.astro:154`
+**Location:** `wv-wild-web/src/pages/shop/index.astro:154`
 
 **Severity:** CRITICAL - Silent Failure, Filtering Breaks
 
@@ -539,7 +539,7 @@ Add guards and provide clear error message with product info.
 
 #### Issue 3.2: Unsafe Category Lookup in Filter Script - Lines 323-324
 
-**Location:** `c:\Users\matth\Desktop\wvwo-storefront\wv-wild-web/src/pages/shop/index.astro:323-324`
+**Location:** `wv-wild-web/src/pages/shop/index.astro:323-324`
 
 **Severity:** HIGH - Silent Failure in URL Restoration
 
@@ -597,7 +597,7 @@ if (category) {
 
 #### Issue 4.1: No Validation on Related Products Filter - Lines 38-40
 
-**Location:** `c:\Users\matth\Desktop\wvwo-storefront\wv-wild-web/src/pages/shop/[category]/[product].astro:38-40`
+**Location:** `wv-wild-web/src/pages/shop/[category]/[product].astro:38-40`
 
 **Severity:** MEDIUM - Silent Filtering, Missing Data Feedback
 

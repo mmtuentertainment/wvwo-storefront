@@ -294,6 +294,254 @@ export function isWMAAdventure(adventure: any): boolean {
 }
 
 // ============================================================================
+// SPEC-14: River Template Type System Extensions
+// ============================================================================
+
+/**
+ * Rapid class specification for whitewater rating.
+ * Includes base class and optional high/low water modifiers.
+ */
+export const RapidClassSchema = z.object({
+  /** Base difficulty class - Roman numerals I through V with optional modifier */
+  base: z.enum(['I', 'II', 'III', 'IV', 'V'], {
+    errorMap: () => ({ message: "Rapid class must be Roman numerals I, II, III, IV, or V" })
+  }),
+  /** Optional precision modifier */
+  modifier: z.enum(['+', '-']).optional(),
+  /** Optional low water class (e.g., "II") */
+  lowWater: z.string().optional(),
+  /** Optional high water class (e.g., "V") */
+  highWater: z.string().optional(),
+});
+
+export type RapidClass = z.infer<typeof RapidClassSchema>;
+
+/**
+ * Individual rapid information for river guides.
+ * Represents named rapids with difficulty ratings and descriptions.
+ */
+export const RapidSchema = z.object({
+  /** Rapid name (e.g., "Pillow Rock", "Lost Paddle") */
+  name: z.string().min(1),
+  /** Difficulty class with water level variations */
+  class: RapidClassSchema,
+  /** Display name for UI (e.g., "Class IV+") */
+  displayName: z.string(),
+  /** Rapid description with hazards and lines */
+  description: z.string().min(1),
+  /** Runnable conditions (e.g., "All levels", "Expert only") */
+  runnable: z.string(),
+  /** Optional Kim's personal tip for running this rapid */
+  kimNote: z.string().optional(),
+});
+
+export type Rapid = z.infer<typeof RapidSchema>;
+
+/**
+ * River fishing information.
+ * Covers species, techniques, seasons, and regulations.
+ */
+export const RiverFishingSchema = z.object({
+  /** Target species available (max 15 for reasonable UI) */
+  species: z.array(z.string().min(1)).min(1).max(15),
+  /** Fishing techniques (e.g., "Fly fishing, spinning") */
+  techniques: z.string().min(1),
+  /** Best seasons for fishing */
+  seasons: z.string().min(1),
+  /** Fishing regulations and license requirements */
+  regulations: z.string().min(1),
+  /** Optional catch and release guidelines */
+  catchAndRelease: z.string().optional(),
+});
+
+export type RiverFishing = z.infer<typeof RiverFishingSchema>;
+
+/**
+ * Outfitter or guide service for river trips.
+ * Includes services, contact info, and pricing.
+ */
+export const OutfitterSchema = z.object({
+  /** Outfitter name */
+  name: z.string().min(1),
+  /** Services offered (e.g., "Guided trips", "Equipment rental") */
+  services: z.array(z.string().min(1)).min(1).max(20),
+  /** Contact phone number (optional) */
+  contact: z.string().optional(),
+  /** Website URL (optional) */
+  website: z.string().url().optional(),
+  /** Pricing information (optional) */
+  pricing: z.string().optional(),
+});
+
+export type Outfitter = z.infer<typeof OutfitterSchema>;
+
+/**
+ * Seasonal flow and water level information.
+ * Provides guidance on water conditions throughout the year.
+ */
+export const SeasonalFlowSchema = z.object({
+  /** Season or time period (e.g., "Spring", "Fall (Sept-Oct)") */
+  season: z.string().min(1),
+  /** Typical flow rate (e.g., "2,800 CFS", "Low flow") */
+  flowRate: z.string(),
+  /** Water conditions description */
+  conditions: z.string().min(1),
+  /** Accessibility for different skill levels */
+  accessibility: z.string(),
+});
+
+export type SeasonalFlow = z.infer<typeof SeasonalFlowSchema>;
+
+/**
+ * River access point (put-in/take-out).
+ * Includes facilities and coordinates for GPS.
+ */
+export const RiverAccessPointSchema = z.object({
+  /** Access point name */
+  name: z.string().min(1),
+  /** Type (e.g., "Put-in", "Take-out", "Emergency exit") */
+  type: z.string(),
+  /** Available facilities (parking, restrooms, etc.) */
+  facilities: z.array(z.string()).min(0).max(20),
+  /** Optional GPS coordinates */
+  coordinates: CoordinatesSchema.optional(),
+  /** Optional access restrictions or fees */
+  restrictions: z.string().optional(),
+});
+
+export type RiverAccessPoint = z.infer<typeof RiverAccessPointSchema>;
+
+/**
+ * Safety category for river hazards and equipment.
+ * Groups safety items by category with importance levels.
+ */
+export const RiverSafetySchema = z.object({
+  /** Safety category (e.g., "Required Equipment", "Hazards") */
+  category: z.string().min(1),
+  /** List of safety items or considerations */
+  items: z.array(z.string().min(1)).min(1).max(30),
+  /** Importance level */
+  importance: z.enum(['critical', 'high', 'medium']),
+});
+
+export type RiverSafety = z.infer<typeof RiverSafetySchema>;
+
+/**
+ * Nearby attraction for multi-day trip planning.
+ * Includes distance, description, and optional contact info.
+ */
+export const NearbyAttractionSchema = z.object({
+  /** Attraction name */
+  name: z.string().min(1),
+  /** Distance from river (e.g., "5 miles", "30 min drive") */
+  distance: z.string(),
+  /** Brief description */
+  description: z.string().min(1),
+  /** Optional website or contact info */
+  link: z.string().url().optional(),
+});
+
+export type NearbyAttraction = z.infer<typeof NearbyAttractionSchema>;
+
+/**
+ * Zod schema for RiverTemplateProps validation.
+ * Enforces all required fields and validates structure.
+ */
+export const RiverTemplatePropsSchema = z.object({
+  // Hero section (required)
+  name: z.string().min(1),
+  image: z.string().min(1),
+  imageAlt: z.string().min(1),
+  tagline: z.string().min(1),
+  description: z.string().min(1),
+  stats: z.array(StatItemSchema).min(1).max(6),
+
+  // River metadata
+  length: z.number().positive(),
+  county: z.string().min(1),
+  difficultyRange: z.string().min(1),
+  quickHighlights: z.array(z.string().min(1)).min(1).max(10),
+
+  // Content sections
+  rapids: z.array(RapidSchema).min(0).max(50),
+  fishing: RiverFishingSchema,
+  outfitters: z.array(OutfitterSchema).min(0).max(20),
+  seasonalFlow: z.array(SeasonalFlowSchema).min(0).max(12),
+  accessPoints: z.array(RiverAccessPointSchema).min(1).max(30),
+  safety: z.array(RiverSafetySchema).min(1).max(20),
+  nearbyAttractions: z.array(NearbyAttractionSchema).min(0).max(30),
+  gearList: z.array(GearItemSchema).min(1).max(30),
+  relatedShop: z.array(RelatedCategorySchema).min(0).max(10),
+
+  // Optional metadata
+  difficulty: DifficultySchema.optional(),
+  bestSeason: SeasonSchema.optional(),
+  coordinates: CoordinatesSchema.optional(),
+  mapUrl: z.string().url().optional(),
+  waterLevelUrl: z.string().url().optional(),
+});
+
+/**
+ * River template props interface.
+ * Complete type definition for RiverTemplate component used for river adventure pages.
+ */
+export interface RiverTemplateProps {
+  // Hero section (required)
+  name: string;
+  image: string;
+  imageAlt: string;
+  tagline: string;
+  description: string;
+  stats: StatItem[];
+
+  // River metadata
+  length: number;
+  county: string;
+  difficultyRange: string;
+  quickHighlights: string[];
+
+  // Content sections
+  rapids: Rapid[];
+  fishing: RiverFishing;
+  outfitters: Outfitter[];
+  seasonalFlow: SeasonalFlow[];
+  accessPoints: RiverAccessPoint[];
+  safety: RiverSafety[];
+  nearbyAttractions: NearbyAttraction[];
+  gearList: GearItem[];
+  relatedShop: RelatedCategory[];
+
+  // Optional metadata
+  difficulty?: Difficulty;
+  bestSeason?: Season;
+  coordinates?: Coordinates;
+  mapUrl?: string;
+  waterLevelUrl?: string;
+}
+
+/**
+ * Type guard to check if an adventure is a River.
+ * Enables conditional rendering of River-specific components.
+ *
+ * @param adventure - CollectionEntry from Astro Content Collections
+ * @returns true if adventure.data.type === 'river'
+ *
+ * @example
+ * ```astro
+ * ---
+ * import { getCollection } from 'astro:content';
+ * import { isRiverAdventure } from '../types/adventure';
+ *
+ * const adventures = await getCollection('adventures');
+ * const rivers = adventures.filter(isRiverAdventure);
+ * ---
+ * ```
+ */
+export function isRiverAdventure(adventure: any): boolean {
+  return adventure?.data?.type === 'river';
+}
+
+// ============================================================================
 // SPEC-13: Lake Template Type System Extensions
 // ============================================================================
 
