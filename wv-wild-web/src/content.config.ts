@@ -6,6 +6,18 @@ import { defineCollection, reference } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 
+// SPEC-14: River adventure type schemas (T-033)
+import {
+    RapidSchema,
+    RiverFishingSchema,
+    OutfitterSchema,
+    SeasonalFlowDetailsSchema,
+    RiverAccessPointSchema,
+    RiverSafetySchema,
+    NearbyAttractionSchema,
+    RapidClassSchema
+} from './types/river-types';
+
 // ============================================================================
 // SHARED SCHEMAS
 // ============================================================================
@@ -96,7 +108,8 @@ const adventures = defineCollection({
         images: z.array(ImageSchema).optional(),
 
         // SPEC-12: Explicit type field for adventure discrimination (Session 2025-12-27)
-        type: z.enum(['adventure', 'wma']).optional(),
+        // SPEC-14: Extended to include 'river' type (T-032)
+        type: z.enum(['adventure', 'wma', 'river']).optional(),
 
         // SPEC-12: WMA-specific optional fields (zero breaking changes)
         acreage: z.number().int().positive().optional(),
@@ -108,6 +121,18 @@ const adventures = defineCollection({
         regulations: RegulationsSchema.optional(),
         seasonHighlights: z.array(SeasonHighlightSchema).optional(),
         mapUrl: z.string().url().optional(),
+
+        // SPEC-14: River-specific optional fields (T-034, zero breaking changes)
+        riverLength: z.number().positive().optional(),
+        difficultyRange: z.string().optional(),
+        rapids: z.array(RapidSchema).max(50).optional(),
+        riverFishing: RiverFishingSchema.optional(),
+        outfitters: z.array(OutfitterSchema).optional(),
+        seasonalFlow: z.array(SeasonalFlowDetailsSchema).optional(),
+        riverAccessPoints: z.array(RiverAccessPointSchema).optional(),
+        riverSafety: z.array(RiverSafetySchema).optional(),
+        nearbyAttractions: z.array(NearbyAttractionSchema).optional(),
+        waterLevelUrl: z.string().url().optional(),
     }),
 });
 

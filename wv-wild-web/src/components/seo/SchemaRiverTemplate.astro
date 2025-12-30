@@ -1,0 +1,266 @@
+---
+/**
+ * SchemaRiverTemplate.astro
+ * SPEC-14: JSON-LD Structured Data for River Adventure Pages
+ *
+ * Generates @graph with TouristAttraction+Place, Article, BreadcrumbList, and LocalBusiness entities
+ * for comprehensive Google Rich Results support (Activities, Reviews, Location).
+ *
+ * @see https://schema.org/TouristAttraction
+ * @see https://schema.org/Place
+ * @see https://schema.org/Article
+ * @see https://schema.org/LocalBusiness
+ * @see https://developers.google.com/search/docs/appearance/structured-data
+ */
+import type { Outfitter, Coordinates } from '../../types/adventure';
+import { formatSchemaDate } from '../../lib/utils/date-formatter';
+
+interface Props {
+  /** River name (e.g., "Gauley River") */
+  name: string;
+  /** URL-safe slug (e.g., "gauley-river") */
+  slug: string;
+  /** River description for schema */
+  description: string;
+  /** River length in miles */
+  length: number;
+  /** Difficulty range (e.g., "Class III-V") */
+  difficultyRange: string;
+  /** GPS coordinates for geo schema */
+  coordinates?: Coordinates;
+  /** Commercial outfitters array for LocalBusiness entities */
+  outfitters?: Outfitter[];
+  /** Safety warnings array (e.g., "Class V rapids", "Expert only") */
+  warnings?: string[];
+  /** River amenities/features (e.g., "Boat ramps", "Camping") */
+  amenities?: string[];
+  /** ISO 8601 publish date for Article schema */
+  publishedDate?: string;
+  /** ISO 8601 update date for Article schema */
+  updatedDate?: string;
+  /** Optional hero image absolute URL */
+  imageUrl?: string;
+  /** County location (e.g., "Fayette County") */
+  county?: string;
+}
+
+const {
+  name,
+  slug,
+  description,
+  length,
+  difficultyRange,
+  coordinates,
+  outfitters = [],
+  warnings = [],
+  amenities = [],
+  publishedDate,
+  updatedDate,
+  imageUrl,
+  county,
+} = Astro.props;
+
+// Base URL for absolute URLs (uses Astro.site from config with fallback)
+const BASE_URL = Astro.site?.href.replace(/\/$/, '') || 'https://wvwildoutdoors.pages.dev';
+const pageUrl = `${BASE_URL}/rivers/${slug}/`;
+
+// Build the @graph array with multiple connected entities
+const graphEntities: object[] = [];
+
+// ============================================================================
+// 1. TouristAttraction + Place schema (T-038)
+// ============================================================================
+const touristAttraction: Record<string, unknown> = {
+  '@type': ['TouristAttraction', 'Place'],
+  '@id': `${pageUrl}#attraction`,
+  'name': name,
+  'description': description,
+  'url': pageUrl,
+  'additionalType': 'https://schema.org/WaterBodyUsage',
+  'isAccessibleForFree': true,
+  'touristType': ['Whitewater Rafter', 'Kayaker', 'Angler', 'Outdoor Enthusiast'],
+};
+
+// GPS coordinates
+if (coordinates) {
+  touristAttraction.geo = {
+    '@type': 'GeoCoordinates',
+    'latitude': coordinates.lat,
+    'longitude': coordinates.lng,
+  };
+}
+
+// Address information
+const addressLocality = county || 'West Virginia';
+touristAttraction.address = {
+  '@type': 'PostalAddress',
+  'addressLocality': addressLocality,
+  'addressRegion': 'WV',
+  'addressCountry': 'US',
+};
+
+// Hero image
+if (imageUrl) {
+  touristAttraction.image = imageUrl;
+}
+
+// Additional properties (difficulty and length)
+const additionalProperties = [
+  {
+    '@type': 'PropertyValue',
+    'name': 'difficulty',
+    'value': difficultyRange,
+  },
+  {
+    '@type': 'PropertyValue',
+    'name': 'length',
+    'value': `${length} miles`,
+    'unitCode': 'SMI',
+  },
+];
+
+touristAttraction.additionalProperty = additionalProperties;
+
+// Safety warnings
+if (warnings.length > 0) {
+  touristAttraction.warning = warnings;
+}
+
+// Amenity features
+if (amenities.length > 0) {
+  touristAttraction.amenityFeature = amenities.map((a) => ({
+    '@type': 'LocationFeatureSpecification',
+    'name': a,
+    'value': true,
+  }));
+}
+
+graphEntities.push(touristAttraction);
+
+// ============================================================================
+// 2. Article schema (T-039)
+// ============================================================================
+if (publishedDate || updatedDate) {
+  const article: Record<string, unknown> = {
+    '@type': 'Article',
+    '@id': `${pageUrl}#article`,
+    'headline': `${name} Guide - Whitewater & Fishing`,
+    'description': description,
+    'url': pageUrl,
+    'mainEntityOfPage': { '@id': pageUrl },
+    'about': { '@id': `${pageUrl}#attraction` },
+    'author': {
+      '@type': 'Organization',
+      'name': 'WV Wild Outdoors',
+      'url': BASE_URL,
+    },
+    'publisher': {
+      '@type': 'Organization',
+      'name': 'WV Wild Outdoors',
+      'url': BASE_URL,
+      'logo': {
+        '@type': 'ImageObject',
+        'url': `${BASE_URL}/og-wvwo-storefront.png`,
+      },
+    },
+  };
+
+  if (publishedDate) {
+    article.datePublished = formatSchemaDate(publishedDate);
+  }
+  if (updatedDate) {
+    article.dateModified = formatSchemaDate(updatedDate);
+  }
+  if (imageUrl) {
+    article.image = imageUrl;
+  }
+
+  graphEntities.push(article);
+}
+
+// ============================================================================
+// 3. BreadcrumbList schema (T-040)
+// ============================================================================
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Rivers', url: '/rivers/' },
+  { name: name, url: `/rivers/${slug}/` },
+];
+
+graphEntities.push({
+  '@type': 'BreadcrumbList',
+  '@id': `${pageUrl}#breadcrumb`,
+  'itemListElement': breadcrumbs.map((item, index) => ({
+    '@type': 'ListItem',
+    'position': index + 1,
+    'name': item.name,
+    'item': item.url.startsWith('http') ? item.url : `${BASE_URL}${item.url}`,
+  })),
+});
+
+// ============================================================================
+// 4. LocalBusiness array for outfitters (T-041)
+// ============================================================================
+if (outfitters.length > 0) {
+  outfitters.forEach((outfitter, index) => {
+    const localBusiness: Record<string, unknown> = {
+      '@type': 'LocalBusiness',
+      '@id': `${pageUrl}#outfitter-${index + 1}`,
+      'name': outfitter.name,
+      'description': `Commercial outfitter offering ${outfitter.services.join(', ')} on ${name}`,
+      'url': outfitter.website || undefined,
+      'priceRange': outfitter.priceRange || undefined,
+      'address': {
+        '@type': 'PostalAddress',
+        'addressRegion': 'WV',
+        'addressCountry': 'US',
+      },
+      'geo': coordinates
+        ? {
+            '@type': 'GeoCoordinates',
+            'latitude': coordinates.lat,
+            'longitude': coordinates.lng,
+          }
+        : undefined,
+      'areaServed': {
+        '@type': 'Place',
+        'name': name,
+      },
+      'makesOffer': outfitter.services.map((service) => ({
+        '@type': 'Offer',
+        'itemOffered': {
+          '@type': 'Service',
+          'name': service,
+        },
+      })),
+    };
+
+    // Contact information
+    if (outfitter.contact.phone) {
+      localBusiness.telephone = outfitter.contact.phone;
+    }
+    if (outfitter.contact.email) {
+      localBusiness.email = outfitter.contact.email;
+    }
+
+    // Seasonal notes
+    if (outfitter.seasonalNotes) {
+      localBusiness.additionalProperty = {
+        '@type': 'PropertyValue',
+        'name': 'seasonalNotes',
+        'value': outfitter.seasonalNotes,
+      };
+    }
+
+    graphEntities.push(localBusiness);
+  });
+}
+
+// Final schema with @graph
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': graphEntities,
+};
+---
+
+<script is:inline type="application/ld+json" set:html={JSON.stringify(schema, null, 2)} />
