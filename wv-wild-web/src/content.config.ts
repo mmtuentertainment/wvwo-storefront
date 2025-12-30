@@ -109,7 +109,7 @@ const adventures = defineCollection({
 
         // SPEC-12: Explicit type field for adventure discrimination (Session 2025-12-27)
         // SPEC-14: Extended to include 'river' type (T-032)
-        type: z.enum(['adventure', 'wma', 'river']).optional(),
+        type: z.enum(['adventure', 'wma', 'lake', 'river']).optional(),
 
         // SPEC-12: WMA-specific optional fields (zero breaking changes)
         acreage: z.number().int().positive().optional(),
