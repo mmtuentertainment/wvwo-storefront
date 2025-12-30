@@ -1,0 +1,107 @@
+---
+/**
+ * Test page for LakeTemplate component
+ * SPEC-13: Validates all user stories render correctly
+ */
+
+import LakeTemplate from '../components/templates/LakeTemplate.astro';
+import type { LakeTemplateProps } from '../types/adventure';
+
+const testLakeData: LakeTemplateProps = {
+  name: 'Test Lake',
+  image: '/images/hero-camping.jpg', // Using existing image
+  imageAlt: 'Beautiful test lake with clear waters',
+  tagline: "Testing the Lake Template Component",
+  description: 'This is a comprehensive test of all Lake Template features including fishing spots, marinas, activities, seasonal guides, and regulations.',
+
+  stats: [
+    { value: '2,790', label: 'Acres' },
+    { value: '327 ft', label: 'Max Depth' },
+    { value: '30 min', label: 'From Shop' },
+    { value: 'Test', label: 'County' },
+  ],
+
+  fishingSpots: [
+    {
+      name: 'North Point',
+      depth: '20-40 feet',
+      structure: 'Rocky ledges with submerged timber',
+      species: ['Largemouth Bass', 'Smallmouth Bass', 'Walleye'],
+      access: 'Boat only',
+    },
+    {
+      name: 'South Cove',
+      depth: '10-25 feet',
+      structure: 'Weed beds and sandy bottom',
+      species: ['Crappie', 'Bluegill', 'Catfish'],
+      access: 'Shore or boat',
+    },
+  ],
+
+  marinas: [
+    {
+      name: 'Main Marina',
+      type: 'Full-service marina',
+      services: ['Boat rental', 'Fuel', 'Bait shop', 'Restrooms'],
+      contact: '(304) 555-1234',
+      hours: 'Daily 6am-8pm',
+      fees: '$10 launch fee',
+    },
+  ],
+
+  activities: [
+    {
+      name: 'Kayaking',
+      description: 'Explore the shoreline by kayak',
+      season: 'May-October',
+      difficulty: 'Beginner-friendly',
+    },
+    {
+      name: 'Swimming',
+      description: 'Designated swimming areas',
+      season: 'June-September',
+      difficulty: 'Easy',
+    },
+  ],
+
+  seasonalGuide: [
+    {
+      period: 'Spring',
+      targetSpecies: ['Bass', 'Crappie'],
+      techniques: 'Shallow water crankbaits',
+      kimNote: 'Spring is prime time!',
+    },
+    {
+      period: 'Summer',
+      targetSpecies: ['Bass', 'Walleye'],
+      techniques: 'Deep diving rigs',
+    },
+  ],
+
+  regulations: [
+    {
+      category: 'Fishing License',
+      details: 'Valid WV license required',
+      important: true,
+    },
+    {
+      category: 'Boat Speed',
+      details: 'No-wake zone near shore',
+    },
+  ],
+
+  gearList: [
+    { name: 'Fishing Rod', optional: false },
+    { name: 'Life Jacket', optional: false },
+  ],
+
+  relatedShop: [
+    { name: 'Fishing Gear', href: '/shop/fishing' },
+  ],
+
+  difficulty: 'easy',
+  bestSeason: 'spring',
+};
+---
+
+<LakeTemplate {...testLakeData} />

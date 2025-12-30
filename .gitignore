@@ -38,6 +38,7 @@ test-*.js
 *-test-results/
 test-results/
 .playwright/
+playwright-report/
 
 # OS files
 .DS_Store
@@ -138,3 +139,8 @@ docs/T-*.md
 docs/tasks/
 docs/tests/
 docs/SPEC-*-*.md
+
+# Swarm coordination memory
+# Decision: Exclude from version control (working memory, regenerated per session)
+# Pattern: Individual swarm sessions create/destroy their own coordination files
+docs/swarm-memory/

@@ -7,7 +7,7 @@ const commerceEnabled = import.meta.env.PUBLIC_COMMERCE_ENABLED === 'true';
 <header class="sticky top-0 z-50 bg-brand-brown text-white shadow-lg border-b-4 border-sign-green">
   <div class="container mx-auto px-4 py-3 flex justify-between items-center">
     <!-- Logo / Brand Name -->
-    <a href="/" class="group flex flex-col md:block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange rounded">
+    <a href="/" class="group flex flex-col md:block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange rounded-sm">
       <span class="text-2xl md:text-3xl font-display font-bold text-white tracking-wide uppercase group-hover:text-brand-cream transition-colors">
         WV Wild Outdoors
       </span>
@@ -25,13 +25,13 @@ const commerceEnabled = import.meta.env.PUBLIC_COMMERCE_ENABLED === 'true';
        </div>
 
       <nav class="flex space-x-6 items-center" aria-label="Main">
-        <a href="/shop" class="text-brand-cream font-medium hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange rounded px-1 transition-colors">Shop</a>
-        <a href="/guides" class="text-brand-cream font-medium hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange rounded px-1 transition-colors">Guides</a>
-        <a href="/adventures" class="text-brand-cream font-medium hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange rounded px-1 transition-colors">Adventures</a>
-        <a href="/near" class="text-brand-cream font-medium hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange rounded px-1 transition-colors">Hunt Near Us</a>
-        <a href="/story" class="text-brand-cream font-medium hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange rounded px-1 transition-colors">Our Story</a>
-        <a href="/ffl-transfers" class="text-brand-cream font-medium hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange rounded px-1 transition-colors">FFL Transfers</a>
-        <a href="/contact" class="px-4 py-2 bg-sign-green text-white font-bold rounded hover:bg-green-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 focus-visible:ring-offset-brand-brown transition-colors">
+        <a href="/shop" class="text-brand-cream font-medium hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange rounded-sm px-1 transition-colors">Shop</a>
+        <a href="/guides" class="text-brand-cream font-medium hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange rounded-sm px-1 transition-colors">Guides</a>
+        <a href="/adventures" class="text-brand-cream font-medium hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange rounded-sm px-1 transition-colors">Adventures</a>
+        <a href="/near" class="text-brand-cream font-medium hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange rounded-sm px-1 transition-colors">Hunt Near Us</a>
+        <a href="/story" class="text-brand-cream font-medium hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange rounded-sm px-1 transition-colors">Our Story</a>
+        <a href="/ffl-transfers" class="text-brand-cream font-medium hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange rounded-sm px-1 transition-colors">FFL Transfers</a>
+        <a href="/contact" class="px-4 py-2 bg-sign-green text-white font-bold rounded-sm hover:bg-green-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 focus-visible:ring-offset-brand-brown transition-colors">
           Contact
         </a>
         <!-- Shopping Cart (Desktop) -->
@@ -47,7 +47,7 @@ const commerceEnabled = import.meta.env.PUBLIC_COMMERCE_ENABLED === 'true';
       <!-- Mobile Menu Button -->
       <button
         id="mobile-menu-btn"
-        class="text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange rounded p-1"
+        class="text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange rounded-sm p-1"
         aria-label="Open menu"
         aria-expanded="false"
         aria-controls="mobile-menu"
@@ -66,14 +66,14 @@ const commerceEnabled = import.meta.env.PUBLIC_COMMERCE_ENABLED === 'true';
     aria-label="Mobile navigation"
   >
     <nav class="container mx-auto px-4 py-4 flex flex-col space-y-4">
-      <a href="/shop" class="text-brand-cream font-medium hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange rounded px-2 py-2 transition-colors">Shop</a>
-      <a href="/guides" class="text-brand-cream font-medium hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange rounded px-2 py-2 transition-colors">Guides</a>
-      <a href="/adventures" class="text-brand-cream font-medium hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange rounded px-2 py-2 transition-colors">Adventures</a>
-      <a href="/near" class="text-brand-cream font-medium hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange rounded px-2 py-2 transition-colors">Hunt Near Us</a>
-      <a href="/story" class="text-brand-cream font-medium hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange rounded px-2 py-2 transition-colors">Our Story</a>
-      <a href="/ffl-transfers" class="text-brand-cream font-medium hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange rounded px-2 py-2 transition-colors">FFL Transfers</a>
-      <a href="/faq" class="text-brand-cream font-medium hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange rounded px-2 py-2 transition-colors">FAQ</a>
-      <a href="/contact" class="px-4 py-3 bg-sign-green text-white font-bold rounded hover:bg-green-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange text-center transition-colors">
+      <a href="/shop" class="text-brand-cream font-medium hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange rounded-sm px-2 py-2 transition-colors">Shop</a>
+      <a href="/guides" class="text-brand-cream font-medium hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange rounded-sm px-2 py-2 transition-colors">Guides</a>
+      <a href="/adventures" class="text-brand-cream font-medium hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange rounded-sm px-2 py-2 transition-colors">Adventures</a>
+      <a href="/near" class="text-brand-cream font-medium hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange rounded-sm px-2 py-2 transition-colors">Hunt Near Us</a>
+      <a href="/story" class="text-brand-cream font-medium hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange rounded-sm px-2 py-2 transition-colors">Our Story</a>
+      <a href="/ffl-transfers" class="text-brand-cream font-medium hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange rounded-sm px-2 py-2 transition-colors">FFL Transfers</a>
+      <a href="/faq" class="text-brand-cream font-medium hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange rounded-sm px-2 py-2 transition-colors">FAQ</a>
+      <a href="/contact" class="px-4 py-3 bg-sign-green text-white font-bold rounded-sm hover:bg-green-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange text-center transition-colors">
         Contact
       </a>
       <!-- Trust Badges (Mobile) -->

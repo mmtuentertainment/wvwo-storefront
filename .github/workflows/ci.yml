@@ -37,32 +37,41 @@ jobs:
           echo "🤠 Checking WVWO Frontend Aesthetics Compliance..."
 
           # Check for forbidden rounded corners (rounded-md, rounded-lg, rounded-xl)
-          # Exclude node_modules and allow rounded-full for circles
-          if grep -rn --include="*.astro" --include="*.tsx" --include="*.jsx" \
-            -E "rounded-(md|lg|xl)" src/ 2>/dev/null | grep -v "rounded-full"; then
-            echo "❌ FAIL: Found rounded-md, rounded-lg, or rounded-xl. Use rounded-sm for WVWO aesthetic."
+          # Exclude node_modules, __tests__, and allow rounded-full for circles
+          if find src -type f \( -name "*.astro" -o -name "*.tsx" -o -name "*.jsx" \) \
+            ! -path "*/node_modules/*" \
+            ! -path "*/__tests__/*" \
+            -exec grep -l "rounded-md\|rounded-lg\|rounded-xl\|rounded-2xl\|rounded-3xl" {} + 2>/dev/null; then
+            echo "❌ FAIL: Found forbidden rounded classes. Use rounded-sm for WVWO aesthetic."
             echo "See CLAUDE.md → WVWO Frontend Aesthetics for guidelines."
+            echo "Note: Test files (__tests__/) are excluded from this check."
             exit 1
           fi
 
           # Check for glassmorphism (backdrop-blur)
-          if grep -rn --include="*.astro" --include="*.tsx" --include="*.jsx" \
-            "backdrop-blur" src/ 2>/dev/null; then
+          if find src -type f \( -name "*.astro" -o -name "*.tsx" -o -name "*.jsx" \) \
+            ! -path "*/node_modules/*" \
+            ! -path "*/__tests__/*" \
+            -exec grep -l "backdrop-blur" {} + 2>/dev/null; then
             echo "❌ FAIL: Found backdrop-blur (glassmorphism). Not allowed in WVWO."
             echo "Use solid backgrounds like bg-brand-brown/80 instead."
             exit 1
           fi
 
           # Check for bouncy animations
-          if grep -rn --include="*.astro" --include="*.tsx" --include="*.jsx" \
-            "animate-bounce" src/ 2>/dev/null; then
+          if find src -type f \( -name "*.astro" -o -name "*.tsx" -o -name "*.jsx" \) \
+            ! -path "*/node_modules/*" \
+            ! -path "*/__tests__/*" \
+            -exec grep -l "animate-bounce" {} + 2>/dev/null; then
             echo "❌ FAIL: Found animate-bounce. Use subtle animations only."
             exit 1
           fi
 
           # Check for forbidden SaaS fonts
-          if grep -rn --include="*.astro" --include="*.tsx" --include="*.jsx" --include="*.css" \
-            -E "font-family:.*(Inter|Poppins|Space Grotesk|DM Sans)" src/ 2>/dev/null; then
+          if find src -type f \( -name "*.astro" -o -name "*.tsx" -o -name "*.jsx" -o -name "*.css" \) \
+            ! -path "*/node_modules/*" \
+            ! -path "*/__tests__/*" \
+            -exec grep -l "font-family:.*\(Inter\|Poppins\|Space Grotesk\|DM Sans\)" {} + 2>/dev/null; then
             echo "❌ FAIL: Found forbidden SaaS font. Use Bitter, Permanent Marker, or Noto Sans."
             exit 1
           fi

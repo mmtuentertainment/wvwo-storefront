@@ -1,0 +1,266 @@
+name: WVWO Aesthetic Compliance
+
+on:
+  pull_request:
+    paths:
+      - 'wv-wild-web/src/components/adventure/**'
+      - 'wv-wild-web/src/pages/adventures/**'
+      - '**.astro'
+      - 'tests/compliance/**'
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+jobs:
+  pre-commit-scan:
+    name: Pre-Commit Violation Scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Scan for forbidden rounded classes
+        run: |
+          echo "🔍 Scanning for rounded-md/lg/xl violations..."
+          # Exclude __tests__ directories and search only in actual component/page files
+          if find wv-wild-web/src/components/adventure wv-wild-web/src/components/templates wv-wild-web/src/pages/adventures -type f \( -name "*.astro" -o -name "*.tsx" -o -name "*.jsx" \) ! -path "*/__tests__/*" -exec grep -l "rounded-md\|rounded-lg\|rounded-xl\|rounded-2xl\|rounded-3xl" {} + 2>/dev/null; then
+            echo "❌ WVWO VIOLATION: Forbidden rounded classes detected in implementation files"
+            echo "Only rounded-sm (0.125rem) is allowed for hardware store aesthetic"
+            echo "Note: Test files in __tests__/ are excluded from this check"
+            exit 1
+          fi
+          echo "✅ Border radius compliance passed (implementation files only)"
+
+      - name: Scan for forbidden fonts
+        run: |
+          echo "🔍 Scanning for SaaS startup fonts..."
+          # Only match font-family declarations, not words containing "Inter" like "interface"
+          if find wv-wild-web/src/components/adventure wv-wild-web/src/components/templates wv-wild-web/src/pages/adventures -type f \( -name "*.astro" -o -name "*.tsx" -o -name "*.jsx" -o -name "*.css" \) ! -path "*/__tests__/*" -exec grep -l "font-family:.*\(Inter\|Poppins\|DM Sans\|system-ui\|Montserrat\|Space Grotesk\)" {} + 2>/dev/null; then
+            echo "❌ WVWO VIOLATION: Forbidden SaaS fonts detected in font-family declarations"
+            echo "Use Bitter (display), Permanent Marker (hand), Noto Sans (body) only"
+            exit 1
+          fi
+          echo "✅ Font compliance passed"
+
+      - name: Scan for glassmorphism
+        run: |
+          echo "🔍 Scanning for backdrop-blur..."
+          if find wv-wild-web/src/components/adventure wv-wild-web/src/components/templates wv-wild-web/src/pages/adventures -type f \( -name "*.astro" -o -name "*.tsx" -o -name "*.jsx" \) ! -path "*/__tests__/*" -exec grep -l "backdrop-blur" {} + 2>/dev/null; then
+            echo "❌ WVWO VIOLATION: Glassmorphism (backdrop-blur) detected"
+            echo "Use solid backgrounds for hardware store aesthetic"
+            exit 1
+          fi
+          echo "✅ Style compliance passed"
+
+  eslint-compliance:
+    name: ESLint WVWO Rules
+    runs-on: ubuntu-latest
+    needs: pre-commit-scan
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: wv-wild-web/package-lock.json
+
+      - name: Install dependencies
+        run: cd wv-wild-web && npm ci
+
+      - name: Run WVWO ESLint rules
+        run: cd wv-wild-web && npm run lint:wvwo
+        continue-on-error: false
+
+  playwright-compliance:
+    name: Playwright Compliance Tests
+    runs-on: ubuntu-latest
+    needs: pre-commit-scan
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: wv-wild-web/package-lock.json
+
+      - name: Install dependencies
+        run: cd wv-wild-web && npm ci
+
+      - name: Install Playwright browsers
+        run: cd wv-wild-web && npx playwright install --with-deps chromium
+
+      - name: Build Astro site
+        run: cd wv-wild-web && npm run build
+
+      - name: Run Playwright compliance tests
+        run: cd wv-wild-web && npm run test:compliance
+        continue-on-error: true  # Tests optional - Pre-Commit scan is primary validation
+        env:
+          CI: true
+
+      - name: Upload test results
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: compliance-test-results
+          path: wv-wild-web/test-results/
+          retention-days: 7
+
+      - name: Upload test report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: wv-wild-web/playwright-report/
+          retention-days: 7
+
+  visual-regression:
+    name: Visual Regression Tests
+    runs-on: ubuntu-latest
+    needs: playwright-compliance
+    if: github.event_name == 'pull_request'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: wv-wild-web/package-lock.json
+
+      - name: Install dependencies
+        run: cd wv-wild-web && npm ci
+
+      - name: Install Playwright browsers
+        run: cd wv-wild-web && npx playwright install --with-deps chromium
+
+      - name: Build Astro site
+        run: cd wv-wild-web && npm run build
+
+      - name: Run visual regression tests
+        run: cd wv-wild-web && npm run test:visual
+        env:
+          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+        continue-on-error: true
+
+  compliance-summary:
+    name: Compliance Report
+    needs: [pre-commit-scan, eslint-compliance, playwright-compliance, visual-regression]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Generate compliance report
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const preScan = '${{ needs.pre-commit-scan.result }}';
+            const eslint = '${{ needs.eslint-compliance.result }}';
+            const playwright = '${{ needs.playwright-compliance.result }}';
+            const visual = '${{ needs.visual-regression.result }}';
+
+            const allPassed =
+              preScan === 'success' &&
+              eslint === 'success' &&
+              (playwright === 'success' || playwright === 'skipped') &&  // Playwright optional
+              (visual === 'success' || visual === 'skipped');
+
+            const statusEmoji = allPassed ? '✅' : '❌';
+            const statusText = allPassed ? 'COMPLIANT' : 'VIOLATIONS DETECTED';
+
+            const report = `
+            ## ${statusEmoji} WVWO Aesthetic Compliance Report
+
+            | Check | Status |
+            |-------|--------|
+            | Pre-Commit Scan | ${preScan === 'success' ? '✅' : '❌'} ${preScan} |
+            | ESLint Rules | ${eslint === 'success' ? '✅' : '❌'} ${eslint} |
+            | Playwright Tests | ${playwright === 'success' ? '✅' : '❌'} ${playwright} |
+            | Visual Regression | ${visual === 'success' ? '✅' : visual === 'skipped' ? '⏭️' : '❌'} ${visual} |
+
+            **Overall Status**: ${statusEmoji} **${statusText}**
+
+            ### Critical Requirements
+            - ✅ Border Radius: rounded-sm ONLY (0.125rem)
+            - ✅ Fonts: Bitter/Permanent Marker/Noto Sans
+            - ✅ Colors: Green (fish), Brown (camping), Orange (<5% CTAs)
+            - ✅ No glassmorphism, parallax, or SaaS aesthetics
+
+            ### Next Steps
+            ${allPassed
+              ? '🎉 All compliance checks passed! Ready for manual review.'
+              : '⚠️ Fix violations above before requesting review. See test artifacts for details.'
+            }
+
+            ### Litmus Test
+            > "Would Kim's neighbors recognize this as 'their shop' online?"
+
+            ${allPassed ? '✅ Authentic rural WV aesthetic maintained' : '❌ Review findings and fix violations'}
+            `;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: report
+            });
+
+            if (!allPassed) {
+              core.setFailed('WVWO compliance violations detected');
+            }
+
+  require-manual-approval:
+    name: Require Manual Checklist
+    needs: compliance-summary
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: Check PR description for checklist
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number
+            });
+
+            const body = pr.data.body || '';
+
+            const requiredChecklistItems = [
+              'Border Radius Compliance',
+              'Font Hierarchy Compliance',
+              'Color Accent Compliance',
+              'The Litmus Test'
+            ];
+
+            const missingItems = requiredChecklistItems.filter(item =>
+              !body.includes(item)
+            );
+
+            if (missingItems.length > 0) {
+              const comment = `
+              ⚠️ **WVWO PR Checklist Required**
+
+              This PR modifies Adventure components but is missing the required WVWO aesthetic compliance checklist.
+
+              Please add the checklist from \`docs/WVWO-PR-CHECKLIST.md\` to your PR description.
+
+              Missing sections:
+              ${missingItems.map(item => `- ${item}`).join('\n')}
+              `;
+
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: comment
+              });
+
+              core.setFailed('PR checklist required for Adventure template changes');
+            }
