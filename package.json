@@ -4,7 +4,17 @@
     "scripts": {
         "dev": "cd wv-wild-web && npm install && npm run dev",
         "build": "cd wv-wild-web && npm run build",
-        "preview": "cd wv-wild-web && npm run preview"
+        "preview": "cd wv-wild-web && npm run preview",
+        "test": "playwright test",
+        "test:e2e": "playwright test tests/e2e",
+        "test:accessibility": "playwright test tests/accessibility",
+        "test:performance": "playwright test tests/performance",
+        "test:validation": "playwright test tests/validation",
+        "test:all": "npm run test:e2e && npm run test:accessibility && npm run test:performance && npm run test:validation",
+        "validate:checkpoints": "bash scripts/run-all-checkpoints.sh",
+        "validate:rich-results": "tsx scripts/google-rich-results-test.ts",
+        "validate:acceptance": "playwright test tests/validation/acceptance-criteria.spec.ts",
+        "phase6:full-validation": "npm run build && npm run validate:checkpoints && npm run validate:rich-results && npm run test:all"
     },
     "dependencies": {
         "@babel/runtime": "^7.28.4",
@@ -12,9 +22,14 @@
         "react-slider": "^2.0.6"
     },
     "devDependencies": {
+        "@axe-core/playwright": "^4.11.0",
         "@playwright/test": "^1.57.0",
+        "@types/node": "^22.10.2",
         "@types/react-slider": "^1.3.6",
         "claude-flow": "^2.7.47",
-        "playwright": "^1.57.0"
+        "jsdom": "^25.0.1",
+        "playwright": "^1.57.0",
+        "playwright-lighthouse": "^4.0.0",
+        "tsx": "^4.21.0"
     }
 }
