@@ -15,7 +15,7 @@
  * - Related shop categories
  */
 
-import type { LakeTemplateProps, FishingSpot, GearItem, RelatedCategory } from '../../types/adventure';
+import type { LakeTemplateProps, FishingSpot, GearItem, RelatedCategory } from '../types/adventure';
 
 /**
  * Complete lake data for Summersville Lake WMA

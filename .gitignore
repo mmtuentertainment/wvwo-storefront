@@ -140,7 +140,7 @@ docs/tasks/
 docs/tests/
 docs/SPEC-*-*.md
 
-# Swarm coordination memory (keep committed for pattern learning)
-# docs/swarm-memory/ - KEPT for collaboration context
-# Swarm coordination (working memory - not for version control)
+# Swarm coordination memory
+# Decision: Exclude from version control (working memory, regenerated per session)
+# Pattern: Individual swarm sessions create/destroy their own coordination files
 docs/swarm-memory/
