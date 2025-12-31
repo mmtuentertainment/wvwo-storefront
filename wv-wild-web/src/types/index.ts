@@ -66,3 +66,41 @@ export type {
   Regulation,
   LakeTemplateProps,
 } from './adventure';
+
+// SPEC-16: Cave Template types
+export {
+  FormationTypeSchema,
+  TourDifficultySchema,
+  CaveTourSchema,
+  CaveFormationSchema,
+  CaveConditionsSchema,
+  CaveAccessibilitySchema,
+  CavePricingSchema,
+  CaveHoursSchema,
+  CaveSafetySchema,
+  CaveHistorySchema,
+  CaveTemplatePropsSchema,
+  FORMATION_TYPE_LABELS,
+  FORMATION_TYPE_DESCRIPTIONS,
+  TOUR_DIFFICULTY_COLORS,
+  TOUR_DIFFICULTY_BADGES,
+  TOUR_DIFFICULTY_LABELS,
+  getTourDifficultyColor,
+  getTourDifficultyBadge,
+  getFormationTypeLabel,
+  getFormationTypeDescription,
+  isCaveAdventure,
+} from './cave-types';
+export type {
+  FormationType,
+  TourDifficulty,
+  CaveTour,
+  CaveFormation,
+  CaveConditions,
+  CaveAccessibility,
+  CavePricing,
+  CaveHours,
+  CaveSafety,
+  CaveHistory,
+  CaveTemplateProps,
+} from './cave-types';
