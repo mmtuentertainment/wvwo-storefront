@@ -89,8 +89,9 @@ export const gauleyRiverData: RiverTemplateProps = {
     regulations:
       'WV fishing license required. Smallmouth bass: 15" minimum, 5 fish daily limit.', // TODO: Verify current regulations
     catchAndRelease: 'Catch and release encouraged for all bass to preserve trophy fishery.',
-    kimNote: 'TODO: Add Kim\'s fishing tips for Gauley smallmouth',
   },
+
+  // TODO: Add kimsTip at top-level for Kim's fishing tips
 
   // ============================================================================
   // OUTFITTERS - TODO: Update contact info and pricing

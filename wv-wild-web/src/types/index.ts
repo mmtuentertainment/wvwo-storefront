@@ -108,3 +108,222 @@ export type {
   CaveHistory,
   CaveTemplateProps,
 } from './cave-types';
+
+// SPEC-17: Backcountry Template types
+export {
+  MobilityRatingSchema,
+  FitnessLevelSchema,
+  CompanionRequirementSchema,
+  AgeRequirementSchema,
+  TrailAccessibilitySchema,
+  ServiceAnimalStatusSchema,
+  ServiceAnimalPolicySchema,
+  MedicalConditionSchema,
+  BackcountryAccessibilitySchema,
+  MOBILITY_RATING_LABELS,
+  MOBILITY_RATING_DESCRIPTIONS,
+  MOBILITY_RATING_COLORS,
+  MOBILITY_RATING_SHAPES,
+  FITNESS_LEVEL_LABELS,
+  FITNESS_LEVEL_EXAMPLES,
+  COMPANION_REQUIREMENT_LABELS,
+  COMPANION_REQUIREMENT_DESCRIPTIONS,
+  getMobilityRatingLabel,
+  getMobilityRatingDescription,
+  getMobilityRatingColor,
+  getMobilityRatingShape,
+  getFitnessLevelLabel,
+  getFitnessLevelExample,
+  getCompanionRequirementLabel,
+  getCompanionRequirementDescription,
+  isBackcountryAdventure,
+  BACKCOUNTRY_ACCESSIBILITY_EXAMPLE,
+} from './backcountry-types';
+export type {
+  MobilityRating,
+  FitnessLevel,
+  CompanionRequirement,
+  AgeRequirement,
+  TrailAccessibility,
+  ServiceAnimalStatus,
+  ServiceAnimalPolicy,
+  MedicalCondition,
+  BackcountryAccessibility,
+} from './backcountry-types';
+
+// SPEC-17: Backcountry Navigation types (GPS/Cell coverage for remote areas)
+export {
+  // Coordinate schemas
+  LatLongSchema,
+  UTMCoordinateSchema,
+  CoordinateFormatSchema,
+  // Map & compass schemas
+  USGSQuadSchema,
+  CompassDeclinationSchema,
+  // Trail marking schemas
+  BlazingReliabilitySchema,
+  TrailBlazingSchema,
+  // Cell coverage schemas
+  CellSignalStrengthSchema,
+  CellCoverageSchema,
+  // Satellite communication schemas
+  SatelliteDeviceSchema,
+  SatelliteRecommendationSchema,
+  // Offline maps schemas
+  OfflineMapAppSchema,
+  OfflineMapRecommendationSchema,
+  // Access point schema
+  BackcountryAccessPointSchema,
+  // Main navigation schema
+  BackcountryNavigationSchema,
+  // Display constants
+  CELL_COVERAGE_LABELS,
+  CELL_COVERAGE_COLORS,
+  CELL_COVERAGE_ICONS,
+  BLAZING_RELIABILITY_LABELS,
+  BLAZING_RELIABILITY_COLORS,
+  NAVIGATION_DIFFICULTY_LABELS,
+  GPS_RELIABILITY_LABELS,
+  // Helper functions
+  formatDecimalToDMS,
+  formatUTMDisplay,
+  getCellCoverageColor,
+  getCellCoverageLabel,
+  getBlazingReliabilityColor,
+  getBlazingReliabilityLabel,
+  isSatelliteCritical,
+  getWorstCellCoverage,
+} from './navigation-types';
+
+export type {
+  LatLong,
+  UTMCoordinate,
+  CoordinateFormat,
+  USGSQuad,
+  CompassDeclination,
+  BlazingReliability,
+  TrailBlazing,
+  CellSignalStrength,
+  CellCoverage,
+  SatelliteDevice,
+  SatelliteRecommendation,
+  OfflineMapApp,
+  OfflineMapRecommendation,
+  BackcountryAccessPoint,
+  BackcountryNavigation,
+} from './navigation-types';
+
+// SPEC-17: Water Safety types (backcountry water sources and camping)
+export {
+  WaterStatusSchema,
+  WaterReliabilitySchema,
+  WaterTreatmentSchema,
+  ContaminantTypeSchema,
+  AMDWarningSchema,
+  WaterSourceSchema,
+  BackcountryCampingSchema,
+  WATER_STATUS_CONFIG,
+  WATER_RELIABILITY_LABELS,
+  WATER_TREATMENT_LABELS,
+  CONTAMINANT_INFO,
+  AMD_EDUCATION,
+  getWaterStatusConfig,
+  getContaminantInfo,
+  hasAMDWarning,
+  filterWaterSourcesByStatus,
+  getWaterSourceCounts,
+  hasDoNotUseSources,
+  isUsableWaterSource,
+  isPotableWaterSource,
+  isToxicWaterSource,
+} from './water-safety';
+
+export type {
+  WaterStatus,
+  WaterReliability,
+  WaterTreatment,
+  ContaminantType,
+  AMDWarning,
+  WaterSource,
+  BackcountryCamping,
+} from './water-safety';
+
+// SPEC-17: Weather Hazards types (seasonal conditions and risk assessment)
+export {
+  WVSeasonSchema,
+  HazardSeveritySchema,
+  FlashFloodHazardSchema,
+  LightningHazardSchema,
+  TemperatureByElevationSchema,
+  WindChillHazardSchema,
+  HypothermiaRiskSchema,
+  RapidOnsetEventSchema,
+  WeatherHazardsSchema,
+  SeasonalConditionsSchema,
+  AdventureWeatherSchema,
+  AvalancheDangerLevelSchema,
+  AvalancheHazardSchema,
+  FireDangerLevelSchema,
+  FireDangerHazardSchema,
+  HAZARD_SEVERITY_COLORS,
+  HAZARD_SEVERITY_LABELS,
+  AVALANCHE_DANGER_COLORS,
+  AVALANCHE_DANGER_LABELS,
+  FIRE_DANGER_COLORS,
+  FIRE_DANGER_LABELS,
+  getHazardSeverityColor,
+  getHazardSeverityLabel,
+  getAvalancheDangerColor,
+  getFireDangerColor,
+  validateQuantifiedData,
+} from './weather-hazards';
+
+export type {
+  WVSeason,
+  HazardSeverity,
+  FlashFloodHazard,
+  LightningHazard,
+  TemperatureByElevation,
+  WindChillHazard,
+  HypothermiaRisk,
+  RapidOnsetEvent,
+  WeatherHazards,
+  SeasonalConditions,
+  AdventureWeather,
+  AvalancheDangerLevel,
+  AvalancheHazard,
+  FireDangerLevel,
+  FireDangerHazard,
+} from './weather-hazards';
+
+// SPEC-17: Backcountry Template composition types (emergency contacts, agencies, regulations)
+export {
+  // Emergency schemas
+  EmergencyContactSchema,
+  EmergencyTierSchema,
+  TieredEmergencyContactSchema,
+  // Agency schemas
+  AgencyTypeSchema,
+  ManagingAgencySchema,
+  RegulationsSchema,
+  // Display constants
+  EMERGENCY_TIER_COLORS,
+  EMERGENCY_TIER_LABELS,
+  AGENCY_TYPE_LABELS,
+  // Helper functions
+  getEmergencyTierColor,
+  getEmergencyTierLabel,
+  getAgencyTypeLabel,
+  sortEmergencyContactsByTier,
+  filterEmergencyContactsByTier,
+  has24x7EmergencyContact,
+} from './backcountry-template-types';
+
+export type {
+  EmergencyContact,
+  EmergencyTier,
+  TieredEmergencyContact,
+  AgencyType,
+  ManagingAgency,
+  Regulations,
+} from './backcountry-template-types';

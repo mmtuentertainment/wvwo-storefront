@@ -34,7 +34,7 @@ describe('validateRiverTemplate', () => {
     rapids: [
       {
         name: 'Pillow Rock',
-        class: { base: 'V+' },
+        class: { base: 'V' },
         displayName: 'Class V+',
         description: 'Iconic Gauley rapid with massive hole',
         runnable: 'Expert only',

@@ -258,7 +258,7 @@ export function createMockRiverTemplate(
     rapids: [
       createMockRapid({ name: 'Upper Falls', class: { base: 'III' } }),
       createMockRapid({ name: 'Middle Drop', class: { base: 'IV' } }),
-      createMockRapid({ name: 'Lower Gorge', class: { base: 'IV+' } }),
+      createMockRapid({ name: 'Lower Gorge', class: { base: 'V' } }),
     ],
     fishing: createMockFishing(),
     outfitters: [

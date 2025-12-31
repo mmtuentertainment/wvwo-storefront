@@ -131,14 +131,14 @@ describe('AdventureCTA Component Logic', () => {
 
   describe('Test 6: Optional Heading and Description (FR-022, FR-023)', () => {
     it('should render when heading is provided', () => {
-      const heading = 'Ready to Hunt Elk River?';
+      const heading: string | undefined = 'Ready to Hunt Elk River?';
       const shouldRender = heading !== undefined && heading !== '';
 
       expect(shouldRender).toBe(true);
     });
 
     it('should render when description is provided', () => {
-      const description = 'Stop by the shop for licenses, ammo, and local tips.';
+      const description: string | undefined = 'Stop by the shop for licenses, ammo, and local tips.';
       const shouldRender = description !== undefined && description !== '';
 
       expect(shouldRender).toBe(true);

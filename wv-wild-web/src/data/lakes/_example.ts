@@ -216,6 +216,7 @@ export const exampleLakeData: LakeTemplateProps = {
       details:
         'Divers must display dive flag when underwater. Boats must stay 100 feet from dive flags.',
       link: 'https://www.summersville-lake.com/diving-rules',
+      important: false,
     },
     {
       category: 'Fishing License',
@@ -306,6 +307,7 @@ export const minimalLakeData: LakeTemplateProps = {
     {
       category: 'Fishing License',
       details: 'Valid WV fishing license required',
+      important: false,
     },
   ],
 
