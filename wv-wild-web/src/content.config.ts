@@ -18,6 +18,26 @@ import {
     RapidClassSchema
 } from './types/river-types';
 
+// SPEC-15: Ski resort type schemas
+import {
+    ElevationSchema,
+    SkiSeasonSchema,
+    TrailsSchema,
+    LiftsSchema,
+    SnowConditionsSchema,
+    PricingSchema,
+    TerrainParkSchema,
+    LodgingSchema,
+    DiningSchema,
+    AmenitySchema,
+    SummerActivitySchema,
+    ParkAffiliationSchema,
+    NordicSkiingSchema,
+    PassAffiliationSchema,
+    SafetyInfoSchema,
+    KimTipSchema,
+} from './types/ski-types';
+
 // ============================================================================
 // SHARED SCHEMAS
 // ============================================================================
@@ -109,7 +129,8 @@ const adventures = defineCollection({
 
         // SPEC-12: Explicit type field for adventure discrimination (Session 2025-12-27)
         // SPEC-14: Extended to include 'river' type (T-032)
-        type: z.enum(['adventure', 'wma', 'lake', 'river']).optional(),
+        // SPEC-15: Extended to include 'ski' type for ski resort templates
+        type: z.enum(['adventure', 'wma', 'lake', 'river', 'ski']).optional(),
 
         // SPEC-12: WMA-specific optional fields (zero breaking changes)
         acreage: z.number().int().positive().optional(),
@@ -133,6 +154,40 @@ const adventures = defineCollection({
         riverSafety: z.array(RiverSafetySchema).optional(),
         nearbyAttractions: z.array(NearbyAttractionSchema).optional(),
         waterLevelUrl: z.string().url().optional(),
+
+        // SPEC-15: Ski resort-specific optional fields (zero breaking changes)
+        slug: z.string().optional(),
+        image: z.string().optional(),
+        imageAlt: z.string().optional(),
+        tagline: z.string().optional(),
+        heroImage: z.string().optional(),
+        trailMapUrl: z.string().url().optional(),
+        elevation: ElevationSchema.optional(),
+        skiSeason: SkiSeasonSchema.optional(),
+        quickStats: z.array(z.string()).optional(),
+        trails: TrailsSchema.optional(),
+        lifts: LiftsSchema.optional(),
+        snowConditions: SnowConditionsSchema.optional(),
+        pricing: PricingSchema.optional(),
+        terrainParks: z.array(TerrainParkSchema).optional(),
+        lodging: z.array(LodgingSchema).optional(),
+        dining: z.array(DiningSchema).optional(),
+        amenities: z.array(AmenitySchema).optional(),
+        summerActivities: z.array(SummerActivitySchema).optional(),
+        parkAffiliation: ParkAffiliationSchema.optional(),
+        nordicSkiing: NordicSkiingSchema.optional(),
+        passAffiliations: z.array(PassAffiliationSchema).optional(),
+        gearList: z.array(z.object({
+            name: z.string(),
+            optional: z.boolean().default(false),
+        })).optional(),
+        relatedShop: z.array(z.object({
+            name: z.string(),
+            description: z.string().optional(),
+            href: z.string(),
+        })).optional(),
+        safety: z.array(SafetyInfoSchema).optional(),
+        kimTips: z.array(KimTipSchema).optional(),
     }),
 });
 

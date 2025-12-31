@@ -1,0 +1,82 @@
+---
+/**
+ * Canaan Valley Resort Page
+ * SPEC-15: Ski Resort Template Implementation
+ *
+ * Uses SkiTemplate component with content from adventures collection.
+ * Content validation is handled by Zod schemas in content.config.ts.
+ * Required fields come directly from validated content - no fallbacks that could mask errors.
+ */
+import { getEntry } from 'astro:content';
+import SkiTemplate from '../../components/templates/SkiTemplate.astro';
+
+// Get the adventure entry for Canaan Valley
+const adventure = await getEntry('adventures', 'canaan-valley');
+if (!adventure) {
+  throw new Error('Canaan Valley content not found in adventures collection');
+}
+
+const { data } = adventure;
+
+// Validate required ski-specific fields exist
+if (!data.elevation || !data.trails || !data.lifts || !data.snowConditions || !data.pricing) {
+  throw new Error('Canaan Valley is missing required ski resort data (elevation, trails, lifts, snowConditions, or pricing)');
+}
+
+// Map content collection data to SkiTemplateProps
+// Required fields use validated data directly - no fallbacks
+// Optional fields may have sensible defaults
+const templateProps = {
+  // Core identification (required)
+  name: data.title,
+  slug: data.slug || 'canaan-valley',
+  location: data.location,
+  county: data.county || 'Tucker',
+
+  // Hero content (required)
+  image: data.image,
+  imageAlt: data.imageAlt || `${data.title} ski resort`,
+  tagline: data.tagline,
+  description: data.description,
+
+  // Mountain stats (required - validated above)
+  elevation: data.elevation,
+  season: data.skiSeason,
+  quickStats: data.quickStats || [],
+
+  // Trails (required - validated above)
+  trails: data.trails,
+
+  // Lifts (required - validated above)
+  lifts: data.lifts,
+
+  // Snow conditions (required - validated above)
+  snowConditions: data.snowConditions,
+
+  // Pricing (required - validated above)
+  pricing: data.pricing,
+
+  // Optional sections (no dangerous fallbacks)
+  terrainParks: data.terrainParks,
+  lodging: data.lodging || [],
+  dining: data.dining,
+  amenities: data.amenities || [],
+  summerActivities: data.summerActivities,
+  parkAffiliation: data.parkAffiliation,
+  nordicSkiing: data.nordicSkiing,
+  passAffiliations: data.passAffiliations,
+  kimTips: data.kimTips,
+
+  // Shared components (empty arrays are valid)
+  gearList: data.gearList || [],
+  relatedShop: data.relatedShop || [],
+  safety: data.safety || [],
+
+  // Hero elements
+  heroImage: data.heroImage || data.image,
+  trailMapUrl: data.trailMapUrl,
+  coordinates: data.coordinates,
+};
+---
+
+<SkiTemplate {...templateProps} />
