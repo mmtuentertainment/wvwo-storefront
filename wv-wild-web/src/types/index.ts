@@ -45,6 +45,10 @@ export { STAT_ICON_PATHS } from './adventure';
 export { GearItemSchema, RelatedCategorySchema } from './adventure';
 export type { GearItem, GearColumns, RelatedCategory } from './adventure';
 
+// Nearby Attractions (used across cave/lake/river templates)
+export { NearbyAttractionSchema } from './adventure';
+export type { NearbyAttraction } from './adventure';
+
 // SPEC-12: WMA Template types
 export { CampingFacilitySchema, FeatureItemSchema } from './adventure';
 export type { CampingFacility, FeatureItem, AccentColor } from './adventure';

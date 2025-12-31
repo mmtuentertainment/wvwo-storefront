@@ -27,13 +27,22 @@ import type {
   CaveFormation,
   CavePricing,
   CaveHours,
+  TourDifficulty,
+  FormationType,
+} from '../../types/cave-types';
+import {
+  getTourDifficultyColor,
+  getTourDifficultyBadge,
+  TOUR_DIFFICULTY_LABELS,
+  getFormationTypeLabel as getFormationLabel,
 } from '../../types/cave-types';
 import type { NearbyAttraction } from '../../types/adventure';
 import AdventureGearChecklist from '../adventure/AdventureGearChecklist.astro';
 import AdventureRelatedShop from '../adventure/AdventureRelatedShop.astro';
 import AdventureCTA from '../adventure/AdventureCTA.astro';
 
-const props = Astro.props as CaveTemplateProps;
+interface Props extends CaveTemplateProps {}
+const props: Props = Astro.props;
 const {
   name,
   image,
@@ -62,67 +71,23 @@ const {
 } = props;
 
 /**
- * Get tour difficulty border color class.
- * Maps tour difficulty to left border color.
+ * Helper function wrappers using imported typed functions from cave-types.ts
+ * These provide border color classes (imported functions return badge colors)
  */
-function getTourBorderColor(difficulty: string): string {
-  const colors: Record<string, string> = {
-    'easy': 'border-l-sign-green',
-    'moderate': 'border-l-brand-brown',
-    'strenuous': 'border-l-brand-orange',
-    'wild_cave': 'border-l-red-800',
-  };
-  return colors[difficulty] || 'border-l-brand-brown';
+function getTourBorderColor(difficulty: TourDifficulty): string {
+  return getTourDifficultyColor(difficulty);
 }
 
-/**
- * Get tour difficulty badge color class.
- * Maps tour difficulty to badge background/text color.
- */
-function getTourBadgeColor(difficulty: string): string {
-  const colors: Record<string, string> = {
-    'easy': 'bg-sign-green text-white',
-    'moderate': 'bg-brand-brown text-brand-cream',
-    'strenuous': 'bg-brand-orange text-brand-brown',
-    'wild_cave': 'bg-red-800 text-white',
-  };
-  return colors[difficulty] || 'bg-brand-brown text-brand-cream';
+function getTourBadgeColor(difficulty: TourDifficulty): string {
+  return getTourDifficultyBadge(difficulty);
 }
 
-/**
- * Get human-readable difficulty label.
- */
-function getDifficultyLabel(difficulty: string): string {
-  const labels: Record<string, string> = {
-    'easy': 'Easy',
-    'moderate': 'Moderate',
-    'strenuous': 'Strenuous',
-    'wild_cave': 'Wild Cave',
-  };
-  return labels[difficulty] || difficulty;
+function getDifficultyLabel(difficulty: TourDifficulty): string {
+  return TOUR_DIFFICULTY_LABELS[difficulty];
 }
 
-/**
- * Get formation type display label.
- */
-function getFormationTypeLabel(type: string): string {
-  const labels: Record<string, string> = {
-    'stalactite': 'Stalactite',
-    'stalagmite': 'Stalagmite',
-    'column': 'Column',
-    'flowstone': 'Flowstone',
-    'soda_straw': 'Soda Straw',
-    'drapery': 'Drapery / Bacon Strip',
-    'helictite': 'Helictite',
-    'rimstone_pool': 'Rimstone Pool',
-    'cave_coral': 'Cave Coral / Popcorn',
-    'cave_ribbon': 'Cave Ribbon',
-    'fossil': 'Fossil',
-    'underground_pool': 'Underground Pool',
-    'large_chamber': 'Large Chamber',
-    'other': 'Other Formation',
-  };
-  return labels[type] || type;
+function getFormationTypeLabel(type: FormationType): string {
+  return getFormationLabel(type);
 }
 
 /**
