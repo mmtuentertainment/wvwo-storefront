@@ -45,6 +45,10 @@ export { STAT_ICON_PATHS } from './adventure';
 export { GearItemSchema, RelatedCategorySchema } from './adventure';
 export type { GearItem, GearColumns, RelatedCategory } from './adventure';
 
+// Nearby Attractions (used across cave/lake/river templates)
+export { NearbyAttractionSchema } from './adventure';
+export type { NearbyAttraction } from './adventure';
+
 // SPEC-12: WMA Template types
 export { CampingFacilitySchema, FeatureItemSchema } from './adventure';
 export type { CampingFacility, FeatureItem, AccentColor } from './adventure';
@@ -66,3 +70,41 @@ export type {
   Regulation,
   LakeTemplateProps,
 } from './adventure';
+
+// SPEC-16: Cave Template types
+export {
+  FormationTypeSchema,
+  TourDifficultySchema,
+  CaveTourSchema,
+  CaveFormationSchema,
+  CaveConditionsSchema,
+  CaveAccessibilitySchema,
+  CavePricingSchema,
+  CaveHoursSchema,
+  CaveSafetySchema,
+  CaveHistorySchema,
+  CaveTemplatePropsSchema,
+  FORMATION_TYPE_LABELS,
+  FORMATION_TYPE_DESCRIPTIONS,
+  TOUR_DIFFICULTY_COLORS,
+  TOUR_DIFFICULTY_BADGES,
+  TOUR_DIFFICULTY_LABELS,
+  getTourDifficultyColor,
+  getTourDifficultyBadge,
+  getFormationTypeLabel,
+  getFormationTypeDescription,
+  isCaveAdventure,
+} from './cave-types';
+export type {
+  FormationType,
+  TourDifficulty,
+  CaveTour,
+  CaveFormation,
+  CaveConditions,
+  CaveAccessibility,
+  CavePricing,
+  CaveHours,
+  CaveSafety,
+  CaveHistory,
+  CaveTemplateProps,
+} from './cave-types';
