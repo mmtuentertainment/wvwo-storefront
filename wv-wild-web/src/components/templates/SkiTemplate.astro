@@ -1,0 +1,770 @@
+---
+/**
+ * SkiTemplate.astro
+ * SPEC-15: Ski Resort Template Component
+ *
+ * Comprehensive template for West Virginia ski resort pages with trail information,
+ * lift systems, snow conditions, pricing, terrain parks, lodging, and seasonal content.
+ *
+ * USER STORIES IMPLEMENTED:
+ * - Winter trip planners: Trail counts by difficulty at a glance
+ * - Budget-conscious families: Clear pricing for tickets, rentals, lodging
+ * - Ski enthusiasts: Vertical drop, lift capacity, terrain parks
+ * - Summer visitors: Off-season activities (bike parks, hiking)
+ * - Kim's Tips: Insider local knowledge callouts
+ *
+ * WVWO COMPLIANCE:
+ * - Fonts: font-display (headings), font-hand (Kim's tips ONLY), font-body (content)
+ * - Colors: brand-brown, sign-green, brand-cream, brand-orange (<5% of screen)
+ * - Borders: rounded-sm ONLY (no other border-radius values allowed)
+ * - Trail Colors: Green (beginner), Blue (intermediate - EXCEPTION), Black (advanced), Red (expert)
+ *
+ * @module components/templates/SkiTemplate
+ */
+
+import Layout from '../../layouts/Layout.astro';
+import AdventureGearChecklist from '../adventure/AdventureGearChecklist.astro';
+import AdventureRelatedShop from '../adventure/AdventureRelatedShop.astro';
+import AdventureCTA from '../adventure/AdventureCTA.astro';
+import type {
+  SkiTemplateProps,
+  TrailDifficulty,
+  TerrainPark,
+  Lodging,
+  Dining,
+  Amenity,
+  SummerActivity,
+  SafetyInfo,
+  KimTip,
+} from '../../types/ski-types';
+import {
+  getTrailDifficultyColor,
+  getTrailDifficultyShape,
+  getTrailDifficultyLabel,
+  TRAIL_DIFFICULTY_COLORS,
+  TRAIL_DIFFICULTY_SHAPES,
+} from '../../types/ski-types';
+
+interface Props extends SkiTemplateProps {}
+
+const {
+  name,
+  slug,
+  location,
+  county,
+  image,
+  imageAlt,
+  tagline,
+  description,
+  elevation,
+  season,
+  quickStats,
+  trails,
+  lifts,
+  snowConditions,
+  pricing,
+  terrainParks,
+  lodging,
+  dining,
+  amenities,
+  summerActivities,
+  parkAffiliation,
+  nordicSkiing,
+  passAffiliations,
+  kimTips,
+  gearList,
+  relatedShop,
+  safety,
+  heroImage,
+  trailMapUrl,
+  coordinates,
+} = Astro.props;
+
+/**
+ * Get terrain park difficulty color class.
+ * Maps park difficulty to trail difficulty colors.
+ */
+function getParkDifficultyColor(difficulty: string): string {
+  const map: Record<string, string> = {
+    'Beginner': TRAIL_DIFFICULTY_COLORS.beginner,
+    'Intermediate': TRAIL_DIFFICULTY_COLORS.intermediate,
+    'Advanced': TRAIL_DIFFICULTY_COLORS.advanced,
+    'Expert': TRAIL_DIFFICULTY_COLORS.expert,
+  };
+  return map[difficulty] || 'bg-brand-mud text-brand-cream';
+}
+
+/**
+ * Get safety importance color class.
+ * Critical = red, High = orange, Medium = green
+ */
+function getSafetyColor(importance: string): string {
+  if (importance === 'critical') return 'border-red-800';
+  if (importance === 'high') return 'border-brand-orange';
+  return 'border-sign-green';
+}
+---
+
+<Layout title={`${name} | WV Wild Outdoors`}>
+  <!-- HERO SECTION -->
+  <section
+    class="relative h-[70vh] min-h-[500px] overflow-hidden"
+    aria-label={`${name} hero section`}
+  >
+    <!-- Hero Image -->
+    <img
+      src={image}
+      alt={imageAlt}
+      class="absolute inset-0 w-full h-full object-cover"
+      loading="eager"
+    />
+
+    <!-- Dark Overlay for Text Readability -->
+    <div class="absolute inset-0 bg-brand-brown/50"></div>
+
+    <!-- Hero Content -->
+    <div class="relative h-full container mx-auto px-4">
+      <div class="h-full flex flex-col justify-end pb-16">
+        <!-- Resort Name -->
+        <h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
+          {name}
+        </h1>
+
+        <!-- Location & County -->
+        <p class="font-body text-lg text-brand-cream mb-4">
+          {location} &bull; {county} County
+        </p>
+
+        <!-- Tagline -->
+        {tagline && (
+          <p class="font-body text-xl md:text-2xl text-white mb-6 max-w-2xl">
+            {tagline}
+          </p>
+        )}
+
+        <!-- Elevation Stats -->
+        <div class="grid grid-cols-3 gap-4 mb-6 max-w-lg">
+          <div class="bg-white/95 p-4 rounded-sm text-center">
+            <p class="font-display text-2xl font-bold text-brand-brown">{elevation.summit.toLocaleString()}'</p>
+            <p class="font-body text-xs text-brand-mud uppercase tracking-wide">Summit</p>
+          </div>
+          <div class="bg-white/95 p-4 rounded-sm text-center">
+            <p class="font-display text-2xl font-bold text-brand-brown">{elevation.vertical.toLocaleString()}'</p>
+            <p class="font-body text-xs text-brand-mud uppercase tracking-wide">Vertical</p>
+          </div>
+          <div class="bg-white/95 p-4 rounded-sm text-center">
+            <p class="font-display text-2xl font-bold text-brand-brown">{trails.acreage}</p>
+            <p class="font-body text-xs text-brand-mud uppercase tracking-wide">Acres</p>
+          </div>
+        </div>
+
+        <!-- Quick Stats Badges -->
+        {quickStats.length > 0 && (
+          <div class="flex flex-wrap gap-2 mb-4">
+            {quickStats.map((stat) => (
+              <span class="bg-sign-green text-white px-3 py-1 rounded-sm font-body text-sm font-medium">
+                {stat}
+              </span>
+            ))}
+          </div>
+        )}
+
+        <!-- Season & Trail Map Link -->
+        <div class="flex flex-wrap gap-4 items-center">
+          <span class="font-body text-brand-cream">
+            <strong>Season:</strong> {season.open} - {season.close}
+          </span>
+          {trailMapUrl && (
+            <a
+              href={trailMapUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 bg-brand-orange text-white px-4 py-2 rounded-sm font-body font-medium hover:bg-brand-orange/90 motion-safe:transition-colors motion-reduce:transition-none"
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+              </svg>
+              View Trail Map
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DESCRIPTION SECTION -->
+  <section class="bg-brand-cream py-12">
+    <div class="container mx-auto px-4">
+      <p class="font-body text-lg text-brand-mud leading-relaxed max-w-4xl mx-auto text-center">
+        {description}
+      </p>
+
+      <!-- Pass Affiliations -->
+      {passAffiliations && passAffiliations.length > 0 && (
+        <div class="mt-6 flex justify-center flex-wrap gap-3">
+          {passAffiliations.map((pass) => (
+            <span class="bg-white border border-brand-brown/20 px-4 py-2 rounded-sm font-body text-sm">
+              <strong>{pass.name}</strong>
+              {pass.daysIncluded && ` - ${pass.daysIncluded} days`}
+              {pass.tier && ` (${pass.tier})`}
+            </span>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- KIM'S TIPS SECTION (Optional) -->
+  {kimTips && kimTips.length > 0 && (
+    <section class="py-12 bg-brand-cream" aria-labelledby="kims-tips-heading">
+      <div class="container mx-auto px-4">
+        <h2 id="kims-tips-heading" class="font-display text-3xl font-bold text-brand-brown mb-6 text-center">
+          Kim's Insider Tips
+        </h2>
+        <div class="max-w-3xl mx-auto space-y-4">
+          {kimTips.map((tip) => (
+            <aside
+              role="note"
+              class={`p-6 bg-white border-l-4 rounded-sm ${
+                tip.type === 'warning' ? 'border-brand-orange' :
+                tip.type === 'insider' ? 'border-sign-green' :
+                'border-brand-brown'
+              }`}
+            >
+              <p class="font-hand text-lg text-brand-mud leading-relaxed">
+                {tip.content}
+              </p>
+            </aside>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- TRAILS SECTION -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <h2 class="font-display text-3xl md:text-4xl font-bold text-brand-brown mb-8 text-center">
+        Trail Information
+      </h2>
+
+      <div class="max-w-4xl mx-auto">
+        <!-- Trail Summary -->
+        <div class="text-center mb-8">
+          <p class="font-display text-5xl font-bold text-brand-brown mb-2">{trails.total}</p>
+          <p class="font-body text-lg text-brand-mud">Total Trails</p>
+          {trails.longestRun && (
+            <p class="font-body text-sm text-brand-mud mt-2">
+              Longest Run: {trails.longestRun}
+            </p>
+          )}
+        </div>
+
+        <!-- Trail Breakdown Grid -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <!-- Beginner -->
+          <div class="text-center p-6 bg-brand-cream rounded-sm">
+            <div class="flex items-center justify-center gap-2 mb-2">
+              <span class={`${TRAIL_DIFFICULTY_COLORS.beginner} w-8 h-8 rounded-full flex items-center justify-center font-body text-lg`} aria-hidden="true">
+                {TRAIL_DIFFICULTY_SHAPES.beginner}
+              </span>
+            </div>
+            <p class="font-display text-3xl font-bold text-brand-brown">{trails.beginner}</p>
+            <p class="font-body text-sm text-brand-mud">Beginner</p>
+          </div>
+
+          <!-- Intermediate -->
+          <div class="text-center p-6 bg-brand-cream rounded-sm">
+            <div class="flex items-center justify-center gap-2 mb-2">
+              <span class={`${TRAIL_DIFFICULTY_COLORS.intermediate} w-8 h-8 rounded-sm flex items-center justify-center font-body text-lg`} aria-hidden="true">
+                {TRAIL_DIFFICULTY_SHAPES.intermediate}
+              </span>
+            </div>
+            <p class="font-display text-3xl font-bold text-brand-brown">{trails.intermediate}</p>
+            <p class="font-body text-sm text-brand-mud">Intermediate</p>
+          </div>
+
+          <!-- Advanced -->
+          <div class="text-center p-6 bg-brand-cream rounded-sm">
+            <div class="flex items-center justify-center gap-2 mb-2">
+              <span class={`${TRAIL_DIFFICULTY_COLORS.advanced} w-8 h-8 flex items-center justify-center font-body text-lg`} style="clip-path: polygon(50% 0%, 100% 100%, 0% 100%);" aria-hidden="true">
+                {TRAIL_DIFFICULTY_SHAPES.advanced}
+              </span>
+            </div>
+            <p class="font-display text-3xl font-bold text-brand-brown">{trails.advanced}</p>
+            <p class="font-body text-sm text-brand-mud">Advanced</p>
+          </div>
+
+          <!-- Expert -->
+          <div class="text-center p-6 bg-brand-cream rounded-sm">
+            <div class="flex items-center justify-center gap-2 mb-2">
+              <span class={`${TRAIL_DIFFICULTY_COLORS.expert} w-8 h-8 flex items-center justify-center font-body text-sm`} style="clip-path: polygon(50% 0%, 100% 100%, 0% 100%);" aria-hidden="true">
+                {TRAIL_DIFFICULTY_SHAPES.expert}
+              </span>
+            </div>
+            <p class="font-display text-3xl font-bold text-brand-brown">{trails.expert}</p>
+            <p class="font-body text-sm text-brand-mud">Expert</p>
+          </div>
+        </div>
+
+        <!-- Accessibility Note -->
+        <p class="text-center mt-6 font-body text-sm text-brand-mud">
+          <span class="sr-only">Trail difficulty legend:</span>
+          <span aria-hidden="true">● Green Circle = Beginner | ■ Blue Square = Intermediate | ◆ Black Diamond = Advanced | ◆◆ Double Diamond = Expert</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIFTS & SNOW CONDITIONS SECTION -->
+  <section class="py-16 bg-brand-cream">
+    <div class="container mx-auto px-4">
+      <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-8">
+        <!-- Lifts -->
+        <div>
+          <h2 class="font-display text-3xl font-bold text-brand-brown mb-6">
+            Lift System
+          </h2>
+          <div class="bg-white p-6 rounded-sm">
+            <p class="font-display text-4xl font-bold text-brand-brown mb-4">{lifts.total} Lifts</p>
+            {lifts.capacity && (
+              <p class="font-body text-brand-mud mb-4">
+                Capacity: {lifts.capacity}
+              </p>
+            )}
+            <ul class="space-y-2">
+              {lifts.types.map((liftType) => (
+                <li class="flex justify-between font-body text-brand-mud">
+                  <span>{liftType.type}</span>
+                  <span class="font-bold">{liftType.count}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <!-- Snow Conditions -->
+        <div>
+          <h2 class="font-display text-3xl font-bold text-brand-brown mb-6">
+            Snow Conditions
+          </h2>
+          <div class="bg-white p-6 rounded-sm">
+            <div class="space-y-4">
+              <div>
+                <p class="font-body text-sm text-brand-mud uppercase tracking-wide mb-1">Avg. Annual Snowfall</p>
+                <p class="font-display text-2xl font-bold text-brand-brown">{snowConditions.averageSnowfall}</p>
+              </div>
+              <div>
+                <p class="font-body text-sm text-brand-mud uppercase tracking-wide mb-1">Snowmaking</p>
+                <p class="font-display text-xl font-bold text-brand-brown">{snowConditions.snowmaking}</p>
+              </div>
+              {snowConditions.conditionsUrl && (
+                <a
+                  href={snowConditions.conditionsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center gap-2 bg-sign-green text-white px-4 py-2 rounded-sm font-body font-medium hover:bg-sign-green/90 motion-safe:transition-colors motion-reduce:transition-none"
+                >
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                    <path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM5 10a1 1 0 01-1 1H3a1 1 0 110-2h1a1 1 0 011 1zM8 16v-1h4v1a2 2 0 11-4 0zM12 14c.015-.34.208-.646.477-.859a4 4 0 10-4.954 0c.27.213.462.519.476.859h4.002z" />
+                  </svg>
+                  Check Live Conditions
+                </a>
+              )}
+            </div>
+          </div>
+
+          <!-- Snow Widget Embed -->
+          {snowConditions.widgetEmbed && (
+            <div class="mt-4 bg-white p-4 rounded-sm" set:html={snowConditions.widgetEmbed} />
+          )}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING SECTION -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <h2 class="font-display text-3xl md:text-4xl font-bold text-brand-brown mb-4 text-center">
+        Lift Tickets & Passes
+      </h2>
+
+      {pricing.isDynamic && (
+        <p class="font-body text-center text-brand-mud mb-2">
+          Prices vary by date. Book early for best rates.
+        </p>
+      )}
+      {pricing.lastUpdated && (
+        <p class="font-body text-center text-sm text-brand-mud mb-8">
+          Prices as of {pricing.lastUpdated}
+        </p>
+      )}
+
+      <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-8">
+        <!-- Lift Tickets -->
+        <div>
+          <h3 class="font-display text-2xl font-bold text-brand-brown mb-4">Lift Tickets</h3>
+          <div class="space-y-3">
+            {pricing.liftTickets.map((ticket) => (
+              <div class="flex justify-between items-start bg-brand-cream p-4 rounded-sm border-l-4 border-sign-green">
+                <div>
+                  <p class="font-body font-bold text-brand-brown">{ticket.type}</p>
+                  {ticket.notes && (
+                    <p class="font-body text-sm text-brand-mud">{ticket.notes}</p>
+                  )}
+                </div>
+                <p class="font-display text-xl font-bold text-brand-brown">{ticket.price}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Season Passes -->
+        <div>
+          <h3 class="font-display text-2xl font-bold text-brand-brown mb-4">Season Passes</h3>
+          <div class="space-y-3">
+            {pricing.seasonPass.map((pass) => (
+              <div class="bg-brand-cream p-4 rounded-sm border-l-4 border-brand-orange">
+                <div class="flex justify-between items-start mb-2">
+                  <p class="font-body font-bold text-brand-brown">{pass.type}</p>
+                  <p class="font-display text-xl font-bold text-brand-brown">{pass.price}</p>
+                </div>
+                {pass.benefits && pass.benefits.length > 0 && (
+                  <ul class="list-disc list-inside font-body text-sm text-brand-mud">
+                    {pass.benefits.map((benefit) => (
+                      <li>{benefit}</li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <!-- Rentals -->
+      {pricing.rentals && pricing.rentals.length > 0 && (
+        <div class="max-w-3xl mx-auto mt-8">
+          <h3 class="font-display text-2xl font-bold text-brand-brown mb-4 text-center">Equipment Rentals</h3>
+          <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+            {pricing.rentals.map((rental) => (
+              <div class="text-center bg-brand-cream p-4 rounded-sm">
+                <p class="font-body font-medium text-brand-brown">{rental.package}</p>
+                <p class="font-display text-lg font-bold text-brand-brown">{rental.price}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <!-- Link to Official Pricing -->
+      {pricing.pricingUrl && (
+        <div class="text-center mt-8">
+          <a
+            href={pricing.pricingUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 text-sign-green font-body font-medium hover:underline"
+          >
+            View Current Prices on Official Website
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+          </a>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- TERRAIN PARKS SECTION (Conditional) -->
+  {terrainParks && terrainParks.length > 0 && (
+    <section class="py-16 bg-brand-cream">
+      <div class="container mx-auto px-4">
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-brand-brown mb-8 text-center">
+          Terrain Parks
+        </h2>
+        <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-6">
+          {terrainParks.map((park) => (
+            <div class="bg-white p-6 rounded-sm border-l-4 border-sign-green">
+              <div class="flex justify-between items-start mb-4">
+                <h3 class="font-display text-xl font-bold text-brand-brown">{park.name}</h3>
+                <span class={`${getParkDifficultyColor(park.difficulty)} px-3 py-1 rounded-sm font-body text-sm font-bold`}>
+                  {park.difficulty}
+                </span>
+              </div>
+              <div class="flex flex-wrap gap-2">
+                {park.features.map((feature) => (
+                  <span class="bg-brand-cream px-2 py-1 rounded-sm font-body text-sm text-brand-mud">
+                    {feature}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- LODGING SECTION -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <h2 class="font-display text-3xl md:text-4xl font-bold text-brand-brown mb-8 text-center">
+        Where to Stay
+      </h2>
+      <div class="max-w-5xl mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {lodging.map((property) => (
+          <div class="bg-brand-cream p-6 rounded-sm border-l-4 border-brand-brown">
+            <div class="flex justify-between items-start mb-2">
+              <h3 class="font-display text-xl font-bold text-brand-brown">{property.name}</h3>
+              <span class="bg-white px-2 py-1 rounded-sm font-body text-xs text-brand-mud">
+                {property.type}
+              </span>
+            </div>
+            {property.distance && (
+              <p class="font-body text-sm text-brand-mud mb-3">
+                📍 {property.distance}
+              </p>
+            )}
+            <div class="flex flex-wrap gap-1 mb-3">
+              {property.amenities.slice(0, 4).map((amenity) => (
+                <span class="bg-white px-2 py-1 rounded-sm font-body text-xs text-brand-mud">
+                  {amenity}
+                </span>
+              ))}
+              {property.amenities.length > 4 && (
+                <span class="bg-white px-2 py-1 rounded-sm font-body text-xs text-brand-mud">
+                  +{property.amenities.length - 4} more
+                </span>
+              )}
+            </div>
+            {property.priceRange && (
+              <p class="font-body text-sm font-medium text-brand-brown mb-3">
+                {property.priceRange}
+              </p>
+            )}
+            {property.bookingUrl && (
+              <a
+                href={property.bookingUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-block bg-sign-green text-white px-4 py-2 rounded-sm font-body text-sm font-medium hover:bg-sign-green/90 motion-safe:transition-colors motion-reduce:transition-none"
+              >
+                Book Now
+              </a>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- DINING SECTION (Conditional) -->
+  {dining && dining.length > 0 && (
+    <section class="py-16 bg-brand-cream">
+      <div class="container mx-auto px-4">
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-brand-brown mb-8 text-center">
+          Dining Options
+        </h2>
+        <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-6">
+          {dining.map((restaurant) => (
+            <div class="bg-white p-5 rounded-sm border-l-4 border-sign-green">
+              <div class="flex justify-between items-start mb-2">
+                <h3 class="font-display text-lg font-bold text-brand-brown">{restaurant.name}</h3>
+                <span class="bg-brand-cream px-2 py-1 rounded-sm font-body text-xs text-brand-mud">
+                  {restaurant.type}
+                </span>
+              </div>
+              <p class="font-body text-sm text-brand-mud mb-2">
+                📍 {restaurant.location}
+              </p>
+              {restaurant.notes && (
+                <p class="font-body text-sm text-brand-mud italic">
+                  {restaurant.notes}
+                </p>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- AMENITIES SECTION -->
+  <section class={`py-16 ${dining && dining.length > 0 ? 'bg-white' : 'bg-brand-cream'}`}>
+    <div class="container mx-auto px-4">
+      <h2 class="font-display text-3xl md:text-4xl font-bold text-brand-brown mb-8 text-center">
+        Resort Amenities
+      </h2>
+      <div class="max-w-4xl mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {amenities.map((category) => (
+          <div class="bg-white p-5 rounded-sm border-l-4 border-sign-green">
+            <h3 class="font-display text-lg font-bold text-brand-brown mb-3">{category.category}</h3>
+            <ul class="space-y-1">
+              {category.services.map((service) => (
+                <li class="font-body text-sm text-brand-mud flex items-start gap-2">
+                  <span class="text-sign-green" aria-hidden="true">✓</span>
+                  {service}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- SUMMER ACTIVITIES SECTION (Conditional) -->
+  {summerActivities && summerActivities.length > 0 && (
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-brand-brown mb-4 text-center">
+          Summer at {name}
+        </h2>
+        <p class="font-body text-center text-brand-mud mb-8 max-w-2xl mx-auto">
+          The mountain comes alive with adventure beyond ski season.
+        </p>
+        <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-6">
+          {summerActivities.map((activity) => (
+            <div class="bg-brand-cream p-6 rounded-sm border-l-4 border-brand-orange">
+              <h3 class="font-display text-xl font-bold text-brand-brown mb-2">{activity.name}</h3>
+              <p class="font-body text-brand-mud mb-3">{activity.description}</p>
+              <p class="font-body text-sm text-sign-green font-medium">
+                Season: {activity.season}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- NORDIC SKIING SECTION (Conditional) -->
+  {nordicSkiing && (nordicSkiing.onSite || (nordicSkiing.nearbyFacilities && nordicSkiing.nearbyFacilities.length > 0)) && (
+    <section class="py-12 bg-brand-cream">
+      <div class="container mx-auto px-4">
+        <h2 class="font-display text-2xl font-bold text-brand-brown mb-6 text-center">
+          Cross-Country Skiing
+        </h2>
+        <div class="max-w-3xl mx-auto">
+          {nordicSkiing.onSite && (
+            <p class="font-body text-center text-brand-mud mb-4">
+              ✓ Nordic skiing available on-site
+            </p>
+          )}
+          {nordicSkiing.nearbyFacilities && nordicSkiing.nearbyFacilities.length > 0 && (
+            <div class="grid md:grid-cols-2 gap-4">
+              {nordicSkiing.nearbyFacilities.map((facility) => (
+                <div class="bg-white p-4 rounded-sm">
+                  <p class="font-body font-bold text-brand-brown">{facility.name}</p>
+                  {facility.distance && (
+                    <p class="font-body text-sm text-brand-mud">{facility.distance}</p>
+                  )}
+                  {facility.url && (
+                    <a
+                      href={facility.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="font-body text-sm text-sign-green hover:underline"
+                    >
+                      Visit Website →
+                    </a>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- SAFETY SECTION -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <h2 class="font-display text-3xl md:text-4xl font-bold text-brand-brown mb-8 text-center">
+        Safety Information
+      </h2>
+      <div class="max-w-4xl mx-auto space-y-6">
+        {safety.map((category) => (
+          <div class={`p-6 rounded-sm border-l-4 ${getSafetyColor(category.importance)} bg-brand-cream`}>
+            <h3 class="font-display text-xl font-bold text-brand-brown mb-3">
+              {category.importance === 'critical' && '⚠️ '}
+              {category.category}
+            </h3>
+            <ul class="grid md:grid-cols-2 gap-2">
+              {category.items.map((item) => (
+                <li class="font-body text-sm text-brand-mud flex items-start gap-2">
+                  <span class="text-brand-orange" aria-hidden="true">•</span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- GEAR CHECKLIST SECTION -->
+  <section class="py-16 bg-brand-cream">
+    <div class="container mx-auto px-4">
+      <AdventureGearChecklist
+        items={gearList}
+        title="Winter Gear Checklist"
+        columns={3}
+      />
+    </div>
+  </section>
+
+  <!-- RELATED SHOP SECTION -->
+  {relatedShop.length > 0 && (
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <AdventureRelatedShop
+          categories={relatedShop}
+          title="Shop Winter Gear"
+        />
+      </div>
+    </section>
+  )}
+
+  <!-- CTA SECTION -->
+  <AdventureCTA
+    heading={`Plan Your Trip to ${name}`}
+    description="Ready to hit the slopes? Let us help you gear up for your West Virginia ski adventure."
+    primaryText="Shop Ski Gear"
+    primaryHref="/shop/winter-sports"
+    secondaryText="Contact Us"
+    secondaryHref="/contact"
+    variant="sign-green"
+  />
+
+  <!-- PARK AFFILIATION FOOTER (Conditional) -->
+  {parkAffiliation && (
+    <section class="py-8 bg-brand-cream">
+      <div class="container mx-auto px-4 text-center">
+        <p class="font-body text-sm text-brand-mud">
+          {parkAffiliation.type === 'state_park' && `Part of ${parkAffiliation.name || 'West Virginia State Parks'}`}
+          {parkAffiliation.type === 'national_forest' && `Located in ${parkAffiliation.name || 'Monongahela National Forest'}`}
+          {parkAffiliation.nearbyWilderness && parkAffiliation.nearbyWilderness.length > 0 && (
+            <span class="block mt-1">
+              Near: {parkAffiliation.nearbyWilderness.join(', ')}
+            </span>
+          )}
+        </p>
+      </div>
+    </section>
+  )}
+</Layout>
+
+<style>
+  /* Reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+</style>

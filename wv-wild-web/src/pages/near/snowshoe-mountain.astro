@@ -1,0 +1,100 @@
+---
+/**
+ * Snowshoe Mountain Resort Page
+ * SPEC-15: Ski Resort Template Implementation
+ *
+ * Uses SkiTemplate component with content from adventures collection.
+ */
+import { getEntry } from 'astro:content';
+import SkiTemplate from '../../components/templates/SkiTemplate.astro';
+
+// Get the adventure entry for Snowshoe Mountain
+const adventure = await getEntry('adventures', 'snowshoe-mountain');
+if (!adventure) {
+  throw new Error('Snowshoe Mountain content not found in adventures collection');
+}
+
+const { data } = adventure;
+
+// Map content collection data to SkiTemplateProps
+const templateProps = {
+  // Core identification
+  name: data.title,
+  slug: data.slug || 'snowshoe-mountain',
+  location: data.location,
+  county: data.county || 'Pocahontas',
+
+  // Hero content
+  image: data.image || '/images/adventures/snowshoe-hero.jpg',
+  imageAlt: data.imageAlt || `${data.title} ski resort`,
+  tagline: data.tagline || "West Virginia's Premier Ski Destination",
+  description: data.description,
+
+  // Mountain stats
+  elevation: data.elevation || { base: 4150, summit: 4848, vertical: 1500 },
+  season: data.skiSeason || { open: 'Late November', close: 'Late March' },
+  quickStats: data.quickStats || ['60 Trails', '14 Lifts', "1,500' Vertical"],
+
+  // Trails
+  trails: data.trails || {
+    total: 60,
+    beginner: 14,
+    intermediate: 27,
+    advanced: 10,
+    expert: 9,
+    acreage: 257,
+    longestRun: '1.5 miles',
+  },
+
+  // Lifts
+  lifts: data.lifts || {
+    total: 14,
+    capacity: '21,000 skiers/hour',
+    types: [
+      { type: 'High-Speed Quad', count: 3 },
+      { type: 'Triple Chair', count: 4 },
+      { type: 'Double Chair', count: 3 },
+      { type: 'Surface Lift', count: 4 },
+    ],
+  },
+
+  // Snow conditions
+  snowConditions: data.snowConditions || {
+    averageSnowfall: '180 inches',
+    snowmaking: '100% coverage',
+    conditionsUrl: 'https://www.snowshoemtn.com/the-mountain/conditions',
+  },
+
+  // Pricing
+  pricing: data.pricing || {
+    isDynamic: true,
+    pricingUrl: 'https://www.snowshoemtn.com/plan-your-trip/tickets-passes',
+    lastUpdated: 'December 2025',
+    liftTickets: [],
+    seasonPass: [],
+  },
+
+  // Optional sections
+  terrainParks: data.terrainParks,
+  lodging: data.lodging || [],
+  dining: data.dining,
+  amenities: data.amenities || [],
+  summerActivities: data.summerActivities,
+  parkAffiliation: data.parkAffiliation,
+  nordicSkiing: data.nordicSkiing,
+  passAffiliations: data.passAffiliations,
+  kimTips: data.kimTips,
+
+  // Shared components
+  gearList: data.gearList || [],
+  relatedShop: data.relatedShop || [],
+  safety: data.safety || [],
+
+  // Hero elements
+  heroImage: data.heroImage || data.image || '/images/adventures/snowshoe-hero.jpg',
+  trailMapUrl: data.trailMapUrl,
+  coordinates: data.coordinates,
+};
+---
+
+<SkiTemplate {...templateProps} />
