@@ -35,6 +35,7 @@ import {
     NordicSkiingSchema,
     PassAffiliationSchema,
     SafetyInfoSchema,
+    KimTipSchema,
 } from './types/ski-types';
 
 // ============================================================================
@@ -186,6 +187,7 @@ const adventures = defineCollection({
             href: z.string(),
         })).optional(),
         safety: z.array(SafetyInfoSchema).optional(),
+        kimTips: z.array(KimTipSchema).optional(),
     }),
 });
 
