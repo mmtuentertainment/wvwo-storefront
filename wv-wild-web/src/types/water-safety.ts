@@ -341,8 +341,12 @@ export const WaterSourceSchema = z.object({
 ).refine(
   (data) => {
     // Strongly encourage: do-not-use sources should have warnings
-    // (This is a warning, not a hard fail)
-    if (data.status === 'do-not-use' && (!data.warnings || data.warnings.length === 0)) {
+    // (This is a warning, not a hard fail - dev-only to avoid production log pollution)
+    if (
+      import.meta.env?.DEV &&
+      data.status === 'do-not-use' &&
+      (!data.warnings || data.warnings.length === 0)
+    ) {
       console.warn(`Water source "${data.name}" is do-not-use but has no warnings. Add warnings for user safety.`);
     }
     return true;
