@@ -4,6 +4,8 @@
  * SPEC-15: Ski Resort Template Implementation
  *
  * Uses SkiTemplate component with content from adventures collection.
+ * Content validation is handled by Zod schemas in content.config.ts.
+ * Required fields come directly from validated content - no fallbacks that could mask errors.
  */
 import { getEntry } from 'astro:content';
 import SkiTemplate from '../../components/templates/SkiTemplate.astro';
@@ -16,64 +18,45 @@ if (!adventure) {
 
 const { data } = adventure;
 
+// Validate required ski-specific fields exist
+if (!data.elevation || !data.trails || !data.lifts || !data.snowConditions || !data.pricing) {
+  throw new Error('Canaan Valley is missing required ski resort data (elevation, trails, lifts, snowConditions, or pricing)');
+}
+
 // Map content collection data to SkiTemplateProps
+// Required fields use validated data directly - no fallbacks
+// Optional fields may have sensible defaults
 const templateProps = {
-  // Core identification
+  // Core identification (required)
   name: data.title,
   slug: data.slug || 'canaan-valley',
   location: data.location,
   county: data.county || 'Tucker',
 
-  // Hero content
-  image: data.image || '/images/adventures/canaan-valley-hero.jpg',
+  // Hero content (required)
+  image: data.image,
   imageAlt: data.imageAlt || `${data.title} ski resort`,
-  tagline: data.tagline || "West Virginia's Family Ski Destination",
+  tagline: data.tagline,
   description: data.description,
 
-  // Mountain stats
-  elevation: data.elevation || { base: 3800, summit: 4280, vertical: 850 },
-  season: data.skiSeason || { open: 'Mid-December', close: 'Mid-March' },
-  quickStats: data.quickStats || ['47 Trails', '5 Lifts', "850' Vertical"],
+  // Mountain stats (required - validated above)
+  elevation: data.elevation,
+  season: data.skiSeason,
+  quickStats: data.quickStats || [],
 
-  // Trails
-  trails: data.trails || {
-    total: 47,
-    beginner: 17,
-    intermediate: 21,
-    advanced: 6,
-    expert: 3,
-    acreage: 95,
-    longestRun: '1.25 miles',
-  },
+  // Trails (required - validated above)
+  trails: data.trails,
 
-  // Lifts
-  lifts: data.lifts || {
-    total: 5,
-    capacity: '7,200 skiers/hour',
-    types: [
-      { type: 'Triple Chair', count: 2 },
-      { type: 'Double Chair', count: 2 },
-      { type: 'Surface Lift', count: 1 },
-    ],
-  },
+  // Lifts (required - validated above)
+  lifts: data.lifts,
 
-  // Snow conditions
-  snowConditions: data.snowConditions || {
-    averageSnowfall: '150 inches',
-    snowmaking: '100% coverage',
-    conditionsUrl: 'https://www.canaanresort.com/snow-report',
-  },
+  // Snow conditions (required - validated above)
+  snowConditions: data.snowConditions,
 
-  // Pricing
-  pricing: data.pricing || {
-    isDynamic: false,
-    pricingUrl: 'https://www.canaanresort.com/rates',
-    lastUpdated: 'December 2025',
-    liftTickets: [],
-    seasonPass: [],
-  },
+  // Pricing (required - validated above)
+  pricing: data.pricing,
 
-  // Optional sections
+  // Optional sections (no dangerous fallbacks)
   terrainParks: data.terrainParks,
   lodging: data.lodging || [],
   dining: data.dining,
@@ -84,13 +67,13 @@ const templateProps = {
   passAffiliations: data.passAffiliations,
   kimTips: data.kimTips,
 
-  // Shared components
+  // Shared components (empty arrays are valid)
   gearList: data.gearList || [],
   relatedShop: data.relatedShop || [],
   safety: data.safety || [],
 
   // Hero elements
-  heroImage: data.heroImage || data.image || '/images/adventures/canaan-valley-hero.jpg',
+  heroImage: data.heroImage || data.image,
   trailMapUrl: data.trailMapUrl,
   coordinates: data.coordinates,
 };

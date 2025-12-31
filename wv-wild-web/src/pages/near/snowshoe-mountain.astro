@@ -4,6 +4,8 @@
  * SPEC-15: Ski Resort Template Implementation
  *
  * Uses SkiTemplate component with content from adventures collection.
+ * Content validation is handled by Zod schemas in content.config.ts.
+ * Required fields come directly from validated content - no fallbacks that could mask errors.
  */
 import { getEntry } from 'astro:content';
 import SkiTemplate from '../../components/templates/SkiTemplate.astro';
@@ -16,65 +18,45 @@ if (!adventure) {
 
 const { data } = adventure;
 
+// Validate required ski-specific fields exist
+if (!data.elevation || !data.trails || !data.lifts || !data.snowConditions || !data.pricing) {
+  throw new Error('Snowshoe Mountain is missing required ski resort data (elevation, trails, lifts, snowConditions, or pricing)');
+}
+
 // Map content collection data to SkiTemplateProps
+// Required fields use validated data directly - no fallbacks
+// Optional fields may have sensible defaults
 const templateProps = {
-  // Core identification
+  // Core identification (required)
   name: data.title,
   slug: data.slug || 'snowshoe-mountain',
   location: data.location,
   county: data.county || 'Pocahontas',
 
-  // Hero content
-  image: data.image || '/images/adventures/snowshoe-hero.jpg',
+  // Hero content (required)
+  image: data.image,
   imageAlt: data.imageAlt || `${data.title} ski resort`,
-  tagline: data.tagline || "West Virginia's Premier Ski Destination",
+  tagline: data.tagline,
   description: data.description,
 
-  // Mountain stats
-  elevation: data.elevation || { base: 4150, summit: 4848, vertical: 1500 },
-  season: data.skiSeason || { open: 'Late November', close: 'Late March' },
-  quickStats: data.quickStats || ['60 Trails', '14 Lifts', "1,500' Vertical"],
+  // Mountain stats (required - validated above)
+  elevation: data.elevation,
+  season: data.skiSeason,
+  quickStats: data.quickStats || [],
 
-  // Trails
-  trails: data.trails || {
-    total: 60,
-    beginner: 14,
-    intermediate: 27,
-    advanced: 10,
-    expert: 9,
-    acreage: 257,
-    longestRun: '1.5 miles',
-  },
+  // Trails (required - validated above)
+  trails: data.trails,
 
-  // Lifts
-  lifts: data.lifts || {
-    total: 14,
-    capacity: '21,000 skiers/hour',
-    types: [
-      { type: 'High-Speed Quad', count: 3 },
-      { type: 'Triple Chair', count: 4 },
-      { type: 'Double Chair', count: 3 },
-      { type: 'Surface Lift', count: 4 },
-    ],
-  },
+  // Lifts (required - validated above)
+  lifts: data.lifts,
 
-  // Snow conditions
-  snowConditions: data.snowConditions || {
-    averageSnowfall: '180 inches',
-    snowmaking: '100% coverage',
-    conditionsUrl: 'https://www.snowshoemtn.com/the-mountain/conditions',
-  },
+  // Snow conditions (required - validated above)
+  snowConditions: data.snowConditions,
 
-  // Pricing
-  pricing: data.pricing || {
-    isDynamic: true,
-    pricingUrl: 'https://www.snowshoemtn.com/plan-your-trip/tickets-passes',
-    lastUpdated: 'December 2025',
-    liftTickets: [],
-    seasonPass: [],
-  },
+  // Pricing (required - validated above)
+  pricing: data.pricing,
 
-  // Optional sections
+  // Optional sections (no dangerous fallbacks)
   terrainParks: data.terrainParks,
   lodging: data.lodging || [],
   dining: data.dining,
@@ -85,13 +67,13 @@ const templateProps = {
   passAffiliations: data.passAffiliations,
   kimTips: data.kimTips,
 
-  // Shared components
+  // Shared components (empty arrays are valid)
   gearList: data.gearList || [],
   relatedShop: data.relatedShop || [],
   safety: data.safety || [],
 
   // Hero elements
-  heroImage: data.heroImage || data.image || '/images/adventures/snowshoe-hero.jpg',
+  heroImage: data.heroImage || data.image,
   trailMapUrl: data.trailMapUrl,
   coordinates: data.coordinates,
 };

@@ -78,13 +78,16 @@ export const TRAIL_DIFFICULTY_LABELS: Record<TrailDifficulty, string> = {
  * All measurements in feet.
  */
 export const ElevationSchema = z.object({
-  /** Base elevation in feet */
+  /** Base elevation in feet (base area, may differ from lowest skiable point) */
   base: z.number().int().positive(),
   /** Summit elevation in feet */
   summit: z.number().int().positive(),
-  /** Vertical drop in feet */
+  /** Vertical drop in feet (max vertical on any single run, may exceed summit-base if base area != lowest point) */
   vertical: z.number().int().positive(),
-});
+}).refine(
+  (data) => data.summit > data.base,
+  { message: 'Summit elevation must be higher than base elevation' }
+);
 
 export type Elevation = z.infer<typeof ElevationSchema>;
 
@@ -124,7 +127,10 @@ export const TrailsSchema = z.object({
   acreage: z.number().positive(),
   /** Optional longest run (e.g., "1.5 miles") */
   longestRun: z.string().optional(),
-});
+}).refine(
+  (data) => data.total === data.beginner + data.intermediate + data.advanced + data.expert,
+  { message: 'Trail total must equal sum of beginner + intermediate + advanced + expert' }
+);
 
 export type Trails = z.infer<typeof TrailsSchema>;
 

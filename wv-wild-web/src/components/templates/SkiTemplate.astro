@@ -265,7 +265,7 @@ function getSafetyColor(importance: string): string {
           <!-- Beginner -->
           <div class="text-center p-6 bg-brand-cream rounded-sm">
             <div class="flex items-center justify-center gap-2 mb-2">
-              <span class={`${TRAIL_DIFFICULTY_COLORS.beginner} w-8 h-8 rounded-full flex items-center justify-center font-body text-lg`} aria-hidden="true">
+              <span class={`${TRAIL_DIFFICULTY_COLORS.beginner} w-8 h-8 rounded-sm flex items-center justify-center font-body text-lg`} aria-hidden="true">
                 {TRAIL_DIFFICULTY_SHAPES.beginner}
               </span>
             </div>
@@ -375,6 +375,9 @@ function getSafetyColor(importance: string): string {
           </div>
 
           <!-- Snow Widget Embed -->
+          {/* SECURITY NOTE: set:html renders raw HTML. Content comes from trusted markdown
+              files authored by site owner. Only allow iframe embeds from trusted sources
+              (OnTheSnow, MountainNews, resort official sites). */}
           {snowConditions.widgetEmbed && (
             <div class="mt-4 bg-white p-4 rounded-sm" set:html={snowConditions.widgetEmbed} />
           )}
