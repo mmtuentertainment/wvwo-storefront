@@ -162,7 +162,10 @@ export const LiftsSchema = z.object({
   types: z.array(LiftTypeSchema).min(1).max(10),
   /** Optional hourly capacity (e.g., "12,000 skiers/hour") */
   capacity: z.string().optional(),
-});
+}).refine(
+  (data) => data.total === data.types.reduce((sum, t) => sum + t.count, 0),
+  { message: 'Lift total must equal sum of type counts' }
+);
 
 export type Lifts = z.infer<typeof LiftsSchema>;
 
