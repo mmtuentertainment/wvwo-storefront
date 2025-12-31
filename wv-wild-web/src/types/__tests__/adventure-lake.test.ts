@@ -248,6 +248,7 @@ describe('RegulationSchema', () => {
     const validRegulation: Regulation = {
       category: 'Boat Speed',
       details: '10 mph no-wake zone near marina',
+      important: false,
     };
 
     const result = RegulationSchema.safeParse(validRegulation);
@@ -335,6 +336,7 @@ describe('LakeTemplateProps interface', () => {
         {
           category: 'License',
           details: 'WV license required',
+          important: false,
         },
       ],
       gearList: [
@@ -466,6 +468,7 @@ describe('Lake type system integration', () => {
         {
           category: 'Rules',
           details: 'Follow all rules',
+          important: false,
         },
       ],
       gearList: [{ name: 'Rod', optional: false }],

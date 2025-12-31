@@ -6,7 +6,25 @@
  */
 
 import { describe, it, expect } from 'vitest';
-import type { Outfitter, Coordinates } from '../../../types/adventure';
+import type { Coordinates } from '../../../types/adventure';
+
+/**
+ * Extended outfitter type for SEO schema generation tests.
+ * This includes additional fields needed for JSON-LD LocalBusiness schema
+ * that aren't part of the base Outfitter type.
+ */
+interface SchemaOutfitter {
+  name: string;
+  services: string[];
+  contact: {
+    phone: string;
+    website: string;
+    email?: string;
+  };
+  priceRange: string;
+  seasonalNotes?: string;
+  website?: string;
+}
 
 describe('SchemaRiverTemplate Integration', () => {
   // Sample data matching Gauley River adventure
@@ -52,7 +70,7 @@ describe('SchemaRiverTemplate Integration', () => {
         },
         priceRange: '$$$',
       },
-    ] as Outfitter[],
+    ] as SchemaOutfitter[],
   };
 
   describe('Complete Schema Generation', () => {
@@ -359,10 +377,10 @@ describe('SchemaRiverTemplate Integration', () => {
 
   describe('Edge Cases', () => {
     it('should handle river without coordinates', () => {
-      const dataWithoutCoords = { ...sampleRiverData };
-      delete dataWithoutCoords.coordinates;
+      // Create data without coordinates by destructuring and omitting
+      const { coordinates: _unused, ...dataWithoutCoords } = sampleRiverData;
 
-      const attraction = {
+      const attraction: Record<string, unknown> = {
         '@type': ['TouristAttraction', 'Place'],
         'name': dataWithoutCoords.name,
         'address': {

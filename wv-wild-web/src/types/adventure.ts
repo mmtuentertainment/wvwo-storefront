@@ -45,11 +45,13 @@ export const CoordinatesSchema = z.object({
 /**
  * Difficulty level for adventures.
  * Each level has associated shape icon and color for accessibility.
+ * Colors follow international hiking/trail difficulty standards.
+ * Industry safety colors OVERRIDE WVWO brand palette per CLAUDE.md.
  *
- * - easy: Green badge with circle icon (●)
- * - moderate: Orange badge with triangle icon (▲)
- * - challenging: Mud-brown badge with square icon (■)
- * - rugged: Red badge with diamond icon (◆)
+ * - easy: Green badge with circle icon (●) - Industry standard
+ * - moderate: Blue badge with square icon (■) - Industry standard
+ * - challenging: Red badge with triangle icon (▲) - Industry standard
+ * - rugged: Black badge with diamond icon (◆) - Industry standard
  */
 export type Difficulty = z.infer<typeof DifficultySchema>;
 
@@ -86,27 +88,27 @@ export const DIFFICULTY_LABELS: Record<Difficulty, string> = {
 /**
  * Shape icons for color-blind accessibility.
  * Each difficulty level has a unique shape that remains distinguishable
- * regardless of color perception.
+ * regardless of color perception. Follows international hiking standards.
  */
 export const DIFFICULTY_SHAPES: Record<Difficulty, string> = {
-  easy: '\u25CF',      // ● (circle)
-  moderate: '\u25B2',  // ▲ (triangle)
-  challenging: '\u25A0',  // ■ (square)
-  rugged: '\u25C6',    // ◆ (diamond)
+  easy: '\u25CF',         // ● (circle) - Green
+  moderate: '\u25A0',     // ■ (square) - Blue
+  challenging: '\u25B2',  // ▲ (triangle) - Red
+  rugged: '\u25C6',       // ◆ (diamond) - Black
 };
 
 /**
  * Tailwind color classes for each difficulty level.
- * Colors tied to physical WV objects per WVWO aesthetic guidelines.
+ * Colors follow international hiking/trail difficulty standards.
+ * Industry safety colors OVERRIDE WVWO brand palette per CLAUDE.md.
  *
- * Note: moderate uses text-brand-brown for WCAG 4.5:1 contrast ratio
- * (orange #FF6F00 on white only achieves 2.96:1 - fails WCAG AA)
+ * @see CLAUDE.md "Color Exceptions (Industry Standards)"
  */
 export const DIFFICULTY_COLORS: Record<Difficulty, string> = {
-  easy: 'bg-sign-green text-white',
-  moderate: 'bg-brand-orange text-brand-brown', // Fixed contrast: 5.81:1
-  challenging: 'bg-brand-mud text-brand-cream',
-  rugged: 'bg-red-800 text-white',
+  easy: 'bg-sign-green text-white',       // Industry standard: Green = Easy
+  moderate: 'bg-blue-700 text-white',     // Industry standard: Blue = Moderate
+  challenging: 'bg-red-900 text-white',   // Industry standard: Red = Challenging
+  rugged: 'bg-black text-white',          // Industry standard: Black = Expert/Rugged
 };
 
 /**
@@ -136,6 +138,7 @@ export const StatIconSchema = z.enum([
   'location',
   'area',
   'circle',  // SPEC-11: For optional gear items
+  'elevation',  // SPEC-13: For depth stats (lakes, caves)
   'none',
 ]);
 
@@ -179,6 +182,8 @@ export const STAT_ICON_PATHS: Record<StatIcon, string | null> = {
     'M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z',
   area: 'M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6z',
   circle: 'M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z',
+  elevation:
+    'M3 17l6-6 4 4 8-8m0 0v6m0-6h-6', // Arrow trending up - represents depth/elevation
   none: null,
 };
 

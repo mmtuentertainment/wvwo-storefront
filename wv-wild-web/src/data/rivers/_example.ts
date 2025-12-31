@@ -143,10 +143,10 @@ export const exampleRiverData: RiverTemplateProps = {
       'WV fishing license required. Smallmouth bass: 15" minimum, 5 fish daily limit. ' +
       'Trout: Special regulations in tailwater - check WVDNR website.',
     catchAndRelease: 'Catch and release encouraged for all bass to preserve trophy fishery.',
-    kimNote:
-      'The water\'s gin-clear, so downsize your line to 6-8 lb test. These fish see EVERYTHING. ' +
-      'Try a 3" tube jig in smoke or pumpkin - deadly on Gauley smallmouth!',
   },
+
+  // Kim's personal fishing tips are now outside the fishing object
+  // Use kimsTip at the top-level of river data if needed
 
   // ============================================================================
   // OUTFITTERS & GUIDE SERVICES

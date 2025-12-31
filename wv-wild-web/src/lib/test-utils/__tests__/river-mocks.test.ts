@@ -30,10 +30,10 @@ describe('River Mock Factories', () => {
     it('should override properties when provided', () => {
       const rapid = createMockRapid({
         name: 'Custom Rapid',
-        class: { base: 'VI' },
+        class: { base: 'V' },
       });
       expect(rapid.name).toBe('Custom Rapid');
-      expect(rapid.class.base).toBe('VI');
+      expect(rapid.class.base).toBe('V');
     });
 
     it('should maintain non-overridden default values', () => {

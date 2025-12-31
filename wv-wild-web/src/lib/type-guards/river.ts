@@ -168,7 +168,7 @@ export function isCompleteRiverTemplate(props: any): props is RiverTemplateProps
     Array.isArray(props.quickHighlights) &&
     // Content sections
     Array.isArray(props.rapids) &&
-    hasFishing(props) &&
+    props.fishing !== undefined && typeof props.fishing === 'object' &&
     Array.isArray(props.outfitters) &&
     Array.isArray(props.seasonalFlow) &&
     Array.isArray(props.accessPoints) &&

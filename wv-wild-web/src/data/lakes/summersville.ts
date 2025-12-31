@@ -15,7 +15,7 @@
  * - Related shop categories
  */
 
-import type { LakeTemplateProps, FishingSpot, GearItem, RelatedCategory } from '../types/adventure';
+import type { LakeTemplateProps, FishingSpot, GearItem, RelatedCategory } from '../../types/adventure';
 
 /**
  * Complete lake data for Summersville Lake WMA
@@ -232,10 +232,12 @@ export const summersvilleLakeData: LakeTemplateProps = {
     {
       category: 'Camping Regulations',
       details: 'Developed campgrounds have specific rules and fees. Dispersed camping may be allowed on WMA land - check current regulations. Pack out all trash. No pets at Battle Run Campground.',
+      important: false,
     },
     {
       category: 'Scuba Diving Safety',
       details: 'Certification required. Use dive flags when in the water. Check with Sarge\'s Dive Shop for site conditions and safety briefings. Summer water temps 68-80°F.',
+      important: false,
     },
   ],
 
