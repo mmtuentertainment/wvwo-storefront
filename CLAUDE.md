@@ -105,6 +105,12 @@ Inter, DM Sans, Space Grotesk, Poppins, Outfit, Montserrat, Raleway, Open Sans, 
 - Diagonal multi-stop gradients
 ```
 
+**Color Exceptions (Industry Standards):**
+```
+- Ski trail difficulty: Blue (#1976D2 / blue-700) for intermediate trails
+  Reason: NASAA/NSAA industry standard - green circle, blue square, black diamond
+```
+
 **Styles - NEVER USE:**
 ```
 - Glassmorphism / backdrop-blur
