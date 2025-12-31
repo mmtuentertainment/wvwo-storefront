@@ -29,6 +29,12 @@ import {
   type Difficulty,
   type Season,
 } from './adventure';
+import {
+  ThreatLevelSchema,
+  type ThreatLevel,
+  type BackcountryTemplateProps,
+  type TieredEmergencyContact,
+} from './backcountry-template-types';
 
 // ============================================================================
 // MOBILITY RATING (4 levels)
@@ -499,13 +505,7 @@ export function getManagingAgencyLabel(agency: ManagingAgency): string {
 // WILDLIFE HAZARDS (P0 - Safety Critical)
 // ============================================================================
 
-/**
- * Threat level for wildlife encounters.
- * Uses industry-standard danger color progression.
- */
-export const ThreatLevelSchema = z.enum(['low', 'moderate', 'high', 'extreme']);
-
-export type ThreatLevel = z.infer<typeof ThreatLevelSchema>;
+// ThreatLevelSchema imported from backcountry-template-types.ts (canonical source)
 
 /**
  * Wildlife hazard information.
@@ -818,75 +818,14 @@ export const BACKCOUNTRY_ACCESSIBILITY_EXAMPLE: BackcountryAccessibility = {
 
 // ============================================================================
 // TIERED EMERGENCY CONTACT SCHEMA [P0 Safety]
+// NOTE: Canonical TieredEmergencyContactSchema is exported from backcountry-template-types.ts
+// with extended tier types: 'primary'|'sar'|'agency'|'medical'|'poison'
 // ============================================================================
-
-/**
- * Emergency contact tier - determines display priority and UI treatment.
- * Primary contacts show prominently, secondary/specialized show in expandable sections.
- */
-export const EmergencyContactTierSchema = z.enum(['primary', 'secondary', 'specialized']);
-
-export type EmergencyContactTier = z.infer<typeof EmergencyContactTierSchema>;
-
-/**
- * Tiered emergency contact for backcountry areas.
- * Provides structured emergency information with priority levels.
- *
- * CRITICAL: This is P0 safety data. Primary contacts (911, SAR) must always be visible.
- */
-export const TieredEmergencyContactSchema = z.object({
-  /** Contact priority tier */
-  tier: EmergencyContactTierSchema,
-  /** Service name (e.g., "Tucker County 911", "Potomac SAR") */
-  service: z.string().min(1),
-  /** Phone number (formatted for tel: link) */
-  phone: z.string().min(1),
-  /** Availability (e.g., "24/7", "Daylight hours only") */
-  available: z.string().min(1),
-  /** Optional notes (e.g., "Request backcountry SAR team") */
-  notes: z.string().optional(),
-  /** Optional alternate contact method */
-  alternateContact: z.string().optional(),
-});
-
-export type TieredEmergencyContact = z.infer<typeof TieredEmergencyContactSchema>;
 
 // ============================================================================
 // REGULATIONS SCHEMA
+// NOTE: Canonical RegulationsSchema is exported from backcountry-template-types.ts
 // ============================================================================
-
-/**
- * Regulations and policies for backcountry areas.
- * Covers permits, fire policies, and hunting/fishing rules.
- */
-export const RegulationsSchema = z.object({
-  /** Whether a permit is required for entry/camping */
-  permitRequired: z.boolean(),
-  /** Permit details if required */
-  permitDetails: z.string().optional(),
-  /** Where to obtain permit */
-  permitSource: z.string().optional(),
-  /** Fire policies (campfire restrictions, etc.) */
-  firePolicies: z.array(z.string().min(1)).min(1).max(15),
-  /** Group size limits if any */
-  groupSizeLimit: z.number().int().positive().optional(),
-  /** Whether hunting is allowed */
-  huntingAllowed: z.boolean(),
-  /** Hunting regulations/notes */
-  huntingNotes: z.string().optional(),
-  /** Whether fishing is allowed */
-  fishingAllowed: z.boolean().optional(),
-  /** Fishing regulations/notes */
-  fishingNotes: z.string().optional(),
-  /** Drone policies */
-  dronePolicy: z.string().optional(),
-  /** Pet policies */
-  petPolicy: z.string().optional(),
-  /** Additional regulations */
-  additionalRegulations: z.array(z.string().min(1)).optional(),
-});
-
-export type Regulations = z.infer<typeof RegulationsSchema>;
 
 // ============================================================================
 // SIMPLIFIED BACKCOUNTRY NAVIGATION SCHEMA (for template props)
@@ -1043,138 +982,10 @@ export type NearbyAttraction = z.infer<typeof NearbyAttractionSchema>;
 
 // ============================================================================
 // BACKCOUNTRY TEMPLATE PROPS SCHEMA (Main Composition)
+// NOTE: Canonical BackcountryTemplatePropsSchema is exported from backcountry-template-types.ts
+// Uses NavigationSummarySchema and extended TieredEmergencyContactSchema with tier types:
+// 'primary'|'sar'|'agency'|'medical'|'poison'
 // ============================================================================
-
-/**
- * Main template props schema composing all backcountry domains.
- * This is the top-level schema for BackcountryTemplate.astro.
- *
- * REQUIRED FIELDS (5 minimum for P0 safety):
- * 1. name - Destination identifier
- * 2. heroImage - Visual identification
- * 3. navigation - Coordinates and cell coverage [P0 Safety]
- * 4. emergencyContacts - Emergency services [P0 Safety]
- * 5. regulations - Land management rules
- *
- * All other fields are optional to allow incremental content creation.
- */
-export const BackcountryTemplatePropsSchema = z.object({
-  // ========== REQUIRED FIELDS (5 minimum) ==========
-  /** Destination name */
-  name: z.string().min(1),
-  /** Hero image path */
-  heroImage: z.string().min(1),
-  /** Navigation info including cell coverage [P0 Safety] */
-  navigation: BackcountryNavigationPropsSchema,
-  /** Emergency contacts [P0 Safety] */
-  emergencyContacts: z.array(TieredEmergencyContactSchema).min(1),
-  /** Regulations and managing agency */
-  regulations: RegulationsSchema,
-
-  // ========== LOCATION ==========
-  /** County name(s) */
-  county: z.string().optional(),
-  /** Nearest town for reference */
-  nearestTown: z.string().optional(),
-  /** GPS coordinates (simplified from navigation) */
-  coordinates: CoordinatesSchema.optional(),
-
-  // ========== WILDERNESS INFO ==========
-  /** Type discriminator for content collections */
-  type: z.literal('backcountry').optional(),
-  /** Tagline or short description */
-  tagline: z.string().optional(),
-  /** Full description */
-  description: z.string().optional(),
-  /** Wilderness area details */
-  wildernessArea: WildernessAreaSchema.optional(),
-  /** Total acreage */
-  acreage: z.number().positive().optional(),
-
-  // ========== CAMPING & WATER [P0 Safety] ==========
-  /**
-   * Camping info with water sources.
-   * Uses inline schema compatible with BackcountryCampingSchema from water-safety.ts.
-   */
-  camping: z.object({
-    regulations: z.array(z.string().min(1)).min(1),
-    permittedSites: z.string().min(1),
-    waterSources: z.array(z.any()).min(0).max(50),
-    restrictions: z.array(z.string().min(1)).min(0),
-    waterSafetyAdvisory: z.string().optional(),
-    hasAMDConcerns: z.boolean().optional().default(false),
-  }).optional(),
-
-  // ========== TRAILS ==========
-  /** Trail system */
-  trails: z.array(BackcountryTrailSchema).optional(),
-
-  // ========== HAZARDS [P0 Safety] ==========
-  /**
-   * Weather hazards with timing.
-   * Uses inline schema compatible with WeatherHazardsSchema from weather-hazards.ts.
-   */
-  weatherHazards: z.object({
-    flashFloods: z.any(),
-    lightning: z.any(),
-    temperatureByElevation: z.any(),
-    rapidOnsetEvents: z.array(z.string().min(1)).min(1).max(15),
-    windChill: z.any().optional(),
-    hypothermiaRisk: z.any().optional(),
-    rapidOnsetEventDetails: z.array(z.any()).optional(),
-    emergencyInfoSources: z.array(z.any()).optional(),
-  }).optional(),
-  /** Wildlife hazards */
-  wildlifeHazards: z.array(WildlifeHazardSchema).optional(),
-
-  // ========== SKILLS & GEAR ==========
-  /** Required skills by category */
-  requiredSkills: z.array(RequiredSkillSchema).optional(),
-  /** Accessibility info */
-  accessibility: BackcountryAccessibilitySchema.optional(),
-
-  // ========== LEAVE NO TRACE ==========
-  /** LNT principles with specific guidelines */
-  leaveNoTrace: z.array(LeaveNoTracePrincipleSchema).optional(),
-
-  // ========== SEASONAL ==========
-  /**
-   * Seasonal conditions.
-   * Uses inline schema compatible with SeasonalConditionsSchema from weather-hazards.ts.
-   */
-  seasonalConditions: z.array(z.object({
-    season: z.string().min(1),
-    avgHighTemp: z.string().min(1),
-    avgLowTemp: z.string().min(1),
-    precipitationDays: z.number().int().nonnegative().max(31),
-    snowDepthRange: z.string().optional(),
-    primaryHazards: z.array(z.string().min(1)).min(1).max(10),
-    bestActivities: z.array(z.string().min(1)).min(1).max(15),
-    notRecommended: z.array(z.string().min(1)).optional(),
-    daylightHours: z.string().optional(),
-    accessConditions: z.string().optional(),
-    wildlifeNotes: z.string().optional(),
-    kimNote: z.string().optional(),
-  })).optional(),
-
-  // ========== QUICK STATS ==========
-  /** Stats for hero section */
-  stats: z.array(StatItemSchema).optional(),
-
-  // ========== SHARED COMPONENT DATA ==========
-  /** Gear checklist */
-  gearList: z.array(GearItemSchema).optional(),
-  /** Related shop categories */
-  relatedShop: z.array(RelatedCategorySchema).optional(),
-  /** Nearby attractions */
-  nearbyAttractions: z.array(NearbyAttractionSchema).optional(),
-
-  // ========== KIM'S VOICE ==========
-  /** Kim's personal notes */
-  kimNotes: z.array(z.string().min(1)).optional(),
-});
-
-export type BackcountryTemplateProps = z.infer<typeof BackcountryTemplatePropsSchema>;
 
 // ============================================================================
 // TYPE GUARD FUNCTIONS
@@ -1206,86 +1017,9 @@ export function isBackcountryTemplate(adventure: unknown): adventure is { data: 
 
 // ============================================================================
 // EXAMPLE CONSTANTS FOR DOCUMENTATION/TESTING
+// NOTE: BackcountryTemplateProps and TieredEmergencyContact examples are in
+// backcountry-template-types.ts which has the canonical schema definitions.
 // ============================================================================
-
-/**
- * Example minimal BackcountryTemplateProps for documentation/testing.
- * Shows the 5 required fields with minimal valid data.
- */
-export const BACKCOUNTRY_TEMPLATE_EXAMPLE: Partial<BackcountryTemplateProps> = {
-  name: 'Dolly Sods Wilderness',
-  heroImage: '/images/adventures/dolly-sods-hero.jpg',
-  navigation: {
-    coordinates: {
-      decimal: { lat: 39.03, lng: -79.35 },
-    },
-    cellCoverage: {
-      overall: 'none',
-      carriers: [],
-    },
-    satellite: {
-      importance: 'essential',
-      devices: ['Garmin inReach', 'SPOT'],
-    },
-  },
-  emergencyContacts: [
-    {
-      tier: 'primary',
-      service: 'Tucker County 911',
-      phone: '911',
-      available: '24/7',
-    },
-    {
-      tier: 'secondary',
-      service: 'Monongahela NF Ranger Station',
-      phone: '304-636-1800',
-      available: '8am-4:30pm Mon-Fri',
-      notes: 'For non-emergency wilderness info',
-    },
-  ],
-  regulations: {
-    permitRequired: false,
-    firePolicies: [
-      'No campfires above 4,000 ft during high fire danger',
-      'Use established fire rings where available',
-      'Pack out all ash and debris',
-    ],
-    huntingAllowed: true,
-    huntingNotes: 'WV hunting license required. Check WVDNR for season dates.',
-  },
-};
-
-/**
- * Example emergency contact tiers for reference.
- */
-export const EMERGENCY_CONTACT_EXAMPLES: TieredEmergencyContact[] = [
-  {
-    tier: 'primary',
-    service: '911 Emergency',
-    phone: '911',
-    available: '24/7',
-    notes: 'Request SAR if needed',
-  },
-  {
-    tier: 'primary',
-    service: 'WV State Police',
-    phone: '304-555-0100',
-    available: '24/7',
-  },
-  {
-    tier: 'secondary',
-    service: 'USFS Ranger Station',
-    phone: '304-555-0200',
-    available: '8am-4:30pm weekdays',
-  },
-  {
-    tier: 'specialized',
-    service: 'Poison Control',
-    phone: '1-800-222-1222',
-    available: '24/7',
-    notes: 'For snake bites, plant poisoning',
-  },
-];
 
 /**
  * Example wildlife hazard for black bear (common in WV).

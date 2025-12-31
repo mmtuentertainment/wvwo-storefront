@@ -299,7 +299,7 @@ describe('CellSignalStrengthSchema', () => {
   });
 });
 
-describe('CellCoverageSchema', () => {
+describe('CellCoverageSchema [P0]', () => {
   it('accepts complete cell coverage info', () => {
     const result = CellCoverageSchema.safeParse({
       status: 'none',
@@ -639,7 +639,7 @@ describe('getBlazingReliabilityLabel', () => {
   });
 });
 
-describe('isSatelliteCritical', () => {
+describe('isSatelliteCritical [P0]', () => {
   it('returns true if any access point has no cell coverage', () => {
     const accessPoints: BackcountryAccessPoint[] = [
       {

@@ -47,7 +47,7 @@ import {
 // FLASH FLOOD HAZARD TESTS
 // ============================================================================
 
-describe('FlashFloodHazardSchema', () => {
+describe('FlashFloodHazardSchema [P0]', () => {
   const validFlashFlood = {
     warningTime: '15-30 minutes',
     highRiskAreas: ['Narrow hollows below cliffs', 'Stream crossings', 'Canyon bottoms'],
@@ -209,7 +209,7 @@ describe('WindChillHazardSchema', () => {
 // HYPOTHERMIA RISK TESTS
 // ============================================================================
 
-describe('HypothermiaRiskSchema', () => {
+describe('HypothermiaRiskSchema [P0]', () => {
   const validHypothermia = {
     seasons: ['Spring', 'Fall', 'Winter'],
     wetConditionWarning: 'Hypothermia possible at 50°F with wet clothing and wind.',
@@ -379,7 +379,7 @@ describe('SeasonalConditionsSchema', () => {
 // AVALANCHE HAZARD TESTS
 // ============================================================================
 
-describe('AvalancheHazardSchema', () => {
+describe('AvalancheHazardSchema [P0]', () => {
   const validAvalanche = {
     applicableElevation: 'Above 4,000ft during winter',
     dangerSeason: 'December through March',
@@ -408,7 +408,7 @@ describe('AvalancheHazardSchema', () => {
 // FIRE DANGER HAZARD TESTS
 // ============================================================================
 
-describe('FireDangerHazardSchema', () => {
+describe('FireDangerHazardSchema [P0]', () => {
   const validFire = {
     restrictions: 'No open fires during high danger periods',
     peakSeason: 'Late summer through fall (August-October)',

@@ -95,7 +95,7 @@ describe('ContaminantTypeSchema', () => {
   });
 });
 
-describe('AMDWarningSchema', () => {
+describe('AMDWarningSchema [P0]', () => {
   it('accepts valid AMD warning with all fields', () => {
     const warning = {
       contaminantType: 'amd',
@@ -118,7 +118,7 @@ describe('AMDWarningSchema', () => {
 // WATER SOURCE SCHEMA TESTS
 // ============================================================================
 
-describe('WaterSourceSchema', () => {
+describe('WaterSourceSchema [P0]', () => {
   const validSafeSource: WaterSource = {
     name: 'Spruce Knob Spring',
     status: 'safe',
@@ -330,7 +330,7 @@ describe('getContaminantInfo', () => {
   });
 });
 
-describe('hasAMDWarning', () => {
+describe('hasAMDWarning [P0]', () => {
   it('returns true for AMD contaminant type', () => {
     const source: WaterSource = {
       name: 'Test Creek',
@@ -511,7 +511,7 @@ describe('isPotableWaterSource', () => {
   });
 });
 
-describe('isToxicWaterSource', () => {
+describe('isToxicWaterSource [P0]', () => {
   it('returns true for do-not-use sources', () => {
     const source: WaterSource = {
       name: 'AMD Creek',
