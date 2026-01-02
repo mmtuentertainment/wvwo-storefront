@@ -148,3 +148,4 @@ docs/swarm-memory/
 # Test coverage reports
 coverage/
 wv-wild-web/coverage/
+reports/
