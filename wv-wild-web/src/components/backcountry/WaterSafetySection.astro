@@ -1,0 +1,388 @@
+---
+/**
+ * WaterSafetySection.astro
+ * SPEC-17: P0 Safety-Critical Water Source & AMD Warning Display
+ *
+ * CRITICAL SAFETY CONTEXT:
+ * West Virginia has extensive coal mining history. Acid Mine Drainage (AMD)
+ * contaminates water sources with heavy metals that CANNOT be removed by
+ * standard backcountry treatment (filters, boiling, chemicals).
+ *
+ * This component displays:
+ * - AMD warning banner when hasAMDConcerns is true
+ * - Water source cards with status-based styling
+ * - "DO NOT USE" sources with prominent red borders and skull icons
+ * - Educational content about AMD hazards
+ * - Kim's voice warnings about mining heritage
+ *
+ * LIFE SAFETY CRITICAL: This component must clearly communicate which
+ * water sources are TOXIC and cannot be treated in the field.
+ *
+ * @module components/backcountry/WaterSafetySection
+ */
+
+import {
+  type WaterSource,
+  type WaterStatus,
+  WATER_STATUS_CONFIG,
+  WATER_RELIABILITY_LABELS,
+  WATER_TREATMENT_LABELS,
+  hasAMDWarning,
+  isToxicWaterSource,
+  hasDoNotUseSources,
+  getWaterSourceCounts,
+  AMD_EDUCATION,
+} from '../../types/water-safety';
+
+interface Props {
+  /** Array of water sources with status, reliability, and treatment info */
+  waterSources: WaterSource[];
+  /** Whether area has known AMD (Acid Mine Drainage) concerns */
+  hasAMDConcerns?: boolean;
+  /** General water safety advisory for the area */
+  waterSafetyAdvisory?: string;
+  /** Area name for context */
+  areaName: string;
+  /** Background variant */
+  variant?: 'white' | 'cream';
+}
+
+const {
+  waterSources,
+  hasAMDConcerns = false,
+  waterSafetyAdvisory,
+  areaName,
+  variant = 'white',
+} = Astro.props;
+
+const bgClass = variant === 'white' ? 'bg-white' : 'bg-brand-cream';
+const hasToxicSources = hasDoNotUseSources(waterSources);
+const sourceCounts = getWaterSourceCounts(waterSources);
+
+// Show AMD education section if concerns exist or toxic sources present
+const showAMDEducation = hasAMDConcerns || hasToxicSources;
+
+/**
+ * Get card styling based on water status
+ */
+function getCardStyles(status: WaterStatus): {
+  borderClass: string;
+  bgClass: string;
+  iconClass: string;
+} {
+  const config = WATER_STATUS_CONFIG[status];
+  return {
+    borderClass: config.borderClass,
+    bgClass: config.bgClass,
+    iconClass: config.colorClass,
+  };
+}
+---
+
+<section
+  class:list={['py-12 md:py-16', bgClass]}
+  aria-labelledby="water-safety-heading"
+>
+  <div class="container mx-auto px-4">
+    <div class="max-w-4xl mx-auto">
+      <!-- Section Header -->
+      <div class="flex items-center gap-3 mb-6">
+        <svg
+          class="w-8 h-8 text-blue-700 flex-shrink-0"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"
+          />
+        </svg>
+        <h2
+          id="water-safety-heading"
+          class="font-display font-bold text-2xl md:text-3xl text-brand-brown"
+        >
+          Water Sources & Safety
+        </h2>
+      </div>
+
+      <!-- Source Count Badges -->
+      <div class="flex flex-wrap gap-2 mb-6">
+        {sourceCounts.safe > 0 && (
+          <span class="inline-flex items-center gap-1 px-3 py-1 rounded-sm bg-sign-green/10 text-sign-green font-body text-sm font-medium">
+            <span aria-hidden="true">{WATER_STATUS_CONFIG.safe.icon}</span>
+            {sourceCounts.safe} Safe
+          </span>
+        )}
+        {sourceCounts['treat-required'] > 0 && (
+          <span class="inline-flex items-center gap-1 px-3 py-1 rounded-sm bg-yellow-50 text-yellow-700 font-body text-sm font-medium">
+            <span aria-hidden="true">{WATER_STATUS_CONFIG['treat-required'].icon}</span>
+            {sourceCounts['treat-required']} Treatment Required
+          </span>
+        )}
+        {sourceCounts['do-not-use'] > 0 && (
+          <span class="inline-flex items-center gap-1 px-3 py-1 rounded-sm bg-red-50 text-red-700 font-body text-sm font-bold">
+            <span aria-hidden="true">{WATER_STATUS_CONFIG['do-not-use'].icon}</span>
+            {sourceCounts['do-not-use']} DO NOT USE
+          </span>
+        )}
+      </div>
+
+      <!-- AMD Warning Banner (when hasAMDConcerns or toxic sources exist) -->
+      {showAMDEducation && (
+        <aside
+          class="bg-red-50 border-2 border-red-700 p-6 rounded-sm mb-8"
+          role="alert"
+          aria-label="Acid Mine Drainage hazard warning"
+        >
+          <div class="flex items-start gap-4">
+            <!-- Skull/Danger Icon -->
+            <div class="flex-shrink-0 w-12 h-12 bg-red-700 rounded-sm flex items-center justify-center">
+              <span class="text-2xl text-white" aria-hidden="true">
+                {WATER_STATUS_CONFIG['do-not-use'].icon}
+              </span>
+            </div>
+
+            <div class="flex-1">
+              <h3 class="font-display text-xl font-bold text-red-800 mb-2">
+                {AMD_EDUCATION.title}
+              </h3>
+
+              <p class="font-body text-sm text-red-800 mb-4 leading-relaxed">
+                {AMD_EDUCATION.introduction}
+              </p>
+
+              <!-- Visual Indicators -->
+              <div class="mb-4">
+                <h4 class="font-display text-base font-bold text-red-800 mb-2">
+                  Warning Signs to Look For:
+                </h4>
+                <ul class="grid md:grid-cols-2 gap-2">
+                  {AMD_EDUCATION.visualIndicators.map((indicator: string) => (
+                    <li class="font-body text-sm text-red-800 flex items-start gap-2">
+                      <span class="text-red-700 font-bold" aria-hidden="true">!</span>
+                      {indicator}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <!-- Kim's Warning (font-hand for personal voice) -->
+              <div class="bg-white/50 p-4 rounded-sm mt-4">
+                <p class="font-hand text-base text-red-800 leading-relaxed">
+                  {AMD_EDUCATION.kimNote}
+                </p>
+              </div>
+            </div>
+          </div>
+        </aside>
+      )}
+
+      <!-- General Water Safety Advisory (if provided) -->
+      {waterSafetyAdvisory && (
+        <div class="bg-brand-cream p-4 rounded-sm border-l-4 border-brand-brown mb-8">
+          <p class="font-body text-sm text-brand-mud">
+            <strong class="text-brand-brown">Water Safety Advisory:</strong> {waterSafetyAdvisory}
+          </p>
+        </div>
+      )}
+
+      <!-- Water Sources Grid -->
+      {waterSources.length > 0 ? (
+        <div class="grid gap-4 md:grid-cols-2">
+          {waterSources.map((source: WaterSource) => {
+            const styles = getCardStyles(source.status);
+            const config = WATER_STATUS_CONFIG[source.status];
+            const isToxic = isToxicWaterSource(source);
+            const showAMDDetails = hasAMDWarning(source);
+
+            return (
+              <div
+                class:list={[
+                  'p-5 rounded-sm border-l-4',
+                  styles.bgClass,
+                  styles.borderClass,
+                  isToxic && 'border-2 border-red-700',
+                ]}
+                role={isToxic ? 'alert' : undefined}
+              >
+                <!-- Status Badge and Icon -->
+                <div class="flex items-start justify-between mb-3">
+                  <div class="flex items-center gap-2">
+                    <span
+                      class:list={['text-2xl', styles.iconClass]}
+                      aria-hidden="true"
+                    >
+                      {config.icon}
+                    </span>
+                    <span
+                      class:list={[
+                        'px-3 py-1 rounded-sm font-body text-xs font-bold',
+                        isToxic ? 'bg-red-700 text-white' : 'bg-brand-brown/10 text-brand-brown',
+                      ]}
+                    >
+                      {config.label}
+                    </span>
+                  </div>
+
+                  {source.sourceType && (
+                    <span class="font-body text-xs text-brand-mud capitalize">
+                      {source.sourceType}
+                    </span>
+                  )}
+                </div>
+
+                <!-- Source Name -->
+                <h3 class:list={[
+                  'font-display text-lg font-bold mb-2',
+                  isToxic ? 'text-red-800' : 'text-brand-brown',
+                ]}>
+                  {source.name}
+                </h3>
+
+                <!-- Source Details -->
+                <div class="grid grid-cols-2 gap-2 mb-3">
+                  <div>
+                    <p class="font-body text-xs text-brand-mud uppercase tracking-wide">
+                      Reliability
+                    </p>
+                    <p class="font-body text-sm text-brand-brown font-medium">
+                      {WATER_RELIABILITY_LABELS[source.reliability]}
+                    </p>
+                  </div>
+                  <div>
+                    <p class="font-body text-xs text-brand-mud uppercase tracking-wide">
+                      Treatment
+                    </p>
+                    <p class:list={[
+                      'font-body text-sm font-medium',
+                      isToxic ? 'text-red-700' : 'text-brand-brown',
+                    ]}>
+                      {WATER_TREATMENT_LABELS[source.treatment]}
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Warnings (especially important for do-not-use sources) -->
+                {source.warnings && source.warnings.length > 0 && (
+                  <div class="mb-3">
+                    <ul class="space-y-1">
+                      {source.warnings.map((warning: string) => (
+                        <li class:list={[
+                          'font-body text-sm flex items-start gap-2',
+                          isToxic ? 'text-red-700 font-medium' : 'text-brand-mud',
+                        ]}>
+                          <span aria-hidden="true" class="flex-shrink-0">
+                            {isToxic ? '!' : '-'}
+                          </span>
+                          {warning}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                <!-- AMD Details (if applicable) -->
+                {showAMDDetails && source.amdDetails && (
+                  <div class="bg-red-100 p-3 rounded-sm mt-3">
+                    <p class="font-body text-xs text-red-800">
+                      <strong>Contamination:</strong>{' '}
+                      {source.amdDetails.knownSource || 'Historic mining contamination'}
+                    </p>
+                    {source.amdDetails.visualIndicators && source.amdDetails.visualIndicators.length > 0 && (
+                      <p class="font-body text-xs text-red-800 mt-1">
+                        <strong>Signs:</strong> {source.amdDetails.visualIndicators.join(', ')}
+                      </p>
+                    )}
+                  </div>
+                )}
+
+                <!-- Location Info -->
+                {(source.trailMile || source.distanceFromTrailhead) && (
+                  <div class="mt-3 pt-3 border-t border-brand-brown/10">
+                    {source.trailMile && (
+                      <p class="font-body text-xs text-brand-mud">
+                        <strong>Trail Mile:</strong> {source.trailMile}
+                      </p>
+                    )}
+                    {source.distanceFromTrailhead && (
+                      <p class="font-body text-xs text-brand-mud">
+                        <strong>From Trailhead:</strong> {source.distanceFromTrailhead}
+                      </p>
+                    )}
+                  </div>
+                )}
+
+                <!-- Notes (Kim's wisdom) -->
+                {source.notes && (
+                  <p class="font-body text-sm text-brand-mud mt-3 italic">
+                    {source.notes}
+                  </p>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      ) : (
+        <div class="bg-brand-cream p-6 rounded-sm text-center">
+          <p class="font-body text-brand-mud">
+            No verified water sources documented for {areaName}.
+            Carry all water needed for your trip.
+          </p>
+        </div>
+      )}
+
+      <!-- Safety Guidelines (when AMD concerns exist) -->
+      {showAMDEducation && (
+        <div class="mt-8 bg-brand-cream p-6 rounded-sm border-l-4 border-brand-brown">
+          <h3 class="font-display text-lg font-bold text-brand-brown mb-4">
+            Water Safety Guidelines
+          </h3>
+          <ul class="space-y-2">
+            {AMD_EDUCATION.safetyGuidelines.map((guideline: string) => (
+              <li class="font-body text-sm text-brand-mud flex items-start gap-2">
+                <span class="text-sign-green font-bold flex-shrink-0" aria-hidden="true">
+                  &#10003;
+                </span>
+                {guideline}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      <!-- Carry Water Reminder -->
+      <div class="mt-8 bg-brand-cream p-5 rounded-sm">
+        <div class="flex items-start gap-4">
+          <svg
+            class="w-6 h-6 text-brand-orange flex-shrink-0"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+          <div>
+            <p class="font-display text-base font-bold text-brand-brown">
+              Plan Your Water Carry
+            </p>
+            <p class="font-body text-sm text-brand-mud">
+              Remote backcountry requires careful water planning. Even "reliable" sources
+              can dry up in drought conditions. Always carry more water than you think
+              you'll need, and have a backup plan.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

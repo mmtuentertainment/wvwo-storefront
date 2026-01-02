@@ -88,6 +88,23 @@ This project uses SPARC (Specification, Pseudocode, Architecture, Refinement, Co
 
 This project is for WV Wild Outdoors - a family-owned hunting shop in rural West Virginia. NOT a tech startup. All frontend must reflect authentic rural WV identity.
 
+### When Checklist is Required
+
+**REQUIRE full WVWO checklist when PR includes:**
+- New/modified `.astro` components in `/components/`
+- CSS/style changes
+- New visual UI elements
+- Changes to fonts, colors, or borders
+
+**SKIP checklist when PR is:**
+- Types/schemas only (`.ts` files in `/types/`)
+- Test files only (`__tests__/`)
+- Documentation only (`.md` files)
+- Data files only (`/src/data/`)
+- Backend/API changes
+
+**For PR #79 and similar:** If compliance is documented in commit messages and PR description, streamlined note acceptable instead of full checklist.
+
 ### FORBIDDEN (Instant PR Rejection)
 
 **Fonts - NEVER USE:**
@@ -106,10 +123,46 @@ Inter, DM Sans, Space Grotesk, Poppins, Outfit, Montserrat, Raleway, Open Sans, 
 ```
 
 **Color Exceptions (Industry Standards):**
+**IMPORTANT: Industry safety/danger colors OVERRIDE WVWO brand palette in adventure contexts.**
+These colors are REQUIRED (not just allowed) when displaying safety-critical information:
+
 ```
-- Ski trail difficulty: Blue (#1976D2 / blue-700) for intermediate trails
-  Reason: NASAA/NSAA industry standard - green circle, blue square, black diamond
+SKI TRAIL DIFFICULTY (NSAA Standard):
+- Green (#2E7D32 / sign-green) = Beginner (● circle)
+- Blue (#1976D2 / blue-700) = Intermediate (■ square)
+- Black (#000000 / black) = Advanced (◆ diamond)
+- Black (#000000 / black) = Expert (◆◆ double diamond)
+
+HIKING/TRAIL DIFFICULTY (International Standard):
+- Green (#2E7D32 / sign-green) = Easy (● circle)
+- Blue (#1976D2 / blue-700) = Moderate (■ square)
+- Red (#B71C1C / red-900) = Challenging (▲ triangle)
+- Black (#000000 / black) = Rugged/Expert (◆ diamond)
+
+AVALANCHE DANGER (North American Public Scale):
+- Green = Low (Level 1)
+- Yellow (#FBC02D / yellow-600) = Moderate (Level 2)
+- Orange (#F57C00 / orange-600) = Considerable (Level 3)
+- Red (#D32F2F / red-700) = High (Level 4)
+- Black (#000000 / black) = Extreme (Level 5)
+
+FIRE DANGER (USFS NFDRS):
+- Green = Low
+- Blue (#1976D2 / blue-700) = Moderate
+- Yellow (#FBC02D / yellow-600) = High
+- Orange (#F57C00 / orange-600) = Very High
+- Red (#D32F2F / red-700) = Extreme
+
+RIVER RAPIDS (International Scale):
+- No colors - uses Class I-VI Roman numerals only
+- Display as text badges, not color-coded
 ```
+
+**Why industry colors take precedence:**
+Outdoor enthusiasts are trained to recognize these colors instantly - it's muscle memory.
+A skier knows blue = intermediate. A backcountry traveler knows black = extreme danger.
+Using WVWO brand colors for safety-critical info would confuse users and CREATE SAFETY HAZARDS.
+Brand aesthetics NEVER override safety communication standards.
 
 **Styles - NEVER USE:**
 ```

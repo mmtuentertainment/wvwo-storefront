@@ -1,0 +1,1167 @@
+---
+/**
+ * BackcountryTemplate.astro
+ * SPEC-17: Backcountry Wilderness Template Component
+ *
+ * Comprehensive template for West Virginia backcountry wilderness area pages with
+ * navigation/cell coverage, water safety (AMD warnings), wildlife hazards,
+ * emergency contacts, camping regulations, trail systems, and seasonal info.
+ *
+ * USER STORIES IMPLEMENTED:
+ * - Remote wilderness visitors: Cell coverage warnings, satellite comm recommendations
+ * - Backcountry hikers: Trail difficulty, water sources, AMD contamination alerts
+ * - Emergency preparedness: Tiered emergency contacts, evacuation info
+ * - Leave No Trace advocates: LNT principles with area-specific guidelines
+ * - Hunters/anglers: Regulations, managing agency info, seasonal conditions
+ * - Kim's Tips: Insider local knowledge callouts in font-hand
+ *
+ * WVWO COMPLIANCE:
+ * - Fonts: font-display (headings), font-hand (Kim's tips ONLY), font-body (content)
+ * - Colors: brand-brown, sign-green, brand-cream, brand-orange (<5% of screen)
+ * - Borders: rounded-sm ONLY (no other border-radius values allowed)
+ * - Safety Colors: Industry standards for cell coverage, hazards, water status
+ *
+ * SECTION ORDER (10 sections):
+ * 1. Hero (with cell coverage warning badge)
+ * 2. Navigation & Cell Coverage
+ * 3. Wilderness Areas
+ * 4. Camping & Water (AMD warnings)
+ * 5. Trail System
+ * 6. Skills & Gear
+ * 7. Safety & Hazards (Emergency contacts, wildlife)
+ * 8. Leave No Trace
+ * 9. Access Points
+ * 10. Seasonal Info
+ *
+ * @module components/templates/BackcountryTemplate
+ */
+
+import Layout from '../../layouts/Layout.astro';
+import AdventureGearChecklist from '../adventure/AdventureGearChecklist.astro';
+import AdventureRelatedShop from '../adventure/AdventureRelatedShop.astro';
+import AdventureCTA from '../adventure/AdventureCTA.astro';
+
+// ============================================================================
+// TYPE IMPORTS: Backcountry Types (accessibility, mobility, fitness, etc.)
+// ============================================================================
+import type {
+  BackcountryAccessibility,
+  MobilityRating,
+  FitnessLevel,
+  CompanionRequirement,
+  WildlifeHazard,
+  WildernessArea,
+  BackcountryTrail,
+  LeaveNoTracePrinciple,
+  RequiredSkill,
+} from '../../types/backcountry-types';
+import {
+  getMobilityRatingLabel,
+  getMobilityRatingDescription,
+  getMobilityRatingColor,
+  getMobilityRatingShape,
+  getFitnessLevelLabel,
+  getFitnessLevelExample,
+  getCompanionRequirementLabel,
+  getCompanionRequirementDescription,
+  getThreatLevelColor,
+  getThreatLevelLabel,
+  getThreatLevelShape,
+  getDesignationLabel,
+  hasWildlifeHazards,
+  getHighestThreatLevel,
+} from '../../types/backcountry-types';
+import { DIFFICULTY_COLORS, DIFFICULTY_SHAPES, DIFFICULTY_LABELS } from '../../types/adventure';
+
+// ============================================================================
+// TYPE IMPORTS: Water Safety (AMD warnings, water sources)
+// ============================================================================
+import type {
+  WaterSource,
+  WaterStatus,
+  BackcountryCamping,
+} from '../../types/water-safety';
+import {
+  getWaterStatusConfig,
+  hasAMDWarning,
+  hasDoNotUseSources,
+  getWaterSourceCounts,
+  filterWaterSourcesByStatus,
+  WATER_STATUS_CONFIG,
+  AMD_EDUCATION,
+} from '../../types/water-safety';
+
+// ============================================================================
+// TYPE IMPORTS: Navigation Types (cell coverage, satellite, coordinates)
+// ============================================================================
+import type {
+  BackcountryNavigation,
+  CellCoverage,
+  CellSignalStrength,
+  BackcountryAccessPoint,
+} from '../../types/navigation-types';
+import {
+  getCellCoverageColor,
+  getCellCoverageLabel,
+  CELL_COVERAGE_COLORS,
+  CELL_COVERAGE_LABELS,
+  CELL_COVERAGE_ICONS,
+  getBlazingReliabilityColor,
+  getBlazingReliabilityLabel,
+  isSatelliteCritical,
+  getWorstCellCoverage,
+} from '../../types/navigation-types';
+
+// ============================================================================
+// TYPE IMPORTS: Weather Hazards (seasonal, weather conditions)
+// ============================================================================
+import type {
+  WeatherHazards,
+  SeasonalConditions,
+  HazardSeverity,
+} from '../../types/weather-hazards';
+import {
+  getHazardSeverityColor,
+  getHazardSeverityLabel,
+  HAZARD_SEVERITY_COLORS,
+  HAZARD_SEVERITY_LABELS,
+} from '../../types/weather-hazards';
+
+// ============================================================================
+// TYPE IMPORTS: Backcountry Template Props (main props, emergency contacts)
+// ============================================================================
+import type {
+  BackcountryTemplateProps,
+  EmergencyContact,
+  TieredEmergencyContact,
+  EmergencyTier,
+  ManagingAgency,
+  Regulations,
+  NavigationSummary,
+} from '../../types/backcountry-template-types';
+import {
+  getEmergencyTierColor,
+  getEmergencyTierLabel,
+  sortEmergencyContactsByTier,
+  filterEmergencyContactsByTier,
+  has24x7EmergencyContact,
+  EMERGENCY_TIER_COLORS,
+  EMERGENCY_TIER_LABELS,
+} from '../../types/backcountry-template-types';
+
+// ============================================================================
+// TYPE IMPORTS: Shared Adventure Types
+// ============================================================================
+import type {
+  GearItem,
+  RelatedCategory,
+  Coordinates,
+  StatItem,
+  Difficulty,
+  Season,
+} from '../../types/adventure';
+
+// ============================================================================
+// PROPS INTERFACE
+// ============================================================================
+
+interface Props extends BackcountryTemplateProps {
+  // Extended props specific to template rendering
+  /** Hero image path */
+  heroImage?: string;
+  /** Hero image alt text */
+  heroImageAlt?: string;
+  /** Tagline for hero section */
+  tagline?: string;
+  /** Quick stats for hero section */
+  quickStats?: string[];
+  /** Camping information with water sources */
+  camping?: BackcountryCamping;
+  /** Trail list */
+  trails?: BackcountryTrail[];
+  /** Wilderness area designations */
+  wildernessAreas?: WildernessArea[];
+  /** Weather hazards */
+  weatherHazards?: WeatherHazards;
+  /** Seasonal conditions */
+  seasonalConditions?: SeasonalConditions[];
+  /** Access points with cell coverage */
+  accessPoints?: BackcountryAccessPoint[];
+  /** Leave No Trace principles */
+  leaveNoTrace?: LeaveNoTracePrinciple[];
+  /** Required skills */
+  requiredSkills?: RequiredSkill[];
+  /** Accessibility information */
+  accessibility?: BackcountryAccessibility;
+  /** Gear checklist items */
+  gearList?: GearItem[];
+  /** Related shop categories */
+  relatedShop?: RelatedCategory[];
+  /** Kim's personal tips */
+  kimTips?: Array<{ content: string; type?: 'insider' | 'warning' | 'tip' }>;
+  /** Map URL for external trail map */
+  mapUrl?: string;
+  /** Coordinates for GPS */
+  coordinates?: Coordinates;
+}
+
+const {
+  name,
+  heroImage,
+  heroImageAlt,
+  tagline,
+  description,
+  county,
+  acreage,
+  quickStats = [],
+  navigation,
+  emergencyContacts,
+  regulations,
+  managingAgency,
+  wildernessArea,
+  wildernessAreas = [],
+  wildlifeHazards = [],
+  trails = [],
+  camping,
+  weatherHazards,
+  seasonalConditions = [],
+  accessPoints = [],
+  leaveNoTrace = [],
+  requiredSkills = [],
+  accessibility,
+  gearList = [],
+  relatedShop = [],
+  kimTips = [],
+  mapUrl,
+  coordinates,
+} = Astro.props;
+
+// ============================================================================
+// LOCAL HELPER FUNCTIONS
+// ============================================================================
+
+/**
+ * Check if a URL is external (opens in new tab).
+ * @param href - URL to check
+ * @returns true if external URL
+ */
+function isExternalLink(href: string): boolean {
+  return href.startsWith('http://') || href.startsWith('https://');
+}
+
+/**
+ * Format phone number for display.
+ * Handles 911, standard US formats, and tel: links.
+ * @param phone - Raw phone number string
+ * @returns Formatted phone display string
+ */
+function formatPhoneNumber(phone: string): string {
+  if (phone === '911') return '911';
+  // Remove tel: prefix if present for display
+  const cleaned = phone.replace(/^tel:/, '');
+  return cleaned;
+}
+
+/**
+ * Get the worst cell coverage status from navigation summary or access points.
+ * Used for hero warning badge.
+ * @returns Worst cell signal strength
+ */
+function getWorstCellStatus(): CellSignalStrength {
+  // Check navigation summary first
+  if (navigation?.cellCoverage?.overall) {
+    return navigation.cellCoverage.overall as CellSignalStrength;
+  }
+  // Fall back to access points if available
+  if (accessPoints.length > 0) {
+    return getWorstCellCoverage(accessPoints);
+  }
+  return 'none';
+}
+
+// Computed values for template
+const worstCellCoverage = getWorstCellStatus();
+const hasCellWarning = worstCellCoverage === 'none' || worstCellCoverage === 'weak';
+const sortedEmergencyContacts = sortEmergencyContactsByTier(emergencyContacts);
+const has24x7Contact = has24x7EmergencyContact(emergencyContacts);
+const hasAMDConcerns = camping?.hasAMDConcerns || (camping?.waterSources && hasDoNotUseSources(camping.waterSources));
+const waterSourceCounts = camping?.waterSources ? getWaterSourceCounts(camping.waterSources) : null;
+
+// Get highest wildlife threat level for hero warning
+const highestThreatLevel = wildlifeHazards.length > 0 ? getHighestThreatLevel(wildlifeHazards) : 'low';
+const hasHighThreat = highestThreatLevel === 'high' || highestThreatLevel === 'extreme';
+---
+
+<Layout title={`${name} | WV Wild Outdoors`}>
+  <!-- ========================================================================
+       SECTION 1: HERO (Cell Coverage Warning Badge)
+       ======================================================================== -->
+  <section
+    class="relative h-[70vh] min-h-[500px] overflow-hidden"
+    aria-label={`${name} hero section`}
+  >
+    <!-- Hero Image -->
+    <img
+      src={heroImage}
+      alt={heroImageAlt || `${name} backcountry wilderness area`}
+      class="absolute inset-0 w-full h-full object-cover"
+      loading="eager"
+    />
+
+    <!-- Dark Overlay for Text Readability -->
+    <div class="absolute inset-0 bg-brand-brown/50"></div>
+
+    <!-- Cell Coverage Warning Badge (Top Right) -->
+    {hasCellWarning && (
+      <div class="absolute top-4 right-4 z-10">
+        <div class={`${CELL_COVERAGE_COLORS[worstCellCoverage]} px-4 py-2 rounded-sm flex items-center gap-2 font-body text-sm font-bold`}>
+          <span aria-hidden="true">{CELL_COVERAGE_ICONS[worstCellCoverage]}</span>
+          <span>{CELL_COVERAGE_LABELS[worstCellCoverage]}</span>
+        </div>
+      </div>
+    )}
+
+    <!-- Hero Content -->
+    <div class="relative h-full container mx-auto px-4">
+      <div class="h-full flex flex-col justify-end pb-16">
+        <!-- Wilderness Name -->
+        <h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
+          {name}
+        </h1>
+
+        <!-- Location & Managing Agency -->
+        <p class="font-body text-lg text-brand-cream mb-4">
+          {county && `${county} County`}
+          {county && managingAgency && ' · '}
+          {managingAgency?.name}
+        </p>
+
+        <!-- Tagline -->
+        {tagline && (
+          <p class="font-body text-xl md:text-2xl text-white mb-6 max-w-2xl">
+            {tagline}
+          </p>
+        )}
+
+        <!-- Quick Stats Grid -->
+        {acreage && (
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6 max-w-2xl">
+            <div class="bg-white/95 p-4 rounded-sm text-center">
+              <p class="font-display text-2xl font-bold text-brand-brown">{acreage.toLocaleString()}</p>
+              <p class="font-body text-xs text-brand-mud uppercase tracking-wide">Acres</p>
+            </div>
+            {trails.length > 0 && (
+              <div class="bg-white/95 p-4 rounded-sm text-center">
+                <p class="font-display text-2xl font-bold text-brand-brown">{trails.length}</p>
+                <p class="font-body text-xs text-brand-mud uppercase tracking-wide">Trails</p>
+              </div>
+            )}
+            {wildernessArea && (
+              <div class="bg-white/95 p-4 rounded-sm text-center">
+                <p class="font-display text-lg font-bold text-brand-brown">{wildernessArea.designation}</p>
+                <p class="font-body text-xs text-brand-mud uppercase tracking-wide">Designation</p>
+              </div>
+            )}
+          </div>
+        )}
+
+        <!-- Quick Stats Badges -->
+        {quickStats.length > 0 && (
+          <div class="flex flex-wrap gap-2 mb-4">
+            {quickStats.map((stat) => (
+              <span class="bg-sign-green text-white px-3 py-1 rounded-sm font-body text-sm font-medium">
+                {stat}
+              </span>
+            ))}
+          </div>
+        )}
+
+        <!-- Map Link -->
+        {mapUrl && (
+          <div class="flex flex-wrap gap-4 items-center">
+            <a
+              href={mapUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 bg-brand-orange text-white px-4 py-2 rounded-sm font-body font-medium hover:bg-brand-orange/90 motion-safe:transition-colors motion-reduce:transition-none"
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+              </svg>
+              View Trail Map
+            </a>
+          </div>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       DESCRIPTION SECTION
+       ======================================================================== -->
+  <section class="bg-brand-cream py-12">
+    <div class="container mx-auto px-4">
+      <p class="font-body text-lg text-brand-mud leading-relaxed max-w-4xl mx-auto text-center">
+        {description}
+      </p>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       SECTION 2: NAVIGATION & CELL COVERAGE
+       ======================================================================== -->
+  {navigation && (
+    <section class="py-16 bg-white" aria-labelledby="navigation-heading">
+      <div class="container mx-auto px-4">
+        <h2 id="navigation-heading" class="font-display text-3xl md:text-4xl font-bold text-brand-brown mb-8 text-center">
+          Navigation & Communication
+        </h2>
+
+        <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
+          <!-- Cell Coverage -->
+          <div class="bg-brand-cream p-6 rounded-sm">
+            <h3 class="font-display text-xl font-bold text-brand-brown mb-4">Cell Coverage</h3>
+            <div class={`${CELL_COVERAGE_COLORS[navigation.cellCoverage.overall as CellSignalStrength]} inline-flex items-center gap-2 px-4 py-2 rounded-sm font-body font-bold mb-4`}>
+              <span aria-hidden="true">{CELL_COVERAGE_ICONS[navigation.cellCoverage.overall as CellSignalStrength]}</span>
+              <span>{CELL_COVERAGE_LABELS[navigation.cellCoverage.overall as CellSignalStrength]}</span>
+            </div>
+            {navigation.cellCoverage.carriers && navigation.cellCoverage.carriers.length > 0 && (
+              <p class="font-body text-sm text-brand-mud">
+                <strong>Carriers:</strong> {navigation.cellCoverage.carriers.join(', ')}
+              </p>
+            )}
+          </div>
+
+          <!-- Satellite Communication -->
+          <div class="bg-brand-cream p-6 rounded-sm">
+            <h3 class="font-display text-xl font-bold text-brand-brown mb-4">Satellite Communication</h3>
+            {navigation.satellite && (
+              <>
+                <div class={`inline-block px-3 py-1 rounded-sm font-body text-sm font-bold mb-4 ${
+                  navigation.satellite.importance === 'essential' ? 'bg-red-700 text-white' :
+                  navigation.satellite.importance === 'recommended' ? 'bg-brand-orange text-white' :
+                  'bg-sign-green text-white'
+                }`}>
+                  {navigation.satellite.importance === 'essential' ? 'Essential' :
+                   navigation.satellite.importance === 'recommended' ? 'Strongly Recommended' : 'Recommended'}
+                </div>
+                {navigation.satellite.devices && navigation.satellite.devices.length > 0 && (
+                  <div class="mt-2">
+                    <p class="font-body text-sm text-brand-mud font-medium mb-1">Recommended Devices:</p>
+                    <ul class="list-disc list-inside font-body text-sm text-brand-mud">
+                      {navigation.satellite.devices.map((device) => (
+                        <li>{device}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </>
+            )}
+          </div>
+        </div>
+
+        <!-- GPS Coordinates -->
+        {navigation.coordinates && (
+          <div class="max-w-2xl mx-auto mt-8 text-center">
+            <p class="font-body text-sm text-brand-mud">
+              <strong>GPS Coordinates:</strong> {navigation.coordinates.decimal.lat.toFixed(5)}, {navigation.coordinates.decimal.lng.toFixed(5)}
+            </p>
+          </div>
+        )}
+      </div>
+    </section>
+  )}
+
+  <!-- ========================================================================
+       SECTION 3: WILDERNESS AREAS
+       ======================================================================== -->
+  {(wildernessArea || wildernessAreas.length > 0) && (
+    <section class="py-16 bg-brand-cream" aria-labelledby="wilderness-heading">
+      <div class="container mx-auto px-4">
+        <h2 id="wilderness-heading" class="font-display text-3xl md:text-4xl font-bold text-brand-brown mb-8 text-center">
+          Wilderness Designation
+        </h2>
+
+        <div class="max-w-3xl mx-auto">
+          {/* Single wilderness area */}
+          {wildernessArea && !wildernessAreas.length && (
+            <div class="bg-white p-6 rounded-sm border-l-4 border-sign-green">
+              <h3 class="font-display text-xl font-bold text-brand-brown mb-2">{wildernessArea.name}</h3>
+              <p class="font-body text-sm text-sign-green font-medium mb-2">{wildernessArea.designation}</p>
+              {wildernessArea.acreage && (
+                <p class="font-body text-brand-mud">{wildernessArea.acreage.toLocaleString()} acres</p>
+              )}
+              {wildernessArea.established && (
+                <p class="font-body text-sm text-brand-mud mt-1">Established {wildernessArea.established}</p>
+              )}
+              {wildernessArea.description && (
+                <p class="font-body text-brand-mud mt-3">{wildernessArea.description}</p>
+              )}
+            </div>
+          )}
+
+          {/* Multiple wilderness areas */}
+          {wildernessAreas.length > 0 && (
+            <div class="space-y-4">
+              {wildernessAreas.map((area) => (
+                <div class="bg-white p-6 rounded-sm border-l-4 border-sign-green">
+                  <h3 class="font-display text-xl font-bold text-brand-brown mb-2">{area.name}</h3>
+                  <p class="font-body text-sm text-sign-green font-medium mb-2">{area.designation}</p>
+                  {area.acreage && (
+                    <p class="font-body text-brand-mud">{area.acreage.toLocaleString()} acres</p>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ========================================================================
+       SECTION 4: CAMPING & WATER (AMD Warnings)
+       ======================================================================== -->
+  {camping && (
+    <section class="py-16 bg-white" aria-labelledby="camping-heading">
+      <div class="container mx-auto px-4">
+        <h2 id="camping-heading" class="font-display text-3xl md:text-4xl font-bold text-brand-brown mb-8 text-center">
+          Camping & Water Sources
+        </h2>
+
+        <div class="max-w-4xl mx-auto">
+          <!-- AMD Warning Banner -->
+          {hasAMDConcerns && (
+            <div class="bg-red-50 border-l-4 border-red-700 p-6 rounded-sm mb-8">
+              <div class="flex items-start gap-3">
+                <span class="text-red-700 text-2xl" aria-hidden="true">⚠️</span>
+                <div>
+                  <h3 class="font-display text-lg font-bold text-red-800 mb-2">{AMD_EDUCATION.title}</h3>
+                  <p class="font-body text-red-700 text-sm">{AMD_EDUCATION.introduction}</p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          <div class="grid md:grid-cols-2 gap-8">
+            <!-- Camping Regulations -->
+            <div>
+              <h3 class="font-display text-xl font-bold text-brand-brown mb-4">Camping Regulations</h3>
+              <div class="bg-brand-cream p-5 rounded-sm">
+                <p class="font-body font-medium text-brand-brown mb-3">{camping.permittedSites}</p>
+                <ul class="space-y-2">
+                  {camping.regulations.map((reg) => (
+                    <li class="font-body text-sm text-brand-mud flex items-start gap-2">
+                      <span class="text-sign-green" aria-hidden="true">✓</span>
+                      {reg}
+                    </li>
+                  ))}
+                </ul>
+                {camping.restrictions && camping.restrictions.length > 0 && (
+                  <div class="mt-4 pt-4 border-t border-brand-brown/10">
+                    <p class="font-body text-sm font-medium text-brand-brown mb-2">Restrictions:</p>
+                    <ul class="space-y-1">
+                      {camping.restrictions.map((restriction) => (
+                        <li class="font-body text-sm text-brand-mud flex items-start gap-2">
+                          <span class="text-brand-orange" aria-hidden="true">•</span>
+                          {restriction}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <!-- Water Sources -->
+            <div>
+              <h3 class="font-display text-xl font-bold text-brand-brown mb-4">Water Sources</h3>
+              {camping.waterSources && camping.waterSources.length > 0 ? (
+                <div class="space-y-3">
+                  {/* Water Source Counts Summary */}
+                  {waterSourceCounts && (
+                    <div class="flex gap-2 mb-4">
+                      {waterSourceCounts['do-not-use'] > 0 && (
+                        <span class="bg-red-700 text-white px-2 py-1 rounded-sm font-body text-xs font-bold">
+                          {waterSourceCounts['do-not-use']} Unsafe
+                        </span>
+                      )}
+                      {waterSourceCounts['treat-required'] > 0 && (
+                        <span class="bg-yellow-600 text-black px-2 py-1 rounded-sm font-body text-xs font-bold">
+                          {waterSourceCounts['treat-required']} Treat Required
+                        </span>
+                      )}
+                      {waterSourceCounts.safe > 0 && (
+                        <span class="bg-sign-green text-white px-2 py-1 rounded-sm font-body text-xs font-bold">
+                          {waterSourceCounts.safe} Safe
+                        </span>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Individual Water Sources */}
+                  {camping.waterSources.map((source) => {
+                    const config = WATER_STATUS_CONFIG[source.status];
+                    return (
+                      <div class={`p-4 rounded-sm border-l-4 ${config.borderClass} ${config.bgClass}`}>
+                        <div class="flex items-start justify-between">
+                          <div>
+                            <p class="font-body font-bold text-brand-brown">{source.name}</p>
+                            <p class={`font-body text-sm font-medium ${config.colorClass}`}>
+                              <span aria-hidden="true">{config.icon}</span> {config.label}
+                            </p>
+                          </div>
+                        </div>
+                        {source.warnings && source.warnings.length > 0 && (
+                          <ul class="mt-2 space-y-1">
+                            {source.warnings.map((warning) => (
+                              <li class={`font-body text-xs ${config.colorClass}`}>{warning}</li>
+                            ))}
+                          </ul>
+                        )}
+                        {source.notes && (
+                          <p class="font-body text-xs text-brand-mud mt-2">{source.notes}</p>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : (
+                <p class="font-body text-brand-mud">Water source information not available. Carry all water needed.</p>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ========================================================================
+       SECTION 5: TRAIL SYSTEM
+       ======================================================================== -->
+  {trails.length > 0 && (
+    <section class="py-16 bg-brand-cream" aria-labelledby="trails-heading">
+      <div class="container mx-auto px-4">
+        <h2 id="trails-heading" class="font-display text-3xl md:text-4xl font-bold text-brand-brown mb-8 text-center">
+          Trail System
+        </h2>
+
+        <div class="max-w-4xl mx-auto">
+          <div class="text-center mb-8">
+            <p class="font-display text-5xl font-bold text-brand-brown mb-2">{trails.length}</p>
+            <p class="font-body text-lg text-brand-mud">Total Trails</p>
+          </div>
+
+          <div class="space-y-4">
+            {trails.map((trail) => (
+              <div class="bg-white p-5 rounded-sm border-l-4 border-sign-green">
+                <div class="flex flex-wrap justify-between items-start gap-4">
+                  <div class="flex-1">
+                    <h3 class="font-display text-lg font-bold text-brand-brown mb-1">{trail.name}</h3>
+                    <div class="flex flex-wrap gap-3 font-body text-sm text-brand-mud">
+                      <span>{trail.distance}</span>
+                      {trail.elevationGain && <span>↑ {trail.elevationGain}</span>}
+                      {trail.trailNumber && <span>Trail #{trail.trailNumber}</span>}
+                    </div>
+                    {trail.blazing && (
+                      <p class="font-body text-sm text-brand-mud mt-2">Blazing: {trail.blazing}</p>
+                    )}
+                    {trail.kimNote && (
+                      <aside class="mt-2 font-hand text-sm text-brand-mud italic">{trail.kimNote}</aside>
+                    )}
+                  </div>
+                  <div>
+                    <span class={`${DIFFICULTY_COLORS[trail.difficulty]} px-3 py-1 rounded-sm font-body text-sm font-bold inline-flex items-center gap-1`}>
+                      <span aria-hidden="true">{DIFFICULTY_SHAPES[trail.difficulty]}</span>
+                      {DIFFICULTY_LABELS[trail.difficulty]}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <!-- Trail Difficulty Legend -->
+          <p class="text-center mt-6 font-body text-sm text-brand-mud">
+            <span class="sr-only">Trail difficulty legend:</span>
+            <span aria-hidden="true">● Easy | ■ Moderate | ▲ Challenging | ◆ Rugged</span>
+          </p>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ========================================================================
+       SECTION 6: SKILLS & GEAR
+       ======================================================================== -->
+  {requiredSkills.length > 0 && (
+    <section class="py-16 bg-white" aria-labelledby="skills-heading">
+      <div class="container mx-auto px-4">
+        <h2 id="skills-heading" class="font-display text-3xl md:text-4xl font-bold text-brand-brown mb-8 text-center">
+          Required Skills
+        </h2>
+
+        <div class="max-w-3xl mx-auto grid md:grid-cols-2 gap-4">
+          {requiredSkills.map((skillSet) => (
+            <div class={`p-5 rounded-sm border-l-4 ${
+              skillSet.importance === 'essential' ? 'border-red-700 bg-red-50' :
+              skillSet.importance === 'recommended' ? 'border-brand-orange bg-orange-50' :
+              'border-sign-green bg-green-50'
+            }`}>
+              <div class="flex items-start justify-between mb-2">
+                <h3 class="font-body font-bold text-brand-brown capitalize">{skillSet.category}</h3>
+                <span class={`px-2 py-1 rounded-sm font-body text-xs font-bold ${
+                  skillSet.importance === 'essential' ? 'bg-red-700 text-white' :
+                  skillSet.importance === 'recommended' ? 'bg-brand-orange text-white' :
+                  'bg-sign-green text-white'
+                }`}>
+                  {skillSet.importance === 'essential' ? 'Essential' :
+                   skillSet.importance === 'recommended' ? 'Recommended' : 'Helpful'}
+                </span>
+              </div>
+              <ul class="space-y-1">
+                {skillSet.skills.map((skill) => (
+                  <li class="font-body text-sm text-brand-mud flex items-start gap-2">
+                    <span class="text-sign-green" aria-hidden="true">-</span>
+                    {skill}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ========================================================================
+       SECTION 7: SAFETY & HAZARDS (Emergency Contacts, Wildlife)
+       ======================================================================== -->
+  <section class="py-16 bg-brand-cream" aria-labelledby="safety-heading">
+    <div class="container mx-auto px-4">
+      <h2 id="safety-heading" class="font-display text-3xl md:text-4xl font-bold text-brand-brown mb-8 text-center">
+        Safety & Emergency Information
+      </h2>
+
+      <div class="max-w-4xl mx-auto">
+        <!-- Emergency Contacts -->
+        <div class="mb-12">
+          <h3 class="font-display text-2xl font-bold text-brand-brown mb-6">Emergency Contacts</h3>
+          {!has24x7Contact && (
+            <div class="bg-yellow-50 border-l-4 border-yellow-600 p-4 rounded-sm mb-6">
+              <p class="font-body text-sm text-yellow-800">
+                <strong>Note:</strong> No 24/7 emergency contact available. Always dial 911 for life-threatening emergencies.
+              </p>
+            </div>
+          )}
+          <div class="space-y-3">
+            {sortedEmergencyContacts.map((contact) => (
+              <div class={`p-5 rounded-sm border-l-4 ${EMERGENCY_TIER_COLORS[contact.tier].replace('bg-', 'border-').replace(' text-white', '').replace(' text-black', '')} bg-white`}>
+                <div class="flex flex-wrap justify-between items-start gap-4">
+                  <div>
+                    <div class="flex items-center gap-2 mb-1">
+                      <span class={`${EMERGENCY_TIER_COLORS[contact.tier]} px-2 py-0.5 rounded-sm font-body text-xs font-bold`}>
+                        {EMERGENCY_TIER_LABELS[contact.tier]}
+                      </span>
+                    </div>
+                    <h4 class="font-body font-bold text-brand-brown">{contact.service}</h4>
+                    {contact.responseTime && (
+                      <p class="font-body text-xs text-brand-mud">Response: {contact.responseTime}</p>
+                    )}
+                    {contact.notes && (
+                      <p class="font-body text-sm text-brand-mud mt-1">{contact.notes}</p>
+                    )}
+                  </div>
+                  <a
+                    href={`tel:${contact.phone}`}
+                    class="inline-flex items-center gap-2 bg-sign-green text-white px-4 py-2 rounded-sm font-body font-bold hover:bg-sign-green/90 motion-safe:transition-colors motion-reduce:transition-none"
+                  >
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                    </svg>
+                    {formatPhoneNumber(contact.phone)}
+                  </a>
+                </div>
+                {contact.capabilities && contact.capabilities.length > 0 && (
+                  <div class="mt-3 flex flex-wrap gap-1">
+                    {contact.capabilities.map((cap) => (
+                      <span class="bg-brand-cream px-2 py-0.5 rounded-sm font-body text-xs text-brand-mud">{cap}</span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Wildlife Hazards -->
+        {wildlifeHazards.length > 0 && (
+          <div>
+            <h3 class="font-display text-2xl font-bold text-brand-brown mb-6">Wildlife Hazards</h3>
+            <div class="space-y-4">
+              {wildlifeHazards.map((hazard) => {
+                const threatColor = getThreatLevelColor(hazard.threatLevel);
+                return (
+                  <div class={`p-5 rounded-sm border-l-4 ${threatColor.replace('bg-', 'border-').replace(' text-white', '').replace(' text-black', '')} bg-white`}>
+                    <div class="flex flex-wrap justify-between items-start gap-4 mb-4">
+                      <h4 class="font-display text-lg font-bold text-brand-brown">{hazard.species}</h4>
+                      <span class={`${threatColor} px-3 py-1 rounded-sm font-body text-sm font-bold`}>
+                        {getThreatLevelShape(hazard.threatLevel)} {getThreatLevelLabel(hazard.threatLevel)}
+                      </span>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-4">
+                      <div>
+                        <p class="font-body text-sm font-medium text-brand-brown mb-2">Avoidance:</p>
+                        <ul class="space-y-1">
+                          {hazard.avoidanceBehavior.map((behavior) => (
+                            <li class="font-body text-sm text-brand-mud flex items-start gap-2">
+                              <span class="text-sign-green" aria-hidden="true">✓</span>
+                              {behavior}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div>
+                        <p class="font-body text-sm font-medium text-brand-brown mb-2">If Encountered:</p>
+                        <ul class="space-y-1">
+                          {hazard.encounterProtocol.map((protocol) => (
+                            <li class="font-body text-sm text-brand-mud flex items-start gap-2">
+                              <span class="text-brand-orange" aria-hidden="true">•</span>
+                              {protocol}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                    <p class="font-body text-xs text-brand-mud mt-3">
+                      <strong>Active seasons:</strong> {hazard.seasons.join(', ')}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       KIM'S TIPS (Optional)
+       ======================================================================== -->
+  {kimTips.length > 0 && (
+    <section class="py-12 bg-white" aria-labelledby="kims-tips-heading">
+      <div class="container mx-auto px-4">
+        <h2 id="kims-tips-heading" class="font-display text-3xl font-bold text-brand-brown mb-6 text-center">
+          Kim's Insider Tips
+        </h2>
+        <div class="max-w-3xl mx-auto space-y-4">
+          {kimTips.map((tip) => (
+            <aside
+              role="note"
+              class={`p-6 bg-brand-cream border-l-4 rounded-sm ${
+                tip.type === 'warning' ? 'border-brand-orange' :
+                tip.type === 'insider' ? 'border-sign-green' :
+                'border-brand-brown'
+              }`}
+            >
+              <p class="font-hand text-lg text-brand-mud leading-relaxed">
+                {tip.content}
+              </p>
+            </aside>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ========================================================================
+       SECTION 8: LEAVE NO TRACE
+       ======================================================================== -->
+  {leaveNoTrace.length > 0 && (
+    <section class="py-16 bg-brand-cream" aria-labelledby="lnt-heading">
+      <div class="container mx-auto px-4">
+        <h2 id="lnt-heading" class="font-display text-3xl md:text-4xl font-bold text-brand-brown mb-8 text-center">
+          Leave No Trace
+        </h2>
+
+        <div class="max-w-3xl mx-auto space-y-4">
+          {leaveNoTrace.map((principle) => (
+            <div class="bg-white p-5 rounded-sm border-l-4 border-sign-green">
+              <h3 class="font-display text-lg font-bold text-brand-brown mb-3">{principle.principle}</h3>
+              <ul class="space-y-1">
+                {principle.guidelines.map((guideline) => (
+                  <li class="font-body text-sm text-brand-mud flex items-start gap-2">
+                    <span class="text-sign-green" aria-hidden="true">✓</span>
+                    {guideline}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ========================================================================
+       SECTION 9: ACCESS POINTS
+       ======================================================================== -->
+  {accessPoints.length > 0 && (
+    <section class="py-16 bg-white" aria-labelledby="access-heading">
+      <div class="container mx-auto px-4">
+        <h2 id="access-heading" class="font-display text-3xl md:text-4xl font-bold text-brand-brown mb-8 text-center">
+          Access Points
+        </h2>
+
+        <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-6">
+          {accessPoints.map((point) => (
+            <div class="bg-brand-cream p-5 rounded-sm border-l-4 border-brand-brown">
+              <div class="flex items-start justify-between mb-3">
+                <div>
+                  <h3 class="font-display text-lg font-bold text-brand-brown">{point.name}</h3>
+                  <span class="font-body text-xs text-brand-mud uppercase tracking-wide">{point.type}</span>
+                </div>
+                <div class={`${CELL_COVERAGE_COLORS[point.cellCoverage.status]} px-2 py-1 rounded-sm font-body text-xs font-bold`}>
+                  {CELL_COVERAGE_ICONS[point.cellCoverage.status]}
+                </div>
+              </div>
+
+              {/* Coordinates */}
+              <p class="font-body text-xs text-brand-mud mb-2">
+                📍 {point.coordinates.decimal.lat.toFixed(5)}, {point.coordinates.decimal.lng.toFixed(5)}
+              </p>
+
+              {/* Facilities */}
+              {point.facilities && point.facilities.length > 0 && (
+                <div class="flex flex-wrap gap-1 mb-2">
+                  {point.facilities.map((facility) => (
+                    <span class="bg-white px-2 py-0.5 rounded-sm font-body text-xs text-brand-mud">{facility}</span>
+                  ))}
+                </div>
+              )}
+
+              {/* Vehicle Requirements */}
+              {point.vehicleRequirements && (
+                <p class="font-body text-sm text-brand-mud">
+                  <strong>Vehicle:</strong> {point.vehicleRequirements}
+                </p>
+              )}
+
+              {/* Restrictions */}
+              {point.restrictions && (
+                <p class="font-body text-sm text-brand-orange mt-2">{point.restrictions}</p>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ========================================================================
+       SECTION 10: SEASONAL INFO
+       ======================================================================== -->
+  {seasonalConditions.length > 0 && (
+    <section class="py-16 bg-brand-cream" aria-labelledby="seasonal-heading">
+      <div class="container mx-auto px-4">
+        <h2 id="seasonal-heading" class="font-display text-3xl md:text-4xl font-bold text-brand-brown mb-8 text-center">
+          Seasonal Conditions
+        </h2>
+
+        <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-6">
+          {seasonalConditions.map((season) => (
+            <div class="bg-white p-6 rounded-sm border-l-4 border-sign-green">
+              <h3 class="font-display text-xl font-bold text-brand-brown mb-4">{season.season}</h3>
+              <div class="grid grid-cols-2 gap-4 mb-4">
+                <div>
+                  <p class="font-body text-xs text-brand-mud uppercase tracking-wide">High</p>
+                  <p class="font-display text-lg font-bold text-brand-brown">{season.avgHighTemp}</p>
+                </div>
+                <div>
+                  <p class="font-body text-xs text-brand-mud uppercase tracking-wide">Low</p>
+                  <p class="font-display text-lg font-bold text-brand-brown">{season.avgLowTemp}</p>
+                </div>
+              </div>
+              <p class="font-body text-sm text-brand-mud mb-3">
+                <strong>Precipitation:</strong> ~{season.precipitationDays} days/month
+              </p>
+              {season.primaryHazards.length > 0 && (
+                <div class="mb-3">
+                  <p class="font-body text-sm font-medium text-brand-brown mb-1">Primary Hazards:</p>
+                  <div class="flex flex-wrap gap-1">
+                    {season.primaryHazards.map((hazard) => (
+                      <span class="bg-brand-cream px-2 py-0.5 rounded-sm font-body text-xs text-brand-mud">{hazard}</span>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {season.bestActivities.length > 0 && (
+                <div>
+                  <p class="font-body text-sm font-medium text-brand-brown mb-1">Best For:</p>
+                  <p class="font-body text-sm text-brand-mud">{season.bestActivities.join(', ')}</p>
+                </div>
+              )}
+              {season.kimNote && (
+                <aside class="mt-4 pt-4 border-t border-brand-brown/10">
+                  <p class="font-hand text-sm text-brand-mud">{season.kimNote}</p>
+                </aside>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ========================================================================
+       REGULATIONS SECTION
+       ======================================================================== -->
+  {regulations && (
+    <section class="py-16 bg-white" aria-labelledby="regulations-heading">
+      <div class="container mx-auto px-4">
+        <h2 id="regulations-heading" class="font-display text-3xl md:text-4xl font-bold text-brand-brown mb-8 text-center">
+          Regulations
+        </h2>
+
+        <div class="max-w-3xl mx-auto">
+          <div class="bg-brand-cream p-6 rounded-sm">
+            {/* Permit Info */}
+            <div class="flex items-center gap-2 mb-4">
+              <span class={`px-3 py-1 rounded-sm font-body text-sm font-bold ${regulations.permitRequired ? 'bg-brand-orange text-white' : 'bg-sign-green text-white'}`}>
+                {regulations.permitRequired ? 'Permit Required' : 'No Permit Required'}
+              </span>
+            </div>
+            {(regulations.permitDetails || regulations.permitInfo) && (
+              <p class="font-body text-brand-mud mb-4">{regulations.permitDetails || regulations.permitInfo}</p>
+            )}
+
+            {/* Fire Policies */}
+            <div class="mb-4">
+              <h3 class="font-body font-bold text-brand-brown mb-2">Fire Policies</h3>
+              <ul class="space-y-1">
+                {regulations.firePolicies.map((policy) => (
+                  <li class="font-body text-sm text-brand-mud flex items-start gap-2">
+                    <span class="text-brand-orange" aria-hidden="true">🔥</span>
+                    {policy}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Group Size & Stay Limits */}
+            <div class="grid md:grid-cols-2 gap-4 mb-4">
+              {regulations.groupSizeLimits && (
+                <div>
+                  <p class="font-body text-sm font-medium text-brand-brown">Group Size:</p>
+                  <p class="font-body text-sm text-brand-mud">{regulations.groupSizeLimits}</p>
+                </div>
+              )}
+              {regulations.stayLimits && (
+                <div>
+                  <p class="font-body text-sm font-medium text-brand-brown">Stay Limits:</p>
+                  <p class="font-body text-sm text-brand-mud">{regulations.stayLimits}</p>
+                </div>
+              )}
+            </div>
+
+            {/* Hunting Info */}
+            {regulations.huntingAllowed !== undefined && (
+              <div class="pt-4 border-t border-brand-brown/10">
+                <div class="flex items-center gap-2">
+                  <span class={`px-2 py-1 rounded-sm font-body text-xs font-bold ${regulations.huntingAllowed ? 'bg-sign-green text-white' : 'bg-red-700 text-white'}`}>
+                    {regulations.huntingAllowed ? 'Hunting Allowed' : 'No Hunting'}
+                  </span>
+                </div>
+                {regulations.huntingNotes && (
+                  <p class="font-body text-sm text-brand-mud mt-2">{regulations.huntingNotes}</p>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ========================================================================
+       GEAR CHECKLIST SECTION
+       ======================================================================== -->
+  {gearList.length > 0 && (
+    <section class="py-16 bg-brand-cream">
+      <div class="container mx-auto px-4">
+        <AdventureGearChecklist
+          items={gearList}
+          title="Backcountry Gear Checklist"
+          columns={3}
+        />
+      </div>
+    </section>
+  )}
+
+  <!-- ========================================================================
+       RELATED SHOP SECTION
+       ======================================================================== -->
+  {relatedShop.length > 0 && (
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <AdventureRelatedShop
+          categories={relatedShop}
+          title="Shop Backcountry Gear"
+        />
+      </div>
+    </section>
+  )}
+
+  <!-- ========================================================================
+       CTA SECTION
+       ======================================================================== -->
+  <AdventureCTA
+    heading={`Plan Your Trip to ${name}`}
+    description="Ready for the backcountry? Let us help you gear up for your West Virginia wilderness adventure."
+    primaryText="Shop Backcountry Gear"
+    primaryHref="/shop/backcountry"
+    secondaryText="Contact Us"
+    secondaryHref="/contact"
+    variant="sign-green"
+  />
+
+  <!-- ========================================================================
+       MANAGING AGENCY FOOTER
+       ======================================================================== -->
+  {managingAgency && (
+    <section class="py-8 bg-brand-cream">
+      <div class="container mx-auto px-4 text-center">
+        <p class="font-body text-sm text-brand-mud">
+          Managed by <strong>{managingAgency.name}</strong>
+          {managingAgency.jurisdiction && ` · ${managingAgency.jurisdiction}`}
+          {managingAgency.rangerDistrict && ` · ${managingAgency.rangerDistrict}`}
+        </p>
+        {managingAgency.contact && (
+          <div class="mt-2 flex flex-wrap justify-center gap-4 font-body text-sm text-brand-mud">
+            {managingAgency.contact.phone && (
+              <a href={`tel:${managingAgency.contact.phone}`} class="hover:text-sign-green">
+                📞 {managingAgency.contact.phone}
+              </a>
+            )}
+            {managingAgency.contact.website && (
+              <a href={managingAgency.contact.website} target="_blank" rel="noopener noreferrer" class="hover:text-sign-green">
+                🌐 Website
+              </a>
+            )}
+          </div>
+        )}
+      </div>
+    </section>
+  )}
+</Layout>
+
+<style>
+  /* Reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+</style>
