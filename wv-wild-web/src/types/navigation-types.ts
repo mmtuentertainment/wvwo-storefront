@@ -387,6 +387,13 @@ export const BackcountryNavigationSchema = z.object({
   // ---- Emergency/Communication ----
   /** Overall satellite communication recommendation for the area */
   satelliteRecommendation: SatelliteRecommendationSchema,
+  /** Simplified cell coverage summary (optional - prefer using accessPoints for detailed coverage) */
+  cellCoverage: z.object({
+    overall: z.enum(['none', 'weak', 'moderate', 'strong']),
+    carriers: z.array(z.string()).optional(),
+    notes: z.string().optional(),
+    nearestSignal: z.string().optional(),
+  }).optional(),
   /** Nearest emergency services */
   nearestEmergencyServices: z.string().optional(),
   /** SAR (Search and Rescue) jurisdiction */

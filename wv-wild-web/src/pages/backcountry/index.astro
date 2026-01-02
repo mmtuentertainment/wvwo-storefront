@@ -18,7 +18,7 @@ import { DIFFICULTY_COLORS, DIFFICULTY_SHAPES, DIFFICULTY_LABELS } from '../../t
 const adventures = await getCollection('adventures');
 
 // Known backcountry slugs
-const backcountrySlugs = ['dolly-sods-wilderness'];
+const backcountrySlugs = ['dolly-sods-wilderness', 'otter-creek-wilderness', 'cranberry-wilderness'];
 
 const backcountryAreas = adventures.filter((entry) => {
   const slug = entry.data.slug || entry.id.replace(/\.md$/, '');

@@ -16,6 +16,8 @@ import BackcountryTemplate from '../../components/templates/BackcountryTemplate.
 import SchemaBackcountryTemplate from '../../components/seo/SchemaBackcountryTemplate.astro';
 import type { BackcountryTemplateProps } from '../../types/backcountry-template-types';
 import * as dollySodsData from '../../data/backcountry/dolly-sods';
+import * as otterCreekData from '../../data/backcountry/otter-creek';
+import * as cranberryData from '../../data/backcountry/cranberry';
 
 // ============================================================================
 // STATIC PATH GENERATION
@@ -26,8 +28,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const adventures = await getCollection('adventures');
 
   // Known backcountry slugs (entries with data files in /src/data/backcountry/)
-  // TODO: Auto-discover by globbing /src/data/backcountry/*.ts files
-  const backcountrySlugs = ['dolly-sods-wilderness'];
+  const backcountrySlugs = ['dolly-sods-wilderness', 'otter-creek-wilderness', 'cranberry-wilderness'];
 
   // Filter for entries with matching slugs
   const backcountryEntries = adventures.filter((entry) => {
@@ -54,6 +55,8 @@ const slug = entry.data.slug || entry.id.replace(/\.md$/, '');
 // Map slug to data file (static imports required for Vite)
 const dataMap: Record<string, typeof dollySodsData> = {
   'dolly-sods-wilderness': dollySodsData,
+  'otter-creek-wilderness': otterCreekData,
+  'cranberry-wilderness': cranberryData,
 };
 
 const backcountryData = dataMap[slug];
