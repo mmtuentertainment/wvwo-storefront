@@ -315,6 +315,62 @@ Flow-Nexus extends MCP capabilities with 70+ cloud-based orchestration tools:
 - Login: `mcp__flow-nexus__user_login` or `npx flow-nexus@latest login`
 - Access 70+ specialized MCP tools for advanced orchestration
 
+## 🧠 ReasoningBank Memory Commands (CRITICAL)
+
+**⚠️ ALWAYS use global installation for real semantic embeddings:**
+
+### One-Time Setup
+```bash
+npm install -g claude-flow@alpha
+```
+
+### ✅ CORRECT Commands (AI Semantic Embeddings)
+```bash
+# Store pattern after completing features
+claude-flow memory store "spec-17-backcountry-complete" "Pattern details..." --namespace wvwo-successes --reasoningbank
+
+# Query/search for patterns
+claude-flow memory query "backcountry template" --namespace wvwo-successes --reasoningbank
+
+# List all memories
+claude-flow memory list --namespace wvwo-successes --reasoningbank
+
+# Check status
+claude-flow memory status --reasoningbank
+```
+
+### ❌ WRONG Commands (Hash-Based Fallback)
+```bash
+# Produces 31.5% match scores instead of 85-95%
+npx claude-flow@alpha memory query "search" --reasoningbank
+```
+
+### Why Global Installation Matters
+
+| Command | Embeddings | Match Score | Performance |
+|---------|-----------|-------------|-------------|
+| `claude-flow` (global) | AI semantic (Xenova/all-MiniLM-L6-v2) | 85-95% | Fast, cached |
+| `npx claude-flow@alpha` | Hash-based fallback | 31.5% | Slow, re-downloads |
+
+**Database:** `.swarm/memory.db` (project-local, ~13MB)
+**Model Cache:** Global npm location (~23MB, one-time download)
+**Embeddings:** 384-dimension vectors for semantic search
+
+### When to Store Patterns
+
+1. After completing a SPEC (all PRs merged)
+2. After discovering important architectural patterns
+3. After solving complex problems
+4. After implementing WVWO-specific conventions
+
+### Memory Best Practices
+
+- Use `--namespace wvwo-successes` for project learnings
+- Keep entries 500-1000 bytes for optimal retrieval
+- Include SPEC numbers, PR numbers, commit hashes
+- Document "why" decisions were made, not just "what"
+- Query before implementing similar features
+
 ## 🚀 Agent Execution Flow with Claude Code
 
 ### The Correct Pattern:
