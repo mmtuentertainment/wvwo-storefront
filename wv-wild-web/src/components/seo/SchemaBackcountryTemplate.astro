@@ -1,0 +1,440 @@
+---
+/**
+ * SchemaBackcountryTemplate.astro
+ * SPEC-17: JSON-LD Structured Data for Backcountry Adventure Pages
+ *
+ * Generates @graph with multiple connected entities:
+ * - TouristAttraction + NaturalFeature (dual type)
+ * - GeoCoordinates for wilderness area
+ * - Article schema with headline, datePublished
+ * - BreadcrumbList (Home > Backcountry > {name})
+ * - SpecialAnnouncement for AMD water safety warnings (P0 - Safety Critical)
+ * - Organization for publisher/author
+ * - PropertyValue extensions (acreage, cell coverage, difficulty, wilderness designation)
+ *
+ * @see https://schema.org/TouristAttraction
+ * @see https://schema.org/NaturalFeature
+ * @see https://schema.org/SpecialAnnouncement
+ * @see https://schema.org/Article
+ * @see https://developers.google.com/search/docs/appearance/structured-data
+ */
+import { hasDoNotUseSources, type WaterSource } from '../../types/water-safety';
+import { formatSchemaDate } from '../../lib/utils/date-formatter';
+
+interface Props {
+  /** Backcountry area name */
+  name: string;
+  /** URL-safe slug */
+  slug: string;
+  /** Area description */
+  description: string;
+  /** County location */
+  county?: string;
+  /** Total acreage */
+  acreage?: number;
+  /** GPS coordinates (decimal format) */
+  coordinates?: {
+    lat: number;
+    lng: number;
+  };
+  /** Cell coverage status */
+  cellCoverage?: 'none' | 'weak' | 'moderate' | 'strong';
+  /** Difficulty level */
+  difficulty?: 'easy' | 'moderate' | 'difficult' | 'expert';
+  /** Wilderness designation info */
+  wildernessDesignation?: {
+    name: string;
+    designation: string;
+    established?: number;
+  };
+  /** Managing agency information */
+  managingAgency?: {
+    name: string;
+    jurisdiction: string;
+    rangerDistrict?: string;
+    contact?: {
+      phone?: string;
+      email?: string;
+      website?: string;
+    };
+  };
+  /** Water sources with safety status (for AMD warnings) */
+  waterSources?: WaterSource[];
+  /** Safety warnings array */
+  warnings?: string[];
+  /** Area amenities/features */
+  amenities?: string[];
+  /** ISO 8601 publish date */
+  publishedDate?: string;
+  /** ISO 8601 update date */
+  updatedDate?: string;
+  /** Hero image absolute URL */
+  imageUrl?: string;
+  /** Trail count for area */
+  trailCount?: number;
+  /** Total trail miles */
+  totalTrailMiles?: number;
+}
+
+const {
+  name,
+  slug,
+  description,
+  county,
+  acreage,
+  coordinates,
+  cellCoverage,
+  difficulty,
+  wildernessDesignation,
+  managingAgency,
+  waterSources = [],
+  warnings = [],
+  amenities = [],
+  publishedDate,
+  updatedDate,
+  imageUrl,
+  trailCount,
+  totalTrailMiles,
+} = Astro.props;
+
+// Base URL for absolute URLs (uses Astro.site from config with fallback)
+const BASE_URL = Astro.site?.href.replace(/\/$/, '') || 'https://wvwildoutdoors.pages.dev';
+const pageUrl = `${BASE_URL}/backcountry/${slug}/`;
+
+// Build the @graph array with multiple connected entities
+const graphEntities: object[] = [];
+
+// ============================================================================
+// 1. WV Wild Outdoors Organization (referenced by other entities)
+// ============================================================================
+const organizationId = `${BASE_URL}#organization`;
+const organization = {
+  '@type': 'Organization',
+  '@id': organizationId,
+  'name': 'WV Wild Outdoors',
+  'url': BASE_URL,
+  'logo': {
+    '@type': 'ImageObject',
+    'url': `${BASE_URL}/og-wvwo-storefront.png`,
+  },
+  'sameAs': [],
+};
+
+graphEntities.push(organization);
+
+// ============================================================================
+// 2. TouristAttraction + NaturalFeature schema (dual @type)
+// ============================================================================
+const attractionId = `${pageUrl}#attraction`;
+const touristAttraction: Record<string, unknown> = {
+  '@type': ['TouristAttraction', 'NaturalFeature'],
+  '@id': attractionId,
+  'name': name,
+  'description': description,
+  'url': pageUrl,
+  'additionalType': 'https://schema.org/Landform',
+  'isAccessibleForFree': true,
+  'publicAccess': true,
+  'touristType': [
+    'Hiker',
+    'Backpacker',
+    'Hunter',
+    'Wildlife Observer',
+    'Outdoor Enthusiast',
+  ],
+};
+
+// GPS coordinates with GeoCoordinates entity
+if (coordinates) {
+  touristAttraction.geo = {
+    '@type': 'GeoCoordinates',
+    '@id': `${pageUrl}#geocoordinates`,
+    'latitude': coordinates.lat,
+    'longitude': coordinates.lng,
+  };
+}
+
+// Address information
+const addressLocality = county || 'West Virginia';
+touristAttraction.address = {
+  '@type': 'PostalAddress',
+  'addressLocality': addressLocality,
+  'addressRegion': 'WV',
+  'addressCountry': 'US',
+};
+
+// Hero image
+if (imageUrl) {
+  touristAttraction.image = imageUrl;
+}
+
+// Additional properties (PropertyValue extensions)
+const additionalProperties: object[] = [];
+
+// Acreage
+if (acreage) {
+  additionalProperties.push({
+    '@type': 'PropertyValue',
+    'name': 'acreage',
+    'value': acreage,
+    'unitCode': 'ACR',
+    'unitText': 'acres',
+  });
+}
+
+// Cell coverage status
+if (cellCoverage) {
+  additionalProperties.push({
+    '@type': 'PropertyValue',
+    'name': 'cellCoverage',
+    'value': cellCoverage,
+    'description': `Cell phone coverage: ${cellCoverage}`,
+  });
+}
+
+// Difficulty level
+if (difficulty) {
+  additionalProperties.push({
+    '@type': 'PropertyValue',
+    'name': 'difficulty',
+    'value': difficulty,
+  });
+}
+
+// Wilderness designation
+if (wildernessDesignation) {
+  additionalProperties.push({
+    '@type': 'PropertyValue',
+    'name': 'wildernessDesignation',
+    'value': wildernessDesignation.designation,
+    'description': `${wildernessDesignation.name}${wildernessDesignation.established ? ` (established ${wildernessDesignation.established})` : ''}`,
+  });
+}
+
+// Trail statistics
+if (trailCount) {
+  additionalProperties.push({
+    '@type': 'PropertyValue',
+    'name': 'trailCount',
+    'value': trailCount,
+    'unitText': 'trails',
+  });
+}
+
+if (totalTrailMiles) {
+  additionalProperties.push({
+    '@type': 'PropertyValue',
+    'name': 'totalTrailMiles',
+    'value': totalTrailMiles,
+    'unitCode': 'SMI',
+    'unitText': 'miles',
+  });
+}
+
+if (additionalProperties.length > 0) {
+  touristAttraction.additionalProperty = additionalProperties;
+}
+
+// Safety warnings
+if (warnings.length > 0) {
+  touristAttraction.warning = warnings;
+}
+
+// Amenity features
+if (amenities.length > 0) {
+  touristAttraction.amenityFeature = amenities.map((a) => ({
+    '@type': 'LocationFeatureSpecification',
+    'name': a,
+    'value': true,
+  }));
+}
+
+// Managing agency as containedInPlace
+if (managingAgency) {
+  touristAttraction.containedInPlace = {
+    '@type': 'AdministrativeArea',
+    '@id': `${pageUrl}#managingagency`,
+    'name': managingAgency.name,
+    'description': managingAgency.jurisdiction,
+  };
+}
+
+graphEntities.push(touristAttraction);
+
+// ============================================================================
+// 3. SpecialAnnouncement for AMD Water Safety Warning (P0 - SAFETY CRITICAL)
+// ============================================================================
+if (hasDoNotUseSources(waterSources)) {
+  const doNotUseSources = waterSources.filter(s => s.status === 'do-not-use');
+  const currentDate = new Date();
+  const expiresDate = new Date(currentDate);
+  expiresDate.setFullYear(expiresDate.getFullYear() + 1);
+
+  // Build spatial coverage from do-not-use sources
+  const spatialCoverage: object[] = doNotUseSources
+    .filter(source => source.location)
+    .map((source, index) => ({
+      '@type': 'Place',
+      '@id': `${pageUrl}#amd-location-${index + 1}`,
+      'name': source.name,
+      'geo': source.location ? {
+        '@type': 'GeoCoordinates',
+        'latitude': source.location.lat,
+        'longitude': source.location.lng,
+      } : undefined,
+    }));
+
+  // Build warning text from sources
+  const sourceNames = doNotUseSources.map(s => s.name).join(', ');
+  const warningText = `WATER SAFETY WARNING: Some water sources in ${name} contain toxic Acid Mine Drainage (AMD) from historic coal mining. The following sources are marked DO NOT USE and CANNOT be made safe by any field treatment method (filtering, boiling, chemical treatment): ${sourceNames}. Consuming AMD-contaminated water can cause heavy metal poisoning. Carry adequate water supply when visiting this area.`;
+
+  const specialAnnouncement: Record<string, unknown> = {
+    '@type': 'SpecialAnnouncement',
+    '@id': `${pageUrl}#amd-warning`,
+    'name': 'AMD Water Safety Warning',
+    'category': 'https://www.wikidata.org/wiki/Q12047938', // environmental hazard
+    'datePosted': formatSchemaDate(currentDate),
+    'expires': formatSchemaDate(expiresDate),
+    'text': warningText,
+    'url': pageUrl,
+    'about': { '@id': attractionId },
+    'announcementLocation': {
+      '@type': 'Place',
+      'name': name,
+      'address': {
+        '@type': 'PostalAddress',
+        'addressLocality': addressLocality,
+        'addressRegion': 'WV',
+        'addressCountry': 'US',
+      },
+    },
+  };
+
+  // Add spatial coverage if we have located sources
+  if (spatialCoverage.length > 0) {
+    specialAnnouncement.spatialCoverage = spatialCoverage;
+  }
+
+  graphEntities.push(specialAnnouncement);
+}
+
+// ============================================================================
+// 4. Article schema
+// ============================================================================
+if (publishedDate || updatedDate) {
+  const articleId = `${pageUrl}#article`;
+  const article: Record<string, unknown> = {
+    '@type': 'Article',
+    '@id': articleId,
+    'headline': `${name} Backcountry Guide - Wilderness Hiking & Camping`,
+    'description': description,
+    'url': pageUrl,
+    'mainEntityOfPage': { '@id': pageUrl },
+    'about': { '@id': attractionId },
+    'author': { '@id': organizationId },
+    'publisher': { '@id': organizationId },
+    'inLanguage': 'en-US',
+  };
+
+  if (publishedDate) {
+    article.datePublished = formatSchemaDate(publishedDate);
+  }
+  if (updatedDate) {
+    article.dateModified = formatSchemaDate(updatedDate);
+  }
+  if (imageUrl) {
+    article.image = imageUrl;
+  }
+
+  // Article type indicators
+  article.articleSection = 'Backcountry Guides';
+  article.keywords = [
+    'backcountry',
+    'wilderness',
+    'hiking',
+    'camping',
+    'West Virginia',
+    name,
+    county || '',
+  ].filter(Boolean);
+
+  graphEntities.push(article);
+}
+
+// ============================================================================
+// 5. BreadcrumbList schema (Home > Backcountry > {name})
+// ============================================================================
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Backcountry', url: '/backcountry/' },
+  { name: name, url: `/backcountry/${slug}/` },
+];
+
+graphEntities.push({
+  '@type': 'BreadcrumbList',
+  '@id': `${pageUrl}#breadcrumb`,
+  'itemListElement': breadcrumbs.map((item, index) => ({
+    '@type': 'ListItem',
+    'position': index + 1,
+    'name': item.name,
+    'item': item.url.startsWith('http') ? item.url : `${BASE_URL}${item.url}`,
+  })),
+});
+
+// ============================================================================
+// 6. Managing Agency as separate entity (if detailed contact available)
+// ============================================================================
+if (managingAgency && managingAgency.contact) {
+  const agencyEntity: Record<string, unknown> = {
+    '@type': 'GovernmentOrganization',
+    '@id': `${pageUrl}#managingagency`,
+    'name': managingAgency.name,
+    'description': managingAgency.jurisdiction,
+  };
+
+  if (managingAgency.rangerDistrict) {
+    agencyEntity.department = {
+      '@type': 'Organization',
+      'name': managingAgency.rangerDistrict,
+    };
+  }
+
+  if (managingAgency.contact.phone) {
+    agencyEntity.telephone = managingAgency.contact.phone;
+  }
+  if (managingAgency.contact.email) {
+    agencyEntity.email = managingAgency.contact.email;
+  }
+  if (managingAgency.contact.website) {
+    agencyEntity.url = managingAgency.contact.website;
+  }
+
+  agencyEntity.address = {
+    '@type': 'PostalAddress',
+    'addressRegion': 'WV',
+    'addressCountry': 'US',
+  };
+
+  graphEntities.push(agencyEntity);
+}
+
+// Final schema with @graph
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': graphEntities,
+};
+
+// Validate JSON structure by stringifying and parsing
+let validatedSchema: object;
+try {
+  validatedSchema = JSON.parse(JSON.stringify(schema));
+} catch (e) {
+  console.error('SchemaBackcountryTemplate: Invalid JSON structure', e);
+  validatedSchema = {
+    '@context': 'https://schema.org',
+    '@graph': [],
+  };
+}
+---
+
+<script is:inline type="application/ld+json" set:html={JSON.stringify(validatedSchema, null, 2)} />

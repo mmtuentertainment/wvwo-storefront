@@ -1,0 +1,398 @@
+---
+/**
+ * CellCoverageSection.astro
+ * SPEC-17: P0 Safety-Critical Cell Coverage & Satellite Communication Display
+ *
+ * SAFETY CRITICAL: West Virginia backcountry often has NO cell coverage.
+ * This component helps visitors understand communication limitations
+ * and plan accordingly with satellite devices.
+ *
+ * Displays:
+ * - Overall cell coverage status with color-coded badge
+ * - Signal strength indicators (bars)
+ * - Carrier availability information
+ * - Satellite communication recommendations
+ * - Best spots for signal (if available)
+ * - Emergency communication planning guidance
+ *
+ * @module components/backcountry/CellCoverageSection
+ */
+
+import {
+  type CellCoverage,
+  type CellSignalStrength,
+  CELL_COVERAGE_COLORS,
+  CELL_COVERAGE_LABELS,
+  CELL_COVERAGE_ICONS,
+  getCellCoverageColor,
+  getCellCoverageLabel,
+} from '../../types/navigation-types';
+
+interface SatelliteRecommendation {
+  /** Whether satellite is required for this area */
+  required: boolean;
+  /** Recommendation level */
+  level: 'required' | 'strongly-recommended' | 'recommended' | 'optional';
+  /** Compatible satellite devices */
+  compatibleDevices?: string[];
+  /** Notes about satellite coverage */
+  coverageNotes?: string;
+  /** Emergency SOS notes */
+  emergencyNotes?: string;
+}
+
+interface Props {
+  /** Cell coverage information */
+  cellCoverage: CellCoverage;
+  /** Satellite communication recommendation */
+  satelliteRecommendation?: SatelliteRecommendation;
+  /** Area name for context */
+  areaName: string;
+  /** Background variant */
+  variant?: 'white' | 'cream';
+}
+
+const {
+  cellCoverage,
+  satelliteRecommendation,
+  areaName,
+  variant = 'white',
+} = Astro.props;
+
+const bgClass = variant === 'white' ? 'bg-white' : 'bg-brand-cream';
+
+// Determine if satellite is critical (no/weak coverage)
+const isSatelliteCritical =
+  cellCoverage.status === 'none' ||
+  cellCoverage.status === 'weak' ||
+  satelliteRecommendation?.required === true;
+
+/**
+ * Get satellite importance styling
+ */
+function getSatelliteLevelStyle(level: string): { bgClass: string; label: string } {
+  switch (level) {
+    case 'required':
+      return { bgClass: 'bg-red-700 text-white', label: 'REQUIRED' };
+    case 'strongly-recommended':
+      return { bgClass: 'bg-brand-orange text-white', label: 'Strongly Recommended' };
+    case 'recommended':
+      return { bgClass: 'bg-yellow-600 text-black', label: 'Recommended' };
+    case 'optional':
+      return { bgClass: 'bg-sign-green text-white', label: 'Optional' };
+    default:
+      return { bgClass: 'bg-brand-brown text-white', label: 'Recommended' };
+  }
+}
+
+/**
+ * Get description based on coverage status
+ */
+function getCoverageDescription(status: CellSignalStrength): string {
+  switch (status) {
+    case 'none':
+      return 'No cellular service is available in this area. You will not be able to make calls, send texts, or use mobile data.';
+    case 'weak':
+      return 'Cellular coverage is unreliable with intermittent signal. Calls may drop and data is extremely limited.';
+    case 'moderate':
+      return 'Cellular coverage is available but may be spotty in some areas. Voice calls generally work; data may be slow.';
+    case 'strong':
+      return 'Reliable cellular coverage is available throughout most of the area.';
+    default:
+      return 'Cell coverage varies. Check with your carrier before your trip.';
+  }
+}
+---
+
+<section
+  class:list={['py-12 md:py-16', bgClass]}
+  aria-labelledby="cell-coverage-heading"
+>
+  <div class="container mx-auto px-4">
+    <div class="max-w-4xl mx-auto">
+      <!-- Section Header -->
+      <div class="flex items-center gap-3 mb-6">
+        <svg
+          class="w-8 h-8 text-brand-brown flex-shrink-0"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"
+          />
+        </svg>
+        <h2
+          id="cell-coverage-heading"
+          class="font-display font-bold text-2xl md:text-3xl text-brand-brown"
+        >
+          Cell Coverage & Communication
+        </h2>
+      </div>
+
+      <!-- Main Coverage Card -->
+      <div class="bg-brand-cream p-6 rounded-sm border-l-4 border-brand-brown mb-8">
+        <div class="flex flex-col md:flex-row md:items-center gap-6">
+          <!-- Coverage Status Badge & Icon -->
+          <div class="flex items-center gap-4">
+            <!-- Signal Bars Icon -->
+            <div class="text-3xl font-mono tracking-wider text-brand-brown" aria-hidden="true">
+              {CELL_COVERAGE_ICONS[cellCoverage.status]}
+            </div>
+
+            <div>
+              <!-- Status Badge -->
+              <span
+                class:list={[
+                  'inline-block px-4 py-2 rounded-sm font-display text-lg font-bold',
+                  getCellCoverageColor(cellCoverage.status),
+                ]}
+              >
+                {getCellCoverageLabel(cellCoverage.status)}
+              </span>
+            </div>
+          </div>
+
+          <!-- Coverage Description -->
+          <div class="flex-1">
+            <p class="font-body text-brand-mud">
+              {getCoverageDescription(cellCoverage.status)}
+            </p>
+          </div>
+        </div>
+
+        <!-- Coverage Details Grid -->
+        <div class="grid md:grid-cols-2 gap-6 mt-6 pt-6 border-t border-brand-brown/10">
+          <!-- Carriers (if any) -->
+          <div>
+            <h3 class="font-display text-base font-bold text-brand-brown mb-2">
+              Carrier Coverage
+            </h3>
+            {cellCoverage.carriers && cellCoverage.carriers.length > 0 ? (
+              <div class="flex flex-wrap gap-2">
+                {cellCoverage.carriers.map((carrier: string) => (
+                  <span class="bg-white px-3 py-1 rounded-sm font-body text-sm text-brand-mud">
+                    {carrier}
+                  </span>
+                ))}
+              </div>
+            ) : (
+              <p class="font-body text-sm text-brand-mud">
+                {cellCoverage.status === 'none'
+                  ? 'No carrier coverage available'
+                  : 'Carrier information not verified'}
+              </p>
+            )}
+          </div>
+
+          <!-- Best Spot for Signal -->
+          <div>
+            <h3 class="font-display text-base font-bold text-brand-brown mb-2">
+              Best Signal Location
+            </h3>
+            {cellCoverage.bestSpot ? (
+              <p class="font-body text-sm text-brand-mud">
+                {cellCoverage.bestSpot}
+              </p>
+            ) : cellCoverage.nearestSignal ? (
+              <p class="font-body text-sm text-brand-mud">
+                <span class="font-medium">Nearest Signal:</span> {cellCoverage.nearestSignal}
+              </p>
+            ) : (
+              <p class="font-body text-sm text-brand-mud italic">
+                No reliable signal locations identified
+              </p>
+            )}
+          </div>
+        </div>
+
+        <!-- Coverage Notes -->
+        {cellCoverage.notes && (
+          <p class="font-body text-sm text-brand-mud mt-4 pt-4 border-t border-brand-brown/10">
+            {cellCoverage.notes}
+          </p>
+        )}
+
+        <!-- Verified Date -->
+        {cellCoverage.verifiedDate && (
+          <p class="font-body text-xs text-brand-mud mt-2">
+            Coverage verified: {cellCoverage.verifiedDate}
+          </p>
+        )}
+      </div>
+
+      <!-- Satellite Communication Section -->
+      {(isSatelliteCritical || satelliteRecommendation) && (
+        <div
+          class:list={[
+            'p-6 rounded-sm border-l-4 mb-8',
+            isSatelliteCritical ? 'bg-red-50 border-red-700' : 'bg-brand-cream border-brand-orange',
+          ]}
+          role={isSatelliteCritical ? 'alert' : undefined}
+        >
+          <div class="flex items-start gap-4">
+            <!-- Satellite Icon -->
+            <svg
+              class:list={[
+                'w-10 h-10 flex-shrink-0',
+                isSatelliteCritical ? 'text-red-700' : 'text-brand-orange',
+              ]}
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.14 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"
+              />
+            </svg>
+
+            <div class="flex-1">
+              <!-- Header with Importance Badge -->
+              <div class="flex flex-wrap items-center gap-3 mb-3">
+                <h3 class:list={[
+                  'font-display text-xl font-bold',
+                  isSatelliteCritical ? 'text-red-800' : 'text-brand-brown',
+                ]}>
+                  Satellite Communication
+                </h3>
+
+                {satelliteRecommendation && (
+                  <span
+                    class:list={[
+                      'px-3 py-1 rounded-sm font-body text-xs font-bold',
+                      getSatelliteLevelStyle(satelliteRecommendation.level).bgClass,
+                    ]}
+                  >
+                    {getSatelliteLevelStyle(satelliteRecommendation.level).label}
+                  </span>
+                )}
+              </div>
+
+              <!-- Explanation -->
+              <p class:list={[
+                'font-body text-sm mb-4 leading-relaxed',
+                isSatelliteCritical ? 'text-red-800' : 'text-brand-mud',
+              ]}>
+                {isSatelliteCritical
+                  ? `With no reliable cell coverage in ${areaName}, a satellite communication device is your only way to call for help in an emergency. These devices work anywhere with a clear view of the sky.`
+                  : `A satellite communication device provides backup emergency capability when cell coverage fails.`
+                }
+              </p>
+
+              <!-- Compatible Devices -->
+              {satelliteRecommendation?.compatibleDevices && satelliteRecommendation.compatibleDevices.length > 0 && (
+                <div class="mb-4">
+                  <h4 class:list={[
+                    'font-display text-base font-bold mb-2',
+                    isSatelliteCritical ? 'text-red-800' : 'text-brand-brown',
+                  ]}>
+                    Compatible Devices:
+                  </h4>
+                  <div class="flex flex-wrap gap-2">
+                    {satelliteRecommendation.compatibleDevices.map((device: string) => (
+                      <span class="bg-white px-3 py-1.5 rounded-sm font-body text-sm text-brand-mud border border-brand-brown/10">
+                        {device}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              <!-- Coverage Notes -->
+              {satelliteRecommendation?.coverageNotes && (
+                <p class:list={[
+                  'font-body text-sm',
+                  isSatelliteCritical ? 'text-red-800' : 'text-brand-mud',
+                ]}>
+                  {satelliteRecommendation.coverageNotes}
+                </p>
+              )}
+
+              <!-- Emergency Notes -->
+              {satelliteRecommendation?.emergencyNotes && (
+                <div class="mt-4 pt-4 border-t border-brand-brown/10">
+                  <p class:list={[
+                    'font-body text-sm font-medium',
+                    isSatelliteCritical ? 'text-red-800' : 'text-brand-brown',
+                  ]}>
+                    Emergency SOS: {satelliteRecommendation.emergencyNotes}
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      <!-- Emergency Planning Reminder -->
+      <div class="bg-brand-cream p-5 rounded-sm">
+        <div class="flex items-start gap-4">
+          <svg
+            class="w-6 h-6 text-brand-orange flex-shrink-0"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+          <div>
+            <h3 class="font-display text-base font-bold text-brand-brown mb-1">
+              Before You Go
+            </h3>
+            <ul class="space-y-1">
+              <li class="font-body text-sm text-brand-mud flex items-start gap-2">
+                <span class="text-sign-green font-bold flex-shrink-0" aria-hidden="true">
+                  &#10003;
+                </span>
+                Leave a detailed trip plan with someone who will call for help if you're overdue
+              </li>
+              <li class="font-body text-sm text-brand-mud flex items-start gap-2">
+                <span class="text-sign-green font-bold flex-shrink-0" aria-hidden="true">
+                  &#10003;
+                </span>
+                Download offline maps before you lose signal
+              </li>
+              <li class="font-body text-sm text-brand-mud flex items-start gap-2">
+                <span class="text-sign-green font-bold flex-shrink-0" aria-hidden="true">
+                  &#10003;
+                </span>
+                Test your satellite device before the trip
+              </li>
+              <li class="font-body text-sm text-brand-mud flex items-start gap-2">
+                <span class="text-sign-green font-bold flex-shrink-0" aria-hidden="true">
+                  &#10003;
+                </span>
+                Know the emergency contact numbers for the area
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kim's Wisdom -->
+      {cellCoverage.status === 'none' && (
+        <aside class="mt-6 p-4 bg-brand-cream rounded-sm" role="note">
+          <p class="font-hand text-base text-brand-mud leading-relaxed">
+            "Don't count on your phone out here. Write down your route and expected return
+            time, leave it with someone who cares, and tell them when to call Search & Rescue.
+            That's how it's done in real backcountry." - Kim
+          </p>
+        </aside>
+      )}
+    </div>
+  </div>
+</section>
