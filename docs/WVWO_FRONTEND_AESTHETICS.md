@@ -134,6 +134,47 @@ NEVER USE:
 - Diagonal multi-stop gradients (from-purple-500 via-pink-500 to-red-500)
 ```
 
+### INDUSTRY STANDARD COLOR EXCEPTIONS (REQUIRED FOR SAFETY)
+**CRITICAL: Industry safety/danger colors OVERRIDE WVWO brand palette in adventure contexts.**
+These colors are REQUIRED (not optional) when displaying safety-critical information:
+
+```text
+SKI TRAIL DIFFICULTY (NSAA Standard):
+├─ Green (sign-green) = Beginner ● circle
+├─ Blue (blue-700) = Intermediate ■ square
+├─ Black = Advanced ◆ diamond
+└─ Black = Expert ◆◆ double diamond
+
+HIKING/TRAIL DIFFICULTY (International):
+├─ Green (sign-green) = Easy ● circle
+├─ Blue (blue-700) = Moderate ■ square
+├─ Red (red-900) = Challenging ▲ triangle
+└─ Black = Rugged ◆ diamond
+
+AVALANCHE DANGER (North American Scale):
+├─ Green = Low (1)
+├─ Yellow (yellow-600) = Moderate (2)
+├─ Orange (orange-600) = Considerable (3)
+├─ Red (red-700) = High (4)
+└─ Black = Extreme (5)
+
+FIRE DANGER (USFS NFDRS):
+├─ Green = Low
+├─ Blue (blue-700) = Moderate
+├─ Yellow (yellow-600) = High
+├─ Orange (orange-600) = Very High
+└─ Red (red-700) = Extreme
+
+RIVER RAPIDS (International Scale):
+└─ No colors - Class I-VI text only
+```
+
+**Why industry colors take precedence over brand:**
+Outdoor enthusiasts recognize these colors instantly - it's muscle memory and training.
+A skier knows blue = intermediate. A backcountry traveler knows black = extreme danger.
+Using WVWO brand colors for safety-critical info would confuse users and CREATE SAFETY HAZARDS.
+Brand aesthetics NEVER override safety communication. These are life-or-death standards, not style choices.
+
 ### BLAZE ORANGE STRATEGY
 Orange should occupy <5% of any screen view. It's a highlighter, not a paint bucket.
 - **USE FOR**: Primary CTAs, safety notices, active nav states, hover accents

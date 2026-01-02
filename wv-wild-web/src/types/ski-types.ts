@@ -38,14 +38,16 @@ export type TrailDifficulty = z.infer<typeof TrailDifficultySchema>;
 
 /**
  * Trail difficulty color classes.
- * NOTE: Blue (bg-blue-700) is an approved exception for ski trail difficulty
- * per NASAA/NSAA industry standard (green circle, blue square, black diamond).
+ * Follows NSAA industry standard - these colors OVERRIDE WVWO brand palette.
+ * Industry safety colors take precedence per CLAUDE.md.
+ *
+ * @see CLAUDE.md "Color Exceptions (Industry Standards)"
  */
 export const TRAIL_DIFFICULTY_COLORS: Record<TrailDifficulty, string> = {
-  beginner: 'bg-sign-green text-white',
-  intermediate: 'bg-blue-700 text-white', // EXCEPTION: Industry standard
-  advanced: 'bg-brand-brown text-brand-cream',
-  expert: 'bg-red-900 text-white',
+  beginner: 'bg-sign-green text-white',   // Industry standard: Green circle
+  intermediate: 'bg-blue-700 text-white', // Industry standard: Blue square
+  advanced: 'bg-black text-white',        // Industry standard: Black diamond
+  expert: 'bg-black text-white',          // Industry standard: Double black diamond
 };
 
 /**

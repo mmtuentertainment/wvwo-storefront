@@ -77,46 +77,45 @@ describe('AdventureHero', () => {
     });
   });
 
-  describe('applies correct difficulty badge color', () => {
-    it('easy maps to sign-green', () => {
+  describe('applies correct difficulty badge color (industry standard)', () => {
+    it('easy maps to sign-green (industry standard)', () => {
       expect(difficultyColors.easy).toContain('bg-sign-green');
       expect(difficultyColors.easy).toContain('text-white');
     });
 
-    it('moderate maps to brand-orange with brown text for WCAG contrast', () => {
-      expect(difficultyColors.moderate).toContain('bg-brand-orange');
-      // text-brand-brown provides 5.81:1 contrast ratio (WCAG AA compliant)
-      expect(difficultyColors.moderate).toContain('text-brand-brown');
+    it('moderate maps to blue-700 (industry standard)', () => {
+      expect(difficultyColors.moderate).toContain('bg-blue-700');
+      expect(difficultyColors.moderate).toContain('text-white');
     });
 
-    it('challenging maps to brand-mud', () => {
-      expect(difficultyColors.challenging).toContain('bg-brand-mud');
-      expect(difficultyColors.challenging).toContain('text-brand-cream');
+    it('challenging maps to red-900 (industry standard)', () => {
+      expect(difficultyColors.challenging).toContain('bg-red-900');
+      expect(difficultyColors.challenging).toContain('text-white');
     });
 
-    it('rugged maps to red-800', () => {
-      expect(difficultyColors.rugged).toContain('bg-red-800');
+    it('rugged maps to black (industry standard)', () => {
+      expect(difficultyColors.rugged).toContain('bg-black');
       expect(difficultyColors.rugged).toContain('text-white');
     });
   });
 
-  describe('applies correct difficulty shape icon', () => {
-    it('easy uses circle (U+25CF)', () => {
+  describe('applies correct difficulty shape icon (industry standard)', () => {
+    it('easy uses circle (U+25CF) - green', () => {
       expect(difficultyShapes.easy).toBe('\u25CF');
       expect(difficultyShapes.easy).toBe('●');
     });
 
-    it('moderate uses triangle (U+25B2)', () => {
-      expect(difficultyShapes.moderate).toBe('\u25B2');
-      expect(difficultyShapes.moderate).toBe('▲');
+    it('moderate uses square (U+25A0) - blue', () => {
+      expect(difficultyShapes.moderate).toBe('\u25A0');
+      expect(difficultyShapes.moderate).toBe('■');
     });
 
-    it('challenging uses square (U+25A0)', () => {
-      expect(difficultyShapes.challenging).toBe('\u25A0');
-      expect(difficultyShapes.challenging).toBe('■');
+    it('challenging uses triangle (U+25B2) - red', () => {
+      expect(difficultyShapes.challenging).toBe('\u25B2');
+      expect(difficultyShapes.challenging).toBe('▲');
     });
 
-    it('rugged uses diamond (U+25C6)', () => {
+    it('rugged uses diamond (U+25C6) - black', () => {
       expect(difficultyShapes.rugged).toBe('\u25C6');
       expect(difficultyShapes.rugged).toBe('◆');
     });
