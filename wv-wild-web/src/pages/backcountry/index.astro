@@ -17,14 +17,12 @@ import { DIFFICULTY_COLORS, DIFFICULTY_SHAPES, DIFFICULTY_LABELS } from '../../t
 // Get all backcountry content (entries with data files in /src/data/backcountry/)
 const adventures = await getCollection('adventures');
 
+// Known backcountry slugs
+const backcountrySlugs = ['dolly-sods-wilderness'];
+
 const backcountryAreas = adventures.filter((entry) => {
   const slug = entry.data.slug || entry.id.replace(/\.md$/, '');
-  try {
-    require.resolve(`../../data/backcountry/${slug}`);
-    return true;
-  } catch {
-    return false;
-  }
+  return backcountrySlugs.includes(slug);
 }).map((entry) => ({
   slug: entry.data.slug || entry.id.replace(/\.md$/, ''),
   title: entry.data.title,

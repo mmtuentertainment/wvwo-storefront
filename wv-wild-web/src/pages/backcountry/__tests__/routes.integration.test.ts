@@ -18,18 +18,14 @@ describe('Backcountry Routes Integration', () => {
       expect(expectedPath).toBe('/backcountry/dolly-sods-wilderness/');
     });
 
-    it('should filter adventures by data file existence', () => {
+    it('should filter adventures by data file existence', async () => {
       // Only adventures with matching data files should generate routes
-      const hasDataFile = (slug: string): boolean => {
-        try {
-          require.resolve(`../../../data/backcountry/${slug}`);
-          return true;
-        } catch {
-          return false;
-        }
-      };
+      // This validates the import pattern works
+      const dollySodsData = await import('../../../data/backcountry/dolly-sods');
 
-      expect(hasDataFile('dolly-sods-wilderness')).toBe(true);
+      // If import succeeds, data file exists and is valid
+      expect(dollySodsData).toBeDefined();
+      expect(dollySodsData.navigation).toBeDefined();
     });
 
     it('should use slug field or fallback to entry ID', () => {

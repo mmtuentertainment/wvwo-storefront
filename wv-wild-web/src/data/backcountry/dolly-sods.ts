@@ -38,6 +38,12 @@ export const navigation: BackcountryNavigation = {
     displayLatLong: "39.03, -79.35",
     datum: 'WGS84',
   },
+  cellCoverage: {
+    overall: 'none' as const,
+    carriers: [],
+    notes: 'No reliable cell service anywhere in the wilderness. Nearest signal is Laneville or along Route 28.',
+    nearestSignal: 'Route 28 near Laneville, approximately 5 miles from Bear Rocks trailhead',
+  },
   usgsQuads: [
     { name: 'Hopeville', coverage: 'primary', scale: '1:24000' },
     { name: 'Blackbird Knob', coverage: 'primary', scale: '1:24000' },

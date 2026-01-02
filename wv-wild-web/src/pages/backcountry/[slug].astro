@@ -15,6 +15,7 @@ import type { GetStaticPaths } from 'astro';
 import BackcountryTemplate from '../../components/templates/BackcountryTemplate.astro';
 import SchemaBackcountryTemplate from '../../components/seo/SchemaBackcountryTemplate.astro';
 import type { BackcountryTemplateProps } from '../../types/backcountry-template-types';
+import * as dollySodsData from '../../data/backcountry/dolly-sods';
 
 // ============================================================================
 // STATIC PATH GENERATION
@@ -24,18 +25,14 @@ export const getStaticPaths: GetStaticPaths = async () => {
   // Get all adventure content
   const adventures = await getCollection('adventures');
 
-  // Filter for backcountry entries (we use type='adventure' with backcountry slugs)
-  // Backcountry entries have corresponding data files in /src/data/backcountry/
+  // Known backcountry slugs (entries with data files in /src/data/backcountry/)
+  // TODO: Auto-discover by globbing /src/data/backcountry/*.ts files
+  const backcountrySlugs = ['dolly-sods-wilderness'];
+
+  // Filter for entries with matching slugs
   const backcountryEntries = adventures.filter((entry) => {
-    // Check if data file exists for this entry
     const slug = entry.data.slug || entry.id.replace(/\.md$/, '');
-    try {
-      // Will throw if data file doesn't exist
-      require.resolve(`../../data/backcountry/${slug}`);
-      return true;
-    } catch {
-      return false;
-    }
+    return backcountrySlugs.includes(slug);
   });
 
   return backcountryEntries.map((entry) => {
@@ -54,8 +51,15 @@ export const getStaticPaths: GetStaticPaths = async () => {
 const { entry } = Astro.props;
 const slug = entry.data.slug || entry.id.replace(/\.md$/, '');
 
-// Import data file dynamically
-const backcountryData = await import(`../../data/backcountry/${slug}.ts`);
+// Map slug to data file (static imports required for Vite)
+const dataMap: Record<string, typeof dollySodsData> = {
+  'dolly-sods-wilderness': dollySodsData,
+};
+
+const backcountryData = dataMap[slug];
+if (!backcountryData) {
+  throw new Error(`No backcountry data file found for slug: ${slug}`);
+}
 
 // Merge frontmatter + data file for complete props
 const templateProps: BackcountryTemplateProps = {
