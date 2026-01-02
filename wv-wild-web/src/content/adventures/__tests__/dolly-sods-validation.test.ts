@@ -491,7 +491,7 @@ describe('T-408: Medical Facility Information', () => {
 describe('T-409: Cell Coverage and Satellite Communication', () => {
   it('overall cell coverage is "none"', () => {
     const nav = dollySodsData.navigation as BackcountryNavigation;
-    expect(nav.cellCoverage.overall).toBe('none');
+    expect(nav.cellCoverage?.overall).toBe('none');
   });
 
   it('satellite communication is required', () => {
