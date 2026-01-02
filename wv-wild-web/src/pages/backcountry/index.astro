@@ -1,0 +1,189 @@
+---
+/**
+ * Backcountry Hub - Listing Page
+ * SPEC-17 T-224: Index route listing all backcountry wilderness areas
+ *
+ * Displays grid of backcountry destinations with:
+ * - Hero images and difficulty badges
+ * - Cell coverage warnings
+ * - Quick stats (acreage, trails, elevation)
+ * - Links to individual wilderness pages
+ */
+
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import { DIFFICULTY_COLORS, DIFFICULTY_SHAPES, DIFFICULTY_LABELS } from '../../types/adventure';
+
+// Get all backcountry content (entries with data files in /src/data/backcountry/)
+const adventures = await getCollection('adventures');
+
+// Known backcountry slugs
+const backcountrySlugs = ['dolly-sods-wilderness'];
+
+const backcountryAreas = adventures.filter((entry) => {
+  const slug = entry.data.slug || entry.id.replace(/\.md$/, '');
+  return backcountrySlugs.includes(slug);
+}).map((entry) => ({
+  slug: entry.data.slug || entry.id.replace(/\.md$/, ''),
+  title: entry.data.title,
+  description: entry.data.description,
+  difficulty: entry.data.difficulty,
+  county: entry.data.county,
+  acreage: entry.data.acreage,
+  image: entry.data.heroImage || entry.data.image,
+  imageAlt: entry.data.imageAlt,
+  quickStats: entry.data.quickStats || [],
+}));
+
+const pageTitle = 'West Virginia Backcountry Wilderness Areas | WV Wild Outdoors';
+const metaDescription = 'Explore WV backcountry wilderness areas with navigation guides, water safety info, emergency contacts, and trail systems. From Dolly Sods to Otter Creek - get prepared for remote wilderness.';
+const baseUrl = Astro.site?.href.replace(/\/$/, '') || 'https://wvwildoutdoors.pages.dev';
+---
+
+<Layout title={pageTitle}>
+  <head slot="head">
+    <meta name="description" content={metaDescription} />
+    <link rel="canonical" href={`${baseUrl}/backcountry/`} />
+    <meta property="og:title" content="WV Backcountry Wilderness Areas" />
+    <meta property="og:description" content={metaDescription} />
+    <meta property="og:url" content={`${baseUrl}/backcountry/`} />
+    <meta property="og:type" content="website" />
+  </head>
+
+  <!-- Hero Section -->
+  <section class="relative h-[50vh] min-h-[400px] bg-brand-brown overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-b from-brand-brown/80 to-brand-brown"></div>
+    <div class="relative h-full container mx-auto px-4 flex flex-col justify-center">
+      <h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
+        West Virginia Backcountry
+      </h1>
+      <p class="font-body text-xl text-brand-cream max-w-3xl">
+        Remote wilderness areas where cell service ends and real adventure begins.
+        Get the safety information, navigation guides, and gear recommendations you need
+        before heading into WV's most rugged terrain.
+      </p>
+    </div>
+  </section>
+
+  <!-- Backcountry Areas Grid -->
+  <section class="py-16 bg-brand-cream">
+    <div class="container mx-auto px-4">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+        {backcountryAreas.map((area) => (
+          <a
+            href={`/backcountry/${area.slug}/`}
+            class="group bg-white rounded-sm overflow-hidden border-2 border-transparent hover:border-sign-green motion-safe:transition-all motion-reduce:transition-none"
+          >
+            <!-- Image -->
+            {area.image && (
+              <div class="relative h-64 overflow-hidden">
+                <img
+                  src={area.image}
+                  alt={area.imageAlt || `${area.title} wilderness area`}
+                  class="w-full h-full object-cover group-hover:scale-105 motion-safe:transition-transform motion-reduce:transition-none"
+                  loading="lazy"
+                />
+                <!-- Difficulty Badge -->
+                <div class="absolute top-4 right-4">
+                  <span class={`${DIFFICULTY_COLORS[area.difficulty]} px-3 py-1 rounded-sm font-body text-sm font-bold inline-flex items-center gap-1`}>
+                    <span aria-hidden="true">{DIFFICULTY_SHAPES[area.difficulty]}</span>
+                    {DIFFICULTY_LABELS[area.difficulty]}
+                  </span>
+                </div>
+              </div>
+            )}
+
+            <!-- Content -->
+            <div class="p-6">
+              <h2 class="font-display text-2xl font-bold text-brand-brown mb-2 group-hover:text-sign-green motion-safe:transition-colors motion-reduce:transition-none">
+                {area.title}
+              </h2>
+
+              {area.county && (
+                <p class="font-body text-sm text-brand-mud mb-3">
+                  {area.county} County, WV
+                </p>
+              )}
+
+              <p class="font-body text-brand-mud mb-4 line-clamp-3">
+                {area.description}
+              </p>
+
+              <!-- Quick Stats -->
+              {area.quickStats.length > 0 && (
+                <div class="flex flex-wrap gap-2 mb-4">
+                  {area.quickStats.slice(0, 3).map((stat) => (
+                    <span class="bg-brand-cream px-2 py-1 rounded-sm font-body text-xs text-brand-mud">
+                      {stat}
+                    </span>
+                  ))}
+                </div>
+              )}
+
+              {area.acreage && (
+                <div class="flex items-center gap-2 text-sign-green">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  <span class="font-body text-sm font-medium">{area.acreage.toLocaleString()} acres</span>
+                </div>
+              )}
+            </div>
+          </a>
+        ))}
+      </div>
+
+      {backcountryAreas.length === 0 && (
+        <div class="text-center py-12">
+          <p class="font-body text-lg text-brand-mud">
+            Backcountry content coming soon. Check back for wilderness area guides.
+          </p>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- Safety Notice -->
+  <section class="py-12 bg-red-50">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto">
+        <div class="flex items-start gap-4">
+          <svg class="w-12 h-12 text-red-700 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+          </svg>
+          <div>
+            <h2 class="font-display text-2xl font-bold text-red-800 mb-3">
+              Backcountry Safety Essentials
+            </h2>
+            <div class="font-body text-red-800 space-y-2">
+              <p>
+                <strong>Cell Coverage:</strong> Most WV wilderness areas have NO cell service.
+                A satellite communicator (Garmin inReach, SPOT, Zoleo) is essential for emergency communication.
+              </p>
+              <p>
+                <strong>Water Safety:</strong> Some water sources contain Acid Mine Drainage (AMD)
+                from historic coal mining. Orange-tinted water CANNOT be made safe by filtering or boiling.
+                Always verify water color and carry extra capacity.
+              </p>
+              <p>
+                <strong>Navigation:</strong> Paper maps, compass skills, and GPS devices are required.
+                Download offline maps before you lose signal. File a trip plan with emergency contacts.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* Reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+</style>

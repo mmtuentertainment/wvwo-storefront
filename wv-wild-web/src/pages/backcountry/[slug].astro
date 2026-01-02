@@ -1,0 +1,188 @@
+---
+/**
+ * Backcountry Wilderness Page - Dynamic Route
+ * SPEC-17 T-220 to T-223: Dynamic route for backcountry content
+ *
+ * Renders BackcountryTemplate with data merged from:
+ * 1. Content collection frontmatter (title, description, coordinates, etc.)
+ * 2. Data file at /src/data/backcountry/{slug}.ts (navigation, water, emergency, etc.)
+ *
+ * Pattern matches SPEC-15 (Ski) and SPEC-16 (Cave) for consistency.
+ */
+
+import { getCollection, getEntry } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+import BackcountryTemplate from '../../components/templates/BackcountryTemplate.astro';
+import SchemaBackcountryTemplate from '../../components/seo/SchemaBackcountryTemplate.astro';
+import type { BackcountryTemplateProps } from '../../types/backcountry-template-types';
+import * as dollySodsData from '../../data/backcountry/dolly-sods';
+
+// ============================================================================
+// STATIC PATH GENERATION
+// ============================================================================
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  // Get all adventure content
+  const adventures = await getCollection('adventures');
+
+  // Known backcountry slugs (entries with data files in /src/data/backcountry/)
+  // TODO: Auto-discover by globbing /src/data/backcountry/*.ts files
+  const backcountrySlugs = ['dolly-sods-wilderness'];
+
+  // Filter for entries with matching slugs
+  const backcountryEntries = adventures.filter((entry) => {
+    const slug = entry.data.slug || entry.id.replace(/\.md$/, '');
+    return backcountrySlugs.includes(slug);
+  });
+
+  return backcountryEntries.map((entry) => {
+    const slug = entry.data.slug || entry.id.replace(/\.md$/, '');
+    return {
+      params: { slug },
+      props: { entry },
+    };
+  });
+};
+
+// ============================================================================
+// PAGE PROPS
+// ============================================================================
+
+const { entry } = Astro.props;
+const slug = entry.data.slug || entry.id.replace(/\.md$/, '');
+
+// Map slug to data file (static imports required for Vite)
+const dataMap: Record<string, typeof dollySodsData> = {
+  'dolly-sods-wilderness': dollySodsData,
+};
+
+const backcountryData = dataMap[slug];
+if (!backcountryData) {
+  throw new Error(`No backcountry data file found for slug: ${slug}`);
+}
+
+// Merge frontmatter + data file for complete props
+const templateProps: BackcountryTemplateProps = {
+  // From content collection frontmatter
+  name: entry.data.title,
+  description: entry.data.description,
+  heroImage: entry.data.heroImage || entry.data.image,
+  heroImageAlt: entry.data.imageAlt,
+  tagline: entry.data.tagline,
+  county: entry.data.county,
+  acreage: entry.data.acreage,
+  coordinates: entry.data.coordinates,
+  quickStats: entry.data.quickStats,
+  gearList: entry.data.gearList,
+  relatedShop: entry.data.relatedShop,
+  safety: entry.data.safety,
+  kimTips: entry.data.kimTips,
+
+  // From data file (structured backcountry data)
+  navigation: backcountryData.navigation,
+  emergencyContacts: backcountryData.emergencyContacts,
+  regulations: backcountryData.regulations,
+  managingAgency: backcountryData.managingAgency,
+  wildernessArea: backcountryData.wildernessArea,
+  wildlifeHazards: backcountryData.wildlifeHazards,
+  trails: backcountryData.trails,
+  camping: {
+    permittedSites: 'Dispersed camping allowed',
+    regulations: backcountryData.regulations.campingRestrictions || [],
+    restrictions: backcountryData.regulations.specialRestrictions || [],
+    waterSources: backcountryData.waterSources,
+    hasAMDConcerns: backcountryData.hasAMDConcerns,
+  },
+  weatherHazards: backcountryData.weatherHazards,
+  accessibility: backcountryData.accessibility,
+  requiredSkills: backcountryData.requiredSkills,
+  leaveNoTrace: backcountryData.leaveNoTrace,
+};
+
+// Schema props for SEO
+const schemaProps = {
+  name: entry.data.title,
+  slug,
+  description: entry.data.description,
+  county: entry.data.county,
+  acreage: entry.data.acreage,
+  coordinates: entry.data.coordinates,
+  imageUrl: entry.data.heroImage ? `${Astro.site?.href || 'https://wvwildoutdoors.pages.dev'}${entry.data.heroImage}` : undefined,
+  waterSources: backcountryData.waterSources,
+  managingAgency: backcountryData.managingAgency,
+  wildernessDesignation: backcountryData.wildernessArea ? {
+    name: backcountryData.wildernessArea.name,
+    designation: backcountryData.wildernessArea.designation,
+    established: backcountryData.wildernessArea.established,
+  } : undefined,
+  cellCoverage: backcountryData.navigation.satelliteRecommendation.required ? 'none' : 'moderate',
+  publishedDate: new Date().toISOString(),
+  updatedDate: new Date().toISOString(),
+};
+
+// Meta tags (T-226 to T-232)
+const pageTitle = `${entry.data.title} Backcountry Guide | WV Wild Outdoors`;
+const metaDescription = `${entry.data.description.slice(0, 150)}...`;
+const baseUrl = Astro.site?.href.replace(/\/$/, '') || 'https://wvwildoutdoors.pages.dev';
+const canonicalUrl = `${baseUrl}/backcountry/${slug}/`;
+const ogImage = entry.data.heroImage ? `${baseUrl}${entry.data.heroImage}` : `${baseUrl}/og-wvwo-storefront.png`;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Title (T-226: 50-60 chars) -->
+  <title>{pageTitle}</title>
+
+  <!-- Meta Description (T-227: 150-160 chars) -->
+  <meta name="description" content={metaDescription} />
+
+  <!-- Canonical Link (T-230) -->
+  <link rel="canonical" href={canonicalUrl} />
+
+  <!-- Robots (T-230) -->
+  <meta name="robots" content="index, follow" />
+
+  <!-- Open Graph Tags (T-228) -->
+  <meta property="og:title" content={entry.data.title} />
+  <meta property="og:description" content={entry.data.description} />
+  <meta property="og:image" content={ogImage} />
+  <meta property="og:url" content={canonicalUrl} />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="WV Wild Outdoors" />
+
+  <!-- Twitter Card Tags (T-229) -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={entry.data.title} />
+  <meta name="twitter:description" content={entry.data.description} />
+  <meta name="twitter:image" content={ogImage} />
+
+  <!-- Geo Meta Tags (T-231) -->
+  {entry.data.coordinates && (
+    <>
+      <meta name="geo.position" content={`${entry.data.coordinates.lat};${entry.data.coordinates.lng}`} />
+      <meta name="geo.placename" content={entry.data.title} />
+      <meta name="geo.region" content="US-WV" />
+    </>
+  )}
+
+  <!-- Safety Classification Meta (T-232) -->
+  {backcountryData.navigation.satelliteRecommendation.required && (
+    <meta name="wvwo:cell-coverage" content="none" />
+  )}
+  {backcountryData.hasAMDConcerns && (
+    <meta name="wvwo:water-safety" content="amd-warning" />
+  )}
+
+  <!-- JSON-LD Structured Data (T-223) -->
+  <SchemaBackcountryTemplate {...schemaProps} />
+</head>
+
+<body>
+  <!-- Render BackcountryTemplate (T-222) -->
+  <BackcountryTemplate {...templateProps} />
+</body>
+</html>
