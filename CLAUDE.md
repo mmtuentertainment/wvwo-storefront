@@ -88,6 +88,23 @@ This project uses SPARC (Specification, Pseudocode, Architecture, Refinement, Co
 
 This project is for WV Wild Outdoors - a family-owned hunting shop in rural West Virginia. NOT a tech startup. All frontend must reflect authentic rural WV identity.
 
+### When Checklist is Required
+
+**REQUIRE full WVWO checklist when PR includes:**
+- New/modified `.astro` components in `/components/`
+- CSS/style changes
+- New visual UI elements
+- Changes to fonts, colors, or borders
+
+**SKIP checklist when PR is:**
+- Types/schemas only (`.ts` files in `/types/`)
+- Test files only (`__tests__/`)
+- Documentation only (`.md` files)
+- Data files only (`/src/data/`)
+- Backend/API changes
+
+**For PR #79 and similar:** If compliance is documented in commit messages and PR description, streamlined note acceptable instead of full checklist.
+
 ### FORBIDDEN (Instant PR Rejection)
 
 **Fonts - NEVER USE:**
