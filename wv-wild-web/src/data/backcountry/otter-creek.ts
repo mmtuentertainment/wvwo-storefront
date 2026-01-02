@@ -83,7 +83,7 @@ export const navigation: BackcountryNavigation = {
     },
   ],
   navigationDifficulty: 'challenging',
-  gpsReliability: 'moderate',
+  gpsReliability: 'intermittent',
   gpsNotes: 'Forest canopy can block GPS signal in valleys. Paper map and compass essential for backup.',
   paperMapRequired: true,
   navigationTips: [
@@ -372,7 +372,7 @@ export const regulations: Regulations = {
 // ============================================================================
 
 export const accessibility: BackcountryAccessibility = {
-  mobilityRating: 'challenging',
+  mobilityRating: 'rugged',
   fitnessLevel: 'active',
   companionRequirement: 'buddy_recommended',
   physicalRequirements: [

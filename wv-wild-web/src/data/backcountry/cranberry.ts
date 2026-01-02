@@ -113,7 +113,7 @@ export const waterSources: WaterSource[] = [
     name: 'Cranberry River (Lower Sections near Williams River)',
     status: 'treat-required',
     reliability: 'year-round',
-    treatment: 'treat-if-clear',
+    treatment: 'filter',
     sourceType: 'stream',
     warnings: [
       'Some AMD discoloration from mining outside wilderness',
