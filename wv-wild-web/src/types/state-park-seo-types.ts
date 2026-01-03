@@ -377,11 +377,10 @@ export type Review = z.infer<typeof ReviewSchema>;
 // ============================================================================
 
 /**
- * Convert seasonal hours to OpeningHoursSpecification array.
- * Maps state park hours to Schema.org format.
+ * Convert seasonal park hours into Schema.org OpeningHoursSpecification entries.
  *
- * @param seasonalHours - Seasonal hours from state park data
- * @returns Array of OpeningHoursSpecification
+ * @param seasonalHours - Seasonal hours whose startDate and endDate are applied to each entry as validFrom and validThrough; day names are normalized to Schema.org dayOfWeek and any `'closed'` open/close value is converted to `'00:00'`.
+ * @returns An array of OpeningHoursSpecification objects representing each day's normalized opening hours with validFrom/validThrough set from `seasonalHours`
  */
 export function convertToOpeningHoursSpec(
   seasonalHours: SeasonalHours
@@ -397,12 +396,11 @@ export function convertToOpeningHoursSpec(
 }
 
 /**
- * Create FAQ item from question and answer.
- * Helper for building FAQ schema programmatically.
+ * Builds a Schema.org FAQ `Question` item from a question and its answer.
  *
- * @param question - Question text
- * @param answer - Answer text (40-50 words optimal)
- * @returns FAQ item
+ * @param question - The question text.
+ * @param answer - The answer text; 40–50 words is recommended for featured-snippet optimization.
+ * @returns An `FAQItem` object with `@type: "Question"` and an `acceptedAnswer` containing the provided text.
  */
 export function createFAQItem(question: string, answer: string): FAQItem {
   return {
@@ -416,13 +414,12 @@ export function createFAQItem(question: string, answer: string): FAQItem {
 }
 
 /**
- * Create amenity feature specification.
- * Helper for building amenity features.
+ * Builds a LocationFeatureSpecification object representing an amenity or facility.
  *
- * @param name - Feature name
- * @param value - Feature value (boolean or string)
- * @param description - Optional description
- * @returns Amenity feature specification
+ * @param name - Feature name (e.g., "Restrooms", "Picnic Areas")
+ * @param value - Feature value; `true`/`false` for availability or a string for descriptive values
+ * @param description - Optional human-readable description of the feature
+ * @returns An AmenityFeatureSpecification object with `@type` set to `LocationFeatureSpecification`
  */
 export function createAmenityFeature(
   name: string,
@@ -438,22 +435,19 @@ export function createAmenityFeature(
 }
 
 /**
- * Capitalize first letter of string.
- * Helper for day of week conversion.
+ * Capitalizes the first character of a string.
  *
- * @param str - Input string
- * @returns Capitalized string
+ * @returns The input string with its first character converted to uppercase; returns the original string if it is empty.
  */
 function capitalizeFirst(str: string): string {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
 /**
- * Validate FAQ answer length for featured snippets.
- * Google recommends 40-50 words for optimal featured snippet display.
+ * Determine whether an FAQ answer's word count is suitable for featured-snippet consideration.
  *
- * @param answer - Answer text
- * @returns true if word count is 40-50
+ * @param answer - The answer text to evaluate
+ * @returns `true` if the answer contains between 20 and 100 words inclusive, `false` otherwise.
  */
 export function validateFAQAnswerLength(answer: string): boolean {
   const wordCount = answer.trim().split(/\s+/).length;
@@ -461,12 +455,16 @@ export function validateFAQAnswerLength(answer: string): boolean {
 }
 
 /**
- * Create park event from ranger program.
- * Converts ranger program to Schema.org Event.
+ * Build a Schema.org EducationEvent representing a ranger program.
  *
- * @param program - Ranger program data
- * @param parkName - Park name for location
- * @returns Park event
+ * The returned event uses `EducationEvent` as its `@type`, sets `name` and `description`
+ * from the provided program, sets `location.name` to the given park name, and includes
+ * default organizer, attendance mode, accessibility, and status values. The `startDate`
+ * is set to the current time as a placeholder.
+ *
+ * @param program - Object containing `name`, `description`, and optional `schedule` (not used in the event fields)
+ * @param parkName - Name of the park to use for the event location
+ * @returns A `ParkEvent` object representing the ranger program with a placeholder `startDate` and default metadata
  */
 export function rangerProgramToEvent(
   program: { name: string; description: string; schedule?: string },
@@ -492,14 +490,13 @@ export function rangerProgramToEvent(
 }
 
 /**
- * Create image object with attribution.
- * Helper for building image gallery with credits.
+ * Build an ImageObject-like structure with optional caption, creator, and license metadata.
  *
- * @param url - Image URL
- * @param caption - Image caption
- * @param creator - Photographer/creator name
- * @param license - License URL
- * @returns Image object
+ * @param url - URL of the image
+ * @param caption - Optional caption or description for the image
+ * @param creator - Optional name of the photographer or creator
+ * @param license - Optional URL to the image license or usage terms
+ * @returns An object representing an `ImageObject` with the provided fields
  */
 export function createImageObject(
   url: string,
