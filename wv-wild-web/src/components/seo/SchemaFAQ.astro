@@ -1,0 +1,115 @@
+---
+/**
+ * Schema.org FAQ Component
+ * SPEC-18 Phase 3.3: FAQPage schema for featured snippets
+ *
+ * Features:
+ * - FAQPage schema for Google featured snippets
+ * - Question/acceptedAnswer structure (40-50 word validation)
+ * - Microdata HTML rendering for accessibility and indexing
+ * - Optimized for voice search queries
+ *
+ * Answer Length Optimization:
+ * - 40-50 words optimal for paragraph snippets
+ * - 6-8 items optimal for list snippets
+ * - Direct "is" questions for best snippet eligibility
+ *
+ * @see https://schema.org/FAQPage
+ * @see https://developers.google.com/search/docs/appearance/structured-data/faqpage
+ */
+
+import type { FAQItem } from '@/types/state-park-seo-types';
+
+interface Props {
+  faqItems: FAQItem[];
+  pageUrl: string;
+  renderHTML?: boolean; // Render microdata HTML (default: true)
+}
+
+const { faqItems, pageUrl, renderHTML = true } = Astro.props;
+
+// Filter out FAQ items without proper questions
+const validFaqItems = faqItems.filter((faq) => faq.name?.trim());
+
+// Build FAQPage schema
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: validFaqItems.map((faq, index) => ({
+    '@type': 'Question',
+    '@id': `${pageUrl}#faq-${index}`,
+    name: faq.name,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.acceptedAnswer.text,
+    },
+  })),
+};
+---
+
+<!-- Schema.org JSON-LD -->
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />
+
+<!-- Render FAQ in HTML for accessibility and indexing -->
+{
+  renderHTML && (
+    <section
+      class="faq-section py-16 bg-white"
+      itemscope
+      itemtype="https://schema.org/FAQPage"
+      aria-labelledby="faq-heading"
+    >
+      <div class="container mx-auto px-4">
+        <h2
+          id="faq-heading"
+          class="font-display text-4xl md:text-5xl font-black text-brand-brown mb-12"
+        >
+          Frequently Asked Questions
+        </h2>
+
+        <div class="space-y-6 max-w-4xl">
+          {validFaqItems.map((faq, index) => (
+            <div
+              class="faq-item bg-brand-cream rounded-sm border-l-4 border-l-sign-green p-6"
+              itemscope
+              itemprop="mainEntity"
+              itemtype="https://schema.org/Question"
+              id={`faq-${index}`}
+            >
+              <h3
+                class="faq-question font-display text-xl font-bold text-brand-brown mb-3"
+                itemprop="name"
+              >
+                {faq.name}
+              </h3>
+
+              <div
+                class="faq-answer text-brand-brown/90 font-body leading-relaxed"
+                itemscope
+                itemprop="acceptedAnswer"
+                itemtype="https://schema.org/Answer"
+              >
+                <div itemprop="text">{faq.acceptedAnswer.text}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+<style>
+  /* Smooth focus states */
+  .faq-item:focus-within {
+    outline: 2px solid theme('colors.brand-orange');
+    outline-offset: 2px;
+  }
+
+  /* Respect reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      transition: none !important;
+    }
+  }
+</style>
