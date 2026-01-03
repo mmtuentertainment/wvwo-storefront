@@ -627,8 +627,10 @@ export function hasAccessibleFacilities(park: StateParkTemplateProps): boolean {
  */
 export function hasLodging(park: StateParkTemplateProps): boolean {
   return (
-    park.facilities?.lodging?.cabins !== undefined ||
-    park.facilities?.lodging?.lodges !== undefined
+    (park.facilities?.lodging?.cabins !== undefined &&
+      park.facilities.lodging.cabins.length > 0) ||
+    (park.facilities?.lodging?.lodges !== undefined &&
+      park.facilities.lodging.lodges.length > 0)
   );
 }
 
@@ -653,8 +655,8 @@ export function hasCamping(park: StateParkTemplateProps): boolean {
  */
 export function hasWaterActivities(park: StateParkTemplateProps): boolean {
   return (
-    park.facilities?.pools !== undefined ||
-    park.facilities?.boatLaunches !== undefined ||
+    (park.facilities?.pools !== undefined && park.facilities.pools.length > 0) ||
+    (park.facilities?.boatLaunches !== undefined && park.facilities.boatLaunches.length > 0) ||
     park.activitiesPrograms?.recreationalActivities?.some(
       (a) => a.type === 'swimming' || a.type === 'boating' || a.type === 'fishing'
     ) === true

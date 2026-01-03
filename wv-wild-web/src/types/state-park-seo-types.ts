@@ -453,10 +453,10 @@ function capitalizeFirst(str: string): string {
 
 /**
  * Validate FAQ answer length for featured snippets.
- * Google recommends 40-50 words for optimal featured snippet display.
+ * Google recommends 40-50 words optimal, but we allow 20-100 for flexibility.
  *
  * @param answer - Answer text
- * @returns true if word count is 40-50
+ * @returns true if word count is 20-100
  */
 export function validateFAQAnswerLength(answer: string): boolean {
   const wordCount = answer.trim().split(/\s+/).length;
