@@ -109,8 +109,14 @@ const primarySeason = park.overview.operatingHours.general.includes('year-round'
   ? 'Year-round'
   : 'Spring-Fall';
 
-// Build canonical URL
-const canonicalUrl = `https://www.wvwildoutdoors.com/state-parks/${park.hero.name.toLowerCase().replace(/\s+/g, '-')}`;
+// Build canonical URL with proper slugify (handles apostrophes)
+const slugify = (text: string) => text
+  .toLowerCase()
+  .replace(/['']/g, '')          // Remove apostrophes
+  .replace(/[^a-z0-9]+/g, '-')   // Replace non-alphanumeric with dashes
+  .replace(/^-+|-+$/g, '');      // Trim leading/trailing dashes
+
+const canonicalUrl = `https://www.wvwildoutdoors.com/state-parks/${slugify(park.hero.name)}`;
 ---
 
 <!DOCTYPE html>
