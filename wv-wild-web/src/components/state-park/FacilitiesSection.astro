@@ -38,8 +38,11 @@ const formatSeason = (season?: string): string => {
   return season;
 };
 
+// Helper: Capitalize first letter
+const capitalize = (str: string): string => str && str.length ? str.charAt(0).toUpperCase() + str.slice(1) : str;
+
 // Deep link to WV State Parks reservation system
-const reservationUrl = `https://reservations.wvstateparks.com/${parkName.toLowerCase().replace(/\s+/g, '-')}`;
+const reservationUrl = `https://reservations.wvstateparks.com/${parkName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`;
 
 // Check if section has any content
 const hasContent =
@@ -172,6 +175,7 @@ if (!hasContent) {
                   href={cabin.bookingUrl || reservationUrl}
                   class="block w-full bg-brand-orange hover:bg-brand-orange/90 text-white font-bold py-3 px-4 rounded-sm text-center transition-colors"
                   rel="noopener noreferrer"
+                  target="_blank"
                   aria-label={`Reserve ${cabin.name || `Cabin ${cabin.cabinNumber}`}`}
                 >
                   Reserve Cabin
@@ -245,6 +249,7 @@ if (!hasContent) {
               href={lodge.bookingUrl || reservationUrl}
               class="inline-block bg-brand-orange hover:bg-brand-orange/90 text-white font-bold py-3 px-6 rounded-sm transition-colors"
               rel="noopener noreferrer"
+              target="_blank"
             >
               Reserve Room
             </a>
@@ -283,7 +288,7 @@ if (!hasContent) {
               <div class="flex flex-wrap gap-3">
                 {campground.hookupTypes.map((hookup) => (
                   <span class="text-sm bg-sign-green text-white px-3 py-2 rounded-sm font-semibold">
-                    {hookup.charAt(0).toUpperCase() + hookup.slice(1)}
+                    {capitalize(hookup)}
                   </span>
                 ))}
               </div>
@@ -345,6 +350,7 @@ if (!hasContent) {
                 href={campground.bookingUrl || reservationUrl}
                 class="inline-block bg-brand-orange hover:bg-brand-orange/90 text-white font-bold py-3 px-6 rounded-sm transition-colors"
                 rel="noopener noreferrer"
+                target="_blank"
               >
                 Reserve Campsite
               </a>
@@ -441,10 +447,10 @@ if (!hasContent) {
             <article class="bg-white rounded-sm border-2 border-blue-700/20 p-6">
               <div class="flex items-start justify-between mb-3">
                 <h4 class="font-display text-xl font-bold text-brand-brown">
-                  {pool.name || `${pool.type.charAt(0).toUpperCase() + pool.type.slice(1).replace('_', ' ')} Pool`}
+                  {pool.name || `${capitalize(pool.type.replace('_', ' '))} Pool`}
                 </h4>
                 <span class="text-sm bg-blue-700 text-white px-3 py-1 rounded-sm font-semibold">
-                  {pool.type.charAt(0).toUpperCase() + pool.type.slice(1).replace('_', ' ')}
+                  {capitalize(pool.type.replace('_', ' '))}
                 </span>
               </div>
 
@@ -507,7 +513,7 @@ if (!hasContent) {
           {facilities.otherAmenities.map((amenity) => (
             <div class="bg-white rounded-sm border border-brand-brown/20 p-5">
               <h4 class="font-display text-lg font-bold text-brand-brown mb-2">
-                {amenity.name || amenity.type.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}
+                {amenity.name || amenity.type.split('_').map(w => capitalize(w)).join(' ')}
               </h4>
 
               {amenity.description && (
