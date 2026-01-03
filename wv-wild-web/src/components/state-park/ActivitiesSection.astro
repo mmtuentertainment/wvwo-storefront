@@ -1,0 +1,365 @@
+---
+/**
+ * Activities Section Component
+ * SPEC-18 Phase 2.2: State Park Programs & Activities Display
+ *
+ * Displays park programs and recreational activities:
+ * - Ranger-led programs with scheduling
+ * - Junior Ranger program highlight
+ * - Educational workshops
+ * - Special events
+ * - Recreational activities
+ *
+ * WVWO Aesthetics:
+ * - Font: font-display (Bitter), font-body (Noto Sans)
+ * - Borders: rounded-sm ONLY
+ * - Colors: brand-brown, sign-green, brand-cream, brand-orange
+ * - Voice: Kim's authentic WV
+ */
+
+import type { ActivitiesPrograms } from '@/types/state-park-template-types';
+import {
+  getProgramTypeColor,
+  getProgramTypeLabel,
+  getActivityTypeColor,
+  getActivityTypeLabel,
+} from '@/types/state-park-types';
+
+interface Props {
+  activitiesPrograms: ActivitiesPrograms;
+  parkName: string;
+}
+
+const { activitiesPrograms, parkName } = Astro.props;
+
+// Check if section has any content
+const hasContent =
+  activitiesPrograms?.rangerPrograms?.length ||
+  activitiesPrograms?.educationalPrograms?.length ||
+  activitiesPrograms?.juniorRanger ||
+  activitiesPrograms?.specialEvents?.length ||
+  activitiesPrograms?.recreationalActivities?.length;
+
+if (!hasContent) {
+  return null;
+}
+---
+
+<section
+  class="py-16 bg-white"
+  aria-labelledby="activities-heading"
+>
+  <div class="container mx-auto px-4">
+    <h2
+      id="activities-heading"
+      class="font-display text-4xl md:text-5xl font-black text-brand-brown mb-12"
+    >
+      Programs & Activities
+    </h2>
+
+    <!-- Junior Ranger Highlight -->
+    {activitiesPrograms?.juniorRanger && (
+      <div class="bg-gradient-to-r from-brand-orange/10 to-sign-green/10 rounded-sm border-2 border-brand-orange p-8 mb-12">
+        <div class="flex flex-col md:flex-row items-start md:items-center gap-6">
+          <div class="flex-shrink-0 text-6xl">
+            ⭐
+          </div>
+          <div class="flex-grow">
+            <h3 class="font-display text-2xl md:text-3xl font-bold text-brand-brown mb-2">
+              Junior Ranger Program
+            </h3>
+            {activitiesPrograms.juniorRanger.description && (
+              <p class="text-brand-brown/80 font-body mb-4">
+                {activitiesPrograms.juniorRanger.description}
+              </p>
+            )}
+            <div class="flex flex-wrap gap-4 text-sm">
+              <div>
+                <span class="font-semibold text-brand-brown">Age Range:</span>{' '}
+                <span class="text-brand-brown/80">{activitiesPrograms.juniorRanger.ageRange}</span>
+              </div>
+              {activitiesPrograms.juniorRanger.duration && (
+                <div>
+                  <span class="font-semibold text-brand-brown">Duration:</span>{' '}
+                  <span class="text-brand-brown/80">{activitiesPrograms.juniorRanger.duration}</span>
+                </div>
+              )}
+              <div>
+                <span class="font-semibold text-brand-brown">Cost:</span>{' '}
+                <span class="text-sign-green font-bold">{activitiesPrograms.juniorRanger.cost}</span>
+              </div>
+            </div>
+            {activitiesPrograms.juniorRanger.badgeEligibility && (
+              <p class="text-sm text-brand-orange font-semibold mt-3">
+                🏅 Earn your official Junior Ranger badge!
+              </p>
+            )}
+          </div>
+          <div class="flex-shrink-0">
+            <a
+              href="#contact"
+              class="inline-block bg-brand-orange hover:bg-brand-orange/90 text-white font-bold py-3 px-6 rounded-sm transition-colors"
+            >
+              Learn More
+            </a>
+          </div>
+        </div>
+      </div>
+    )}
+
+    <!-- Ranger-Led Programs -->
+    {activitiesPrograms?.rangerPrograms && activitiesPrograms.rangerPrograms.length > 0 && (
+      <div class="mb-12">
+        <h3 class="font-display text-3xl font-bold text-brand-brown mb-6 border-l-4 border-l-sign-green pl-4">
+          🎒 Ranger-Led Programs
+        </h3>
+
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          role="list"
+          aria-label="Ranger-led programs"
+        >
+          {activitiesPrograms.rangerPrograms.map((program) => (
+            <article
+              class="bg-brand-cream rounded-sm border border-brand-brown/20 p-6 hover:border-sign-green hover:shadow-md transition-all"
+              role="listitem"
+            >
+              <div class="flex items-start justify-between mb-3">
+                <h4 class="font-display text-lg font-bold text-brand-brown">
+                  {program.name}
+                </h4>
+                {program.reservationRequired && (
+                  <span class="text-xs bg-brand-orange/10 text-brand-orange px-2 py-1 rounded-sm font-semibold">
+                    Registration
+                  </span>
+                )}
+              </div>
+
+              <p class="text-sm text-brand-brown/80 mb-4 font-body">
+                {program.description}
+              </p>
+
+              <div class="space-y-2 text-sm mb-4">
+                {program.schedule && (
+                  <div class="flex items-start gap-2">
+                    <span class="text-brand-brown/60 min-w-[80px]">Schedule:</span>
+                    <span class="text-brand-brown font-semibold">{program.schedule}</span>
+                  </div>
+                )}
+                {program.duration && (
+                  <div class="flex items-start gap-2">
+                    <span class="text-brand-brown/60 min-w-[80px]">Duration:</span>
+                    <span class="text-brand-brown">{program.duration}</span>
+                  </div>
+                )}
+                {program.ageGroup && (
+                  <div class="flex items-start gap-2">
+                    <span class="text-brand-brown/60 min-w-[80px]">Ages:</span>
+                    <span class="text-brand-brown">{program.ageGroup}</span>
+                  </div>
+                )}
+                {program.maxParticipants && (
+                  <div class="flex items-start gap-2">
+                    <span class="text-brand-brown/60 min-w-[80px]">Capacity:</span>
+                    <span class="text-brand-brown">{program.maxParticipants} people</span>
+                  </div>
+                )}
+              </div>
+
+              {program.accessible && (
+                <p class="text-sm text-blue-700 font-semibold">
+                  ♿ Accessible
+                </p>
+              )}
+            </article>
+          ))}
+        </div>
+      </div>
+    )}
+
+    <!-- Educational Workshops -->
+    {activitiesPrograms?.educationalPrograms && activitiesPrograms.educationalPrograms.length > 0 && (
+      <div class="mb-12">
+        <h3 class="font-display text-3xl font-bold text-brand-brown mb-6 border-l-4 border-l-sign-green pl-4">
+          🛠️ Educational Workshops
+        </h3>
+
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          role="list"
+          aria-label="Educational workshops"
+        >
+          {activitiesPrograms.educationalPrograms.map((workshop) => (
+            <article
+              class="bg-brand-cream rounded-sm border border-brand-brown/20 p-6 hover:border-sign-green hover:shadow-md transition-all"
+              role="listitem"
+            >
+              <h4 class="font-display text-lg font-bold text-brand-brown mb-2">
+                {workshop.name}
+              </h4>
+
+              <p class="text-xs text-brand-orange font-semibold mb-3">
+                {workshop.topic}
+              </p>
+
+              <p class="text-sm text-brand-brown/80 mb-4 font-body">
+                {workshop.description}
+              </p>
+
+              <div class="space-y-2 text-sm mb-4">
+                {workshop.instructor && (
+                  <div>
+                    <span class="text-brand-brown/60">Instructor:</span>{' '}
+                    <span class="text-brand-brown font-semibold">{workshop.instructor}</span>
+                  </div>
+                )}
+                {workshop.schedule && (
+                  <div>
+                    <span class="text-brand-brown/60">Schedule:</span>{' '}
+                    <span class="text-brand-brown">{workshop.schedule}</span>
+                  </div>
+                )}
+                <div>
+                  <span class="text-brand-brown/60">Skill Level:</span>{' '}
+                  <span class="text-brand-brown capitalize">{workshop.skillLevel}</span>
+                </div>
+                {workshop.materialsProvided && (
+                  <p class="text-sign-green text-sm font-semibold">
+                    ✓ Materials Provided
+                  </p>
+                )}
+              </div>
+
+              {workshop.cost && (
+                <p class="text-lg font-bold text-brand-brown">
+                  {workshop.cost}
+                </p>
+              )}
+            </article>
+          ))}
+        </div>
+      </div>
+    )}
+
+    <!-- Special Events -->
+    {activitiesPrograms?.specialEvents && activitiesPrograms.specialEvents.length > 0 && (
+      <div class="mb-12">
+        <h3 class="font-display text-3xl font-bold text-brand-brown mb-6 border-l-4 border-l-sign-green pl-4">
+          🎉 Special Events
+        </h3>
+
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 gap-6"
+          role="list"
+          aria-label="Special events"
+        >
+          {activitiesPrograms.specialEvents.map((event) => (
+            <article
+              class="bg-gradient-to-br from-brand-orange/5 to-sign-green/5 rounded-sm border-2 border-brand-orange/30 p-6"
+              role="listitem"
+            >
+              <div class="flex items-start justify-between mb-3">
+                <div>
+                  <h4 class="font-display text-xl font-bold text-brand-brown mb-1">
+                    {event.name}
+                  </h4>
+                  {event.eventType && (
+                    <p class="text-sm text-brand-orange font-semibold">
+                      {event.eventType}
+                    </p>
+                  )}
+                </div>
+                {event.registrationRequired && (
+                  <span class="text-xs bg-brand-orange text-white px-3 py-1 rounded-sm font-semibold">
+                    RSVP Required
+                  </span>
+                )}
+              </div>
+
+              <p class="text-sm text-brand-brown/80 mb-4 font-body">
+                {event.description}
+              </p>
+
+              <div class="space-y-2 text-sm mb-4">
+                <div>
+                  <span class="text-brand-brown/60">Date:</span>{' '}
+                  <span class="text-brand-brown font-semibold">{event.date}</span>
+                </div>
+                {event.fees && (
+                  <div>
+                    <span class="text-brand-brown/60">Cost:</span>{' '}
+                    <span class="text-brand-brown font-bold">{event.fees}</span>
+                  </div>
+                )}
+              </div>
+
+              {event.registrationUrl && (
+                <a
+                  href={event.registrationUrl}
+                  class="inline-block bg-brand-orange hover:bg-brand-orange/90 text-white font-bold py-2 px-4 rounded-sm transition-colors"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  Register Now
+                </a>
+              )}
+            </article>
+          ))}
+        </div>
+      </div>
+    )}
+
+    <!-- Recreational Activities -->
+    {activitiesPrograms?.recreationalActivities && activitiesPrograms.recreationalActivities.length > 0 && (
+      <div>
+        <h3 class="font-display text-3xl font-bold text-brand-brown mb-6 border-l-4 border-l-sign-green pl-4">
+          Recreation
+        </h3>
+
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {activitiesPrograms.recreationalActivities.map((activity) => (
+            <div class={`p-4 rounded-sm text-center ${getActivityTypeColor(activity.type)}`}>
+              <p class="font-display font-bold text-lg mb-1">
+                {activity.name || getActivityTypeLabel(activity.type)}
+              </p>
+              {activity.difficulty && (
+                <p class="text-xs opacity-90">
+                  {activity.difficulty}
+                </p>
+              )}
+              {activity.fees && (
+                <p class="text-xs font-semibold mt-2">
+                  {activity.fees}
+                </p>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  /* Morning Mist Lift Animation - respects prefers-reduced-motion */
+  @media (prefers-reduced-motion: no-preference) {
+    @keyframes mist-lift {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    article {
+      animation: mist-lift 0.6s ease-out forwards;
+    }
+
+    article:nth-child(2) { animation-delay: 0.1s; }
+    article:nth-child(3) { animation-delay: 0.2s; }
+    article:nth-child(4) { animation-delay: 0.3s; }
+  }
+</style>
