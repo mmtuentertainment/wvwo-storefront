@@ -109,8 +109,14 @@ const primarySeason = park.overview.operatingHours.general.includes('year-round'
   ? 'Year-round'
   : 'Spring-Fall';
 
-// Build canonical URL
-const canonicalUrl = `https://www.wvwildoutdoors.com/state-parks/${park.hero.name.toLowerCase().replace(/\s+/g, '-')}`;
+// Build canonical URL with proper slugify (handles apostrophes)
+const slugify = (text: string) => text
+  .toLowerCase()
+  .replace(/['']/g, '')          // Remove apostrophes
+  .replace(/[^a-z0-9]+/g, '-')   // Replace non-alphanumeric with dashes
+  .replace(/^-+|-+$/g, '');      // Trim leading/trailing dashes
+
+const canonicalUrl = `https://www.wvwildoutdoors.com/state-parks/${slugify(park.hero.name)}`;
 ---
 
 <!DOCTYPE html>
@@ -632,7 +638,7 @@ const canonicalUrl = `https://www.wvwildoutdoors.com/state-parks/${park.hero.nam
           </h3>
 
           <div class="grid md:grid-cols-2 gap-6">
-            {park.regulations.petPolicy && (
+            {park.regulations?.petPolicy && (
               <div>
                 <p class="font-bold text-brand-brown mb-2">🐕 Pet Policy</p>
                 <p class="text-sm text-brand-brown/80">
@@ -646,7 +652,7 @@ const canonicalUrl = `https://www.wvwildoutdoors.com/state-parks/${park.hero.nam
               </div>
             )}
 
-            {park.regulations.alcoholPolicy && (
+            {park.regulations?.alcoholPolicy && (
               <div>
                 <p class="font-bold text-brand-brown mb-2">🍺 Alcohol Policy</p>
                 <p class="text-sm text-brand-brown/80">
@@ -655,7 +661,7 @@ const canonicalUrl = `https://www.wvwildoutdoors.com/state-parks/${park.hero.nam
               </div>
             )}
 
-            {park.regulations.smokingPolicy && (
+            {park.regulations?.smokingPolicy && (
               <div>
                 <p class="font-bold text-brand-brown mb-2">🚭 Smoking Policy</p>
                 <p class="text-sm text-brand-brown/80">
@@ -664,7 +670,7 @@ const canonicalUrl = `https://www.wvwildoutdoors.com/state-parks/${park.hero.nam
               </div>
             )}
 
-            {park.regulations.quietHours && (
+            {park.regulations?.quietHours && (
               <div>
                 <p class="font-bold text-brand-brown mb-2">🔇 Quiet Hours</p>
                 <p class="text-sm text-brand-brown/80">
@@ -673,7 +679,7 @@ const canonicalUrl = `https://www.wvwildoutdoors.com/state-parks/${park.hero.nam
               </div>
             )}
 
-            {park.regulations.fireworksPolicy && (
+            {park.regulations?.fireworksPolicy && (
               <div>
                 <p class="font-bold text-brand-brown mb-2">🎆 Fireworks</p>
                 <p class="text-sm text-brand-brown/80">
@@ -682,7 +688,7 @@ const canonicalUrl = `https://www.wvwildoutdoors.com/state-parks/${park.hero.nam
               </div>
             )}
 
-            {park.regulations.weaponPolicy && (
+            {park.regulations?.weaponPolicy && (
               <div>
                 <p class="font-bold text-brand-brown mb-2">🔫 Weapons</p>
                 <p class="text-sm text-brand-brown/80">
