@@ -359,8 +359,7 @@ const articleSchema = {
     '@type': 'WebPage',
     '@id': canonicalUrl,
   },
-  datePublished: new Date().toISOString(),
-  dateModified: new Date().toISOString(),
+  // datePublished and dateModified removed - will add when content metadata available
   image: heroImage
     ? {
         '@id': `${canonicalUrl}#heroImage`,
