@@ -1254,110 +1254,95 @@ export type ServiceAnimalPolicy = z.infer<typeof ServiceAnimalPolicySchema>;
 // ============================================================================
 
 /**
- * Get facility type label.
- * Returns human-readable label for facility type.
+ * Get the human-readable label for a facility type.
  *
- * @param type - Facility type
- * @returns Human-readable label string
+ * @returns The human-readable label for the provided facility type.
  */
 export function getFacilityTypeLabel(type: FacilityType): string {
   return FACILITY_TYPE_LABELS[type];
 }
 
 /**
- * Get facility type color classes.
- * Returns Tailwind classes for badge styling.
+ * Get the Tailwind CSS color classes associated with a facility type.
  *
- * @param type - Facility type
- * @returns Tailwind color classes string
+ * @returns The Tailwind CSS classes to use for a badge for the given facility type
  */
 export function getFacilityTypeColor(type: FacilityType): string {
   return FACILITY_TYPE_COLORS[type];
 }
 
 /**
- * Get facility type icon shape.
- * Returns icon for facility type.
+ * Get the icon string for a facility type.
  *
- * @param type - Facility type
- * @returns Icon string
+ * @returns The icon or shape string associated with the given facility type.
  */
 export function getFacilityTypeShape(type: FacilityType): string {
   return FACILITY_TYPE_SHAPES[type];
 }
 
 /**
- * Get amenity type label.
- * Returns human-readable label for amenity type.
+ * Get the human-readable label for an amenity type.
  *
- * @param type - Amenity type
- * @returns Human-readable label string
+ * @param type - The amenity type to look up
+ * @returns The human-readable label corresponding to `type`
  */
 export function getAmenityTypeLabel(type: AmenityType): string {
   return AMENITY_TYPE_LABELS[type];
 }
 
 /**
- * Get amenity type color classes.
- * Returns Tailwind classes for badge styling.
+ * Get the Tailwind color classes associated with an amenity type.
  *
- * @param type - Amenity type
- * @returns Tailwind color classes string
+ * @param type - The amenity type to look up
+ * @returns The Tailwind CSS class string for the given amenity type
  */
 export function getAmenityTypeColor(type: AmenityType): string {
   return AMENITY_TYPE_COLORS[type];
 }
 
 /**
- * Get program type label.
- * Returns human-readable label for program type.
+ * Get the human-readable label for a program type.
  *
- * @param type - Program type
- * @returns Human-readable label string
+ * @returns The human-readable label corresponding to `type`.
  */
 export function getProgramTypeLabel(type: ProgramType): string {
   return PROGRAM_TYPE_LABELS[type];
 }
 
 /**
- * Get program type color classes.
- * Returns Tailwind classes for badge styling.
+ * Retrieve Tailwind color classes for a program type badge.
  *
- * @param type - Program type
- * @returns Tailwind color classes string
+ * @param type - The program type key
+ * @returns Tailwind utility class string for the program type badge
  */
 export function getProgramTypeColor(type: ProgramType): string {
   return PROGRAM_TYPE_COLORS[type];
 }
 
 /**
- * Get activity type label.
- * Returns human-readable label for activity type.
+ * Get the human-readable label for an activity type.
  *
- * @param type - Activity type
- * @returns Human-readable label string
+ * @returns The human-readable label corresponding to `type`.
  */
 export function getActivityTypeLabel(type: ActivityType): string {
   return ACTIVITY_TYPE_LABELS[type];
 }
 
 /**
- * Get activity type color classes.
- * Returns Tailwind classes for badge styling.
+ * Get Tailwind CSS color classes for an activity type badge.
  *
- * @param type - Activity type
- * @returns Tailwind color classes string
+ * @param type - The activity type to look up
+ * @returns The Tailwind CSS class string for the given activity type badge
  */
 export function getActivityTypeColor(type: ActivityType): string {
   return ACTIVITY_TYPE_COLORS[type];
 }
 
 /**
- * Get accessibility feature label.
- * Returns human-readable label for accessibility feature.
+ * Get the human-readable label for an accessibility feature.
  *
- * @param feature - Accessibility feature
- * @returns Human-readable label string
+ * @param feature - The accessibility feature to label
+ * @returns The human-readable label for `feature`
  */
 export function getAccessibilityFeatureLabel(feature: AccessibilityFeature): string {
   return ACCESSIBILITY_FEATURE_LABELS[feature];
@@ -1375,22 +1360,20 @@ export function getAccessibilityFeatureColor(feature: AccessibilityFeature): str
 }
 
 /**
- * Get accessibility feature icon shape.
- * Returns icon for accessibility feature.
+ * Retrieve the icon shape associated with an accessibility feature.
  *
- * @param feature - Accessibility feature
- * @returns Icon string
+ * @param feature - The accessibility feature to look up
+ * @returns The icon string mapped to `feature`
  */
 export function getAccessibilityFeatureShape(feature: AccessibilityFeature): string {
   return ACCESSIBILITY_FEATURE_SHAPES[feature];
 }
 
 /**
- * Check if park has accessibility features.
- * Returns true if at least one accessibility feature is available.
+ * Determines whether an accessibility features list contains at least one feature.
  *
- * @param features - Accessibility features array
- * @returns true if features exist
+ * @param features - The accessibility features array, or `undefined`
+ * @returns `true` if at least one accessibility feature is present, `false` otherwise
  */
 export function hasAccessibilityFeatures(
   features: AccessibilityFeature[] | undefined
@@ -1399,11 +1382,10 @@ export function hasAccessibilityFeatures(
 }
 
 /**
- * Format operating hours for display.
- * Converts 24hr time to 12hr format.
+ * Format a DailyHours record into a human-readable time range.
  *
- * @param hours - Daily hours
- * @returns Formatted hours string
+ * @param hours - Daily hours object to format
+ * @returns `"Closed"` if either `open` or `close` is `'closed'`, otherwise a time range like `"9:00 AM - 5:30 PM"` with times rendered in 12-hour format including minutes and AM/PM
  */
 export function formatOperatingHours(hours: DailyHours): string {
   if (hours.open === 'closed' || hours.close === 'closed') {
@@ -1421,10 +1403,13 @@ export function formatOperatingHours(hours: DailyHours): string {
 }
 
 /**
- * Validate that operating hours don't have invalid time ranges.
+ * Check whether a day's opening and closing times form a valid range.
  *
- * @param hours - Daily hours
- * @returns true if hours are valid
+ * Accepts "closed" for `open`/`close`. Returns `true` only if both are `"closed"`
+ * or if `close` is strictly later than `open` (times are expected in "HH:MM" 24-hour format).
+ *
+ * @param hours - Daily hours object with `open` and `close` values
+ * @returns `true` if the hours are valid, `false` otherwise
  */
 export function validateOperatingHours(hours: DailyHours): boolean {
   if (hours.open === 'closed' || hours.close === 'closed') {
