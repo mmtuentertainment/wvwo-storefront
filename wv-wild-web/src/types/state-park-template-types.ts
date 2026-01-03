@@ -573,7 +573,7 @@ export const StateParkTemplatePropsSchema = z.object({
     keywords: z.array(z.string()).max(20).optional(),
   }).optional(),
 
-  /** Emergency contacts */
+  /** Emergency contacts (if provided, at least one required) */
   emergencyContacts: z.array(TieredEmergencyContactSchema).min(1).optional(),
 
   /** Nearby attractions */

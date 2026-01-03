@@ -513,7 +513,7 @@ export function createImageObject(
   caption?: string,
   creator?: string,
   license?: string
-) {
+): { '@type': 'ImageObject'; url: string; caption?: string; creator?: string; license?: string } {
   return {
     '@type': 'ImageObject' as const,
     url,
