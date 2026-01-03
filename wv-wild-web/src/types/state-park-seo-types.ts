@@ -379,21 +379,24 @@ export type Review = z.infer<typeof ReviewSchema>;
 /**
  * Convert seasonal hours to OpeningHoursSpecification array.
  * Maps state park hours to Schema.org format.
+ * Filters out closed days (Schema.org doesn't have a 'closed' representation).
  *
  * @param seasonalHours - Seasonal hours from state park data
- * @returns Array of OpeningHoursSpecification
+ * @returns Array of OpeningHoursSpecification (excludes closed days)
  */
 export function convertToOpeningHoursSpec(
   seasonalHours: SeasonalHours
 ): OpeningHoursSpecification[] {
-  return seasonalHours.hours.map((dailyHours) => ({
-    '@type': 'OpeningHoursSpecification' as const,
-    dayOfWeek: [capitalizeFirst(dailyHours.day) as 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday' | 'Sunday'],
-    opens: dailyHours.open === 'closed' ? '00:00' : dailyHours.open,
-    closes: dailyHours.close === 'closed' ? '00:00' : dailyHours.close,
-    validFrom: seasonalHours.startDate,
-    validThrough: seasonalHours.endDate,
-  }));
+  return seasonalHours.hours
+    .filter((dailyHours) => dailyHours.open !== 'closed')
+    .map((dailyHours) => ({
+      '@type': 'OpeningHoursSpecification' as const,
+      dayOfWeek: [capitalizeFirst(dailyHours.day) as 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday' | 'Sunday'],
+      opens: dailyHours.open,
+      closes: dailyHours.close,
+      validFrom: seasonalHours.startDate,
+      validThrough: seasonalHours.endDate,
+    }));
 }
 
 /**
@@ -450,10 +453,10 @@ function capitalizeFirst(str: string): string {
 
 /**
  * Validate FAQ answer length for featured snippets.
- * Google recommends 40-50 words for optimal featured snippet display.
+ * Google recommends 40-50 words optimal, but we allow 20-100 for flexibility.
  *
  * @param answer - Answer text
- * @returns true if word count is 40-50
+ * @returns true if word count is 20-100
  */
 export function validateFAQAnswerLength(answer: string): boolean {
   const wordCount = answer.trim().split(/\s+/).length;
@@ -466,17 +469,21 @@ export function validateFAQAnswerLength(answer: string): boolean {
  *
  * @param program - Ranger program data
  * @param parkName - Park name for location
+ * @param startDate - Actual program start date (ISO string or Date)
  * @returns Park event
  */
 export function rangerProgramToEvent(
   program: { name: string; description: string; schedule?: string },
-  parkName: string
+  parkName: string,
+  startDate: string | Date
 ): ParkEvent {
+  const isoStartDate = typeof startDate === 'string' ? startDate : startDate.toISOString();
+
   return {
     '@type': 'EducationEvent',
     name: program.name,
     description: program.description,
-    startDate: new Date().toISOString(),  // Placeholder - should be actual date
+    startDate: isoStartDate,
     location: {
       '@type': 'Place',
       name: parkName,
@@ -506,7 +513,7 @@ export function createImageObject(
   caption?: string,
   creator?: string,
   license?: string
-) {
+): { '@type': 'ImageObject'; url: string; caption?: string; creator?: string; license?: string } {
   return {
     '@type': 'ImageObject' as const,
     url,
