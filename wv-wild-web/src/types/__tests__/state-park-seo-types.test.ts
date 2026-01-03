@@ -464,6 +464,68 @@ describe('AggregateRatingSchema', () => {
 });
 
 // ============================================================================
+// REVIEW SCHEMA TESTS
+// ============================================================================
+
+describe('ReviewSchema', () => {
+  it('accepts valid review', () => {
+    const review = {
+      '@type': 'Review',
+      author: {
+        '@type': 'Person',
+        name: 'Jane Visitor',
+      },
+      datePublished: '2026-01-15',
+      reviewBody: 'Beautiful park with amazing waterfalls and well-maintained trails.',
+      reviewRating: {
+        '@type': 'Rating',
+        ratingValue: 5,
+        bestRating: 5,
+        worstRating: 1,
+      },
+    };
+
+    const result = ReviewSchema.safeParse(review);
+    expect(result.success).toBe(true);
+  });
+
+  it('rejects review with missing author', () => {
+    const invalid = {
+      '@type': 'Review',
+      datePublished: '2026-01-15',
+      reviewBody: 'Great park!',
+    };
+
+    const result = ReviewSchema.safeParse(invalid);
+    expect(result.success).toBe(false);
+  });
+
+  it('validates datePublished ISO format', () => {
+    const invalidDate = {
+      '@type': 'Review',
+      author: { '@type': 'Person', name: 'Test' },
+      datePublished: '01/15/2026', // Wrong format
+      reviewBody: 'Test review body with sufficient length.',
+    };
+
+    const result = ReviewSchema.safeParse(invalidDate);
+    expect(result.success).toBe(false);
+  });
+
+  it('validates reviewBody minimum length', () => {
+    const tooShort = {
+      '@type': 'Review',
+      author: { '@type': 'Person', name: 'Test' },
+      datePublished: '2026-01-15',
+      reviewBody: 'Good', // Too short
+    };
+
+    const result = ReviewSchema.safeParse(tooShort);
+    expect(result.success).toBe(false);
+  });
+});
+
+// ============================================================================
 // HELPER FUNCTION TESTS
 // ============================================================================
 
@@ -494,7 +556,7 @@ describe('Helper Functions', () => {
   });
 
   describe('validateFAQAnswerLength', () => {
-    it('accepts answers with 40-50 words', () => {
+    it('accepts answers within 20-100 word range', () => {
       const answer =
         'Pet-friendly cabins are available at select WV State Parks including Blackwater Falls, Cacapon, and Hawks Nest. A non-refundable pet fee applies. Two pets maximum per cabin. Service animals always welcome.'; // ~30 words
 
