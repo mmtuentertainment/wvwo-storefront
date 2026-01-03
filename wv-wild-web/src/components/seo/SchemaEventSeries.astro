@@ -36,7 +36,6 @@ const buildEventSchedule = () => {
   return {
     '@type': 'Schedule',
     repeatFrequency: series.repeatFrequency, // E.g., "P1W" for weekly
-    repeatCount: undefined, // Optional - total occurrences
     duration: series.duration, // E.g., "PT2H" for 2 hours
   };
 };
