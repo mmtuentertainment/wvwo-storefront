@@ -1437,5 +1437,7 @@ export function validateOperatingHours(hours: DailyHours): boolean {
   const openTime = openHour * 60 + openMin;
   const closeTime = closeHour * 60 + closeMin;
 
+  // For state parks, we don't expect overnight hours (close < open)
+  // If this changes, handle overnight spans here
   return closeTime > openTime;
 }
