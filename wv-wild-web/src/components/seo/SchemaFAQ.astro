@@ -28,20 +28,17 @@ interface Props {
 
 const { faqItems, pageUrl, renderHTML = true } = Astro.props;
 
-// Validate answer length (40-50 words optimal for snippets)
-const validateAnswerLength = (answer: string): boolean => {
-  const wordCount = answer.trim().split(/\s+/).length;
-  return wordCount >= 35 && wordCount <= 55;
-};
+// Filter out FAQ items without proper questions
+const validFaqItems = faqItems.filter((faq) => faq.name?.trim());
 
 // Build FAQPage schema
 const schema = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
-  mainEntity: faqItems.map((faq, index) => ({
+  mainEntity: validFaqItems.map((faq, index) => ({
     '@type': 'Question',
     '@id': `${pageUrl}#faq-${index}`,
-    name: faq.name || faq.acceptedAnswer?.text,
+    name: faq.name,
     acceptedAnswer: {
       '@type': 'Answer',
       text: faq.acceptedAnswer.text,
@@ -71,7 +68,7 @@ const schema = {
         </h2>
 
         <div class="space-y-6 max-w-4xl">
-          {faqItems.map((faq, index) => (
+          {validFaqItems.map((faq, index) => (
             <div
               class="faq-item bg-brand-cream rounded-sm border-l-4 border-l-sign-green p-6"
               itemscope
@@ -83,7 +80,7 @@ const schema = {
                 class="faq-question font-display text-xl font-bold text-brand-brown mb-3"
                 itemprop="name"
               >
-                {faq.name || faq.acceptedAnswer?.text}
+                {faq.name}
               </h3>
 
               <div

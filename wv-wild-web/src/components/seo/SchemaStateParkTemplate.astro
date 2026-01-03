@@ -91,8 +91,8 @@ const buildOpeningHours = () => {
       'Saturday',
       'Sunday',
     ],
-    opens: '08:00', // Default - should be from data
-    closes: '20:00', // Default - should be from data
+    opens: season.opens || '08:00',  // Default 8 AM if not specified
+    closes: season.closes || '20:00', // Default 8 PM if not specified
   }));
 };
 
@@ -359,8 +359,7 @@ const articleSchema = {
     '@type': 'WebPage',
     '@id': canonicalUrl,
   },
-  datePublished: new Date().toISOString(),
-  dateModified: new Date().toISOString(),
+  // datePublished and dateModified removed - will add when content metadata available
   image: heroImage
     ? {
         '@id': `${canonicalUrl}#heroImage`,
