@@ -19,6 +19,11 @@
  */
 
 import type { StateParkTemplateProps } from '../../types/state-park-template-types';
+import {
+  WV_STATE_PARKS_RESERVATION_URL,
+  WV_STATE_PARKS_PHONE,
+  WV_STATE_PARKS_MANAGING_AGENCY,
+} from './shared-constants';
 
 export const hollyRiverStatePark: StateParkTemplateProps = {
   // ============================================================================
@@ -157,14 +162,7 @@ export const hollyRiverStatePark: StateParkTemplateProps = {
       address: 'P.O. Box 70, Hacker Valley, WV 26222',
     },
 
-    managingAgency: {
-      name: 'West Virginia Division of Natural Resources - State Parks',
-      jurisdiction: 'State of West Virginia',
-      phone: '1-833-982-7275 (1-833-WV-PARKS)',
-      email: 'parks@wv.gov',
-      website: 'https://wvstateparks.com',
-      address: '324 4th Avenue, South Charleston, WV 25303',
-    },
+    managingAgency: WV_STATE_PARKS_MANAGING_AGENCY,
 
     county: 'Webster County',
     region: 'Mountain Lakes',
@@ -288,7 +286,7 @@ export const hollyRiverStatePark: StateParkTemplateProps = {
           hasPorch: true,
           hasGrill: true,
           priceRange: '$95-$135/night',
-          bookingUrl: 'https://wvstateparks.com/reservations',
+          bookingUrl: WV_STATE_PARKS_RESERVATION_URL,
           description: 'Cozy one-bedroom cabin with stone fireplace, full kitchen, and mountain views. Perfect for couples or small families.',
         },
         {
@@ -314,7 +312,7 @@ export const hollyRiverStatePark: StateParkTemplateProps = {
           hasPorch: true,
           hasGrill: true,
           priceRange: '$105-$150/night',
-          bookingUrl: 'https://wvstateparks.com/reservations',
+          bookingUrl: WV_STATE_PARKS_RESERVATION_URL,
         },
         {
           cabinNumber: 'Cabin 3',
@@ -339,7 +337,7 @@ export const hollyRiverStatePark: StateParkTemplateProps = {
           hasPorch: true,
           hasGrill: true,
           priceRange: '$105-$150/night',
-          bookingUrl: 'https://wvstateparks.com/reservations',
+          bookingUrl: WV_STATE_PARKS_RESERVATION_URL,
         },
         {
           cabinNumber: 'Cabin 4',
@@ -366,7 +364,7 @@ export const hollyRiverStatePark: StateParkTemplateProps = {
           hasPorch: true,
           hasGrill: true,
           priceRange: '$120-$175/night',
-          bookingUrl: 'https://wvstateparks.com/reservations',
+          bookingUrl: WV_STATE_PARKS_RESERVATION_URL,
           description: 'ADA-accessible three-bedroom cabin with wheelchair ramp, wider doorways, and accessible bathroom.',
         },
       ],
@@ -393,7 +391,7 @@ export const hollyRiverStatePark: StateParkTemplateProps = {
           accessible: true,
           accessibleSiteCount: 4,
           fees: '$25-$32/night (electric sites), $20/night (tent sites)',
-          bookingUrl: 'https://wvstateparks.com/reservations',
+          bookingUrl: WV_STATE_PARKS_RESERVATION_URL,
         },
       ],
     },
@@ -414,7 +412,7 @@ export const hollyRiverStatePark: StateParkTemplateProps = {
           'River views',
         ],
         accessible: true,
-        reservationUrl: 'https://wvstateparks.com/reservations',
+        reservationUrl: WV_STATE_PARKS_RESERVATION_URL,
         rentalFee: '$50/day',
         nearParking: true,
       },
@@ -754,7 +752,7 @@ export const hollyRiverStatePark: StateParkTemplateProps = {
   // ============================================================================
   reservations: {
     cabins: {
-      bookingUrl: 'https://wvstateparks.com/reservations',
+      bookingUrl: WV_STATE_PARKS_RESERVATION_URL,
       bookingWindow: 'Up to 12 months in advance',
       cancellationPolicy: 'Full refund if cancelled 14+ days before arrival. 50% refund 7-13 days. No refund within 7 days.',
       fees: [
@@ -776,7 +774,7 @@ export const hollyRiverStatePark: StateParkTemplateProps = {
       ],
     },
     camping: {
-      bookingUrl: 'https://wvstateparks.com/reservations',
+      bookingUrl: WV_STATE_PARKS_RESERVATION_URL,
       bookingWindow: 'Up to 6 months in advance',
       cancellationPolicy: 'Full refund if cancelled 7+ days before arrival. No refund within 7 days.',
       fees: [
@@ -793,7 +791,7 @@ export const hollyRiverStatePark: StateParkTemplateProps = {
       ],
     },
     groupFacilities: {
-      bookingUrl: 'https://wvstateparks.com/reservations',
+      bookingUrl: WV_STATE_PARKS_RESERVATION_URL,
       fees: [
         {
           facilityType: 'Riverfront Pavilion',
@@ -802,8 +800,8 @@ export const hollyRiverStatePark: StateParkTemplateProps = {
       ],
     },
     generalContact: {
-      phone: '1-833-982-7275',
-      url: 'https://wvstateparks.com',
+      phone: WV_STATE_PARKS_PHONE,
+      url: WV_STATE_PARKS_RESERVATION_URL,
     },
   },
 
