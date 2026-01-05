@@ -427,7 +427,7 @@ const canonicalUrl = `https://www.wvwildoutdoors.com/state-parks/${slugify(park.
     {hasAccessibility && park.accessibility && (
       <section
         id="accessibility"
-        class="py-16 bg-gradient-to-br from-blue-50 to-white"
+        class="py-16 bg-gradient-to-br from-sign-green/5 to-white"
         aria-labelledby="accessibility-heading"
       >
         <div class="container mx-auto px-4">
@@ -447,7 +447,7 @@ const canonicalUrl = `https://www.wvwildoutdoors.com/state-parks/${slugify(park.
           <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Accessible Facilities */}
             {park.accessibility.accessibleFacilities && park.accessibility.accessibleFacilities.length > 0 && (
-              <div class="bg-white rounded-sm border-l-4 border-l-blue-700 p-6">
+              <div class="bg-white rounded-sm border-l-4 border-l-sign-green p-6">
                 <h3 class="font-display text-xl font-bold text-brand-brown mb-4">
                   Accessible Facilities
                 </h3>
@@ -464,7 +464,7 @@ const canonicalUrl = `https://www.wvwildoutdoors.com/state-parks/${slugify(park.
 
             {/* Assistive Equipment */}
             {park.accessibility.assistiveEquipment && park.accessibility.assistiveEquipment.length > 0 && (
-              <div class="bg-white rounded-sm border-l-4 border-l-blue-700 p-6">
+              <div class="bg-white rounded-sm border-l-4 border-l-sign-green p-6">
                 <h3 class="font-display text-xl font-bold text-brand-brown mb-4">
                   Assistive Equipment
                 </h3>
@@ -492,7 +492,7 @@ const canonicalUrl = `https://www.wvwildoutdoors.com/state-parks/${slugify(park.
 
             {/* Service Animal Policy */}
             {park.accessibility.serviceAnimalPolicy && (
-              <div class="bg-white rounded-sm border-l-4 border-l-blue-700 p-6">
+              <div class="bg-white rounded-sm border-l-4 border-l-sign-green p-6">
                 <h3 class="font-display text-xl font-bold text-brand-brown mb-4">
                   Service Animals
                 </h3>
@@ -510,7 +510,7 @@ const canonicalUrl = `https://www.wvwildoutdoors.com/state-parks/${slugify(park.
 
           {/* Accommodations Contact */}
           {park.accessibility.advanceNoticeRequired && (
-            <div class="mt-8 bg-blue-100 border-l-4 border-l-blue-700 p-6 rounded-sm">
+            <div class="mt-8 bg-brand-cream border-l-4 border-l-sign-green p-6 rounded-sm">
               <p class="font-display font-bold text-brand-brown mb-2">
                 Need Accommodations?
               </p>
