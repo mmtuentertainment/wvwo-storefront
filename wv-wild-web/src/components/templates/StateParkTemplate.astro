@@ -207,7 +207,7 @@ const canonicalUrl = `https://www.wvwildoutdoors.com/state-parks/${slugify(park.
       imagePosition={park.hero.imagePosition || 'center'}
       loading="eager"
       coordinates={park.overview.coordinates}
-      slug={park.hero.name.toLowerCase().replace(/\s+/g, '-')}
+      slug={slugify(park.hero.name)}
     >
       {/* Quick Highlights */}
       {heroQuickHighlights.length > 0 && (
@@ -735,7 +735,7 @@ const canonicalUrl = `https://www.wvwildoutdoors.com/state-parks/${slugify(park.
           <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {relatedParks.slice(0, 3).map((relatedPark) => (
               <a
-                href={`/state-parks/${relatedPark.hero.name.toLowerCase().replace(/\s+/g, '-')}`}
+                href={`/state-parks/${slugify(relatedPark.hero.name)}`}
                 class="block bg-white rounded-sm border-l-4 border-l-sign-green p-6 hover:shadow-lg transition-shadow"
               >
                 <h3 class="font-display text-xl font-bold text-brand-brown mb-2">
