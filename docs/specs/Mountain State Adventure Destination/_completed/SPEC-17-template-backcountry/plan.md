@@ -51,6 +51,7 @@ wv-wild-web/src/
 ## Implementation Phases
 
 ### Phase 1: Type System Foundation (~250 LOC)
+
 **PR #1: Type Composition Layer**
 
 Create `backcountry-template-types.ts` with 8 new Zod schemas:
@@ -67,6 +68,7 @@ Create `backcountry-template-types.ts` with 8 new Zod schemas:
 | `BackcountryTemplatePropsSchema` | Main composition (~45 fields) | 80 |
 
 **Dependencies:**
+
 - Import from `adventure.ts` (shared base)
 - Import from `navigation-types.ts` (GPS, cell)
 - Import from `water-safety.ts` (AMD warnings)
@@ -77,6 +79,7 @@ Create `backcountry-template-types.ts` with 8 new Zod schemas:
 ---
 
 ### Phase 2: Core Template (~550 LOC)
+
 **PR #2: BackcountryTemplate.astro**
 
 All sections inline (matching CaveTemplate/SkiTemplate pattern):
@@ -95,17 +98,20 @@ All sections inline (matching CaveTemplate/SkiTemplate pattern):
 | Seasonal | 40 | Best times grid |
 
 **Shared Components Reused:**
+
 - `AdventureGearChecklist.astro`
 - `AdventureRelatedShop.astro`
 - `AdventureCTA.astro`
 
 **Empty State Handling:**
+
 - Safety-critical fields → Kim's voice warnings
 - Optional fields → Hide section
 
 ---
 
 ### Phase 3: SEO & Integration (~330 LOC)
+
 **PR #3: SEO Schema + Content Config**
 
 **SchemaBackcountryTemplate.astro (~180 LOC):**
@@ -120,11 +126,13 @@ All sections inline (matching CaveTemplate/SkiTemplate pattern):
 | `SpecialAnnouncement` | AMD water warnings (P0 safety) |
 
 **Meta Tags:**
+
 - Title: `{name} Backcountry Guide | WV Wild Outdoors` (50-60 chars)
 - Description: `{name} backcountry guide: {acreage} acres...` (150-160 chars)
 - Open Graph: Image, type=article, locale
 
 **content.config.ts Changes (~30 LOC):**
+
 ```typescript
 // Add to type enum
 type: z.enum([..., 'backcountry']).optional(),
@@ -134,6 +142,7 @@ import { BackcountryTemplatePropsSchema } from './types/backcountry-template-typ
 ```
 
 **Route Structure:**
+
 - Static pages at `/near/{wilderness-name}`
 - Each imports BackcountryTemplate
 - Uses `getEntry()` for content
@@ -141,6 +150,7 @@ import { BackcountryTemplatePropsSchema } from './types/backcountry-template-typ
 ---
 
 ### Phase 4: Testing & Content (~950 LOC)
+
 **PR #4: Tests + Dolly Sods Content**
 
 **Test Files:**
@@ -154,6 +164,7 @@ import { BackcountryTemplatePropsSchema } from './types/backcountry-template-typ
 | `weather-hazards.test.ts` | EXISTS | 85% quantified |
 
 **Priority Test Cases (P0 Safety-Critical):**
+
 - AMD water source detection (do-not-use status)
 - Emergency contact tier validation
 - Cell coverage → satellite recommendation
@@ -175,6 +186,7 @@ difficulty: "challenging"
 ```
 
 **Content Sources:**
+
 - USFS Monongahela National Forest data
 - NOAA historical weather patterns
 - WVDEP AMD contamination reports
@@ -198,11 +210,13 @@ difficulty: "challenging"
 ## Dependencies
 
 ### External
+
 - USGS GNIS for quad names
 - NOAA for weather data patterns
 - WVDEP for AMD contamination sources
 
 ### Internal
+
 - `adventure.ts` - Shared base types
 - `navigation-types.ts` - GPS, cell coverage schemas
 - `water-safety.ts` - AMD detection schemas
@@ -235,10 +249,12 @@ difficulty: "challenging"
 | **PR #4** | Tests + Dolly Sods Content | 750 | PR #3 merged |
 
 **Checkpoint Triggers:**
+
 - ⚠️ Warn at 300 LOC per file
 - 🛑 Split required at 500 LOC per file
 
 **Review Focus per PR:**
+
 1. **PR #1:** Schema correctness, type imports, Zod validation
 2. **PR #2:** WVWO aesthetics, industry colors, empty states
 3. **PR #3:** Schema.org validity, meta tag patterns, route config
@@ -249,22 +265,26 @@ difficulty: "challenging"
 ## Testing Strategy
 
 ### Unit Tests
+
 - All Zod schemas with valid/invalid fixtures
 - Helper functions (formatters, validators)
 - Empty state logic branches
 
 ### Component Tests
+
 - Template rendering with full props
 - Template rendering with minimum required props
 - Section visibility based on data presence
 - Accessibility compliance (headings, ARIA)
 
 ### Integration Tests
+
 - Content Collection → Template data flow
 - MDX frontmatter → Zod validation
 - Route generation and 404 handling
 
 ### Manual Testing Checklist
+
 - [ ] AMD warning displays prominently
 - [ ] Emergency contacts render in tier order
 - [ ] Difficulty colors match industry standard
@@ -277,6 +297,7 @@ difficulty: "challenging"
 ## Rollback Plan
 
 ### Per-PR Rollback
+
 Each PR is self-contained and can be reverted independently:
 
 1. **PR #1 (Types):** Revert, no runtime impact (types only)
@@ -285,12 +306,14 @@ Each PR is self-contained and can be reverted independently:
 4. **PR #4 (Content):** Delete MDX file, no schema changes
 
 ### Full Feature Rollback
+
 ```bash
 git revert --no-commit PR#4..PR#1
 git commit -m "Revert: SPEC-17 Backcountry Template"
 ```
 
 ### Data Preservation
+
 - All content in MDX files (version controlled)
 - No database dependencies
 - No external service integrations

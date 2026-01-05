@@ -578,6 +578,7 @@ Hour 4-5:  Testing + validation
 ```
 
 **DO NOT SKIP:**
+
 - Phase 1 (blocks everything)
 - T-016 (component scaffolding)
 - T-019 (rapids pattern reference)

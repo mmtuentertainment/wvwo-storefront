@@ -12,17 +12,20 @@
 **TDD Philosophy**: Write tests BEFORE implementation to define expected behavior, catch regressions early, and ensure 100% coverage of critical paths.
 
 **Parallel Execution Model**:
+
 - 4 component developers write tests + components concurrently
 - 2 test engineers write integration tests while components being built
 - Continuous test execution (not batch at end)
 
 **Quality Gates**:
+
 - No component merged without unit tests
 - No page created without E2E tests
 - No PR submitted without accessibility tests
 - Zero test failures at any phase
 
 **Metrics Target**:
+
 - 43+ unit tests (schema validation)
 - 35+ E2E tests (component rendering)
 - Zero axe-core violations (WCAG 2.1 AA)
@@ -34,26 +37,31 @@
 ## Phase Structure Overview
 
 ### Phase 1: Schema Foundation (Red-Green-Refactor)
+
 **Duration**: 2 days
 **Test-First Tasks**: T-004 → T-001, T-005 → T-002
 **Quality Gate**: 15+ schema tests passing before any frontmatter written
 
 ### Phase 2: Component Development (Parallel TDD)
+
 **Duration**: 4 days
 **Test-First Tasks**: T-009/T-010/T-011/T-012 → T-006/T-007/T-008
 **Quality Gate**: 28+ component unit tests passing before integration
 
 ### Phase 3: Integration Testing (E2E First)
+
 **Duration**: 3 days
 **Test-First Tasks**: T-015/T-016 → T-013/T-014
 **Quality Gate**: 35+ E2E scenarios passing before page templates written
 
 ### Phase 4: Accessibility & Polish (Zero Violations)
+
 **Duration**: 2 days
 **Test-First Tasks**: T-019/T-020 → T-017/T-018
 **Quality Gate**: 100% axe-core compliance before final QA
 
 ### Phase 5: Content & Deployment (Validation First)
+
 **Duration**: 3 days
 **Test-First Tasks**: T-022 → T-021, T-024 → T-023
 **Quality Gate**: 5 WMA pages passing all tests before PR submission
@@ -65,6 +73,7 @@
 ### Phase 1: Schema Foundation (T-001 to T-005)
 
 #### T-004: SCHEMA TESTS (Red Phase) - **START HERE**
+
 **Owner**: Test Engineer 1
 **Duration**: 4 hours
 **Depends On**: None (first task)
@@ -219,6 +228,7 @@ describe('WMA Schema Validation', () => {
 ```
 
 **Exit Criteria**:
+
 - All 15 tests FAIL (Red phase)
 - Test file committed to Git
 - CI/CD runs tests automatically
@@ -226,6 +236,7 @@ describe('WMA Schema Validation', () => {
 ---
 
 #### T-001: SCHEMA IMPLEMENTATION (Green Phase) - **AFTER T-004**
+
 **Owner**: Backend Developer
 **Duration**: 6 hours
 **Depends On**: T-004 (tests must exist first)
@@ -364,6 +375,7 @@ export const collections = {
 ```
 
 **Exit Criteria**:
+
 - All 15 schema tests PASS (Green phase)
 - TypeScript types infer correctly
 - Existing adventures still build without errors
@@ -372,11 +384,13 @@ export const collections = {
 ---
 
 #### T-005: SCHEMA REFACTOR (Refactor Phase) - **AFTER T-001**
+
 **Owner**: Backend Developer
 **Duration**: 2 hours
 **Depends On**: T-001 (tests must be green)
 
 **Refactor Goals**:
+
 1. Extract common validation patterns
 2. Add JSDoc comments for better IDE autocomplete
 3. Create type guards for WMA detection
@@ -408,6 +422,7 @@ export const SpeciesSchema = z.object({
 ```
 
 **Exit Criteria**:
+
 - All 15 schema tests STILL PASS (refactor doesn't break tests)
 - Code coverage remains 100% for schema validation
 - Type inference still works correctly
@@ -415,6 +430,7 @@ export const SpeciesSchema = z.object({
 ---
 
 #### T-002: FRONTMATTER EXAMPLES (Documentation) - **AFTER T-005**
+
 **Owner**: Content Designer
 **Duration**: 3 hours
 **Depends On**: T-005 (schema must be finalized)
@@ -467,6 +483,7 @@ coordinates:
 ```
 
 **Exit Criteria**:
+
 - Example file validates against schema
 - Build succeeds with example frontmatter
 - Kim can copy-paste example for new WMAs
@@ -474,6 +491,7 @@ coordinates:
 ---
 
 #### T-003: TYPE SYSTEM INTEGRATION (TypeScript) - **PARALLEL WITH T-001**
+
 **Owner**: TypeScript Specialist
 **Duration**: 2 hours
 **Depends On**: T-001 (schema implementation)
@@ -520,6 +538,7 @@ export function isWMAData(data: AdventureData): data is WMAData {
 ```
 
 **Exit Criteria**:
+
 - TypeScript autocomplete works for WMA fields
 - No type errors in any file
 - Type guards work correctly
@@ -529,6 +548,7 @@ export function isWMAData(data: AdventureData): data is WMAData {
 ### Phase 2: Component Development (T-006 to T-012)
 
 **Parallel TDD Pattern**:
+
 1. Write component tests first (Red)
 2. Implement components to pass tests (Green)
 3. Refactor components while keeping tests green
@@ -536,6 +556,7 @@ export function isWMAData(data: AdventureData): data is WMAData {
 ---
 
 #### T-009: COMPONENT UNIT TESTS - AdventureFeatureSection (Red) - **START HERE**
+
 **Owner**: Test Engineer 1
 **Duration**: 3 hours
 **Depends On**: None (parallel start)
@@ -635,6 +656,7 @@ describe('AdventureFeatureSection', () => {
 ```
 
 **Exit Criteria**:
+
 - All 7 tests FAIL (component doesn't exist yet)
 - Tests committed to Git
 - CI/CD runs tests
@@ -642,6 +664,7 @@ describe('AdventureFeatureSection', () => {
 ---
 
 #### T-006: COMPONENT IMPLEMENTATION - AdventureFeatureSection (Green) - **AFTER T-009**
+
 **Owner**: Component Developer 1
 **Duration**: 4 hours
 **Depends On**: T-009 (tests must exist)
@@ -742,6 +765,7 @@ const borderClass = `border-l-${accentColor}`;
 ```
 
 **Exit Criteria**:
+
 - All 7 unit tests PASS
 - Component follows WVWO aesthetic (rounded-sm, brand colors)
 - No TypeScript errors
@@ -750,10 +774,12 @@ const borderClass = `border-l-${accentColor}`;
 ---
 
 #### T-010: COMPONENT UNIT TESTS - AdventureCampingList (Red) - **PARALLEL WITH T-009**
+
 **Owner**: Test Engineer 2
 **Duration**: 3 hours
 
 **Test Coverage** (7 tests):
+
 - 3-column grid on desktop
 - Count badges display correctly
 - Phone numbers as clickable tel: links
@@ -765,6 +791,7 @@ const borderClass = `border-l-${accentColor}`;
 ---
 
 #### T-007: COMPONENT IMPLEMENTATION - AdventureCampingList (Green) - **AFTER T-010**
+
 **Owner**: Component Developer 2
 **Duration**: 4 hours
 **Depends On**: T-010 (tests must exist)
@@ -774,9 +801,11 @@ const borderClass = `border-l-${accentColor}`;
 ---
 
 #### T-011: COMPONENT UNIT TESTS - Remaining 4 Components (Red) - **PARALLEL**
+
 **Owners**: Test Engineers 1 & 2
 **Duration**: 6 hours
 **Components**:
+
 - AdventureAmenitiesGrid (5 tests)
 - AdventureCTA (5 tests)
 - AdventureWhatToHunt (5 tests)
@@ -785,6 +814,7 @@ const borderClass = `border-l-${accentColor}`;
 ---
 
 #### T-008: COMPONENT IMPLEMENTATIONS - Remaining 4 (Green) - **AFTER T-011**
+
 **Owners**: Component Developers 3 & 4
 **Duration**: 8 hours
 **Depends On**: T-011 (all tests written)
@@ -792,17 +822,20 @@ const borderClass = `border-l-${accentColor}`;
 ---
 
 #### T-012: COMPONENT REFACTOR (Refactor Phase) - **AFTER T-008**
+
 **Owner**: All Component Developers
 **Duration**: 4 hours
 **Depends On**: All tests green
 
 **Refactor Goals**:
+
 1. Extract common Tailwind classes to constants
 2. DRY up responsive grid patterns
 3. Consolidate ARIA patterns
 4. Optimize component slot usage
 
 **Exit Criteria**:
+
 - All 28+ component tests STILL PASS
 - Code quality improved (no duplication)
 - Performance optimized (fewer class strings)
@@ -812,6 +845,7 @@ const borderClass = `border-l-${accentColor}`;
 ### Phase 3: Integration Testing (T-013 to T-016)
 
 #### T-015: E2E TESTS - Component Rendering (Red) - **START HERE**
+
 **Owner**: Test Engineer 3
 **Duration**: 6 hours
 **Depends On**: T-012 (components exist)
@@ -891,17 +925,20 @@ test.describe('AdventureCampingList E2E', () => {
 ```
 
 **Exit Criteria**:
+
 - All 35+ E2E tests FAIL (pages not created yet)
 - Tests run in CI/CD
 
 ---
 
 #### T-013: WMA PAGE TEMPLATES (Green) - **AFTER T-015**
+
 **Owner**: Frontend Developer
 **Duration**: 8 hours
 **Depends On**: T-015 (E2E tests written)
 
 **Files**:
+
 - `wv-wild-web/src/layouts/WMATemplate.astro`
 - `wv-wild-web/src/pages/adventures/elk-river.astro` (refactored)
 - `wv-wild-web/src/pages/adventures/burnsville-lake.astro` (new)
@@ -971,6 +1008,7 @@ const { data } = adventure;
 ```
 
 **Exit Criteria**:
+
 - All 35+ E2E tests PASS
 - WMA pages reduced from 533 → 150 lines
 - All sections render correctly
@@ -979,10 +1017,12 @@ const { data } = adventure;
 ---
 
 #### T-016: E2E TESTS - Navigation & Links (Red) - **PARALLEL WITH T-015**
+
 **Owner**: Test Engineer 4
 **Duration**: 4 hours
 
 **Test Coverage**:
+
 - All internal links navigate correctly
 - External links (DNR, Google Maps) open in new tab
 - Breadcrumb navigation works
@@ -991,6 +1031,7 @@ const { data } = adventure;
 ---
 
 #### T-014: NAVIGATION INTEGRATION (Green) - **AFTER T-016**
+
 **Owner**: Frontend Developer
 **Duration**: 3 hours
 **Depends On**: T-016 (navigation tests written)
@@ -1000,6 +1041,7 @@ const { data } = adventure;
 ### Phase 4: Accessibility & Polish (T-017 to T-020)
 
 #### T-019: ACCESSIBILITY TESTS (Red) - **START HERE**
+
 **Owner**: Accessibility Engineer
 **Duration**: 6 hours
 **Depends On**: T-013 (pages exist)
@@ -1108,17 +1150,20 @@ test.describe('WCAG 2.1 AA Compliance', () => {
 ```
 
 **Exit Criteria**:
+
 - All 30+ accessibility tests FAIL (violations exist)
 - Test coverage includes WCAG 2.1 AA requirements
 
 ---
 
 #### T-017: ACCESSIBILITY FIXES (Green) - **AFTER T-019**
+
 **Owner**: Frontend Developer + Accessibility Engineer
 **Duration**: 8 hours
 **Depends On**: T-019 (tests identify violations)
 
 **Common Fixes**:
+
 1. Add aria-labelledby to sections
 2. Fix heading hierarchy (no skips)
 3. Add focus-visible styles
@@ -1128,6 +1173,7 @@ test.describe('WCAG 2.1 AA Compliance', () => {
 7. Add prefers-reduced-motion support
 
 **Exit Criteria**:
+
 - All 30+ accessibility tests PASS
 - Zero axe-core violations
 - Manual screen reader testing passes
@@ -1135,6 +1181,7 @@ test.describe('WCAG 2.1 AA Compliance', () => {
 ---
 
 #### T-020: VISUAL REGRESSION TESTS (Red) - **PARALLEL WITH T-019**
+
 **Owner**: QA Engineer
 **Duration**: 4 hours
 
@@ -1171,23 +1218,27 @@ test.describe('Visual Regression', () => {
 ```
 
 **Exit Criteria**:
+
 - All 20+ snapshots FAIL (no baseline images yet)
 - Snapshots cover mobile + desktop viewports
 
 ---
 
 #### T-018: VISUAL BASELINE CREATION (Green) - **AFTER T-020**
+
 **Owner**: QA Engineer
 **Duration**: 3 hours
 **Depends On**: T-020 (tests written), T-017 (accessibility fixes done)
 
 **Process**:
+
 1. Run visual tests to generate baseline images
 2. Manually review each snapshot for quality
 3. Approve baselines and commit to Git
 4. Re-run tests to verify they pass
 
 **Exit Criteria**:
+
 - All 20+ visual tests PASS
 - Baseline images committed to Git
 - Future changes trigger visual regression alerts
@@ -1197,6 +1248,7 @@ test.describe('Visual Regression', () => {
 ### Phase 5: Content & Deployment (T-021 to T-024)
 
 #### T-022: CONTENT VALIDATION TESTS (Red) - **START HERE**
+
 **Owner**: Content Engineer
 **Duration**: 3 hours
 **Depends On**: T-002 (frontmatter examples)
@@ -1262,17 +1314,20 @@ describe('WMA Content Validation', () => {
 ```
 
 **Exit Criteria**:
+
 - All content validation tests FAIL (content not created yet)
 - Tests enforce quality standards
 
 ---
 
 #### T-021: CONTENT POPULATION (Green) - **AFTER T-022**
+
 **Owner**: Content Team (Kim + Editor)
 **Duration**: 12 hours (2-3 hours per WMA)
 **Depends On**: T-022 (validation tests), T-002 (frontmatter examples)
 
 **WMAs to Populate**:
+
 1. Elk River (already exists, refactor to new schema)
 2. Burnsville Lake (new)
 3. Summersville Lake (new)
@@ -1280,6 +1335,7 @@ describe('WMA Content Validation', () => {
 5. Cranberry (new)
 
 **Checklist per WMA**:
+
 - [ ] 15+ frontmatter fields populated
 - [ ] 3-5 huntable species with seasons
 - [ ] 1-3 fishing waters (if applicable)
@@ -1290,6 +1346,7 @@ describe('WMA Content Validation', () => {
 - [ ] Regulations list complete
 
 **Exit Criteria**:
+
 - All 5 WMA pages validate against schema
 - All content validation tests PASS
 - Kim approves all tips and descriptions
@@ -1297,6 +1354,7 @@ describe('WMA Content Validation', () => {
 ---
 
 #### T-024: PERFORMANCE TESTS (Red) - **PARALLEL WITH T-022**
+
 **Owner**: Performance Engineer
 **Duration**: 3 hours
 
@@ -1348,17 +1406,20 @@ test.describe('Lighthouse Performance', () => {
 ```
 
 **Exit Criteria**:
+
 - Performance tests FAIL (optimizations not done yet)
 - Baseline metrics captured
 
 ---
 
 #### T-023: PERFORMANCE OPTIMIZATION (Green) - **AFTER T-024**
+
 **Owner**: Performance Engineer
 **Duration**: 6 hours
 **Depends On**: T-024 (performance tests), T-021 (content exists)
 
 **Optimizations**:
+
 1. Inline critical CSS in <head>
 2. Lazy-load images below fold
 3. Optimize hero images (WebP, srcset)
@@ -1368,6 +1429,7 @@ test.describe('Lighthouse Performance', () => {
 7. Preconnect to external domains
 
 **Exit Criteria**:
+
 - All performance tests PASS
 - Lighthouse scores: 95+/100/100/100
 - Page load <2s on 3G
@@ -1377,11 +1439,13 @@ test.describe('Lighthouse Performance', () => {
 ### Phase 6: PR Quality & Final QA (T-025 to T-030)
 
 #### T-025: WVWO AESTHETIC AUDIT (Automated)
+
 **Owner**: QA Engineer
 **Duration**: 2 hours
 **Depends On**: All phases complete
 
 **Automated Checks**:
+
 - `grep -r "rounded-md" src/` → Zero results
 - `grep -r "rounded-lg" src/` → Zero results
 - `grep -r "Inter" src/` → Zero results (except imports)
@@ -1389,6 +1453,7 @@ test.describe('Lighthouse Performance', () => {
 - Color contrast validation (automated tool)
 
 **Exit Criteria**:
+
 - Zero forbidden patterns found
 - All brand colors validated
 - Orange usage <5% of screen area
@@ -1396,11 +1461,13 @@ test.describe('Lighthouse Performance', () => {
 ---
 
 #### T-026: CROSS-BROWSER TESTING
+
 **Owner**: QA Engineer
 **Duration**: 4 hours
 **Browsers**: Chrome, Firefox, Safari, Edge
 
 **Exit Criteria**:
+
 - All browsers render identically
 - Zero layout bugs
 - All interactions work
@@ -1408,16 +1475,19 @@ test.describe('Lighthouse Performance', () => {
 ---
 
 #### T-027: PR DOCUMENTATION
+
 **Owner**: Technical Writer
 **Duration**: 3 hours
 
 **Files to Create**:
+
 - `CHANGELOG.md` (SPEC-12 changes)
 - `MIGRATION.md` (how to convert WMA pages)
 - Component API docs (all 6 new components)
 - Content authoring guide (for Kim)
 
 **Exit Criteria**:
+
 - All docs complete
 - Examples tested and working
 - Kim can follow migration guide
@@ -1425,10 +1495,12 @@ test.describe('Lighthouse Performance', () => {
 ---
 
 #### T-028: CODE REVIEW PREPARATION
+
 **Owner**: Lead Developer
 **Duration**: 2 hours
 
 **Checklist**:
+
 - [ ] All 43+ unit tests passing
 - [ ] All 35+ E2E tests passing
 - [ ] Zero axe-core violations
@@ -1444,11 +1516,13 @@ test.describe('Lighthouse Performance', () => {
 ---
 
 #### T-029: PR SUBMISSION
+
 **Owner**: Lead Developer
 **Duration**: 1 hour
 **Depends On**: T-028 (all checks green)
 
 **PR Template**:
+
 ```markdown
 ## SPEC-12: WMA Template System
 
@@ -1496,11 +1570,13 @@ test.describe('Lighthouse Performance', () => {
 ---
 
 #### T-030: 10-AGENT PR REVIEW
+
 **Owner**: Queen Coordinator Agent
 **Duration**: 4 hours
 **Depends On**: T-029 (PR submitted)
 
 **Review Agents**:
+
 1. TypeScript Validator
 2. Accessibility Auditor
 3. WVWO Aesthetic Enforcer
@@ -1513,6 +1589,7 @@ test.describe('Lighthouse Performance', () => {
 10. Final QA Inspector
 
 **Exit Criteria**:
+
 - PR score ≥90/100
 - Zero must-fix issues
 - All agents approve
@@ -1542,6 +1619,7 @@ test.describe('Lighthouse Performance', () => {
 ### Week 1 (Schema + Components)
 
 **Day 1-2: Schema Foundation**
+
 ```
 08:00 - Test Engineer 1: T-004 (Schema tests - Red)
 12:00 - Backend Developer: T-001 (Schema implementation - Green)
@@ -1551,6 +1629,7 @@ test.describe('Lighthouse Performance', () => {
 ```
 
 **Day 3-6: Component Development**
+
 ```
 Day 3:
   - Test Engineer 1: T-009 (AdventureFeatureSection tests - Red)
@@ -1571,6 +1650,7 @@ Day 6:
 ### Week 2 (Integration + Accessibility)
 
 **Day 7-9: Integration Testing**
+
 ```
 Day 7:
   - Test Engineer 3: T-015 (E2E component tests - Red)
@@ -1582,6 +1662,7 @@ Day 8-9:
 ```
 
 **Day 10-11: Accessibility & Polish**
+
 ```
 Day 10:
   - Accessibility Engineer: T-019 (Accessibility tests - Red)
@@ -1595,6 +1676,7 @@ Day 11:
 ### Week 3 (Content + Deployment)
 
 **Day 12-14: Content & Performance**
+
 ```
 Day 12:
   - Content Engineer: T-022 (Content validation tests - Red)
@@ -1606,6 +1688,7 @@ Day 13-14:
 ```
 
 **Day 15-16: PR Quality & Review**
+
 ```
 Day 15:
   - QA Engineer: T-025 (Aesthetic audit)
@@ -1623,7 +1706,9 @@ Day 16:
 ## Quality Gates (No Bypass)
 
 ### Gate 1: Schema Foundation
+
 **Criteria**:
+
 - ✅ 15 schema tests passing
 - ✅ Zero TypeScript errors
 - ✅ Existing adventures still build
@@ -1634,7 +1719,9 @@ Day 16:
 ---
 
 ### Gate 2: Component Development
+
 **Criteria**:
+
 - ✅ 28 component unit tests passing
 - ✅ All 6 components < 100 lines
 - ✅ Props interfaces documented
@@ -1645,7 +1732,9 @@ Day 16:
 ---
 
 ### Gate 3: Integration Testing
+
 **Criteria**:
+
 - ✅ 35 E2E tests passing
 - ✅ All navigation links functional
 - ✅ WMA pages < 150 lines
@@ -1656,7 +1745,9 @@ Day 16:
 ---
 
 ### Gate 4: Accessibility & Polish
+
 **Criteria**:
+
 - ✅ Zero axe-core violations
 - ✅ Manual screen reader testing passed
 - ✅ All visual snapshots approved
@@ -1667,7 +1758,9 @@ Day 16:
 ---
 
 ### Gate 5: Content & Deployment
+
 **Criteria**:
+
 - ✅ 5 WMA pages published
 - ✅ All content validation tests passing
 - ✅ Performance tests passing (95+/100/100/100)
@@ -1678,7 +1771,9 @@ Day 16:
 ---
 
 ### Gate 6: PR Quality
+
 **Criteria**:
+
 - ✅ All 128 tests passing
 - ✅ Documentation complete
 - ✅ Cross-browser tested
@@ -1691,31 +1786,41 @@ Day 16:
 ## Risk Mitigation
 
 ### Risk 1: Schema Breaking Changes
+
 **Mitigation**:
+
 - T-004 includes backward compatibility tests
 - All WMA fields are optional
 - Gate 1 blocks progress until validation passes
 
 ### Risk 2: Component Test Failures
+
 **Mitigation**:
+
 - Parallel TDD ensures tests written before implementation
 - Gate 2 blocks integration until all unit tests pass
 - Continuous test execution catches regressions early
 
 ### Risk 3: Accessibility Violations
+
 **Mitigation**:
+
 - T-019 runs comprehensive axe-core tests
 - Manual screen reader testing required
 - Gate 4 blocks content work until violations fixed
 
 ### Risk 4: Performance Regression
+
 **Mitigation**:
+
 - T-024 tests Lighthouse scores in CI/CD
 - 3G throttling simulates rural WV conditions
 - Gate 5 blocks PR until performance targets met
 
 ### Risk 5: WVWO Aesthetic Drift
+
 **Mitigation**:
+
 - T-025 automated aesthetic audit
 - Visual regression tests catch styling changes
 - Queen coordinator enforces brand compliance
@@ -1725,6 +1830,7 @@ Day 16:
 ## Success Metrics
 
 ### Test Coverage
+
 - **Unit Tests**: 43+ (target: 100% schema + component coverage)
 - **E2E Tests**: 35+ (target: all user flows covered)
 - **Accessibility Tests**: 30+ (target: zero WCAG violations)
@@ -1732,6 +1838,7 @@ Day 16:
 - **Performance Tests**: 5+ (target: Lighthouse 95+)
 
 ### Code Quality
+
 - **Line Reduction**: 73% (533 → 150 lines per WMA)
 - **Component Reuse**: 80%+ of page is composed components
 - **PR Review Score**: 94+ (matching SPEC-10/11 quality)
@@ -1739,12 +1846,14 @@ Day 16:
 - **ESLint Violations**: 0
 
 ### Content Quality
+
 - **WMAs Published**: 5 (Phase 1 target)
 - **Kim's Tips Coverage**: 50%+ of species cards
 - **External Links**: 100% functional
 - **Image Optimization**: 100% WebP, <500KB
 
 ### Performance
+
 - **Lighthouse Performance**: 95+/100
 - **Page Load Time**: <2s on 3G
 - **Total Page Weight**: <500KB
@@ -1755,6 +1864,7 @@ Day 16:
 ## Appendix: Test Execution Commands
 
 ### Run All Tests
+
 ```bash
 # Unit tests (Vitest)
 npm run test:unit
@@ -1776,6 +1886,7 @@ npm run test:all
 ```
 
 ### Run Specific Test Suites
+
 ```bash
 # Schema validation only
 npm run test:unit -- adventures.test.ts
@@ -1788,6 +1899,7 @@ npm run test:e2e -- wma-components.spec.ts
 ```
 
 ### Watch Mode (Development)
+
 ```bash
 # Unit tests with file watching
 npm run test:unit:watch
@@ -1797,6 +1909,7 @@ npm run test:e2e:ui
 ```
 
 ### CI/CD Integration
+
 ```bash
 # Pre-commit hook
 npm run test:pre-commit
@@ -1813,6 +1926,7 @@ npm run test:deploy
 **END OF TDD STRATEGY**
 
 **Next Steps**:
+
 1. Review and approve this TDD plan
 2. Execute T-004 (Schema tests - Red phase)
 3. Follow Red-Green-Refactor cycle for each task

@@ -37,6 +37,7 @@
 ## Acceptance Criteria
 
 ### Component Architecture
+
 - [ ] WMATemplate.astro created in `wv-wild-web/src/layouts/`
 - [ ] Template extracts 62% of duplicated layout code from WMA pages
 - [ ] Template uses all SPEC-09/10/11 adventure components correctly
@@ -50,6 +51,7 @@
   - [ ] AdventureWhatToHunt.astro
 
 ### Schema & Type Safety
+
 - [ ] 8 WMA fields added to adventures schema in `content.config.ts`:
   - [ ] wma_acreage (number, optional)
   - [ ] wma_county (string, optional)
@@ -64,6 +66,7 @@
 - [ ] Backwards compatibility verified: existing adventures work without WMA fields
 
 ### Testing - Unit Tests (>40 total)
+
 - [ ] Template props validation (15+ tests)
 - [ ] WMA schema field validation (10+ tests)
 - [ ] Component slot rendering (5+ tests)
@@ -71,6 +74,7 @@
 - [ ] Type inference tests (5+ tests)
 
 ### Testing - E2E Tests (>30 total)
+
 - [ ] Visual regression: Hero section renders correctly (5+ tests)
 - [ ] Visual regression: Stats grid matches existing layout (5+ tests)
 - [ ] Visual regression: Getting There section formatting (5+ tests)
@@ -79,6 +83,7 @@
 - [ ] Accessibility: WCAG 2.1 AA compliance verified (5+ tests)
 
 ### Accessibility (WCAG 2.1 AA - 100%)
+
 - [ ] All sections have `aria-labelledby` with unique IDs
 - [ ] Heading hierarchy valid (h1 → h2 → h3, no skips)
 - [ ] Focus indicators visible on all interactive elements
@@ -87,6 +92,7 @@
 - [ ] Screen reader testing passes with NVDA/JAWS
 
 ### WVWO Aesthetic Compliance
+
 - [ ] ZERO forbidden fonts (Inter, Poppins, DM Sans, etc.)
 - [ ] ZERO rounded-md/lg/xl corners (rounded-sm ONLY)
 - [ ] ZERO purple/pink/neon colors (brand palette only)
@@ -96,12 +102,14 @@
 - [ ] Orange usage <5% of screen (primary CTAs only)
 
 ### Code Quality
+
 - [ ] PR score >90/100 from 10-agent queen-led review
 - [ ] No TypeScript errors or warnings
 - [ ] ESLint passes with zero violations
 - [ ] Prettier formatting applied consistently
 
 ### Documentation
+
 - [ ] Migration guide: How to convert existing WMA pages to template
 - [ ] Usage examples: Minimal WMA page using template
 - [ ] Props documentation: All template props explained with defaults
@@ -112,9 +120,11 @@
 ## Open Questions
 
 ### 1. Template Layout Strategy
+
 **Question**: Should the WMA template be a Layout component (`src/layouts/WMATemplate.astro`) or a page template pattern (`src/pages/adventures/[...slug].astro`)?
 
 **Options**:
+
 - **Layout approach**: WMA pages import `<WMATemplate>` and pass frontmatter as props
 - **Dynamic route approach**: Single `[...slug].astro` file fetches Content Collection entry
 
@@ -123,6 +133,7 @@
 ---
 
 ### 2. Content Collections Migration
+
 **Question**: Should SPEC-12 include migrating all 8+ WMA pages to Content Collections, or just create the template with manual frontmatter?
 
 **Context**: SPEC-06 established Content Collections schema, but current WMA pages use inline frontmatter.
@@ -132,9 +143,11 @@
 ---
 
 ### 3. Schema Extensibility
+
 **Question**: Should the WMAFrontmatterSchema be strict (reject unknown properties) or permissive (allow extra fields for future features)?
 
 **Trade-offs**:
+
 - **Strict**: Type safety, catches typos, enforces consistency
 - **Permissive**: Future-proof, allows Kim to add custom fields without code changes
 
@@ -143,9 +156,11 @@
 ---
 
 ### 4. Component Composition Order
+
 **Question**: What is the canonical section order for WMA pages?
 
 **Current elk-river.astro order**:
+
 1. Hero (AdventureHero)
 2. Quick Stats (AdventureQuickStats)
 3. Area Description (prose)
@@ -159,6 +174,7 @@
 ---
 
 ### 5. Navigation Integration
+
 **Question**: Should the template include WMA-specific navigation (breadcrumbs, previous/next WMA links), or delegate to global layout?
 
 **Context**: SPEC-07B consolidated navigation. WMA pages might need "Next WMA: Elk River →" links.

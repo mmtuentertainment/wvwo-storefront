@@ -200,16 +200,19 @@ import AdventureCTA from '../adventure/AdventureCTA.astro';
 ```
 
 **AdventureGearChecklist** (SPEC-11)
+
 - Props: `{ items: GearItem[], title?: string, columns?: 1|2|3, variant?: 'white'|'cream' }`
 - Use for: `gearList` array from props
 - WVWO Compliant: Yes (rounded-sm, brand colors)
 
 **AdventureRelatedShop** (SPEC-11)
+
 - Props: `{ categories: RelatedCategory[], title?: string, intro?: string }`
 - Use for: `relatedShop` array from props (conditional render if length > 0)
 - WVWO Compliant: Yes (rounded-sm, border-l-4 accents)
 
 **AdventureCTA** (SPEC-12)
+
 - Props: `{ heading, description, primaryText, primaryHref, secondaryText, secondaryHref, variant }`
 - Use for: Bottom CTA directing to shop/contact
 - WVWO Compliant: Yes (sign-green/brand-brown variants, rounded-sm)
@@ -559,6 +562,7 @@ Per SPEC-17, safety-critical arrays display warnings when empty:
 ```
 
 Safety-critical sections requiring warnings:
+
 - `waterSources` - "Pack all water needed"
 - `emergencyContacts` - "Contact local ranger district"
 - `weatherHazards` - "Check NOAA conditions"

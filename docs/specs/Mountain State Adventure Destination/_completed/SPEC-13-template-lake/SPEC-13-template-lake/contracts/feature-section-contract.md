@@ -33,11 +33,13 @@ interface FeatureItem {
 ### Component Behavior
 
 **Base Component**:
+
 - AdventureFeatureSection is the **foundation component** for ALL feature grids
 - Used by AdventureWhatToFish, AdventureWhatToHunt, and custom sections
 - Highly configurable with 9+ props for flexible rendering
 
 **Rendering**:
+
 - Responsive grid (1-col mobile, 2-col tablet, 3-col desktop for activities)
 - Green border-left accent (configurable via accentColor)
 - Gentle-reveal animations with stagger (0.1s delay per item)
@@ -50,6 +52,7 @@ interface FeatureItem {
 ### Lake Props → FeatureItem[] Mapping
 
 **Source Data** (from LakeTemplateProps):
+
 ```typescript
 activities: Array<{
   name: string;                        // "Scuba Diving"
@@ -60,6 +63,7 @@ activities: Array<{
 ```
 
 **Transformation Function** (in LakeTemplate.astro frontmatter):
+
 ```typescript
 function transformActivities(activities: Activity[]): FeatureItem[] {
   return activities.map(act => ({
@@ -71,6 +75,7 @@ function transformActivities(activities: Activity[]): FeatureItem[] {
 ```
 
 **Example Input**:
+
 ```typescript
 activities: [
   {
@@ -95,6 +100,7 @@ activities: [
 ```
 
 **Example Output**:
+
 ```typescript
 const activityFeatures: FeatureItem[] = [
   {
@@ -137,6 +143,7 @@ const activityFeatures: FeatureItem[] = [
 ### Recommended Props
 
 **For Lake Activities**:
+
 ```astro
 <AdventureFeatureSection
   title="Year-Round Activities"
@@ -155,6 +162,7 @@ const activityFeatures: FeatureItem[] = [
 **Order**: RECREATION content - additional activities beyond fishing/camping
 
 **Context**:
+
 ```astro
 <!-- Marina (custom section) -->
 <section class="py-12 md:py-16 bg-white">
@@ -200,6 +208,7 @@ const activityFeatures: FeatureItem[] = [
 ### Array Size Limits (NFR-009)
 
 **Performance Constraint**:
+
 - `activities` max: **20 items**
 - Lighthouse performance score must remain 90+ within limit
 - Typical WV lake: 4-8 activities (well within limit)
@@ -207,12 +216,15 @@ const activityFeatures: FeatureItem[] = [
 ### Edge Cases
 
 **Empty Activities Array**:
+
 ```typescript
 activities: []  // ✅ VALID - Section hides, no error
 ```
+
 Template conditionally renders - if array empty, entire activities section hidden.
 
 **No Difficulty Level**:
+
 ```typescript
 {
   name: 'Kayaking',
@@ -221,12 +233,15 @@ Template conditionally renders - if array empty, entire activities section hidde
   // difficulty: undefined - metadata shows only season
 }
 ```
+
 Metadata: `"May-October"` (no bullet point, no difficulty)
 
 **Long Metadata String**:
+
 ```typescript
 metadata: 'May-October (water temps 68-80°F) • moderate'
 ```
+
 Component handles text wrapping naturally.
 
 ---
@@ -236,18 +251,21 @@ Component handles text wrapping naturally.
 ### Season + Difficulty Combination
 
 **With Difficulty**:
+
 ```typescript
 metadata: `${season} • ${difficulty}`
 // "May-October • moderate"
 ```
 
 **Without Difficulty**:
+
 ```typescript
 metadata: season
 // "May-October" (no bullet, no difficulty)
 ```
 
 **Rendering**:
+
 ```astro
 {feature.metadata && (
   <p class="text-sm text-brand-brown/60 mt-2">
@@ -257,6 +275,7 @@ metadata: season
 ```
 
 **Visual Treatment**:
+
 - Small text (`text-sm`)
 - Muted color (`text-brand-brown/60` - 60% opacity)
 - Top margin separator (`mt-2`)
@@ -266,6 +285,7 @@ metadata: season
 **Values**: `easy` | `moderate` | `challenging`
 
 **Display**:
+
 - Lowercase in metadata
 - No emoji or icons (text only)
 - Optional (can be omitted)
@@ -336,6 +356,7 @@ it('renders 3-column grid on desktop', async () => {
 ### Expected Rendering
 
 **Desktop (1920px) - 3 Column Grid**:
+
 ```
 ┌─────────────────┬─────────────────┬─────────────────┐
 │ │ Scuba Diving  │ │ Swimming      │ │ Cliff Jumping │
@@ -347,9 +368,11 @@ it('renders 3-column grid on desktop', async () => {
 │ │               │ │ • easy        │ │               │
 └─────────────────┴─────────────────┴─────────────────┘
 ```
+
 Green border-left (4px) on each card, metadata below description
 
 **Tablet (768px) - 2 Column Grid**:
+
 ```
 ┌─────────────────────────────┬─────────────────────────────┐
 │ │ Scuba Diving              │ │ Swimming                  │
@@ -361,9 +384,11 @@ Green border-left (4px) on each card, metadata below description
 │ │ Summer (June-August) • challenging                      │
 └─────────────────────────────────────────────────────────────
 ```
+
 2-column grid, third activity spans full width on second row
 
 **Mobile (375px) - 1 Column Stacked**:
+
 ```
 ┌──────────────────────────────┐
 │ │ Scuba Diving               │
@@ -381,6 +406,7 @@ Green border-left (4px) on each card, metadata below description
 │ │ Summer • challenging       │
 └──────────────────────────────┘
 ```
+
 Full-width cards, stacked vertically
 
 ---
@@ -399,10 +425,12 @@ import type { FeatureItem, Activity } from '../../types/adventure';
 ### Type Dependencies
 
 **From `types/adventure.ts`**:
+
 - `FeatureItem` interface (existing SPEC-11 type)
 - `Activity` interface (NEW SPEC-13 type)
 
 **SPEC-11 Component**:
+
 - AdventureFeatureSection.astro (base component, ~190 lines)
 
 ---
@@ -431,6 +459,7 @@ import type { FeatureItem, Activity } from '../../types/adventure';
 ### Animations
 
 **Gentle Reveal** (if `animate={true}`):
+
 ```css
 @keyframes gentle-reveal {
   from { opacity: 0; transform: translateY(8px); }
@@ -439,6 +468,7 @@ import type { FeatureItem, Activity } from '../../types/adventure';
 ```
 
 **Accessibility**:
+
 ```css
 @media (prefers-reduced-motion: reduce) {
   .adventure-feature-section { animation: none; }
@@ -488,6 +518,7 @@ activities: []  // Empty array - section hidden
 ## Change Log
 
 **v1.0.0** (2025-12-29):
+
 - Initial contract specification
 - activities → FeatureItem[] transformation
 - Metadata combines season + difficulty

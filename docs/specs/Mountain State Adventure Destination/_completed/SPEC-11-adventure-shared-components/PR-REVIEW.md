@@ -48,6 +48,7 @@
 **Status**: PASS (95/100)
 
 **Strengths**:
+
 - Zod schemas correctly defined for `GearItemSchema` and `RelatedCategorySchema`
 - Type inference via `z.infer<>` follows established patterns
 - `GearColumns` type alias properly constrains to `1 | 2 | 3`
@@ -55,6 +56,7 @@
 - All imports resolve correctly (`import type` used appropriately)
 
 **Code Quality**:
+
 ```typescript
 // adventure.ts - Well-structured type definitions
 export const GearItemSchema = z.object({
@@ -72,6 +74,7 @@ export const RelatedCategorySchema = z.object({
 ```
 
 **Minor Observations**:
+
 - Consider adding `z.string().max(100)` to `name` fields for data validation
 - `RelatedCategorySchema.href` validation could be extended for path patterns
 
@@ -84,6 +87,7 @@ export const RelatedCategorySchema = z.object({
 **Status**: PASS (98/100)
 
 **Compliance Checklist**:
+
 | Requirement | Status | Evidence |
 |-------------|--------|----------|
 | `rounded-sm` ONLY | PASS | All 3 components use `rounded-sm` exclusively |
@@ -96,11 +100,13 @@ export const RelatedCategorySchema = z.object({
 | No forbidden fonts | PASS | Zero Inter/Poppins/DM Sans |
 
 **Visual Pattern Consistency**:
+
 - `border-l-4 border-sign-green` pattern correctly applied to direction cards and category cards
 - Hover states properly transition to `border-brand-orange`
 - Background variants (`white`/`cream`) follow established patterns
 
 **Kim's Voice Check**:
+
 - Default intro texts are authentic: "Planning a trip? We've got you covered."
 - No marketing buzzwords detected
 - Copy reads like a local shop, not a tech startup
@@ -114,6 +120,7 @@ export const RelatedCategorySchema = z.object({
 **Status**: PASS (94/100)
 
 **WCAG 2.1 AA Compliance**:
+
 | Criterion | Status | Implementation |
 |-----------|--------|----------------|
 | 1.3.1 Info & Relationships | PASS | Semantic `<section>`, `<ul>`, `<li>` structure |
@@ -124,6 +131,7 @@ export const RelatedCategorySchema = z.object({
 | 2.5.3 Label in Name | PASS | Visual labels match accessible names |
 
 **Implementation Details**:
+
 ```astro
 <!-- Proper aria-labelledby usage -->
 <section aria-labelledby={sectionId}>
@@ -142,12 +150,14 @@ export const RelatedCategorySchema = z.object({
 ```
 
 **Strengths**:
+
 - All icons properly marked `aria-hidden="true"`
 - Optional items include `(optional)` text label (not just visual distinction)
 - `focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange` on all interactive elements
 - `prefers-reduced-motion: reduce` disables all animations
 
 **Minor Recommendations**:
+
 - AdventureGearChecklist: Consider adding `role="list"` explicitly for Safari VoiceOver
 - AdventureRelatedShop: Add `aria-label` to category card links for context
 
@@ -158,6 +168,7 @@ export const RelatedCategorySchema = z.object({
 **Status**: PASS (96/100)
 
 **Bundle Analysis**:
+
 | Metric | Value | Target | Status |
 |--------|-------|--------|--------|
 | Client JS | 0 KB | 0 KB | PASS |
@@ -166,12 +177,14 @@ export const RelatedCategorySchema = z.object({
 | Inline SVGs | 6 total | < 10 | PASS |
 
 **Static Rendering Verification**:
+
 - All 3 components are pure Astro (`.astro` files)
 - Zero `client:*` directives
 - Zero React/Vue/Svelte dependencies
 - All data processing happens at build time
 
 **Animation Performance**:
+
 ```css
 /* Uses transform/opacity only (GPU-accelerated) */
 @keyframes gentle-reveal {
@@ -181,6 +194,7 @@ export const RelatedCategorySchema = z.object({
 ```
 
 **Observations**:
+
 - `Math.random().toString(36).substring(2, 9)` for IDs is acceptable for static builds
 - No N+1 rendering patterns detected
 - Icon paths reused from `STAT_ICON_PATHS` (no duplication)
@@ -192,6 +206,7 @@ export const RelatedCategorySchema = z.object({
 **Status**: PASS (90/100)
 
 **Security Checklist**:
+
 | Vector | Status | Mitigation |
 |--------|--------|------------|
 | XSS via HTML injection | MITIGATED | `<Fragment set:html={directions}>` in Astro is context-aware |
@@ -200,16 +215,19 @@ export const RelatedCategorySchema = z.object({
 | URL validation | PARTIAL | mapLink accepts any URL (see recommendation) |
 
 **HTML Injection Analysis** (AdventureGettingThere):
+
 ```astro
 <div class="prose prose-sm max-w-none">
   <Fragment set:html={directions} />
 </div>
 ```
+
 - Astro's `set:html` is safer than raw innerHTML but content should be trusted
 - Current usage in summersville-lake.astro passes sanitized HTML (ordered lists only)
 - **Risk**: Low - content is author-controlled, not user-submitted
 
 **Recommendation**:
+
 ```typescript
 // Consider adding URL domain validation for mapLink
 mapLink: z.string().url().refine(
@@ -233,12 +251,14 @@ mapLink: z.string().url().refine(
 | AdventureRelatedShop | `categories` | `title`, `intro`, `ctaText`, `ctaHref`, `variant`, `animate` | none |
 
 **API Design Strengths**:
+
 - Sensible defaults reduce boilerplate (`title = 'Getting There'`)
 - Consistent `variant` and `animate` props across all components
 - Type-safe column constraints (`GearColumns = 1 | 2 | 3`)
 - Slot-based composition follows Astro best practices
 
 **Consistency with SPEC-09/10**:
+
 | Pattern | SPEC-09/10 | SPEC-11 | Match |
 |---------|-----------|---------|-------|
 | Section ID generation | `Math.random().toString(36)` | Same | YES |
@@ -247,6 +267,7 @@ mapLink: z.string().url().refine(
 | Icon path retrieval | `getIconPath(stat)` | Same | YES |
 
 **Minor API Enhancement Suggestion**:
+
 - Consider adding `id` prop for explicit section IDs (useful for deep linking)
 
 ---
@@ -256,6 +277,7 @@ mapLink: z.string().url().refine(
 **Status**: PASS (91/100)
 
 **Code Metrics**:
+
 | Metric | Value | Threshold | Status |
 |--------|-------|-----------|--------|
 | File length (max) | 197 lines | 500 lines | PASS |
@@ -264,11 +286,13 @@ mapLink: z.string().url().refine(
 | Naming consistency | Excellent | Good | PASS |
 
 **Pattern Adherence**:
+
 - DRY: Icon path lookup function `getIconPath()` reused from SPEC-10 pattern
 - KISS: Simple conditional rendering, no complex state management
 - Single Responsibility: Each component handles one section type
 
 **Code Organization**:
+
 ```astro
 ---
 // 1. Imports (types, utilities)
@@ -284,11 +308,13 @@ mapLink: z.string().url().refine(
 ```
 
 **Observations**:
+
 - Consistent code structure across all 3 components
 - JSDoc comments explain component purpose and accessibility
 - Example usage provided in component docstrings
 
 **Minor Suggestions**:
+
 - `getIconPath()` function could be extracted to a shared utility
 - Animation keyframes are duplicated across components (consider shared CSS file)
 
@@ -301,16 +327,19 @@ mapLink: z.string().url().refine(
 **summersville-lake.astro Integration Review**:
 
 **Imports**:
+
 ```astro
 import AdventureGettingThere from '../../components/adventure/AdventureGettingThere.astro';
 import AdventureGearChecklist from '../../components/adventure/AdventureGearChecklist.astro';
 import AdventureRelatedShop from '../../components/adventure/AdventureRelatedShop.astro';
 import type { GearItem, RelatedCategory } from '../../types/adventure';
 ```
+
 - All imports resolve correctly
 - Type imports used appropriately
 
 **Data Arrays**:
+
 ```astro
 const summersvilleGear: GearItem[] = [
   { name: 'WV fishing license', optional: false },
@@ -323,10 +352,12 @@ const summersvilleCategories: RelatedCategory[] = [
   // ... 3 categories total
 ];
 ```
+
 - Types correctly applied to data arrays
 - Data structure matches schema requirements
 
 **Component Usage**:
+
 ```astro
 <AdventureGettingThere
   directions="<ol class='list-decimal list-inside space-y-2'>...</ol>"
@@ -337,11 +368,13 @@ const summersvilleCategories: RelatedCategory[] = [
   <p class="text-brand-mud/80 italic">...</p>
 </AdventureGettingThere>
 ```
+
 - Props correctly passed
 - Slot content properly structured
 - Tailwind classes match WVWO aesthetic guidelines
 
 **Page Flow**: Components integrate naturally into the page structure:
+
 1. Hero section
 2. AdventureQuickStats (SPEC-10)
 3. Content sections
@@ -357,6 +390,7 @@ const summersvilleCategories: RelatedCategory[] = [
 **Status**: PASS (88/100)
 
 **JSDoc Coverage**:
+
 | Component | File Header | Props Docs | Example | Score |
 |-----------|-------------|------------|---------|-------|
 | AdventureGettingThere | Complete | Complete | Complete | 95% |
@@ -365,6 +399,7 @@ const summersvilleCategories: RelatedCategory[] = [
 | adventure.ts | Complete | Complete | N/A | 90% |
 
 **Documentation Strengths**:
+
 ```typescript
 /**
  * AdventureGettingThere.astro
@@ -386,10 +421,12 @@ const summersvilleCategories: RelatedCategory[] = [
 ```
 
 **Minor Gaps**:
+
 - Spec alignment not explicitly documented in code comments
 - No inline comments explaining the `prose prose-sm` Tailwind class purpose
 
 **Recommendation**:
+
 - Add `@see spec.md#FR-001` style references for traceability
 
 ---
@@ -399,6 +436,7 @@ const summersvilleCategories: RelatedCategory[] = [
 **Status**: PASS (96/100)
 
 **Test Files Added** (commit 0c27047):
+
 - `wv-wild-web/src/types/__tests__/adventure.test.ts` - 43 unit tests
 - `wv-wild-web/tests/e2e/adventure-shared-components.spec.ts` - 35+ E2E tests
 
@@ -407,6 +445,7 @@ const summersvilleCategories: RelatedCategory[] = [
 #### Unit Tests (43 tests) - Vitest
 
 **GearItemSchema Tests (14 tests)**:
+
 | Category | Tests | Status |
 |----------|-------|--------|
 | Valid inputs | minimal, explicit optional, with icon, circle icon | PASS |
@@ -414,6 +453,7 @@ const summersvilleCategories: RelatedCategory[] = [
 | Edge cases | whitespace name, very long name, special characters | PASS |
 
 **RelatedCategorySchema Tests (14 tests)**:
+
 | Category | Tests | Status |
 |----------|-------|--------|
 | Valid inputs | minimal, full fields, root href, nested hrefs | PASS |
@@ -421,12 +461,14 @@ const summersvilleCategories: RelatedCategory[] = [
 | Edge cases | empty description, query params, hash in href | PASS |
 
 **StatIconSchema Tests (12 tests)**:
+
 | Category | Tests | Status |
 |----------|-------|--------|
 | Icon validation | circle icon, all 9 predefined icons | PASS |
 | Icon paths | all icons have SVG paths, "none" has null | PASS |
 
 **Type Tests (3 tests)**:
+
 | Category | Tests | Status |
 |----------|-------|--------|
 | GearColumns | valid column counts, compile-time constraints | PASS |
@@ -437,6 +479,7 @@ const summersvilleCategories: RelatedCategory[] = [
 #### E2E Tests (35+ tests) - Playwright + axe-core
 
 **AdventureGettingThere (12 tests)**:
+
 ```typescript
 describe('Core Rendering')     // section, heading, prose content
 describe('Map Link')           // visibility, security (rel attrs), accessible text
@@ -445,6 +488,7 @@ describe('Slot Content')       // default slot rendering
 ```
 
 **AdventureGearChecklist (9 tests)**:
+
 ```typescript
 describe('Core Rendering')     // section, heading
 describe('Gear Items')         // list, checkmark icons, optional markers, aria-hidden
@@ -454,6 +498,7 @@ describe('Footer Slot')        // CTA link rendering
 ```
 
 **AdventureRelatedShop (9 tests)**:
+
 ```typescript
 describe('Core Rendering')     // section, heading
 describe('Category Cards')     // links, internal hrefs, names, descriptions
@@ -462,6 +507,7 @@ describe('CTA Button')         // visibility, correct href
 ```
 
 **Cross-Component Tests (5 tests)**:
+
 ```typescript
 describe('Accessibility')      // WCAG 2.1 AA via axe-core, color contrast, focus
 describe('Reduced Motion')     // animations disabled
@@ -471,7 +517,7 @@ describe('Visual Regression')  // mobile/desktop screenshots
 
 ---
 
-#### Edge Case Coverage (per spec.md):
+#### Edge Case Coverage (per spec.md)
 
 | Edge Case | Spec Requirement | Test Type | Status |
 |-----------|------------------|-----------|--------|
@@ -485,7 +531,7 @@ describe('Visual Regression')  // mobile/desktop screenshots
 
 ---
 
-#### Test Infrastructure Integration:
+#### Test Infrastructure Integration
 
 | Aspect | Status | Evidence |
 |--------|--------|----------|
@@ -497,7 +543,7 @@ describe('Visual Regression')  // mobile/desktop screenshots
 
 ---
 
-#### Minor Observations:
+#### Minor Observations
 
 1. **Protocol-relative URL limitation**: Unit test documents that `//example.com` passes `startsWith('/')` check - known edge case, low risk
 2. **Conditional E2E tests**: Some tests use `if (await count > 0)` pattern for optional elements - appropriate for component flexibility
@@ -515,14 +561,17 @@ describe('Visual Regression')  // mobile/desktop screenshots
 ## Recommendations
 
 ### High Priority (Pre-Merge)
+
 1. None required - PR is merge-ready
 
 ### Medium Priority (Post-Merge Follow-up)
+
 1. **Extract Shared Animation CSS**: Move `gentle-reveal` keyframes to shared file
 2. **Add mapLink URL Validation**: Consider Zod refinement for Google Maps domain
 3. **Protocol-relative URL refinement**: Add regex to reject `//example.com` in href validation
 
 ### Low Priority (Future Enhancement)
+
 1. **Utility Extraction**: Move `getIconPath()` to shared utility module
 2. **ID Prop**: Add optional `id` prop for deep linking support
 3. **Accessibility Enhancement**: Add explicit `role="list"` for Safari VoiceOver
@@ -551,6 +600,7 @@ describe('Visual Regression')  // mobile/desktop screenshots
 **PR #69 is APPROVED for merge.**
 
 The implementation successfully delivers 3 reusable Astro components that:
+
 - Follow established patterns from SPEC-09/10
 - Meet all WVWO aesthetic requirements
 - Are fully accessible (WCAG 2.1 AA)
@@ -560,6 +610,7 @@ The implementation successfully delivers 3 reusable Astro components that:
 - **Have comprehensive test coverage (43 unit + 35+ E2E tests)**
 
 **Test Coverage Highlights**:
+
 - 43 unit tests for Zod schemas (GearItemSchema, RelatedCategorySchema, StatIconSchema)
 - 35+ E2E tests with axe-core accessibility auditing
 - Visual regression tests for mobile/desktop

@@ -3,7 +3,7 @@
 # Cloudflare Workers for Dynamic Filter Pre-Rendering (OPTIONAL)
 
 Why: Workers can pre-render high-demand filter combos at edge (faster than client-side React).
- 
+
 Prompt for AI Research:
 MISSION: Evaluate if Cloudflare Workers should pre-render high-demand filter combinations at edge.
 
@@ -50,7 +50,6 @@ I've completed a comprehensive investigation into using Cloudflare Workers for p
 | **Cost for WVWO?** | Free (\$0/month) | Well under 100k requests/day free tier |
 | **Development time?** | 20-30 extra hours | Hybrid mode, Pages Functions, KV, cache invalidation |
 | **Recommended?** | **NO** | Complexity doesn't justify imperceptible UX gain |
-
 
 ***
 
@@ -202,7 +201,6 @@ exports async function onRequest(context) {
 → React receives + displays
 ```
 
-
 ***
 
 ## THE DECISION CHECKLIST
@@ -239,7 +237,6 @@ Cost: $20-25/month
 Timeline: 2 weeks
 ```
 
-
 ### ❌ Don't Use This (Recommended Against)
 
 ```
@@ -249,7 +246,6 @@ Cost: Still free, but 20+ extra hours dev
 Timeline: 4-5 weeks
 Risk: Asset issues, cache invalidation problems, hybrid mode edge cases
 ```
-
 
 ### 📊 Try This (Post-Launch Decision)
 
@@ -308,107 +304,106 @@ This is a pragmatic, data-driven approach. 🎯
 
 <div align="center">⁂</div>
 
-[^1]: https://developers.cloudflare.com/workers/framework-guides/web-apps/astro/
+[^1]: <https://developers.cloudflare.com/workers/framework-guides/web-apps/astro/>
 
-[^2]: https://developers.cloudflare.com/workers/platform/pricing/
+[^2]: <https://developers.cloudflare.com/workers/platform/pricing/>
 
-[^3]: https://developers.cloudflare.com/kv/examples/cache-data-with-workers-kv/
+[^3]: <https://developers.cloudflare.com/kv/examples/cache-data-with-workers-kv/>
 
-[^4]: https://www.hashmeta.ai/blog/edge-side-rendering-vs-client-side-rendering-which-delivers-superior-seo-results
+[^4]: <https://www.hashmeta.ai/blog/edge-side-rendering-vs-client-side-rendering-which-delivers-superior-seo-results>
 
-[^5]: https://www.reddit.com/r/astrojs/comments/1lbv989/help_astro_assests_are_not_being_rendered_when/
+[^5]: <https://www.reddit.com/r/astrojs/comments/1lbv989/help_astro_assests_are_not_being_rendered_when/>
 
-[^6]: https://blog.cloudflare.com/builder-day-2024-announcements/
+[^6]: <https://blog.cloudflare.com/builder-day-2024-announcements/>
 
-[^7]: https://www.toptal.com/front-end/client-side-vs-server-side-pre-rendering
+[^7]: <https://www.toptal.com/front-end/client-side-vs-server-side-pre-rendering>
 
-[^8]: https://www.elearningsolutions.co.in/edge-rendering-vs-server-rendering-vs-client-rendering/
+[^8]: <https://www.elearningsolutions.co.in/edge-rendering-vs-server-rendering-vs-client-rendering/>
 
-[^9]: https://arxiv.org/pdf/2409.16724.pdf
+[^9]: <https://arxiv.org/pdf/2409.16724.pdf>
 
-[^10]: https://arxiv.org/html/2412.19446v1
+[^10]: <https://arxiv.org/html/2412.19446v1>
 
-[^11]: http://arxiv.org/pdf/2403.10977.pdf
+[^11]: <http://arxiv.org/pdf/2403.10977.pdf>
 
-[^12]: http://arxiv.org/pdf/2308.00562.pdf
+[^12]: <http://arxiv.org/pdf/2308.00562.pdf>
 
-[^13]: http://arxiv.org/pdf/2407.12605.pdf
+[^13]: <http://arxiv.org/pdf/2407.12605.pdf>
 
-[^14]: https://arxiv.org/pdf/2309.05669.pdf
+[^14]: <https://arxiv.org/pdf/2309.05669.pdf>
 
-[^15]: https://arxiv.org/pdf/2210.05365.pdf
+[^15]: <https://arxiv.org/pdf/2210.05365.pdf>
 
-[^16]: https://arxiv.org/html/2503.23644v1
+[^16]: <https://arxiv.org/html/2503.23644v1>
 
-[^17]: https://fabiofranchino.com/log/create-a-custom-api-cache-using-kv-in-a-cloudflare-worker/
+[^17]: <https://fabiofranchino.com/log/create-a-custom-api-cache-using-kv-in-a-cloudflare-worker/>
 
-[^18]: https://docs.astro.build/en/guides/integrations-guide/cloudflare/
+[^18]: <https://docs.astro.build/en/guides/integrations-guide/cloudflare/>
 
-[^19]: https://blog.pixelfreestudio.com/server-side-rendering-vs-client-side-rendering-key-differences/
+[^19]: <https://blog.pixelfreestudio.com/server-side-rendering-vs-client-side-rendering-key-differences/>
 
-[^20]: https://simongreer.co.uk/blog/astro-on-cloudflare-fully-automated-part-2/
+[^20]: <https://simongreer.co.uk/blog/astro-on-cloudflare-fully-automated-part-2/>
 
-[^21]: https://developers.cloudflare.com/workers/reference/how-the-cache-works/
+[^21]: <https://developers.cloudflare.com/workers/reference/how-the-cache-works/>
 
-[^22]: https://fleek.xyz/blog/learn/server-side-vs-client-side-rendering-comparison/
+[^22]: <https://fleek.xyz/blog/learn/server-side-vs-client-side-rendering-comparison/>
 
-[^23]: https://www.reddit.com/r/CloudFlare/comments/1i87tpv/caching_static_data_in_worker/
+[^23]: <https://www.reddit.com/r/CloudFlare/comments/1i87tpv/caching_static_data_in_worker/>
 
-[^24]: https://blog.cloudflare.com/full-stack-development-on-cloudflare-workers/
+[^24]: <https://blog.cloudflare.com/full-stack-development-on-cloudflare-workers/>
 
-[^25]: https://www.reddit.com/r/sveltejs/comments/129qll5/why_is_server_side_rendering_considered_faster/
+[^25]: <https://www.reddit.com/r/sveltejs/comments/129qll5/why_is_server_side_rendering_considered_faster/>
 
-[^26]: https://ts.cloudflare.community/workers/runtime-apis/kv/
+[^26]: <https://ts.cloudflare.community/workers/runtime-apis/kv/>
 
-[^27]: https://crystallize.com/blog/react-static-site-generators
+[^27]: <https://crystallize.com/blog/react-static-site-generators>
 
-[^28]: https://www.developerway.com/posts/react-server-components-performance
+[^28]: <https://www.developerway.com/posts/react-server-components-performance>
 
-[^29]: https://www.youtube.com/watch?v=TL-cfLfbAbI
+[^29]: <https://www.youtube.com/watch?v=TL-cfLfbAbI>
 
-[^30]: https://kristianfreeman.com/deploying-astro-applications-to-cloudflare
+[^30]: <https://kristianfreeman.com/deploying-astro-applications-to-cloudflare>
 
-[^31]: https://stackoverflow.com/questions/13106355/why-exactly-is-server-side-html-rendering-faster-than-client-side
+[^31]: <https://stackoverflow.com/questions/13106355/why-exactly-is-server-side-html-rendering-faster-than-client-side>
 
-[^32]: https://www.mdpi.com/1424-8220/23/23/9595/pdf?version=1701607768
+[^32]: <https://www.mdpi.com/1424-8220/23/23/9595/pdf?version=1701607768>
 
-[^33]: https://www.mdpi.com/1424-8220/23/8/4008/pdf?version=1681728793
+[^33]: <https://www.mdpi.com/1424-8220/23/8/4008/pdf?version=1681728793>
 
-[^34]: https://arxiv.org/pdf/2401.01217.pdf
+[^34]: <https://arxiv.org/pdf/2401.01217.pdf>
 
-[^35]: https://www.mdpi.com/1424-8220/23/4/2215
+[^35]: <https://www.mdpi.com/1424-8220/23/4/2215>
 
-[^36]: https://www.mdpi.com/1424-8220/23/1/72/pdf?version=1671700466
+[^36]: <https://www.mdpi.com/1424-8220/23/1/72/pdf?version=1671700466>
 
-[^37]: https://arxiv.org/html/2411.16470v1
+[^37]: <https://arxiv.org/html/2411.16470v1>
 
-[^38]: https://www.srvrlss.io/provider/cloudflare/
+[^38]: <https://www.srvrlss.io/provider/cloudflare/>
 
-[^39]: https://www.reddit.com/r/webdev/comments/6m2h9y/prerendering_spa_for_seo_and_improved_perceived/
+[^39]: <https://www.reddit.com/r/webdev/comments/6m2h9y/prerendering_spa_for_seo_and_improved_perceived/>
 
-[^40]: https://docs.astro.build/en/guides/deploy/cloudflare/
+[^40]: <https://docs.astro.build/en/guides/deploy/cloudflare/>
 
-[^41]: https://eastondev.com/blog/en/posts/dev/20251201-workers-quota-optimization/
+[^41]: <https://eastondev.com/blog/en/posts/dev/20251201-workers-quota-optimization/>
 
-[^42]: https://angular.dev/guide/ssr
+[^42]: <https://angular.dev/guide/ssr>
 
-[^43]: https://www.vantage.sh/blog/cloudflare-workers-vs-aws-lambda-cost
+[^43]: <https://www.vantage.sh/blog/cloudflare-workers-vs-aws-lambda-cost>
 
-[^44]: https://www.netguru.com/blog/server-side-rendering-vs-client-side
+[^44]: <https://www.netguru.com/blog/server-side-rendering-vs-client-side>
 
-[^45]: https://www.freecodecamp.org/news/how-to-use-the-astro-ui-framework/
+[^45]: <https://www.freecodecamp.org/news/how-to-use-the-astro-ui-framework/>
 
-[^46]: https://developers.cloudflare.com/pages/functions/pricing/
+[^46]: <https://developers.cloudflare.com/pages/functions/pricing/>
 
-[^47]: https://www.sarkarseo.com/blog/understanding-the-trade-offs-of-client-side-and-server-side-rendering/
+[^47]: <https://www.sarkarseo.com/blog/understanding-the-trade-offs-of-client-side-and-server-side-rendering/>
 
-[^48]: https://cai.im/blog/og-images-using-satori/
+[^48]: <https://cai.im/blog/og-images-using-satori/>
 
-[^49]: https://blog.blazingcdn.com/en-us/cloudflares-pricing-for-developers-a-closer-look-at-workers-pages
+[^49]: <https://blog.blazingcdn.com/en-us/cloudflares-pricing-for-developers-a-closer-look-at-workers-pages>
 
-[^50]: https://kontent.ai/blog/pre-rendered-server-rendered-or-hybrid-which-should-i-use/
+[^50]: <https://kontent.ai/blog/pre-rendered-server-rendered-or-hybrid-which-should-i-use/>
 
-[^51]: https://kristianfreeman.com/an-introduction-to-astros-content-system
+[^51]: <https://kristianfreeman.com/an-introduction-to-astros-content-system>
 
-[^52]: https://dev.to/ioniacob/which-cloudflare-services-are-free-2025-free-tier-guide-53jl
-
+[^52]: <https://dev.to/ioniacob/which-cloudflare-services-are-free-2025-free-tier-guide-53jl>

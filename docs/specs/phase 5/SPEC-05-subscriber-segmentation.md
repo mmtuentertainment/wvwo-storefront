@@ -3,9 +3,11 @@
 ## 1. SPECIFICATION
 
 ### 1.1 Objective
+
 Tag Buttondown subscribers by interest and source so Matt can send relevant content to the right people.
 
 ### 1.2 Requirements
+
 | Req | Description | Priority |
 |-----|-------------|----------|
 | R1 | Tag by interest: hunter / angler / both | Must |
@@ -14,13 +16,13 @@ Tag Buttondown subscribers by interest and source so Matt can send relevant cont
 | R4 | Preference collection at signup | Must |
 
 ### 1.3 Constraints
+
 - Buttondown free tier limitations
 - Simple checkbox UI (not complex forms)
 
 ---
 
 ## 2. PSEUDOCODE
-
 
 ```
 SUBSCRIBER TAGS:
@@ -51,7 +53,6 @@ SEND LOGIC:
 
 ## 3. ARCHITECTURE
 
-
 ```html
 EmailCapture Component Update:
 
@@ -74,10 +75,12 @@ EmailCapture Component Update:
 ## 4. REFINEMENT
 
 ### Buttondown Integration
+
 - Tags passed via form hidden fields or API
 - Verify Buttondown supports multi-tag signup
 
 ### Migration
+
 - Existing subscribers → Tag as "general" (get everything)
 - Let them update preferences via email link
 
@@ -86,6 +89,7 @@ EmailCapture Component Update:
 ## 5. COMPLETION
 
 ### Success Criteria
+
 - [ ] Signup form collects preferences
 - [ ] Tags appear in Buttondown dashboard
 - [ ] Segmented send works correctly

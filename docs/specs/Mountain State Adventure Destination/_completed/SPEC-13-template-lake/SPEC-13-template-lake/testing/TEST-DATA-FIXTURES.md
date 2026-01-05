@@ -140,6 +140,7 @@ export const minimalLakeData: LakeTemplateProps = {
 See TESTING-ARCHITECTURE.md for full implementation (603 lines).
 
 **Key Characteristics**:
+
 - 6 fish species (typical WV lake)
 - 4 fishing spots (realistic coverage)
 - 2 campgrounds (Battle Run + Salmon Run)
@@ -149,6 +150,7 @@ See TESTING-ARCHITECTURE.md for full implementation (603 lines).
 - 4 regulation categories (walleye, boating, diving, general)
 
 **Usage**:
+
 - Integration testing
 - Visual regression testing
 - Performance benchmarking
@@ -674,6 +676,7 @@ Before committing fixture files:
 ### Version Control
 
 Fixtures are version-controlled with tests:
+
 - Track changes in git
 - Include fixture updates in PRs
 - Document breaking changes in commit messages

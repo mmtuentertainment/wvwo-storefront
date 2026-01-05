@@ -216,6 +216,7 @@ A Google searcher finding WVWO via "west virginia turkey season 2025" lands on t
 ## Open Questions
 
 **RESOLVED**:
+
 1. ✅ Should Adventures be first or third in nav? → **Third** (logical flow: gear → prep → destinations)
 2. ✅ Show guide banners on ALL filters or hunting-only? → **Hunting-only** (don't promote guides that don't exist)
 3. ✅ Keep /near/ in nav until SPEC-28 complete? → **Yes** (gradual transition, don't break bookmarks)

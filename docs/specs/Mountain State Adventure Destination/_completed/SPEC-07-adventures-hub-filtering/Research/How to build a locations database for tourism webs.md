@@ -57,7 +57,6 @@ Think of your database like organized tables. Here's what you'd need:
 - Date Submitted
 ```
 
-
 ### Data Model Example (Simplified)
 
 Think GeoJSON format—it's the standard for location-based data: Every destination is a **point** with **properties**:[^1]
@@ -86,7 +85,6 @@ Think GeoJSON format—it's the standard for location-based data: Every destinat
 }
 ```
 
-
 ***
 
 ## Tech Stack for Building It (Budget-Friendly Options)
@@ -99,7 +97,6 @@ Given your setup, here's what works:
 - **Supabase** – PostgreSQL wrapper, free tier, real-time queries, good for startups[^2]
 - **MongoDB + MongoDB Atlas** – Free tier includes 512MB storage. Good if you want flexible JSON structure[^2]
 - **Firebase Firestore** – Generous free tier, real-time, good for small projects[^2]
-
 
 ### Backend + Frontend
 
@@ -184,105 +181,104 @@ Each attraction detail page gets CTAs:
 
 <div align="center">⁂</div>
 
-[^1]: https://doc.arcgis.com/en/arcgis-online/reference/geojson.htm
+[^1]: <https://doc.arcgis.com/en/arcgis-online/reference/geojson.htm>
 
-[^2]: https://opendatahub.readthedocs.io/en/latest/tourism-tech.html
+[^2]: <https://opendatahub.readthedocs.io/en/latest/tourism-tech.html>
 
-[^3]: https://apidocs.geoapify.com/docs/places/
+[^3]: <https://apidocs.geoapify.com/docs/places/>
 
-[^4]: https://schema.org/TouristAttraction
+[^4]: <https://schema.org/TouristAttraction>
 
-[^5]: https://blackbearmedia.io/11-powerful-schema-markup-strategies-for-travel-websites/
+[^5]: <https://blackbearmedia.io/11-powerful-schema-markup-strategies-for-travel-websites/>
 
-[^6]: https://ohio.org/things-to-do
+[^6]: <https://ohio.org/things-to-do>
 
-[^7]: https://www.geeksforgeeks.org/sql/how-to-design-er-diagrams-for-travel-and-tourism-booking-systems/
+[^7]: <https://www.geeksforgeeks.org/sql/how-to-design-er-diagrams-for-travel-and-tourism-booking-systems/>
 
-[^8]: https://developers.google.com/maps/documentation/javascript/datalayer
+[^8]: <https://developers.google.com/maps/documentation/javascript/datalayer>
 
-[^9]: https://journal-isi.org/index.php/isi/article/view/645
+[^9]: <https://journal-isi.org/index.php/isi/article/view/645>
 
-[^10]: https://www.semanticscholar.org/paper/d61cef31d208fab3cbb7481da5ec8400c8c87516
+[^10]: <https://www.semanticscholar.org/paper/d61cef31d208fab3cbb7481da5ec8400c8c87516>
 
-[^11]: http://ieeexplore.ieee.org/document/1192961/
+[^11]: <http://ieeexplore.ieee.org/document/1192961/>
 
-[^12]: https://journal.uinsgd.ac.id/index.php/kp/article/view/19677
+[^12]: <https://journal.uinsgd.ac.id/index.php/kp/article/view/19677>
 
-[^13]: http://www.emerald.com/jiabr/article/16/3/566-584/1240498
+[^13]: <http://www.emerald.com/jiabr/article/16/3/566-584/1240498>
 
-[^14]: https://revistaretos.org/index.php/retos/article/view/108284
+[^14]: <https://revistaretos.org/index.php/retos/article/view/108284>
 
-[^15]: https://e-journal.unair.ac.id/JISEBI/article/view/12013
+[^15]: <https://e-journal.unair.ac.id/JISEBI/article/view/12013>
 
-[^16]: https://ieeexplore.ieee.org/document/10613647/
+[^16]: <https://ieeexplore.ieee.org/document/10613647/>
 
-[^17]: http://ieeexplore.ieee.org/document/7589806/
+[^17]: <http://ieeexplore.ieee.org/document/7589806/>
 
-[^18]: https://www.sciengine.com/doi/10.3724/2096-7004.di.2025.0184
+[^18]: <https://www.sciengine.com/doi/10.3724/2096-7004.di.2025.0184>
 
-[^19]: https://arxiv.org/pdf/1805.05744.pdf
+[^19]: <https://arxiv.org/pdf/1805.05744.pdf>
 
-[^20]: http://journal-isi.org/index.php/isi/article/download/328/171
+[^20]: <http://journal-isi.org/index.php/isi/article/download/328/171>
 
-[^21]: https://hrmars.com/papers_submitted/9206/development-of-tourism-database-management-system-creating-er-model.pdf
+[^21]: <https://hrmars.com/papers_submitted/9206/development-of-tourism-database-management-system-creating-er-model.pdf>
 
-[^22]: https://downloads.hindawi.com/journals/cin/2022/1424097.pdf
+[^22]: <https://downloads.hindawi.com/journals/cin/2022/1424097.pdf>
 
-[^23]: https://downloads.hindawi.com/journals/misy/2021/9130244.pdf
+[^23]: <https://downloads.hindawi.com/journals/misy/2021/9130244.pdf>
 
-[^24]: https://arxiv.org/pdf/1402.1243.pdf
+[^24]: <https://arxiv.org/pdf/1402.1243.pdf>
 
-[^25]: https://peerj.com/articles/cs-1334
+[^25]: <https://peerj.com/articles/cs-1334>
 
-[^26]: https://www.mdpi.com/2624-6511/7/1/26/pdf?version=1707924430
+[^26]: <https://www.mdpi.com/2624-6511/7/1/26/pdf?version=1707924430>
 
-[^27]: https://forwardkeys.com/how-to-build-a-tourism-dashboard/
+[^27]: <https://forwardkeys.com/how-to-build-a-tourism-dashboard/>
 
-[^28]: https://www.taskade.com/generate/schema/tourist-attraction-schema
+[^28]: <https://www.taskade.com/generate/schema/tourist-attraction-schema>
 
-[^29]: https://blog.smart-guide.org/en/key-trends-shaping-tourism-industry-2024
+[^29]: <https://blog.smart-guide.org/en/key-trends-shaping-tourism-industry-2024>
 
-[^30]: https://github.com/noi-techpark/opendatahub-docs/blob/master/source/tourism-tech.rst
+[^30]: <https://github.com/noi-techpark/opendatahub-docs/blob/master/source/tourism-tech.rst>
 
-[^31]: https://preferrednet.net/media/1306692/the-state-of-tourism-and-hospitality-2024.pdf
+[^31]: <https://preferrednet.net/media/1306692/the-state-of-tourism-and-hospitality-2024.pdf>
 
-[^32]: https://schemantra.com/schema_list/TouristDestination
+[^32]: <https://schemantra.com/schema_list/TouristDestination>
 
-[^33]: https://www.mckinsey.com/industries/travel/our-insights/the-state-of-tourism-and-hospitality-2024
+[^33]: <https://www.mckinsey.com/industries/travel/our-insights/the-state-of-tourism-and-hospitality-2024>
 
-[^34]: https://www.weforum.org/publications/travel-tourism-development-index-2024/
+[^34]: <https://www.weforum.org/publications/travel-tourism-development-index-2024/>
 
-[^35]: https://databasesample.com/database/tourist-guide-app
+[^35]: <https://databasesample.com/database/tourist-guide-app>
 
-[^36]: https://corporate.nyctourism.com/annual-report/2024
+[^36]: <https://corporate.nyctourism.com/annual-report/2024>
 
-[^37]: https://www.here.com/docs/bundle/map-image-developer-guide-v3/page/topics/geojson-overlay.html
+[^37]: <https://www.here.com/docs/bundle/map-image-developer-guide-v3/page/topics/geojson-overlay.html>
 
-[^38]: https://stackoverflow.com/questions/21701243/database-design-relations-for-tourism-web-app
+[^38]: <https://stackoverflow.com/questions/21701243/database-design-relations-for-tourism-web-app>
 
-[^39]: https://destinationsinternational.org/tourism-lexicon-united-states-2024-release
+[^39]: <https://destinationsinternational.org/tourism-lexicon-united-states-2024-release>
 
-[^40]: https://vercel.com/docs/analytics
+[^40]: <https://vercel.com/docs/analytics>
 
-[^41]: https://supabase.com/partners/integrations
+[^41]: <https://supabase.com/partners/integrations>
 
-[^42]: https://discuss.codecademy.com/t/travel-sites-on-heroku/565358
+[^42]: <https://discuss.codecademy.com/t/travel-sites-on-heroku/565358>
 
-[^43]: https://developers.google.com/maps/documentation/distance-matrix/overview
+[^43]: <https://developers.google.com/maps/documentation/distance-matrix/overview>
 
-[^44]: https://www.mapbox.com/mapbox-gljs
+[^44]: <https://www.mapbox.com/mapbox-gljs>
 
-[^45]: https://www.ovrdc.org/topics/leaflet
+[^45]: <https://www.ovrdc.org/topics/leaflet>
 
-[^46]: https://wiki.openstreetmap.org/wiki/Public_transport
+[^46]: <https://wiki.openstreetmap.org/wiki/Public_transport>
 
-[^47]: https://www.geoapify.com/places-api/
+[^47]: <https://www.geoapify.com/places-api/>
 
-[^48]: https://www.geeksforgeeks.org/how-to-design-er-diagrams-for-travel-and-tourism-booking-systems/
+[^48]: <https://www.geeksforgeeks.org/how-to-design-er-diagrams-for-travel-and-tourism-booking-systems/>
 
-[^49]: https://catalog.data.gov/dataset/?tags=tourism
+[^49]: <https://catalog.data.gov/dataset/?tags=tourism>
 
-[^50]: https://www.scribd.com/document/722944787/Tourism-database-management-system
+[^50]: <https://www.scribd.com/document/722944787/Tourism-database-management-system>
 
-[^51]: https://developers.google.cn/maps/documentation/javascript/datalayer?hl=zh-tw
-
+[^51]: <https://developers.google.cn/maps/documentation/javascript/datalayer?hl=zh-tw>

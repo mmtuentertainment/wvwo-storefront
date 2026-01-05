@@ -81,6 +81,7 @@ The single most differentiating element. Transforms generic content into local e
 ```
 
 **Schema Addition**:
+
 ```yaml
 kim_hook: "Toms gobble here til mid-May"  # Kim's personal note
 ```
@@ -102,6 +103,7 @@ kim_hook: "Toms gobble here til mid-May"  # Kim's personal note
 **Current Problem**: Image loads first, user sees blank for 2-8s on 3G.
 
 **Solution**: Text-first rendering, image last:
+
 ```tsx
 // Priority: Content → Badges → Image
 <article className="field-card">
@@ -164,6 +166,7 @@ Fixed positions create "scan once, know forever" patterns:
 ## Anti-Patterns to Avoid (Never Do This)
 
 ### Visual Anti-Patterns
+
 - ❌ Gradient overlays on images
 - ❌ rounded-lg corners (use rounded-sm)
 - ❌ shadow-2xl floating cards
@@ -172,12 +175,14 @@ Fixed positions create "scan once, know forever" patterns:
 - ❌ Stock photos of models in gear
 
 ### Voice Anti-Patterns
+
 - ❌ "Experience world-class hunting"
 - ❌ "Discover adventure awaits"
 - ❌ "Perfect for outdoor enthusiasts"
 - ❌ "Create lasting memories"
 
 ### Platform Anti-Patterns
+
 - ❌ Star ratings (AllTrails pattern)
 - ❌ User-generated reviews (Yelp pattern)
 - ❌ "Trending" badges (generic platform pattern)

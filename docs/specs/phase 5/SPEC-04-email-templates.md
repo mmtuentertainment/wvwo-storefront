@@ -3,9 +3,11 @@
 ## 1. SPECIFICATION
 
 ### 1.1 Objective
+
 Create Buttondown email templates for each report type that match WVWO brand voice and drive traffic to the website.
 
 ### 1.2 Requirements
+
 | Req | Description | Priority |
 |-----|-------------|----------|
 | R1 | Template for hunting reports | Must |
@@ -17,6 +19,7 @@ Create Buttondown email templates for each report type that match WVWO brand voi
 | R7 | Unsubscribe link (Buttondown auto) | Must |
 
 ### 1.3 Constraints
+
 - Buttondown markdown format
 - No complex HTML (plain text fallback)
 - Must work in all email clients
@@ -26,7 +29,6 @@ Create Buttondown email templates for each report type that match WVWO brand voi
 ## 2. PSEUDOCODE
 
 ### Hunting Report Template
-
 
 ```markdown
 Subject: [FIELD REPORT] {title}
@@ -62,7 +64,6 @@ Kim
 
 ### Fishing Report Template
 
-
 ```markdown
 Subject: [FISHING REPORT] {title}
 
@@ -95,7 +96,6 @@ Kim
 
 ## 3. ARCHITECTURE
 
-
 ```
 Buttondown Account
 ├── Templates/
@@ -114,10 +114,12 @@ Buttondown Account
 ## 4. REFINEMENT
 
 ### Personalization
+
 - Use subscriber first name if available
 - Consider segmented sends (hunters get hunting, anglers get fishing)
 
 ### A/B Testing
+
 - Subject line variations: "[FIELD REPORT]" vs. specific content
 - Test: location in subject vs. species in subject
 
@@ -126,6 +128,7 @@ Buttondown Account
 ## 5. COMPLETION
 
 ### Success Criteria
+
 - [ ] Templates saved in Buttondown
 - [ ] Test email renders correctly on mobile
 - [ ] Links to website work

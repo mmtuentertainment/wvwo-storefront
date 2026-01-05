@@ -15,6 +15,7 @@ This architecture design covers all aspects of implementing the SPEC-17 Backcoun
 ## 1. Component Architecture
 
 ### Main Template Structure
+
 **`BackcountryTemplate.astro`** (~500-550 lines)
 
 All sections rendered inline (following CaveTemplate/SkiTemplate pattern):
@@ -33,11 +34,13 @@ All sections rendered inline (following CaveTemplate/SkiTemplate pattern):
 | Seasonal | ~40 | Best times by season |
 
 ### Shared Components to Reuse
+
 - `AdventureGearChecklist.astro`
 - `AdventureRelatedShop.astro`
 - `AdventureCTA.astro`
 
 ### New Components Needed
+
 - `SchemaBackcountryTemplate.astro` (SEO structured data)
 
 ---
@@ -63,12 +66,14 @@ All sections rendered inline (following CaveTemplate/SkiTemplate pattern):
 ### Empty State Decision Tree
 
 **Show Warning (Kim's voice):**
+
 - `waterSources` → "Pack all water needed"
 - `emergencyContacts` → "Contact ranger district"
 - `weatherHazards` → "Check NOAA"
 - `trails` → "Navigate with map/compass"
 
 **Hide Section:**
+
 - `nearbyAttractions`, `relatedShop`, `gearList`
 
 ---
@@ -86,6 +91,7 @@ All sections rendered inline (following CaveTemplate/SkiTemplate pattern):
 | `backcountry-template-types.ts` | ~200 | **NEEDED** - Template props |
 
 ### Schemas Still Needed
+
 - `EmergencyContactSchema` / `EmergencyTierSchema`
 - `RegulationsSchema` / `ManagingAgencySchema`
 - `WildlifeHazardSchema` / `DangerLevelSchema`
@@ -96,6 +102,7 @@ All sections rendered inline (following CaveTemplate/SkiTemplate pattern):
 - `BackcountryTemplatePropsSchema` (main composition)
 
 ### Dependency Graph
+
 ```
 adventure.ts (shared)
     ↓
@@ -147,6 +154,7 @@ H1: {name}
 ## 5. Integration Architecture
 
 ### content.config.ts Changes
+
 ```typescript
 // Extend type enum
 type: z.enum([
@@ -159,11 +167,13 @@ import { BackcountryTemplatePropsSchema } from './types/backcountry-template-typ
 ```
 
 ### Route Handling
+
 - Static pages in `/pages/near/*.astro`
 - Each imports `BackcountryTemplate`
 - Uses `getEntry()` to fetch content
 
 ### Backward Compatibility
+
 - All changes additive
 - Zero breaking changes
 - New enum value + optional fields
@@ -173,6 +183,7 @@ import { BackcountryTemplatePropsSchema } from './types/backcountry-template-typ
 ## 6. Testing Architecture
 
 ### Test File Structure
+
 ```
 wv-wild-web/src/
 ├── types/__tests__/
@@ -199,12 +210,14 @@ wv-wild-web/src/
 ### Priority Test Cases
 
 **P0 (Safety-Critical):**
+
 - AMD water source detection
 - Emergency contact tiers
 - Cell coverage → satellite recommendation
 - Industry difficulty colors
 
 **P1 (Template Rendering):**
+
 - Empty state warnings
 - Section visibility logic
 - Accessibility compliance
@@ -214,6 +227,7 @@ wv-wild-web/src/
 ## 7. SEO Architecture
 
 ### Schema.org Structured Data
+
 - `TouristAttraction` + `NaturalFeature` + `Place`
 - `Article` with author/publisher
 - `BreadcrumbList` (Home → Adventures → Backcountry → {name})
@@ -223,11 +237,13 @@ wv-wild-web/src/
 ### Meta Tag Patterns
 
 **Title** (50-60 chars):
+
 ```
 {name} Backcountry Guide | WV Wild Outdoors
 ```
 
 **Description** (150-160 chars):
+
 ```
 {name} backcountry guide: {acreage} acres of {designation} in {county}, WV.
 {difficulty} trails, AMD water warnings. Cell coverage: {cellCoverage}.

@@ -23,19 +23,23 @@ Sutton Lake is the CLOSEST recreational area to the shop (10 min via I-79). Curr
 ## Content Sections
 
 ### Hero
+
 - "10 min from shop" badge
 - "1,440 Acres" badge
 - Lake name and tagline
 - Brief intro about proximity
 
 ### Quick Info Bar
+
 - Acres: 1,440
 - Drive time: 10 min
 - County: Braxton
 - Access: Year-round
 
 ### What to Fish
+
 Research needed for accurate species list. Current placeholder:
+
 - Largemouth Bass
 - Smallmouth Bass
 - Catfish (Channel, Flathead)
@@ -43,6 +47,7 @@ Research needed for accurate species list. Current placeholder:
 - Walleye
 
 ### Facilities
+
 - Boat ramps (locations TBD)
 - Campgrounds (names TBD)
 - Swimming areas
@@ -50,19 +55,23 @@ Research needed for accurate species list. Current placeholder:
 - Restrooms
 
 ### Getting There
+
 Directions from shop (121 WV-82):
+
 1. Head north on I-79
 2. Take Exit 62 (Sutton)
 3. Follow signs to Sutton Lake
 4. ~10 minutes total
 
 ### What to Bring
+
 - Fishing tackle (we stock it)
 - WV fishing license (we sell it)
 - Boat/kayak (launch access available)
 - Cooler, sunscreen, etc.
 
 ### CTA Sections
+
 - Shop CTA: "Need tackle? Stop by before you head out"
 - Directions CTA: Google Maps link to shop
 - Newsletter: EmailCapture component

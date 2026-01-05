@@ -19,7 +19,7 @@ Create a reusable Astro template for West Virginia State Parks focused on facili
 
 **researcher WebSearch queries**:
 
-```
+```text
 "Blackwater Falls State Park website structure"
 "Pipestem Resort State Park guide layout"
 "state park website design best practices"
@@ -36,7 +36,7 @@ npx agentdb@latest skill search "facilities trails visitor amenities" 10
 # Load similar park/recreation patterns
 npx agentdb@latest reflexion retrieve "recreation facilities family activities" --k 10 --synthesize-context
 
-```
+```typescript
 
 **Deliverable**: Research findings on state park content patterns, facility presentation, trail information, visitor services
 
@@ -214,7 +214,7 @@ interface StateParkTemplateProps {
   </div>
 </section>
 
-```
+```markdown
 
 #### Trails Section
 
@@ -313,7 +313,7 @@ interface StateParkTemplateProps {
   </div>
 </section>
 
-```
+```markdown
 
 #### Facilities Section
 
@@ -500,7 +500,7 @@ interface StateParkTemplateProps {
   </div>
 </section>
 
-```
+```markdown
 
 #### Accessibility Section
 
@@ -608,7 +608,7 @@ npx claude-flow@alpha hooks pre-task --description "State Park template generati
 npx claude-flow@alpha hooks post-edit --file "src/components/templates/StateParkTemplate.astro"
 npx claude-flow@alpha hooks post-task --task-id "SPEC-18"
 
-```
+```typescript
 
 ---
 

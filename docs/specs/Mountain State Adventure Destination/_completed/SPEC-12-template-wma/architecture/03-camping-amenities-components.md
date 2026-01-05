@@ -19,6 +19,7 @@ Two complementary components for displaying facility and amenity information:
 **AdventureAmenitiesGrid** = Simple data (string array with checkmarks)
 
 Choose based on data complexity:
+
 - Complex facilities (camping sites, boat ramps, ranges) → CampingList
 - Simple amenities (parking, restrooms, cell service) → AmenitiesGrid
 
@@ -27,6 +28,7 @@ Choose based on data complexity:
 ## AdventureCampingList Architecture
 
 ### Component Responsibility
+
 **Single Responsibility**: Render complex facility cards with counts, descriptions, contact info, external links
 
 ### Props Interface
@@ -159,29 +161,34 @@ interface Props {
 ### Styling Strategy
 
 **Card Design**:
+
 - White background on cream section (depth/layering)
 - `rounded-sm` corners (WVWO compliance, not md/lg)
 - `border-2 border-brand-brown/10` (subtle outline)
 - `p-6` padding (comfortable spacing)
 
 **Count Badge**:
+
 - `bg-sign-green text-white` (high contrast)
 - `px-3 py-1` (compact pill shape)
 - `rounded-sm` (matches card corners)
 - `text-sm font-bold` (readable, not overwhelming)
 
 **Contact Links**:
+
 - Phone: `tel:` href with stripped formatting
 - Green color (`text-sign-green`)
 - Hover: 80% opacity (`hover:text-sign-green/80`)
 - Icon + text (phone icon from SVG)
 
 **External Links**:
+
 - `rel="noopener noreferrer" target="_blank"` (security)
 - Underline style (indicates external)
 - Arrow indicator (`→`) for directionality
 
 **Accessibility Section**:
+
 - Border-top separator (`border-t`)
 - Smaller text (`text-sm`)
 - Icon + text (accessibility icon)
@@ -198,6 +205,7 @@ interface Props {
 ```
 
 **Empty State**:
+
 - Italic text with muted color
 - Helpful message (directs to WV DNR)
 - No error, no broken UI
@@ -229,6 +237,7 @@ interface Props {
 ## AdventureAmenitiesGrid Architecture
 
 ### Component Responsibility
+
 **Single Responsibility**: Render simple amenities as checkmark grid
 
 ### Props Interface
@@ -303,17 +312,20 @@ interface Props {
 ### Styling Strategy
 
 **Grid Layout**:
+
 - Mobile: 2 columns (`grid-cols-2`)
 - Desktop: 2-4 columns (`md:grid-cols-{columns}`)
 - Gap: `gap-4` (tighter than facility cards)
 
 **Checkmark Icon**:
+
 - Size: `w-5 h-5` (balanced with text)
 - Color: `text-{iconColor}` (default: sign-green)
 - Position: `flex-shrink-0 mt-0.5` (aligns with first line of text)
 - Stroke: `stroke-width="3"` (bold, visible)
 
 **Text Styling**:
+
 - Color: `text-brand-brown` (consistent with body text)
 - No bold (checkmark provides emphasis)
 - Left-aligned with icon
@@ -321,6 +333,7 @@ interface Props {
 ### Use Cases
 
 **Good for AmenitiesGrid**:
+
 - Parking (30+ vehicles)
 - Restrooms (seasonal)
 - Picnic areas
@@ -329,6 +342,7 @@ interface Props {
 - Potable water
 
 **Better for CampingList**:
+
 - Camping Sites (240) with "Electric hookups, $15-25/night"
 - Boat Ramp (2) with contact phone
 - Shooting Range with hours + description
@@ -356,6 +370,7 @@ interface Props {
 ### When to Use CampingList
 
 **Use AdventureCampingList when**:
+
 - Facilities have counts (e.g., 240 camping sites)
 - Contact information needed (phone, website)
 - Descriptions are complex (>10 words)
@@ -363,6 +378,7 @@ interface Props {
 - Accessibility notes present
 
 **Example Data**:
+
 ```typescript
 facilities: [
   {
@@ -379,12 +395,14 @@ facilities: [
 ### When to Use AmenitiesGrid
 
 **Use AdventureAmenitiesGrid when**:
+
 - Amenities are simple strings
 - No counts or metadata needed
 - Checkmark/bullet list style appropriate
 - Quick scanning desired
 
 **Example Data**:
+
 ```typescript
 amenities: [
   "Parking (30+ vehicles)",
@@ -476,16 +494,19 @@ test('AmenitiesGrid hides when empty', async ({ page }) => {
 ## Performance Considerations
 
 ### Bundle Size
+
 - AdventureCampingList: ~3KB (80 lines, complex cards)
 - AdventureAmenitiesGrid: ~1KB (40 lines, simple grid)
 - Icons: Inline SVG (no external requests)
 
 ### Rendering Optimization
+
 - Conditional rendering (hide empty sections)
 - Static HTML (no JavaScript)
 - Lazy-load images below fold (if facility photos added)
 
 ### Phone Link Formatting
+
 ```typescript
 // Efficient regex: Strip all non-digits
 const telHref = `tel:+1${facility.contact.replace(/\D/g, '')}`;
@@ -499,12 +520,14 @@ const telHref = `tel:+1${facility.contact.replace(/\D/g, '')}`;
 ## Future Enhancements
 
 ### CampingList Enhancements
+
 1. **Facility Photos**: Optional `imageUrl` field
 2. **Expandable Details**: Details/summary for long descriptions
 3. **Map Integration**: Link to facility location on WMA map
 4. **Seasonal Hours**: Display open/closed status
 
 ### AmenitiesGrid Enhancements
+
 1. **Tooltip Descriptions**: Hover for more info
 2. **Icon Variety**: Different icons per amenity type
 3. **Categorization**: Group amenities by type (access, safety, convenience)

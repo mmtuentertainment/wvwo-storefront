@@ -14,6 +14,7 @@
 **Reference**: elk-river.astro (463 lines), SPEC-10/11 components (94/100 PR score)
 
 **Worker Agent Assignments**:
+
 1. ✅ Overview Agent - Overview & problem statement
 2. ⏳ Goals Agent - Goals & non-goals
 3. ⏳ User Stories Agent - User stories (Kim, editors, developers)
@@ -33,16 +34,19 @@
 **Approach**: Instead of a monolithic 463-line template, we'll build **4 new section components** that compose together, plus reuse 4 existing components from SPEC-10/11. This achieves **73% line reduction per page** (533 → 150 lines) while maintaining elk-river.astro depth.
 
 **Components to Create** (Session 2025-12-27: Wrapper pattern approved):
+
 1. `AdventureFeatureSection.astro` - Generic feature display (replaces What to Hunt/Fish sections)
 2. `AdventureCampingList.astro` - Complex facility display with badges & contact info
 3. `AdventureAmenitiesGrid.astro` - Utility grid for checkmark-style amenities
 4. `AdventureCTA.astro` - Universal CTA section (green bg, dual buttons)
 
 **Wrapper Components** (thin wrappers around AdventureFeatureSection):
+
 - `AdventureWhatToFish.astro` - Sets fishing-specific defaults (~15 lines)
 - `AdventureWhatToHunt.astro` - Sets hunting-specific defaults (~15 lines)
 
 **Components to Reuse** (from SPEC-10/11):
+
 - `AdventureQuickStats.astro` - Stats grid (acreage, drive time, county, access)
 - `AdventureGettingThere.astro` - Directions with map link
 - `AdventureGearChecklist.astro` - Required/optional gear lists
@@ -53,6 +57,7 @@
 ## Problem Statement
 
 **Current State**: The elk-river.astro WMA page is 463 lines of inline, non-reusable code. Creating 96 WV WMA pages would require duplicating this structure 96 times, leading to:
+
 - **45,000+ lines of duplicated code** (463 × 96 + maintenance overhead)
 - **Inconsistent styling** as patterns drift across pages
 - **High maintenance burden** - fixing a bug means updating 96 files
@@ -69,26 +74,31 @@
 ### Primary Goals
 
 **G1: Modular Component System** (MUST HAVE)
+
 - 6 new section components + 4 reused components = complete WMA page toolkit
 - Each component <100 lines, single responsibility, props-driven
 - Zero breaking changes to existing SPEC-10/11 components
 
 **G2: Line Reduction & Maintainability** (MUST HAVE)
+
 - Target: 150-line page templates (73% reduction from 463 lines)
 - Single source of truth for each section pattern
 - Bug fixes propagate to all WMA pages instantly
 
 **G3: Type Safety via Zod Schemas** (MUST HAVE)
+
 - Extend existing `adventures` Content Collection with 8 optional WMA fields
 - Build-time validation catches missing acreage, malformed GPS, invalid seasons
 - Full TypeScript autocomplete for all component props
 
 **G4: WVWO Aesthetic Enforcement** (MUST HAVE)
+
 - 100% compliance: `rounded-sm` only, brand palette, font hierarchy
 - Zero forbidden patterns: No glassmorphism, purple gradients, corporate fonts
 - Passes "Kim's neighbors would recognize this" litmus test
 
 **G5: Accessibility (WCAG 2.1 AA)** (MUST HAVE)
+
 - Color contrast 4.5:1 normal, 3:1 large text
 - Never color-only indicators (add icons + text)
 - Maps with accessible data table alternatives
@@ -97,16 +107,19 @@
 ### Secondary Goals
 
 **G6: Content Phasing** (SHOULD HAVE) - **APPROVED Session 2025-12-27**
+
 - Phase 1: 5 closest WMAs to shop (Elk River, Burnsville Lake, Summersville Lake, Holly River, Cranberry) - all <45 min drive
 - Phase 2: 10 regional WMAs expanding coverage (Northern, Southern, Eastern WV)
 - Phase 3: Complete 96 WV WMAs catalog
 
 **G7: Performance** (SHOULD HAVE)
+
 - Static HTML generation (zero runtime JS penalty)
 - <2s load time on 3G (rural WV cellular)
 - Lighthouse 100/100/100/100 scores
 
 **G8: Geographic Features** (NICE TO HAVE)
+
 - Static-first maps (Mapbox Static API or OpenStreetMap tiles)
 - Multi-format GPS (decimal degrees + DMS for older units)
 - Printable PDF maps (8.5"×11" portrait, QR code)
@@ -116,27 +129,32 @@
 ## Non-Goals (Out of Scope)
 
 **NG1: Interactive Maps** (Future Enhancement)
+
 - Out of scope: Leaflet.js client-side interactivity, layer toggles, pan/zoom
 - In scope: Static map images with data table alternatives
 - Rationale: 50-70% less battery, <1s load on 3G, works offline/print
 - Future: Progressive enhancement for WMAs with 3+ access points
 
 **NG2: Separate WMAs Collection** (Architecture Decision)
+
 - Out of scope: New `wmas` Content Collection separate from `adventures`
 - In scope: Extend existing `adventures` with 8 optional WMA fields
 - Rationale: Zero breaking changes, simpler mental model, existing cross-references work
 
 **NG3: Real-Time Regulation Integration** (External API)
+
 - Out of scope: Live WV DNR API integration for hunting seasons/limits
 - In scope: Static regulations field with manual updates + link to WV DNR
 - Rationale: DNR has no public API, regulations change slowly (annual), manual is reliable
 
 **NG4: E-Commerce Integration** (Disabled per SPEC-05)
+
 - Out of scope: Shopping cart, inventory checks, gear purchase flow
 - In scope: Shop category links only (AdventureRelatedShop component)
 - Rationale: E-commerce disabled per PIVOT_RATIONALE.md, focus on content
 
 **NG5: Content Management UI** (Editor Tools)
+
 - Out of scope: Visual CMS, WYSIWYG editors for WMA pages
 - In scope: Markdown frontmatter editing only
 - Rationale: Content Collections are Git-based, Kim uses VS Code
@@ -278,30 +296,37 @@
 ### Edge Cases
 
 **EC1: Missing Optional Data**
+
 - **What happens when** `fishingWaters` array is empty?
   → "Fishing Waters" section is hidden via conditional `{fishingWaters.length > 0 && ...}`
 
 **EC2: Malformed GPS Coordinates**
+
 - **What happens when** coordinates are `"invalid"` instead of `{lat: 39.5, lng: -80.2}`?
   → Zod schema throws build error: "coordinates must be object with lat/lng numbers"
 
 **EC3: Zero Facilities**
+
 - **What happens when** `facilities` array is `[]`?
   → "Facilities & Access" section shows intro text only, no grid (graceful degradation)
 
 **EC4: Kim's Tips Too Long**
+
 - **What happens when** a tip is 500 characters?
   → Component renders full text but may need `line-clamp-3` for visual consistency (design decision)
 
 **EC5: Special Characters in Species Names**
+
 - **What happens when** species name contains `<script>alert('xss')</script>`?
   → Astro auto-escapes HTML in text interpolation; XSS not possible
 
 **EC6: Missing Hero Image**
+
 - **What happens when** `heroImage` is undefined?
   → Zod schema marks it required; build fails with clear error message
 
 **EC7: Regulations Array Too Long**
+
 - **What happens when** 20+ regulations exist?
   → All render in scrollable list; no pagination needed (state regs are finite)
 
@@ -636,6 +661,7 @@ export const collections = {
 ```
 
 **Migration Path**:
+
 1. ✅ Add optional fields above (no breaking changes)
 2. ✅ Existing WMA adventures (elk-river) continue working
 3. ✅ New WMAs populate WMA-specific fields incrementally
@@ -1116,6 +1142,7 @@ interface Props {
 **Target**: 20+ snapshots (mobile + desktop)
 
 **Viewports**:
+
 - Mobile: 375×667 (iPhone SE)
 - Tablet: 768×1024 (iPad)
 - Desktop: 1280×720 (laptop)
@@ -1154,17 +1181,20 @@ interface Props {
 ### Internal Dependencies
 
 **Required Components** (from SPEC-10/11):
+
 - ✅ `AdventureQuickStats.astro` - Stats grid (acreage, drive time, county)
 - ✅ `AdventureGettingThere.astro` - Directions with map link
 - ✅ `AdventureGearChecklist.astro` - Required/optional gear lists
 - ✅ `AdventureRelatedShop.astro` - Category links with CTAs
 
 **Required Schemas** (from SPEC-06):
+
 - ✅ `adventures` Content Collection - Base schema to extend
 - ✅ `ImageSchema` - Reuse for heroImage validation
 - ✅ `StatIconSchema` - Reuse for icon types
 
 **Shared Utilities**:
+
 - ✅ `STAT_ICON_PATHS` constant - Reuse checkmark, location, info icons
 - ✅ Tailwind config - Brand colors, font families
 - ✅ Layout components - BaseLayout, EmailCapture
@@ -1172,29 +1202,34 @@ interface Props {
 ### External Dependencies
 
 **Runtime Dependencies** (no changes required):
+
 - ✅ Astro 4.x - Static site generation
 - ✅ Tailwind CSS 3.x - Utility-first CSS
 - ✅ Zod 3.x - Schema validation
 
 **Development Dependencies**:
+
 - ✅ Vitest - Unit testing (already installed)
 - ✅ Playwright - E2E testing (already installed)
 - ✅ @axe-core/playwright - Accessibility testing (need to install)
 - ✅ Prettier - Code formatting (already installed)
 
 **Optional Dependencies** (future enhancements):
+
 - ⏳ Leaflet.js - Interactive maps (progressive enhancement)
 - ⏳ Mapbox Static API - Static map images (Phase 2)
 
 ### Data Dependencies
 
 **WV DNR Data Sources**:
+
 - WMA boundaries GeoJSON (96 WMAs, 1.4M acres)
 - Species hunting seasons (annual updates)
 - Facility listings (parking, boat ramps, camping)
 - GPS coordinates (NAD 1983 standard)
 
 **Content Requirements** (per WMA page):
+
 - ✅ Hero image (1920×1080, <500KB WebP)
 - ✅ 3-5 huntable species with seasons
 - ✅ 1-3 fishing waters with species lists
@@ -1210,6 +1245,7 @@ interface Props {
 ### Phase 1: Component Development
 
 **AC-001**: 6 new components created in `wv-wild-web/src/components/adventure/`
+
 - ✅ AdventureFeatureSection.astro
 - ✅ AdventureCampingList.astro
 - ✅ AdventureAmenitiesGrid.astro
@@ -1324,6 +1360,7 @@ interface Props {
 ## Clarifications
 
 ### Session 2025-12-27
+
 - **Q1: WMA vs Regular Adventure Differentiation** → **A: Add explicit `type: 'wma'` field to adventures schema (Option C)**
   - Rationale: Self-documenting, future-proof (can add 'trail', 'campground' types), excellent type safety
   - Implementation: Add `type: z.enum(['adventure', 'wma']).optional()` to schema
@@ -1363,23 +1400,27 @@ interface Props {
 ### Architecture Decisions
 
 ~~**Q1: Component Granularity**~~ **RESOLVED (Session 2025-12-27)**
+
 - ✅ Decision: Wrapper pattern (Option A)
 - Components: AdventureWhatToHunt and AdventureWhatToFish are thin wrappers around AdventureFeatureSection
 - Impact: 4 new components + 2 wrappers (not 6 standalone)
 
 ~~**Q2: Map Implementation**~~ **RESOLVED (Session 2025-12-27)**
+
 - ✅ Decision: Static-first with progressive enhancement (Option A)
 - Phase 1: Static images (Mapbox Static API), zero JavaScript
 - Phase 2: Add Leaflet.js for complex WMAs (3+ access points)
 - Benefits: <1s load on 3G, works offline/print, 50-70% battery savings
 
 ~~**Q3: Kim's Tips Placement**~~ **RESOLVED (Session 2025-12-27)**
+
 - ✅ Decision: Inline in species/facility cards (Option A)
 - Implementation: Use `notes` field in species/fishingWaters, render in `font-hand`
 - Coverage: ≥50% of species cards have Kim's tips
 - Voice: Specific humble expertise, no marketing buzzwords
 
 ~~**Q4: Phase 1 WMA Selection**~~ **RESOLVED (Session 2025-12-27)**
+
 - ✅ Decision: Closest 4 to shop (Option C)
 - WMAs: Burnsville Lake (25min), Summersville Lake (30min), Holly River (35min), Cranberry (40min)
 - Rationale: High shop traffic, Kim's deep local knowledge, authentic "stop by on your way" messaging
@@ -1390,6 +1431,7 @@ interface Props {
 ### Content Strategy
 
 **Q5: GPS Format**
+
 - **Question**: Decimal degrees only, or include DMS (degrees/minutes/seconds)?
 - **Proposed Answer**: Both (primary: decimal for copy-paste, secondary: DMS for older GPS units)
 - **Impact**: Wider device compatibility, better UX for older hunters
@@ -1397,6 +1439,7 @@ interface Props {
 - **Assigned To**: GIS Specialist
 
 **Q6: Regulations Update Frequency**
+
 - **Question**: How often do WMA regulations change?
 - **Answer Needed**: Research WV DNR update cycles
 - **Impact**: Determines manual update schedule vs. API integration need
@@ -1408,6 +1451,7 @@ interface Props {
 ### Technical Decisions
 
 **Q7: Image Optimization**
+
 - **Question**: WebP only, or fallback formats (JPEG, PNG)?
 - **Proposed Answer**: WebP with `<picture>` fallback for older browsers
 - **Impact**: 25-30% smaller files, 98% browser support
@@ -1415,6 +1459,7 @@ interface Props {
 - **Assigned To**: Performance Engineer
 
 **Q8: Print Styles**
+
 - **Question**: Should WMA pages be print-optimized?
 - **Proposed Answer**: Yes (hunters print maps for offline use)
 - **Impact**: @media print styles, PDF-friendly layout
@@ -1422,6 +1467,7 @@ interface Props {
 - **Assigned To**: Frontend Developer
 
 **Q9: Schema Validation Warnings**
+
 - **Question**: Should 500-char description trigger build error or warning?
 - **Proposed Answer**: Warning only (SEO best practice, not hard requirement)
 - **Impact**: Better SEO guidance without blocking builds
@@ -1433,6 +1479,7 @@ interface Props {
 ### Accessibility & Compliance
 
 **Q10: Map Alternatives**
+
 - **Question**: What level of detail required for accessible data table alternative?
 - **Proposed Answer**: Location name, GPS, amenities, directions (structured table)
 - **Impact**: Meets WCAG 2.1 AA, screen reader friendly
@@ -1440,6 +1487,7 @@ interface Props {
 - **Assigned To**: Accessibility Engineer
 
 **Q11: Icon-Only Buttons**
+
 - **Question**: ARIA labels or visible text for map/phone buttons?
 - **Proposed Answer**: Visible text + icons (better UX, no ARIA needed)
 - **Impact**: Clearer CTAs, simpler markup
@@ -1451,6 +1499,7 @@ interface Props {
 ### Future Enhancements
 
 **Q12: Multi-Language Support**
+
 - **Question**: Should components support i18n (Spanish, etc.)?
 - **Proposed Answer**: Out of scope for SPEC-12, revisit in Phase 3
 - **Impact**: Future-proofing vs. complexity tradeoff
@@ -1458,6 +1507,7 @@ interface Props {
 - **Assigned To**: Product Manager
 
 **Q13: User-Generated Content**
+
 - **Question**: Should hunters submit trip reports/photos?
 - **Proposed Answer**: Out of scope (requires auth, moderation, storage)
 - **Impact**: Community engagement vs. scope creep
@@ -1465,6 +1515,7 @@ interface Props {
 - **Assigned To**: Product Roadmap
 
 **Q14: Geolocation Features**
+
 - **Question**: Should site detect user location for "Near Me" sorting?
 - **Proposed Answer**: Out of scope (privacy concerns, complexity)
 - **Impact**: Better UX vs. technical debt
@@ -1476,27 +1527,32 @@ interface Props {
 ## Timeline & Milestones
 
 ### Phase 1: Component Development (Week 1)
+
 - **Day 1-2**: Schema extension + Zod validation
 - **Day 3-4**: 6 new components + props interfaces
 - **Day 5-7**: Unit tests (43+ tests)
 
 ### Phase 2: Integration & Testing (Week 2)
+
 - **Day 1-2**: E2E tests (35+ scenarios)
 - **Day 3-4**: Accessibility tests (axe-core)
 - **Day 5-7**: Visual regression snapshots
 
 ### Phase 3: Content Population (Week 3)
+
 - **Day 1-3**: Burnsville Lake + Cranberry WMA pages
 - **Day 4-6**: Tygart Lake + Stonewall Jackson Lake pages
 - **Day 7**: Review, polish, Kim's tips refinement
 
 ### Phase 4: Performance & QA (Week 4)
+
 - **Day 1-2**: Lighthouse audits + optimization
 - **Day 3-4**: Cross-browser testing (Chrome, Firefox, Safari)
 - **Day 5-6**: WVWO aesthetic audit (100% compliance)
 - **Day 7**: PR preparation + documentation
 
 ### Phase 5: PR Review & Merge (Week 5)
+
 - **Day 1-3**: Address CodeRabbit feedback
 - **Day 4-5**: Final QA + regression testing
 - **Day 6-7**: Merge + production deployment
@@ -1555,6 +1611,7 @@ interface Props {
 **Impact**: PR rejection, rework delays, brand inconsistency.
 
 **Mitigation**:
+
 1. ✅ Pre-commit hooks enforce Prettier formatting
 2. ✅ Visual regression tests catch styling drift
 3. ✅ CodeRabbit reviews flag forbidden patterns
@@ -1571,6 +1628,7 @@ interface Props {
 **Impact**: Build failures, production downtime, rollback required.
 
 **Mitigation**:
+
 1. ✅ All WMA fields marked optional (zero breaking changes)
 2. ✅ Backward compatibility tests (elk-river.md still builds)
 3. ✅ Gradual rollout (1 WMA → 5 WMAs → 96 WMAs)
@@ -1587,6 +1645,7 @@ interface Props {
 **Impact**: Poor UX on 3G, lower SEO rankings, frustrated users.
 
 **Mitigation**:
+
 1. ✅ Lighthouse audits in CI/CD (fail build if <95/100)
 2. ✅ Image optimization (WebP, lazy loading, srcset)
 3. ✅ Critical CSS inlining
@@ -1603,6 +1662,7 @@ interface Props {
 **Impact**: Legal risk, poor UX for disabled users, SEO penalties.
 
 **Mitigation**:
+
 1. ✅ axe-core tests in CI (zero violations required)
 2. ✅ Manual screen reader testing (NVDA, JAWS)
 3. ✅ Keyboard navigation tests
@@ -1619,6 +1679,7 @@ interface Props {
 **Impact**: Phase 3 delays, Kim burnout, inconsistent quality.
 
 **Mitigation**:
+
 1. ✅ Content templates with defaults
 2. ✅ WV DNR data scraping (acreage, GPS, species)
 3. ✅ Bulk import tools (CSV → frontmatter)
@@ -1635,6 +1696,7 @@ interface Props {
 **Research Plan**: [peppy-dancing-dewdrop.md](~/.claude/plans/peppy-dancing-dewdrop.md)
 
 **10 Research Agents**:
+
 1. elk-river.astro analysis (463 lines, 9 sections)
 2. SPEC-10/11 component patterns (94/100 PR score)
 3. SPEC-06 Content Collections schema
@@ -1647,6 +1709,7 @@ interface Props {
 10. Content Collections extension strategy
 
 **Key Files Analyzed**:
+
 - `wv-wild-web/src/pages/near/elk-river.astro` (canonical reference)
 - `wv-wild-web/src/components/adventure/` (4 existing components)
 - `wv-wild-web/src/content.config.ts` (schema to extend)
@@ -1658,23 +1721,27 @@ interface Props {
 ### WVWO Aesthetic Reference
 
 **Approved Fonts**:
+
 - `font-display`: Bitter (serif, display headings)
 - `font-body`: Noto Sans (sans-serif, body text)
 - `font-hand`: Permanent Marker (cursive, Kim's personal touches)
 
 **Approved Colors**:
+
 - `--brand-brown`: #3E2723 (rifle stocks, barn wood)
 - `--sign-green`: #2E7D32 (old metal signs, forest canopy)
 - `--brand-cream`: #FFF8E1 (aged paper, deer hide)
 - `--brand-orange`: #FF6F00 (blaze orange, CTAs only <5%)
 
 **Approved Patterns**:
+
 - Border radius: `rounded-sm` (0.125rem) ONLY
 - Transitions: `transition-colors duration-300`
 - Animations: `gentle-reveal` (0.6s ease-out, opacity + translateY)
 - Border accents: `border-l-4 border-l-{color}`
 
 **Forbidden Patterns**:
+
 - ❌ Fonts: Inter, Poppins, DM Sans, system-ui
 - ❌ Colors: Purple, hot pink, neon, corporate blue
 - ❌ Effects: Glassmorphism, backdrop-blur, parallax
@@ -1775,6 +1842,7 @@ gear: ["Hunting license", "Blaze orange", "Tree stand", "Waders", "Fishing rod"]
 ---
 
 **Next Steps**:
+
 1. ✅ SPEC-12 specification complete
 2. ⏳ User approval required
 3. ⏳ Implementation (6 components + schema)

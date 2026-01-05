@@ -12,6 +12,7 @@
 CaveTemplate is a reusable Astro component (~475 lines) for West Virginia cave destination pages. It follows established patterns from SkiTemplate (773 lines) while introducing cave-specific sections for geological formations, tours, accessibility requirements, and safety guidelines.
 
 **Key Architecture Decisions (from SPARC swarm):**
+
 - 13 sections with white/cream background alternation
 - Border-left accents: sign-green (tours/formations), brand-orange (safety/accessibility)
 - Formation taxonomy with 14 geological types
@@ -42,6 +43,7 @@ wv-wild-web/src/
 ## Implementation Phases
 
 ### Phase 1: Type System Foundation [PR-1]
+
 **Scope:** Create cave-types.ts with all Zod schemas and TypeScript types
 
 - [ ] Create `cave-types.ts` file structure with JSDoc header
@@ -65,6 +67,7 @@ wv-wild-web/src/
 **Dependencies:** adventure.ts (existing shared types)
 
 ### Phase 2: Template Structure [PR-2]
+
 **Scope:** Create CaveTemplate.astro skeleton with hero and core sections
 
 - [ ] Create CaveTemplate.astro with imports and prop destructuring
@@ -79,6 +82,7 @@ wv-wild-web/src/
 **Dependencies:** Phase 1 complete
 
 ### Phase 3: Safety & Integration [PR-3]
+
 **Scope:** Complete remaining sections and shared component integration
 
 - [ ] Implement Section 6: Accessibility (orange accents)
@@ -98,6 +102,7 @@ wv-wild-web/src/
 **Dependencies:** Phase 2 complete
 
 ### Phase 4: Testing & Polish
+
 **Scope:** Validation, accessibility testing, and documentation
 
 - [ ] Create cave-types.test.ts with Zod validation tests
@@ -131,15 +136,18 @@ wv-wild-web/src/
 ## Dependencies
 
 ### External
+
 - None (pure Astro/TypeScript component)
 
 ### Internal (Existing - No Changes Needed)
+
 - `src/types/adventure.ts` - StatItem, GearItem, RelatedCategory, NearbyAttraction, Coordinates
 - `src/components/adventure/AdventureGearChecklist.astro`
 - `src/components/adventure/AdventureRelatedShop.astro`
 - `src/components/adventure/AdventureCTA.astro`
 
 ### Downstream (Will Use This Template - Future SPECs)
+
 - SPEC-36: Seneca Caverns destination page
 - SPEC-37: Smoke Hole Caverns destination page
 - SPEC-49: Lost World Caverns destination page
@@ -162,7 +170,7 @@ wv-wild-web/src/
 
 **Estimated Total LOC:** ~755 lines (excluding tests)
 
-### Recommended PR Breakdown:
+### Recommended PR Breakdown
 
 | PR | Scope | LOC | Checkpoint |
 |----|-------|-----|------------|
@@ -171,10 +179,12 @@ wv-wild-web/src/
 | **PR-3** | CaveTemplate sections 6-13 + integration | ~250 | Full template complete |
 
 **Checkpoint Triggers:**
+
 - ⚠️ Warn at 300 LOC per PR
 - 🛑 Split required at 500 LOC per PR
 
-### PR Naming Convention:
+### PR Naming Convention
+
 ```
 feat(SPEC-16): Phase 1 - Cave type system
 feat(SPEC-16): Phase 2 - CaveTemplate hero and core sections
@@ -186,6 +196,7 @@ feat(SPEC-16): Phase 3 - CaveTemplate safety and integration
 ## Testing Strategy
 
 ### Unit Tests (cave-types.test.ts)
+
 - [ ] CaveTemplatePropsSchema validates complete data
 - [ ] CaveTemplatePropsSchema rejects invalid data
 - [ ] FormationType enum covers all 14 types
@@ -193,6 +204,7 @@ feat(SPEC-16): Phase 3 - CaveTemplate safety and integration
 - [ ] Helper functions return expected values
 
 ### Visual Regression (Manual)
+
 - [ ] Hero section renders with stats grid
 - [ ] Formation grid layout (3-col desktop, 2-col tablet, 1-col mobile)
 - [ ] Accessibility section orange accents visible
@@ -200,6 +212,7 @@ feat(SPEC-16): Phase 3 - CaveTemplate safety and integration
 - [ ] Difficulty badges show correct colors
 
 ### Accessibility Tests
+
 - [ ] Lighthouse accessibility score: 100
 - [ ] All sections have aria-labelledby
 - [ ] Focus states visible on all links/buttons
@@ -207,6 +220,7 @@ feat(SPEC-16): Phase 3 - CaveTemplate safety and integration
 - [ ] prefers-reduced-motion respected
 
 ### Integration Tests
+
 - [ ] AdventureGearChecklist renders with cave gear
 - [ ] AdventureRelatedShop renders with shop categories
 - [ ] AdventureCTA renders with custom cave props
@@ -216,13 +230,15 @@ feat(SPEC-16): Phase 3 - CaveTemplate safety and integration
 
 ## Rollback Plan
 
-### If Issues in Production:
+### If Issues in Production
+
 1. **Immediate:** Template is self-contained; no downstream pages depend on it yet
 2. **Revert:** `git revert <commit>` for any problematic PR
 3. **No database/API impact:** Pure static component
 4. **Fallback:** Destination pages can render without template while fixing
 
-### If Type Errors:
+### If Type Errors
+
 1. Cave pages (SPEC-36, 37, 49) are not yet implemented
 2. No existing code depends on cave-types.ts
 3. Safe to iterate on types before downstream use
@@ -231,15 +247,18 @@ feat(SPEC-16): Phase 3 - CaveTemplate safety and integration
 
 ## File Checklist
 
-### New Files to Create:
+### New Files to Create
+
 - [ ] `wv-wild-web/src/types/cave-types.ts`
 - [ ] `wv-wild-web/src/components/templates/CaveTemplate.astro`
 - [ ] `wv-wild-web/src/types/__tests__/cave-types.test.ts` (optional)
 
-### Files to Update:
+### Files to Update
+
 - [ ] `wv-wild-web/src/types/index.ts` (add cave-types export)
 
-### No Changes Needed:
+### No Changes Needed
+
 - `src/components/adventure/AdventureGearChecklist.astro`
 - `src/components/adventure/AdventureRelatedShop.astro`
 - `src/components/adventure/AdventureCTA.astro`

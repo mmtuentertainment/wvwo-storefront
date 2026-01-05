@@ -397,6 +397,7 @@ import AdventureCTA from '../adventure/AdventureCTA.astro';
 ### 6.2 Component Props
 
 **AdventureGearChecklist:**
+
 ```astro
 <AdventureGearChecklist
   gearList={gearList}
@@ -406,6 +407,7 @@ import AdventureCTA from '../adventure/AdventureCTA.astro';
 ```
 
 **AdventureRelatedShop:**
+
 ```astro
 <AdventureRelatedShop
   categories={relatedShop}
@@ -413,6 +415,7 @@ import AdventureCTA from '../adventure/AdventureCTA.astro';
 ```
 
 **AdventureCTA:**
+
 ```astro
 <AdventureCTA
   heading="Ready to Explore?"
@@ -596,6 +599,7 @@ import AdventureCTA from '../adventure/AdventureCTA.astro';
 ### 12.2 No New Dependencies
 
 CaveTemplate uses only existing WVWO dependencies:
+
 - Astro 5
 - TypeScript
 - Tailwind CSS 4
@@ -610,11 +614,13 @@ This section defines how CaveTemplate integrates with existing shared adventure 
 ### 13.1 AdventureGearChecklist Integration
 
 #### Component Source
+
 ```
 wv-wild-web/src/components/adventure/AdventureGearChecklist.astro
 ```
 
 #### Available Props
+
 ```typescript
 interface AdventureGearChecklistProps {
   title?: string;           // Default: 'Gear Checklist'
@@ -633,6 +639,7 @@ interface GearItem {
 ```
 
 #### CaveTemplate Invocation Pattern
+
 ```astro
 <!-- GEAR CHECKLIST SECTION -->
 <section class="py-16 bg-white" aria-labelledby="gear-heading">
@@ -659,6 +666,7 @@ interface GearItem {
 | (constant) | `variant` | "cream" (matches section background alternation) |
 
 #### Cave-Specific Default Gear Items
+
 When creating cave data files, these are recommended default gear items:
 
 ```typescript
@@ -681,14 +689,17 @@ const CAVE_DEFAULT_GEAR: GearItem[] = [
 ```
 
 #### Conditional Rendering
+
 ```astro
 {/* Always show gear section - caves have specific requirements */}
 <AdventureGearChecklist items={gearList} ... />
 ```
+
 - Gear section is **always rendered** for cave pages
 - If `gearList` is empty, the component internally renders nothing
 
 #### Slot Usage for Waiver Reminder
+
 The component supports a `footer` slot. For cave tours requiring waivers:
 
 ```astro
@@ -704,11 +715,13 @@ The component supports a `footer` slot. For cave tours requiring waivers:
 ### 13.2 AdventureRelatedShop Integration
 
 #### Component Source
+
 ```
 wv-wild-web/src/components/adventure/AdventureRelatedShop.astro
 ```
 
 #### Available Props
+
 ```typescript
 interface AdventureRelatedShopProps {
   title?: string;           // Default: 'Shop Related Items'
@@ -729,6 +742,7 @@ interface RelatedCategory {
 ```
 
 #### CaveTemplate Invocation Pattern
+
 ```astro
 <!-- RELATED SHOP SECTION (Conditional) -->
 {relatedShop && relatedShop.length > 0 && (
@@ -759,6 +773,7 @@ interface RelatedCategory {
 | (constant) | `variant` | "white" (contrast with cream section bg) |
 
 #### Cave-Specific Default Shop Categories
+
 Recommended shop categories for cave destination pages:
 
 ```typescript
@@ -787,11 +802,13 @@ const CAVE_DEFAULT_SHOP_CATEGORIES: RelatedCategory[] = [
 ```
 
 #### Conditional Rendering
+
 ```astro
 {relatedShop && relatedShop.length > 0 && (
   <AdventureRelatedShop ... />
 )}
 ```
+
 - **Show when**: `relatedShop` has at least one category
 - **Hide when**: Empty array or undefined (valid for minimal pages)
 
@@ -800,11 +817,13 @@ const CAVE_DEFAULT_SHOP_CATEGORIES: RelatedCategory[] = [
 ### 13.3 AdventureCTA Integration
 
 #### Component Source
+
 ```
 wv-wild-web/src/components/adventure/AdventureCTA.astro
 ```
 
 #### Available Props
+
 ```typescript
 interface AdventureCTAProps {
   primaryText?: string;     // Default: 'Get Directions'
@@ -820,6 +839,7 @@ interface AdventureCTAProps {
 ```
 
 #### CaveTemplate Invocation Pattern
+
 ```astro
 <!-- CTA SECTION -->
 <AdventureCTA
@@ -846,6 +866,7 @@ interface AdventureCTAProps {
 | (constant) | `variant` | "sign-green" |
 
 #### Alternative: Directions CTA (when coordinates available)
+
 ```astro
 {/* Option: Provide directions to cave when coordinates/mapUrl available */}
 <AdventureCTA
@@ -860,7 +881,9 @@ interface AdventureCTAProps {
 ```
 
 #### Key Design Decision
+
 The CTA emphasizes **WVWO's role as a gear supplier**, NOT a booking agent.
+
 - Caves are third-party businesses
 - WVWO sells gear for the adventure
 - Booking is handled separately via the external booking disclaimer
@@ -870,9 +893,11 @@ The CTA emphasizes **WVWO's role as a gear supplier**, NOT a booking agent.
 ### 13.4 External Booking Disclaimer Pattern
 
 #### Problem Statement
+
 Caves are separate commercial businesses. WVWO does not handle tour bookings. Users must clearly understand this before clicking external booking links.
 
 #### Component Pattern (Inline Block)
+
 ```astro
 <!-- BOOKING DISCLAIMER - Placed after Tours section -->
 {bookingUrl && (
@@ -925,10 +950,12 @@ Caves are separate commercial businesses. WVWO does not handle tour bookings. Us
 ```
 
 #### Placement
+
 - **Location**: End of Tours section, before Formations section
 - **Visibility**: Only shown when `bookingUrl` is provided
 
 #### Fallback: No Booking URL
+
 ```astro
 {!bookingUrl && (
   <p class="mt-6 font-body text-brand-mud text-center">
@@ -942,9 +969,11 @@ Caves are separate commercial businesses. WVWO does not handle tour bookings. Us
 ### 13.5 Third-Party Cave Business Disclaimer Pattern
 
 #### Problem Statement
+
 Cave destination pages feature third-party businesses. WVWO requires legal clarity and trust-building.
 
 #### Footer Disclaimer Pattern
+
 ```astro
 <!-- THIRD-PARTY DISCLAIMER FOOTER - Always visible -->
 <aside
@@ -977,10 +1006,12 @@ Cave destination pages feature third-party businesses. WVWO requires legal clari
 ```
 
 #### Placement
+
 - **Location**: After AdventureCTA, before Layout footer
 - **Visibility**: Always displayed on ALL cave pages
 
 #### Minimal Variant (for tight layouts)
+
 ```astro
 <p class="text-center text-xs text-brand-mud py-4 border-t border-brand-brown/10">
   {name} is an independent business. Pricing and availability subject to change.
@@ -992,9 +1023,11 @@ Cave destination pages feature third-party businesses. WVWO requires legal clari
 ### 13.6 Emergency Contact Display Pattern
 
 #### Problem Statement
+
 Cave safety requires visible emergency contact information without creating alarm.
 
 #### Pattern: Safety Section Emergency Block
+
 ```astro
 <!-- EMERGENCY CONTACT - Within Safety section -->
 {safety.emergencyContact && (
@@ -1019,6 +1052,7 @@ Cave safety requires visible emergency contact information without creating alar
 ```
 
 #### Props Source
+
 ```typescript
 interface CaveSafety {
   rules: string[];
@@ -1028,10 +1062,12 @@ interface CaveSafety {
 ```
 
 #### Conditional Rendering
+
 - **Show when**: `safety.emergencyContact` is defined
 - **Hide when**: Not provided (caves with standard 911 coverage may omit)
 
 #### Accessibility Notes
+
 - Phone number is a clickable `tel:` link
 - Large touch target (text-2xl, min 44x44px effective area)
 - High contrast (brand-orange on white)

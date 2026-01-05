@@ -175,6 +175,7 @@ AdventureCTA.astro
 ## State Management
 
 **No client-side state** - All state comes from:
+
 1. Content Collections frontmatter (static)
 2. Component props (passed at build time)
 3. Conditional rendering (based on data presence)
@@ -202,16 +203,19 @@ AdventureCTA.astro
 ## Scalability Considerations
 
 ### Phase 1: 5 WMAs
+
 - Manual content entry (Kim)
 - ~750 lines of frontmatter (150 lines × 5)
 - Build time: <30s
 
 ### Phase 2: 15 WMAs
+
 - Content templates + defaults
 - ~2,250 lines of frontmatter
 - Build time: <60s
 
 ### Phase 3: 96 WMAs
+
 - Bulk import tools (CSV → frontmatter)
 - ~14,400 lines of frontmatter
 - Build time: <5 minutes (acceptable)
@@ -222,6 +226,7 @@ AdventureCTA.astro
 ## Error Handling Strategy
 
 ### Build-Time Errors
+
 1. **Zod Validation Failures**
    - Clear error messages: "adventures/burnsville-lake.md: acreage must be a number"
    - Build fails (prevents bad data in production)
@@ -235,6 +240,7 @@ AdventureCTA.astro
    - Build-time error (not runtime)
 
 ### Runtime Graceful Degradation
+
 1. **Empty Optional Arrays**
    - `fishingWaters.length === 0` → section hidden
    - No error, no placeholder
@@ -284,16 +290,19 @@ AdventureCTA.astro
 ## Monitoring & Observability
 
 ### Build Metrics
+
 - Build time (track per WMA count)
 - Zod validation errors (log + report)
 - Image optimization savings
 
 ### Production Metrics
+
 - Page load times (Cloudflare Analytics)
 - Lighthouse scores (CI/CD checks)
 - 404 errors (broken internal links)
 
 ### Content Metrics
+
 - WMAs published (5 → 15 → 96)
 - Kim's tips coverage (target ≥50%)
 - External link validity (monthly check)
@@ -303,6 +312,7 @@ AdventureCTA.astro
 ## Future Enhancements
 
 ### Phase 2 Candidates
+
 1. **Interactive Maps** (progressive enhancement)
    - Leaflet.js for WMAs with 3+ access points
    - Optional JavaScript (static fallback)
@@ -316,6 +326,7 @@ AdventureCTA.astro
    - QR codes for GPS coordinates
 
 ### Phase 3 Candidates
+
 1. **Content Import Tools**
    - CSV → frontmatter converter
    - WV DNR data scraping
@@ -333,26 +344,31 @@ AdventureCTA.astro
 ## Architecture Decision Records
 
 ### ADR-001: Extend adventures Collection (Not Create Separate wmas Collection)
+
 - **Decision**: Extend existing `adventures` with optional WMA fields
 - **Rationale**: Zero breaking changes, simpler mental model, existing cross-references work
 - **Trade-offs**: Schema becomes larger, but optional fields mitigate
 
 ### ADR-002: Wrapper Pattern for What-To Components
+
 - **Decision**: AdventureWhatToHunt/Fish wrap AdventureFeatureSection
 - **Rationale**: DRY principle, single source of truth, 50 fewer lines
 - **Trade-offs**: Slightly more complex to understand, but better maintainability
 
 ### ADR-003: Static-First Maps
+
 - **Decision**: Static map images (Phase 1), optional Leaflet.js (Phase 2)
 - **Rationale**: <1s load on 3G, works offline/print, 50-70% battery savings
 - **Trade-offs**: Less interactive, but progressive enhancement path exists
 
 ### ADR-004: Type Discriminator Field
+
 - **Decision**: Explicit `type: 'wma'` field in schema
 - **Rationale**: Self-documenting, future-proof, excellent type safety
 - **Trade-offs**: Requires one-time update to existing WMAs
 
 ### ADR-005: Inline Kim's Tips (Not Dedicated Section)
+
 - **Decision**: `notes` field in species/fishingWaters, render in cards
 - **Rationale**: More authentic scattered knowledge, feels personal
 - **Trade-offs**: Less structured, but aligns with WVWO voice

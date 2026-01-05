@@ -13,6 +13,7 @@
 This architecture defines the accessibility implementation patterns for SPEC-12's WMA template system to achieve WCAG 2.1 AA compliance. The design prioritizes rural West Virginia hunters who may use assistive technology, keyboard-only navigation, or print pages for offline reference during hunts.
 
 **Key Principles**:
+
 1. **Multi-modal indicators**: Never rely on color alone
 2. **Semantic HTML first**: ARIA only when HTML5 elements insufficient
 3. **4.5:1 contrast minimum**: All text readable in bright sunlight
@@ -57,19 +58,22 @@ export const DIFFICULTY_COLORS: Record<Difficulty, string> = {
 #### Development Phase
 
 **Pre-Commit Hook** (automated):
+
 ```bash
 # .husky/pre-commit
 npx pa11y-contrast --threshold AA src/components/wma/**/*.astro
 ```
 
 **Manual Verification** (required for new color combinations):
-1. Use WebAIM Contrast Checker: https://webaim.org/resources/contrastchecker/
+
+1. Use WebAIM Contrast Checker: <https://webaim.org/resources/contrastchecker/>
 2. Test both normal text (4.5:1) and large text (3:1)
 3. Document results in component README
 
 #### Testing Phase
 
 **Lighthouse CI** (automated):
+
 ```yaml
 # .lighthouserc.yml
 assertions:
@@ -81,6 +85,7 @@ assertions:
 ```
 
 **axe DevTools** (manual spot-checks):
+
 - Run on each WMA page after content updates
 - Export violations to `test-results/axe/`
 - Block PRs if contrast violations detected
@@ -88,6 +93,7 @@ assertions:
 #### Production Monitoring
 
 **Monthly Audit** (Kim's responsibility):
+
 - Sample 2-3 WMA pages with axe DevTools
 - Check for regressions after content updates
 - Document findings in accessibility log
@@ -97,10 +103,12 @@ assertions:
 Per WCAG 2.1, large text requires only **3:1 contrast** instead of 4.5:1.
 
 **Large text definition**:
+
 - 18pt (24px) regular weight or larger
 - 14pt (18.66px) bold weight or larger
 
 **WVWO large text classes**:
+
 ```css
 /* From global.css - these get 3:1 exception */
 .font-display.text-4xl  /* 36px = large ✅ */
@@ -109,6 +117,7 @@ Per WCAG 2.1, large text requires only **3:1 contrast** instead of 4.5:1.
 ```
 
 **Never use 3:1 exception for**:
+
 - Body text (`font-body`)
 - Labels (`<label>` elements)
 - Form inputs
@@ -123,6 +132,7 @@ Per WCAG 2.1, large text requires only **3:1 contrast** instead of 4.5:1.
 ### 2.1 Season Indicators
 
 ❌ **Wrong** (color-only):
+
 ```html
 <span class="bg-green-500">Spring</span>
 <span class="bg-yellow-500">Summer</span>
@@ -131,6 +141,7 @@ Per WCAG 2.1, large text requires only **3:1 contrast** instead of 4.5:1.
 ```
 
 ✅ **Correct** (color + icon + text):
+
 ```astro
 ---
 // WMASpeciesGrid.astro
@@ -166,6 +177,7 @@ export const DIFFICULTY_SHAPES: Record<Difficulty, string> = {
 ```
 
 **Implementation** (from AdventureHeroBadge.tsx):
+
 ```tsx
 <span className={`inline-flex items-center gap-2 ${DIFFICULTY_COLORS[difficulty]}`}>
   <span aria-hidden="true">{DIFFICULTY_SHAPES[difficulty]}</span>
@@ -175,6 +187,7 @@ export const DIFFICULTY_SHAPES: Record<Difficulty, string> = {
 ```
 
 **Why this works**:
+
 - **Color-blind users**: See distinct shapes (circle vs triangle vs square)
 - **Screen reader users**: Hear "Difficulty level: Moderate"
 - **Sighted users**: See color + shape + text label
@@ -198,6 +211,7 @@ export const DIFFICULTY_SHAPES: Record<Difficulty, string> = {
 ```
 
 **Application**:
+
 ```astro
 <!-- All interactive elements get focus indicator -->
 <a href="/near/elk-river" class="focus-visible-wvwo">
@@ -224,11 +238,13 @@ WMA pages use static map images (not interactive Google Maps) for performance.
 #### Alt Text Pattern
 
 ❌ **Wrong** (generic):
+
 ```html
 <img src="elk-river-map.jpg" alt="Map" />
 ```
 
 ✅ **Correct** (descriptive):
+
 ```html
 <img
   src="elk-river-map.jpg"
@@ -237,6 +253,7 @@ WMA pages use static map images (not interactive Google Maps) for performance.
 ```
 
 **Alt text rules**:
+
 1. Describe **what the map shows**, not "a map of..."
 2. Include key landmarks (roads, lakes, facilities)
 3. Max 150 characters (screen readers chunk long text awkwardly)
@@ -284,6 +301,7 @@ interface MapAlternative {
 ```
 
 **Why `<details>` not always-visible**:
+
 - Reduces visual clutter for sighted users
 - Screen reader users can access via "View map details" link
 - Printable when expanded (CSS `@media print { details { open: true } }`)
@@ -359,6 +377,7 @@ If future spec adds interactive maps (Google Maps, Leaflet):
 ```
 
 **ARIA attributes explained**:
+
 - `aria-expanded="false"`: Tells screen readers button controls collapsed content
 - `aria-controls="regulations-content"`: Links button to content it controls
 - `aria-labelledby="regulations-toggle"`: Content region labeled by button text
@@ -381,6 +400,7 @@ If future spec adds DNR closure alerts:
 ```
 
 **Live region rules**:
+
 - `aria-live="polite"`: Waits for user to pause before announcing
 - `aria-live="assertive"`: Interrupts immediately (use for emergencies only)
 - `aria-atomic="true"`: Reads entire region on update, not just changed text
@@ -388,6 +408,7 @@ If future spec adds DNR closure alerts:
 ### 4.3 Forbidden ARIA Patterns
 
 ❌ **NEVER use**:
+
 ```html
 <!-- Redundant ARIA on semantic elements -->
 <nav role="navigation">  <!-- nav already has navigation role -->
@@ -411,12 +432,14 @@ If future spec adds DNR closure alerts:
 ### 5.1 Focus-Visible Styling
 
 **Requirements**:
+
 - Minimum 2px outline/ring
 - 3:1 contrast against background
 - Visible on all interactive elements
 - Respects `prefers-reduced-motion`
 
 **Implementation** (from section 2.3):
+
 ```css
 .focus-visible-wvwo:focus-visible {
   @apply ring-2 ring-sign-green ring-offset-2 ring-offset-brand-cream;
@@ -470,6 +493,7 @@ If future spec adds DNR closure alerts:
 5. **Footer links** (Contact, DNR Resources, etc.)
 
 **Skip link implementation**:
+
 ```astro
 <!-- layouts/Layout.astro -->
 <a
@@ -488,6 +512,7 @@ If future spec adds DNR closure alerts:
 ```
 
 **Why `tabindex="-1"` on `<main>`**:
+
 - Allows JavaScript to focus main content programmatically
 - Not in natural tab order (doesn't disrupt navigation)
 - Enables smooth skip-link behavior
@@ -523,6 +548,7 @@ export function trapFocus(element: HTMLElement) {
 ```
 
 **Usage**:
+
 ```astro
 <dialog id="map-modal" class="modal">
   <button type="button" class="close-modal" aria-label="Close map">×</button>
@@ -544,11 +570,13 @@ export function trapFocus(element: HTMLElement) {
 ### 6.1 Automated Testing (axe-core Integration)
 
 **Install**:
+
 ```bash
 npm install --save-dev @axe-core/playwright
 ```
 
 **Test suite** (`tests/accessibility/wma-pages.spec.ts`):
+
 ```typescript
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
@@ -574,6 +602,7 @@ for (const page of WMA_PAGES) {
 ```
 
 **Run in CI/CD**:
+
 ```yaml
 # .github/workflows/accessibility.yml
 name: Accessibility Tests
@@ -637,15 +666,18 @@ jobs:
 ### 6.4 Regression Testing Schedule
 
 **On every PR**:
+
 - Automated axe tests via Playwright
 - Lighthouse CI checks
 
 **Weekly** (Kim or content editor):
+
 - Manual spot-check 2-3 WMA pages
 - Test one full page with screen reader
 - Keyboard navigation audit
 
 **Quarterly** (before major releases):
+
 - Full manual audit all 8 WMA pages
 - Third-party accessibility audit (if budget allows)
 - Update accessibility statement
@@ -659,16 +691,19 @@ jobs:
 **Context**: WVWO brand-orange (#FF6F00) achieves only 2.96:1 contrast against brand-cream (#FFF8E1), failing WCAG AA 4.5:1 requirement.
 
 **Decision**: Orange **prohibited** for text/background pairs. Permitted only for:
+
 - Decorative borders (`border-l-brand-orange`)
 - Icons without text
 - Accent elements where contrast rule doesn't apply
 
 **Consequences**:
+
 - "Moderate" difficulty badge uses `bg-brand-orange text-brand-brown` (5.81:1 ✅)
 - CTA buttons use `bg-brand-orange text-brand-brown` instead of `text-brand-cream`
 - Blaze orange still used for safety emphasis (regulations border)
 
 **Alternatives Considered**:
+
 1. Darken orange to #CC5A00 - Rejected (changes brand identity)
 2. Always use white text on orange - Rejected (only 3.2:1, still fails)
 3. Ban orange entirely - Rejected (loses hunting safety association)
@@ -680,12 +715,14 @@ jobs:
 **Decision**: Use HTML5 semantic elements (`<nav>`, `<main>`, `<button>`) instead of ARIA roles whenever possible.
 
 **Consequences**:
+
 - Simpler component code
 - Better browser compatibility
 - Fewer ARIA misuse bugs
 - ARIA only for patterns unsupported by HTML (accordions, live regions)
 
 **Exceptions**:
+
 - Accordion expand/collapse: Requires `aria-expanded`, `aria-controls`
 - Live regions: Requires `aria-live`, `aria-atomic`
 - Visually hidden labels: Requires `aria-label`, `aria-labelledby`
@@ -697,12 +734,14 @@ jobs:
 **Decision**: Treat print CSS as critical feature, not afterthought.
 
 **Consequences**:
+
 - High-contrast black-on-white print layout
 - Page breaks prevent awkward content splits
 - Maps print at high resolution
 - Navigation/footer hidden in print view
 
 **Implementation**:
+
 ```css
 @media print {
   header, footer, nav { display: none; }
@@ -731,11 +770,13 @@ jobs:
 **Decision**: All interactive elements use `focus-visible-wvwo` utility class with 2px green ring + 2px cream offset.
 
 **Consequences**:
+
 - Consistent focus appearance sitewide
 - Meets 3:1 contrast requirement (green vs cream)
 - Respects `:focus-visible` (doesn't show on mouse clicks)
 
 **Measurement**:
+
 - Sign-green #2E7D32 vs brand-cream #FFF8E1 = **8.4:1** (far exceeds 3:1) ✅
 - Ring offset provides additional separation for clarity
 
@@ -746,12 +787,14 @@ jobs:
 ### 8.1 WMAHero Component
 
 **Accessibility requirements**:
+
 - `<h1>` for WMA name (page title)
 - Alt text for hero image
 - Badge focus indicators if interactive
 - Proper heading hierarchy (h1 → h2 for sections below)
 
 **Implementation**:
+
 ```astro
 ---
 // WMAHero.astro
@@ -805,6 +848,7 @@ if (image && !imageAlt) {
 ```
 
 **Key accessibility features**:
+
 - `aria-labelledby="wma-name"`: Section labeled by WMA name heading
 - `loading="eager"`: Hero image loads immediately (not lazy)
 - `alt={imageAlt}`: Required prop prevents empty alt text
@@ -813,11 +857,13 @@ if (image && !imageAlt) {
 ### 8.2 WMASpeciesGrid Component
 
 **Accessibility requirements**:
+
 - Heading hierarchy (h2 for section, h3 for species)
 - Multi-modal season indicators (icon + text)
 - Keyboard navigable if cards clickable
 
 **Implementation**:
+
 ```astro
 ---
 // WMASpeciesGrid.astro
@@ -899,6 +945,7 @@ const SEASON_ICONS = {
 ```
 
 **Key accessibility features**:
+
 - `aria-labelledby="species-heading"`: Section labeled by heading
 - Season icon + text: Multi-modal indicator (not color-only)
 - `<article>` semantic element: Screen readers announce "article" landmark
@@ -908,11 +955,13 @@ const SEASON_ICONS = {
 ### 8.3 WMAFacilitiesGrid Component
 
 **Accessibility requirements**:
+
 - Icons with text labels (not icon-only)
 - Proper list semantics if facility items are list
 - Alt text for facility images if used
 
 **Implementation**:
+
 ```astro
 ---
 // WMAFacilitiesGrid.astro
@@ -994,6 +1043,7 @@ const columnClasses = {
 ```
 
 **Key accessibility features**:
+
 - `<ul>` with `<li>`: Proper list semantics (screen readers announce "list, 6 items")
 - Icons with `aria-hidden="true"`: Decorative only (meaning conveyed by text)
 - Icon + text label: Multi-modal (not icon-only)
@@ -1002,11 +1052,13 @@ const columnClasses = {
 ### 8.4 WMARegulations Component
 
 **Accessibility requirements**:
+
 - Expandable/collapsible content uses ARIA accordion pattern
 - Orange border for visual emphasis (safety)
 - List semantics for restrictions
 
 **Implementation**:
+
 ```astro
 ---
 // WMARegulations.astro
@@ -1064,6 +1116,7 @@ const {
 ```
 
 **Key accessibility features**:
+
 - Orange left border: Visual emphasis for safety (blaze orange = hunting)
 - Warning icon (`⚠`) with `aria-hidden="true"`: Decorative (text conveys urgency)
 - `<ul>` with `<li>`: List semantics for restrictions
@@ -1078,6 +1131,7 @@ const {
 ### 9.1 Print Styles
 
 **Global print stylesheet** (`global.css`):
+
 ```css
 @media print {
   /* Hide non-essential elements */
@@ -1138,6 +1192,7 @@ const {
 ### 9.2 Print-Specific Components
 
 **Printable map legend**:
+
 ```astro
 <!-- WMAHero.astro - Print-only legend -->
 <aside class="hidden print:block mt-8 border border-black p-4">
@@ -1152,6 +1207,7 @@ const {
 ```
 
 **Print-friendly regulations checklist**:
+
 ```astro
 <!-- WMARegulations.astro - Print checkbox version -->
 <div class="hidden print:block mt-6">
@@ -1219,6 +1275,7 @@ Last reviewed: 2025-12-27
 ### 10.3 Continuous Monitoring
 
 **GitHub Actions workflow** (`.github/workflows/accessibility.yml`):
+
 ```yaml
 name: Accessibility Checks
 on: [push, pull_request]
@@ -1267,6 +1324,7 @@ This architecture provides a comprehensive accessibility foundation for SPEC-12'
 7. **Print Accessibility**: High-contrast black-on-white print styles for field reference
 
 **Next Steps**:
+
 1. Implement `focus-visible-wvwo` utility class in `global.css`
 2. Add axe-core integration to Playwright test suite
 3. Create print stylesheet in `global.css`

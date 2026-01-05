@@ -23,15 +23,18 @@ The WMA Template system delivers a **modular, type-safe, performant component ar
 ## Architecture Deliverables (9 Domains)
 
 ### 1. System Architecture
+
 **Document**: [01-system-architecture.md](./01-system-architecture.md)
 
 **Key Designs**:
+
 - Component hierarchy (10 components: 4 new + 4 reused + 2 wrappers)
 - Data flow (build-time validation → static HTML generation)
 - Integration points (Content Collections + existing components)
 - Scalability strategy (5 → 96 WMAs)
 
 **Architecture Decision Records**:
+
 - ADR-001: Extend `adventures` collection (not create separate `wmas`)
 - ADR-002: Wrapper pattern for What-To components (DRY principle)
 - ADR-003: Static-first maps (progressive enhancement)
@@ -41,14 +44,17 @@ The WMA Template system delivers a **modular, type-safe, performant component ar
 ---
 
 ### 2. Feature Section Components
+
 **Document**: [02-feature-section-components.md](./02-feature-section-components.md)
 
 **Components Designed**:
+
 - **AdventureFeatureSection** (60 lines): Generic feature card grid
 - **AdventureWhatToHunt** (15 lines): Wrapper for hunting species
 - **AdventureWhatToFish** (15 lines): Wrapper for fishing waters
 
 **Design Pattern**: Wrapper pattern (DRY)
+
 - Core component handles rendering
 - Wrappers provide semantic interfaces
 - ~50 lines saved vs. duplicate components
@@ -58,13 +64,16 @@ The WMA Template system delivers a **modular, type-safe, performant component ar
 ---
 
 ### 3. Camping & Amenities Components
+
 **Document**: [03-camping-amenities-components.md](./03-camping-amenities-components.md)
 
 **Components Designed**:
+
 - **AdventureCampingList** (80 lines): Complex facility cards with counts, contact, links
 - **AdventureAmenitiesGrid** (40 lines): Simple checkmark grid
 
 **When to Use**:
+
 - CampingList: Complex facilities (camping sites, boat ramps with metadata)
 - AmenitiesGrid: Simple amenities (parking, restrooms, basic features)
 
@@ -73,12 +82,15 @@ The WMA Template system delivers a **modular, type-safe, performant component ar
 ---
 
 ### 4. CTA Component
+
 **Document**: [04-cta-component.md](./04-cta-component.md)
 
 **Component Designed**:
+
 - **AdventureCTA** (50 lines): Dual-button call-to-action section
 
 **Features**:
+
 - Primary + secondary buttons (inverted styles)
 - Heading + description (optional)
 - Variant system (green/brown backgrounds)
@@ -89,13 +101,16 @@ The WMA Template system delivers a **modular, type-safe, performant component ar
 ---
 
 ### 5. Schema Architecture
+
 **Document**: [05-schema-architecture.md](./05-schema-architecture.md)
 
 **Schema Extensions**:
+
 - **Type discriminator**: `type: 'wma'` (explicit differentiation)
 - **8 optional WMA fields**: acreage, county, species, fishingWaters, facilities, accessPoints, regulations, seasonHighlights, mapUrl
 
 **Nested Schemas**:
+
 - SpeciesSchema (hunting)
 - FishingWaterSchema (fishing)
 - FacilitySchema (complex facilities)
@@ -110,14 +125,17 @@ The WMA Template system delivers a **modular, type-safe, performant component ar
 ---
 
 ### 6. Type System Architecture
+
 **Document**: [06-type-system-architecture.md](./06-type-system-architecture.md)
 
 **Type Safety Approach**:
+
 - Zod schema inference (no manual type duplication)
 - Discriminated union type guards (`isWMA()`)
 - Component props interfaces (TypeScript autocomplete)
 
 **Benefits**:
+
 - Schema changes auto-update types
 - Build-time errors (not runtime)
 - IntelliSense in IDEs
@@ -128,9 +146,11 @@ The WMA Template system delivers a **modular, type-safe, performant component ar
 ---
 
 ### 7. Performance Architecture
+
 **Document**: [07-performance-architecture.md](./07-performance-architecture.md)
 
 **Performance Targets** (ALL MET):
+
 - Page load (3G): <2s ✅
 - Lighthouse Performance: ≥95/100 ✅
 - Total page weight: <500KB ✅ (achieved: 273KB)
@@ -138,6 +158,7 @@ The WMA Template system delivers a **modular, type-safe, performant component ar
 - Largest Contentful Paint: <2.5s ✅
 
 **Optimization Strategies**:
+
 - Static HTML (zero runtime JavaScript)
 - WebP images with lazy loading
 - Critical CSS inlining
@@ -150,9 +171,11 @@ The WMA Template system delivers a **modular, type-safe, performant component ar
 ---
 
 ### 8. Accessibility Architecture
+
 **Document**: [08-accessibility-architecture.md](./08-accessibility-architecture.md)
 
 **WCAG 2.1 AA Compliance**:
+
 - Semantic HTML structure (landmarks, heading hierarchy)
 - Color contrast (all combinations ≥4.5:1 normal, ≥3:1 large)
 - Keyboard navigation (focus-visible, skip links)
@@ -160,6 +183,7 @@ The WMA Template system delivers a **modular, type-safe, performant component ar
 - Reduced motion support (@media query)
 
 **Testing Strategy**:
+
 - Automated: axe-core (zero violations)
 - Manual: NVDA + VoiceOver testing
 - CI/CD: Lighthouse Accessibility 100/100
@@ -169,11 +193,13 @@ The WMA Template system delivers a **modular, type-safe, performant component ar
 ---
 
 ### 9. Integration Architecture
+
 **Document**: [09-integration-architecture.md](./09-integration-architecture.md)
 
 **Integration Pattern**: Component composition (150-line templates)
 
 **Section Order**:
+
 1. Hero (image)
 2. QuickStats (SPEC-10, cream)
 3. WhatToHunt (SPEC-12, white)
@@ -213,9 +239,11 @@ The WMA Template system delivers a **modular, type-safe, performant component ar
 ### Content Collection Extension
 
 **Existing Fields** (required):
+
 - title, description, heroImage, coordinates
 
 **New Fields** (all optional):
+
 - `type: 'wma'` (discriminator)
 - `acreage: number`
 - `county: string`
@@ -234,26 +262,31 @@ The WMA Template system delivers a **modular, type-safe, performant component ar
 ## Key Architectural Decisions
 
 ### Component Architecture
+
 **Decision**: Wrapper pattern for What-To components
 **Rationale**: DRY principle, single source of truth, 50 fewer lines
 **Trade-off**: Slightly more complex vs. standalone, but better maintainability
 
 ### Schema Architecture
+
 **Decision**: Extend `adventures` collection (not create separate `wmas`)
 **Rationale**: Zero breaking changes, simpler mental model, existing cross-references work
 **Trade-off**: Larger schema, but optional fields mitigate
 
 ### Performance Architecture
+
 **Decision**: Static-first (zero runtime JavaScript)
 **Rationale**: <2s load on 3G, works offline, better for low-end devices
 **Trade-off**: Less interactive, but progressive enhancement path exists
 
 ### Type System Architecture
+
 **Decision**: Zod schema inference (not manual types)
 **Rationale**: Schema and types stay in sync, no duplication
 **Trade-off**: None (pure win)
 
 ### Accessibility Architecture
+
 **Decision**: Data table alternatives for maps
 **Rationale**: WCAG 2.1 AA compliance, screen reader friendly
 **Trade-off**: Extra markup, but minimal (details/summary)
@@ -279,27 +312,32 @@ The WMA Template system delivers a **modular, type-safe, performant component ar
 ## Implementation Roadmap
 
 ### Phase 1: Component Development (Week 1)
+
 - Day 1-2: Schema extension + Zod validation
 - Day 3-4: 4 new components + 2 wrappers
 - Day 5-7: Unit tests (40+ tests)
 
 ### Phase 2: Integration & Testing (Week 2)
+
 - Day 1-2: E2E tests (30+ scenarios)
 - Day 3-4: Accessibility tests (axe-core)
 - Day 5-7: Visual regression snapshots
 
 ### Phase 3: Content Population (Week 3)
+
 - Day 1-3: Burnsville Lake + Cranberry WMA pages
 - Day 4-6: Holly River + Summersville Lake pages
 - Day 7: Review, polish, Kim's tips refinement
 
 ### Phase 4: Performance & QA (Week 4)
+
 - Day 1-2: Lighthouse audits + optimization
 - Day 3-4: Cross-browser testing
 - Day 5-6: WVWO aesthetic audit (100% compliance)
 - Day 7: PR preparation + documentation
 
 ### Phase 5: PR Review & Merge (Week 5)
+
 - Day 1-3: Address CodeRabbit feedback
 - Day 4-5: Final QA + regression testing
 - Day 6-7: Merge + production deployment
@@ -321,6 +359,7 @@ The WMA Template system delivers a **modular, type-safe, performant component ar
 ## Dependencies
 
 ### Internal (Satisfied)
+
 - ✅ Content Collections (SPEC-06)
 - ✅ AdventureQuickStats (SPEC-10)
 - ✅ AdventureGettingThere (SPEC-10)
@@ -330,6 +369,7 @@ The WMA Template system delivers a **modular, type-safe, performant component ar
 - ✅ BaseLayout component
 
 ### External (No changes required)
+
 - ✅ Astro 4.x
 - ✅ Tailwind CSS 3.x
 - ✅ Zod 3.x
@@ -337,6 +377,7 @@ The WMA Template system delivers a **modular, type-safe, performant component ar
 - ✅ Playwright (E2E)
 
 ### New (To install)
+
 - ⏳ @axe-core/playwright (accessibility testing)
 
 ---
@@ -344,6 +385,7 @@ The WMA Template system delivers a **modular, type-safe, performant component ar
 ## Acceptance Criteria (All Met)
 
 **Component Development**:
+
 - ✅ 4 new components + 2 wrappers created
 - ✅ Each component <100 lines
 - ✅ TypeScript props interfaces with JSDoc
@@ -351,6 +393,7 @@ The WMA Template system delivers a **modular, type-safe, performant component ar
 - ✅ Prettier formatting passed
 
 **Schema Extension**:
+
 - ✅ 8 optional WMA fields defined
 - ✅ Type discriminator (`type: 'wma'`) added
 - ✅ Zero breaking changes confirmed
@@ -358,12 +401,14 @@ The WMA Template system delivers a **modular, type-safe, performant component ar
 - ✅ Migration guide documented
 
 **Testing**:
+
 - ✅ 40+ unit tests planned (schema validation)
 - ✅ 30+ E2E tests planned (component rendering)
 - ✅ Accessibility tests planned (axe-core)
 - ✅ Visual regression planned (20+ snapshots)
 
 **WVWO Aesthetic Compliance**:
+
 - ✅ Zero forbidden fonts (Inter, Poppins, etc.)
 - ✅ Zero forbidden colors (purple, pink, neon)
 - ✅ Zero forbidden effects (glassmorphism, backdrop-blur)
@@ -373,12 +418,14 @@ The WMA Template system delivers a **modular, type-safe, performant component ar
 - ✅ Approved fonts (Bitter, Noto Sans, Permanent Marker)
 
 **Performance**:
+
 - ✅ Static HTML (zero runtime JavaScript)
 - ✅ <2s load time (projected: 1.8s)
 - ✅ <500KB total weight (projected: 273KB)
 - ✅ Lighthouse Performance ≥95/100 (projected: 97/100)
 
 **Accessibility**:
+
 - ✅ WCAG 2.1 AA patterns documented
 - ✅ Color contrast ≥4.5:1 (all combinations pass)
 - ✅ Semantic HTML structure

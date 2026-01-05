@@ -12,6 +12,7 @@
 This document defines the schema extension architecture for adding WMA-specific fields to the existing `adventures` collection. The design prioritizes **zero breaking changes**, **incremental content migration**, and **type-safe validation** while supporting future adventure type extensions (trails, campgrounds, etc.).
 
 **Key Decisions**:
+
 - All 8 WMA fields are optional (`.optional()`) - no forced migration
 - Nested Zod schemas for complex types (species, fishing waters, facilities)
 - TypeScript inference provides compile-time type safety
@@ -25,6 +26,7 @@ This document defines the schema extension architecture for adding WMA-specific 
 ### 1.1 Design Principles
 
 **Nested Schemas** - Complex WMA data types decomposed into reusable Zod schemas:
+
 ```typescript
 // Nested schemas provide:
 // 1. Reusability across multiple collections
@@ -43,6 +45,7 @@ wma_species: z.array(SpeciesSchema).optional();
 ```
 
 **Benefits**:
+
 - **Error clarity**: `wma_species[0].name` validation failure shows exact field
 - **Refactoring safety**: Change `SpeciesSchema` definition propagates everywhere
 - **Documentation**: Schema serves as API contract for content editors
@@ -168,6 +171,7 @@ const SeasonHighlightSchema = z.object({
 ```
 
 **Validation Strategy**:
+
 - **Min/Max Constraints**: Prevent empty strings and runaway content
 - **Regex Patterns**: Enforce consistent date/coordinate formats for parsing
 - **Custom Error Messages**: Guide content editors to fix validation issues
@@ -194,9 +198,11 @@ export type AdventureType = z.infer<typeof AdventureTypeSchema>;
 ```
 
 **Current Scope (SPEC-12)**:
+
 - `type: 'wma'` - Wildlife Management Area (8 new fields)
 
 **Future Extensions** (Phase 2+):
+
 - `type: 'trail'` - Hiking trails (trail_length, loop_type, surface_type)
 - `type: 'campground'` - Camping areas (sites_count, electric_hookups, reservations)
 - `type: 'lake'` - Lake recreation (boat_ramps, swimming_area, fishing_license)
@@ -224,6 +230,7 @@ function isTrailAdventure(adventure: AdventureEntry): boolean {
 ```
 
 **Benefits**:
+
 - TypeScript narrows types based on discriminant field
 - Components receive correctly typed data
 - Prevents rendering WMA components on trail pages
@@ -266,11 +273,13 @@ const adventuresSchema = z.discriminatedUnion('type', [
 ```
 
 **Phase 1 Implementation**:
+
 - Add `type` field as optional enum (`z.enum(['wma', 'trail']).optional()`)
 - All 8 WMA fields remain optional
 - No discriminated union (allows gradual content migration)
 
 **Phase 2 Migration**:
+
 - Make `type` field required once all content migrated
 - Convert to discriminated union for stricter type safety
 - Add trail/campground extensions
@@ -428,6 +437,7 @@ const adventures = defineCollection({
 ```
 
 **Validation Hierarchy**:
+
 1. **Field-level**: Min/max, regex, enum checks (Zod built-in)
 2. **Schema-level**: Cross-field logic via `refine()` (Phase 2)
 3. **Runtime**: TypeScript type guards in components
@@ -440,13 +450,15 @@ const adventures = defineCollection({
 ### 4.1 Content Editor Experience
 
 **Bad Error (Generic)**:
-```
+
+```text
 Validation error in elk-river.md:
 - Expected number, received string at wma_acreage
 ```
 
 **Good Error (Descriptive)**:
-```
+
+```text
 Validation error in elk-river.md:
 - wma_acreage: WMA acreage must be whole number (got "19,646" - remove commas)
 - wma_species[0].season: Season format: 'Nov 13 - Dec 31' or 'Sep 1 - Jan 31' (got "November 13-31")
@@ -475,6 +487,7 @@ z.string().min(10, "Access description too brief (min 10 chars) - explain how to
 ```
 
 **Error Message Principles**:
+
 1. **State the problem**: What's wrong with the value
 2. **Show the constraint**: What the system expects
 3. **Provide example**: What a valid value looks like
@@ -532,6 +545,7 @@ const adventures = defineCollection({
 ```
 
 **Outcome**:
+
 - Existing adventures validate without changes
 - New WMA fields available for gradual population
 - Build passes with 0 migration effort
@@ -541,6 +555,7 @@ const adventures = defineCollection({
 **Goal**: Migrate elk-river.md to use new WMA fields
 
 **Before** (existing frontmatter):
+
 ```yaml
 ---
 title: "Elk River Wildlife Management Area"
@@ -557,6 +572,7 @@ drive_time: "15 min"
 ```
 
 **After** (WMA fields populated):
+
 ```yaml
 ---
 title: "Elk River Wildlife Management Area"
@@ -619,6 +635,7 @@ wma_season_highlights:
 ```
 
 **Migration Checklist**:
+
 1. Add `type: wma` discriminant
 2. Populate `wma_acreage` and `wma_county` (basic fields)
 3. Extract species from body text to `wma_species` array
@@ -653,6 +670,7 @@ if (!adventure || adventure.data.type !== 'wma') {
 ```
 
 **Template Rendering Logic**:
+
 ```astro
 ---
 // WMATemplate.astro
@@ -707,6 +725,7 @@ const adventures = defineCollection({
 ```
 
 **Benefits of Discriminated Union**:
+
 - TypeScript narrows types based on `type` discriminant
 - WMA pages cannot access `trail_*` fields (compile error)
 - Trail pages cannot access `wma_*` fields (compile error)
@@ -766,6 +785,7 @@ wma_accreage: 104000  # Typo: "accreage" instead of "acreage"
 ```
 
 **Build Output**:
+
 ```bash
 ✖ Validation error in elk-river.md:
   Unrecognized key "wma_accreage" in frontmatter
@@ -783,6 +803,7 @@ wma_acreage: "104,000"
 ```
 
 **Build Output**:
+
 ```bash
 ✖ Validation error in elk-river.md:
   wma_acreage: Expected number, received string
@@ -854,7 +875,7 @@ const adventures = defineCollection({
 ### 8.1 Architecture Decisions
 
 | Decision | Rationale |
-|----------|-----------|
+| -------- | --------- |
 | **All WMA fields optional** | Zero breaking changes - gradual migration |
 | **Nested Zod schemas** | Reusability, focused errors, TypeScript inference |
 | **`type` field discriminant** | Future-proof for trail/campground extensions |
@@ -865,12 +886,14 @@ const adventures = defineCollection({
 ### 8.2 Acceptance Criteria
 
 **Schema Extension**:
+
 - [ ] 8 WMA fields added to `adventures` collection schema
 - [ ] All WMA fields are `.optional()` (no forced migration)
 - [ ] Nested schemas: SpeciesSchema, FishingWaterSchema, FacilitySchema, AccessPointSchema, RegulationsSchema, SeasonHighlightSchema
 - [ ] `type` field added as optional enum (`'wma' | 'trail' | 'campground' | 'lake'`)
 
 **Validation**:
+
 - [ ] Field-level validation with min/max constraints
 - [ ] Regex patterns for season dates, GPS coords, drive time, county names
 - [ ] Custom error messages for all validation rules
@@ -878,18 +901,21 @@ const adventures = defineCollection({
 - [ ] Build fails with descriptive errors on invalid content
 
 **Type Safety**:
+
 - [ ] TypeScript infers all field types from Zod schemas
 - [ ] Component props correctly typed for WMA fields
 - [ ] Build-time errors catch field name typos
 - [ ] Build-time errors catch wrong data types (string vs number)
 
 **Migration**:
+
 - [ ] Existing adventures validate without changes
 - [ ] No breaking changes to existing content
 - [ ] elk-river.md migrated to use all 8 WMA fields
 - [ ] WMATemplate conditionally renders based on field presence
 
 **Documentation**:
+
 - [ ] Schema architecture documented in this file
 - [ ] Validation rules documented with examples
 - [ ] Migration path documented for content editors

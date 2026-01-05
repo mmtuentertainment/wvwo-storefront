@@ -20,19 +20,24 @@
 **Goal**: Make Adventures Hub discoverable (FR-001, FR-002, FR-003)
 
 ### Desktop Navigation
+
 - [ ] `[S-1.1]` Read `Header.astro` to understand current nav structure (lines 27-38)
 - [ ] `[S-1.2]` Add Adventures link between Guides and Hunt Near Us in desktop nav
+
   ```astro
   <a href="/adventures" class="text-brand-cream font-medium hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange rounded px-1 transition-colors">Adventures</a>
   ```
+
 - [ ] `[S-1.3]` Verify Adventures link uses same classes as other nav links
 
 ### Mobile Navigation
+
 - [ ] `[S-1.4]` Locate mobile nav section in `Header.astro` (after line 50)
 - [ ] `[S-1.5]` Add Adventures link to mobile menu (same markup as desktop)
 - [ ] `[S-1.6]` Verify mobile menu structure intact
 
 ### Testing
+
 - [ ] `[S-1.7]` Run `npm run dev` and test on localhost:4321
 - [ ] `[S-1.8]` Click Adventures link → verify navigates to `/adventures`
 - [ ] `[S-1.9]` Test mobile navigation (responsive mode or real device)
@@ -49,20 +54,24 @@
 **Goal**: Create conditional banner component (FR-004, FR-005, FR-006, FR-007)
 
 ### Component Creation
+
 - [ ] `[P-2A.1]` Create file `wv-wild-web/src/components/GuideBanner.tsx`
 - [ ] `[P-2A.2]` Define TypeScript interface:
+
   ```typescript
   interface GuideBannerProps {
     season?: string[];
     activity?: string[];
   }
   ```
+
 - [ ] `[P-2A.3]` Implement conditional logic:
   - Fall + Hunting → Buck Season Guide banner
   - Spring + Hunting → Turkey Season Guide banner
   - All other combos → return null
 
 ### Styling (WVWO Compliance)
+
 - [ ] `[P-2A.4]` Add WVWO design system classes:
   - Background: `bg-brand-brown/10`
   - Border: `border-l-4 border-l-brand-orange`
@@ -74,6 +83,7 @@
   - Link: `text-sign-green underline font-bold hover:text-sign-green/80`
 
 ### Content (Kim's Voice)
+
 - [ ] `[P-2A.6]` Add buck season banner copy:
   - "Preparing for buck season? Read our Buck Season Prep Guide"
   - Link: `/guides/buck-season`
@@ -83,6 +93,7 @@
 - [ ] `[P-2A.8]` Verify copy passes "Kim voice test" (no corporate buzzwords)
 
 ### TypeScript Verification
+
 - [ ] `[P-2A.9]` Run TypeScript compiler (`npm run typecheck` if available)
 - [ ] `[P-2A.10]` Fix any type errors
 
@@ -101,24 +112,30 @@
 **Dependencies**: Phase 2A must be complete
 
 ### Read Current Structure
+
 - [ ] `[S-2B.1]` Read `wv-wild-web/src/pages/adventures/index.astro`
 - [ ] `[S-2B.2]` Identify how Adventures Hub is currently rendered (AdventuresHub.tsx with client:load)
 - [ ] `[S-2B.3]` Determine best integration point (Astro page level vs inside AdventuresHub component)
 
 ### Implementation (Option A: Astro Page Level - Recommended)
+
 - [ ] `[S-2B.4]` Import GuideBanner at top of adventures/index.astro
 - [ ] `[S-2B.5]` Extract URL parameters in frontmatter:
+
   ```astro
   const url = new URL(Astro.request.url);
   const season = url.searchParams.getAll('season');
   const activity = url.searchParams.getAll('activity');
   ```
+
 - [ ] `[S-2B.6]` Add GuideBanner above AdventuresHub with `client:visible` hydration:
+
   ```astro
   <GuideBanner season={season} activity={activity} client:visible />
   ```
 
 ### Testing
+
 - [ ] `[S-2B.7]` Test `/adventures?season=fall&activity=hunting` → Buck banner appears
 - [ ] `[S-2B.8]` Test `/adventures?season=spring&activity=hunting` → Turkey banner appears
 - [ ] `[S-2B.9]` Test `/adventures?season=summer&activity=fishing` → NO banner
@@ -138,11 +155,13 @@
 **Goal**: Add "Ready to Hunt?" CTA to buck season guide (FR-008, FR-010)
 
 ### Read Current Structure
+
 - [ ] `[P-3A.1]` Read `wv-wild-web/src/pages/guides/buck-season.astro`
 - [ ] `[P-3A.2]` Locate `<EmailCapture>` component position
 - [ ] `[P-3A.3]` Identify where to insert CTA (before EmailCapture)
 
 ### Add CTA Section
+
 - [ ] `[P-3A.4]` Insert CTA section markup (see implementation plan Phase 3A)
 - [ ] `[P-3A.5]` Verify WVWO styling:
   - Background: `bg-sign-green text-white`
@@ -151,6 +170,7 @@
   - Link: `/adventures?season=fall&activity=hunting`
 
 ### Content Verification
+
 - [ ] `[P-3A.6]` Verify copy matches spec:
   - Heading: "Ready to Hunt?"
   - Subtext: "Find the best WV hunting spots near you."
@@ -158,6 +178,7 @@
 - [ ] `[P-3A.7]` Verify responsive typography (3xl on mobile, 4xl on desktop)
 
 ### Testing
+
 - [ ] `[P-3A.8]` Visit `/guides/buck-season` on localhost
 - [ ] `[P-3A.9]` Scroll to CTA section → verify it appears before footer
 - [ ] `[P-3A.10]` Click CTA → verify navigates to `/adventures?season=fall&activity=hunting`
@@ -176,11 +197,13 @@
 **Note**: Phase 3A and 3B are parallelizable (different files, no conflicts)
 
 ### Read Current Structure
+
 - [ ] `[P-3B.1]` Read `wv-wild-web/src/pages/guides/turkey-season.astro`
 - [ ] `[P-3B.2]` Locate `<EmailCapture>` component position
 - [ ] `[P-3B.3]` Identify where to insert CTA (before EmailCapture)
 
 ### Add CTA Section
+
 - [ ] `[P-3B.4]` Insert CTA section markup (see implementation plan Phase 3B)
 - [ ] `[P-3B.5]` Verify WVWO styling (same as Phase 3A)
 - [ ] `[P-3B.6]` Update copy:
@@ -190,6 +213,7 @@
   - Link: `/adventures?season=spring&activity=hunting`
 
 ### Testing
+
 - [ ] `[P-3B.7]` Visit `/guides/turkey-season` on localhost
 - [ ] `[P-3B.8]` Scroll to CTA section → verify it appears
 - [ ] `[P-3B.9]` Click CTA → verify navigates to `/adventures?season=spring&activity=hunting`
@@ -208,12 +232,14 @@
 **Note**: Phase 4 parallelizable with Phase 3 (different file)
 
 ### Read Current Structure
+
 - [ ] `[P-4.1]` Read `wv-wild-web/src/pages/guides/index.astro`
 - [ ] `[P-4.2]` Identify hero section
 - [ ] `[P-4.3]` Identify guide cards section
 - [ ] `[P-4.4]` Determine insertion point (after hero, before cards)
 
 ### Add Intro Section
+
 - [ ] `[P-4.5]` Insert intro section markup (see implementation plan Phase 4)
 - [ ] `[P-4.6]` Verify WVWO styling:
   - Background: `bg-white`
@@ -222,11 +248,13 @@
   - Container: `max-w-3xl mx-auto`
 
 ### Content
+
 - [ ] `[P-4.7]` Add heading: "Looking for Places to Go?"
 - [ ] `[P-4.8]` Add explanation text with Adventures link
 - [ ] `[P-4.9]` Verify link: `<a href="/adventures" class="text-sign-green underline font-bold">`
 
 ### Testing
+
 - [ ] `[P-4.10]` Visit `/guides` on localhost
 - [ ] `[P-4.11]` Verify intro section appears after hero
 - [ ] `[P-4.12]` Click Adventures link → verify navigation
@@ -247,11 +275,13 @@
 **Dependencies**: All implementation phases (1-4) must be complete
 
 ### Desktop Testing
+
 - [ ] `[S-5.1]` **Chrome/Edge**: Test all user flows (see checklist below)
 - [ ] `[S-5.2]` **Firefox**: Verify cross-browser compatibility
 - [ ] `[S-5.3]` **Safari** (if available): Verify styles render correctly
 
 **Desktop Test Checklist**:
+
 - [ ] Header shows Adventures link (between Guides and Hunt Near Us)
 - [ ] Adventures link navigates to `/adventures`
 - [ ] Fall hunting filter (`/adventures?season=fall&activity=hunting`) shows buck banner
@@ -267,10 +297,12 @@
 - [ ] Guides index Adventures link works
 
 ### Mobile Testing
+
 - [ ] `[S-5.4]` **Responsive Mode**: Test 375px (iPhone SE), 768px (iPad), 414px (iPhone Pro Max)
 - [ ] `[S-5.5]` **Real Device** (if available): Test on actual mobile device
 
 **Mobile Test Checklist**:
+
 - [ ] Adventures visible in mobile navigation
 - [ ] Adventures tap target ≥44x44px (measure in dev tools)
 - [ ] Mobile nav doesn't overflow with 4 links
@@ -279,6 +311,7 @@
 - [ ] All links work on touch (no hover-only interactions)
 
 ### Accessibility Testing (WCAG 2.1 AA)
+
 - [ ] `[S-5.6]` Keyboard navigation: Tab through all links (Adventures, banners, CTAs)
 - [ ] `[S-5.7]` Focus states visible (browser default underline)
 - [ ] `[S-5.8]` Color contrast check:
@@ -288,12 +321,14 @@
 - [ ] `[S-5.9]` Screen reader test (if available): Verify link announcements
 
 ### Performance Testing
+
 - [ ] `[S-5.10]` Open Chrome DevTools Network tab
 - [ ] `[S-5.11]` Visit `/adventures?season=fall&activity=hunting`
 - [ ] `[S-5.12]` Verify GuideBanner.tsx only loads when scrolled into viewport (`client:visible`)
 - [ ] `[S-5.13]` Verify bundle size <1KB for GuideBanner component
 
 ### Kim Voice Test
+
 - [ ] `[S-5.14]` Read all copy aloud:
   - Adventures nav link: "Adventures" ✅
   - Buck banner: "Preparing for buck season? Read our Buck Season Prep Guide" ✅
@@ -314,6 +349,7 @@
 **Dependencies**: Phase 5 (testing) must be complete
 
 ### Screenshots
+
 - [ ] `[S-6.1]` Create screenshots directory: `docs/specs/.../screenshots/`
 - [ ] `[S-6.2]` Screenshot: Desktop header with Adventures link
 - [ ] `[S-6.3]` Screenshot: Mobile nav with Adventures link
@@ -325,10 +361,12 @@
 - [ ] `[S-6.9]` Optimize images (<500KB each, use PNG or WebP)
 
 ### Git Workflow
+
 - [ ] `[S-6.10]` Run `git status` to verify modified files
 - [ ] `[S-6.11]` Stage all changes: `git add .`
 - [ ] `[S-6.12]` Verify staged files are correct (no unintended changes)
 - [ ] `[S-6.13]` Write conventional commit message:
+
   ```
   feat(SPEC-07B): add Adventures navigation and cross-linking
 
@@ -342,20 +380,25 @@
 
   Closes: SPEC-07B
   ```
+
 - [ ] `[S-6.14]` Commit changes: `git commit -m "..."`
 
 ### Pull Request
+
 - [ ] `[S-6.15]` Push to origin: `git push -u origin feature/spec-07b-navigation-consolidation`
 - [ ] `[S-6.16]` Create PR via GitHub CLI:
+
   ```bash
   gh pr create --title "feat(SPEC-07B): Navigation Consolidation" --body "See PR description template"
   ```
+
 - [ ] `[S-6.17]` Add PR description (see PR template below)
 - [ ] `[S-6.18]` Attach screenshots to PR
 - [ ] `[S-6.19]` Link PR to SPEC-07B issue (if exists)
 - [ ] `[S-6.20]` Request review (if applicable) or self-merge
 
 ### PR Description Template
+
 ```markdown
 ## Summary
 Adds Adventures navigation link and cross-linking between Guides (prep content) and Adventures (destinations).
@@ -402,6 +445,7 @@ Adds Adventures navigation link and cross-linking between Guides (prep content) 
 **Recommended PRs**: 1 (well under 300 LOC threshold)
 
 **Rationale for Single PR**:
+
 - Feature is cohesive (navigation + cross-linking)
 - Total LOC well under 300 (warning threshold)
 - All phases deliver incremental value
@@ -427,6 +471,7 @@ Phase 1: Header Navigation (S)
 ```
 
 **Key Dependencies**:
+
 - Phase 1 must complete before any other phases (navigation link needed)
 - Phase 2B depends on Phase 2A (component must exist before integration)
 - Phases 3A, 3B, and 4 are fully parallelizable (different files)
@@ -434,6 +479,7 @@ Phase 1: Header Navigation (S)
 - Phase 6 depends on Phase 5 (can't PR without testing)
 
 **Parallelization Opportunities**:
+
 - **After Phase 1**: Can work on Phases 2A, 3A, 3B, and 4 simultaneously
 - **After Phase 2A**: Can work on Phase 2B while continuing 3A/3B/4
 - **Before Phase 5**: Complete all implementation in parallel
@@ -445,6 +491,7 @@ Phase 1: Header Navigation (S)
 ### Recommended Approach (Maximize Parallelism)
 
 **Day 1 (2-3 hours)**:
+
 1. **Sequential**: Complete Phase 1 (15 min) - Header navigation
 2. **Parallel Session 1** (60 min):
    - Start Phase 2A (GuideBanner component)
@@ -460,6 +507,7 @@ Phase 1: Header Navigation (S)
 ### Alternative Approach (Fully Sequential)
 
 **If you prefer step-by-step**:
+
 1. Phase 1: Header (15 min)
 2. Phase 2A: Component (30 min)
 3. Phase 2B: Integration (15 min)
@@ -480,6 +528,7 @@ Phase 1: Header Navigation (S)
 **Current Phase**: Ready to begin Phase 1
 
 ### Phase Completion Status
+
 - [ ] Phase 1: Header Navigation (0/10 tasks)
 - [ ] Phase 2A: GuideBanner Component (0/10 tasks)
 - [ ] Phase 2B: Integration (0/11 tasks)
@@ -494,18 +543,21 @@ Phase 1: Header Navigation (S)
 ## Notes
 
 ### Special Considerations
+
 - **WVWO Voice**: Every piece of copy must pass "Kim voice test" (no corporate buzzwords)
 - **Accessibility**: 44x44px tap targets mandatory for mobile (WCAG 2.1 AA)
 - **Performance**: Use `client:visible` for GuideBanner (only hydrate when in viewport)
 - **Simplicity**: No state management needed - URL params drive everything
 
 ### Blockers & Prerequisites
+
 - ✅ SPEC-07 Complete (Adventures Hub with filtering exists)
 - ✅ Git feature branch created (`feature/spec-07b-navigation-consolidation`)
 - ✅ Dev environment running (`npm run dev`)
 - ⚠️ **Before starting**: Verify Adventures Hub works at `/adventures`
 
 ### Risk Mitigation
+
 - **Low Risk**: All changes additive (easy to rollback via `git revert`)
 - **Testing**: Comprehensive manual testing before PR (no automated tests required)
 - **Rollback Plan**: Can comment out sections or full git revert if issues

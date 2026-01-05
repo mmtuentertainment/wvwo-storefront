@@ -9,6 +9,7 @@
 ## Clarifications
 
 ### Session 2025-12-17
+
 - Q: What happens if product price/stock changes while in cart? → A: Best-effort notice on cart ("Prices may have changed"), validate at checkout
 - Q: What if localStorage is unavailable? → A: Session-only fallback with subtle notice "Cart won't save between visits"
 - Q: Should cart actions trigger analytics? → A: Basic events only: `add_to_cart`, `remove_from_cart`, `begin_checkout`
@@ -26,6 +27,7 @@ React-based shopping cart with localStorage persistence, supporting all three pr
 ## Architecture
 
 ### Technology Stack
+
 - **UI Framework:** React + shadcn/ui (approved for interactive components)
 - **State Management:** Nanostores (framework-agnostic atoms)
 - **Persistence:** localStorage (guest checkout, no backend)

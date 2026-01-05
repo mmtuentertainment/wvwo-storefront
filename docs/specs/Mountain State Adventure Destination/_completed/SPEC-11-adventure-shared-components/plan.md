@@ -47,6 +47,7 @@ Add `circle` icon for optional gear items to the existing StatIconSchema.
 **Location**: After line 139 in `adventure.ts`
 
 **Find this code**:
+
 ```typescript
 export const StatIconSchema = z.enum([
   'distance',
@@ -61,6 +62,7 @@ export const StatIconSchema = z.enum([
 ```
 
 **Replace with**:
+
 ```typescript
 export const StatIconSchema = z.enum([
   'distance',
@@ -84,6 +86,7 @@ Add the SVG path for the circle icon.
 **Location**: After line 181 in `adventure.ts`
 
 **Find this code**:
+
 ```typescript
 export const STAT_ICON_PATHS: Record<StatIcon, string | null> = {
   distance:
@@ -101,6 +104,7 @@ export const STAT_ICON_PATHS: Record<StatIcon, string | null> = {
 ```
 
 **Replace with**:
+
 ```typescript
 export const STAT_ICON_PATHS: Record<StatIcon, string | null> = {
   distance:
@@ -127,6 +131,7 @@ Add the schema and type for gear checklist items.
 **Location**: After the STAT_ICON_PATHS block (end of file, before any closing comments)
 
 **Add this code**:
+
 ```typescript
 // ============================================================================
 // SPEC-11: SHARED COMPONENT SCHEMAS
@@ -160,6 +165,7 @@ Add the schema and type for related shop categories.
 **Location**: Immediately after GearColumns type
 
 **Add this code**:
+
 ```typescript
 /**
  * Related shop category for AdventureRelatedShop component.
@@ -850,6 +856,7 @@ const gridClass = getGridClass(categories.length);
 Add imports and test data to verify components work before full migration.
 
 **Add to imports** (around line 8):
+
 ```astro
 import AdventureGettingThere from '../../components/adventure/AdventureGettingThere.astro';
 import AdventureGearChecklist from '../../components/adventure/AdventureGearChecklist.astro';
@@ -858,6 +865,7 @@ import type { GearItem, RelatedCategory } from '../../types/adventure';
 ```
 
 **Add test data** (after existing data, around line 55):
+
 ```astro
 // SPEC-11: Gear checklist data
 const summersvilleGear: GearItem[] = [
@@ -941,11 +949,13 @@ Add the Related Shop component (new section after Gear Checklist):
 Test each viewport and scenario:
 
 **Viewports:**
+
 - [ ] Mobile (375px width)
 - [ ] Tablet (768px width)
 - [ ] Desktop (1280px width)
 
 **Components:**
+
 - [ ] AdventureGettingThere renders correctly
   - [ ] Directions HTML renders (bold, lists)
   - [ ] Drive time and distance show with icons
@@ -963,11 +973,13 @@ Test each viewport and scenario:
   - [ ] Main CTA button renders at bottom
 
 **Accessibility:**
+
 - [ ] Tab navigation works through all interactive elements
 - [ ] Focus states visible on buttons and links
 - [ ] Screen reader testing (check aria-labelledby works)
 
 **Reduced Motion:**
+
 - [ ] Enable reduced motion in OS settings
 - [ ] Verify animations are disabled
 - [ ] Verify hover transforms are disabled
@@ -992,9 +1004,11 @@ Run axe-core or similar tool. Verify:
 **Scope**: Phase 1 only (adventure.ts changes)
 
 **Files Changed**:
+
 - `wv-wild-web/src/types/adventure.ts`
 
 **Checklist**:
+
 - [ ] StatIconSchema extended with 'circle'
 - [ ] STAT_ICON_PATHS extended with circle path
 - [ ] GearItemSchema + GearItem type added
@@ -1010,6 +1024,7 @@ Run axe-core or similar tool. Verify:
 **Scope**: Phases 1-5 (all changes)
 
 **Files Changed**:
+
 - `wv-wild-web/src/types/adventure.ts`
 - `wv-wild-web/src/components/adventure/AdventureGettingThere.astro` (NEW)
 - `wv-wild-web/src/components/adventure/AdventureGearChecklist.astro` (NEW)
@@ -1017,6 +1032,7 @@ Run axe-core or similar tool. Verify:
 - `wv-wild-web/src/pages/near/summersville-lake.astro` (integration example)
 
 **Checklist**:
+
 - [ ] All type additions complete
 - [ ] All 3 components created
 - [ ] Components follow AdventureQuickStats patterns
@@ -1037,6 +1053,7 @@ Run axe-core or similar tool. Verify:
 **Symptoms**: TypeScript errors when importing GearItem or RelatedCategory
 
 **Mitigation**:
+
 1. Verify exports in adventure.ts
 2. Check import path is correct (`../../types/adventure`)
 3. Run `npm run typecheck` to catch errors early
@@ -1046,6 +1063,7 @@ Run axe-core or similar tool. Verify:
 **Symptoms**: Icons don't appear in components
 
 **Mitigation**:
+
 1. Verify 'circle' is added to StatIconSchema
 2. Verify STAT_ICON_PATHS has the circle path
 3. Check SVG viewBox matches (24x24)
@@ -1056,6 +1074,7 @@ Run axe-core or similar tool. Verify:
 **Symptoms**: Animation stutters or causes layout shift
 
 **Mitigation**:
+
 1. Use `transform` and `opacity` only (GPU-accelerated)
 2. Add `will-change: transform, opacity` if needed
 3. Test with Performance tab in DevTools
@@ -1065,6 +1084,7 @@ Run axe-core or similar tool. Verify:
 **Symptoms**: Slot content passed but not rendered
 
 **Mitigation**:
+
 1. Verify `Astro.slots.has()` check is correct
 2. Verify slot name matches (e.g., `slot="footer"`)
 3. Check for typos in slot name
@@ -1074,6 +1094,7 @@ Run axe-core or similar tool. Verify:
 **Symptoms**: PR rejected for styling issues
 
 **Mitigation**:
+
 1. Self-review against checklist before PR
 2. Search file for forbidden patterns (rounded-md, Inter, purple, etc.)
 3. Verify fonts: font-display for headings, font-body for content
@@ -1083,11 +1104,13 @@ Run axe-core or similar tool. Verify:
 ## Acceptance Checklist
 
 ### Components Created
+
 - [ ] `wv-wild-web/src/components/adventure/AdventureGettingThere.astro`
 - [ ] `wv-wild-web/src/components/adventure/AdventureGearChecklist.astro`
 - [ ] `wv-wild-web/src/components/adventure/AdventureRelatedShop.astro`
 
 ### Types Added
+
 - [ ] `GearItemSchema` + `GearItem` type
 - [ ] `RelatedCategorySchema` + `RelatedCategory` type
 - [ ] `GearColumns` type (1 | 2 | 3)
@@ -1095,10 +1118,12 @@ Run axe-core or similar tool. Verify:
 - [ ] Circle path added to STAT_ICON_PATHS
 
 ### Slot Composition
+
 - [ ] GettingThere: default slot renders notes/pro-tips
 - [ ] GearChecklist: "footer" named slot renders CTA
 
 ### WVWO Styling
+
 - [ ] `rounded-sm` ONLY (no rounded-md/lg)
 - [ ] Brand colors only (brand-brown, sign-green, brand-cream, brand-mud, brand-orange)
 - [ ] font-display for headings
@@ -1106,6 +1131,7 @@ Run axe-core or similar tool. Verify:
 - [ ] transition-colors duration-300
 
 ### Accessibility
+
 - [ ] aria-labelledby on all sections
 - [ ] aria-hidden="true" on decorative icons
 - [ ] External links: target="_blank" rel="noopener noreferrer"
@@ -1113,6 +1139,7 @@ Run axe-core or similar tool. Verify:
 - [ ] prefers-reduced-motion respected
 
 ### Integration
+
 - [ ] Components work in summersville-lake.astro
 - [ ] Build passes without errors
 - [ ] Visual testing across breakpoints complete

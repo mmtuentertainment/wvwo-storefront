@@ -23,11 +23,13 @@ Monongahela National Forest is nearly a MILLION acres - the largest public land 
 ## Content Sections
 
 ### Hero
+
 - "1 hour from shop" badge
 - "921,000 Acres" badge (emphasize scale)
 - "Nearly a Million Acres of Public Land"
 
 ### Quick Info Bar
+
 - Acres: 921,000
 - Drive time: ~1 hour
 - Counties: Multiple (Tucker, Randolph, Pocahontas, etc.)
@@ -36,37 +38,45 @@ Monongahela National Forest is nearly a MILLION acres - the largest public land 
 ### What to Hunt
 
 **White-tailed Deer**
+
 - Excellent population in the highlands
 - Mix of hardwoods and mountain terrain
 - Higher elevation = different rut timing
 
 **Wild Turkey**
+
 - Spring and fall seasons
 - Mountain gobblers
 
 **Black Bear**
+
 - Significant bear population
 - Prime bear hunting territory
 - Check DNR for bear zones/seasons
 
 **Ruffed Grouse**
+
 - Excellent grouse habitat
 - Younger timber cuts and laurel thickets
 
 **Squirrel**
+
 - Abundant in hardwood stands
 
 ### What to Fish
 
 **Trout**
+
 - Native brook trout streams
 - Stocked trout in designated waters
 - Fly fishing destination
 
 **Smallmouth Bass**
+
 - Various streams
 
 ### Notable Areas Within MNF
+
 - Cranberry Wilderness
 - Dolly Sods Wilderness
 - Spruce Knob (highest point in WV)
@@ -74,19 +84,23 @@ Monongahela National Forest is nearly a MILLION acres - the largest public land 
 - Various wilderness study areas
 
 ### Getting There
+
 Directions from shop (121 WV-82):
+
 1. Head south/east via Richwood
 2. Multiple access points depending on destination
 3. ~1 hour to nearest access
 4. Plan your specific destination before going
 
 ### Planning Your Trip
+
 - This is BIG country - know where you're going
 - Cell service is limited/nonexistent in many areas
 - Weather changes fast at higher elevations
 - Download maps, let someone know your plans
 
 ### What to Bring
+
 - All standard hunting/fishing gear
 - Extra layers (mountain weather)
 - Paper maps (no cell service)
@@ -97,12 +111,14 @@ Directions from shop (121 WV-82):
 ### Why Stop at Our Shop
 
 Even though we're an hour away:
+
 - Last reliable stop before the backcountry
 - Get your license and stamps
 - Stock up on ammo and supplies
 - Get local intel on what's hitting where
 
 ### CTA Sections
+
 - Shop CTA: "Heading into the Mon? Stop by first - we're your last stop for supplies"
 - Directions CTA: Google Maps link
 - Newsletter: EmailCapture component

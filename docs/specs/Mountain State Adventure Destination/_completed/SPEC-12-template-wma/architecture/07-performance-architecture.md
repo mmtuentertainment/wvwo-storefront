@@ -24,6 +24,7 @@
 ### Build-Time Rendering
 
 **Zero Runtime JavaScript**:
+
 ```astro
 // All components are static (no client: directives)
 <AdventureFeatureSection {..props} />  // ✅ Static HTML
@@ -31,6 +32,7 @@
 ```
 
 **Benefits**:
+
 - No JavaScript bundle (0KB JS payload)
 - Instant page interactions (no hydration delay)
 - Works offline after initial load
@@ -39,10 +41,12 @@
 ### Build Performance
 
 **Phase 1: 5 WMAs**
+
 - Build time: <30s
 - Output: ~5 HTML files × 150 lines = 750 lines HTML
 
 **Phase 3: 96 WMAs**
+
 - Build time: <5 minutes (acceptable for CI/CD)
 - Output: ~96 HTML files × 150 lines = 14,400 lines HTML
 - Parallel builds if needed (Astro supports)
@@ -146,6 +150,7 @@ module.exports = {
 ```
 
 **Benefits**:
+
 - No external DNS lookup (saves 200ms+)
 - WOFF2 format (30% smaller than TTF)
 - Preload critical fonts (faster text rendering)
@@ -161,13 +166,16 @@ Cache-Control: public, max-age=31536000, immutable
 ```
 
 **Assets with hashed filenames**:
+
 - `/assets/main-abc123.css` (1 year cache)
 - `/assets/script-def456.js` (1 year cache)
 
 **HTML pages**:
+
 ```
 Cache-Control: public, max-age=3600, must-revalidate
 ```
+
 - 1 hour cache (updates hourly)
 - Revalidate with server (ETag support)
 
@@ -194,6 +202,7 @@ Cache-Control: public, max-age=3600, must-revalidate
 ```
 
 **CI/CD Integration**:
+
 ```bash
 # Fail build if budget exceeded
 lighthouse --budget-path=budget.json --chrome-flags="--headless"
@@ -213,6 +222,7 @@ lighthouse --budget-path=budget.json --chrome-flags="--headless"
 ```
 
 **Metrics Tracked**:
+
 - Page load time (P50, P95, P99)
 - Core Web Vitals (LCP, FID, CLS)
 - Geographic distribution (rural WV focus)
@@ -222,6 +232,7 @@ lighthouse --budget-path=budget.json --chrome-flags="--headless"
 ## Optimization Wins
 
 ### Before Optimization (Hypothetical Monolithic Page)
+
 - HTML: 100KB (inline everything)
 - CSS: 50KB (full Tailwind)
 - JS: 200KB (interactive maps, analytics)
@@ -230,6 +241,7 @@ lighthouse --budget-path=budget.json --chrome-flags="--headless"
 - **Total**: 2.45MB, 8s load on 3G
 
 ### After Optimization (WMA Template)
+
 - HTML: 25KB (component composition)
 - CSS: 8KB (purged Tailwind)
 - JS: 0KB (static site)

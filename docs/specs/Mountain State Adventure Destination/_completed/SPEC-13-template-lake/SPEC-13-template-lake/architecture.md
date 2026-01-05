@@ -27,6 +27,7 @@
 ### 1.1 Purpose
 
 The Lake Template Component System provides a **reusable, type-safe Astro template** for creating comprehensive West Virginia lake recreation pages with:
+
 - **Fishing-centric content organization** (primary focus)
 - Marina and boat access details
 - Camping facility information
@@ -37,6 +38,7 @@ The Lake Template Component System provides a **reusable, type-safe Astro templa
 ### 1.2 Architecture Philosophy
 
 **Component Composition over Duplication**
+
 - Leverage existing SPEC-11 adventure components (70%+ reuse target)
 - Create custom sections only where existing components don't fit
 - Single source of truth for type definitions
@@ -44,6 +46,7 @@ The Lake Template Component System provides a **reusable, type-safe Astro templa
 - Zero runtime overhead
 
 **Design Principles**
+
 1. **Type Safety First**: All props validated at build time
 2. **Accessibility by Default**: WCAG 2.1 AA compliance in all sections
 3. **Performance Optimized**: Static generation, minimal JavaScript
@@ -85,6 +88,7 @@ import Layout from '../../layouts/Layout.astro';
 ```
 
 **Reuse Pattern**:
+
 ```astro
 <!-- Hero Section -->
 <section class="relative h-[70vh] min-h-[500px]">
@@ -200,6 +204,7 @@ export type [TypeName] = z.infer<typeof [TypeName]Schema>;
 ### 3.2 New Type Definitions (6 types)
 
 #### FishingSpot
+
 **Purpose**: Named location within lake with structure details
 
 ```typescript
@@ -215,6 +220,7 @@ export type FishingSpot = z.infer<typeof FishingSpotSchema>;
 ```
 
 **Validation Rules**:
+
 - `name`: Non-empty string (unique within lake)
 - `depth`: Freeform text (allows ranges "20-45" or single "40+")
 - `structure`: Descriptive text (bottom composition)
@@ -224,6 +230,7 @@ export type FishingSpot = z.infer<typeof FishingSpotSchema>;
 **Max Array Size**: 15 spots per lake (performance limit)
 
 #### Marina
+
 **Purpose**: Boat access facility information
 
 ```typescript
@@ -243,12 +250,14 @@ export type Marina = z.infer<typeof MarinaSchema>;
 ```
 
 **Validation Rules**:
+
 - `boatLaunch.ramps`: Must be positive integer (1+)
 - `services`: Can be empty array if no services
 - `rentals`: Optional field (hide section if missing)
 - `contact`: String format (rendered as `tel:` link)
 
 #### Activity
+
 **Purpose**: Recreation option beyond fishing
 
 ```typescript
@@ -263,12 +272,14 @@ export type Activity = z.infer<typeof ActivitySchema>;
 ```
 
 **Validation Rules**:
+
 - `difficulty`: Uses existing SPEC-11 enum (consistency)
 - `season`: Freeform text (allows flexible date ranges)
 
 **Max Array Size**: 20 activities per lake
 
 #### SeasonalGuide
+
 **Purpose**: Season-specific breakdown of activities
 
 ```typescript
@@ -282,12 +293,14 @@ export type SeasonalGuide = z.infer<typeof SeasonalGuideSchema>;
 ```
 
 **Validation Rules**:
+
 - `season`: Exactly 4 values (enforces completeness)
 - `highlights`: At least 1 per season (prevents empty)
 
 **Expected Array**: Always 4 items (one per season)
 
 #### Regulation
+
 **Purpose**: Safety/legal rule by category
 
 ```typescript
@@ -300,6 +313,7 @@ export type Regulation = z.infer<typeof RegulationSchema>;
 ```
 
 **Validation Rules**:
+
 - `rules`: At least 1 rule per category
 - Categories can repeat (multiple sections if needed)
 
@@ -368,6 +382,7 @@ try {
 ```
 
 **Validation Behavior**:
+
 - ✅ **Valid data**: Build succeeds, page generated
 - ❌ **Invalid data**: Build FAILS with descriptive Zod error
 - 🎯 **Editor feedback**: Immediate error message points to exact data issue
@@ -381,6 +396,7 @@ try {
 **Purpose**: First impression with lake name, stats overlay, and quick highlights
 
 **Layout Structure**:
+
 ```astro
 <section class="relative h-[70vh] min-h-[500px]">
   <!-- Background Image -->
@@ -428,6 +444,7 @@ try {
 ```
 
 **Key Design Decisions**:
+
 - **Height**: `70vh` minimum ensures hero is visible on all screens
 - **Overlay**: `bg-brand-brown/40` provides readable text contrast
 - **Stats Grid**: Responsive breakpoint at `md:` (768px)
@@ -438,6 +455,7 @@ try {
 **Purpose**: Display named fishing spots with depth, structure, and target species
 
 **Layout Structure**:
+
 ```astro
 <section class="py-12 md:py-16 bg-white">
   <div class="container mx-auto px-4">
@@ -490,6 +508,7 @@ try {
 ```
 
 **Key Design Decisions**:
+
 - **Border Accent**: `border-l-brand-brown` (brown for spots vs green for species)
 - **Full-Width Cards**: `space-y-6` stacking, no grid (better for detailed content)
 - **Species Badges**: `sign-green` badges for visual distinction
@@ -500,6 +519,7 @@ try {
 **Purpose**: Display boat access, services, rentals, and contact information
 
 **Layout Structure**:
+
 ```astro
 <section class="py-12 md:py-16 bg-brand-cream">
   <div class="container mx-auto px-4">
@@ -582,6 +602,7 @@ try {
 ```
 
 **Key Design Decisions**:
+
 - **Phone Link**: `tel:` protocol with digits-only href
 - **Optional Rentals**: Conditional rendering with `&& marina.rentals`
 - **Visual Hierarchy**: Border-top separators for subsections
@@ -594,6 +615,7 @@ try {
 **Layout Structure** (two options):
 
 **Option A**: Leverage AdventureFeatureSection
+
 ```astro
 <AdventureFeatureSection
   title="More Adventures"
@@ -609,6 +631,7 @@ try {
 ```
 
 **Option B**: Custom Grid (better control)
+
 ```astro
 <section class="py-12 md:py-16 bg-white">
   <div class="container mx-auto px-4">
@@ -651,6 +674,7 @@ try {
 **Purpose**: Season-by-season activity breakdown
 
 **Layout Structure**:
+
 ```astro
 <section class="py-12 md:py-16 bg-brand-cream">
   <div class="container mx-auto px-4">
@@ -691,6 +715,7 @@ try {
 ```
 
 **Key Design Decisions**:
+
 - **4-Card Grid**: Always 4 seasons (2x2 grid on desktop)
 - **Green Accent**: Consistent with fishing theme
 - **Fishing Focus**: Uses `font-hand` (Kim's voice) when present
@@ -700,6 +725,7 @@ try {
 **Purpose**: Display safety rules organized by category
 
 **Layout Structure**:
+
 ```astro
 <section class="py-12 md:py-16 bg-white">
   <div class="container mx-auto px-4">
@@ -732,6 +758,7 @@ try {
 ```
 
 **Key Design Decisions**:
+
 - **Orange Accent**: `border-l-brand-orange` for safety/warning context
 - **Warning Icon**: ⚠ emoji for visual emphasis
 - **Full-Width Cards**: Stacked layout for better readability of rules
@@ -776,6 +803,7 @@ wv-wild-web/
 ### 5.2 Import Organization
 
 **Standard Import Order** (enforced in template):
+
 ```astro
 ---
 // 1. Astro core
@@ -831,6 +859,7 @@ const stats = [
 ### 6.1 Brand Enforcement Strategy
 
 **Architectural Approach**: Prevent violations at build time through:
+
 1. Type constraints in schemas
 2. Tailwind class restrictions
 3. Automated test validation
@@ -841,6 +870,7 @@ const stats = [
 **Rule**: ONLY `rounded-sm` (0.125rem) allowed
 
 **Implementation**:
+
 ```astro
 <!-- ✅ CORRECT -->
 <div class="rounded-sm border ...">
@@ -852,6 +882,7 @@ const stats = [
 ```
 
 **Enforcement Method**:
+
 ```typescript
 // In test file: LakeTemplate.test.ts
 describe('WVWO Compliance', () => {
@@ -871,6 +902,7 @@ describe('WVWO Compliance', () => {
 ### 6.3 Typography Hierarchy
 
 **Font Stack**:
+
 ```css
 --font-display: 'Bitter', serif;           /* All headings */
 --font-hand: 'Permanent Marker', cursive;  /* Kim's tips ONLY */
@@ -878,6 +910,7 @@ describe('WVWO Compliance', () => {
 ```
 
 **Usage Rules** (enforced by architecture):
+
 | Element | Font Class | Weight | Size (Mobile → Desktop) |
 |---------|-----------|--------|-------------------------|
 | Hero H1 | `font-display` | `font-black` | `text-4xl md:text-6xl` |
@@ -887,11 +920,13 @@ describe('WVWO Compliance', () => {
 | Kim's Tips | `font-hand` | `font-normal` | `text-sm` (italic) |
 
 **Forbidden Fonts** (must never appear in template):
+
 - Inter, DM Sans, Space Grotesk, Poppins, Outfit, Montserrat, Raleway, Open Sans, system-ui
 
 ### 6.4 Color Palette
 
 **WVWO Brand Colors** (Tailwind classes):
+
 ```css
 --brand-brown: #3E2723;    /* Primary dark */
 --sign-green: #2E7D32;     /* Fishing/amenities accent */
@@ -900,6 +935,7 @@ describe('WVWO Compliance', () => {
 ```
 
 **Accent Color Mapping** (by section):
+
 | Section | Border Accent | Background | Purpose |
 |---------|---------------|------------|---------|
 | Fish Species | `border-l-sign-green` | `bg-white` | Positive association |
@@ -940,6 +976,7 @@ describe('WVWO Compliance', () => {
 ```
 
 **Staggered Animation** (for list items):
+
 ```astro
 {fishingSpots.map((spot, index) => (
   <div
@@ -958,6 +995,7 @@ describe('WVWO Compliance', () => {
 ### 7.1 Breakpoint Strategy
 
 **Tailwind Default Breakpoints** (cannot customize per constraints):
+
 ```css
 sm: 640px   /* Not heavily used */
 md: 768px   /* Primary breakpoint (tablet) */
@@ -980,6 +1018,7 @@ xl: 1280px  /* Max container width */
 | Seasonal Guide | 1 column | 2 columns | 2 columns |
 
 **Implementation**:
+
 ```astro
 <!-- Fish Species: 2-column responsive -->
 <div class="grid md:grid-cols-2 gap-6">
@@ -1015,6 +1054,7 @@ text-base                 /* 1rem (fixed) */
 ### 7.4 Spacing Responsive Scale
 
 **Vertical Rhythm**:
+
 ```css
 py-12 md:py-16           /* Section padding: 3rem → 4rem */
 mb-4 md:mb-6             /* Header margin: 1rem → 1.5rem */
@@ -1022,17 +1062,20 @@ gap-4 md:gap-6           /* Grid gap: 1rem → 1.5rem */
 ```
 
 **Container Padding**:
+
 ```astro
 <div class="container mx-auto px-4">
   <!-- Content -->
 </div>
 ```
+
 - `px-4` (1rem) on mobile provides breathing room
 - Container max-width handles desktop centering
 
 ### 7.5 Touch Target Sizing
 
 **Minimum Touch Targets** (WCAG 2.1 Level AAA):
+
 ```css
 /* Buttons */
 px-4 py-2                /* Min 44x44px hit area */
@@ -1053,6 +1096,7 @@ py-1                     /* Adequate vertical spacing */
 ### 8.1 Testing Strategy
 
 **Test Levels**:
+
 1. **Type Tests**: TypeScript compilation (build-time)
 2. **Unit Tests**: Zod schema validation
 3. **Component Tests**: Rendering with test data
@@ -1321,6 +1365,7 @@ graph TD
 ```
 
 **Validation Points**:
+
 1. **TypeScript Type Checking**: Compile-time prop interface validation
 2. **Zod Runtime Parsing**: Build-time data structure validation
 3. **Tailwind Purge**: Unused classes removed (validates class names exist)
@@ -1329,6 +1374,7 @@ graph TD
 ### 9.2 Error Handling Strategy
 
 **Example Validation Code** (in template frontmatter):
+
 ```astro
 ---
 import type { LakeTemplateProps } from '../../types/adventure';
@@ -1379,6 +1425,7 @@ try {
 ```
 
 **Error Message Example**:
+
 ```
 ❌ Lake Template Validation Error for "Summersville Lake":
 Fishing spot 3 ("Dam End") validation failed:
@@ -1390,6 +1437,7 @@ Build failed. Fix the data and try again.
 ### 9.3 CI/CD Integration
 
 **GitHub Actions Workflow** (`.github/workflows/build.yml`):
+
 ```yaml
 name: Build and Test
 
@@ -1574,6 +1622,7 @@ Props Flow:
 ### 10.3 Architecture Validation Checklist
 
 #### Completeness ✅
+
 - [x] All 6 custom sections architected (Hero, Where to Fish, Marina, Activities, Seasonal, Regulations)
 - [x] All 10 existing components identified for reuse
 - [x] Type system complete with 6 new schemas + master interface
@@ -1581,6 +1630,7 @@ Props Flow:
 - [x] Build-time validation strategy defined
 
 #### WVWO Aesthetic ✅
+
 - [x] Border radius enforcement (`rounded-sm` only)
 - [x] Font hierarchy defined (display/hand/body)
 - [x] Color palette mapped by section
@@ -1588,12 +1638,14 @@ Props Flow:
 - [x] Animation system with accessibility support
 
 #### Fishing Focus ✅
+
 - [x] Fish species section leverages existing component
 - [x] Fishing spots custom section detailed (depth/structure)
 - [x] Seasonal guide includes fishing focus field
 - [x] Kim's tips integration points defined
 
 #### Technical Soundness ✅
+
 - [x] File organization logical (templates/ directory)
 - [x] Import order standardized
 - [x] Props validation at build time
@@ -1601,6 +1653,7 @@ Props Flow:
 - [x] Test strategy covers all validation levels
 
 #### Implementation Ready ✅
+
 - [x] Component dependency hierarchy clear
 - [x] Custom section line counts estimated (~440 lines)
 - [x] Implementation checklist actionable
@@ -1611,6 +1664,7 @@ Props Flow:
 ## Appendix A: WVWO Design System Reference
 
 ### Typography
+
 ```css
 --font-display: 'Bitter', serif;           /* Headings */
 --font-hand: 'Permanent Marker', cursive;  /* Kim's tips */
@@ -1618,6 +1672,7 @@ Props Flow:
 ```
 
 ### Colors
+
 ```css
 --brand-brown: #3E2723;    /* Primary dark */
 --sign-green: #2E7D32;     /* Accent/CTAs */
@@ -1626,11 +1681,13 @@ Props Flow:
 ```
 
 ### Border Radius
+
 ```css
 rounded-sm: 0.125rem;  /* ONLY allowed value */
 ```
 
 ### Spacing Scale
+
 ```css
 py-12 md:py-16         /* Section padding */
 mb-4 md:mb-6           /* Header margins */

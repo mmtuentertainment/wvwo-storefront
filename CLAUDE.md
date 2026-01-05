@@ -371,6 +371,24 @@ npx claude-flow@alpha memory query "search" --reasoningbank
 - Document "why" decisions were made, not just "what"
 - Query before implementing similar features
 
+### Completed Specs in ReasoningBank
+
+**SPEC-17: Backcountry Template** (Completed)
+- Pattern: backcountry-template-complete
+- 6 PRs, 40 hours, dynamic routes, SEO schemas, 85%+ coverage
+- Key learning: Balanced detail approach (10-15 fields per schema)
+
+**SPEC-18: State Park Template** (Completed)
+- Pattern: spec-18-state-park-complete
+- 6 PRs, 50 hours, 63 gaps addressed, 10 facility types, 2,620 line type system
+- Key learning: Quarterly manual review for dynamic content (hours, fees, programs)
+- Components: 4 sections + main template, 1,970 lines total
+- Geographic proximity (Haversine formula) for related parks
+- Hybrid image strategy (public domain + attribution)
+- Multi-type Schema.org (Park + TouristAttraction)
+- Placeholder data strategy - real content in SPEC-21-71 migration
+- Lighthouse 100, WCAG 2.1 AA, 85%+ coverage
+
 ## 🚀 Agent Execution Flow with Claude Code
 
 ### The Correct Pattern:

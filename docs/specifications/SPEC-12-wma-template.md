@@ -15,12 +15,14 @@ WMA (Wildlife Management Area) pages share identical structure with only varying
 ## Problem Statement
 
 ### Current State
+
 - **elk-river.astro**: 463 lines (canonical reference)
 - **Other WMA pages**: 533+ lines each (8 pages × 533 = 4,264 total lines)
 - **Duplication rate**: 62% of each page is duplicated layout code
 - **Components ratio**: Only 38% uses shared components from SPEC-11
 
 ### Pain Points
+
 1. **Navigation changes**: Requires editing 8+ files manually
 2. **Style updates**: Risk of inconsistent implementation across pages
 3. **New features**: Must replicate to every WMA page individually
@@ -28,7 +30,9 @@ WMA (Wildlife Management Area) pages share identical structure with only varying
 5. **Maintenance burden**: Kim can't easily update WMA content without touching layout code
 
 ### Opportunity
+
 Extract the 62% duplicated structure into a reusable template:
+
 - **Before**: 533 lines per page (layout + content mixed)
 - **After**: 150 lines per page (content configuration only)
 - **Reduction**: 73% fewer lines per WMA page
@@ -43,6 +47,7 @@ The template will separate structure (DRY, maintained once) from content (what m
 ### Performance
 
 **Load Time & Bundle Size**
+
 - **Target**: < 2 seconds on 3G connections (rural WV baseline)
 - **Initial HTML**: < 50KB gzipped per WMA page
 - **Total page weight**: < 150KB including all assets (CSS, fonts, images)
@@ -51,6 +56,7 @@ The template will separate structure (DRY, maintained once) from content (what m
 - **Critical CSS**: Inline above-fold styles to eliminate render-blocking requests
 
 **Lighthouse Targets**
+
 - **Performance**: 100/100
 - **Accessibility**: 100/100
 - **Best Practices**: 100/100
@@ -63,6 +69,7 @@ The template will separate structure (DRY, maintained once) from content (what m
 **WCAG 2.1 AA Compliance** (mandatory by April 2026 West Virginia policy)
 
 **Screen Reader Support**
+
 - Semantic HTML5 landmarks (`<header>`, `<nav>`, `<main>`, `<aside>`, `<footer>`)
 - ARIA labels for all interactive elements
 - Proper heading hierarchy (h1 → h2 → h3, no skipped levels)
@@ -70,24 +77,28 @@ The template will separate structure (DRY, maintained once) from content (what m
 - Descriptive link text (avoid "click here" or "read more")
 
 **Keyboard Navigation**
+
 - All interactive elements reachable via Tab key
 - Visible focus indicators (2px solid outline, 3:1 contrast minimum)
 - Skip-to-content link for bypassing repetitive navigation
 - No keyboard traps in modals or expandable sections
 
 **Color Contrast**
+
 - **Text**: 4.5:1 minimum for body text (WCAG AA)
 - **Large text** (18pt+): 3:1 minimum
 - **Interactive elements**: 3:1 minimum against adjacent colors
 - **Brand palette compliance**: All WVWO colors (#3E2723, #2E7D32, #FFF8E1, #FF6F00) tested against backgrounds
 
 **Print Accessibility**
+
 - 8.5" × 11" portrait layout optimized for printing regulations/maps
 - High contrast black text on white background
 - Page breaks prevent awkward content splits
 - Print-only styles hide navigation and decorative elements
 
 **Testing Requirements**
+
 - Automated: axe DevTools, Lighthouse Accessibility
 - Manual: NVDA/JAWS screen reader verification
 - Keyboard-only navigation audit per WMA page
@@ -95,21 +106,25 @@ The template will separate structure (DRY, maintained once) from content (what m
 ### Security
 
 **Zero Client-Side Secrets**
+
 - No API keys, tokens, or credentials in HTML/CSS/JS
 - Static pages eliminate authentication attack surface
 - All external data (e.g., weather APIs) fetched server-side during build
 
 **Safe External Links**
+
 - `rel="noopener noreferrer"` on all external links (prevents `window.opener` attacks)
 - HTTPS-only links to West Virginia DNR, weather services, regulations
 - Content Security Policy (CSP) headers prevent inline script injection
 
 **Privacy**
+
 - No third-party tracking scripts (Google Analytics, etc.)
 - No cookies or local storage (eliminates GDPR/CCPA compliance burden)
 - No external fonts from CDNs (privacy + performance)
 
 **Build-Time Validation**
+
 - Automated checks for hardcoded secrets in CI/CD
 - Link checker ensures no broken or insecure (HTTP) links
 - Dependency scanning for vulnerable packages (npm audit)
@@ -424,6 +439,7 @@ The template will separate structure (DRY, maintained once) from content (what m
 The WMA template leverages the existing `adventures` collection with **8 optional fields** added to the schema. This zero-breaking-changes approach allows existing adventure entries to continue working while WMA-specific content uses additional fields.
 
 **Design Principles**:
+
 1. All WMA fields are optional (`.optional()`)
 2. Existing adventures remain valid without changes
 3. TypeScript type inference works automatically via Zod
@@ -517,16 +533,19 @@ function isWMAAdventure(adventure: AdventureEntry): boolean {
 #### Migration Strategy
 
 **Phase 1: Schema Extension** (This SPEC)
+
 - Add 8 optional WMA fields to `content.config.ts`
 - No changes required to existing adventure entries
 - TypeScript types auto-update via Zod inference
 
 **Phase 2: Content Population** (SPEC-21 onwards)
+
 - Migrate elk-river.md frontmatter to use new fields
 - Test WMATemplate with real data
 - Repeat for remaining 7 WMA pages
 
 **Phase 3: Template Integration**
+
 - WMATemplate.astro consumes `adventure.data.wma_*` fields
 - Falls back gracefully if fields are undefined
 - Conditional rendering for optional sections
@@ -573,6 +592,7 @@ wma_regulations:
 ```
 
 **Backwards Compatibility Guarantee**:
+
 - Existing adventures without WMA fields continue working
 - No runtime errors from undefined fields
 - TypeScript enforces optional checks at compile time

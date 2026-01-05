@@ -48,6 +48,7 @@
 ```
 
 **Benefits**:
+
 - Screen readers announce landmark regions
 - Keyboard users skip to main content
 - Clear page structure
@@ -69,6 +70,7 @@
 ```
 
 **Rules**:
+
 - Single h1 per page (SEO + A11y)
 - No heading skips (h2 → h3, never h2 → h4)
 - Logical nesting (h3s under h2s)
@@ -86,12 +88,14 @@
 ### WVWO Palette Compliance
 
 **Passing Combinations**:
+
 - brand-brown (#3E2723) on cream (#FFF8E1): **13.8:1** ✅
 - sign-green (#2E7D32) on cream (#FFF8E1): **6.2:1** ✅
 - white (#FFFFFF) on sign-green (#2E7D32): **6.8:1** ✅
 - white (#FFFFFF) on brand-brown (#3E2723): **12.1:1** ✅
 
 **Borderline (Requires Testing)**:
+
 - brand-orange (#FF6F00) on white (#FFFFFF): **3.7:1** ⚠️
   - Fails for normal text (<18pt)
   - Passes for large text (≥18pt)
@@ -172,6 +176,7 @@
 ```
 
 **Screen Reader Only Class**:
+
 ```css
 .sr-only {
   position: absolute;
@@ -265,6 +270,7 @@
 ```
 
 **Benefits**:
+
 - Screen readers can navigate table
 - Keyboard users can access all data
 - Works without images enabled

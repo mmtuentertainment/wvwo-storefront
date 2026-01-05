@@ -199,29 +199,34 @@
 
 ## Parallelization Opportunities
 
-### After T-006 Completes (Types Verified):
+### After T-006 Completes (Types Verified)
+
 - T-007 (GettingThere Props) can run in PARALLEL with
 - T-010 (GearChecklist Props) can run in PARALLEL with
 - T-013 (RelatedShop Props)
 
-### Sequential Within Each Component:
+### Sequential Within Each Component
+
 - Props -> Template -> Styles (must be sequential per component)
 
-### Integration Must Be Last:
+### Integration Must Be Last
+
 - All 3 components must complete before integration begins
 
 ---
 
 ## Implementation Notes
 
-### Key Files to Modify:
+### Key Files to Modify
+
 1. `wv-wild-web/src/types/adventure.ts` - Type extensions
 2. `wv-wild-web/src/components/adventure/AdventureGettingThere.astro` - NEW
 3. `wv-wild-web/src/components/adventure/AdventureGearChecklist.astro` - NEW
 4. `wv-wild-web/src/components/adventure/AdventureRelatedShop.astro` - NEW
 5. `wv-wild-web/src/pages/near/summersville-lake.astro` - Integration
 
-### Pattern Reference:
+### Pattern Reference
+
 - `wv-wild-web/src/components/adventure/AdventureQuickStats.astro` (SPEC-10)
 
 ---

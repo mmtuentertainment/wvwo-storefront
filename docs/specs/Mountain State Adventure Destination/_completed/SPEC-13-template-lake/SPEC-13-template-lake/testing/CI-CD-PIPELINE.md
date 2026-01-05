@@ -583,11 +583,13 @@ echo "✅ All pre-push checks passed!"
 ```
 
 Make executable:
+
 ```bash
 chmod +x scripts/pre-push-spec-13.sh
 ```
 
 Run before pushing:
+
 ```bash
 ./scripts/pre-push-spec-13.sh
 ```
@@ -654,11 +656,13 @@ Branch Protection Rules for 'main':
 ### Email Notifications
 
 GitHub automatically sends email to:
+
 - PR author
 - Reviewers
 - Watchers
 
 On test failure, includes:
+
 - Failed job names
 - Link to workflow run
 - Artifact downloads (reports, screenshots)
@@ -730,6 +734,7 @@ GitHub Actions minutes (free tier: 2,000 min/month):
 - Well within free tier limit
 
 **Tips to reduce costs**:
+
 1. Use `concurrency` to cancel outdated runs
 2. Set aggressive `timeout-minutes` (10min max per job)
 3. Use `paths` filter to skip irrelevant changes

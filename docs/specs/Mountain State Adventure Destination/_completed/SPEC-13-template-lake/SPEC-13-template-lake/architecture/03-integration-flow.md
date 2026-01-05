@@ -432,6 +432,7 @@ acreage: 2790,  // ✅ Correct: number type
 ### 5.3 Lighthouse Score Projections
 
 **With Max Array Sizes**:
+
 - Performance: 92+ (LCP <2.5s, FCP <1.5s)
 - Accessibility: 98+ (semantic HTML, ARIA labels)
 - SEO: 100 (structured data, meta tags)
@@ -479,6 +480,7 @@ acreage: 2790,  // ✅ Correct: number type
 ### 7.1 Existing Lake Pages
 
 **Current Lake Pages** (as of 2025-12-29):
+
 - `wv-wild-web/src/pages/near/summersville-lake.astro` (364 lines)
 - `wv-wild-web/src/pages/near/stonewall-jackson-lake.astro`
 - `wv-wild-web/src/pages/near/burnsville-lake.astro`

@@ -19,7 +19,7 @@
 | **Nightly Fees** | $20-40 (varies by site type and season) | Recreation.gov current rates |
 | **Pets** | Allowed (leashed) | USACE pet policy |
 | **Reservations** | Required (book via Recreation.gov) | Recreation.gov booking system |
-| **Direct Booking URL** | https://www.recreation.gov/camping/campgrounds/233443 | Recreation.gov |
+| **Direct Booking URL** | <https://www.recreation.gov/camping/campgrounds/233443> | Recreation.gov |
 
 **Historical Note:** Bulltown Campground is adjacent to a Civil War battle site. The area hosts historical reenactments and interpretive programs seasonally.
 
@@ -38,7 +38,7 @@
 | **Nightly Fees** | $12-28 (primitive $12, full hookup $28) | Recreation.gov current rates |
 | **Pets** | Allowed (leashed) | USACE pet policy |
 | **Reservations** | Required (book via Recreation.gov) | Recreation.gov booking system |
-| **Direct Booking URL** | https://www.recreation.gov/camping/campgrounds/10234906 | Recreation.gov |
+| **Direct Booking URL** | <https://www.recreation.gov/camping/campgrounds/10234906> | Recreation.gov |
 
 **Note:** Riffle Run offers a mix of developed and primitive camping options at lower price points than Bulltown.
 
@@ -53,7 +53,7 @@
 | **Type** | Day-use only (no overnight camping) | USACE facility type |
 | **Amenities** | Covered picnic shelters, Tables, Grills | Recreation.gov |
 | **Reservations** | Required for shelter rental | Recreation.gov |
-| **Direct Booking URL** | https://www.recreation.gov/camping/campgrounds/234232 | Recreation.gov |
+| **Direct Booking URL** | <https://www.recreation.gov/camping/campgrounds/234232> | Recreation.gov |
 
 ---
 
@@ -61,6 +61,7 @@
 
 **Drive Time:** 45 minutes
 **Route from Shop (I-79 Exit 57):**
+
 1. Head north on US-19 toward I-79
 2. Take I-79 North to Exit 67 (Burnsville)
 3. Follow signs to Burnsville Lake campgrounds
@@ -73,13 +74,13 @@
 ## Research Sources
 
 1. **Recreation.gov** - Official federal recreation booking platform
-   - https://www.recreation.gov/camping/campgrounds/233443 (Bulltown)
-   - https://www.recreation.gov/camping/campgrounds/10234906 (Riffle Run)
-   - https://www.recreation.gov/camping/campgrounds/234232 (Picnic Shelters)
+   - <https://www.recreation.gov/camping/campgrounds/233443> (Bulltown)
+   - <https://www.recreation.gov/camping/campgrounds/10234906> (Riffle Run)
+   - <https://www.recreation.gov/camping/campgrounds/234232> (Picnic Shelters)
 
 2. **U.S. Army Corps of Engineers - Huntington District**
    - USACE manages all Burnsville Lake campgrounds
-   - https://www.lrh.usace.army.mil/
+   - <https://www.lrh.usace.army.mil/>
 
 3. **Corps Lakes Gateway Database** - USACE facility inventory
 
@@ -93,6 +94,7 @@
 - **Historical Angle:** Civil War battle site adds cultural/historical appeal beyond just camping
 
 ### Recommended Page Content
+
 - Link directly to Recreation.gov booking pages (verified URLs above)
 - Emphasize proximity to Burnsville Lake WMA (hunting land) + shop (licenses/gear)
 - Mention full hookup availability for out-of-state RV travelers

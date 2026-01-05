@@ -1,6 +1,7 @@
 # SPARC Task Specification: Sutton Lake Recreation Area Page
 
 ## META
+
 - **Version**: 2.0
 - **Generated**: 2025-12-12
 - **Methodology**: Lean + Verified + Authentic Local
@@ -11,9 +12,11 @@
 ## 1. SPECIFICATION
 
 ### 1.1 Objective
+
 Build a lean, verified Sutton Lake detail page that drives anglers and campers to WVWO shop. Focus on fishing and camping (not hunting - it's an Army Corps lake, not WMA).
 
 ### 1.2 Context
+
 | Field | Value |
 |-------|-------|
 | **Target File** | `wv-wild-web/src/pages/near/sutton-lake.astro` |
@@ -25,6 +28,7 @@ Build a lean, verified Sutton Lake detail page that drives anglers and campers t
 | **SEO Target** | "fishing near I-79 WV", "camping near Birch River", "Sutton Lake fishing" |
 
 ### 1.3 Success Criteria
+
 - [ ] Page builds without errors (`npm run build`)
 - [ ] All facts verified with official sources (USACE, WV DNR)
 - [ ] Place schema validates (schema.org/Place)
@@ -34,6 +38,7 @@ Build a lean, verified Sutton Lake detail page that drives anglers and campers t
 - [ ] `near/index.astro` updated with `hasDetailPage: true`
 
 ### 1.4 Constraints
+
 | Constraint | Reason |
 |------------|--------|
 | Astro + Tailwind only | Tech stack - no React/Vue |

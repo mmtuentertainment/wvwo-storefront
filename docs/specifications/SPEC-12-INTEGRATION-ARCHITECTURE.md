@@ -36,6 +36,7 @@ import WMATemplate from '../../layouts/WMATemplate.astro';
 ```
 
 **Rationale**:
+
 - Kim needs ability to customize specific WMA pages (e.g., add special events to Elk River)
 - Layout component pattern preserves flexibility while enforcing consistency
 - Easier migration path: convert pages incrementally vs. all-at-once
@@ -100,6 +101,7 @@ const wmaData = {
 ```
 
 **Key Principles**:
+
 1. **Pure Data Configuration**: WMA pages contain only content, zero layout logic
 2. **Component Orchestration**: Template composes 10 components in canonical order
 3. **Variant System**: Alternating `variant="cream"` and `variant="white"` for visual rhythm
@@ -130,60 +132,70 @@ const CANONICAL_SECTION_ORDER = [
 ### 2.2 Order Rationale
 
 **1. AdventureHero** (SPEC-09)
+
 - **Why First**: Immediate visual impact, sets context, LCP optimization
 - **User Need**: "What is this place? Where is it? How hard is the terrain?"
 - **Variant**: Dark brown (`bg-brand-brown`) with camo pattern overlay
 - **Data**: Title, description, difficulty, season, drive time, hero image
 
 **2. AdventureQuickStats** (SPEC-10)
+
 - **Why Second**: Fast facts above fold - acreage, location, access, drive time
 - **User Need**: "How big? How far? Can I access year-round?"
 - **Variant**: `white` (clean break from dark hero)
 - **Data**: 4-column grid of key metrics
 
 **3. WMASpeciesGrid** (SPEC-12)
+
 - **Why Third**: Primary user intent for WMA pages = "What can I hunt?"
 - **User Need**: "Deer season dates? Turkey tips? Bear regulations?"
 - **Variant**: `cream` (warm, inviting for Kim's hunting tips)
 - **Data**: Species array with seasons, descriptions, Kim's notes
 
 **4. WMAFishingWaters** (SPEC-12)
+
 - **Why Fourth**: Secondary opportunity after hunting info
 - **User Need**: "Can I fish here? What species? Where are access points?"
 - **Variant**: `white` (clean separation from hunting content)
 - **Data**: Named waters with species, access descriptions
 
 **5. AdventureGettingThere** (SPEC-11)
+
 - **Why Fifth**: User now knows WHAT to do, needs to know HOW to get there
 - **User Need**: "Directions from shop? GPS coordinates? Parking?"
 - **Variant**: `cream` (softer background for route instructions)
 - **Data**: Step-by-step routes, map links, parking notes
 
 **6. WMAFacilitiesGrid** (SPEC-12)
+
 - **Why Sixth**: Planning logistics after knowing destination
 - **User Need**: "Parking count? Boat ramps? Shooting ranges? Restrooms?"
 - **Variant**: `white` (grid content benefits from clean background)
 - **Data**: Facilities array with types, counts, descriptions
 
 **7. WMACampingList** (SPEC-12)
+
 - **Why Seventh**: Optional overnight planning
 - **User Need**: "Campsites available? Primitive or RV? Reservations needed?"
 - **Variant**: `cream` (warm, inviting for overnight info)
 - **Data**: Campsite types, amenities, availability notes
 
 **8. AdventureGearChecklist** (SPEC-11)
+
 - **Why Eighth**: Final prep before trip (shop cross-sell opportunity)
 - **User Need**: "What should I pack? What gear do I need for this terrain?"
 - **Variant**: `white` (clean grid for checklists)
 - **Data**: Gear items by category with shop links
 
 **9. WMARegulations** (SPEC-12)
+
 - **Why Ninth**: Legal requirements before hunt (CRITICAL but not first priority)
 - **User Need**: "Zone restrictions? Blaze orange required? Closure dates?"
 - **Variant**: `cream` with `border-l-brand-orange` (safety emphasis)
 - **Data**: DNR zone, restrictions array, contact info
 
 **10. AdventureRelatedShop** (SPEC-11)
+
 - **Why Last**: Conversion opportunity after informational content
 - **User Need**: "What categories in shop match this terrain/season?"
 - **Variant**: `white` (clean finish, shop CTA)
@@ -192,17 +204,20 @@ const CANONICAL_SECTION_ORDER = [
 ### 2.3 Enforcement vs. Flexibility
 
 **Template Enforces**:
+
 - Hero ALWAYS first (SEO, LCP, visual hierarchy)
 - QuickStats ALWAYS second (above-fold fast facts)
 - Regulations ALWAYS near end (legal info after planning)
 - RelatedShop ALWAYS last (conversion funnel)
 
 **Template Allows Flexibility**:
+
 - Middle sections (3-8) can reorder based on WMA-specific priorities
 - Sections can be omitted via conditional rendering (see Section 4)
 - Custom sections can inject via slot composition (see Section 5)
 
 **Example Custom Order** (Fishing-Heavy WMA like Sutton Lake):
+
 ```astro
 <!-- Fishing-first variant for Sutton Lake WMA -->
 <AdventureHero {...hero} />
@@ -246,20 +261,24 @@ const sections = [
 
 ### 3.2 Visual Rhythm Goals
 
-**1. Prevent Monotony**
+### 1. Prevent Monotony
+
 - Without alternation: All-cream or all-white creates visual fatigue
 - With alternation: Eye naturally segments content into digestible chunks
 
-**2. Section Delineation**
+### 2. Section Delineation
+
 - Background change acts as visual separator (reduces need for heavy borders)
 - Improves scanability: "Where does hunting info end and fishing begin?"
 
-**3. WVWO Aesthetic Compliance**
+### 3. WVWO Aesthetic Compliance
+
 - Cream (`#FFF8E1`): Warm, aged paper, deer hide texture
 - White (`#FFFFFF`): Clean, utilitarian, hardware store shelving
 - Alternation creates "rustic modern" balance per CLAUDE.md
 
-**4. Accessibility Enhancement**
+### 4. Accessibility Enhancement
+
 - High contrast maintained: Text is `brand-brown` (#3E2723) on both backgrounds
 - WCAG AA compliant: 4.5:1+ contrast ratio on cream and white
 - No cognitive load from color-coded sections (patterns, not hues)
@@ -267,6 +286,7 @@ const sections = [
 ### 3.3 Edge Cases
 
 **Case 1: Section Omitted via Conditional Rendering**
+
 ```astro
 <!-- If fishing data is undefined, skip WMAFishingWaters -->
 <AdventureHero variant="brown" />
@@ -282,7 +302,8 @@ const sections = [
 ))}
 ```
 
-**Case 2: Custom Section Injection**
+### Case 2: Custom Section Injection
+
 ```astro
 <!-- Kim adds custom "Special Events" section -->
 <WMASpeciesGrid variant="cream" />
@@ -290,7 +311,8 @@ const sections = [
 <WMAFishingWaters variant="cream" />            <!-- Continues alternation -->
 ```
 
-**Case 3: Mobile Stacking Considerations**
+### Case 3: Mobile Stacking Considerations
+
 - All sections stack vertically on mobile (<768px)
 - Background alternation MORE important on mobile (helps scanning)
 - No horizontal scrolling, so color changes mark section boundaries clearly
@@ -331,6 +353,7 @@ function shouldRender({ data, minItems = 1, requiredFields = [] }: ConditionalRe
 ### 4.2 Per-Component Conditional Logic
 
 **WMASpeciesGrid** (SPEC-12)
+
 ```astro
 ---
 const { species } = Astro.props;
@@ -343,6 +366,7 @@ const shouldRender = species && species.length > 0;
   </section>
 )}
 ```
+
 **Conditional**: Hide if `species` array is empty or undefined
 **Rationale**: WMAs without hunting data (e.g., fishing-only areas) skip this section
 **Impact**: Prevents "No data available" placeholder text
@@ -350,6 +374,7 @@ const shouldRender = species && species.length > 0;
 ---
 
 **WMAFishingWaters** (SPEC-12)
+
 ```astro
 ---
 const { waters } = Astro.props;
@@ -362,6 +387,7 @@ const hasWaters = waters && waters.length > 0;
   </section>
 )}
 ```
+
 **Conditional**: Hide if `waters` array is empty
 **Rationale**: Mountainous WMAs without significant water bodies skip fishing section
 **Impact**: Keeps pages focused on available opportunities
@@ -369,6 +395,7 @@ const hasWaters = waters && waters.length > 0;
 ---
 
 **WMACampingList** (SPEC-12)
+
 ```astro
 ---
 const { camping } = Astro.props;
@@ -381,6 +408,7 @@ const hasCamping = camping && (camping.sites > 0 || camping.primitiveAllowed);
   </section>
 )}
 ```
+
 **Conditional**: Hide if no campsites AND primitive camping prohibited
 **Rationale**: Day-use-only WMAs skip camping logistics
 **Impact**: Reduces content bloat for non-camping areas
@@ -388,6 +416,7 @@ const hasCamping = camping && (camping.sites > 0 || camping.primitiveAllowed);
 ---
 
 **AdventureGearChecklist** (SPEC-11)
+
 ```astro
 ---
 const { gear } = Astro.props;
@@ -400,6 +429,7 @@ const hasGear = gear && gear.length >= 3; // Minimum 3 items to justify checklis
   </section>
 )}
 ```
+
 **Conditional**: Hide if fewer than 3 gear items
 **Rationale**: Short gear lists look sparse in grid layout
 **Impact**: Maintains visual density standards
@@ -407,6 +437,7 @@ const hasGear = gear && gear.length >= 3; // Minimum 3 items to justify checklis
 ---
 
 **WMAFacilitiesGrid** (SPEC-12)
+
 ```astro
 ---
 const { facilities } = Astro.props;
@@ -419,6 +450,7 @@ const hasFacilities = facilities && facilities.some(f => f.count > 0);
   </section>
 )}
 ```
+
 **Conditional**: Hide if all facility counts are zero
 **Rationale**: Undeveloped WMAs with no infrastructure skip facilities
 **Impact**: Prevents "0 parking areas, 0 boat ramps" empty state
@@ -430,6 +462,7 @@ const hasFacilities = facilities && facilities.some(f => f.count > 0);
 **Principle**: Pages with minimal data still render useful, non-broken layout
 
 **Minimum Viable WMA Page**:
+
 ```astro
 <!-- Even with ONLY hero + stats, page is functional -->
 <AdventureHero title="New WMA" description="..." difficulty="moderate" season="Fall" />
@@ -440,6 +473,7 @@ const hasFacilities = facilities && facilities.some(f => f.count > 0);
 ```
 
 **Progressive Enhancement**:
+
 1. **Level 1**: Hero + Stats (bare minimum)
 2. **Level 2**: + Species Grid + Getting There (hunting basics)
 3. **Level 3**: + Facilities + Gear (full trip planning)
@@ -471,6 +505,7 @@ interface SlotDefinition {
 ### 5.2 Per-Component Slot Inventory
 
 **AdventureHero** (SPEC-09)
+
 ```astro
 <AdventureHero {...props}>
   <!-- Slot 1: Default (below description) -->
@@ -498,6 +533,7 @@ interface SlotDefinition {
 ```
 
 **Usage Scenarios**:
+
 - **Default**: Kim's firsthand WMA experiences ("I've hunted here 20+ years...")
 - **badge-extra**: Seasonal promotions ("Opening Week Special!")
 - **cta**: WMA-specific actions (download map, view webcam, check closures)
@@ -506,6 +542,7 @@ interface SlotDefinition {
 ---
 
 **WMASpeciesGrid** (SPEC-12)
+
 ```astro
 <WMASpeciesGrid species={species} variant="cream">
   <!-- Slot: intro (before species cards) -->
@@ -523,12 +560,14 @@ interface SlotDefinition {
 ```
 
 **Usage Scenarios**:
+
 - **intro**: Zone context, licensing reminders, general hunting tips
 - **footer**: External regulation links, season closure notices
 
 ---
 
 **WMAFacilitiesGrid** (SPEC-12)
+
 ```astro
 <WMAFacilitiesGrid facilities={facilities} variant="white">
   <!-- Slot: accessibility-note (footer slot) -->
@@ -542,11 +581,13 @@ interface SlotDefinition {
 ```
 
 **Usage Scenarios**:
+
 - **footer**: Accessibility details, facility hours, contact info for reservations
 
 ---
 
 **WMARegulations** (SPEC-12)
+
 ```astro
 <WMARegulations restrictions={restrictions} zone="Zone 3" variant="cream">
   <!-- Slot: footer (external links to DNR resources) -->
@@ -562,11 +603,13 @@ interface SlotDefinition {
 ```
 
 **Usage Scenarios**:
+
 - **footer**: Links to DNR regulation PDFs, zone maps, closure calendar
 
 ---
 
 **AdventureGearChecklist** (SPEC-11)
+
 ```astro
 <AdventureGearChecklist gear={gear} columns={3} variant="white">
   <!-- Slot: header-extra (above gear grid) -->
@@ -586,6 +629,7 @@ interface SlotDefinition {
 ```
 
 **Usage Scenarios**:
+
 - **header-extra**: Terrain-specific warnings (cell coverage, water sources)
 - **cta**: Shop cross-sell buttons
 
@@ -593,7 +637,8 @@ interface SlotDefinition {
 
 ### 5.3 Slot Composition Patterns
 
-**Pattern 1: Progressive Disclosure**
+### Pattern 1: Progressive Disclosure
+
 ```astro
 <!-- Base content ALWAYS visible -->
 <WMASpeciesGrid species={species}>
@@ -611,7 +656,8 @@ interface SlotDefinition {
 </WMASpeciesGrid>
 ```
 
-**Pattern 2: Conditional Slot Content**
+### Pattern 2: Conditional Slot Content
+
 ```astro
 <!-- Show slot content ONLY during specific seasons -->
 {season === 'fall' && (
@@ -624,7 +670,8 @@ interface SlotDefinition {
 )}
 ```
 
-**Pattern 3: Nested Component Slots**
+### Pattern 3: Nested Component Slots
+
 ```astro
 <!-- Use slot to inject another component -->
 <WMAFacilitiesGrid facilities={facilities}>
@@ -642,6 +689,7 @@ interface SlotDefinition {
 ### 6.1 SPEC-09: AdventureHero Integration
 
 **Current Implementation** (elk-river.astro lines 52-77):
+
 ```astro
 <!-- BEFORE: Hardcoded hero section (26 lines of layout code) -->
 <section class="bg-brand-brown text-white py-16 md:py-24 relative overflow-hidden">
@@ -668,6 +716,7 @@ interface SlotDefinition {
 ```
 
 **AFTER Integration** (2 lines of component usage):
+
 ```astro
 <AdventureHero
   title="Elk River WMA"
@@ -683,6 +732,7 @@ interface SlotDefinition {
 
 **Reduction**: 26 lines → 2 lines (92% reduction)
 **Benefits**:
+
 - Automatic SEO schema injection via `schema-extra` slot
 - Consistent badge styling across all WMAs
 - Accessible heading hierarchy (h1 with proper aria-labelledby)
@@ -693,6 +743,7 @@ interface SlotDefinition {
 ### 6.2 SPEC-10: AdventureQuickStats Integration
 
 **Current Implementation** (elk-river.astro lines 80-101):
+
 ```astro
 <!-- BEFORE: Hardcoded stats grid (22 lines of layout code) -->
 <section class="py-8 bg-white border-b border-brand-brown/15">
@@ -713,6 +764,7 @@ interface SlotDefinition {
 ```
 
 **AFTER Integration** (1 line of component usage):
+
 ```astro
 <AdventureQuickStats
   stats={[
@@ -728,6 +780,7 @@ interface SlotDefinition {
 
 **Reduction**: 22 lines → 1 line (95% reduction)
 **Benefits**:
+
 - Semantic `<dl>` markup for screen readers
 - Icon system integration (STAT_ICON_PATHS from adventure.ts)
 - Configurable column counts (2/3/4) for responsive grids
@@ -738,6 +791,7 @@ interface SlotDefinition {
 ### 6.3 SPEC-11: Shared Components Integration
 
 **AdventureGettingThere** (replaces lines 212-245):
+
 ```astro
 <!-- BEFORE: 34 lines of hardcoded directions -->
 <section class="py-12 md:py-16">
@@ -788,6 +842,7 @@ interface SlotDefinition {
 
 **Reduction**: 34 lines → 1 component call
 **Benefits**:
+
 - Route variant colors (green/orange) for visual distinction
 - Automatic numbered list semantics (`<ol>`)
 - Slot for additional notes/parking info
@@ -795,6 +850,7 @@ interface SlotDefinition {
 ---
 
 **AdventureGearChecklist** (replaces lines 330-411):
+
 ```astro
 <!-- BEFORE: 82 lines of hardcoded gear lists -->
 <!-- AFTER: Component usage -->
@@ -833,6 +889,7 @@ interface SlotDefinition {
 
 **Reduction**: 82 lines → 1 component call
 **Benefits**:
+
 - Responsive grid layout (1-4 columns)
 - Checkmark icons for visual scanning
 - Shop cross-sell integration via CTA slot
@@ -840,6 +897,7 @@ interface SlotDefinition {
 ---
 
 **AdventureRelatedShop** (new bottom section):
+
 ```astro
 <AdventureRelatedShop
   categories={[
@@ -864,6 +922,7 @@ interface SlotDefinition {
 ```
 
 **Benefits**:
+
 - Automatic category card layout
 - Shop link integration
 - Conversion funnel optimization (placed at page bottom)
@@ -882,6 +941,7 @@ interface SlotDefinition {
 | **TOTAL** | | **164** | **6** | **96%** | Systematic reduction |
 
 **Additional WMA-Specific Components** (SPEC-12):
+
 - WMASpeciesGrid (replaces lines 104-172: 68 lines → 1 component)
 - WMAFishingWaters (replaces lines 175-209: 34 lines → 1 component)
 - WMAFacilitiesGrid (replaces lines 248-327: 79 lines → 1 component)
@@ -889,6 +949,7 @@ interface SlotDefinition {
 - WMACampingList (new section for overnight info)
 
 **Grand Total Reduction**:
+
 - **Before**: 533 lines (layout + content mixed)
 - **After**: ~150 lines (pure content configuration)
 - **Reduction**: 73% fewer lines per WMA page
@@ -1227,6 +1288,7 @@ Need to standardize 8+ WMA pages while allowing per-page customization (e.g., sp
 Use layout component pattern (`WMATemplate.astro` imported by individual pages) instead of dynamic route pattern (`[...slug].astro` fetching Content Collections).
 
 **Consequences**:
+
 - ✅ Kim can customize specific WMA pages via slot injection
 - ✅ Incremental migration: convert pages one-by-one vs. all-at-once
 - ✅ Easier debugging: each page is explicit file vs. dynamic lookup
@@ -1247,6 +1309,7 @@ Visual monotony from all-cream or all-white backgrounds makes content hard to sc
 Implement `variant` prop on all section components supporting `'white' | 'cream'` values. Template enforces alternation pattern: white → cream → white → cream.
 
 **Consequences**:
+
 - ✅ Improved scanability: background changes mark section boundaries
 - ✅ WVWO aesthetic compliance: cream/white palette matches brand
 - ✅ Accessibility: maintains 4.5:1+ contrast ratio on both backgrounds
@@ -1267,6 +1330,7 @@ Not all WMAs have fishing waters, camping, or all facilities. Need to hide secti
 Each component implements internal conditional rendering. Template always calls all components; components self-hide when data is undefined/empty.
 
 **Consequences**:
+
 - ✅ Template remains simple: no complex `{#if}` blocks
 - ✅ Graceful degradation: minimal-data WMAs still render functional pages
 - ✅ DRY principle: conditional logic lives in component, not duplicated across 8 WMA pages
@@ -1287,6 +1351,7 @@ Need to support custom content (Kim's notes, seasonal alerts, external links) wi
 Use Astro named slots (`intro`, `footer`, `cta`, `aside`) for content injection points instead of props for every possible custom field.
 
 **Consequences**:
+
 - ✅ Unlimited flexibility: Kim can inject any HTML/components via slots
 - ✅ No prop explosion: components stay focused with 5-8 props max
 - ✅ Type safety maintained: TypeScript enforces required props, slots are optional
@@ -1308,6 +1373,7 @@ Use Astro named slots (`intro`, `footer`, `cta`, `aside`) for content injection 
 ### 9.2 Integration Checklist
 
 **For Each New WMA Page**:
+
 - [ ] Hero section uses `AdventureHero` component (SPEC-09)
 - [ ] Stats grid uses `AdventureQuickStats` component (SPEC-10)
 - [ ] Getting There uses `AdventureGettingThere` component (SPEC-11)
@@ -1325,16 +1391,19 @@ Use Astro named slots (`intro`, `footer`, `cta`, `aside`) for content injection 
 ### 9.3 Success Metrics
 
 **Code Reduction**:
+
 - **Before**: 533 lines per WMA page (4,264 total across 8 pages)
 - **After**: 150 lines per WMA page (1,200 total)
 - **Savings**: 3,064 lines removed (73% reduction)
 
 **Maintainability**:
+
 - Navigation changes: 1 commit → 8 pages updated automatically
 - Component improvements: Propagate to all WMAs instantly
 - New WMA addition: 30 minutes vs. 2+ hours (87% time savings)
 
 **User Experience**:
+
 - Consistent layout across all WMA pages
 - Predictable navigation patterns
 - Accessible WCAG 2.1 AA compliant structure
@@ -1366,16 +1435,19 @@ See SPEC-12-API-INTERFACE-DESIGN.md for complete TypeScript interfaces.
 ### C. Migration Roadmap
 
 **Phase 1** (SPEC-12 Implementation):
+
 - Create 5 new WMA-specific components
 - Extend adventures schema with 8 optional fields
 - Build integration tests for component composition
 
 **Phase 2** (SPEC-21+):
+
 - Migrate elk-river.astro to template (reference implementation)
 - Test with real production data
 - Document any template adjustments needed
 
 **Phase 3** (Future):
+
 - Migrate remaining 7 WMA pages
 - Archive old hardcoded sections
 - Celebrate 73% codebase reduction 🎉

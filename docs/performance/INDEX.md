@@ -5,12 +5,14 @@
 ## Quick Navigation
 
 ### 🚀 Getting Started
+
 - **[QUICK-START.md](./QUICK-START.md)** - 10-minute setup guide
   - Run all optimizations
   - Update components
   - Build and test
 
 ### 📚 Comprehensive Guide
+
 - **[PERFORMANCE-OPTIMIZATION-GUIDE.md](./PERFORMANCE-OPTIMIZATION-GUIDE.md)** - Complete reference
   - Detailed task breakdowns (T-029 to T-033)
   - Code examples and usage
@@ -18,18 +20,21 @@
   - Success criteria
 
 ### ✅ Implementation Tracking
+
 - **[IMPLEMENTATION-CHECKLIST.md](./IMPLEMENTATION-CHECKLIST.md)** - Step-by-step checklist
   - Per-page tracking for all 5 WMAs
   - Verification steps
   - Testing procedures
 
 ### 🧪 Testing Documentation
+
 - **[../tests/performance/README.md](../../tests/performance/README.md)** - Testing suite
   - Lighthouse audit guide
   - Bundle analysis guide
   - CI/CD integration
 
 ### 📊 Completion Report
+
 - **[T-029-T-033-COMPLETION-REPORT.md](./T-029-T-033-COMPLETION-REPORT.md)** - Task summary
   - All deliverables created
   - Files and scripts inventory
@@ -40,6 +45,7 @@
 ## Tasks Overview
 
 ### T-029: Image Optimization
+
 **Goal**: Hero images <500KB, WebP format, responsive srcsets
 
 **Script**: `wv-wild-web/scripts/performance/image-optimizer.mjs`
@@ -51,6 +57,7 @@
 ---
 
 ### T-030: CSS Optimization
+
 **Goal**: Extract critical CSS, inline in <head>, defer full CSS
 
 **Script**: `wv-wild-web/scripts/performance/critical-css-extractor.mjs`
@@ -62,6 +69,7 @@
 ---
 
 ### T-031: Font Optimization
+
 **Goal**: Subset WVWO fonts, preload critical, target <75KB
 
 **Script**: `wv-wild-web/scripts/performance/font-optimizer.mjs`
@@ -73,6 +81,7 @@
 ---
 
 ### T-032: Lighthouse Audits
+
 **Goal**: Achieve ≥95/100 Performance on all 5 WMAs
 
 **Script**: `tests/performance/lighthouse-audit.mjs`
@@ -84,6 +93,7 @@
 ---
 
 ### T-033: Bundle Analysis
+
 **Goal**: Validate page weight <500KB, identify bottlenecks
 
 **Script**: `tests/performance/bundle-analyzer.mjs`
@@ -109,17 +119,20 @@ All optimizations target these 5 pages:
 ## Performance Targets (SPEC-12)
 
 **Lighthouse**:
+
 - Performance: ≥95/100
 - Accessibility: ≥90/100
 - Best Practices: ≥90/100
 - SEO: ≥90/100
 
 **Core Web Vitals**:
+
 - LCP (Largest Contentful Paint): <2.5s
 - FID (First Input Delay): <100ms
 - CLS (Cumulative Layout Shift): <0.1
 
 **Page Weight**:
+
 - Total: <500KB
 - JS: <150KB
 - CSS: <15KB
@@ -127,6 +140,7 @@ All optimizations target these 5 pages:
 - Fonts: <75KB
 
 **Load Time**:
+
 - 3G network: <2 seconds
 
 ---
@@ -227,17 +241,20 @@ npm run perf:lighthouse # T-032: Lighthouse audits
 ### Common Issues
 
 **"Sharp library not found"**
+
 ```bash
 cd wv-wild-web
 npm install sharp
 ```
 
 **"dist directory not found"**
+
 ```bash
 npm run build
 ```
 
 **"Connection refused" (Lighthouse)**
+
 ```bash
 npm run preview  # Start server first
 ```
@@ -253,6 +270,7 @@ npm run preview  # Start server first
 ## Success Criteria
 
 **All 5 WMA pages achieve**:
+
 - ✅ Lighthouse Performance ≥95/100
 - ✅ Load time <2s on 3G
 - ✅ Page weight <500KB

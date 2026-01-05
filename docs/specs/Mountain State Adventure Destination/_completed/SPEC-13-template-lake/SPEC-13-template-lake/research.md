@@ -20,6 +20,7 @@
 ### 1.1 Structure Breakdown (364 lines total)
 
 **Frontmatter (1-184)**:
+
 - Lines 1-19: Imports (17 components + types + config)
 - Lines 21-27: Quick stats data (4 stats)
 - Lines 29-51: Hunting features (4 species)
@@ -29,6 +30,7 @@
 - Lines 125-183: Schema data, breadcrumbs, gear, categories
 
 **Template (185-364)**:
+
 - Lines 186-223: Hero section (38 lines)
 - Line 226: AdventureQuickStats component
 - Lines 228-233: AdventureWhatToFish component
@@ -57,6 +59,7 @@
 ### 2.1 Existing Component Ecosystem
 
 **Shared Components (SPEC-11 Bundle)**:
+
 - ✅ `AdventureWhatToFish.astro` - Fishing wrapper (113 lines)
 - ✅ `AdventureWhatToHunt.astro` - Hunting wrapper
 - ✅ `AdventureFeatureSection.astro` - Base feature grid (190 lines)
@@ -102,6 +105,7 @@
 **Finding**: **100% `rounded-sm` enforcement** across all adventure components.
 
 **Evidence**:
+
 ```astro
 // AdventureAmenitiesGrid.astro:110
 <li class="... rounded-sm border ...">
@@ -117,6 +121,7 @@ const baseClasses = '... rounded-sm font-display ...';
 ```
 
 **Test Enforcement** ([AdventureAmenitiesGrid.test.ts:159-164](../wv-wild-web/src/components/adventure/__tests__/AdventureAmenitiesGrid.test.ts#L159-L164)):
+
 ```typescript
 it('uses rounded-sm for card borders (NO rounded-md/lg/xl)', () => {
   const expectedBorderRadius = 'rounded-sm';
@@ -130,11 +135,13 @@ it('uses rounded-sm for card borders (NO rounded-md/lg/xl)', () => {
 ### 3.2 Typography Hierarchy
 
 **Font Stack** (from [adventure.ts](../wv-wild-web/src/types/adventure.ts)):
+
 - **`font-display`**: Bitter serif - All headings, stats, species names
 - **`font-hand`**: Permanent Marker cursive - Kim's personal tips ONLY
 - **`font-body`**: Noto Sans - Body text, descriptions
 
 **Usage Pattern**:
+
 ```astro
 <!-- Hero Heading -->
 <h1 class="font-display font-black text-4xl md:text-6xl">
@@ -154,12 +161,14 @@ it('uses rounded-sm for card borders (NO rounded-md/lg/xl)', () => {
 ### 3.3 Color Palette - Border-Left Accent Pattern
 
 **WVWO Brand Colors** ([types/adventure.ts:99-110](../wv-wild-web/src/types/adventure.ts#L99-L110)):
+
 - **`brand-brown`**: `#3E2723` - Rifle stocks, weathered barn wood
 - **`sign-green`**: `#2E7D32` - Old metal signs, forest canopy
 - **`brand-cream`**: `#FFF8E1` - Aged paper, deer hide
 - **`brand-orange`**: `#FF6F00` - Blaze orange (CTAs ONLY, <5% screen)
 
 **Border-Left Accent Usage**:
+
 ```astro
 <!-- Fishing Species: GREEN accent -->
 <li class="border-l-4 border-l-sign-green pl-4">
@@ -176,6 +185,7 @@ it('uses rounded-sm for card borders (NO rounded-md/lg/xl)', () => {
 ### 3.4 Animation System
 
 **Gentle Reveal Pattern** (with accessibility):
+
 ```css
 .adventure-feature-section {
   animation: gentle-reveal 0.6s ease-out both;
@@ -192,6 +202,7 @@ it('uses rounded-sm for card borders (NO rounded-md/lg/xl)', () => {
 ```
 
 **Staggered Animation**:
+
 ```astro
 {features.map((feature, index) => (
   <li style={animate ? `animation-delay: ${index * 0.1}s` : undefined}>
@@ -205,6 +216,7 @@ it('uses rounded-sm for card borders (NO rounded-md/lg/xl)', () => {
 ### 4.1 Existing Type System ([adventure.ts](../wv-wild-web/src/types/adventure.ts))
 
 **SPEC-11 Types (already defined)**:
+
 ```typescript
 // Lines 193-202: Gear items
 export type GearItem = z.infer<typeof GearItemSchema>;
@@ -396,6 +408,7 @@ export interface LakeTemplateProps {
 ### 5.2 Species/Spot Display Pattern
 
 **Species Card Structure**:
+
 ```astro
 <div class="border-l-4 border-l-sign-green pl-6 py-4">
   <h3 class="font-display text-2xl font-bold text-brand-brown mb-3">
@@ -422,6 +435,7 @@ export interface LakeTemplateProps {
 ```
 
 **Fishing Spot Card Structure**:
+
 ```astro
 <div class="bg-white border-l-4 border-l-brand-brown p-6 rounded-sm">
   <h3 class="font-display text-2xl font-bold text-brand-brown mb-4">
@@ -454,6 +468,7 @@ export interface LakeTemplateProps {
 ### 6.1 Grid Column Configurations
 
 **Mobile-First Approach**:
+
 ```typescript
 // 2-column grid
 const columnClasses = {
@@ -464,6 +479,7 @@ const columnClasses = {
 ```
 
 **Usage by Section**:
+
 - **Fish Species**: 2-column (md:grid-cols-2)
 - **Fishing Spots**: Full-width stacked (space-y-6)
 - **Campgrounds**: 2-column (md:grid-cols-2)
@@ -488,6 +504,7 @@ text-2xl             /* Fixed 1.5rem */
 ### 6.3 Spacing System
 
 **Vertical Rhythm**:
+
 ```css
 py-12 md:py-16       /* Section padding: 3rem → 4rem */
 mb-4 md:mb-6         /* Section header margin */
@@ -504,11 +521,13 @@ space-y-6            /* Stacked card spacing */
 **From summersville-lake.astro analysis**:
 
 **Kim's Tips (font-hand)**:
+
 - Line 35: *"The ridges overlooking the lake hold deer year-round. Creek bottoms and oak flats are good for feeding areas. The terrain is steep in places — be prepared for a climb."*
 - Line 40: *"Ridge tops in mature timber for roosting birds. Listen for gobbles at dawn and set up between the roost and where they want to go. Don't overcall — let them come to you."*
 - Line 58: *"The water's gin-clear, so downsize your line to 6-8 lb test and go with natural colors. Tube jigs and drop shot rigs with soft plastics work well. Target rocky points and ledges — the smallmouth stack up on structure."*
 
 **Voice Patterns**:
+
 - ✅ **Direct, practical advice** - "Creek bottoms and oak flats"
 - ✅ **Local terminology** - "gin-clear water", "the smallmouth stack up"
 - ✅ **Specific techniques** - "6-8 lb test", "Tube jigs and drop shot rigs"
@@ -518,12 +537,14 @@ space-y-6            /* Stacked card spacing */
 ### 7.2 Integration Pattern
 
 **Where Kim's Voice Appears**:
+
 1. **Species cards** - `kimNote` field in `FishingFeature` / `HuntingFeature`
 2. **Fishing spots** - Optional tips on technique for specific locations
 3. **Getting There section** - "Pro tip" callouts (line 302-304)
 4. **Custom feature sections** - Inline commentary
 
 **Rendering**:
+
 ```astro
 {feature.notes && (
   <p class="font-hand text-lg text-sign-green italic mt-3 border-t border-brand-brown/10 pt-3">
@@ -539,11 +560,13 @@ space-y-6            /* Stacked card spacing */
 ### 8.1 Marina Section Structure (from research)
 
 **External Reference Analysis** (Web Search Results):
+
 - [Pyramid Lake Recreation](https://water.ca.gov/What-We-Do/Recreation/Pyramid-Lake-Recreation)
 - [Silverwood Lake State Recreation Area](https://www.parks.ca.gov/?page_id=650)
 - [Lake Cascade State Park](https://parksandrecreation.idaho.gov/state-park/lake-cascade-state-park/)
 
 **Common Patterns**:
+
 1. **Services List** - Fuel, rentals, repairs, supplies
 2. **Boat Launch Details** - Number of ramps, fees, accessibility
 3. **Rental Options** - Kayaks, pontoons, fishing boats
@@ -551,6 +574,7 @@ space-y-6            /* Stacked card spacing */
 5. **Safety Notices** - Life jacket requirements, speed limits
 
 **Recommended Structure**:
+
 ```astro
 <section class="py-16 bg-brand-cream">
   <div class="container mx-auto px-4">
@@ -578,12 +602,14 @@ space-y-6            /* Stacked card spacing */
 **Leverages Existing Component**: [AdventureCampingList.astro](../wv-wild-web/src/components/adventure/AdventureCampingList.astro)
 
 **Key Features**:
+
 - **Count badges** - `bg-sign-green text-white px-3 py-1 rounded-sm`
 - **Contact links** - `tel:` links for phone numbers
 - **External reservation links** - `rel="noopener noreferrer"`
 - **Accessibility notes** - Icon + text for ADA info
 
 **Props Pattern**:
+
 ```typescript
 {
   type: 'Battle Run Campground',
@@ -604,12 +630,14 @@ space-y-6            /* Stacked card spacing */
 **Finding**: Existing components range 113-204 lines
 
 **For ~600 line template**:
+
 - **Option A**: Single monolithic component (all sections inline)
 - **Option B**: Composition pattern (leverage existing components)
 
 **Recommendation**: **Option B** - Leverage existing SPEC-11 components
 
 **Rationale**:
+
 - ✅ DRY principle (don't duplicate AdventureWhatToFish, etc.)
 - ✅ Maintainability (updates propagate to all templates)
 - ✅ Consistency (all lakes use same section patterns)
@@ -618,6 +646,7 @@ space-y-6            /* Stacked card spacing */
 ### 9.2 Props Validation Pattern
 
 **From adventure.ts - Zod Schema Approach**:
+
 ```typescript
 import { z } from 'astro/zod';
 
@@ -635,6 +664,7 @@ export type FishingFeature = z.infer<typeof FishingFeatureSchema>;
 ### 9.3 Conditional Rendering
 
 **Pattern from components**:
+
 ```astro
 ---
 // Hide section if no features
@@ -645,6 +675,7 @@ if (!features || features.length === 0) {
 ```
 
 **Apply to Lake Template**:
+
 ```astro
 <!-- Only show marina if marina prop provided -->
 {marina && (
@@ -905,6 +936,7 @@ export type Regulation = z.infer<typeof RegulationSchema>;
 **Web Search: "lake recreation website fishing marina camping display best practices 2025"**
 
 **Sources**:
+
 - [Pyramid Lake Recreation](https://water.ca.gov/What-We-Do/Recreation/Pyramid-Lake-Recreation)
 - [Recreation - California Water](https://water.ca.gov/What-We-Do/Recreation)
 - [Silverwood Lake State Recreation Area](https://www.parks.ca.gov/?page_id=650)
@@ -914,6 +946,7 @@ export type Regulation = z.infer<typeof RegulationSchema>;
 - [Lake Cascade State Park](https://parksandrecreation.idaho.gov/state-park/lake-cascade-state-park/)
 
 **Key Patterns Observed**:
+
 - Services-first approach (rentals, facilities front-loaded)
 - Clear seasonal availability information
 - Contact info prominently displayed
@@ -927,22 +960,26 @@ export type Regulation = z.infer<typeof RegulationSchema>;
 ### 13.1 Critical Path Forward
 
 **PHASE 1**: Type System (1-2 hours)
+
 - Add lake-specific types to [adventure.ts](../wv-wild-web/src/types/adventure.ts)
 - Define `FishingSpot`, `Marina`, `Activity`, `SeasonalGuide`, `Regulation` schemas
 - Export `LakeTemplateProps` interface
 
 **PHASE 2**: Template Structure (3-4 hours)
+
 - Create `src/components/templates/LakeTemplate.astro`
 - Implement 6 custom sections (Hero, Where to Fish, Marina, Activities, Seasonal, Regulations)
 - Leverage existing components for remaining sections
 
 **PHASE 3**: WVWO Compliance (1 hour)
+
 - Enforce `rounded-sm` ONLY
 - Apply border-left accent colors
 - Implement Kim's voice integration points
 - Add gentle-reveal animations with prefers-reduced-motion
 
 **PHASE 4**: Testing & Validation (1-2 hours)
+
 - Refactor summersville-lake.astro to use new template
 - Visual regression testing
 - Accessibility audit
@@ -962,11 +999,13 @@ export type Regulation = z.infer<typeof RegulationSchema>;
 ### 13.3 Follow-Up Specs
 
 **Future Templates** (after SPEC-13):
+
 - **SPEC-14**: River Template (fishing + kayaking focus)
 - **SPEC-15**: Hiking Trail Template (trail maps + difficulty ratings)
 - **SPEC-16**: WMA Template (hunting + scouting focus)
 
 **All templates should**:
+
 - Leverage SPEC-11 shared components
 - Follow WVWO aesthetic guidelines
 - Use TypeScript with Zod schemas
@@ -1001,6 +1040,7 @@ LakeTemplate.astro (~600 lines)
 ### B. WVWO Design System Reference
 
 **Typography**:
+
 ```css
 --font-display: 'Bitter', serif;           /* Headings */
 --font-hand: 'Permanent Marker', cursive;  /* Kim's tips */
@@ -1008,6 +1048,7 @@ LakeTemplate.astro (~600 lines)
 ```
 
 **Colors**:
+
 ```css
 --brand-brown: #3E2723;    /* Primary dark */
 --sign-green: #2E7D32;     /* Accent/CTAs */
@@ -1016,11 +1057,13 @@ LakeTemplate.astro (~600 lines)
 ```
 
 **Border Radius**:
+
 ```css
 rounded-sm: 0.125rem;  /* ONLY allowed value */
 ```
 
 **Spacing Scale**:
+
 ```css
 py-12 md:py-16         /* Section padding */
 mb-4 md:mb-6           /* Header margins */
@@ -1117,6 +1160,7 @@ const summersvilleLakeData: LakeTemplateProps = {
 **Hivemind Research Status**: ✅ **COMPLETE**
 
 **Key Deliverables**:
+
 1. ✅ Comprehensive summersville-lake.astro structure analysis (364 lines)
 2. ✅ Complete component ecosystem mapping (34 adventure components)
 3. ✅ TypeScript props interface architecture (LakeTemplateProps + 6 new types)
@@ -1126,6 +1170,7 @@ const summersvilleLakeData: LakeTemplateProps = {
 7. ✅ Implementation roadmap (6-9 hour estimate)
 
 **Critical Findings**:
+
 - ⚠️ Reference file is **364 lines**, not 603 (template targets ~600 via expansion)
 - ✅ 70%+ of template can **reuse existing SPEC-11 components**
 - ✅ **6 custom sections** needed: Hero, Where to Fish, Marina, Activities, Seasonal, Regulations
@@ -1139,4 +1184,3 @@ const summersvilleLakeData: LakeTemplateProps = {
 **Report Generated**: 2025-12-29
 **Queen Coordinator Signature**: 🐝👑 Hivemind Research Complete
 **Next Steps**: Proceed to SPEC-13 implementation with base-template-generator agent
-

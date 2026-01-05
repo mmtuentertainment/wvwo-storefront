@@ -11,6 +11,7 @@
 ## 🛡️ Governance Compliance
 
 **Constitution v2.3.0 Requirements**:
+
 - ✅ Use Astro Content Collections (Principle II) - Adventures schema from SPEC-06
 - ✅ No e-commerce UI concerns (SPEC-05: PUBLIC_COMMERCE_ENABLED=false)
 - ✅ Mobile-first performance (Principle V)
@@ -29,6 +30,7 @@ Build the Adventures Hub (`/adventures/`) with **5-axis filtering** (Activity, S
 **Data Source**: Query `getCollection('adventures')` from SPEC-06 Content Collections (not hardcoded data).
 
 **Technology Decision (Research-Validated):**
+
 - ✅ **React + Context API** (NOT vanilla JS - extensibility requirement)
 - ✅ **Astro islands** (`client:load` for filter component)
 - ✅ **Cloudflare Pages** (static deployment, NOT Workers)
@@ -36,6 +38,7 @@ Build the Adventures Hub (`/adventures/`) with **5-axis filtering** (Activity, S
 - ✅ **shadcn/ui** for filter controls (WVWO aesthetic overrides required)
 
 **SPEC-07 Scope (5 Axes Day 1)**:
+
 1. **Activity** (multi-select: use `gear[]` field as proxy until schema updated)
 2. **Season** (multi-select: `season[]` field - spring/summer/fall/winter)
 3. **Difficulty** (radio: `difficulty` field - easy/moderate/challenging/rugged)
@@ -45,6 +48,7 @@ Build the Adventures Hub (`/adventures/`) with **5-axis filtering** (Activity, S
 **Minimum Viable (3 Axes)**: Activity, Season, Difficulty (schema ready TODAY)
 
 **Deferred to Post-Launch Optimization (SPEC-08+)**:
+
 - **Distance filtering**: Requires HERE API batch calculation + schema fields (`i79_distance_miles`, `i79_drive_minutes`)
 - **Cloudflare Workers pre-rendering**: NOT worth complexity for 30-50ms imperceptible gain
 - **Performance optimization**: IF analytics show filter latency >200ms AND bounce >40%
@@ -53,28 +57,31 @@ Build the Adventures Hub (`/adventures/`) with **5-axis filtering** (Activity, S
 
 ## ☁️ Cloudflare Architecture Decision (Research-Validated)
 
-### ✅ APPROVED for SPEC-07:
+### ✅ APPROVED for SPEC-07
 
 **Deployment Platform:**
+
 - **Cloudflare Pages** (static Astro deployment)
 - **React islands** for filter component (client-side filtering)
 - **Service Worker + IndexedDB** for offline filtering when connection drops
 - **Argo Smart Routing** ($5/month, 33% TTFB reduction for rural WV spotty connections)
 
 **Rationale (from Research):**
+
 - Client-side React filtering: 100-150ms (acceptable per UX standards)
 - Service Worker enables offline filtering (critical for WV cell service dropouts)
 - Cloudflare edge cache + Argo Smart Routing optimize initial page load
 - Total cost: $20-25/month (Argo $5 + domain $20)
 
-### ❌ DEFERRED to Post-Launch (SPEC-08+):
+### ❌ DEFERRED to Post-Launch (SPEC-08+)
 
 **Cloudflare Workers Pre-Rendering:**
+
 - **Reason**: 30-50ms performance gain is imperceptible to users (human perception threshold >100ms)
 - **Complexity cost**: +20-30 dev hours for marginal UX improvement
 - **Decision criteria**: IF post-launch analytics show filter latency >200ms AND bounce rate >40%, THEN implement Workers in SPEC-08
 
-### Performance Targets (Research-Adjusted):
+### Performance Targets (Research-Adjusted)
 
 - **Initial page load (LCP)**: <2.5s on 3G (Cloudflare edge cache + Argo)
 - **Filter response time**: 100-150ms (acceptable, NOT <50ms - no benchmarks support <50ms at 70 items + 4-6 axes)
@@ -84,7 +91,7 @@ Build the Adventures Hub (`/adventures/`) with **5-axis filtering** (Activity, S
 
 ## 📦 Deployment Configuration (NEW: Cloudflare-Specific)
 
-### Required Files:
+### Required Files
 
 **1. `wv-wild-web/public/_headers`** (Cloudflare Cache Rules + HTTP/2 Push)
 
@@ -175,6 +182,7 @@ npm run build && du -sh dist/_astro/*.js
 ### Performance Impact (Rural WV 3G Constraint)
 
 **HTTP/2 Push Savings:**
+
 | Connection Type | Without Push | With Push | Time Saved |
 |----------------|--------------|-----------|------------|
 | **3G (rural WV)** | 380ms to interactive | 150ms | **230ms (60% faster)** |
@@ -197,6 +205,7 @@ npm run build && du -sh dist/_astro/*.js
 ### shadcn/ui Component Size Budget
 
 **For SPEC-07 Filter Component:**
+
 - ✅ **Button** (+1.2 KB) - "Clear Filters", "Apply"
 - ✅ **Input** (+0.8 KB) - Search box
 - ✅ **Select** (+3.5 KB) - Season/Difficulty dropdowns (desktop)
@@ -206,6 +215,7 @@ npm run build && du -sh dist/_astro/*.js
 **Total shadcn:** ~13.5 KB (within <10 KB budget if selective)
 
 **Avoid for SPEC-07:**
+
 - ❌ Dialog (use Sheet for mobile, lighter)
 - ❌ Popover (use Select, simpler)
 - ❌ Combobox (use Select, smaller bundle)
@@ -213,11 +223,13 @@ npm run build && du -sh dist/_astro/*.js
 ### Code Splitting Strategy (Parallel Loading)
 
 **❌ DON'T: Single Large Island**
+
 ```astro
 <AdventuresHub client:load /> <!-- 500 KB bundle -->
 ```
 
 **✅ DO: Multiple Smaller Islands**
+
 ```astro
 <!-- Desktop filters (30 KB) -->
 <FilterBar client:load />
@@ -234,6 +246,7 @@ npm run build && du -sh dist/_astro/*.js
 ### Vite Configuration (Build-Time Optimization)
 
 **Add to `astro.config.mjs`:**
+
 ```javascript
 import { defineConfig } from 'astro/config';
 
@@ -256,12 +269,14 @@ export default defineConfig({
 ### Bundle Size Monitoring (Weekly)
 
 **After each build, check sizes:**
+
 ```bash
 npm run build
 du -sh dist/_astro/*.js | sort -h
 ```
 
 **Alert thresholds:**
+
 - ⚠️ Any single JS file >150 KB gzipped → investigate code bloat
 - 🔴 Total island bundle >200 KB → BLOCKING issue (rural 3G can't handle)
 
@@ -269,24 +284,27 @@ du -sh dist/_astro/*.js | sort -h
 
 ## 📊 Post-Launch Performance Monitoring (Required for SPEC-08 Decision)
 
-### Track These Metrics (4 weeks minimum):
+### Track These Metrics (4 weeks minimum)
 
 **Google Analytics 4 - Core Web Vitals:**
+
 - **TTFB** (Time to First Byte): Target <600ms on 3G
 - **LCP** (Largest Contentful Paint): Target <2.5s
 - **FID** (First Input Delay): Filter click to result update
 
 **Cloudflare Analytics:**
+
 - Cache hit ratio: Target >90% for static assets
 - Edge response time: Monitor per region (US-East for WV)
 - Bandwidth usage: Track React bundle size impact
 
 **User Behavior:**
+
 - Filter interaction rate: % of users who apply filters
 - Bounce rate on `/adventures/`: Target <40%
 - Average filter clicks per session
 
-### Decision Criteria for Workers Pre-Rendering (SPEC-08+):
+### Decision Criteria for Workers Pre-Rendering (SPEC-08+)
 
 **IF** filter latency >200ms on mobile devices **AND** bounce rate >40%
 **THEN** implement Cloudflare Workers pre-rendering for top 50 filter combos
@@ -299,6 +317,7 @@ du -sh dist/_astro/*.js | sort -h
 ### Industry Benchmarks (Outdoor Recreation Sites)
 
 **AllTrails (Gold Standard - 65M users):**
+
 - Monthly visits: 17 million
 - **Avg session duration: 8 min 32 sec** (exceptional, 4x industry average)
 - Pages per visit: 3.29
@@ -306,6 +325,7 @@ du -sh dist/_astro/*.js | sort -h
 - Top keywords: "trails near me" (110k volume), "hiking" (110k volume)
 
 **REI (E-Commerce Conversion):**
+
 - Homepage → Category: 45% conversion
 - Category → Product Detail: 35%
 - Detail → Cart: 12%
@@ -313,11 +333,13 @@ du -sh dist/_astro/*.js | sort -h
 - Post-SEO audit: +200% natural search sales
 
 **National Parks (Visitation Patterns):**
+
 - Great Smoky Mountains: 12M annual (easy access, free entry)
 - Gates of the Arctic: <12k annual (remote, difficult)
 - **Pattern:** Accessibility > Difficulty for traffic volume
 
 **State Tourism Sites:**
+
 - Mobile traffic: 77% (2019) → likely 80-85% (2025)
 - High traffic ≠ high engagement (California paradox)
 
@@ -354,17 +376,20 @@ Based on WV tourism data + WVDNR hunting outlook:
 ### Predicted "Power Pages" for WVWO
 
 **Tier 1 (4+ min session, 4%+ conversion):**
+
 - New River Gorge Whitewater Rafting (adventure activities get 2x session duration)
 - Blackwater Falls Easy Trail (Great Smoky pattern - easy + iconic)
 - Seneca Rocks Climbing (niche = low bounce <30%)
 - Dog-Friendly Trails I-79 (AllTrails top secondary filter)
 
 **Tier 2 (2-3 min session, 2-3% conversion):**
+
 - Sutton Lake Fishing (central location performs well)
 - Coopers Rock Overlook (wheelchair accessible = broader audience)
 - Fall Foliage Scenic Drives (Oct-Nov seasonal spike)
 
 **Tier 3 (<1 min session, <1% conversion):**
+
 - Generic "All Adventures" hub (choice paradox, 61% bounce)
 - Extreme multi-day backpacking (ultra-niche, <12k annual visitors pattern)
 
@@ -373,6 +398,7 @@ Based on WV tourism data + WVDNR hunting outlook:
 ### GA4 Conversion Events (Track from Day 1)
 
 **Set up these Key Events:**
+
 1. `adventure_view` - User views adventure page
 2. `filter_applied` - User clicks any filter
 3. `map_download` - User clicks download (highest intent signal per AllTrails)
@@ -381,6 +407,7 @@ Based on WV tourism data + WVDNR hunting outlook:
 6. `phone_call_click` - Tap phone number on mobile (highest commercial intent)
 
 **Target Conversion Funnel:**
+
 - Homepage → `/adventures`: 50% click-through
 - Filter Hub → Apply filter: 40% interaction rate
 - Filtered Results → Detail page: 30% click-through
@@ -533,10 +560,10 @@ npx agentdb@latest skill search "hub page structure CollectionPage" 5
    - Desktop: Horizontal filter bar with dropdowns (AllTrails pattern)
    - Mobile: shadcn Sheet component (bottom drawer, non-modal)
    - WCAG 2.1 AA compliance:
-     * `<fieldset>` + `<legend>` for each filter group
-     * `role="region" aria-live="polite"` on results counter
-     * 44×44px minimum touch targets
-     * No nested interactive controls
+     - `<fieldset>` + `<legend>` for each filter group
+     - `role="region" aria-live="polite"` on results counter
+     - 44×44px minimum touch targets
+     - No nested interactive controls
    - ViewTransitions cleanup (React useEffect)
 
 3. **Create page structure** (`src/pages/adventures/index.astro`)
@@ -583,6 +610,7 @@ npx agentdb@latest skill search "hub page structure CollectionPage" 5
 - Kim's voice for empty states
 
 **Output:**
+
 - `src/pages/adventures/index.astro` (page)
 - `src/components/adventures/AdventuresFilter.tsx` (React island)
 - `src/config/adventures-filters.config.ts` (config)
@@ -835,7 +863,7 @@ Empty state: "Hmm, nothing matches those filters. Try widening your search - or 
 
 ### Aesthetic Reference
 
-3. `CLAUDE.md` (WVWO Frontend Aesthetics section)
+1. `CLAUDE.md` (WVWO Frontend Aesthetics section)
    **Why:** Voice, colors, typography, design constraints
 
 2. `docs/WVWO_FRONTEND_AESTHETICS.md`
@@ -1066,6 +1094,7 @@ npx agentdb@latest skill consolidate 3 0.8 7 true
 ### Post-Launch Success Criteria (4 Weeks)
 
 **Monitor and decide:**
+
 - ✅ Filter interaction rate >30% of visitors
 - ✅ Bounce rate <40% on `/adventures/`
 - ✅ TTFB <600ms on 3G (Cloudflare + Argo)
@@ -1073,6 +1102,7 @@ npx agentdb@latest skill consolidate 3 0.8 7 true
 - ✅ Cache hit ratio >90% (Cloudflare Analytics)
 
 **Decision point for SPEC-08:**
+
 - **IF** filter latency >200ms AND bounce >40% → Add Workers pre-rendering
 - **ELSE** keep client-side React (simpler, maintainable)
 

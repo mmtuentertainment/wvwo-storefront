@@ -13,6 +13,7 @@
 This document provides granular task breakdown for Phase 2: implementing the RiverTemplate.astro component. The component follows LakeTemplate patterns (SPEC-13) while adding 3 new river-specific sections. All tasks include line-range estimates, time allocations, and code pattern references.
 
 ### Scope Overview
+
 - **File**: `wv-wild-web/src/components/templates/RiverTemplate.astro` (NEW)
 - **Architecture**: Monolithic component (NOT decomposed)
 - **Pattern Source**: LakeTemplate.astro (lines 1-558)
@@ -24,22 +25,27 @@ This document provides granular task breakdown for Phase 2: implementing the Riv
 ## Task Categories
 
 ### Category A: Foundation (T001-T003)
+
 **Total Time**: 25 minutes
 **Lines**: 1-60
 
 ### Category B: Hero & Description (T004-T005)
+
 **Total Time**: 30 minutes
 **Lines**: 61-150
 
 ### Category C: Core River Sections (T006-T011)
+
 **Total Time**: 120 minutes
 **Lines**: 151-620
 
 ### Category D: Shared Components (T012-T014)
+
 **Total Time**: 20 minutes
 **Lines**: 621-650
 
 ### Category E: Styles & Polish (T015-T016)
+
 **Total Time**: 25 minutes
 **Lines**: 651-660
 
@@ -48,6 +54,7 @@ This document provides granular task breakdown for Phase 2: implementing the Riv
 ## Detailed Task List
 
 ### T001: Component Frontmatter Setup
+
 **Priority**: Critical
 **Estimated Time**: 10 minutes
 **Line Range**: 1-40
@@ -57,10 +64,12 @@ This document provides granular task breakdown for Phase 2: implementing the Riv
 Create component header with JSDoc documentation and imports.
 
 **Pattern Reference**:
+
 - LakeTemplate lines 1-34 (header structure)
 - Type imports from `adventure.ts`
 
 **Implementation**:
+
 ```astro
 ---
 /**
@@ -96,6 +105,7 @@ import type { RiverTemplateProps, Rapid, RiverFishing, Outfitter, AccessPoint, S
 ```
 
 **Validation Checkpoints**:
+
 - [ ] All imports resolve correctly
 - [ ] JSDoc matches SPEC-14 requirements
 - [ ] WVWO compliance rules documented
@@ -103,6 +113,7 @@ import type { RiverTemplateProps, Rapid, RiverFishing, Outfitter, AccessPoint, S
 ---
 
 ### T002: Props Interface & Destructuring
+
 **Priority**: Critical
 **Estimated Time**: 10 minutes
 **Line Range**: 41-60
@@ -112,9 +123,11 @@ import type { RiverTemplateProps, Rapid, RiverFishing, Outfitter, AccessPoint, S
 Define Props interface extending RiverTemplateProps and destructure all component props.
 
 **Pattern Reference**:
+
 - LakeTemplate lines 35-54 (props destructuring pattern)
 
 **Implementation**:
+
 ```astro
 interface Props extends RiverTemplateProps {}
 
@@ -144,6 +157,7 @@ const {
 ```
 
 **Validation Checkpoints**:
+
 - [ ] All required props destructured
 - [ ] Optional props handled correctly
 - [ ] TypeScript validation passes
@@ -151,6 +165,7 @@ const {
 ---
 
 ### T003: Layout Wrapper
+
 **Priority**: Critical
 **Estimated Time**: 5 minutes
 **Line Range**: 60-62
@@ -160,6 +175,7 @@ const {
 Wrap component in Layout with dynamic title.
 
 **Implementation**:
+
 ```astro
 <Layout title={`${name} | WV Wild Outdoors`}>
   <!-- Content sections here -->
@@ -169,6 +185,7 @@ Wrap component in Layout with dynamic title.
 ---
 
 ### T004: Hero Section Implementation
+
 **Priority**: High
 **Estimated Time**: 20 minutes
 **Line Range**: 62-124
@@ -178,10 +195,12 @@ Wrap component in Layout with dynamic title.
 Create hero section with river image overlay, name, tagline, and stats grid.
 
 **Pattern Reference**:
+
 - LakeTemplate lines 61-124 (hero structure)
 - Stats grid: 4-column desktop, 2-column mobile
 
 **Implementation Details**:
+
 - Relative container with h-[70vh] min-h-[500px]
 - Dark overlay (bg-brand-brown/50) for text readability
 - H1: font-display text-4xl md:text-5xl lg:text-6xl
@@ -189,6 +208,7 @@ Create hero section with river image overlay, name, tagline, and stats grid.
 - Badge highlights (optional, can be dynamic based on props)
 
 **Color Coding Logic**:
+
 ```astro
 <!-- Difficulty badge example -->
 <span class={`inline-block px-4 py-2 rounded-sm ${
@@ -203,6 +223,7 @@ Create hero section with river image overlay, name, tagline, and stats grid.
 ```
 
 **Validation Checkpoints**:
+
 - [ ] Hero image uses eager loading
 - [ ] Stats grid responsive (2→4 columns)
 - [ ] Tagline uses brand-cream color
@@ -211,6 +232,7 @@ Create hero section with river image overlay, name, tagline, and stats grid.
 ---
 
 ### T005: Description Prose Section
+
 **Priority**: Medium
 **Estimated Time**: 10 minutes
 **Line Range**: 127-150
@@ -220,9 +242,11 @@ Create hero section with river image overlay, name, tagline, and stats grid.
 Render river description as prose with proper typography.
 
 **Pattern Reference**:
+
 - LakeTemplate lines 129-136
 
 **Implementation**:
+
 ```astro
 <main class="container mx-auto px-4 py-12 space-y-16">
   {description && (
@@ -237,6 +261,7 @@ Render river description as prose with proper typography.
 ---
 
 ### T006: Rapids Guide Section (Color-Coded)
+
 **Priority**: High
 **Estimated Time**: 30 minutes
 **Line Range**: 154-208
@@ -246,15 +271,18 @@ Render river description as prose with proper typography.
 Implement rapids classification section with inline color-coding ternaries (3-line max).
 
 **Pattern Reference**:
+
 - Similar to LakeTemplate "Where to Fish" (lines 154-208)
 - Full-width stacking, border-left accent
 
 **Color Coding Requirements** (from river-type-system-architecture.md):
+
 - class-i, class-ii: sign-green
 - class-iii: brand-orange (warning level)
 - class-iv, class-v, class-vi: brand-brown (advanced)
 
 **Implementation Structure**:
+
 ```astro
 {rapids && rapids.length > 0 && (
   <section class="rapids-guide bg-white py-12" aria-labelledby="rapids-heading">
@@ -316,6 +344,7 @@ Implement rapids classification section with inline color-coding ternaries (3-li
 ```
 
 **Validation Checkpoints**:
+
 - [ ] Color logic matches 3-level system (green/orange/brown)
 - [ ] Ternaries ≤3 lines each
 - [ ] Hazards use brand-orange for warnings
@@ -324,6 +353,7 @@ Implement rapids classification section with inline color-coding ternaries (3-li
 ---
 
 ### T007: Fishing Section
+
 **Priority**: High
 **Estimated Time**: 25 minutes
 **Line Range**: 211-293
@@ -333,10 +363,12 @@ Implement rapids classification section with inline color-coding ternaries (3-li
 Render fishing species with season, techniques, and Kim's tips.
 
 **Pattern Reference**:
+
 - Similar to rapids structure
 - 2-column grid for details
 
 **Implementation Structure**:
+
 ```astro
 {fishing && fishing.length > 0 && (
   <section class="fishing-section bg-brand-cream py-12" aria-labelledby="fishing-heading">
@@ -400,6 +432,7 @@ Render fishing species with season, techniques, and Kim's tips.
 ```
 
 **Validation Checkpoints**:
+
 - [ ] Sign-green border for all fishing cards
 - [ ] 2-column responsive grid
 - [ ] Regulations styled with cream background
@@ -408,6 +441,7 @@ Render fishing species with season, techniques, and Kim's tips.
 ---
 
 ### T008: Outfitters Section (Contact Validation)
+
 **Priority**: High
 **Estimated Time**: 20 minutes
 **Line Range**: 296-353
@@ -417,15 +451,18 @@ Render fishing species with season, techniques, and Kim's tips.
 Display outfitters with services, pricing, contact methods.
 
 **Pattern Reference**:
+
 - Similar to LakeTemplate Marina section (lines 211-293)
 
 **Contact Handling** (from architecture.md):
+
 - At least one contact method required (validated by Zod)
 - Phone: format as click-to-call link
 - Website: external link with noopener
 - Email: mailto: link
 
 **Implementation**:
+
 ```astro
 {outfitters && outfitters.length > 0 && (
   <section class="outfitters-section bg-white py-12" aria-labelledby="outfitters-heading">
@@ -511,6 +548,7 @@ Display outfitters with services, pricing, contact methods.
 ```
 
 **Validation Checkpoints**:
+
 - [ ] Phone numbers formatted for tel: links
 - [ ] External links use target="_blank" + rel="noopener"
 - [ ] At least one contact method displayed
@@ -519,6 +557,7 @@ Display outfitters with services, pricing, contact methods.
 ---
 
 ### T009: Seasonal Flow Section (NEW)
+
 **Priority**: High
 **Estimated Time**: 25 minutes
 **Line Range**: 356-445
@@ -528,16 +567,19 @@ Display outfitters with services, pricing, contact methods.
 NEW SECTION: Display seasonal flow levels with CFS ranges and color-coded levels.
 
 **Pattern Reference**:
+
 - Similar to LakeTemplate Seasonal Guide (lines 356-426)
 - 4-column responsive grid
 
 **Color Coding by Flow Level**:
+
 - low: sign-green
 - medium: sign-green
 - high: brand-orange
 - flood: brand-brown
 
 **Implementation**:
+
 ```astro
 {flowLevels && flowLevels.length > 0 && (
   <section class="seasonal-flow bg-brand-cream py-12" aria-labelledby="flow-heading">
@@ -602,6 +644,7 @@ NEW SECTION: Display seasonal flow levels with CFS ranges and color-coded levels
 ```
 
 **Validation Checkpoints**:
+
 - [ ] 4-column grid on desktop (lg:grid-cols-4)
 - [ ] Color badges match flow level logic
 - [ ] CFS ranges use toLocaleString() for commas
@@ -610,6 +653,7 @@ NEW SECTION: Display seasonal flow levels with CFS ranges and color-coded levels
 ---
 
 ### T010: Access Points Section (NEW)
+
 **Priority**: High
 **Estimated Time**: 25 minutes
 **Line Range**: 448-542
@@ -619,9 +663,11 @@ NEW SECTION: Display seasonal flow levels with CFS ranges and color-coded levels
 NEW SECTION: Display access points with GPS links, shuttle info, features.
 
 **Pattern Reference**:
+
 - 2-column grid like LakeTemplate Marina
 
 **GPS Link Pattern** (from best-practices research):
+
 ```astro
 {coordinates && (
   <a
@@ -636,6 +682,7 @@ NEW SECTION: Display access points with GPS links, shuttle info, features.
 ```
 
 **Implementation**:
+
 ```astro
 {accessPoints && accessPoints.length > 0 && (
   <section class="access-points bg-white py-12" aria-labelledby="access-heading">
@@ -718,6 +765,7 @@ NEW SECTION: Display access points with GPS links, shuttle info, features.
 ```
 
 **Validation Checkpoints**:
+
 - [ ] GPS links format correctly
 - [ ] Type badges replace hyphens with spaces
 - [ ] Features use checkmark bullets (✓)
@@ -726,6 +774,7 @@ NEW SECTION: Display access points with GPS links, shuttle info, features.
 ---
 
 ### T011: Safety & Nearby Attractions
+
 **Priority**: Medium
 **Estimated Time**: 20 minutes
 **Line Range**: 545-697
@@ -735,6 +784,7 @@ NEW SECTION: Display access points with GPS links, shuttle info, features.
 Implement safety warnings (orange borders) and nearby attractions grid.
 
 **Safety Section** (from LakeTemplate lines 429-479):
+
 ```astro
 {/* Placeholder for safety section - similar to regulations */}
 <section class="safety-section bg-brand-cream py-12">
@@ -750,6 +800,7 @@ Implement safety warnings (orange borders) and nearby attractions grid.
 ```
 
 **Nearby Attractions** (NEW):
+
 ```astro
 {attractions && attractions.length > 0 && (
   <section class="attractions bg-white py-12" aria-labelledby="attractions-heading">
@@ -795,6 +846,7 @@ Implement safety warnings (orange borders) and nearby attractions grid.
 ```
 
 **Validation Checkpoints**:
+
 - [ ] Safety uses border-l-brand-orange
 - [ ] Attractions use 3-column grid
 - [ ] Distance indicator with emoji
@@ -803,6 +855,7 @@ Implement safety warnings (orange borders) and nearby attractions grid.
 ---
 
 ### T012: Gear Checklist Integration
+
 **Priority**: Medium
 **Estimated Time**: 8 minutes
 **Line Range**: 621-632
@@ -812,9 +865,11 @@ Implement safety warnings (orange borders) and nearby attractions grid.
 Integrate AdventureGearChecklist shared component.
 
 **Pattern Reference**:
+
 - LakeTemplate lines 484-492
 
 **Implementation**:
+
 ```astro
 {gearList && gearList.length > 0 && (
   <AdventureGearChecklist
@@ -830,6 +885,7 @@ Integrate AdventureGearChecklist shared component.
 ---
 
 ### T013: Shop Categories Integration
+
 **Priority**: Medium
 **Estimated Time**: 8 minutes
 **Line Range**: 633-645
@@ -839,9 +895,11 @@ Integrate AdventureGearChecklist shared component.
 Integrate AdventureRelatedShop shared component.
 
 **Pattern Reference**:
+
 - LakeTemplate lines 495-523
 
 **Implementation**:
+
 ```astro
 {relatedShop && relatedShop.length > 0 && (
   <AdventureRelatedShop
@@ -857,6 +915,7 @@ Integrate AdventureRelatedShop shared component.
 ---
 
 ### T014: CTA Integration
+
 **Priority**: Medium
 **Estimated Time**: 4 minutes
 **Line Range**: 646-650
@@ -866,6 +925,7 @@ Integrate AdventureRelatedShop shared component.
 Integrate AdventureCTA shared component.
 
 **Implementation**:
+
 ```astro
 <AdventureCTA
   heading="Stop By Before You Head Out"
@@ -880,6 +940,7 @@ Integrate AdventureCTA shared component.
 ---
 
 ### T015: Scoped Styles
+
 **Priority**: Low
 **Estimated Time**: 20 minutes
 **Line Range**: 653-660
@@ -889,9 +950,11 @@ Integrate AdventureCTA shared component.
 Add scoped styles enforcing rounded-sm and motion preferences.
 
 **Pattern Reference**:
+
 - LakeTemplate lines 538-557
 
 **Implementation**:
+
 ```astro
 <style>
   /* WVWO Compliance: Only rounded-sm allowed */
@@ -918,6 +981,7 @@ Add scoped styles enforcing rounded-sm and motion preferences.
 ---
 
 ### T016: WVWO Compliance Validation
+
 **Priority**: Critical
 **Estimated Time**: 5 minutes
 **Line Range**: All
@@ -927,6 +991,7 @@ Add scoped styles enforcing rounded-sm and motion preferences.
 Final validation pass for WVWO compliance.
 
 **Validation Checklist**:
+
 ```markdown
 ### Fonts
 - [ ] Headings use font-display (Bitter)
@@ -962,6 +1027,7 @@ Final validation pass for WVWO compliance.
 ## Phase 2 Summary
 
 ### Total Effort Breakdown
+
 | Category | Tasks | Time | Lines |
 |----------|-------|------|-------|
 | Foundation | T001-T003 | 25 min | 1-60 |
@@ -972,14 +1038,17 @@ Final validation pass for WVWO compliance.
 | **TOTAL** | **16 tasks** | **245 min (4h 5m)** | **660 lines** |
 
 ### Critical Path
+
 ```
 T001 → T002 → T003 → T004 → T005 → T006 → T007 → T008 → T009 → T010 → T011 → T012 → T013 → T014 → T015 → T016
 ```
 
 ### Parallel Work Opportunities
+
 None - all tasks are sequential due to monolithic component structure.
 
 ### Risk Mitigation
+
 1. **Complex ternaries**: Keep color logic ≤3 lines
 2. **Type mismatches**: Reference architecture.md for prop shapes
 3. **Missing patterns**: Use LakeTemplate as reference for unknown structures
@@ -989,14 +1058,17 @@ None - all tasks are sequential due to monolithic component structure.
 ## References
 
 **Architecture Documents**:
+
 - `river-type-system-architecture.md` - Type definitions and validation
 - `river-guide-website-best-practices.md` - UX patterns and accessibility
 
 **Pattern Sources**:
+
 - `LakeTemplate.astro` - Component structure patterns
 - `CLAUDE.md` - WVWO compliance rules
 
 **Type Definitions**:
+
 - `src/types/adventure.ts` - RiverTemplateProps interface
 - Import locations documented in T001
 

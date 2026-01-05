@@ -157,6 +157,7 @@ External Systems:
 | 16 | Breadcrumbs | Existing | Breadcrumb + SchemaBreadcrumb | 0 | 100% |
 
 **CUSTOM SECTION BREAKDOWN**:
+
 - 5 fully custom sections: ~440 lines
 - 10 existing components: ~0 lines (reuse)
 - 1 partial reuse (Activities uses AdventureFeatureSection): ~30 lines saved
@@ -345,17 +346,20 @@ function transformFishSpecies(species: LakeTemplateProps['fishSpecies']): Featur
 **Decision**: Leverage existing SPEC-11 adventure components for 70%+ of template sections rather than building custom implementations.
 
 **Rationale**:
+
 - DRY principle: Don't duplicate AdventureWhatToFish, AdventureCampingList, etc.
 - Maintainability: Updates to shared components automatically propagate to all templates
 - Consistency: All lake pages use identical section patterns
 - Testing: Existing components already have test coverage
 
 **Alternatives Considered**:
+
 1. ❌ **Full custom implementation**: 100% custom sections = 900+ lines, high maintenance burden
 2. ❌ **Hybrid with inline duplication**: Copy-paste component logic = version drift issues
 3. ✅ **Props-based composition**: Transform data, pass to existing components
 
 **Consequences**:
+
 - ✅ Faster development (440 custom lines vs 900+ if building from scratch)
 - ✅ Consistent UI across all templates
 - ⚠️ Requires data transformation layer (adds ~50 lines of transformation code)
@@ -367,11 +371,13 @@ function transformFishSpecies(species: LakeTemplateProps['fishSpecies']): Featur
 **Decision**: Place LakeTemplate at `wv-wild-web/src/components/templates/LakeTemplate.astro`
 
 **Rationale**:
+
 - Clear separation of concerns: templates/ directory indicates reusable page-level components
 - Future scalability: Can add RiverTemplate, TrailTemplate in same directory
 - Aligns with common Astro project patterns
 
 **Consequences**:
+
 - ✅ Clear mental model: `components/adventure/` = atomic, `components/templates/` = page-level
 - ✅ Easy to find all templates in one place
 
@@ -382,11 +388,13 @@ function transformFishSpecies(species: LakeTemplateProps['fishSpecies']): Featur
 **Decision**: Add lake-specific types to existing `wv-wild-web/src/types/adventure.ts` file rather than creating separate lake.ts file.
 
 **Rationale**:
+
 - Single source of truth for all adventure-related types
 - Lake pages are a subcategory of adventures (same domain)
 - Simplifies imports (no need to import from multiple files)
 
 **Consequences**:
+
 - ✅ Single import for all adventure types
 - ⚠️ adventure.ts grows from 295 to ~500 lines (still manageable)
 
@@ -397,11 +405,13 @@ function transformFishSpecies(species: LakeTemplateProps['fishSpecies']): Featur
 **Decision**: Validate all template props at build time using Zod `.parse()` in template frontmatter. Build MUST fail if validation errors occur.
 
 **Rationale**:
+
 - **Fail-fast principle**: Catch invalid data before it reaches production
 - **No runtime overhead**: Validation happens once at build, not on every page load
 - **Clear error messages**: Zod errors pinpoint exact field and issue
 
 **Consequences**:
+
 - ✅ Invalid pages never reach production
 - ✅ Clear error messages guide editors to fix data
 - ⚠️ Build fails if data is invalid (intentional, forces data quality)
@@ -411,20 +421,24 @@ function transformFishSpecies(species: LakeTemplateProps['fishSpecies']): Featur
 ## 8. Next Steps
 
 ### Phase 1: Type System (1-2 hours)
+
 - Add lake-specific types to adventure.ts
 - Define Zod schemas for validation
 
 ### Phase 2: Template Structure (3-4 hours)
+
 - Create LakeTemplate.astro component
 - Implement 6 custom sections
 - Integrate 10 existing components
 
 ### Phase 3: WVWO Compliance (1 hour)
+
 - Enforce rounded-sm only
 - Apply border-left accents
 - Implement Kim's voice (font-hand)
 
 ### Phase 4: Testing & Validation (1-2 hours)
+
 - Refactor summersville-lake.astro
 - Run Lighthouse audits
 - Test responsive layouts

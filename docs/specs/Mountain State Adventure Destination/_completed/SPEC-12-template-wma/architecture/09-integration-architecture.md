@@ -175,6 +175,7 @@ Hero (image)
 ```
 
 **Empty State Handling**:
+
 - Entire section hidden (no placeholder)
 - Background alternation adjusts automatically
 - No broken UI or layout gaps
@@ -198,6 +199,7 @@ Static HTML
 ```
 
 **No Global State**:
+
 - Components receive props from parent
 - No client-side state management (Svelte, React, etc.)
 - Pure function components (props in, HTML out)
@@ -209,6 +211,7 @@ Static HTML
 ### SPEC-10: AdventureQuickStats
 
 **Existing Interface**:
+
 ```typescript
 interface QuickStatsProps {
   acreage?: number;
@@ -219,6 +222,7 @@ interface QuickStatsProps {
 ```
 
 **WMA Usage**:
+
 ```astro
 <AdventureQuickStats
   acreage={wma.data.acreage}       // NEW field from SPEC-12
@@ -235,6 +239,7 @@ interface QuickStatsProps {
 ### SPEC-10: AdventureGettingThere
 
 **Existing Interface**:
+
 ```typescript
 interface GettingThereProps {
   coordinates: { lat: number; lng: number };
@@ -244,6 +249,7 @@ interface GettingThereProps {
 ```
 
 **WMA Usage**:
+
 ```astro
 <AdventureGettingThere
   coordinates={wma.data.coordinates}
@@ -259,6 +265,7 @@ interface GettingThereProps {
 ### SPEC-10: AdventureGearChecklist
 
 **Existing Interface**:
+
 ```typescript
 interface GearChecklistProps {
   required: string[];
@@ -268,6 +275,7 @@ interface GearChecklistProps {
 ```
 
 **WMA Usage**:
+
 ```astro
 <AdventureGearChecklist
   required={wma.data.gear.slice(0, 5)}    // First 5 items = required
@@ -283,6 +291,7 @@ interface GearChecklistProps {
 ### SPEC-11: AdventureRelatedShop
 
 **Existing Interface**:
+
 ```typescript
 interface RelatedShopProps {
   categories: string[];
@@ -291,6 +300,7 @@ interface RelatedShopProps {
 ```
 
 **WMA Usage**:
+
 ```astro
 <AdventureRelatedShop
   categories={['Hunting Licenses', 'Ammo', 'Tree Stands', 'Fishing Tackle']}
@@ -322,6 +332,7 @@ export async function getStaticPaths() {
 ```
 
 **Output**:
+
 - `/wma/burnsville-lake/index.html`
 - `/wma/cranberry/index.html`
 - `/wma/holly-river/index.html`

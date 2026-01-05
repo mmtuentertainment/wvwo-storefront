@@ -1,6 +1,7 @@
 # WVWO Content Operations System (Async, Remote-Friendly)
 
 ## Matt's Actual Constraint
+
 - **Matt:** Ohio (5+ hour drive from shop)
 - **Kim:** Rural WV, no cell service at shop, computer + internet available
 - **Communication:** Facebook Messenger (async, batched)
@@ -103,13 +104,14 @@ We've got everything Matt needs:
 **On Facebook Messenger, Matt pastes this for EVERY adventure:**
 
 ```
+
 Hi Kim! New adventure draft ready for review:
 
 🎯 DESTINATION: [Name]
 📍 TYPE: [hunting/fishing/hiking]
 ⏱️ LOCATION: [Where it is]
 
-I've written a draft with basic facts from research. 
+I've written a draft with basic facts from research.
 Can you please answer these questions so I can add your local knowledge?
 
 1️⃣ WHAT MAKES THIS SPOT SPECIAL TO YOU?
@@ -134,10 +136,11 @@ Draft link: [URL or paste draft text here]
 
 ---
 
-⏰ NO RUSH - Whenever you have time to read through and respond, 
+⏰ NO RUSH - Whenever you have time to read through and respond,
 just type out answers to these questions. I'll do the rest.
 
 Thanks!
+
 ```
 
 **Why this template works:**
@@ -366,6 +369,7 @@ We're 15 minutes away at Exit 57 on I-79.
 ## Weekly Commitment (Realistic)
 
 **Matt:**
+
 - Week 1-2: 20 hours (research + write 10)
 - Week 3-4: 18 hours (research + write 9)
 - Week 5-6: 18 hours (research + write 7)
@@ -373,6 +377,7 @@ We're 15 minutes away at Exit 57 on I-79.
 - **Total: 66 hours over 7 weeks = ~10 hours/week**
 
 **Kim:**
+
 - Week 1-2: 1 hour (review 10 via Messenger)
 - Week 3-4: 1 hour (review 9)
 - Week 5-6: 45 min (review 7)
@@ -384,18 +389,22 @@ We're 15 minutes away at Exit 57 on I-79.
 ## Risk Mitigation (Realistic)
 
 ### Risk: Kim Never Responds to Messenger
+
 **Mitigation:** Matt sends Messenger prompt, gives 5-7 day window. If no response, publish with "Local tips coming soon" placeholder.
 **Backup:** Matt can always add Kim's voice later with a simple update.
 
 ### Risk: Matt Gets Stuck on Research
+
 **Mitigation:** Matt sets a timer. 45 min research max per destination, then move on. 90% research beats 0% published.
 **Backup:** Skip detailed elevation/regulations if needed. Core content (what/where/when) is enough for v1.
 
 ### Risk: WVDNR Website Down or Out of Date
+
 **Mitigation:** Cross-reference with AllTrails, state park websites, and local blogs.
 **Backup:** Use last year's regulations if current unavailable (seasonality rarely changes).
 
 ### Risk: Matt Burns Out Writing 26 Destinations in 6 Weeks
+
 **Mitigation:** Batch write (do 5 in one day, take 2 days off). Matt is not writing novel prose — formulaic, structured content is faster.
 **Backup:** If pace is killing Matt, extend to 8 weeks (7 batches instead of 4). Launch is Feb 28, not a hard deadline.
 
@@ -404,6 +413,7 @@ We're 15 minutes away at Exit 57 on I-79.
 ## Quality Checkpoints
 
 **Before sending to Kim:**
+
 - [ ] Title and slug are descriptive (searchable)
 - [ ] Coordinates are accurate (test on Google Maps)
 - [ ] Regulations are current (checked WVDNR)
@@ -412,6 +422,7 @@ We're 15 minutes away at Exit 57 on I-79.
 - [ ] Tone is clear, not marketing-y
 
 **After Kim responds:**
+
 - [ ] Her edits are integrated (don't edit her voice)
 - [ ] Local Tips section now has her perspective
 - [ ] Internal links added (to relevant shop products)

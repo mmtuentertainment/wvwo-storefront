@@ -602,6 +602,7 @@ it('uses correct border-left accent colors', () => {
 ## Change Log
 
 **v1.0.0** (2025-12-29):
+
 - Initial contract specification for 5 custom sections
 - Hero, Where to Fish, Marina, Seasonal Guide, Safety & Regulations
 - ~440 lines total custom HTML

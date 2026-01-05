@@ -38,12 +38,14 @@ Kim's official 12 inventory sections (December 2025):
 *Source: Kim Utt (store owner), December 2025*
 
 ### Services Offered
+
 - FFL Transfers ($25 per transfer)
 - WVDNR Hunting/Fishing Licenses
 - Buy/Sell/Trade Firearms
 - Scope Mounting & Bore Sighting ($20)
 
 ### Unique Story
+
 The store survived the devastating June 2016 flood that destroyed much of Braxton County. They lost substantial inventory, faced theft during recovery, and were denied FEMA assistance. They rebuilt through federal parks cleaning contracts and community support. This resilience is central to their identity.
 
 ---
@@ -51,6 +53,7 @@ The store survived the devastating June 2016 flood that destroyed much of Braxto
 ## Design Reference
 
 **PRIMARY REFERENCE:** Store front photo showing:
+
 - Dark chocolate brown vertical metal siding
 - Hunter green "SPORTING GOODS" sign with white block serif text
 - Hunter green metal roof
@@ -65,7 +68,9 @@ The store survived the devastating June 2016 flood that destroyed much of Braxto
 ## Pages to Build
 
 ### 1. Homepage
+
 **Sections (in order):**
+
 1. Sticky header: Logo, phone number, hours, hamburger menu (mobile)
 2. Hero: Mountain/hunting scene with store name overlay, "Get Directions" CTA
 3. Trust badges: "Family Owned Since 2008" • "Type 02 FFL" • "WVDNR License Agent"
@@ -78,12 +83,14 @@ The store survived the devastating June 2016 flood that destroyed much of Braxto
 10. Footer: Hours, address, phone, social, FFL disclaimer
 
 ### 2. Products Page (Category Listing)
+
 - Filter by category
 - Grid of product cards
 - Stock status indicators
 - "Call for Price" on firearms
 
 ### 3. Single Product Page
+
 - Large image
 - Name, description, price (or "Call for Price")
 - Stock status
@@ -91,6 +98,7 @@ The store survived the devastating June 2016 flood that destroyed much of Braxto
 - Related products
 
 ### 4. Services Page
+
 - FFL Transfers (with process explanation)
 - Licenses (types available)
 - Buy/Sell/Trade
@@ -98,6 +106,7 @@ The store survived the devastating June 2016 flood that destroyed much of Braxto
 - Each with pricing and what to expect
 
 ### 5. About Page
+
 - The Utt family story
 - 2016 flood survival narrative
 - Community involvement
@@ -105,6 +114,7 @@ The store survived the devastating June 2016 flood that destroyed much of Braxto
 - Photo gallery
 
 ### 6. Contact Page
+
 - Hours (prominent)
 - Address with embedded map
 - Phone (clickable)
@@ -159,6 +169,7 @@ CMS: Directus (headless, for owner content updates)
 ## Success Criteria
 
 ### Visual
+
 - [ ] Colors match store signage exactly
 - [ ] Typography evokes classic general store signs
 - [ ] Images feel authentic, not stock-photo corporate
@@ -166,6 +177,7 @@ CMS: Directus (headless, for owner content updates)
 - [ ] Faith elements present but subtle
 
 ### Functional
+
 - [ ] Phone number clickable on mobile
 - [ ] Hours clearly visible on every page
 - [ ] Directions link opens maps app
@@ -173,11 +185,13 @@ CMS: Directus (headless, for owner content updates)
 - [ ] Forms submit correctly
 
 ### Performance
+
 - [ ] Lighthouse mobile score: 90+
 - [ ] First contentful paint: <1.5s
 - [ ] No layout shift
 
 ### Compliance
+
 - [ ] FFL disclaimer on every page footer
 - [ ] No specific inventory quantities shown
 - [ ] Age requirements indicated where needed

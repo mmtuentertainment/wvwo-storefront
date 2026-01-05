@@ -37,27 +37,37 @@ wv-wild-web/src/
 ## 🗃️ Collections Schema
 
 ### adventures
+
 Hunting guides, trail maps, seasonal calendars
+
 - `title`, `description`, `season[]`, `difficulty`, `location`, `coordinates`, `gear[]`, `images[]`
 - Enums: `SeasonEnum`, `DifficultyEnum`
 
 ### stories
+
 Customer stories, hunt reports, community highlights
+
 - `title`, `excerpt`, `author`, `date`, `featured_image`, `category`
 - Enum: `CategoryEnum`
 
 ### resources
+
 WMA maps, season dates, regulatory info
+
 - `title`, `type`, `updated_date`, `pdf_url`, `description`, `related_adventures[]`
 - Enum: `ResourceTypeEnum`
 
 ### locations
+
 Trailheads, WMAs, local spots
+
 - `name`, `type`, `coordinates`, `directions`, `i79_proximity`, `amenities[]`, `images[]`
 - Enum: `LocationTypeEnum`
 
 ### products ⭐ NEW - Commerce-Ready
+
 Product catalog for future e-commerce integration
+
 - `title`, `sku`, `price`, `availability_status`, `commerce_enabled`, `fulfillment_type`
 - `specs` (weight, dimensions, brand, model)
 - `related_adventures[]` (content-to-commerce bridge)
@@ -65,6 +75,7 @@ Product catalog for future e-commerce integration
 - Enums: `AvailabilityStatusEnum`, `FulfillmentTypeEnum`
 
 **Strategic Value**:
+
 - Per-item commerce toggle (`commerce_enabled: true/false`)
 - BOPIS enforcement for heavy items (`fulfillment_type: 'pickup_only'`)
 - Inventory sync ready (`sku` field)
@@ -105,18 +116,21 @@ This schema is **retail-neutral** by design:
 This implementation validated through **4-agent research swarm** with 40+ primary sources:
 
 ### ✅ Astro v5 Content Layer API (CRITICAL)
+
 - **Issue**: Legacy Collections v2 causes OOM crashes at 30k-100k files (verified GitHub issues #10485, #11683, #12888)
 - **Solution**: Implemented `loader: glob()` pattern with persistent data store
 - **Performance**: 5x faster markdown builds, 80% faster overall (official Astro benchmarks)
 - **Scalability**: Handles 5k+ pages without memory issues
 
 ### ✅ Commerce-Ready Schema (Future-Proof)
+
 - **Issue**: Need to support commerce pivot without code rewrite
 - **Solution**: Added `products` collection with commerce fields (sku, fulfillment_type, commerce_enabled)
 - **Benefit**: Per-item toggle - flip `commerce_enabled: true` in frontmatter to activate checkout
 - **Integration Ready**: SKU field enables future Shopify/Snipcart inventory sync
 
 ### ✅ BOPIS Architecture (Shipping Economics - VERIFIED)
+
 - **Shipping Reality**: LTL freight **$488-768 per kayak** (not $150-300 as initially estimated)
   - Base freight: $150-400
   - Residential surcharge: $216 average
@@ -131,6 +145,7 @@ This implementation validated through **4-agent research swarm** with 40+ primar
 - **Example**: Jackson Kayak (42 lbs) = BOPIS permanent, Elk River Flies (0.2 lbs) = shippable
 
 ### ✅ Content-First Strategy (Huckberry Model - VALIDATED)
+
 - **Case Study**: Huckberry started as magazine (2010), $158M revenue by 2020
 - **Approach**: "Mind share before wallet share" - built audience through content
 - **Investment**: 15% of marketing budget on content creation

@@ -32,6 +32,7 @@ WV Wild Outdoors sits at a strategic intersection of hunting tourism traffic in 
 ### Primary Game Species (In Order of Economic Impact)
 
 #### White-Tailed Deer (The #1 Draw)
+
 - **111,646 deer harvested in 2024** (2% increase from 2023)
 - **350,000+ hunters** participate annually in deer season
 - **$291 million in deer hunting spending alone** (2011 data)
@@ -39,6 +40,7 @@ WV Wild Outdoors sits at a strategic intersection of hunting tourism traffic in 
 - **Population:** Estimated 500,000+ deer statewide (rebounded from ~1,000 in 1910)
 
 **Why WV Over Neighboring States?**
+
 - Liberal bag limits: Up to **9-10 deer per season** (3 buck tags, unlimited doe tags in most counties)
 - **Two deer daily bag limit** (only one antlered per day)
 - **Sunday hunting allowed statewide** on private land (PA/MD have restrictions)
@@ -46,6 +48,7 @@ WV Wild Outdoors sits at a strategic intersection of hunting tourism traffic in 
 - Diverse terrain: Southern counties (Logan, Mingo) get most P&Y entries per year
 
 #### Black Bear (Second Biggest Draw)
+
 - **Most liberal bear hunting in lower 48 states**
 - Bears harvested in **53 of 55 counties**
 - **Season runs August–January** (5+ months of opportunity)
@@ -53,27 +56,32 @@ WV Wild Outdoors sits at a strategic intersection of hunting tourism traffic in 
 - Abundant in Elk River WMA and surrounding Braxton County forests
 
 **Why WV Over Neighboring States?**
+
 - Longest season and highest bag limits on East Coast
 - Multiple chances at success (2 bears vs. 1 in most states)
 - Can hunt bear during deer season (combo trips)
 
 #### Wild Turkey
+
 - **Spring season:** April–May (peak traffic for out-of-state hunters)
 - **Fall season:** October–November and February split seasons
 - **Bag limit:** 2 bearded turkeys in spring, 1 in fall
 - Abundant in mature hardwood forests (Elk River WMA has excellent turkey habitat)
 
 **Why WV Over Neighboring States?**
+
 - Generous bag limits (2 spring, 1 fall)
 - Mature forests with low hunting pressure
 - Sunday hunting allowed
 
 #### Wild Boar (Niche Opportunity)
+
 - **Residents ONLY** (Boone, Logan, Raleigh, Wyoming counties in southern WV)
 - Originally released in 1971 to provide hunting when deer/bear/turkey were scarce
 - Not a draw for out-of-state hunters, but creates demand for southern WV residents traveling north
 
 ### Other Game (Secondary)
+
 - Squirrel, waterfowl, grouse, snowshoe hare
 - **Not major tourism drivers**, but opportunities for multi-species trips
 
@@ -93,6 +101,7 @@ WV Wild Outdoors sits at a strategic intersection of hunting tourism traffic in 
 | **Fall Turkey** | Oct 25 – Nov 1 + Feb 6–8 | Locals + diehards | **LOW-MEDIUM** | Turkey permits, calls |
 
 ### Critical Insight: The "Thanksgiving Week Phenomenon"
+
 - **Buck firearms season** starts the week of Thanksgiving
 - Schools close statewide (officially "Thanksgiving break," unofficially deer season)
 - **Peak I-79 traffic from PA/OH/MD** during this 7-day window
@@ -100,6 +109,7 @@ WV Wild Outdoors sits at a strategic intersection of hunting tourism traffic in 
 - **$150 million spent in this one week** (50% of annual deer hunting retail sales)
 
 **WVWO Strategy:** Stock deep for this week. Hunters traveling from out-of-state often:
+
 1. Realize they forgot something (ammo, orange vest, knife)
 2. Need last-minute FFL transfers if bringing firearms across state lines
 3. Want local intel (where's the pressure? where are deer moving?)
@@ -111,6 +121,7 @@ WV Wild Outdoors sits at a strategic intersection of hunting tourism traffic in 
 ### Primary Out-of-State Hunter Origins (By Proximity to I-79)
 
 #### Pennsylvania (Largest Source)
+
 - **1.3 million deer** in PA, but **heavy hunting pressure** on public land
 - PA hunters say: "The public land is way better in WV, with way fewer hunters"
 - **Northern Panhandle WMAs** (near PA border) see heavy PA traffic
@@ -123,6 +134,7 @@ WV Wild Outdoors sits at a strategic intersection of hunting tourism traffic in 
 **I-79 Routing:** PA hunters from Pittsburgh area travel I-79 south → Morgantown → Flatwoods (Exit 67) → southern WV
 
 #### Ohio (Second Largest Source)
+
 - Ohio hunters report "good success" in WV's Monroe/Washington counties (near OH border)
 - **Northern Panhandle WMAs** see OH traffic (especially Cross Creek, Hillcrest, Lewis Wetzel)
 - OH nonresident license increasing to **$180+ (2025)**, making WV ($119) more competitive
@@ -134,6 +146,7 @@ WV Wild Outdoors sits at a strategic intersection of hunting tourism traffic in 
 **I-79 Routing:** Ohio hunters from Wheeling/Parkersburg area travel I-79 south or US-19 south → Sutton/Flatwoods
 
 #### Maryland (Third Largest Source)
+
 - MD nonresident license: **$160** (WV: $119 = $41 savings)
 - MD has strict Sunday hunting restrictions (county-by-county)
 - MD hunters attracted to:
@@ -144,6 +157,7 @@ WV Wild Outdoors sits at a strategic intersection of hunting tourism traffic in 
 **I-79 Routing:** MD hunters typically use I-68 west → I-79 south through Morgantown → Flatwoods
 
 #### Virginia & North Carolina (Southbound Traffic)
+
 - VA/NC hunters traveling north on I-79 for:
   - Elk River WMA and Monongahela National Forest (northern WV)
   - Cooler mountain climate during early archery season
@@ -154,6 +168,7 @@ WV Wild Outdoors sits at a strategic intersection of hunting tourism traffic in 
 **I-79 Routing:** VA/NC hunters travel I-77 north → I-79 north → Flatwoods (Exit 67)
 
 ### Geographic Positioning: WVWO's Strategic Advantage
+
 - **I-79 Exit 67 at Flatwoods** = direct access from all four directions
 - **Elk River WMA access** 3 miles south on WV-17 (from Exit 67)
 - **Sutton Lake** 3 miles south (camping, lodging for hunters)
@@ -177,7 +192,9 @@ WV Wild Outdoors sits at a strategic intersection of hunting tourism traffic in 
 | **Terrain Diversity** | Mountains, hollows, reclaimed mines | Mountains, farmland | Flat farmland | Mixed | Piedmont, mountains |
 
 ### The "Less Pressure" Factor (Biggest Draw)
+
 Hunter testimonials from research:
+
 - *"The public land is way better than most public land in PA, with way fewer hunters."*
 - *"I hunted 16 days walking and still hunting all day every day. Saw exactly zero other hunters in the mountains."*
 - *"The further you get away from Pennsylvania, the better the hunting is."*
@@ -185,6 +202,7 @@ Hunter testimonials from research:
 **Insight:** Pennsylvania hunters are trained, equipped, and motivated—but their home state is **overcrowded**. West Virginia offers the same Appalachian terrain with **space to hunt alone**.
 
 ### The "Liberal Limits" Factor
+
 - **3 buck tags** (vs. 1-2 in most states)
 - **Unlimited doe tags** in most counties (vs. lottery/restricted in PA)
 - **Sunday hunting** = 52 extra days per year
@@ -193,6 +211,7 @@ Hunter testimonials from research:
 **Insight:** Serious hunters can fill freezers AND get trophies in one season.
 
 ### The "Multi-Species" Factor
+
 - Hunters can combo **deer + bear** during overlapping seasons
 - Spring turkey hunters can scout for fall deer spots
 - **Mountaineer Heritage Season** (Jan 9-12) allows flintlock/traditional hunters to pursue deer, bear, AND turkey simultaneously
@@ -204,17 +223,20 @@ Hunter testimonials from research:
 ### I-79: West Virginia's "Hunting Highway"
 
 **Route:**
+
 - **North terminus:** Erie, PA (I-90 junction)
 - **Through WV:** Morgantown → Flatwoods → Sutton → Charleston → Beckley
 - **South terminus:** Charleston, WV (I-77/I-64 junction)
 
 **Why I-79 Matters for Hunting Tourism:**
+
 - **Direct link** from Pittsburgh/Erie (PA) and Cleveland (OH) to central/southern WV hunting lands
 - **Intersects I-68 at Morgantown** (east-west corridor bringing MD/DC hunters)
 - **Four exits in Braxton County**, making access to Elk River WMA and Sutton Lake easy
 - **Major truck route** = infrastructure (gas, food, lodging) already exists for travelers
 
 ### Braxton County Exits (North to South)
+
 1. **Exit 79 (Burnsville)** – Access to Burnsville Lake WMA
 2. **Exit 67 (Flatwoods)** – **WV WILD OUTDOORS LOCATION** → 2 mi to WV-19, 3 mi to Elk River WMA
 3. **Exit 62 (Sutton)** – County seat, Sutton Lake, camping
@@ -223,6 +245,7 @@ Hunter testimonials from research:
 **Critical Insight:** Exit 67 (Flatwoods) is the **FIRST exit southbound hunters hit** after leaving Morgantown (80 miles). It's the natural "last stop before the hunt" for PA/OH hunters heading to Elk River WMA, Sutton Lake, or points south.
 
 ### Traffic Volume Data (Anecdotal)
+
 - **"Thousands of travelers"** funnel through Braxton County daily (e-WV Encyclopedia)
 - **Flatwoods = thriving I-79 business complex** (restaurants, motels, factory outlet mall)
 - **Peak traffic:** Thanksgiving week (buck firearms opener), spring turkey season
@@ -247,11 +270,13 @@ Hunter testimonials from research:
 | **Buck firearms week spending** | ~$150M | Est. 2024 | 50% of deer hunting annual spending |
 
 **Notes:**
+
 - 2011 data from Southwick Associates report (most recent comprehensive study cited)
 - Actual 2024 figures likely **higher** due to inflation, license fee increases, and growing nonresident participation
 - Governor Jim Justice (2018) claimed **"more than $500 million"** contribution to WV economy (PolitiFact rated claim plausible given multiplier effects)
 
 ### Nonresident Hunter Participation
+
 - **Exact statistics not publicly available** from WVDNR
 - Anecdotal evidence suggests **significant nonresident presence**, especially:
   - Northern Panhandle WMAs (near PA/OH border) = "crowded during rifle season"
@@ -259,6 +284,7 @@ Hunter testimonials from research:
 - **License price comparison** shows WV is **competitively priced** for nonresidents ($119 vs. $160 MD, $180+ OH)
 
 ### Braxton County Specific Economic Impact
+
 - **County economy founded on:** wood products, natural gas, conventions/tourism, coal mining (declining)
 - **Sutton Lake (built 1961)** added tourism component to local economy
 - **Elk River WMA (18,225 acres)** = major draw for hunters, but **no specific economic impact data** available
@@ -273,6 +299,7 @@ Hunter testimonials from research:
 ### The Hunter's Journey Through Braxton County
 
 #### Pre-Hunt Stops (What They Need)
+
 1. **Gas/Food** (Exit 67 Flatwoods complex)
 2. **Last-minute gear** (forgotten orange vest, ammo, knife, rope, tags)
 3. **FFL transfer** (if bringing firearms from out-of-state or recent online purchase)
@@ -280,6 +307,7 @@ Hunter testimonials from research:
 5. **Licenses/permits** (if buying last-minute, though most buy online now)
 
 #### Lodging Options (Where They Stay)
+
 - **Sutton Lake campgrounds:** Gerald Freeman, Bakers Run, Bee Run (primitive → RV sites)
 - **Flatwoods motels** (I-79 business complex, 2 mi from Exit 67)
 - **Private cabin rentals** (Airbnb/VRBO in Braxton County)
@@ -289,11 +317,13 @@ Hunter testimonials from research:
 **Gap Identified:** No dedicated **hunting lodges** found in Braxton County research. Hunters rely on generic campgrounds/motels, not specialized hunting accommodations.
 
 #### Processing/Butchering (Post-Hunt)
+
 - **Limited local processors identified** in Braxton County specifically
 - **WV has statewide network** of custom processors (license fee $5, common in rural counties)
 - **Opportunity:** Partner with or refer to nearest processor (likely in neighboring counties)
 
 #### Guides/Outfitters (Guided Hunts)
+
 - **No Braxton County outfitters found** in research
 - **Nearest outfitters:**
   - **Dream Mountain Ranch** (Albright, WV near Morgantown) – 80 mi north
@@ -312,47 +342,59 @@ Hunter testimonials from research:
 #### Tier 1: Critical Partnerships (High ROI)
 
 ##### 1. **Lodging Providers (Motels, Campgrounds)**
+
 **Partners:**
+
 - Flatwoods motels (I-79 Exit 67 complex)
 - Sutton Lake campground managers (Gerald Freeman, Bakers Run, Bee Run)
 - Airbnb/VRBO hosts in Braxton County
 
 **Partnership Model:**
+
 - **Cross-promotion:** Motel front desk has WVWO business cards, WVWO has motel brochures
 - **Referral incentive:** WVWO refers hunters to lodging, lodging refers guests to WVWO for gear/ammo
 - **Joint advertising:** Co-op ads in hunting magazines, "Stay & Shop" packages
 
 **Value:**
+
 - Hunters staying overnight = need last-minute gear, morning coffee, ice, snacks
 - Motels capture lodging revenue, WVWO captures retail sales
 
 ##### 2. **Meat Processors (Deer/Wild Game Processing)**
+
 **Partners:**
+
 - Nearest licensed custom processors (likely in neighboring counties: Gilmer, Nicholas, Lewis)
 - Mobile processors (if available in central WV)
 
 **Partnership Model:**
+
 - **Referral system:** WVWO displays processor business cards, processor recommends WVWO for gear
 - **Package deal:** "Process your deer AND get 10% off ammo at WVWO next season"
 - **Joint marketing:** Co-branded flyers at WVWO and processor locations
 
 **Value:**
+
 - Every successful hunter needs processing (unless doing it themselves)
 - Processor relationships build trust ("Kim knows the good guys")
 
 **Action Item:** Research and contact processors in Gilmer, Nicholas, Lewis counties to establish formal referral network.
 
 ##### 3. **WV DNR / Elk River WMA Staff**
+
 **Partners:**
+
 - WV Division of Natural Resources (WVDNR) district office
 - Elk River WMA managers/staff
 
 **Partnership Model:**
+
 - **Information hub:** WVWO displays current WMA maps, regulations, harvest reports
 - **Hunter check station collaboration:** Offer WVWO as unofficial "hunter info stop" before entering WMA
 - **Safety/education:** Host DNR hunter education classes at WVWO (if space allows)
 
 **Value:**
+
 - Kim's DNR agent credentials = built-in trust with agency
 - WVDNR may refer hunters to WVWO for local expertise
 - Positions WVWO as **official** resource (even if informal)
@@ -362,81 +404,104 @@ Hunter testimonials from research:
 #### Tier 2: Secondary Partnerships (Medium ROI)
 
 ##### 4. **Local Guides (Informal Hunting Guides)**
+
 **Partners:**
+
 - Experienced local hunters willing to offer paid guide services
 - Freelance guides operating in Elk River WMA (if any exist)
 
 **Partnership Model:**
+
 - **Guide directory:** WVWO maintains list of vetted local guides for hire
 - **Commission:** WVWO takes 10-15% referral fee, or guides buy gear at WVWO
 - **Reputation building:** Guides who use WVWO gear get listed first
 
 **Value:**
+
 - Out-of-state hunters unfamiliar with terrain may pay for guide
 - Guides need reliable gear source (WVWO becomes their pro shop)
 
 **Challenges:**
+
 - Limited evidence of commercial guide activity in Braxton County
 - May be more informal (buddy hunts) than commercial
 
 ##### 5. **Taxidermists (Trophy Mounting)**
+
 **Partners:**
+
 - Taxidermists in Braxton or neighboring counties
 
 **Partnership Model:**
+
 - **Cross-referral:** Hunter gets trophy buck → WVWO refers to taxidermist → taxidermist refers clients to WVWO
 - **Display space:** Taxidermist displays finished mounts with "Hunter shopped at WVWO" plaques
 
 **Value:**
+
 - Trophy hunters = high-value customers (willing to spend on quality gear)
 - Taxidermist referrals build prestige for WVWO
 
 ##### 6. **Sutton Lake / Burnsville Lake Recreation Providers**
+
 **Partners:**
+
 - Lake marinas, boat rentals (for waterfowl hunters accessing WMAs by water)
 - Fishing outfitters (overlap customer base)
 
 **Partnership Model:**
+
 - **Combo deals:** "Rent a kayak, get 10% off WVWO waterfowl ammo"
 - **Seasonal cross-promotion:** Spring = fishing season, Fall = hunting season
 
 **Value:**
+
 - Hunters often fish during off-season
 - Shared customer base = outdoor enthusiasts
 
 #### Tier 3: Aspirational Partnerships (Future Growth)
 
 ##### 7. **Hunting Podcast / YouTube Influencers**
+
 **Partners:**
+
 - Appalachian hunting content creators (Meateater, local WV hunters)
 - Turkey hunting influencers (spring season)
 
 **Partnership Model:**
+
 - **Sponsor field videos:** Influencer hunts Elk River WMA, mentions WVWO as gear source
 - **Affiliate sales:** Influencer gets commission on online referrals to WVWO (if e-commerce exists)
 
 **Value:**
+
 - Reaches younger hunters (digital-first audience)
 - Builds WVWO reputation beyond I-79 corridor
 
 **Challenges:**
+
 - Requires investment (sponsorship fees or free gear)
 - WVWO currently has no e-commerce
 
 ##### 8. **PA/OH Hunting Clubs**
+
 **Partners:**
+
 - Pennsylvania Game Commission sportsmen clubs
 - Ohio hunting forums/clubs
 
 **Partnership Model:**
+
 - **Group discounts:** "Show your PA hunting club card, get 10% off at WVWO"
 - **Annual club trips:** Bus trips from PA to Elk River WMA, with WVWO as gear stop
 
 **Value:**
+
 - Builds loyal out-of-state customer base
 - Word-of-mouth marketing in PA/OH hunter networks
 
 **Challenges:**
+
 - Requires outreach outside WV
 - May need to attend PA/OH hunting shows to recruit clubs
 
@@ -463,22 +528,27 @@ Hunter testimonials from research:
 ### High-ROI Marketing Tactics by Season
 
 #### Spring Turkey Season (April–May)
+
 **Goal:** Attract PA/OH turkey hunters traveling I-79 south
 **Tactics:**
+
 - **I-79 billboards** at Exit 79 (northbound) and Exit 62 (southbound): *"Turkey ammo & calls – Exit 67 Flatwoods"*
 - **Radio ads** on PA/OH hunting radio shows (March pre-season)
 - **Facebook ads** targeted to PA/OH zip codes, ages 30-60, interests: turkey hunting
 - **In-store promotion:** "Show us your out-of-state license, get 10% off turkey gear"
 
 **Stocking:**
+
 - 12-gauge turkey loads (Federal, Winchester, Remington)
 - Box calls, slate calls, mouth calls
 - Turkey vests, decoys, face masks
 - WV turkey tags (if sold at WVWO)
 
 #### Buck Firearms Season (Late November)
+
 **Goal:** Capture MAXIMUM out-of-state traffic during Thanksgiving week
 **Tactics:**
+
 - **Extended hours:** Open 6 AM–9 PM during buck week (hunters need early/late access)
 - **I-79 Exit 67 signage:** Temporary signs at exit ramp: *"Last stop before Elk River WMA"*
 - **Local motel partnerships:** Leave WVWO flyers in every motel room in Flatwoods/Sutton
@@ -486,6 +556,7 @@ Hunter testimonials from research:
 - **"Forgot something?" campaign:** Target hunters who forgot orange vest, ammo, knife at home
 
 **Stocking (DEEP inventory):**
+
 - Rifles (if FFL sales are active): .30-06, .308, .270, 6.5 Creedmoor
 - Rifle ammo (multiple brands/bullet weights)
 - Blaze orange vests, hats, gloves
@@ -494,13 +565,16 @@ Hunter testimonials from research:
 - WV deer tags (buck + doe)
 
 #### Archery Season (September–December)
+
 **Goal:** Serve local + out-of-state bowhunters, build repeat business
 **Tactics:**
+
 - **Bow tuning services** (if Bryan or Kim can do basic tuning): "$20 sight-in fee"
 - **Archery league** (off-season): Host summer 3D archery shoots to build community
 - **Pro shop reputation:** Stock premium broadheads, arrows, scent control (not just budget gear)
 
 **Stocking:**
+
 - Broadheads (fixed blade + mechanical)
 - Arrows (carbon, multiple spine weights)
 - Scent eliminators, cover scents
@@ -512,6 +586,7 @@ Hunter testimonials from research:
 ## 10. Key Takeaways & Strategic Recommendations
 
 ### **The WVWO Opportunity in One Sentence:**
+
 *West Virginia's 1.4 million acres of public land, liberal bag limits, and low hunting pressure attract 350,000+ hunters annually—many from PA/OH via I-79—and WV Wild Outdoors sits 2 miles from Exit 67, making it the last trusted stop before the Elk River WMA hunt.*
 
 ---
@@ -519,28 +594,33 @@ Hunter testimonials from research:
 ### **Top 5 Strategic Priorities for Kim & Bryan**
 
 #### 1. **Own the "I-79 Exit 67 Last Stop" Position**
+
 - **Billboard at Exit 67:** "Hunters: Ammo, Gear, FFL – 2 Miles Ahead"
 - **Google Maps optimization:** Ensure WVWO shows up for searches like "hunting store near me" from I-79
 - **Motel partnerships:** Every motel in Flatwoods should have WVWO business cards at check-in
 
 #### 2. **Build the Meat Processor Referral Network**
+
 - **Immediate action:** Research processors in Gilmer, Nicholas, Lewis counties
 - **Call/visit each processor:** "We'll send you hunters if you send us customers"
 - **In-store display:** "Need your deer processed? We recommend [Processor Name]"
 - **Loyalty loop:** Hunter buys ammo at WVWO → kills deer → processes at partner → comes back next year
 
 #### 3. **Maximize Buck Firearms Week (Thanksgiving)**
+
 - **Stock deep:** Double inventory on rifles, ammo, orange, knives
 - **Extended hours:** 6 AM–9 PM daily during buck week
 - **"Forgot Something?" kit:** Pre-made kits (orange vest + ammo + knife) for $50
 - **Social proof:** Display harvest photos from WVWO customers on Facebook/Instagram
 
 #### 4. **Leverage Kim's DNR Credentials**
+
 - **Become the local expert:** Host free "Hunting Elk River WMA 101" seminars (spring/fall)
 - **Hunter education classes:** Partner with WVDNR to host hunter safety courses
 - **Reputation building:** "Kim's a DNR agent—she knows the rules AND the land"
 
 #### 5. **Target PA/OH Hunters Specifically**
+
 - **PA hunting forum ads:** HuntingPA.com banner ads: "WV Wild Outdoors – Your WV Hunt Starts Here"
 - **Ohio Game Fishing forum:** Sponsor threads about WV hunting
 - **License price comparison:** In-store signage: "WV License $119 (vs. OH $180, MD $160)"
@@ -551,6 +631,7 @@ Hunter testimonials from research:
 ## Conclusion
 
 WV Wild Outdoors sits at a rare intersection of opportunity:
+
 1. **Geography:** I-79 Exit 67 funnels thousands of hunters annually
 2. **Proximity:** 3 miles from Elk River WMA (18,225 acres)
 3. **Expertise:** Kim's DNR credentials + FFL dealer status = trust + legal compliance
@@ -560,6 +641,7 @@ WV Wild Outdoors sits at a rare intersection of opportunity:
 **The Big Opportunity:** Out-of-state hunters traveling I-79 don't just need gear—they need a **local expert they can trust**. Kim's voice ("We handle the paperwork legally and quickly") and Bryan's presence make WVWO the natural choice.
 
 **Next Steps:**
+
 1. Build processor partnerships (Q1 2026)
 2. Secure I-79 Exit 67 billboard (spring 2026 for turkey season)
 3. Stock deep for buck firearms week (November 2026)
@@ -616,4 +698,4 @@ WV Wild Outdoors sits at a rare intersection of opportunity:
 
 ---
 
-**End of Report**
+## End of Report

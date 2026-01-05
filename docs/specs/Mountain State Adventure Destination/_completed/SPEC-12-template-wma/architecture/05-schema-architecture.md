@@ -111,12 +111,14 @@ const SpeciesSchema = z.object({
 ```
 
 **Validation Rules**:
+
 - `name`: Required, min 1 character
 - `season`: Required, min 1 character (free-form text, not date validation)
 - `notes`: Optional (Kim's tips)
 - `regulationUrl`: Optional, must be valid URL if provided
 
 **Error Messages**:
+
 - Clear, actionable: "Species name is required"
 - Includes field path: `adventures/burnsville-lake.md: species[0].name is required`
 
@@ -145,12 +147,14 @@ const FishingWaterSchema = z.object({
 ```
 
 **Validation Rules**:
+
 - `name`: Required, min 1 character
 - `species`: Required array, min 1 species, each species min 1 character
 - `access`: Required, min 1 character (how to reach the water)
 - `notes`: Optional (seasonal tips, stocking info)
 
 **Error Messages**:
+
 - "Water body name is required"
 - "At least one fish species required"
 - "Access information is required"
@@ -185,6 +189,7 @@ const FacilitySchema = z.object({
 ```
 
 **Validation Rules**:
+
 - `type`: Required (e.g., "Camping Sites", "Boat Ramp")
 - `count`: Optional, must be positive integer if provided
 - `description`: Required (what amenities exist)
@@ -193,6 +198,7 @@ const FacilitySchema = z.object({
 - `accessibility`: Optional (ADA notes)
 
 **Error Messages**:
+
 - "Facility type is required"
 - "Count must be positive integer"
 - "Facility description is required"
@@ -222,6 +228,7 @@ const AccessPointSchema = z.object({
 ```
 
 **Validation Rules**:
+
 - `name`: Required (e.g., "Main Gate")
 - `coords`: Optional (free-form string, not validated as GPS yet)
 - `features`: Array of strings (can be empty array)
@@ -250,6 +257,7 @@ const RegulationsSchema = z.object({
 ```
 
 **Validation Rules**:
+
 - `zone`: Optional (e.g., "Zone 3", "Zone 1A")
 - `restrictions`: Array of strings (can be empty array)
 - `regulationsUrl`: Optional, must be valid URL if provided
@@ -275,6 +283,7 @@ const SeasonHighlightSchema = z.object({
 ```
 
 **Validation Rules**:
+
 - `season`: Required (e.g., "Spring Gobbler")
 - `target`: Required (what species to hunt/fish)
 - `tips`: Required (Kim's advice for this season)
@@ -292,14 +301,17 @@ type: z.enum(['adventure', 'wma']).optional()
 **Purpose**: Explicit differentiation between adventure types
 
 **Values**:
+
 - `'adventure'`: General outdoor adventures (trails, trips, events)
 - `'wma'`: Wildlife Management Areas
 
 **Optional**: Yes (backward compatible)
+
 - Existing adventures: No `type` field (default behavior: treat as 'adventure')
 - New WMAs: `type: 'wma'` (explicit)
 
 **Future Extensions**:
+
 ```typescript
 type: z.enum(['adventure', 'wma', 'trail', 'campground', 'lake', 'park']).optional()
 ```
@@ -311,6 +323,7 @@ type: z.enum(['adventure', 'wma', 'trail', 'campground', 'lake', 'park']).option
 ### Phase 1: Add Optional Fields (Zero Breaking Changes)
 
 **Before**:
+
 ```yaml
 # elk-river.md
 ---
@@ -322,6 +335,7 @@ coordinates: { lat: 39.6419, lng: -79.9561 }
 ```
 
 **After** (manually add type field):
+
 ```yaml
 # elk-river.md
 ---
@@ -339,6 +353,7 @@ species: [...]
 ```
 
 **Build Behavior**:
+
 - ✅ Existing adventures (no `type` field): Build succeeds
 - ✅ Elk River (with `type: 'wma'`): Build succeeds
 - ✅ New WMAs (with `type: 'wma'` + WMA fields): Build succeeds
@@ -346,6 +361,7 @@ species: [...]
 ### Phase 2: Populate WMA Fields (Incremental)
 
 **Minimal WMA** (only type + core fields):
+
 ```yaml
 ---
 type: "wma"
@@ -357,6 +373,7 @@ coordinates: { lat: 38.8419, lng: -80.6561 }
 ```
 
 **Full WMA** (all optional fields):
+
 ```yaml
 ---
 type: "wma"
@@ -377,6 +394,7 @@ mapUrl: "https://..."
 ### Phase 3: Bulk Import (96 WMAs)
 
 **CSV → Frontmatter Converter**:
+
 ```typescript
 // Script: scripts/import-wmas.ts
 import { parse } from 'csv-parse/sync';
@@ -410,6 +428,7 @@ county: "${wma.county}"
 ### Build-Time Errors
 
 **Example 1: Missing Required Field**
+
 ```yaml
 # burnsville-lake.md
 ---
@@ -422,6 +441,7 @@ coordinates: { lat: 38.8419, lng: -80.6561 }
 ```
 
 **Error Output**:
+
 ```
 [ERROR] adventures/burnsville-lake.md: description is required
 
@@ -432,6 +452,7 @@ Fix: Add description field to frontmatter
 ```
 
 **Example 2: Invalid Type**
+
 ```yaml
 ---
 acreage: "1000"  # String instead of number
@@ -439,6 +460,7 @@ acreage: "1000"  # String instead of number
 ```
 
 **Error Output**:
+
 ```
 [ERROR] adventures/burnsville-lake.md: acreage must be a number
 
@@ -449,6 +471,7 @@ Fix: Remove quotes from acreage value
 ```
 
 **Example 3: Negative Count**
+
 ```yaml
 ---
 facilities:
@@ -459,6 +482,7 @@ facilities:
 ```
 
 **Error Output**:
+
 ```
 [ERROR] adventures/burnsville-lake.md: facilities[0].count must be positive integer
 
@@ -471,6 +495,7 @@ Fix: Use positive number for facility count
 ### Runtime Graceful Degradation
 
 **Empty Arrays** (no error, section hidden):
+
 ```astro
 {fishingWaters && fishingWaters.length > 0 && (
   <AdventureWhatToFish waters={fishingWaters} />
@@ -478,6 +503,7 @@ Fix: Use positive number for facility count
 ```
 
 **Undefined Fields** (no error, field hidden):
+
 ```astro
 {mapUrl && (
   <a href={mapUrl}>View Map</a>
@@ -524,6 +550,7 @@ wmas.forEach(wma => {
 ### Phase 2 Candidates
 
 **GPS Coordinate Validation**:
+
 ```typescript
 coords: z.string().regex(
   /^\d{1,2}\.\d+°?\s*[NS],\s*\d{1,3}\.\d+°?\s*[EW]$/,
@@ -532,6 +559,7 @@ coords: z.string().regex(
 ```
 
 **Phone Number Validation**:
+
 ```typescript
 contact: z.string().regex(
   /^\(\d{3}\)\s\d{3}-\d{4}$/,
@@ -540,6 +568,7 @@ contact: z.string().regex(
 ```
 
 **SEO Description Length**:
+
 ```typescript
 description: z.string()
   .min(50, "Description too short for SEO (min 50 chars)")
@@ -547,6 +576,7 @@ description: z.string()
 ```
 
 **Image Optimization Check**:
+
 ```typescript
 heroImage: z.string()
   .refine(path => path.endsWith('.webp'), "Use WebP format for images")

@@ -14,6 +14,7 @@ Content editors can create comprehensive fishing-focused lake pages that display
 **Why this priority**: Fishing is the PRIMARY recreational activity for WV lakes. This delivers immediate value by allowing editors to publish rich fishing content without writing custom layouts for each lake.
 
 **Independent Test**: Can be fully tested by creating a lake page with fish species data (name, season, techniques, Kim's tips) and verifying it renders with:
+
 - Green border-left accents on species cards
 - 2-3 column responsive grid layout
 - font-display for species names
@@ -36,6 +37,7 @@ Content editors can display marina services, boat access, and campground informa
 **Why this priority**: After fishing, visitors need practical information about boat access and overnight stays. This is critical for trip planning but secondary to fishing content.
 
 **Independent Test**: Create a lake page with marina and campground data, verify it displays:
+
 - Marina section with services list, boat launch ramps, rental options
 - Campground cards with site counts, amenities checklist, reservation links
 - Contact phone numbers as clickable tel: links
@@ -56,6 +58,7 @@ Visitors immediately see key lake information (name, acreage, depth, location) i
 **Why this priority**: First impression matters. Hero section sets tone and provides essential facts visitors need. Critical for MVP.
 
 **Independent Test**: Create lake page with hero data (name, acreage, maxDepth, county, heroImage), verify:
+
 - Hero image fills viewport height (70vh min)
 - Stats overlay displays in 2-4 column grid on hero
 - Quick highlight badges render below stats
@@ -164,19 +167,19 @@ Content editors can:
 
 Visitors to lake pages can:
 
-6. **Find fishing information immediately** within 3 seconds of page load (hero + fish species section appears above fold)
-7. **Understand lake characteristics** from hero stats (acreage, depth, location) before scrolling
-8. **Plan their trip** using marina/campground details with clickable phone numbers and reservation links
-9. **Navigate content easily** with clear visual hierarchy (font sizes, border accents, spacing)
-10. **Access pages on any device** with readable text, tappable buttons, and properly stacked mobile layouts
+1. **Find fishing information immediately** within 3 seconds of page load (hero + fish species section appears above fold)
+2. **Understand lake characteristics** from hero stats (acreage, depth, location) before scrolling
+3. **Plan their trip** using marina/campground details with clickable phone numbers and reservation links
+4. **Navigate content easily** with clear visual hierarchy (font sizes, border accents, spacing)
+5. **Access pages on any device** with readable text, tappable buttons, and properly stacked mobile layouts
 
 Technical validation:
 
-11. **TypeScript type safety** with 100% coverage of props interface and Zod schema validation
-12. **Component reuse** of 70%+ existing SPEC-11 components (measured by shared section usage)
-13. **WVWO compliance** passes automated tests: zero instances of rounded-md/lg/xl, all fonts from approved list
-14. **Accessibility score** of 95+ in Lighthouse audit (semantic HTML, ARIA, keyboard nav, color contrast)
-15. **Performance metrics** meet targets: First Contentful Paint <1.5s, Largest Contentful Paint <2.5s
+1. **TypeScript type safety** with 100% coverage of props interface and Zod schema validation
+2. **Component reuse** of 70%+ existing SPEC-11 components (measured by shared section usage)
+3. **WVWO compliance** passes automated tests: zero instances of rounded-md/lg/xl, all fonts from approved list
+4. **Accessibility score** of 95+ in Lighthouse audit (semantic HTML, ARIA, keyboard nav, color contrast)
+5. **Performance metrics** meet targets: First Contentful Paint <1.5s, Largest Contentful Paint <2.5s
 
 ## Assumptions & Constraints *(mandatory)*
 

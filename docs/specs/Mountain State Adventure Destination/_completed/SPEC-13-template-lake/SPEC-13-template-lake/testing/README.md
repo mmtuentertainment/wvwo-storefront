@@ -74,6 +74,7 @@ This directory contains comprehensive testing architecture for the SPEC-13 Lake 
 ### For Code Reviewers
 
 **Pre-Merge Checklist**:
+
 - [ ] All 7 test layers passing (see CI status)
 - [ ] Coverage ≥80% (statements), ≥75% (branches)
 - [ ] Zero WVWO violations (no rounded-md/lg/xl)
@@ -194,12 +195,14 @@ import { emptyArraysLakeData } from '../fixtures/empty-arrays-lake';
 ### Enforced by Layer 3
 
 **FORBIDDEN** (instant PR rejection):
+
 - ❌ `rounded-md`, `rounded-lg`, `rounded-xl`, `rounded-2xl`, `rounded-3xl`
 - ❌ Fonts: Inter, DM Sans, Space Grotesk, Poppins, Outfit, Montserrat, Raleway, Open Sans
 - ❌ Colors: Purple gradients, hot pink (#ec4899), neon colors
 - ❌ Styles: Glassmorphism, backdrop-blur, parallax scrolling
 
 **REQUIRED**:
+
 - ✅ `rounded-sm` ONLY (0.125rem)
 - ✅ Fonts: font-display (Bitter), font-hand (Permanent Marker), font-body (Noto Sans)
 - ✅ Colors: brand-brown, sign-green, brand-cream, brand-orange (<5% usage)
@@ -212,6 +215,7 @@ import { emptyArraysLakeData } from '../fixtures/empty-arrays-lake';
 ### Enforced by Layer 5
 
 **Must Pass**:
+
 - ✅ Color contrast ≥4.5:1 (text), ≥3:1 (UI elements)
 - ✅ Semantic HTML (h1→h2→h3 hierarchy)
 - ✅ ARIA labels on interactive elements
@@ -222,6 +226,7 @@ import { emptyArraysLakeData } from '../fixtures/empty-arrays-lake';
 - ✅ Skip to content link
 
 **Tools**:
+
 - @axe-core/playwright for automated scanning
 - Manual keyboard navigation testing
 - Color contrast checker in tests
@@ -233,17 +238,20 @@ import { emptyArraysLakeData } from '../fixtures/empty-arrays-lake';
 ### Enforced by Layer 7
 
 **Lighthouse Scores** (minimum):
+
 - Performance: 90+
 - Accessibility: 95+
 - Best Practices: 90+
 - SEO: 90+
 
 **Core Web Vitals**:
+
 - First Contentful Paint (FCP): <1.5s
 - Largest Contentful Paint (LCP): <2.5s
 - Cumulative Layout Shift (CLS): <0.1
 
 **Array Size Limits** (NFR-009):
+
 - fishSpecies: max 20 items
 - fishingSpots: max 15 items
 - campgrounds: max 10 items
@@ -256,6 +264,7 @@ import { emptyArraysLakeData } from '../fixtures/empty-arrays-lake';
 ### SPEC-11 Component Reuse
 
 Lake Template integrates with existing SPEC-11 components:
+
 - `AdventureWhatToFish` - Fish species wrapper
 - `AdventureFeatureSection` - Generic feature base
 - `AdventureCampingList` - Campground cards
@@ -263,6 +272,7 @@ Lake Template integrates with existing SPEC-11 components:
 - `AdventureQuickStats` - Stats bar
 
 **Integration Tests** verify:
+
 - Props match expected interfaces
 - Components render with Lake Template data
 - No breaking changes to existing APIs
@@ -326,10 +336,10 @@ Lake Template integrates with existing SPEC-11 components:
 
 ### Framework Documentation
 
-- **Vitest**: https://vitest.dev/
-- **Playwright**: https://playwright.dev/
-- **Axe Core**: https://github.com/dequelabs/axe-core
-- **Zod**: https://zod.dev/
+- **Vitest**: <https://vitest.dev/>
+- **Playwright**: <https://playwright.dev/>
+- **Axe Core**: <https://github.com/dequelabs/axe-core>
+- **Zod**: <https://zod.dev/>
 
 ### WVWO Guidelines
 
@@ -350,6 +360,7 @@ Lake Template integrates with existing SPEC-11 components:
 **Status**: Architecture complete. Ready for test implementation.
 
 **Deliverables**:
+
 - ✅ 7-layer testing architecture
 - ✅ Test file organization specification
 - ✅ Test data fixtures design

@@ -80,6 +80,7 @@ T-008 ──┬──→ T-009 (Component)
 ```
 
 **Mitigation:**
+
 - Complete T-001 through T-007 BEFORE starting T-008
 - Use LakeTemplateProps as template (copy/adapt pattern)
 - Write type guard tests immediately after completion
@@ -104,6 +105,7 @@ T-009 ──┬──→ T-010 Rapids
 ```
 
 **Mitigation:**
+
 - Copy LakeTemplate.astro structure directly (saves 15 min)
 - Validate hero rendering immediately (catches WVWO issues early)
 - Test all props destructuring before moving to sections
@@ -118,6 +120,7 @@ T-009 ──┬──→ T-010 Rapids
 **Why it matters:** Holds up entire Phase 2a
 
 **Mitigation:**
+
 - Pre-test color-coding logic in isolation
 - Have test data ready (3-5 rapids with varying classes)
 - Use shape icons (●▲■) early for accessibility
@@ -130,6 +133,7 @@ T-009 ──┬──→ T-010 Rapids
 ### ✅ THESE CAN RUN IN PARALLEL
 
 **Phase 1 (7 tasks parallel):**
+
 ```
 T-001 ─┐
 T-002 ─┤
@@ -139,12 +143,14 @@ T-005 ─┤
 T-006 ─┤
 T-007 ─┘
 ```
+
 **Team:** 7 developers = 30 min total
 **Solo:** 1 developer = 2 hours sequential
 
 ---
 
 **Phase 2 Sections (7 tasks parallel after T-009):**
+
 ```
 After T-009 completes:
 T-010 ─┐
@@ -155,12 +161,14 @@ T-014 ─┤
 T-015 ─┤
 T-016 ─┘
 ```
+
 **Team:** 7 developers = 60 min total (longest task)
 **Solo:** 1 developer = 6 hours sequential
 
 ---
 
 **Phase 4 Entities (4 tasks parallel after T-034):**
+
 ```
 After T-034 completes:
 T-035 ─┐
@@ -168,17 +176,20 @@ T-036 ─┼─→ All 4 schema entities can run simultaneously
 T-037 ─┤
 T-038 ─┘
 ```
+
 **Team:** 4 developers = 40 min total (longest task)
 **Solo:** 1 developer = 1.75 hours sequential
 
 ---
 
 **Phase 5 Data (2 tasks parallel after T-040):**
+
 ```
 After T-040 completes:
 T-041 ─┬─→ Both files can be created simultaneously
 T-042 ─┘
 ```
+
 **Team:** 2 developers = 30 min total
 **Solo:** 1 developer = 45 min sequential
 
@@ -191,12 +202,14 @@ T-042 ─┘
 **After:** Phase 1 (T-001 through T-008)
 
 **Validation:**
+
 ```bash
 npm run typecheck   # MUST pass with 0 errors
 npm run build       # MUST compile without errors
 ```
 
 **Manual Checks:**
+
 - [ ] All 7 Zod schemas export types correctly
 - [ ] RiverTemplateProps interface includes all nested types
 - [ ] Type guard function `isRiverAdventure()` works
@@ -211,12 +224,14 @@ npm run build       # MUST compile without errors
 **After:** Phase 2 (T-009 through T-018)
 
 **Validation:**
+
 ```bash
 npm run build       # MUST compile
 npm run dev         # Component MUST render
 ```
 
 **WVWO Compliance (Critical):**
+
 - [ ] Fonts: ONLY `font-display`, `font-hand` (Kim's tips), `font-body`
 - [ ] Colors: `brand-brown`, `sign-green`, `brand-cream`, `brand-orange` (<5%)
 - [ ] Border radius: ONLY `rounded-sm` (no rounded-md, rounded-lg, etc.)
@@ -232,12 +247,14 @@ npm run dev         # Component MUST render
 **After:** Phase 3 (T-027 through T-030)
 
 **Validation:**
+
 ```bash
 npm run typecheck   # MUST pass
 npm run build       # MUST compile
 ```
 
 **Manual Checks:**
+
 - [ ] Type discriminator enum includes 'river'
 - [ ] All 7 river schemas imported correctly
 - [ ] Type guard filters rivers correctly
@@ -252,11 +269,13 @@ npm run build       # MUST compile
 **After:** Phase 4 (T-034 through T-039)
 
 **Validation:**
+
 1. Build and extract JSON-LD
-2. Go to: https://search.google.com/test/rich-results
+2. Go to: <https://search.google.com/test/rich-results>
 3. Paste JSON-LD and validate
 
 **Requirements:**
+
 - [ ] ✅ Zero errors
 - [ ] ✅ TouristAttraction detected
 - [ ] ✅ LocalBusiness entities detected (1 per outfitter)
@@ -272,12 +291,14 @@ npm run build       # MUST compile
 **After:** Phase 5 (T-040 through T-042)
 
 **Validation:**
+
 ```bash
 npm run typecheck   # All data files MUST typecheck
 ls src/data/rivers/ # Verify all files created
 ```
 
 **Manual Checks:**
+
 - [ ] README.md documents usage pattern clearly
 - [ ] _example.ts contains complete Gauley River data
 - [ ] gauley.ts skeleton has clear TODO markers
@@ -294,6 +315,7 @@ ls src/data/rivers/ # Verify all files created
 **Best For:** Small projects, solo contractors
 
 **Timeline:**
+
 - Session 1 (2h): Phase 1 - Batch all schemas + interface
 - Session 2 (2h): Phase 2a - Scaffolding + core sections
 - Session 3 (2h): Phase 2b - Complete all sections
@@ -312,6 +334,7 @@ ls src/data/rivers/ # Verify all files created
 **Team Size:** 3 developers
 
 **Timeline:**
+
 - Hour 1-2: Phase 1 (divide schemas 3-2-2 pattern)
 - Hour 2-3: Phase 2 (parallel sections after T-009)
 - Hour 3-4: Phase 3, 4, 5 parallel (Collections, SEO, Data)
@@ -328,6 +351,7 @@ ls src/data/rivers/ # Verify all files created
 **Team Size:** 7 developers
 
 **Timeline:**
+
 - 0:00-0:30: Phase 1 (all 7 schemas parallel)
 - 0:30-1:15: T-008 + T-009 (sequential critical path)
 - 1:15-2:15: Phase 2 + 4 + 5 massive parallel
@@ -359,6 +383,7 @@ ls src/data/rivers/ # Verify all files created
 **Root Cause:** Schema exports inconsistent or missing
 
 **Solution:**
+
 - Review all 7 schemas export statements
 - Verify `export type Rapid = z.infer<typeof RapidSchema>`
 - Check import paths in T-008
@@ -374,6 +399,7 @@ ls src/data/rivers/ # Verify all files created
 **Root Cause:** Developer unfamiliar with WVWO rules
 
 **Solution:**
+
 - Implement T-018 scoped styles FIRST
 - Add automated lint rule for forbidden fonts
 - Script to check brand-orange usage (<5% rule)
@@ -389,6 +415,7 @@ ls src/data/rivers/ # Verify all files created
 **Root Cause:** River fields not marked optional
 
 **Solution:**
+
 - Ensure ALL river fields use `.optional()`
 - Test existing content queries before merge
 - Rollback to previous schema if issues found
@@ -404,6 +431,7 @@ ls src/data/rivers/ # Verify all files created
 **Root Cause:** Schema.org entities malformed
 
 **Solution:**
+
 - Reference SchemaAdventureHero pattern (working example)
 - Validate @id references resolve correctly
 - Check required properties per entity type
@@ -419,6 +447,7 @@ ls src/data/rivers/ # Verify all files created
 **Root Cause:** Multiple developers not following pattern
 
 **Solution:**
+
 - Designate one developer as "component owner"
 - Use T-010 Rapids as reference pattern for all sections
 - Code review all sections together before merge
@@ -429,7 +458,7 @@ ls src/data/rivers/ # Verify all files created
 
 ## Cheat Sheet: Task Assignment
 
-### If You Have 7 Developers:
+### If You Have 7 Developers
 
 ```
 Dev 1 (Critical Path Lead):
@@ -458,7 +487,7 @@ Dev 7 (Example Data):
 
 ---
 
-### If You Have 3 Developers:
+### If You Have 3 Developers
 
 ```
 Dev 1 (Type System + Component):
@@ -481,7 +510,7 @@ Dev 3 (Type System + Component + Collections + Data):
 
 ---
 
-### If You're Solo:
+### If You're Solo
 
 **Follow the 8-hour optimized timeline:**
 
@@ -508,6 +537,7 @@ Dev 3 (Type System + Component + Collections + Data):
 | Hour 9-10 | T-040 → T-042 | 100% (42/42) | Gate 5 ✅ |
 
 **Warning Signs:**
+
 - ⚠️ Hour 2: If <8 tasks complete, critical path at risk
 - ⚠️ Hour 4: If <18 tasks complete, phase 2 overrunning
 - ⚠️ Hour 6: If <22 tasks complete, collections issues
@@ -517,7 +547,7 @@ Dev 3 (Type System + Component + Collections + Data):
 
 ## Emergency Shortcuts (Last Resort Only)
 
-### If You're Running Out of Time:
+### If You're Running Out of Time
 
 1. **Skip Optional Sections:**
    - T-016 Nearby Attractions (45 min saved)
@@ -535,6 +565,7 @@ Dev 3 (Type System + Component + Collections + Data):
    - **Mitigation:** Expand in Phase 2 iteration
 
 **⚠️ DO NOT SKIP:**
+
 - Phase 1 (Type System) - Blocks everything
 - T-009 (Component Scaffolding) - Blocks all sections
 - T-010 (Rapids Section) - Pattern reference for all sections
@@ -545,6 +576,7 @@ Dev 3 (Type System + Component + Collections + Data):
 ## Success Criteria Summary
 
 **Project is DONE when:**
+
 - [x] All 42 tasks completed
 - [x] All 5 quality gates passed
 - [x] `npm run typecheck` passes
@@ -555,6 +587,7 @@ Dev 3 (Type System + Component + Collections + Data):
 - [x] Content team has implementation guide (README.md)
 
 **Project is READY FOR MERGE when:**
+
 - [x] All success criteria met
 - [x] PR review checklist complete
 - [x] No breaking changes to existing content

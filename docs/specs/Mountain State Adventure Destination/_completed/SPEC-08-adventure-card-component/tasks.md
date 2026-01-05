@@ -48,6 +48,7 @@
 ```
 
 **Legend**:
+
 - `[S]` = Sequential (depends on previous)
 - `[P]` = Parallelizable (can run alongside others)
 - `<!-- PR-CHECKPOINT -->` = Consider committing here
@@ -62,6 +63,7 @@
 **LOC**: ~8
 
 **Changes**:
+
 ```typescript
 // Add to adventures schema (after line 48)
 drive_time: z.string().optional(),      // e.g., "25 min"
@@ -69,6 +71,7 @@ kim_hook: z.string().optional(),         // Kim's personal note (future use)
 ```
 
 **Acceptance**:
+
 - [ ] `drive_time` field accepts strings like "25 min", "1 hr 15 min"
 - [ ] `kim_hook` field accepts optional string
 - [ ] Both fields are `.optional()` for backwards compatibility
@@ -83,6 +86,7 @@ kim_hook: z.string().optional(),         // Kim's personal note (future use)
 **Depends on**: Task 1.1
 
 **Changes**:
+
 ```typescript
 // Update Adventure type to include new fields
 export type Adventure = {
@@ -96,6 +100,7 @@ export type Adventure = {
 ```
 
 **Acceptance**:
+
 - [ ] Adventure type includes `drive_time?: string`
 - [ ] Adventure type includes `kim_hook?: string`
 - [ ] Existing filter logic unchanged
@@ -110,12 +115,14 @@ export type Adventure = {
 **Can run parallel to**: Task 1.2 (after 1.1 complete)
 
 **Changes**:
+
 ```yaml
 # Add to frontmatter
 drive_time: "25 min"
 ```
 
 **Acceptance**:
+
 - [ ] Sample adventure has `drive_time: "25 min"` in frontmatter
 - [ ] Content collection still loads without errors
 - [ ] `npm run build` passes
@@ -131,12 +138,14 @@ drive_time: "25 min"
 **Depends on**: Task 1.1, Task 1.2
 
 **Changes**:
+
 1. Import Car icon from Lucide React
 2. Add drive time badge above location badge
 3. Apply sign-green background with white text
 4. Handle missing drive_time gracefully
 
 **Code Addition** (after line 44, before Location Badge):
+
 ```tsx
 import { Car } from 'lucide-react';
 
@@ -150,6 +159,7 @@ import { Car } from 'lucide-react';
 ```
 
 **Acceptance**:
+
 - [ ] Drive time badge displays when `drive_time` field present
 - [ ] Badge hidden when `drive_time` field absent
 - [ ] Badge uses sign-green background, white text
@@ -173,6 +183,7 @@ import { Car } from 'lucide-react';
 **Can run parallel to**: Phase 2
 
 **Changes** (in Tailwind config extend.animation):
+
 ```javascript
 // tailwind.config.mjs
 animation: {
@@ -187,6 +198,7 @@ keyframes: {
 ```
 
 **OR** (in global CSS):
+
 ```css
 @keyframes gentle-reveal {
   from {
@@ -211,6 +223,7 @@ keyframes: {
 ```
 
 **Acceptance**:
+
 - [ ] `animate-gentle-reveal` class available in Tailwind
 - [ ] Animation runs 0.5s ease-out
 - [ ] Cards fade in from 10px below
@@ -225,12 +238,14 @@ keyframes: {
 **Depends on**: Task 3.1
 
 **Changes**:
+
 1. Add `index?: number` to AdventureCardProps interface
 2. Calculate stagger delay from index
 3. Apply inline animation-delay style
 4. Add motion-safe:animate-gentle-reveal class
 
 **Code Changes**:
+
 ```tsx
 // Update interface
 interface AdventureCardProps {
@@ -257,6 +272,7 @@ export const AdventureCard = React.memo(function AdventureCard({
 ```
 
 **Acceptance**:
+
 - [ ] `index` prop accepted (optional, defaults to 0)
 - [ ] Animation delay = index × 60ms
 - [ ] First card: 0ms delay, second: 60ms, third: 120ms, etc.
@@ -274,6 +290,7 @@ export const AdventureCard = React.memo(function AdventureCard({
 **Depends on**: Task 3.2
 
 **Changes**:
+
 ```tsx
 // In the map function
 {filteredAdventures.map((adventure, index) => (
@@ -286,6 +303,7 @@ export const AdventureCard = React.memo(function AdventureCard({
 ```
 
 **Acceptance**:
+
 - [ ] Index prop passed to each AdventureCard
 - [ ] Grid renders with stagger animation visible
 - [ ] Filtering still works correctly
@@ -298,6 +316,7 @@ export const AdventureCard = React.memo(function AdventureCard({
 **Depends on**: All previous tasks
 
 **Test Checklist**:
+
 - [ ] `npm run build` passes without errors
 - [ ] `npm run lint` passes without errors
 - [ ] Desktop: Grid loads with visible stagger (60ms between cards)
@@ -341,6 +360,7 @@ Parallel:   1.3 (after 1.1)
 ```
 
 **Fastest Path** (with parallelization):
+
 1. Start Task 1.1 (schema) AND Task 3.1 (CSS) in parallel
 2. After 1.1: Start 1.2 AND 1.3 in parallel
 3. After 1.2: Start 2.1 (drive time badge)
@@ -353,6 +373,7 @@ Parallel:   1.3 (after 1.1)
 ## Ready for Implementation
 
 Run `/speckit.implement` or begin with Task 1.1:
+
 ```bash
 # Start implementation
 code wv-wild-web/src/content.config.ts

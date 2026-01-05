@@ -36,6 +36,7 @@ cd wv-wild-web && npm run test:compliance
 ## Component Cheat Sheet
 
 ### Border Radius
+
 ```astro
 <!-- ✅ CORRECT -->
 <div class="rounded-sm border">...</div>
@@ -46,6 +47,7 @@ cd wv-wild-web && npm run test:compliance
 ```
 
 ### Fonts
+
 ```astro
 <!-- ✅ CORRECT -->
 <h2 class="font-display text-4xl">What to Hunt</h2>
@@ -61,6 +63,7 @@ cd wv-wild-web && npm run test:compliance
 ```
 
 ### Color Accents
+
 ```astro
 <!-- ✅ CORRECT -->
 <ul>
@@ -86,6 +89,7 @@ cd wv-wild-web && npm run test:compliance
 ```
 
 ### Styles
+
 ```astro
 <!-- ✅ CORRECT -->
 <div class="bg-brand-cream border border-brand-brown/15">
@@ -181,12 +185,14 @@ npm test
 ## Common Violations and Fixes
 
 ### Violation: Using rounded-md
+
 ```diff
 - <div class="rounded-md border">
 + <div class="rounded-sm border">
 ```
 
 ### Violation: font-hand without context
+
 ```diff
 - <p class="font-hand">Regular text</p>
 + <p class="text-brand-brown">Regular text</p>
@@ -194,6 +200,7 @@ npm test
 ```
 
 ### Violation: Wrong accent color
+
 ```diff
 <!-- Fish features should be green -->
 - <li class="border-l-4 border-l-brand-brown pl-4">
@@ -209,6 +216,7 @@ npm test
 ```
 
 ### Violation: Orange overuse
+
 ```diff
 <!-- Orange should be CTAs only, not backgrounds -->
 - <section class="bg-brand-orange py-12">
@@ -224,6 +232,7 @@ npm test
 ```
 
 ### Violation: Glassmorphism
+
 ```diff
 - <div class="backdrop-blur-md bg-white/80 rounded-lg">
 + <div class="bg-white border border-brand-brown/15 rounded-sm">

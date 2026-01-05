@@ -15,12 +15,14 @@ This document defines the complete section layout architecture for SkiTemplate.a
 **Purpose:** Resort name, elevation stats, quick badges, season dates, trail map link
 
 ### Layout Design
+
 - **Height:** 70vh (min-height: 500px)
 - **Pattern:** Full-bleed image with dark overlay (bg-brand-brown/50)
 - **Grid:** Stats grid (2-col mobile, 4-col desktop)
 - **Overlay Pattern:** Camo pattern at 10% opacity (matches AdventureHero pattern)
 
 ### HTML Structure
+
 ```html
 <section class="relative h-[70vh] min-h-[500px] overflow-hidden" aria-label="{name} hero section">
   <!-- Hero Image -->
@@ -96,6 +98,7 @@ This document defines the complete section layout architecture for SkiTemplate.a
 ```
 
 ### Responsive Breakpoints
+
 | Breakpoint | Behavior |
 |------------|----------|
 | Mobile (320-767px) | 2-col stats grid, stacked badges |
@@ -110,6 +113,7 @@ This document defines the complete section layout architecture for SkiTemplate.a
 **Background:** `bg-brand-cream`
 
 ### HTML Structure
+
 ```html
 <section class="bg-brand-cream py-12">
   <div class="container mx-auto px-4">
@@ -128,6 +132,7 @@ This document defines the complete section layout architecture for SkiTemplate.a
 **Background:** `bg-white`
 
 ### Trail Difficulty Color Mapping
+
 | Difficulty | Background | Text | Shape |
 |------------|------------|------|-------|
 | Beginner | `bg-sign-green` | `text-white` | Circle |
@@ -136,6 +141,7 @@ This document defines the complete section layout architecture for SkiTemplate.a
 | Expert | `bg-red-900` | `text-white` | Double Diamond |
 
 ### HTML Structure
+
 ```html
 <section class="py-16 bg-white" aria-labelledby="trails-heading">
   <div class="container mx-auto px-4">
@@ -210,6 +216,7 @@ This document defines the complete section layout architecture for SkiTemplate.a
 ```
 
 ### Responsive Breakpoints
+
 | Breakpoint | Behavior |
 |------------|----------|
 | Mobile (320-767px) | 2-col grid |
@@ -224,6 +231,7 @@ This document defines the complete section layout architecture for SkiTemplate.a
 **Background:** `bg-brand-cream`
 
 ### HTML Structure
+
 ```html
 <section class="py-16 bg-brand-cream" aria-labelledby="lifts-heading">
   <div class="container mx-auto px-4">
@@ -263,6 +271,7 @@ This document defines the complete section layout architecture for SkiTemplate.a
 **Background:** `bg-white`
 
 ### HTML Structure
+
 ```html
 <section class="py-16 bg-white" aria-labelledby="conditions-heading">
   <div class="container mx-auto px-4">
@@ -313,6 +322,7 @@ This document defines the complete section layout architecture for SkiTemplate.a
 **Background:** `bg-brand-cream`
 
 ### HTML Structure
+
 ```html
 <section class="py-16 bg-brand-cream" aria-labelledby="pricing-heading">
   <div class="container mx-auto px-4">
@@ -407,6 +417,7 @@ This document defines the complete section layout architecture for SkiTemplate.a
 ```
 
 ### Responsive Breakpoints
+
 | Breakpoint | Behavior |
 |------------|----------|
 | Mobile (320-767px) | Full-width stacked columns |
@@ -422,6 +433,7 @@ This document defines the complete section layout architecture for SkiTemplate.a
 **Condition:** Only renders if `terrainParks` array is populated
 
 ### HTML Structure
+
 ```html
 {terrainParks && terrainParks.length > 0 && (
   <section class="py-16 bg-white" aria-labelledby="parks-heading">
@@ -455,6 +467,7 @@ This document defines the complete section layout architecture for SkiTemplate.a
 ```
 
 ### Difficulty Color Function
+
 ```typescript
 function getTerrainParkDifficultyClass(difficulty: string): string {
   switch (difficulty) {
@@ -480,6 +493,7 @@ function getTerrainParkDifficultyClass(difficulty: string): string {
 **Background:** `bg-brand-cream`
 
 ### HTML Structure
+
 ```html
 <section class="py-16 bg-brand-cream" aria-labelledby="lodging-heading">
   <div class="container mx-auto px-4">
@@ -543,6 +557,7 @@ function getTerrainParkDifficultyClass(difficulty: string): string {
 **Condition:** Only renders if `dining` array is populated
 
 ### HTML Structure
+
 ```html
 {dining && dining.length > 0 && (
   <section class="py-16 bg-white" aria-labelledby="dining-heading">
@@ -580,6 +595,7 @@ function getTerrainParkDifficultyClass(difficulty: string): string {
 **Condition:** Only renders if `summerActivities` array is populated
 
 ### HTML Structure
+
 ```html
 {summerActivities && summerActivities.length > 0 && (
   <section class="py-16 bg-brand-cream" aria-labelledby="summer-heading">
@@ -612,6 +628,7 @@ function getTerrainParkDifficultyClass(difficulty: string): string {
 **Background:** `bg-white`
 
 ### HTML Structure
+
 ```html
 <section class="py-16 bg-white" aria-labelledby="amenities-heading">
   <div class="container mx-auto px-4">
@@ -651,6 +668,7 @@ function getTerrainParkDifficultyClass(difficulty: string): string {
 **Component:** `AdventureGearChecklist`
 
 ### Usage
+
 ```astro
 {gearList.length > 0 && (
   <section class="py-16 bg-brand-cream">
@@ -673,6 +691,7 @@ function getTerrainParkDifficultyClass(difficulty: string): string {
 **Component:** `AdventureRelatedShop`
 
 ### Usage
+
 ```astro
 {relatedShop.length > 0 && (
   <section class="py-16 bg-white">
@@ -698,6 +717,7 @@ function getTerrainParkDifficultyClass(difficulty: string): string {
 **Component:** `AdventureCTA`
 
 ### Usage
+
 ```astro
 <AdventureCTA
   heading={`Ready for ${name}?`}
@@ -736,6 +756,7 @@ function getTerrainParkDifficultyClass(difficulty: string): string {
 ## Responsive Breakpoints Summary
 
 ### Mobile (320-767px)
+
 - All grids stack to single column or 2-col max
 - Full-width cards
 - Smaller typography scale (text-lg titles, text-sm body)
@@ -743,12 +764,14 @@ function getTerrainParkDifficultyClass(difficulty: string): string {
 - Reduced padding (p-4 instead of p-6)
 
 ### Tablet (768-1023px)
+
 - 2-column grids where appropriate
 - Stats grid: 4-col
 - Pricing grid: 3-col (may wrap)
 - Side-by-side layouts start appearing
 
 ### Desktop (1024px+)
+
 - Full 3-column grids
 - Trail cards: 4-col
 - Pricing: 3-col side-by-side
@@ -760,6 +783,7 @@ function getTerrainParkDifficultyClass(difficulty: string): string {
 ## Tailwind Class Patterns
 
 ### Section Container
+
 ```html
 <section class="py-16 bg-{white|brand-cream}" aria-labelledby="section-heading">
   <div class="container mx-auto px-4">
@@ -767,11 +791,13 @@ function getTerrainParkDifficultyClass(difficulty: string): string {
 ```
 
 ### Card Pattern
+
 ```html
 <div class="bg-{white|brand-cream} border-l-4 border-sign-green p-6 rounded-sm">
 ```
 
 ### Grid Patterns
+
 ```html
 <!-- 2-col responsive -->
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -784,11 +810,13 @@ function getTerrainParkDifficultyClass(difficulty: string): string {
 ```
 
 ### Badge Pattern
+
 ```html
 <span class="bg-{color} text-{contrast} px-3 py-1 rounded-sm font-body text-sm font-medium">
 ```
 
 ### External Link Pattern
+
 ```html
 <a href={url} target="_blank" rel="noopener noreferrer"
    class="inline-flex items-center gap-2 text-sign-green font-body font-medium hover:underline">

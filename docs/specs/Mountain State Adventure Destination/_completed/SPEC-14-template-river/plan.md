@@ -14,11 +14,13 @@
 This implementation plan breaks down SPEC-14 River Template Component System into 42 actionable tasks across 5 phases. Based on architecture decisions from the 3-agent swarm (Architecture Phase), this plan ensures systematic TDD implementation following the LakeTemplate pattern (SPEC-13).
 
 **Key Dependencies:**
+
 - **SPEC-13** (Lake Template) - Pattern reference for component structure
 - **SPEC-10** (Gear Checklist) - Shared component integration
 - **SPEC-11** (Shop Categories) - Shared component integration
 
 **Architecture Decisions:**
+
 1. Monolithic 660-line component (not decomposed sub-components)
 2. Schema-first type system (Zod schemas → TypeScript types)
 3. New SEO component (`SchemaRiverTemplate.astro`)
@@ -73,11 +75,13 @@ Phase 5: Example Data Files (1h)
 ### Task Breakdown
 
 #### T-001: Create RapidSchema (30 min)
+
 **Priority:** CRITICAL (blocks component implementation)
 **Effort:** 30 minutes
 **Dependencies:** None
 
 **Implementation:**
+
 ```typescript
 /**
  * Individual rapid with classification.
@@ -98,6 +102,7 @@ export type Rapid = z.infer<typeof RapidSchema>;
 ```
 
 **Validation:**
+
 - [ ] Schema compiles without errors
 - [ ] Enum values match spec (I, II, III, IV, V exactly)
 - [ ] `displayName` separate from `class.base` for UI flexibility
@@ -105,11 +110,13 @@ export type Rapid = z.infer<typeof RapidSchema>;
 ---
 
 #### T-002: Create SeasonalFlowSchema (20 min)
+
 **Priority:** HIGH
 **Effort:** 20 minutes
 **Dependencies:** None
 
 **Implementation:**
+
 ```typescript
 /**
  * Seasonal water flow pattern.
@@ -126,6 +133,7 @@ export type SeasonalFlow = z.infer<typeof SeasonalFlowSchema>;
 ```
 
 **Validation:**
+
 - [ ] Level enum matches color-coding logic (Low/Medium/High exactly)
 - [ ] `cfsRange` optional (not all rivers have gauges)
 - [ ] `bestFor` array validates 1-10 items
@@ -133,11 +141,13 @@ export type SeasonalFlow = z.infer<typeof SeasonalFlowSchema>;
 ---
 
 #### T-003: Create RiverAccessPointSchema (25 min)
+
 **Priority:** HIGH
 **Effort:** 25 minutes
 **Dependencies:** None
 
 **Implementation:**
+
 ```typescript
 /**
  * River access point (put-in, take-out, both).
@@ -155,6 +165,7 @@ export type RiverAccessPoint = z.infer<typeof RiverAccessPointSchema>;
 ```
 
 **Validation:**
+
 - [ ] Type enum matches badge logic (Put-in/Take-out/Both exactly)
 - [ ] `coords` format documented in JSDoc
 - [ ] `typeNotes` optional for edge cases
@@ -162,11 +173,13 @@ export type RiverAccessPoint = z.infer<typeof RiverAccessPointSchema>;
 ---
 
 #### T-004: Create RiverFishingSchema (20 min)
+
 **Priority:** HIGH
 **Effort:** 20 minutes
 **Dependencies:** None
 
 **Implementation:**
+
 ```typescript
 /**
  * River fishing (flow-dependent).
@@ -186,6 +199,7 @@ export type RiverFishing = z.infer<typeof RiverFishingSchema>;
 ```
 
 **Validation:**
+
 - [ ] `species` array max 15 (reasonable limit)
 - [ ] `kimsTip` optional (not all rivers have Kim's input)
 - [ ] Nested `accessPoints` schema validates
@@ -193,11 +207,13 @@ export type RiverFishing = z.infer<typeof RiverFishingSchema>;
 ---
 
 #### T-005: Create OutfitterSchema with Contact Validation (30 min)
+
 **Priority:** HIGH
 **Effort:** 30 minutes
 **Dependencies:** None
 
 **Implementation:**
+
 ```typescript
 /**
  * Outfitter / guide service.
@@ -221,6 +237,7 @@ export type Outfitter = z.infer<typeof OutfitterSchema>;
 ```
 
 **Validation:**
+
 - [ ] `refine()` correctly validates at least one contact method
 - [ ] Error message clear for content editors
 - [ ] URL validation for website field
@@ -228,11 +245,13 @@ export type Outfitter = z.infer<typeof OutfitterSchema>;
 ---
 
 #### T-006: Create RiverSafetySchema (15 min)
+
 **Priority:** MEDIUM
 **Effort:** 15 minutes
 **Dependencies:** None
 
 **Implementation:**
+
 ```typescript
 /**
  * Safety category checklist.
@@ -247,17 +266,20 @@ export type RiverSafety = z.infer<typeof RiverSafetySchema>;
 ```
 
 **Validation:**
+
 - [ ] `important` flag optional (defaults to false)
 - [ ] Items array validates 1-20 entries
 
 ---
 
 #### T-007: Create NearbyAttractionSchema (15 min)
+
 **Priority:** MEDIUM
 **Effort:** 15 minutes
 **Dependencies:** None
 
 **Implementation:**
+
 ```typescript
 /**
  * Nearby point of interest.
@@ -274,17 +296,20 @@ export type NearbyAttraction = z.infer<typeof NearbyAttractionSchema>;
 ```
 
 **Validation:**
+
 - [ ] `type` free-form (not enum) for extensibility
 - [ ] JSDoc documents standard types
 
 ---
 
 #### T-008: Create RiverTemplateProps Interface (30 min)
+
 **Priority:** CRITICAL (blocks component implementation)
 **Effort:** 30 minutes
 **Dependencies:** T-001 through T-007 (all schemas)
 
 **Implementation:**
+
 ```typescript
 /**
  * River template props interface.
@@ -327,12 +352,14 @@ export interface RiverTemplateProps {
 ```
 
 **Validation:**
+
 - [ ] All nested types imported correctly
 - [ ] Reuses existing types (GearItem, RelatedCategory, Difficulty, Season, Coordinates)
 - [ ] JSDoc comments complete
 - [ ] Interface compiles without errors
 
 **Acceptance Criteria:**
+
 - [ ] `npm run typecheck` passes
 - [ ] All 7 schemas export types correctly
 - [ ] RiverTemplateProps interface complete
@@ -350,11 +377,13 @@ export interface RiverTemplateProps {
 ### Phase 2a: Core Sections (2 hours)
 
 #### T-009: Component Scaffolding & Hero Section (45 min)
+
 **Priority:** CRITICAL
 **Effort:** 45 minutes
 **Dependencies:** T-008 (RiverTemplateProps)
 
 **Implementation Pattern (from LakeTemplate lines 1-124):**
+
 ```astro
 ---
 import type { RiverTemplateProps } from '../../types/adventure';
@@ -444,6 +473,7 @@ const {
 ```
 
 **Validation:**
+
 - [ ] Hero height matches LakeTemplate (`h-[70vh] min-h-[500px]`)
 - [ ] Overlay color correct (`bg-brand-brown/50`)
 - [ ] Stats grid responsive (2-col mobile, 4-col desktop)
@@ -454,11 +484,13 @@ const {
 ---
 
 #### T-010: Rapids Guide Section (60 min)
+
 **Priority:** CRITICAL
 **Effort:** 60 minutes
 **Dependencies:** T-009 (component scaffolding)
 
 **Implementation:**
+
 ```astro
   <!-- Rapids Guide Section -->
   {rapids.length > 0 && (
@@ -530,6 +562,7 @@ const {
 ```
 
 **Validation:**
+
 - [ ] Conditional section rendering (`rapids.length > 0`)
 - [ ] Inline color-coding logic correct (I-III green, IV orange, V red)
 - [ ] Shape icons for accessibility (●▲■)
@@ -541,11 +574,13 @@ const {
 ---
 
 #### T-011: Fishing Section (45 min)
+
 **Priority:** HIGH
 **Effort:** 45 minutes
 **Dependencies:** T-009
 
 **Implementation Pattern (from LakeTemplate lines 155-207):**
+
 ```astro
   <!-- Fishing Section -->
   <section class="bg-brand-cream py-12" aria-labelledby="fishing">
@@ -627,6 +662,7 @@ const {
 ```
 
 **Validation:**
+
 - [ ] Species badges use sign-green
 - [ ] Access points 2-column grid responsive
 - [ ] Kim's tip conditional rendering
@@ -636,11 +672,13 @@ const {
 ---
 
 #### T-012: Outfitters Section (45 min)
+
 **Priority:** HIGH
 **Effort:** 45 minutes
 **Dependencies:** T-009
 
 **Implementation:**
+
 ```astro
   <!-- Outfitters Section -->
   {outfitters.length > 0 && (
@@ -737,6 +775,7 @@ const {
 ```
 
 **Validation:**
+
 - [ ] Conditional section rendering
 - [ ] Phone numbers format as tel: links
 - [ ] Website opens in new tab with rel="noopener noreferrer"
@@ -750,11 +789,13 @@ const {
 ### Phase 2b: New Sections (2 hours)
 
 #### T-013: Seasonal Flow Section (60 min)
+
 **Priority:** HIGH
 **Effort:** 60 minutes
 **Dependencies:** T-009
 
 **Implementation:**
+
 ```astro
   <!-- Seasonal Flow Section -->
   {seasonalFlow.length > 0 && (
@@ -834,6 +875,7 @@ const {
 ```
 
 **Validation:**
+
 - [ ] Real-time link conditional (above grid)
 - [ ] 4-column grid responsive (1-col mobile, 2-col tablet, 4-col desktop)
 - [ ] Water level badge color-coded (Low green, Medium orange, High red)
@@ -844,11 +886,13 @@ const {
 ---
 
 #### T-014: Access Points Section (60 min)
+
 **Priority:** HIGH
 **Effort:** 60 minutes
 **Dependencies:** T-009
 
 **Implementation:**
+
 ```astro
   <!-- Access Points Section -->
   {accessPoints.length > 0 && (
@@ -941,6 +985,7 @@ const {
 ```
 
 **Validation:**
+
 - [ ] Type badge color-coded (Put-in green, Take-out brown, Both orange)
 - [ ] Type notes conditional display
 - [ ] Facilities checkmarks display
@@ -952,11 +997,13 @@ const {
 ---
 
 #### T-015: Safety Section (45 min)
+
 **Priority:** HIGH
 **Effort:** 45 minutes
 **Dependencies:** T-009
 
 **Implementation:**
+
 ```astro
   <!-- Safety Section -->
   {safety.length > 0 && (
@@ -997,6 +1044,7 @@ const {
 ```
 
 **Validation:**
+
 - [ ] Orange border-left for prominence
 - [ ] Important badge conditional
 - [ ] Full-width stacking layout
@@ -1005,11 +1053,13 @@ const {
 ---
 
 #### T-016: Nearby Attractions Section (45 min)
+
 **Priority:** MEDIUM
 **Effort:** 45 minutes
 **Dependencies:** T-009
 
 **Implementation:**
+
 ```astro
   <!-- Nearby Attractions Section -->
   {nearbyAttractions.length > 0 && (
@@ -1075,6 +1125,7 @@ const {
 ```
 
 **Validation:**
+
 - [ ] Type icons display correctly (6 standard types)
 - [ ] Fallback icon for custom types
 - [ ] Distance badge sign-green
@@ -1084,11 +1135,13 @@ const {
 ---
 
 #### T-017: Shared Components Integration (30 min)
+
 **Priority:** HIGH
 **Effort:** 30 minutes
 **Dependencies:** T-009
 
 **Implementation:**
+
 ```astro
   <!-- Gear Checklist -->
   {gearList.length > 0 && (
@@ -1121,6 +1174,7 @@ const {
 ```
 
 **Validation:**
+
 - [ ] AdventureGearChecklist props correct
 - [ ] AdventureRelatedShop props correct
 - [ ] AdventureCTA props correct
@@ -1129,11 +1183,13 @@ const {
 ---
 
 #### T-018: Scoped Styles (15 min)
+
 **Priority:** HIGH
 **Effort:** 15 minutes
 **Dependencies:** T-017 (component complete)
 
 **Implementation (from LakeTemplate lines 652-660):**
+
 ```astro
 <style>
   /* WVWO Compliance: Only rounded-sm allowed */
@@ -1153,11 +1209,13 @@ const {
 ```
 
 **Validation:**
+
 - [ ] Scoped to .river-template class
 - [ ] rounded-sm enforcement with !important
 - [ ] prefers-reduced-motion media query
 
 **Acceptance Criteria for Phase 2:**
+
 - [ ] All 8 primary sections implemented
 - [ ] Component file exactly ~660 lines
 - [ ] All conditional rendering works
@@ -1180,28 +1238,33 @@ const {
 ### Task Breakdown
 
 #### T-027: Update Type Discriminator (15 min)
+
 **Priority:** CRITICAL
 **Effort:** 15 minutes
 **Dependencies:** T-008 (RiverTemplateProps)
 
 **Implementation:**
+
 ```typescript
 // Line 99: Update type discriminator
 type: z.enum(['adventure', 'wma', 'lake', 'river']).optional(),
 ```
 
 **Validation:**
+
 - [ ] Enum includes 'river'
 - [ ] Preserves existing types (adventure, wma, lake)
 
 ---
 
 #### T-028: Import River Schemas (10 min)
+
 **Priority:** HIGH
 **Effort:** 10 minutes
 **Dependencies:** T-001 through T-007 (all schemas)
 
 **Implementation:**
+
 ```typescript
 // Add to imports section (after line 5)
 import {
@@ -1216,17 +1279,20 @@ import {
 ```
 
 **Validation:**
+
 - [ ] All 7 schemas imported
 - [ ] Import path correct
 
 ---
 
 #### T-029: Add River Fields to Adventures Collection (30 min)
+
 **Priority:** HIGH
 **Effort:** 30 minutes
 **Dependencies:** T-027, T-028
 
 **Implementation:**
+
 ```typescript
 // After line 111: Add river-specific optional fields
 
@@ -1246,6 +1312,7 @@ nearbyAttractions: z.array(NearbyAttractionSchema).optional(),
 ```
 
 **Validation:**
+
 - [ ] All fields optional (zero breaking changes)
 - [ ] Schemas reference imported types
 - [ ] Field names match spec exactly
@@ -1253,11 +1320,13 @@ nearbyAttractions: z.array(NearbyAttractionSchema).optional(),
 ---
 
 #### T-030: Test Collection Query (15 min)
+
 **Priority:** HIGH
 **Effort:** 15 minutes
 **Dependencies:** T-029
 
 **Test Script:**
+
 ```typescript
 // test/content-collections.test.ts
 import { getCollection } from 'astro:content';
@@ -1273,11 +1342,13 @@ console.log(`WMAs: ${adventures.filter(a => a.data.type === 'wma').length}`);
 ```
 
 **Validation:**
+
 - [ ] Collection query succeeds
 - [ ] Type guard works correctly
 - [ ] Zero errors on existing lake/WMA entries
 
 **Acceptance Criteria for Phase 3:**
+
 - [ ] Type discriminator updated
 - [ ] All 7 schemas imported
 - [ ] River fields added (optional)
@@ -1297,11 +1368,13 @@ console.log(`WMAs: ${adventures.filter(a => a.data.type === 'wma').length}`);
 ### Task Breakdown
 
 #### T-034: Component Scaffolding & Props Interface (30 min)
+
 **Priority:** HIGH
 **Effort:** 30 minutes
 **Dependencies:** T-008 (RiverTemplateProps)
 
 **Implementation:**
+
 ```astro
 ---
 import type { Coordinates, Outfitter } from '../../types/adventure';
@@ -1342,6 +1415,7 @@ const pageUrl = `${baseUrl}/near/${slug}/`;
 ```
 
 **Validation:**
+
 - [ ] Props interface complete
 - [ ] All props destructured
 - [ ] baseUrl matches production
@@ -1349,11 +1423,13 @@ const pageUrl = `${baseUrl}/near/${slug}/`;
 ---
 
 #### T-035: TouristAttraction + Place Schema (40 min)
+
 **Priority:** HIGH
 **Effort:** 40 minutes
 **Dependencies:** T-034
 
 **Implementation:**
+
 ```astro
 <script type="application/ld+json" set:html={JSON.stringify({
   "@context": "https://schema.org",
@@ -1397,6 +1473,7 @@ const pageUrl = `${baseUrl}/near/${slug}/`;
 ```
 
 **Validation:**
+
 - [ ] @type array includes both TouristAttraction and Place
 - [ ] additionalType set to WaterBodyUsage
 - [ ] warnings array populated
@@ -1406,11 +1483,13 @@ const pageUrl = `${baseUrl}/near/${slug}/`;
 ---
 
 #### T-036: Article Schema (20 min)
+
 **Priority:** MEDIUM
 **Effort:** 20 minutes
 **Dependencies:** T-035
 
 **Implementation:**
+
 ```astro
 // 2. Article (guide content)
 {
@@ -1439,6 +1518,7 @@ const pageUrl = `${baseUrl}/near/${slug}/`;
 ```
 
 **Validation:**
+
 - [ ] @id references attraction
 - [ ] Publisher logo URL correct
 - [ ] Conditional date fields work
@@ -1446,11 +1526,13 @@ const pageUrl = `${baseUrl}/near/${slug}/`;
 ---
 
 #### T-037: BreadcrumbList Schema (15 min)
+
 **Priority:** MEDIUM
 **Effort:** 15 minutes
 **Dependencies:** T-035
 
 **Implementation:**
+
 ```astro
 // 3. BreadcrumbList
 {
@@ -1466,17 +1548,20 @@ const pageUrl = `${baseUrl}/near/${slug}/`;
 ```
 
 **Validation:**
+
 - [ ] Position 1-indexed
 - [ ] Last item (current page) has no item URL
 
 ---
 
 #### T-038: LocalBusiness Schema for Outfitters (30 min)
+
 **Priority:** MEDIUM
 **Effort:** 30 minutes
 **Dependencies:** T-035
 
 **Implementation:**
+
 ```astro
 // 4. LocalBusiness (per outfitter)
 ...outfitters.map((outfitter, index) => ({
@@ -1499,6 +1584,7 @@ const pageUrl = `${baseUrl}/near/${slug}/`;
 ```
 
 **Validation:**
+
 - [ ] Each outfitter separate entity
 - [ ] makesOffer array per service
 - [ ] location references attraction
@@ -1507,23 +1593,27 @@ const pageUrl = `${baseUrl}/near/${slug}/`;
 ---
 
 #### T-039: Test with Google Rich Results (15 min)
+
 **Priority:** HIGH
 **Effort:** 15 minutes
 **Dependencies:** T-034 through T-038
 
 **Test Steps:**
+
 1. Build component with example data
 2. Copy JSON-LD output
-3. Validate at https://search.google.com/test/rich-results
+3. Validate at <https://search.google.com/test/rich-results>
 4. Check for errors/warnings
 
 **Validation:**
+
 - [ ] Zero errors in Rich Results Test
 - [ ] TouristAttraction detected
 - [ ] LocalBusiness entities detected
 - [ ] BreadcrumbList valid
 
 **Acceptance Criteria for Phase 4:**
+
 - [ ] SchemaRiverTemplate.astro created (~200 lines)
 - [ ] All 4 schema entities implemented
 - [ ] Google Rich Results Test passes
@@ -1542,16 +1632,19 @@ const pageUrl = `${baseUrl}/near/${slug}/`;
 ### Task Breakdown
 
 #### T-040: Create rivers/ Directory & README (15 min)
+
 **Priority:** HIGH
 **Effort:** 15 minutes
 **Dependencies:** T-008 (RiverTemplateProps)
 
 **Implementation:**
+
 ```bash
 mkdir -p wv-wild-web/src/data/rivers
 ```
 
 **README.md Content:**
+
 ```markdown
 # River Data Files
 
@@ -1590,6 +1683,7 @@ import { gauleyRiverData } from '../../data/rivers/gauley';
 ## Required Sections
 
 All river data files MUST include:
+
 1. Hero section (name, image, tagline, description, stats)
 2. River metadata (length, county, difficultyRange, quickHighlights)
 3. At least 3 rapids
@@ -1608,6 +1702,7 @@ All river data files MUST include:
 ## Type Safety
 
 All data files are type-checked at build time. Run `npm run typecheck` to validate.
+
 ```
 
 **Validation:**
@@ -1747,12 +1842,14 @@ export const gauleyRiverData: RiverTemplateProps = {
 ```
 
 **Validation:**
+
 - [ ] All required sections present
 - [ ] TODO markers clear
 - [ ] Basic data complete (stats, metadata)
 - [ ] Type-checks without errors
 
 **Acceptance Criteria for Phase 5:**
+
 - [ ] rivers/ directory created
 - [ ] README.md documents pattern
 - [ ] _example.ts complete (300 lines)
@@ -1807,6 +1904,7 @@ Phase 5: Example Data
 **Path:** T-001 → T-008 → T-009 → T-010 → T-027 → T-034 → T-040
 
 **Rationale:**
+
 1. T-001 through T-007 create foundation schemas (parallel)
 2. T-008 combines schemas into primary interface (sequential)
 3. T-009 creates component scaffolding (sequential)
@@ -1822,6 +1920,7 @@ Phase 5: Example Data
 ## Validation Checklist
 
 ### Phase 1 Validation
+
 - [ ] All 7 Zod schemas compile without errors
 - [ ] RiverTemplateProps interface complete
 - [ ] Type guard function works correctly
@@ -1830,6 +1929,7 @@ Phase 5: Example Data
 - [ ] No breaking changes to existing adventure.ts exports
 
 ### Phase 2 Validation
+
 - [ ] Component file exactly ~660 lines
 - [ ] All 8 primary sections implemented
 - [ ] Conditional rendering works for all sections
@@ -1845,6 +1945,7 @@ Phase 5: Example Data
 - [ ] `npm run build` succeeds
 
 ### Phase 3 Validation
+
 - [ ] Type discriminator updated with 'river'
 - [ ] All 7 schemas imported correctly
 - [ ] River fields added (all optional)
@@ -1854,6 +1955,7 @@ Phase 5: Example Data
 - [ ] `npm run typecheck` passes
 
 ### Phase 4 Validation
+
 - [ ] SchemaRiverTemplate.astro created (~200 lines)
 - [ ] All 4 schema entities implemented:
   - [ ] TouristAttraction + Place
@@ -1866,6 +1968,7 @@ Phase 5: Example Data
 - [ ] JSON-LD validates
 
 ### Phase 5 Validation
+
 - [ ] rivers/ directory created
 - [ ] README.md documents pattern clearly
 - [ ] _example.ts complete (300 lines)
@@ -1875,6 +1978,7 @@ Phase 5: Example Data
 - [ ] Example data matches spec requirements
 
 ### Overall Acceptance Criteria
+
 - [ ] All 42 tasks complete
 - [ ] Total new code: 1,690 lines
 - [ ] Zero breaking changes to existing codebase
@@ -2086,37 +2190,45 @@ describe('Content Collections - River Extension', () => {
 ### Parallel Execution Opportunities
 
 **Phase 1 (All Parallel):**
+
 - T-001 through T-007 can all run in parallel (7 schemas independent)
 - T-008 waits for all schemas to complete
 
 **Phase 2 (Parallel after T-009):**
+
 - T-009 must complete first (component scaffolding)
 - T-010 through T-016 can run in parallel (8 sections independent)
 - T-017 and T-018 sequential after all sections
 
 **Phase 3 (Sequential):**
+
 - T-027 → T-028 → T-029 → T-030 (dependencies on type system)
 
 **Phase 4 (Parallel after T-034):**
+
 - T-034 must complete first (scaffolding)
 - T-035, T-036, T-037, T-038 can run in parallel (4 schema entities independent)
 - T-039 waits for all entities
 
 **Phase 5 (Parallel after T-040):**
+
 - T-040 must complete first (directory setup)
 - T-041 and T-042 can run in parallel
 
 ### Optimal Execution Strategy
 
 **Day 1 (4 hours):**
+
 - Morning: Phase 1 (2h) - All schemas in parallel
 - Afternoon: Phase 2a (2h) - Scaffolding + core sections (T-009 → T-010, T-011, T-012)
 
 **Day 2 (4 hours):**
+
 - Morning: Phase 2b (2h) - New sections (T-013, T-014, T-015, T-016, T-017, T-018)
 - Afternoon: Phase 3 (1h) + Phase 4 start (1h) - Content Collections + SEO scaffolding
 
 **Day 3 (2 hours):**
+
 - Morning: Phase 4 completion (1h) + Phase 5 (1h) - SEO entities + Example data
 
 ---

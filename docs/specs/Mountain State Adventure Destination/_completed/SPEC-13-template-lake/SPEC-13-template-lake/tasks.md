@@ -48,7 +48,7 @@
 - [ ] T011 Add array size validation: `.max(20)` for fishSpecies, `.max(15)` for fishingSpots, `.max(10)` for campgrounds, `.max(20)` for activities
 - [ ] T012 Re-export `LakeTemplateProps` in `wv-wild-web/src/types/index.ts`
 
-### Type Testing (wv-wild-web/src/types/__tests__/adventure-lake.test.ts)
+### Type Testing (wv-wild-web/src/types/**tests**/adventure-lake.test.ts)
 
 - [ ] T013 [P] Create test file with FishingSpot schema validation tests (valid data passes, invalid fails)
 - [ ] T014 [P] Add Marina schema tests (with/without optional rentals and fee)
@@ -289,6 +289,7 @@
 ## Dependencies & Execution Strategy
 
 ### Critical Path
+
 ```
 T001-T003 (Setup) →
 T004-T018 (Foundation - BLOCKS ALL) →
@@ -305,16 +306,19 @@ T127-T134 (Migration/Docs) [P]
 ### Parallel Execution Opportunities
 
 **After Foundation (T004-T018)**:
+
 - **Parallel Wave 1**: US1, US3, US2, US5, US4 can ALL run in parallel (different sections, no dependencies)
 - **5 agents simultaneously**: Each agent implements one user story
 - **Time savings**: ~4 hours (sequential: 12 hours, parallel: 8 hours)
 
 **Testing Phase (T105-T126)**:
+
 - All 22 test tasks can run in parallel
 - Use test runner parallelization
 - Estimated: 15-20 minutes total
 
 **Migration Phase (T127-T134)**:
+
 - Tasks T132-T134 can run in parallel
 - Migration (T127-T131) must be sequential
 
@@ -333,6 +337,7 @@ T127-T134 (Migration/Docs) [P]
 ## Task Statistics
 
 **Total Tasks**: 134
+
 - Phase 1 (Setup): 3 tasks
 - Phase 2 (Foundation): 15 tasks (BLOCKING)
 - Phase 3 (US1): 16 tasks
@@ -347,6 +352,7 @@ T127-T134 (Migration/Docs) [P]
 **Parallel Opportunities**: 67 tasks marked with [P] (50% parallelizable)
 
 **Estimated Time**:
+
 - Sequential: ~24 hours
 - Parallel: ~16 hours
 - **Savings: 33% via concurrent execution**

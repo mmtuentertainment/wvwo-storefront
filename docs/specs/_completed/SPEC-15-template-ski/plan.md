@@ -71,6 +71,7 @@ Core implementation completed. Gaps identified via speckit.plan verification.
 ### Priority 1: Missing Core Feature
 
 **Kim's Tips Section** (Core Requirement #10 in spec)
+
 - Add optional `kimTips?: { tip: string; context?: string }[]` prop to ski-types.ts
 - Create callout boxes with:
   - `font-hand` for Kim's voice
@@ -83,6 +84,7 @@ Core implementation completed. Gaps identified via speckit.plan verification.
 ### Priority 2: Accessibility Gap
 
 **prefers-reduced-motion Coverage**
+
 - Current: 1 occurrence of motion classes
 - Required: Add `motion-safe:` prefix to all `transition-*` and `hover:` animations
 - Estimated: ~15 lines of changes
@@ -90,6 +92,7 @@ Core implementation completed. Gaps identified via speckit.plan verification.
 ### Priority 3: Accepted Deviation
 
 **Template Line Count**
+
 - Target: 550-600 lines
 - Actual: 741 lines
 - Recommendation: **ACCEPT AS-IS**
@@ -149,6 +152,7 @@ Core implementation completed. Gaps identified via speckit.plan verification.
 **Actual:** 741 lines (+186 over)
 
 Extra sections added:
+
 - Nordic Skiing (conditional)
 - Safety Section
 - Park Affiliation Footer

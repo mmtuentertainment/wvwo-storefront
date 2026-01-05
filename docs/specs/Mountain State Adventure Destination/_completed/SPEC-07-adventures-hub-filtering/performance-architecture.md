@@ -1,4 +1,5 @@
 # SPEC-07 Performance Architecture
+
 ## Adventures Hub Multi-Axis Filtering - Rural WV 3G Optimization
 
 **Version:** 1.0.0
@@ -13,6 +14,7 @@
 This performance architecture addresses the unique challenge of delivering interactive filtering for 70+ adventure destinations to rural West Virginia users on spotty 3G connections. The strategy combines aggressive bundle optimization, Cloudflare edge caching, HTTP/2 Server Push, and client-side resilience to achieve sub-2.5s Largest Contentful Paint (LCP) and 100-150ms filter response times.
 
 **Key Performance Targets:**
+
 - **LCP (Largest Contentful Paint):** <2.5 seconds on 3G (Good rating)
 - **Filter Response Time:** 100-150ms for 70 items across 5 axes
 - **Bundle Size:** <95 KB per React island (gzipped)
@@ -38,6 +40,7 @@ Based on 3G constraints (750 Kbps down, 250 Kbps up, 100-300ms RTT):
 | **Total Critical Path** | **110 KB** | **365 KB** | ~1.2s download on 3G (750 Kbps) |
 
 **Math Check (3G Download Time):**
+
 - 110 KB gzipped = 880 Kb (kilobits)
 - 880 Kb ÷ 750 Kbps = 1.17 seconds (download)
 - Add 300ms RTT + 200ms parse/execute = **1.67s total** (under 2.5s LCP budget)
@@ -54,6 +57,7 @@ Based on 3G constraints (750 Kbps down, 250 Kbps up, 100-300ms RTT):
 | **Single Island** (Unified Filter Component) | Single hydration pass, shared React runtime (50 KB once), simpler state | Larger initial bundle | ✅ APPROVED |
 
 **Why Single Island Wins for 70 Items:**
+
 - **Shared React Runtime:** React core (50 KB) is loaded ONCE, not duplicated.
 - **State Management:** Filter state, result list, and map markers share a single React context.
 - **HTTP/2 Push:** One push relationship (`/adventures/` → `island-filter.js`), not three.
@@ -107,6 +111,7 @@ export function AdventureFilterApp({ initialData }) {
 ```
 
 **Deferred Modules:**
+
 - **MapView.tsx** (Leaflet.js wrapper): 30 KB → Loaded when user clicks "Show Map"
 - **AdvancedFilters.tsx** (Dual-thumb range sliders, elevation UI): 15 KB → Loaded in modal drawer
 
@@ -121,15 +126,18 @@ export function AdventureFilterApp({ initialData }) {
 **Problem:** On 3G, each round-trip time (RTT) costs 100-300ms.
 
 **Traditional Waterfall (Without Push):**
+
 ```
 1. Request /adventures/            → 300ms RTT
 2. Receive HTML, parse <script>    → 100ms
 3. Request /island-filter.js       → 300ms RTT ← AVOIDABLE
 4. Download JS                     → 1.2s
 ```
+
 **Total:** 1.9s before JS executes
 
 **With HTTP/2 Push:**
+
 ```
 1. Request /adventures/            → 300ms RTT
    ↳ Server PUSHES /island-filter.js (no extra RTT)
@@ -137,6 +145,7 @@ export function AdventureFilterApp({ initialData }) {
 3. JS already in cache             → 0ms (no request)
 4. Download JS                     → 1.2s
 ```
+
 **Total:** 1.6s before JS executes → **300ms savings**
 
 ### 2.2 Cloudflare `_headers` File Configuration
@@ -167,6 +176,7 @@ Create `public/_headers` in the Astro project:
 ```
 
 **Key Directives:**
+
 - **`max-age=31556952, immutable`**: JavaScript bundles use content hashing (`island-filter.abc123.js`), safe to cache for 1 year.
 - **`Link: <...>; rel=preload`**: Browser preload hint (loads JS before parser discovers it).
 - **`nopush`**: Prevent Cloudflare from pushing (use browser preload instead). HTTP/2 Push is complex; preload is simpler and works across CDNs.
@@ -176,6 +186,7 @@ Create `public/_headers` in the Astro project:
 **2025 Recommendation: Use `<link rel="preload">` in HTML instead of HTTP/2 Push.**
 
 **Why:**
+
 - **Browser Support:** Preload works in 95%+ browsers; HTTP/2 Push has cache invalidation bugs.
 - **Simpler:** No server configuration needed beyond `_headers`.
 - **Cloudflare Limitation:** Cloudflare Pages doesn't fully support HTTP/2 Push (uses HTTP/3 QUIC, which has different semantics).
@@ -204,6 +215,7 @@ const filterBundleUrl = '/island-filter.abc123.js'; // Vite injects hash
 ```
 
 **Performance Impact:**
+
 - **Preload:** Starts JS download ~200ms earlier (no parser blocking).
 - **HTTP/2 Push:** Would save 300ms RTT, but Cloudflare's implementation is unreliable.
 - **Verdict:** Preload is sufficient for 3G target. If benchmarking shows >2.5s LCP, revisit Push.
@@ -256,6 +268,7 @@ const filterBundleUrl = '/island-filter.abc123.js'; // Vite injects hash
 **Cloudflare-Specific Optimization:**
 
 Add to Cloudflare Dashboard → Caching → Configuration:
+
 - **Tiered Cache:** Enable (uses regional data centers as secondary cache).
 - **Argo Smart Routing:** Enable ($5/month) → Routes around congestion, reduces TTFB by 30-33%.
 
@@ -332,6 +345,7 @@ export async function filterOffline(criteria: FilterCriteria): Promise<Adventure
 ```
 
 **Performance Characteristics:**
+
 - **IndexedDB Query (70 items):** <5ms
 - **Client-side filter (5 axes):** 10-20ms
 - **Total Offline Filter Response:** **15-25ms** (6-10x faster than network request)
@@ -448,6 +462,7 @@ ls -lh dist/client/chunks/*.js | sort -k5 -h
 ```
 
 **Expected Output:**
+
 ```
 vendor-react.[hash].js     → 52 KB (React + ReactDOM)
 vendor-table.[hash].js     → 28 KB (TanStack Table core)
@@ -476,6 +491,7 @@ export default {
 ```
 
 **Trade-offs:**
+
 - **Savings:** 50 KB → 3 KB (47 KB saved)
 - **Cost:** Some React features unsupported (Suspense, React.lazy less reliable)
 - **Verdict:** Only use if React bundle >100 KB gzipped after all other optimizations.
@@ -629,6 +645,7 @@ const trackFilterPerformance = () => {
 ### 6.2 Cloudflare Analytics Configuration
 
 **Enable in Cloudflare Dashboard:**
+
 1. Navigate to `wvwo-storefront` site → **Speed** → **Web Analytics**
 2. Enable **Real User Monitoring (RUM)** → Tracks LCP, FID, CLS automatically
 3. Add snippet to Astro layout:
@@ -640,6 +657,7 @@ const trackFilterPerformance = () => {
 ```
 
 **Custom Dashboards:**
+
 - **Dashboard 1:** LCP by Connection Type (3G vs 4G vs WiFi)
 - **Dashboard 2:** Filter Response Time (p50, p95, p99)
 - **Dashboard 3:** Cache Hit Rate (edge vs browser vs miss)
@@ -758,16 +776,19 @@ jobs:
 If performance targets not met after 2 weeks of optimization:
 
 **Phase 1: Reduce Scope (Week 1-2)**
+
 - Remove map component (saves 30 KB)
 - Limit filters to 3 axes instead of 5 (simpler UI)
 - Disable Service Worker (if causing bugs)
 
 **Phase 2: Architectural Change (Week 3-4)**
+
 - Switch from React islands to Vanilla JS (saves 50 KB, loses maintainability)
 - Paginate results (20 items/page instead of 70)
 - Move filtering to server-side (requires Cloudflare Workers)
 
 **Phase 3: Accept Higher Budget (Last Resort)**
+
 - Increase LCP target to 3.5s (still "Moderate" rating)
 - Focus on desktop users only (mobile gets simplified UI)
 
@@ -799,6 +820,7 @@ export async function onRequest(context) {
 ```
 
 **Trade-offs:**
+
 - **Pro:** Scales to 10,000+ items without client performance hit
 - **Con:** Requires network request (100-300ms latency on 3G)
 - **When to Use:** Dataset >200 items OR complex queries (geospatial radius search)
@@ -808,6 +830,7 @@ export async function onRequest(context) {
 Astro 5.x supports partial hydration, but TanStack Table requires full React context.
 
 **Potential Optimization:**
+
 - Split filter UI into smaller islands (e.g., `SearchBar`, `DifficultyFilter`, `ResultList`)
 - Only hydrate the active filter (others remain static HTML)
 
@@ -843,6 +866,7 @@ useEffect(() => {
 ### 10.1 Performance Service Level Agreement (SLA)
 
 **Commitment:** 95% of users will experience:
+
 - **LCP:** <2.5 seconds (Good)
 - **FID:** <100ms (Good)
 - **CLS:** <0.1 (Good)
@@ -855,6 +879,7 @@ useEffect(() => {
 ### 10.2 Success Metrics
 
 **Launch Criteria (Must Pass All):**
+
 - [ ] Lighthouse Performance Score >90 on 3G throttle
 - [ ] Real-world 3G test (WV location) shows <2.5s LCP
 - [ ] Filter response <150ms for 70 items (measured in GA4)
@@ -863,6 +888,7 @@ useEffect(() => {
 - [ ] Bundle size <95 KB gzipped (island-filter.js)
 
 **Long-Term Goals (3 Months Post-Launch):**
+
 - [ ] 90th percentile LCP <2.0s (move from "Good" to "Excellent")
 - [ ] Filter response <100ms (current target: 150ms)
 - [ ] Zero CLS (eliminate all layout shifts)
@@ -921,11 +947,11 @@ npm run preview
 
 ### Appendix C: References
 
-1. **Core Web Vitals:** https://web.dev/vitals/
-2. **Cloudflare Caching Docs:** https://developers.cloudflare.com/cache/
-3. **TanStack Table Performance:** https://tanstack.com/table/v8/docs/guide/column-faceting
-4. **Astro Islands Architecture:** https://docs.astro.build/en/concepts/islands/
-5. **HTTP/2 Push vs Preload:** https://www.smashingmagazine.com/2017/04/guide-http2-server-push/
+1. **Core Web Vitals:** <https://web.dev/vitals/>
+2. **Cloudflare Caching Docs:** <https://developers.cloudflare.com/cache/>
+3. **TanStack Table Performance:** <https://tanstack.com/table/v8/docs/guide/column-faceting>
+4. **Astro Islands Architecture:** <https://docs.astro.build/en/concepts/islands/>
+5. **HTTP/2 Push vs Preload:** <https://www.smashingmagazine.com/2017/04/guide-http2-server-push/>
 
 ---
 

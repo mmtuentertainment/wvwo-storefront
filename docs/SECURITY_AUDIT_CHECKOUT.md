@@ -4,6 +4,7 @@
 **Auditor**: Claude (Sonnet 4.5)
 **Scope**: Checkout flow security for firearms compliance
 **Files Audited**:
+
 - `wv-wild-web/public/_headers` (CSP configuration)
 - `wv-wild-web/src/components/checkout/CheckoutForm.tsx`
 - `wv-wild-web/src/components/checkout/PaymentSection.tsx`
@@ -20,6 +21,7 @@
 The checkout implementation demonstrates **strong security foundations** with comprehensive input validation, proper CSP headers, and firearms compliance controls. However, **CRITICAL ISSUES** exist around state validation bypass risks and PII exposure in browser storage that must be addressed before production deployment.
 
 **Key Strengths**:
+
 - ✅ Comprehensive Zod validation with proper error handling
 - ✅ Federal firearms restrictions enforced (WV-only handguns)
 - ✅ Strong CSP headers with allowlisted domains
@@ -27,6 +29,7 @@ The checkout implementation demonstrates **strong security foundations** with co
 - ✅ Runtime validation of stored order data
 
 **Critical Risks**:
+
 - 🚨 **State validation can be bypassed** (client-side only)
 - 🚨 **PII stored in sessionStorage** (GDPR/privacy concern)
 - ⚠️ **No CSRF protection** (stub payment, but needed for real integration)
@@ -51,6 +54,7 @@ if (summary.hasFirearms && data.fulfillment === 'ship') {
 ```
 
 **Attack Vector**:
+
 1. Customer in CA adds handgun to cart (restricted)
 2. Opens DevTools → Application → Session Storage
 3. Modifies `wvwo_pending_order` state from "CA" to "WV"
@@ -59,6 +63,7 @@ if (summary.hasFirearms && data.fulfillment === 'ship') {
 **Impact**: **HIGH** - Federal firearms law violation. ATF penalties, FFL revocation risk.
 
 **Recommendation**:
+
 ```typescript
 // Server-side validation (Cloudflare Worker or API endpoint)
 export async function POST({ request }) {
@@ -85,6 +90,7 @@ export async function POST({ request }) {
 **Finding**: **XSS well-mitigated** by React's auto-escaping.
 
 **Validation Patterns** (checkoutSchema.ts):
+
 ```typescript
 // Input sanitization via Zod
 phone: z.string().regex(phonePattern)  // Only allows valid phone chars
@@ -93,12 +99,14 @@ zip: z.string().regex(/^\d{5}$/)       // Only 5 digits
 ```
 
 **Potential XSS Vector** (OrderConfirmation.tsx:129):
+
 ```tsx
 // SAFE: React auto-escapes
 <h1>Thanks, {order.contact.firstName}!</h1>
 ```
 
 **Test Case**:
+
 ```typescript
 // Malicious input
 firstName: '<script>alert("XSS")</script>'
@@ -124,16 +132,19 @@ export function generateOrderId(): string {
 ```
 
 **Attack Scenario**:
+
 - Two customers checkout simultaneously (same millisecond)
 - Both receive `WVWO-2025-847291`
 - Order data collision in future server-side storage
 
 **Collision Probability**:
+
 - 1ms window = 1/1,000,000 sequence space
 - Low traffic volume = **acceptable for MVP**
 - Production with high traffic = **UNACCEPTABLE**
 
 **Recommendation** (before production):
+
 ```typescript
 // Option 1: Cloudflare KV counter (atomic increment)
 export async function generateOrderId(env: Env): Promise<string> {
@@ -159,25 +170,28 @@ export function generateOrderId(): string {
 
 **Location**: `_headers:7`
 
-```
+```text
 Content-Security-Policy: script-src 'self' 'unsafe-inline' https://pay.tacticalpay.com
 ```
 
 **Risk**: Inline script injection if XSS occurs. Tailwind CSS requires `'unsafe-inline'` for styles.
 
 **Attack Vector**:
+
 1. Attacker finds XSS (unlikely due to React escaping)
 2. Injects `<script>` tag via compromised third-party (e.g., npm package)
 3. CSP allows execution due to `'unsafe-inline'`
 
 **Mitigation Status**:
+
 - ✅ Tactical Payments domain properly allowlisted
 - ✅ `frame-src` restricted to YouTube + Tactical Payments
 - ✅ `object-src 'none'` prevents Flash/Java exploits
 - ❌ `'unsafe-inline'` weakens CSP
 
 **Recommendation** (post-MVP):
-```
+
+```text
 # Generate nonces for inline scripts
 script-src 'self' 'nonce-{RANDOM}' https://pay.tacticalpay.com
 
@@ -194,6 +208,7 @@ style-src 'self' 'sha256-{HASH}' https://fonts.googleapis.com
 **Finding**: **No authentication** (anonymous checkout by design).
 
 **Session Management**:
+
 - Session ID generated via `crypto.randomUUID()` (strong)
 - Used for cart tracking, not authentication
 - No password storage, no session hijacking risk
@@ -218,6 +233,7 @@ const onSubmit = async (data: CheckoutFormData) => {
 ```
 
 **Attack Scenario** (post-production):
+
 1. Attacker creates malicious site: `evil.com`
 2. Embeds hidden form that POSTs to `wvwildoutdoors.com/api/checkout`
 3. Logged-in user visits `evil.com`
@@ -228,6 +244,7 @@ const onSubmit = async (data: CheckoutFormData) => {
 **Production Risk**: **HIGH** (real payments require CSRF protection).
 
 **Recommendation** (before payment integration):
+
 ```typescript
 // Cloudflare Worker: Generate CSRF token
 export async function onRequest(context) {
@@ -258,6 +275,7 @@ const response = await fetch('/api/checkout', {
 **Finding**: **Adequate logging** for MVP (console.error for failures).
 
 **Current Logging**:
+
 ```typescript
 // orderUtils.ts:244
 console.error('[Order] Invalid order data:', validated.error.issues);
@@ -267,6 +285,7 @@ console.error('[CheckoutForm] Payment preparation failed:', error);
 ```
 
 **Recommendation** (post-MVP):
+
 ```typescript
 // Integrate with error tracking (e.g., Sentry)
 import * as Sentry from '@sentry/browser';
@@ -312,6 +331,7 @@ export function storePendingOrder(order: OrderData): boolean {
 ```
 
 **Stored Data** (example):
+
 ```json
 {
   "id": "WVWO-2025-847291",
@@ -331,17 +351,20 @@ export function storePendingOrder(order: OrderData): boolean {
 ```
 
 **Privacy Risks**:
+
 1. **Browser Extensions**: Can read sessionStorage (e.g., malicious Chrome extension)
 2. **Shared Computers**: sessionStorage persists until tab closes (Kim's shop computer?)
 3. **GDPR Article 32**: Requires "appropriate technical measures" for PII protection
 4. **CCPA**: California residents' data must be "reasonably secured"
 
 **Attack Scenario**:
+
 1. Customer checks out on public library computer
 2. Closes browser but doesn't clear sessionStorage (rare but possible if crash)
 3. Next user inspects sessionStorage → sees previous customer's PII
 
 **Mitigation Status**:
+
 - ✅ **sessionStorage > localStorage** (better than 7-day localStorage)
 - ✅ **Runtime validation** (orderDataSchema prevents corruption)
 - ✅ **Auto-clear** on confirmation page load
@@ -350,6 +373,7 @@ export function storePendingOrder(order: OrderData): boolean {
 **Recommendation**:
 
 **Option 1: Encrypt sessionStorage data** (quick fix)
+
 ```typescript
 import { encrypt, decrypt } from '@/lib/crypto'; // AES-256-GCM
 
@@ -366,6 +390,7 @@ export function getPendingOrder(): StorageResult<OrderData> {
 ```
 
 **Option 2: Server-side order storage** (production-grade)
+
 ```typescript
 // Store order on Cloudflare KV (server-side)
 export async function storePendingOrder(order: OrderData, env: Env): Promise<string> {
@@ -395,6 +420,7 @@ export async function onRequest(context) {
 **Requirement**: Out-of-state handgun sales prohibited.
 
 **Implementation**: `checkoutSchema.ts:174-186`
+
 ```typescript
 export function validateStateRestriction(
   customerState: string | undefined,
@@ -419,6 +445,7 @@ export function validateStateRestriction(
 1. **Age Verification** (18 U.S.C. § 922(b)(1)):
    - Not implemented (cart shows `ageRestriction: 18 | 21`)
    - **Recommendation**: Add age confirmation checkbox:
+
      ```tsx
      <Checkbox id="ageConfirm" required>
        I confirm I am 21+ (handguns) or 18+ (long guns)
@@ -459,6 +486,7 @@ export function validateStateRestriction(
 **Risk**: User might think this is a real form and try to enter card details (though non-interactive).
 
 **Recommendation**:
+
 ```tsx
 {/* Make it MORE obvious it's a stub */}
 <div className="p-4 bg-yellow-50 border-2 border-yellow-400 rounded-sm">
@@ -516,11 +544,13 @@ if (hoursSinceUpdate < CART_EXPIRY_HOURS) {
 ```
 
 **Privacy Analysis**:
+
 - ✅ **REASONABLE**: E-commerce standard (Amazon = 90 days, eBay = 7 days)
 - ✅ **AUTO-CLEAR**: Expired carts removed automatically
 - ⚠️ **SHARED COMPUTERS**: 7 days could expose cart on shared devices
 
 **Recommendation** (optional):
+
 ```typescript
 // Add "Clear cart on browser close" option
 const CART_MODE = import.meta.env.PUBLIC_CART_MODE || 'persistent';
@@ -896,6 +926,7 @@ The checkout implementation demonstrates **strong security fundamentals** with c
 ---
 
 **Auditor Notes**:
+
 - Code review based on static analysis (no penetration testing performed)
 - Assumes Tactical Payments integration will follow their security guidelines
 - Re-audit recommended after payment integration

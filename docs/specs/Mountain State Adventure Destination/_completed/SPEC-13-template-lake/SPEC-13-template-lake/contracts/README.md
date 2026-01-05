@@ -3,6 +3,7 @@
 **Purpose**: Define explicit interfaces between LakeTemplate.astro and all integrated components.
 
 **Contract Philosophy**: Each contract document specifies:
+
 1. **Component Interface**: Props required by the component
 2. **Data Transformation**: How lake data maps to component props
 3. **Invocation Pattern**: Exact Astro code to integrate component
@@ -32,7 +33,7 @@
 
 ### Custom Section Contracts
 
-5. **[custom-sections-contract.md](./custom-sections-contract.md)** - Custom HTML Sections
+1. **[custom-sections-contract.md](./custom-sections-contract.md)** - Custom HTML Sections
    - Hero Section (name, heroImage, stats, highlights)
    - Where to Fish (fishingSpots array iteration)
    - Marina (marina object rendering)
@@ -46,6 +47,7 @@
 ### For Developers Implementing Lake Template
 
 **Read contracts in this order**:
+
 1. Start with `custom-sections-contract.md` (understand custom HTML structure)
 2. Review `quick-stats-contract.md` (first SPEC-11 component integration)
 3. Read `what-to-fish-contract.md` (primary content component)
@@ -54,6 +56,7 @@
 ### For Maintainers
 
 **When to update contracts**:
+
 - SPEC-11 component API changes (update transformation functions)
 - New lake-specific features added (add new contract or section)
 - Validation rules change (update validation section)
@@ -63,12 +66,14 @@
 ## Contract Compliance
 
 **All implementations MUST**:
+
 - ✅ Follow exact transformation patterns specified
 - ✅ Pass props with correct types
 - ✅ Handle optional fields gracefully
 - ✅ Validate data against schemas
 
 **Testing**:
+
 - Contract compliance verified in Phase 4 (Integration Tests)
 - Each contract has corresponding test coverage
 - CI pipeline enforces contract adherence

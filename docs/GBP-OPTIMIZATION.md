@@ -11,6 +11,7 @@ Make sure these are set in your Google Business Profile:
 **Primary Category:** Hunting store
 
 **Additional Categories:**
+
 - Ammunition supplier
 - Sporting goods store
 - Fishing store
@@ -23,28 +24,33 @@ Make sure these are set in your Google Business Profile:
 Good photos help customers find you and trust you. Here's what to add:
 
 ### Storefront & Outside (3-4 photos)
+
 1. **Front of building** — Show the whole storefront during daytime
 2. **Your sign** — Make sure "WV Wild Outdoors" is readable
 3. **Parking area** — Show there's easy parking
 4. **From the road** — What customers see driving up
 
 ### Inside the Shop (4-5 photos)
-5. **Main counter area** — Where customers check out
-6. **Gun wall/display** — Show your firearm selection
-7. **Ammo shelves** — Customers want to know you're stocked
-8. **Archery section** — Bows, arrows, accessories
-9. **Fishing gear** — Rods, reels, tackle
+
+1. **Main counter area** — Where customers check out
+2. **Gun wall/display** — Show your firearm selection
+3. **Ammo shelves** — Customers want to know you're stocked
+4. **Archery section** — Bows, arrows, accessories
+5. **Fishing gear** — Rods, reels, tackle
 
 ### Products & Services (2-3 photos)
-10. **Clothing/boots area** — Camo, work boots, outdoor wear
-11. **Feed/supplies** — Show the variety
-12. **Seasonal display** — Whatever's hot right now (deer season prep, etc.)
+
+1. **Clothing/boots area** — Camo, work boots, outdoor wear
+2. **Feed/supplies** — Show the variety
+3. **Seasonal display** — Whatever's hot right now (deer season prep, etc.)
 
 ### Team (optional but great)
-13. **You and Bryan** — Customers love seeing the owners
-14. **Behind the counter** — Shows the friendly, family atmosphere
+
+1. **You and Bryan** — Customers love seeing the owners
+2. **Behind the counter** — Shows the friendly, family atmosphere
 
 **Tips:**
+
 - Take photos during the day with good lighting
 - Horizontal photos work best
 - No blurry or dark shots
@@ -57,21 +63,27 @@ Good photos help customers find you and trust you. Here's what to add:
 People ask questions on Google. Add these yourself so you control the answers:
 
 ### Q: Do you do FFL transfers?
+
 **A:** Yep! We handle FFL transfers for $25. Usually takes about 15 minutes once you're here. Just give us a call when your firearm ships so we know to expect it.
 
 ### Q: What are your hours?
+
 **A:** We're open Monday through Friday 9am-5pm, Saturday 9am-2pm. Closed Sundays. Give us a call if you're making a special trip — we'll make sure someone's here.
 
 ### Q: Do you sell hunting and fishing licenses?
+
 **A:** Sure do! We're an official WV DNR agent. We print hunting and fishing licenses right here in the shop. Takes just a few minutes.
 
 ### Q: How do I find you from I-79?
+
 **A:** Take Exit 57. We're right there — across from GoMart, visible from Rt 19. You'll see us as soon as you get off the exit!
 
 ### Q: Do you buy used guns?
+
 **A:** Sometimes! Depends on what you've got. Best to bring it by or give us a call. We're always happy to take a look.
 
 ### Q: Do you have ammo in stock?
+
 **A:** We try to keep the popular calibers stocked — 9mm, .223, .308, 12 gauge, and more. Stock changes, so call ahead if you need something specific.
 
 ---

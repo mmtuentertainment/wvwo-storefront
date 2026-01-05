@@ -40,6 +40,7 @@ type StatIcon = 'area' | 'info' | 'location' | 'difficulty' | 'duration' | 'seas
 ### Lake Props → StatItem[] Mapping
 
 **Source Data** (from LakeTemplateProps):
+
 ```typescript
 {
   acreage: number;      // 2790
@@ -49,6 +50,7 @@ type StatIcon = 'area' | 'info' | 'location' | 'difficulty' | 'duration' | 'seas
 ```
 
 **Transformation Function** (in LakeTemplate.astro frontmatter):
+
 ```typescript
 function transformQuickStats(props: LakeTemplateProps): StatItem[] {
   return [
@@ -72,6 +74,7 @@ function transformQuickStats(props: LakeTemplateProps): StatItem[] {
 ```
 
 **Computed Value**:
+
 ```typescript
 const quickStats = transformQuickStats({ name, acreage, maxDepth, county } as LakeTemplateProps);
 ```
@@ -97,6 +100,7 @@ const quickStats = transformQuickStats({ name, acreage, maxDepth, county } as La
 **Order**: Section #3 in template body (after Layout wrapper and Hero)
 
 **Context**:
+
 ```astro
 <!-- Hero Section -->
 <section class="relative h-[70vh]">
@@ -140,16 +144,19 @@ const quickStats = transformQuickStats({ name, acreage, maxDepth, county } as La
 ### Edge Cases
 
 **Large Acreage** (>10,000 acres):
+
 ```typescript
 value: props.acreage.toLocaleString()  // "12,450" (comma separator required)
 ```
 
 **Shallow Lakes** (<50 ft max depth):
+
 ```typescript
 value: `${props.maxDepth} ft`  // "35 ft" (still include unit)
 ```
 
 **Multi-Word Counties** (e.g., "Nicholas County"):
+
 ```typescript
 value: props.county  // Pass full county name, component handles wrapping
 ```
@@ -208,15 +215,18 @@ it('AdventureQuickStats renders with lake stats', async () => {
 ### Expected Rendering
 
 **Desktop (1920px)**:
+
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │  [Icon] 2,790    [Icon] 327 ft    [Icon] Nicholas           │
 │        Acres             Max Depth        County             │
 └─────────────────────────────────────────────────────────────┘
 ```
+
 4-column grid, centered icons above values
 
 **Tablet (768px)**:
+
 ```
 ┌──────────────────────┬──────────────────────┐
 │  [Icon] 2,790        │  [Icon] 327 ft       │
@@ -226,9 +236,11 @@ it('AdventureQuickStats renders with lake stats', async () => {
 │        County                               │
 └─────────────────────────────────────────────┘
 ```
+
 2-column grid, county spans full width on second row
 
 **Mobile (375px)**:
+
 ```
 ┌──────────────────────┬──────────────────────┐
 │  [Icon] 2,790        │  [Icon] 327 ft       │
@@ -238,6 +250,7 @@ it('AdventureQuickStats renders with lake stats', async () => {
 │        County                               │
 └─────────────────────────────────────────────┘
 ```
+
 2-column grid maintained on mobile
 
 ---
@@ -256,10 +269,12 @@ import type { StatItem } from '../../types/adventure';
 ### Type Dependencies
 
 **From `types/adventure.ts`**:
+
 - `StatItem` interface
 - `StatIcon` type
 
 **SPEC-11 Component**:
+
 - AdventureQuickStats.astro (lines 1-150 approx)
 
 ---
@@ -267,6 +282,7 @@ import type { StatItem } from '../../types/adventure';
 ## Change Log
 
 **v1.0.0** (2025-12-29):
+
 - Initial contract specification
 - 3-stat transformation (acreage, maxDepth, county)
 - 4-column layout for lake stats

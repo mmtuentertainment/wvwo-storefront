@@ -23,6 +23,7 @@ Full e-commerce implementation for WV Wild Outdoors, enabling online purchases w
 | **Tier 3** | Firearms | **Reserve & Hold** | **Pickup only** + 4473 | 2A processor |
 
 ### Tier 3: Reserve & Hold Model (Firearms)
+
 1. Customer sees firearm online, clicks "Reserve This Firearm"
 2. Pays full price (or deposit) online via 2A processor
 3. Kim receives notification, holds the item

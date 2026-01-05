@@ -36,6 +36,7 @@ The AdventureHero component must provide an inclusive experience for:
 | Cognitive disabilities | Clear language, consistent patterns, predictable layout |
 
 **Critical Success Metrics**:
+
 - Zero axe-core violations
 - NVDA/VoiceOver screen reader audit pass
 - Keyboard-only navigation audit pass
@@ -479,6 +480,7 @@ Per WVWO Frontend Aesthetics, NEVER use in hero:
 ```
 
 **Color blind simulation results**:
+
 - Protanopia: Shapes differentiate all 4 levels
 - Deuteranopia: Shapes differentiate all 4 levels
 - Tritanopia: Shapes differentiate all 4 levels
@@ -564,6 +566,7 @@ Badges MUST appear in the same order across ALL adventure heroes:
 ```
 
 **Badge order rationale**:
+
 1. **Drive time** - Most actionable (trip planning)
 2. **Difficulty** - Safety consideration
 3. **Season** - Planning context
@@ -617,6 +620,7 @@ The camo overlay is purely decorative and MUST be hidden:
 ```
 
 **Both attributes used because**:
+
 - `aria-hidden="true"` - Hides from accessibility tree
 - `role="presentation"` - Reinforces decorative nature
 

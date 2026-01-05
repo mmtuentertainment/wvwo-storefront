@@ -11,6 +11,7 @@
 ### **Phase 1: Analyze Existing Hero Pattern** (1.5 hours)
 
 **Scout Mission:**
+
 ```bash
 # Read Summersville Lake hero (gold standard from Episode 85)
 Read wv-wild-web/src/pages/near/summersville-lake.astro (lines 67-92)
@@ -23,6 +24,7 @@ Read CLAUDE.md (hero section guidelines)
 ```
 
 **Extract:**
+
 - bg-brand-brown with camo overlay pattern
 - Badge system (season, difficulty, type badges)
 - Responsive layout (stacked mobile, side-by-side desktop)
@@ -63,6 +65,7 @@ interface Props {
 ```
 
 **WVWO Compliance:**
+
 - Camo texture overlay (opacity-5, pointer-events-none)
 - Badge colors (season: brand-cream, difficulty: sign-green)
 - Responsive (py-16 md:py-24)
@@ -87,6 +90,7 @@ Write wv-wild-web/src/components/adventure/AdventureHero.astro
 ```
 
 **Code Quality:**
+
 - No hardcoded content (all via props/slots)
 - Camo pattern reusable (can apply to other sections)
 - Badges match WVWO design system
@@ -96,6 +100,7 @@ Write wv-wild-web/src/components/adventure/AdventureHero.astro
 ### **Phase 4: Create Example Page** (2 hours)
 
 **Test with Real Data:**
+
 ```astro
 ---
 // Example: Burnsville Turkey page
@@ -152,6 +157,7 @@ Thanks!
 **Kim's Response Time:** 3-7 days (async)
 
 **Matt's Action:**
+
 - Adjust based on Kim feedback
 - If major changes (e.g., "flip layout"), rebuild and re-screenshot
 - Get final approval before using across all adventures
@@ -161,20 +167,24 @@ Thanks!
 ## Deliverables
 
 **Code:**
+
 - [ ] `wv-wild-web/src/components/adventure/AdventureHero.astro` (~120 LOC)
 - [ ] Camo background pattern (CSS or inline SVG)
 - [ ] Badge components (season pills, difficulty badge)
 - [ ] Slot-based composition (flexible content)
 
 **Example:**
+
 - [ ] Test page using AdventureHero with real adventure data
 - [ ] Screenshot for Kim review
 
 **Documentation:**
+
 - [ ] Component usage docs (how to use slots)
 - [ ] Kim's design approval
 
 **Quality Gates:**
+
 - [ ] Renders correctly with adventure data
 - [ ] Responsive (mobile stacked, desktop side-by-side)
 - [ ] WVWO aesthetic (camo, badges, typography)
@@ -185,6 +195,7 @@ Thanks!
 ## Success Criteria
 
 **Component is DONE when:**
+
 - ✅ Builds without errors
 - ✅ Slots work correctly (can customize content per adventure)
 - ✅ Camo pattern renders (not too busy)

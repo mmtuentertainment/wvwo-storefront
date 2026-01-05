@@ -24,12 +24,14 @@ Summersville Lake is known as the "Little Bahamas of the East" - 2,700 acres of 
 ## Content Sections
 
 ### Hero
+
 - "45 min from shop" badge
 - "2,700 Acres" badge
 - "Little Bahamas of the East" tagline
 - Crystal clear water emphasis
 
 ### Quick Info Bar
+
 - Acres: 2,700
 - Drive time: 45 min
 - County: Nicholas
@@ -38,17 +40,20 @@ Summersville Lake is known as the "Little Bahamas of the East" - 2,700 acres of 
 ### What to Fish
 
 **Bass Fishing** (premier destination)
+
 - Smallmouth Bass (excellent)
 - Largemouth Bass
 - Spotted Bass
 
 **Other Species**
+
 - Walleye
 - Catfish (Channel)
 - Crappie
 - Bluegill
 
 ### Activities Beyond Fishing
+
 - Scuba diving (visibility up to 40+ feet)
 - Swimming beaches
 - Cliff jumping (Long Point)
@@ -56,6 +61,7 @@ Summersville Lake is known as the "Little Bahamas of the East" - 2,700 acres of 
 - Camping
 
 ### Facilities
+
 - Multiple boat ramps
 - Marina services
 - Campgrounds (Battle Run, Salmon Run, etc.)
@@ -63,13 +69,16 @@ Summersville Lake is known as the "Little Bahamas of the East" - 2,700 acres of 
 - Picnic areas
 
 ### Getting There
+
 Directions from shop (121 WV-82):
+
 1. Head south on US-19
 2. Continue through Summersville
 3. Follow signs to Summersville Lake
 4. ~45 minutes total
 
 ### What to Bring
+
 - Fishing tackle (we stock bass gear)
 - WV fishing license (we sell it)
 - Boat/kayak
@@ -79,12 +88,14 @@ Directions from shop (121 WV-82):
 ### Why Stop at Our Shop
 
 Even though we're 45 min north:
+
 - Get your license before you leave the I-79 corridor
 - Stock up on tackle
 - We know what's hitting at Summersville
 - Avoid crowded shops near the lake
 
 ### CTA Sections
+
 - Shop CTA: "Heading to Summersville? Stop by on your way down"
 - Directions CTA: Google Maps link
 - Newsletter: EmailCapture component

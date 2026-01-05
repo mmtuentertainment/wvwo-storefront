@@ -20,6 +20,7 @@ Enhanced code review identified **10 silent failure issues** in PR #55 (Offline 
 This document provides a prioritized fix plan with specific code changes, testing strategies, and rural WV edge case coverage.
 
 **Fix Summary:**
+
 - **1 BLOCKING** (must fix before merge)
 - **4 CRITICAL** (silent failures that break core functionality)
 - **3 HIGH** (reliability issues affecting rural users)
@@ -55,6 +56,7 @@ This document provides a prioritized fix plan with specific code changes, testin
 ## Fix Sequence (Implementation Order)
 
 ### Phase 1: Deployment Blockers (Must Fix First)
+
 1. **CACHE-0**: Move Service Worker to public/ (blocks deployment)
 2. **SW-1**: Fix install error propagation
 3. **SW-3**: Fix REFRESH_CACHE client claiming
@@ -62,20 +64,23 @@ This document provides a prioritized fix plan with specific code changes, testin
 5. **IDB-4**: Add IndexedDB unsupported banner
 
 ### Phase 2: Core Reliability
-6. **SW-2**: Fix activate error propagation
-7. **IDB-2**: Add typed result for getCachedAdventures
-8. **IDB-3**: Add typed result for clearExpiredCache
-9. **CACHE-2**: Add retry logic with exponential backoff
+
+1. **SW-2**: Fix activate error propagation
+2. **IDB-2**: Add typed result for getCachedAdventures
+3. **IDB-3**: Add typed result for clearExpiredCache
+4. **CACHE-2**: Add retry logic with exponential backoff
 
 ### Phase 3: User Experience
-10. **SW-4**: Add retry logic to install/refresh
-11. **SW-5**: Add client notification system (postMessage + toasts)
-12. **CACHE-1**: Implement stale-while-revalidate
+
+1. **SW-4**: Add retry logic to install/refresh
+2. **SW-5**: Add client notification system (postMessage + toasts)
+3. **CACHE-1**: Implement stale-while-revalidate
 
 ### Phase 4: Enhancements (Post-Merge OK)
-13. **IDB-6**: Transaction error propagation patterns
-14. **CACHE-3**: Cache failure tracking metrics
-15. **SW-8**: Fix `location.origin` → `self.location.origin` consistency
+
+1. **IDB-6**: Transaction error propagation patterns
+2. **CACHE-3**: Cache failure tracking metrics
+3. **SW-8**: Fix `location.origin` → `self.location.origin` consistency
 
 ---
 
@@ -90,11 +95,13 @@ This document provides a prioritized fix plan with specific code changes, testin
 Service Workers MUST be served from the site root for scope reasons. Astro's `src/` folder is not publicly accessible at runtime. The SW **will not register** in production.
 
 **Fix Steps:**
+
 1. Move file: `git mv wv-wild-web/src/service-worker.js wv-wild-web/public/service-worker.js`
 2. Verify registration path in Layout.astro (already correct: `/service-worker.js`)
 3. Test: Run `npm run build && npm run preview`, check DevTools → Application → Service Workers
 
 **Verification:**
+
 ```bash
 curl -I http://localhost:4321/service-worker.js
 # Should return 200 OK with content-type: application/javascript
@@ -108,6 +115,7 @@ curl -I http://localhost:4321/service-worker.js
 **Lines:** 26-43
 
 **Current Behavior:**
+
 ```javascript
 .catch((error) => {
   console.error('[Service Worker] Install failed:', error);
@@ -118,6 +126,7 @@ curl -I http://localhost:4321/service-worker.js
 When `cache.addAll()` fails (e.g., network timeout on rural 3G), the error is caught, logged, but the promise chain doesn't reject. The browser activates a broken service worker.
 
 **Fix (Replace lines 26-48):**
+
 ```javascript
 self.addEventListener('install', (event) => {
   console.log('[Service Worker] Installing WVWO adventures cache...');
@@ -154,6 +163,7 @@ self.addEventListener('install', (event) => {
 ```
 
 **Testing:**
+
 1. DevTools Network → Throttle to "Slow 3G"
 2. Hard refresh (Ctrl+Shift+R)
 3. Verify console shows "Install failed" AND SW status = "redundant"
@@ -167,6 +177,7 @@ self.addEventListener('install', (event) => {
 **Lines:** 169-186
 
 **Current Behavior:**
+
 ```javascript
 .catch((error) => {
   console.error('[Service Worker] Cache refresh failed:', error);
@@ -177,6 +188,7 @@ self.addEventListener('install', (event) => {
 Even when cache refresh FAILS, the SW claims all clients. Pages think offline mode works, but cache is empty/stale.
 
 **Fix (Replace lines 169-203):**
+
 ```javascript
 self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'REFRESH_CACHE') {
@@ -220,6 +232,7 @@ self.addEventListener('message', (event) => {
 ```
 
 **Testing:**
+
 1. Page sends `REFRESH_CACHE` message
 2. Throttle network to "Offline"
 3. Verify cache refresh fails and `clients.claim()` NOT called
@@ -234,6 +247,7 @@ self.addEventListener('message', (event) => {
 **Lines:** 99-142
 
 **Current Behavior:**
+
 ```typescript
 await Promise.all(storePromises); // ❌ First failure aborts entire operation
 ```
@@ -241,6 +255,7 @@ await Promise.all(storePromises); // ❌ First failure aborts entire operation
 If adventure #5 of 20 fails, adventures 1-4 are discarded, 6-20 never attempted. User sees generic error.
 
 **Fix (Replace lines 99-142):**
+
 ```typescript
 /**
  * Result type for cache operations
@@ -355,6 +370,7 @@ export async function cacheAdventures(adventures: Adventure[]): Promise<CacheRes
 ```
 
 **Testing:**
+
 1. Simulate partial failure (duplicate slug), verify others still cache
 2. Full failure: Block IndexedDB, verify user message displays
 3. Success: Cache 20 adventures, verify all succeed
@@ -369,6 +385,7 @@ export async function cacheAdventures(adventures: Adventure[]): Promise<CacheRes
 Rural WV users on IE11, older Safari, or privacy mode browsers see silent failure with no notification.
 
 **Fix (Create new component):**
+
 ```astro
 ---
 /**
@@ -421,6 +438,7 @@ Rural WV users on IE11, older Safari, or privacy mode browsers see silent failur
 **Usage:** Add to adventures hub page layout.
 
 **Testing:**
+
 1. Modern browser: Verify banner hidden
 2. Mock `window.indexedDB = undefined`: Verify banner shows
 3. Screen reader: Verify `role="alert"` announces
@@ -436,6 +454,7 @@ Rural WV users on IE11, older Safari, or privacy mode browsers see silent failur
 Single fetch attempt with immediate failure. Rural WV I-79/US-19 corridor has spotty cell service - intermittent connectivity is normal.
 
 **Fix (Add retry utility):**
+
 ```javascript
 /**
  * Exponential Backoff Retry for Rural Connectivity
@@ -511,6 +530,7 @@ async function retryWithBackoff(fn, maxRetries = 3, delay = 1000) {
 ```
 
 **Update fetch event (line 135):**
+
 ```javascript
 // OLD:
 return fetch(request)
@@ -520,6 +540,7 @@ return fetchWithRetry(request, 3)
 ```
 
 **Testing:**
+
 1. Chrome DevTools → Network → Slow 3G with 50% packet loss
 2. Verify retry attempts in console logs
 3. Verify final failure after ~7 seconds (1s + 2s + 4s)
@@ -536,6 +557,7 @@ return fetchWithRetry(request, 3)
 Returns `null` for: cache doesn't exist, cache expired, read failed, IndexedDB unsupported. Caller can't show appropriate message.
 
 **Fix (Replace lines 152-197):**
+
 ```typescript
 export interface CacheRetrievalResult {
   success: boolean;
@@ -625,6 +647,7 @@ export async function getCachedAdventures(): Promise<CacheRetrievalResult> {
 ```
 
 **Testing:**
+
 1. No cache: Verify `reason: 'not-found'`
 2. Expired: Set lastSync to 48h ago, verify `reason: 'expired'`
 3. Valid: Verify `reason: 'found'` with correct count
@@ -641,6 +664,7 @@ export async function getCachedAdventures(): Promise<CacheRetrievalResult> {
 Returns `false` for: no metadata, not expired, AND operation failed. Caller can't distinguish.
 
 **Fix (Replace lines 207-261):**
+
 ```typescript
 export interface ClearCacheResult {
   success: boolean;
@@ -738,6 +762,7 @@ export async function clearExpiredCache(): Promise<ClearCacheResult> {
 All SW events are console-only. Users have no visibility into offline mode status.
 
 **Fix (Create new file):**
+
 ```typescript
 /**
  * Service Worker notification handler
@@ -843,6 +868,7 @@ document.head.appendChild(style);
 Cache-first serves stale content for up to 24 hours with no background revalidation.
 
 **Fix (Replace lines 120-154):**
+
 ```javascript
 if (isFirstParty && isAdventureAsset) {
   event.respondWith(
@@ -909,23 +935,28 @@ if (isFirstParty && isAdventureAsset) {
 Line 94 uses `location.origin` but line 122 correctly uses `self.location.origin`. In Service Worker context, `self` is the proper global object. While `location` might work in some browsers, it's not the standard SW pattern and could cause compatibility issues.
 
 **Current Behavior (Line 94):**
+
 ```javascript
 if (url.origin !== location.origin) {
 ```
 
 **Fix (Replace line 94):**
+
 ```javascript
 if (url.origin !== self.location.origin) {
 ```
 
 **Verification:**
 Search file for any remaining bare `location` references:
+
 ```bash
 grep -n "location\." public/service-worker.js | grep -v "self.location"
 ```
+
 Should return no results after fix.
 
 **Testing:**
+
 1. Test in Firefox (stricter about SW globals)
 2. Test in Safari (historically inconsistent SW support)
 3. Verify same-origin check works across browsers
@@ -1066,6 +1097,7 @@ None. All fixes are backward-compatible additions.
 ### Rollback Plan
 
 If issues discovered post-merge:
+
 1. Revert typed results to original returns
 2. Keep file location fix (CACHE-0) as it's deployment-critical
 3. Disable retry logic by setting `maxRetries = 0`

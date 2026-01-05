@@ -84,6 +84,7 @@ This document defines the performance optimization architecture for the WMA Temp
 **Decision**: Use Astro SSG (Static Site Generation) with zero runtime JavaScript for WMA pages.
 
 **Rationale**:
+
 - WMA content is **completely static** - no user authentication, no personalization, no real-time data
 - Rural hunters on 3G connections benefit most from pre-rendered HTML (instant TTFB)
 - Zero JavaScript eliminates parse/compile/execute overhead (saves 200-500ms on mobile devices)
@@ -148,6 +149,7 @@ export default defineConfig({
 ### 1.3 WMA Page Build Process
 
 **Build Flow**:
+
 ```
 1. Content Collection Parsing
    └─> Zod schema validation (wma_* fields)
@@ -180,6 +182,7 @@ export default defineConfig({
 **Enforcement Mechanisms**:
 
 1. **Build-Time Validation** (CI/CD):
+
    ```bash
    # Automated check in PR pipeline
    npm run build
@@ -197,12 +200,14 @@ export default defineConfig({
    - All components use Astro's zero-JS component model
 
 3. **Bundle Analysis** (weekly monitoring):
+
    ```bash
    npx astro build --analyze
    # Review bundle report - WMA pages should show "0 KB JS"
    ```
 
 **Exception Handling**:
+
 - **Analytics** (optional): If Kim adds analytics, use a lightweight pixel tracker (1KB) with `defer` loading
 - **Accessibility**: Focus management and skip links use native HTML focus behavior (no JS required)
 
@@ -215,6 +220,7 @@ export default defineConfig({
 **Requirement**: Images are the largest performance bottleneck. Target **<150KB total images per WMA page**.
 
 **Multi-Format Strategy**:
+
 ```html
 <!-- SPEC-12: Responsive image with modern format fallbacks -->
 <picture>
@@ -259,6 +265,7 @@ export default defineConfig({
 ```
 
 **Image Processing Script** (`scripts/optimize-wma-images.mjs`):
+
 ```javascript
 import sharp from 'sharp';
 import { promises as fs } from 'fs';
@@ -298,11 +305,13 @@ async function optimizeWMAImage(inputPath, outputDir, baseName) {
 ### 2.2 Lazy Loading Strategy
 
 **Above-Fold vs Below-Fold**:
+
 - **Hero Image**: `loading="eager"` (visible immediately, no lazy load)
 - **Species/Facility Images**: `loading="lazy"` (deferred until viewport proximity)
 - **Related Shop Images**: `loading="lazy"` (bottom of page, lowest priority)
 
 **Native Browser Lazy Loading**:
+
 ```html
 <!-- Hero (above-fold) - load immediately -->
 <img loading="eager" fetchpriority="high" ... />
@@ -312,6 +321,7 @@ async function optimizeWMAImage(inputPath, outputDir, baseName) {
 ```
 
 **Why Native Over JavaScript**:
+
 - **Zero bundle size** (no Intersection Observer polyfill)
 - **Browser-optimized** (respects data saver mode, connection speed)
 - **96% browser support** (IE11 gracefully ignores attribute)
@@ -321,6 +331,7 @@ async function optimizeWMAImage(inputPath, outputDir, baseName) {
 **Requirement**: Prevent FOIT (Flash of Invisible Text) on slow connections.
 
 **Font Loading Strategy**:
+
 ```html
 <!-- SPEC-12: System font fallbacks with optional custom fonts -->
 <style>
@@ -354,6 +365,7 @@ async function optimizeWMAImage(inputPath, outputDir, baseName) {
 ```
 
 **Font Subsetting** (reduce font file size by 70-80%):
+
 ```bash
 # Use pyftsubset (fonttools) to create Latin-only subsets
 pyftsubset Bitter-Bold.ttf \
@@ -375,12 +387,14 @@ pyftsubset Bitter-Bold.ttf \
 **Requirement**: Inline CSS for above-the-fold content to eliminate render-blocking requests.
 
 **What Qualifies as Critical CSS**:
+
 - Hero section styles (`WMAHero` component)
 - Quick Stats grid (`AdventureQuickStats` component)
 - Header/navigation (global layout)
 - System font fallbacks
 
 **Extraction Process**:
+
 ```javascript
 // Build-time critical CSS extraction (Astro plugin)
 import { critical } from 'critical';
@@ -405,6 +419,7 @@ async function extractCriticalCSS(htmlPath, cssPath) {
 ```
 
 **Astro Integration** (automatic):
+
 ```typescript
 // astro.config.mjs
 export default defineConfig({
@@ -415,6 +430,7 @@ export default defineConfig({
 ```
 
 **Manual Override** (for fine-tuned control):
+
 ```astro
 ---
 // WMATemplate.astro - Manual critical CSS control
@@ -438,6 +454,7 @@ import '../styles/non-critical.css?url'; // Load async
 **Tool**: Built-in Astro CSS purging + Tailwind CSS tree shaking
 
 **Configuration** (`tailwind.config.ts`):
+
 ```typescript
 export default {
   content: [
@@ -471,6 +488,7 @@ export default {
 | **Total CSS per page** | <50KB gzipped | CI/CD fails if exceeded |
 
 **Budget Enforcement** (CI/CD):
+
 ```bash
 # Automated check in PR pipeline
 npm run build
@@ -488,11 +506,13 @@ du -h dist/near/*.css | awk '{ if ($1+0 > 50) exit 1 }'
 **Architecture Rule**: No single component bundle exceeds **20KB gzipped**.
 
 **Rationale**:
+
 - 20KB = ~100ms parse time on mid-range mobile devices
 - Keeps bundle downloads under 200ms on 3G (0.4 Mbps)
 - Forces component modularity (prevents monolithic components)
 
 **Enforcement** (`scripts/analyze-bundles.mjs`):
+
 ```javascript
 import { promises as fs } from 'fs';
 import { gzip } from 'zlib';
@@ -521,6 +541,7 @@ async function analyzeComponentBundles() {
 ### 4.2 Vendor Chunking Strategy
 
 **Current Configuration** (from `astro.config.mjs`):
+
 ```typescript
 manualChunks: {
   'react-vendor': ['react', 'react-dom'], // Existing
@@ -528,6 +549,7 @@ manualChunks: {
 ```
 
 **SPEC-12 Enhancement** (adventure component chunking):
+
 ```typescript
 manualChunks: (id) => {
   // React framework (shared across all pages)
@@ -553,6 +575,7 @@ manualChunks: (id) => {
 ```
 
 **Caching Benefits**:
+
 - `react-vendor.js` cached across site (never changes between WMA pages)
 - `adventure-components.js` cached across all 8 WMA pages
 - `wma-components.js` loaded once, reused for all WMA pages
@@ -571,6 +594,7 @@ import * as adventure from '../../types/adventure';
 ```
 
 **Bundle Analysis** (visualize tree shaking effectiveness):
+
 ```bash
 npx vite-bundle-visualizer
 # Opens interactive treemap of bundle composition
@@ -583,6 +607,7 @@ npx vite-bundle-visualizer
 ### 5.1 Static Asset Cache Headers
 
 **Cloudflare Pages Configuration** (`_headers` file):
+
 ```
 # SPEC-12: Immutable asset caching
 /assets/*
@@ -605,6 +630,7 @@ npx vite-bundle-visualizer
 ```
 
 **Rationale**:
+
 - **Immutable assets** (`max-age=31536000`): Hash-based filenames never change
 - **HTML caching** (1 hour): Balance freshness vs performance
 - **Stale-while-revalidate** (24 hours): Serve cached HTML while fetching update in background
@@ -612,6 +638,7 @@ npx vite-bundle-visualizer
 ### 5.2 CDN Edge Caching
 
 **Cloudflare Pages Architecture**:
+
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │                     User Request Flow                        │
@@ -634,12 +661,14 @@ npx vite-bundle-visualizer
 ```
 
 **Geographic Distribution** (Cloudflare has 330+ POPs worldwide):
+
 - **West Virginia hunters**: Served from Ashburn, VA edge (~30-50ms latency)
 - **Out-of-state hunters**: Served from nearest edge (95%+ of users <100ms latency)
 
 ### 5.3 Build-Time Fingerprinting
 
 **Astro Automatic Hash Generation**:
+
 ```
 /assets/elk-river-hero.a3f2c1b9.avif   ← Content hash
 /chunks/adventure-components.7d8e2f3a.js
@@ -647,6 +676,7 @@ npx vite-bundle-visualizer
 ```
 
 **Cache Invalidation Strategy**:
+
 - **Content updates**: Change triggers new hash → browsers fetch new file
 - **Old hashes remain cached**: No cache purging needed
 - **Atomic deployments**: All new hashes go live simultaneously (no partial updates)
@@ -658,6 +688,7 @@ npx vite-bundle-visualizer
 ### 6.1 Lighthouse CI Integration
 
 **Automated Performance Testing** (`.github/workflows/lighthouse.yml`):
+
 ```yaml
 name: Lighthouse CI
 on: [pull_request]
@@ -683,6 +714,7 @@ jobs:
 ```
 
 **Lighthouse Configuration** (`.lighthouserc.json`):
+
 ```json
 {
   "ci": {
@@ -719,6 +751,7 @@ jobs:
 ```
 
 **PR Blocking Rules**:
+
 - Performance <95/100 → PR fails
 - Page weight >500KB → PR fails
 - LCP >2.5s → PR fails
@@ -726,6 +759,7 @@ jobs:
 ### 6.2 Real User Monitoring (RUM)
 
 **Optional Analytics** (privacy-first):
+
 ```html
 <!-- SPEC-12: Lightweight performance beacon (if Kim enables analytics) -->
 <script defer>
@@ -749,6 +783,7 @@ jobs:
 ```
 
 **Privacy Constraints**:
+
 - No third-party analytics (Google Analytics, etc.)
 - No cookies or persistent identifiers
 - No PII collection
@@ -757,6 +792,7 @@ jobs:
 ### 6.3 Performance Budget Dashboard
 
 **Weekly Automated Report** (GitHub Action):
+
 ```bash
 # Generate performance report comparing main vs PR
 npx lighthouse-ci report --compare main
@@ -784,11 +820,13 @@ npx lighthouse-ci report --compare main
 | **Desktop** | Cable (30 Mbps) | Chrome 120 | Every PR |
 
 **Test Scenarios**:
+
 1. **Cold load** (empty cache) - Simulates first-time visitor
 2. **Warm load** (primed cache) - Simulates returning visitor
 3. **Navigation** - Click between WMA pages (tests asset reuse)
 
 **Playwright Performance Test** (`tests/e2e/performance.spec.ts`):
+
 ```typescript
 import { test, expect } from '@playwright/test';
 
@@ -834,11 +872,13 @@ test.describe('WMA Page Performance', () => {
 ### 7.2 Production Monitoring
 
 **CloudFlare Analytics** (included with Pages deployment):
+
 - Automatic traffic monitoring (no setup required)
 - Core Web Vitals tracking (LCP, FID, CLS)
 - Geographic performance breakdown
 
 **Alert Thresholds**:
+
 - LCP p75 >2.5s → Email alert to dev team
 - Page weight >500KB → Build fails, blocks deployment
 - Lighthouse score <95 → PR blocked
@@ -857,12 +897,14 @@ test.describe('WMA Page Performance', () => {
 **Decision**: Use Astro Static Site Generation (SSG) with zero runtime JavaScript.
 
 **Consequences**:
+
 - ✅ **Positive**: Sub-second TTFB, perfect CDN caching, zero compute costs
 - ✅ **Positive**: Works offline after first load (service worker caching possible)
 - ⚠️ **Neutral**: Content updates require rebuild (acceptable for quarterly update cadence)
 - ❌ **Negative**: No personalization possible (not needed for WMA content)
 
 **Alternatives Considered**:
+
 - **SSR**: Rejected - no dynamic content needs, adds server costs
 - **Hybrid Islands**: Rejected - no interactivity needed on WMA pages
 
@@ -878,12 +920,14 @@ test.describe('WMA Page Performance', () => {
 **Decision**: Generate AVIF + WebP + JPEG versions of all images, serve via `<picture>` element with format fallbacks.
 
 **Consequences**:
+
 - ✅ **Positive**: 50-70% smaller images (AVIF) vs JPEG
 - ✅ **Positive**: Broad browser support via fallback chain
 - ⚠️ **Neutral**: Increased build time (3x formats per image)
 - ⚠️ **Neutral**: 3x storage requirement (mitigated by Cloudflare CDN caching)
 
 **Metrics**:
+
 - Elk River hero image: 350KB (JPEG) → 120KB (AVIF) = **66% reduction**
 
 ---
@@ -898,6 +942,7 @@ test.describe('WMA Page Performance', () => {
 **Decision**: Inline critical above-fold CSS (<14KB) in HTML `<head>`, load non-critical CSS asynchronously.
 
 **Consequences**:
+
 - ✅ **Positive**: Eliminates render-blocking CSS request
 - ✅ **Positive**: Faster First Contentful Paint (FCP)
 - ⚠️ **Neutral**: Slightly larger HTML file (acceptable trade-off)
@@ -917,6 +962,7 @@ test.describe('WMA Page Performance', () => {
 **Decision**: Use native browser `loading="lazy"` attribute instead of JavaScript-based lazy loading.
 
 **Consequences**:
+
 - ✅ **Positive**: Zero bundle size increase
 - ✅ **Positive**: Respects browser preload scanner optimizations
 - ✅ **Positive**: Automatic data saver mode support
@@ -943,10 +989,12 @@ test.describe('WMA Page Performance', () => {
 ### 9.2 User Experience Metrics
 
 **Rural WV Baseline** (3G @ 0.4 Mbps):
+
 - **Acceptable load time**: <2 seconds (industry standard for content sites)
 - **Tolerable load time**: <3 seconds (anything slower risks abandonment)
 
 **Success Criteria**:
+
 - ✅ 95% of WMA pages load in <2s on 3G (p95 latency)
 - ✅ 100% of WMA pages load in <3s on 3G (p100 latency)
 - ✅ Zero layout shift during load (CLS <0.1)
@@ -954,11 +1002,13 @@ test.describe('WMA Page Performance', () => {
 ### 9.3 Business Impact Metrics
 
 **Kim's Goals**:
+
 1. **Mobile-first hunters** can access WMA info from truck/field
 2. **Data plan conservation** (many hunters have limited data)
 3. **Print-friendly pages** (hunters print regulations before trips)
 
 **Tracking**:
+
 - **Bounce rate** (target: <25% on WMA pages)
 - **Session duration** (target: >2 minutes average)
 - **Return visitor rate** (target: >40%)
@@ -1033,16 +1083,19 @@ test.describe('WMA Page Performance', () => {
 ## 12. Performance Maintenance Runbook
 
 ### Weekly Tasks
+
 - Review Lighthouse CI scores (ensure >95/100)
 - Check bundle size report (flag >500KB pages)
 - Monitor Cloudflare Analytics for LCP/FID/CLS degradation
 
 ### Monthly Tasks
+
 - Audit unused CSS (ensure <15KB final CSS)
 - Review image formats (check for new formats like JPEG XL)
 - Test on latest browser versions (Safari, Chrome, Firefox)
 
 ### Quarterly Tasks
+
 - Re-baseline performance metrics after content updates
 - Review CDN cache hit rates (target >95%)
 - Update Lighthouse CI thresholds if industry standards change
@@ -1098,6 +1151,7 @@ calculateBudget();
 ```
 
 **Output**:
+
 ```
 SPEC-12 Performance Budget:
 
@@ -1126,6 +1180,7 @@ This performance architecture ensures **<2s page loads on 3G connections** and *
 5. **Automated performance budgets** enforced in CI/CD
 
 **Next Steps**:
+
 1. Implement Phase 1 (build infrastructure) in SPEC-12 PR
 2. Create image optimization pipeline
 3. Set up Lighthouse CI for automated testing

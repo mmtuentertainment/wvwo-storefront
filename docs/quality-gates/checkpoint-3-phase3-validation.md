@@ -18,6 +18,7 @@
 ## T-035: Collection Query Tests with River Type Filter
 
 ### Test File Created
+
 - **Location**: `wv-wild-web/src/content/__tests__/collections.test.ts`
 - **Coverage**:
   - River type filtering (empty array validation)
@@ -28,6 +29,7 @@
   - Zero breaking changes validation
 
 ### Test Structure
+
 ```typescript
 ✅ River Type Filtering
   - Validates river type filter returns empty array (Phase 4 work)
@@ -56,6 +58,7 @@
 ```
 
 ### Test Execution Note
+
 **Status**: Test file created and validated structurally.
 **Technical Limitation**: Vitest cannot import `astro:content` without full Astro test infrastructure. This is expected and does not invalidate the tests.
 **Alternative Validation**: Build process validation (see T-036 below) confirms schema works correctly.
@@ -71,6 +74,7 @@
 **Result**: ✅ **PASS** - No schema-related errors
 
 **Evidence**:
+
 ```
 [content] Content config changed
 [content] Clearing content store
@@ -79,12 +83,14 @@
 ```
 
 **Analysis**:
+
 - 56 pre-existing TypeScript errors detected (unrelated to schema changes)
 - Zero new errors introduced by schema extension
 - Content sync successful with new schema
 - Type generation completed without errors
 
 **Pre-existing errors**:
+
 - `holly-river.astro` - Icon type mismatch (pre-existing)
 - `adventure-lake.test.ts` - Missing `important` property (pre-existing)
 - Various unused variable warnings (pre-existing)
@@ -96,6 +102,7 @@
 **Result**: ✅ **PASS** - Schema changes cause zero build errors
 
 **Evidence**:
+
 ```
 [content] Syncing content
 [content] Synced content ✓
@@ -106,6 +113,7 @@
 ```
 
 **Build Steps Completed Successfully**:
+
 1. ✅ Content sync with new schema
 2. ✅ Type generation
 3. ✅ Build info collection
@@ -114,6 +122,7 @@
 6. ✅ Static route generation started
 
 **Build Failure Analysis**:
+
 - Build fails at late stage: `Cannot find module 'dist/renderers.mjs'`
 - **This is a pre-existing infrastructure issue**
 - Baseline test confirms: same error occurs WITHOUT our schema changes
@@ -135,6 +144,7 @@
 **File**: `src/content.config.ts`
 
 **Changes Applied** (T-032, T-033, T-034):
+
 ```diff
 +// SPEC-14: River adventure type schemas (T-033)
 +import {
@@ -166,6 +176,7 @@
 ```
 
 **Backward Compatibility Analysis**:
+
 - ✅ All new fields are **optional** (`.optional()`)
 - ✅ Enum extension adds new value without removing old ones
 - ✅ Existing content validation unchanged
@@ -177,6 +188,7 @@
 **Lake Content Example**: `summersville-lake.md`
 
 **Frontmatter**:
+
 ```yaml
 type: wma  # Still valid (not changed to 'river')
 acreage: 5974
@@ -210,6 +222,7 @@ species:
 ## Evidence Summary
 
 ### Content Sync Logs
+
 ```
 [content] Content config changed
 [content] Clearing content store
@@ -218,12 +231,14 @@ species:
 ```
 
 **Interpretation**: Astro successfully:
+
 1. Detected schema changes
 2. Cleared old content store
 3. Re-synced all content with new schema
 4. Generated TypeScript types without errors
 
 ### Type Generation Success
+
 ```
 [types] Generated ✓ 1.12s
 ```
@@ -231,6 +246,7 @@ species:
 **Interpretation**: All Zod schemas (including new RiverSchema imports) compiled successfully to TypeScript types.
 
 ### Build Process Validation
+
 ```
 [build] ✓ Completed in 735ms
 [vite] ✓ built in 3.21s
@@ -244,6 +260,7 @@ species:
 ## Risks & Mitigations
 
 ### Identified Risks
+
 1. **Vitest Test Execution**: Cannot run tests that import `astro:content` without Astro test infrastructure
    - **Mitigation**: Build process validation provides equivalent assurance
    - **Future**: Add Astro test setup for integration testing
@@ -277,11 +294,13 @@ species:
 ## Recommendations
 
 ### Immediate Actions (Phase 4)
+
 1. ✅ **PROCEED** with Phase 4: Create first river content file
 2. ✅ Use test file (`collections.test.ts`) for validation after river content added
 3. ✅ Monitor build process for any schema-related issues
 
 ### Future Improvements
+
 1. **Add Astro Test Infrastructure**: Enable `astro:content` imports in Vitest
 2. **Address Pre-existing Build Error**: Fix `renderers.mjs` module resolution (separate ticket)
 3. **Enhanced Content Validation**: Add runtime schema validation in content queries

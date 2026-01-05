@@ -16,6 +16,7 @@ The **AdventureFeatureSection** is a generic, reusable component for displaying 
 **Wrappers**: AdventureWhatToHunt.astro (15 lines), AdventureWhatToFish.astro (15 lines)
 
 **Benefits**:
+
 - DRY principle: Change once, affects both wrappers
 - Single source of truth for feature card rendering
 - ~50 lines saved vs. duplicate components
@@ -26,6 +27,7 @@ The **AdventureFeatureSection** is a generic, reusable component for displaying 
 ## AdventureFeatureSection Architecture
 
 ### Component Responsibility
+
 **Single Responsibility**: Render array of features as 2-3 column grid with optional Kim's notes
 
 ### Props Interface
@@ -113,6 +115,7 @@ interface Props {
 ### Styling Strategy
 
 **Tailwind Classes**:
+
 - Section wrapper: `py-16 bg-{variant}` (variant: white/cream)
 - Container: `container mx-auto px-4` (responsive padding)
 - Grid: `grid grid-cols-1 md:grid-cols-{columns} gap-6` (responsive)
@@ -121,10 +124,12 @@ interface Props {
 - Kim's notes: `font-hand text-lg text-sign-green italic`
 
 **Responsive Breakpoints**:
+
 - Mobile (<768px): 1 column, full width
 - Tablet/Desktop (≥768px): 2-3 columns (via `columns` prop)
 
 **WVWO Aesthetic Compliance**:
+
 - Fonts: Bitter (headings), Permanent Marker (notes)
 - Colors: brand-brown (#3E2723), sign-green (#2E7D32), brand-cream (#FFF8E1)
 - Corners: No rounded classes (sharp rectangular cards)
@@ -164,6 +169,7 @@ interface Props {
 ## AdventureWhatToHunt Wrapper
 
 ### Component Responsibility
+
 **Single Responsibility**: Provide hunting-specific semantic interface to AdventureFeatureSection
 
 ### Props Interface
@@ -256,6 +262,7 @@ const features = species.map(s => ({
 ### Data Transformation
 
 **Input (from Content Collection)**:
+
 ```typescript
 species: [
   {
@@ -268,6 +275,7 @@ species: [
 ```
 
 **Output (to AdventureFeatureSection)**:
+
 ```typescript
 features: [
   {
@@ -300,6 +308,7 @@ features: [
 ## AdventureWhatToFish Wrapper
 
 ### Component Responsibility
+
 **Single Responsibility**: Provide fishing-specific semantic interface to AdventureFeatureSection
 
 ### Props Interface
@@ -379,6 +388,7 @@ const features = waters.map(w => ({
 ### Data Transformation
 
 **Input (from Content Collection)**:
+
 ```typescript
 fishingWaters: [
   {
@@ -391,6 +401,7 @@ fishingWaters: [
 ```
 
 **Output (to AdventureFeatureSection)**:
+
 ```typescript
 features: [
   {
@@ -457,14 +468,17 @@ const { species, fishingWaters } = wma.data;
 ### Conditional Rendering Logic
 
 **Hunting Section**:
+
 - Render if: `species && species.length > 0`
 - Hide if: `species === undefined` or `species.length === 0`
 
 **Fishing Section**:
+
 - Render if: `fishingWaters && fishingWaters.length > 0`
 - Hide if: `fishingWaters === undefined` or `fishingWaters.length === 0`
 
 **Background Alternation**:
+
 - Hunting: white (position 3 in page)
 - Fishing: cream (position 4 in page)
 - Maintains cream → white → cream → white pattern
@@ -556,17 +570,20 @@ test('feature section has proper heading hierarchy', async ({ page }) => {
 ## Performance Considerations
 
 ### Bundle Size
+
 - AdventureFeatureSection: ~2KB (60 lines, minimal markup)
 - AdventureWhatToHunt: ~0.5KB (15 lines, thin wrapper)
 - AdventureWhatToFish: ~0.5KB (15 lines, thin wrapper)
 - **Total**: ~3KB (negligible impact)
 
 ### Rendering Cost
+
 - Static HTML generation (zero runtime cost)
 - No client-side JavaScript
 - Conditional rendering reduces DOM size (hide empty sections)
 
 ### Reusability Wins
+
 - DRY pattern saves ~50 lines vs. duplicate components
 - Single source of truth for feature card rendering
 - Easier to maintain (change once, affects both wrappers)
@@ -576,16 +593,19 @@ test('feature section has proper heading hierarchy', async ({ page }) => {
 ## Future Enhancements
 
 ### Icon Support
+
 - Add icon rendering for feature cards
 - Use STAT_ICON_PATHS constant (checkmark, location, info)
 - Conditional: `{feature.icon !== 'none' && <Icon type={feature.icon} />}`
 
 ### Expandable Cards
+
 - Add "Read More" for long descriptions (>200 chars)
 - JavaScript-free accordion (details/summary)
 - Optional enhancement (not Phase 1)
 
 ### Print Optimization
+
 - @media print styles: Remove background colors, optimize for B&W
 - Keep border-left accent (visible in grayscale)
 - Force single-column layout for print

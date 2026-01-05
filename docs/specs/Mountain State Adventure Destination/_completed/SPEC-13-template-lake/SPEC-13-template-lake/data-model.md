@@ -44,6 +44,7 @@ export type FishingSpot = z.infer<typeof FishingSpotSchema>;
 ```
 
 **Usage Example**:
+
 ```typescript
 const summersvilleFishingSpots: FishingSpot[] = [
   {
@@ -104,6 +105,7 @@ export type Marina = z.infer<typeof MarinaSchema>;
 ```
 
 **Usage Example**:
+
 ```typescript
 const summersvilleMarina: Marina = {
   name: 'Summersville Lake Marina',
@@ -153,6 +155,7 @@ export type Activity = z.infer<typeof ActivitySchema>;
 ```
 
 **Usage Example**:
+
 ```typescript
 const summersvilleActivities: Activity[] = [
   {
@@ -202,6 +205,7 @@ export type SeasonalGuide = z.infer<typeof SeasonalGuideSchema>;
 ```
 
 **Usage Example**:
+
 ```typescript
 const summersvilleSeasonalGuide: SeasonalGuide[] = [
   {
@@ -274,6 +278,7 @@ export type Regulation = z.infer<typeof RegulationSchema>;
 ```
 
 **Usage Example**:
+
 ```typescript
 const summersvilleRegulations: Regulation[] = [
   {
@@ -316,6 +321,7 @@ const summersvilleRegulations: Regulation[] = [
 These types are already defined in SPEC-11 and will be used as-is:
 
 ### GearItem
+
 ```typescript
 // Already exists - from SPEC-11
 export type GearItem = z.infer<typeof GearItemSchema>;
@@ -323,6 +329,7 @@ export type GearItem = z.infer<typeof GearItemSchema>;
 ```
 
 ### RelatedCategory
+
 ```typescript
 // Already exists - from SPEC-11
 export type RelatedCategory = z.infer<typeof RelatedCategorySchema>;
@@ -330,6 +337,7 @@ export type RelatedCategory = z.infer<typeof RelatedCategorySchema>;
 ```
 
 ### CampingFacility
+
 ```typescript
 // Already exists - from SPEC-12
 export type CampingFacility = z.infer<typeof CampingFacilitySchema>;
@@ -337,6 +345,7 @@ export type CampingFacility = z.infer<typeof CampingFacilitySchema>;
 ```
 
 ### StatItem
+
 ```typescript
 // Already exists - from SPEC-10
 export type StatItem = z.infer<typeof StatItemSchema>;
@@ -501,6 +510,7 @@ wv-wild-web/src/types/
 ### Implementation Steps
 
 1. **Add Schemas to adventure.ts** (lines ~300-450):
+
    ```typescript
    // After existing SPEC-12 types, add SPEC-13 types:
    export const FishingSpotSchema = z.object({...});
@@ -511,6 +521,7 @@ wv-wild-web/src/types/
    ```
 
 2. **Export Type Inferences**:
+
    ```typescript
    export type FishingSpot = z.infer<typeof FishingSpotSchema>;
    export type Marina = z.infer<typeof MarinaSchema>;
@@ -520,6 +531,7 @@ wv-wild-web/src/types/
    ```
 
 3. **Define Complete Interface**:
+
    ```typescript
    export interface LakeTemplateProps {
      // Full interface as shown above
@@ -527,6 +539,7 @@ wv-wild-web/src/types/
    ```
 
 4. **Re-export in index.ts**:
+
    ```typescript
    export type { LakeTemplateProps } from './adventure';
    ```

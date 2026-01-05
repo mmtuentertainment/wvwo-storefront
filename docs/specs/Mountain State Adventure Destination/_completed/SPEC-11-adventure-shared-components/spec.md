@@ -8,6 +8,7 @@
 ## Overview
 
 3 reusable Astro components for consistent adventure page sections:
+
 - **AdventureGettingThere**: Directions with drive stats and Google Maps link
 - **AdventureGearChecklist**: Required/optional gear with responsive grid
 - **AdventureRelatedShop**: Category cards linking to shop with CTA
@@ -96,6 +97,7 @@ A visitor planning their trip wants to browse related shop categories to purchas
 ### Functional Requirements
 
 **AdventureGettingThere**:
+
 - **FR-001**: Component MUST display directions content with HTML support (bold, lists)
 - **FR-002**: Component MUST show drive time with clock icon when driveTime prop provided
 - **FR-003**: Component MUST show distance with map icon when distance prop provided
@@ -104,6 +106,7 @@ A visitor planning their trip wants to browse related shop categories to purchas
 - **FR-006**: Component MUST use default fromLocation text: "From our shop (121 WV-82, Birch River)"
 
 **AdventureGearChecklist**:
+
 - **FR-007**: Component MUST display gear items in responsive grid (1 col mobile, 2-3 desktop)
 - **FR-008**: Component MUST show checkmark icon (sign-green) for required items
 - **FR-009**: Component MUST show circle icon with "(optional)" text for optional items
@@ -112,6 +115,7 @@ A visitor planning their trip wants to browse related shop categories to purchas
 - **FR-012**: Component MUST display optional intro text above gear grid
 
 **AdventureRelatedShop**:
+
 - **FR-013**: Component MUST display category cards in responsive grid (1 col mobile, 2-3 desktop)
 - **FR-014**: Component MUST apply border-left-4 sign-green pattern to cards
 - **FR-015**: Component MUST show hover effect (border-l-brand-orange, translateY(-2px))
@@ -294,11 +298,13 @@ const categories = [
 ## Non-Functional Requirements
 
 ### Performance
+
 - Static Astro components (0KB client JS)
 - Inline SVG icons (no external icon library)
 - CSS animations with prefers-reduced-motion support
 
 ### Accessibility
+
 - Semantic HTML: section, h2, dl/dt/dd or ul/li
 - External links: target="_blank" rel="noopener noreferrer"
 - Icon-only elements: aria-hidden="true"
@@ -306,11 +312,13 @@ const categories = [
 - aria-labelledby on sections
 
 ### Security
+
 - HTML directions sanitized via Astro Fragment set:html
 - External URLs validated (Google Maps domain only)
 - Shop links are internal relative paths (start with "/")
 
 ### WVWO Styling Compliance
+
 - rounded-sm ONLY (no rounded-md/lg)
 - Brand colors only (brand-brown, sign-green, brand-cream, brand-mud)
 - font-display for headings, font-body for content

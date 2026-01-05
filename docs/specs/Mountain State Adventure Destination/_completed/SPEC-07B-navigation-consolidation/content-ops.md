@@ -27,13 +27,16 @@ Matt: Update navigation → Add cross-links → Test → Deploy
 1. Open file in editor
 2. Locate `<nav>` element with existing links
 3. Add Adventures link:
+
    ```astro
    <a href="/adventures" class="nav-link">Adventures</a>
    ```
+
 4. Verify mobile navigation updated (if separate mobile nav exists)
 5. Save file
 
 **Test:**
+
 ```bash
 npm run dev
 # Navigate to http://localhost:4321
@@ -66,6 +69,7 @@ npm run dev
 4. Verify conditional logic (only shows for hunting filters)
 
 **Test:**
+
 ```bash
 # Visit /adventures?season=fall&activity=hunting
 # Should see: "Preparing for buck season? Read our Buck Season Prep Guide"
@@ -82,10 +86,12 @@ npm run dev
 ### Step 4: Add CTAs to Guide Pages (40 min)
 
 **Files:**
+
 - `wv-wild-web/src/pages/guides/buck-season.astro`
 - `wv-wild-web/src/pages/guides/turkey-season.astro`
 
 **For each guide:**
+
 1. Open file in editor
 2. Scroll to bottom (before `<EmailCapture>`)
 3. Add CTA section (copy from `spec.md`)
@@ -93,6 +99,7 @@ npm run dev
 5. Test on dev server
 
 **Test:**
+
 ```bash
 # Visit /guides/buck-season
 # Scroll to bottom
@@ -116,6 +123,7 @@ npm run dev
 ### Step 6: Testing (30 min)
 
 **Desktop Tests:**
+
 - [ ] Header shows Adventures link
 - [ ] Adventures link navigates to `/adventures`
 - [ ] Fall hunting filter shows buck season banner
@@ -125,12 +133,14 @@ npm run dev
 - [ ] Guides index explains difference and links to Adventures
 
 **Mobile Tests:**
+
 - [ ] Adventures link visible in mobile nav
 - [ ] Adventures link has 44x44px tap target
 - [ ] Guide banners readable on mobile
 - [ ] CTAs work on mobile (not obscured)
 
 **Cross-Browser:**
+
 - [ ] Chrome/Edge (primary)
 - [ ] Safari (if available)
 - [ ] Firefox (if available)
@@ -140,6 +150,7 @@ npm run dev
 ### Step 7: Screenshot Verification (15 min)
 
 Take screenshots for PR documentation:
+
 1. Header with Adventures link (desktop)
 2. Header with Adventures link (mobile)
 3. Fall hunting filter with buck season banner
@@ -203,11 +214,13 @@ EOF
 **Why:** Navigation structure is Matt's domain (technical decision).
 
 **When Kim Input IS Needed:**
+
 - Content authenticity (destination descriptions)
 - Voice verification (copy sounds like Kim)
 - Local knowledge (what matters to customers)
 
 **When Kim Input NOT Needed:**
+
 - Navigation structure
 - Technical implementation
 - Cross-linking strategy
@@ -230,6 +243,7 @@ npx agentdb@latest reflexion store "wvwo-session" "cross-linking-strategy" 1.0 t
 ```
 
 **Use for future specs:**
+
 - SPEC-21-28 migrations (know where to redirect /near/ pages)
 - Future guide creation (follow same CTA pattern)
 - Other cross-linking opportunities
@@ -242,6 +256,7 @@ If issues discovered:
 
 1. **Revert PR** (git revert)
 2. **Or comment out sections:**
+
    ```astro
    <!-- Temporarily disabled: Adventures link -->
    <!-- <a href="/adventures">Adventures</a> -->
@@ -254,6 +269,7 @@ If issues discovered:
 ## Success Metrics (Post-Deployment)
 
 Track in GA4 (Phase 9):
+
 - Click-through rate: Guides → Adventures
 - Click-through rate: Adventures → Guides
 - Adventures page views (should increase with nav link)

@@ -88,7 +88,6 @@ Hacker Valley, WV 26222[^3]
 
 Holly River State Park features multiple cascading waterfalls accessible via 42+ miles of trails:[^14][^13]
 
-
 | Waterfall Name | Height | Location/Waterway | Access Trail |
 | :-- | :-- | :-- | :-- |
 | **Tecumseh Falls** | ~15 feet[^15] | Headwaters of Big Run | Reverie Trail (1.5 mi)[^13] |
@@ -113,7 +112,6 @@ Holly River State Park features multiple cascading waterfalls accessible via 42+
 - **9 Legacy Cabins** (Cabins 1-9): Historic stone and log construction, built by Works Progress Administration (WPA) in the 1930s[^19][^2]
 - **1 Vacation Cabin** (Cabin 10): Modern frame-built, ADA-accessible[^2]
 
-
 ### Seasonal Availability
 
 | Cabin(s) | Availability Period | Year-Round Status |
@@ -125,7 +123,6 @@ Holly River State Park features multiple cascading waterfalls accessible via 42+
 
 - Check-in: 4:00 PM[^2]
 - Check-out: 10:00 AM[^2]
-
 
 ### Pet-Friendly Accommodations
 
@@ -139,7 +136,6 @@ Holly River State Park features multiple cascading waterfalls accessible via 42+
 - **Species:** Dogs and cats only[^20]
 - **Requirements:** Pets must be leashed and restrained at all times[^20]
 - **Damage Deposit:** Credit card required at check-in; minimum \$200 charge for damages or deep cleaning[^20]
-
 
 ### ADA-Accessible Cabin
 
@@ -197,7 +193,6 @@ These nine cabins represent authentic 1930s WPA craftsmanship with modern upgrad
 - Remodeled interiors[^21]
 - New HVAC units with air conditioning[^21]
 - On-demand hot water systems[^21]
-
 
 ### Vacation Cabin (Cabin 10) – Modern Accessible Unit
 
@@ -268,7 +263,6 @@ While Holly River's specific rates are not published, comparable West Virginia S
 - **Sewer Hookups:** Not available at individual sites[^26]
 - **Classification:** Electric-only hookups (no full-hookup sites)[^26]
 
-
 ### Campground Infrastructure
 
 **Bathhouses:**
@@ -284,7 +278,6 @@ While Holly River's specific rates are not published, comparable West Virginia S
 **Laundry Facilities:**
 
 - **Count:** 2 coin-operated washers and dryers[^28][^26]
-
 
 ### RV Specifications
 
@@ -322,7 +315,6 @@ Each of the 88 campsites includes:[^26]
 - By phone (park direct or call center)[^26]
 - At campground office (seasonal)[^26]
 
-
 ### ADA-Accessible Campsites
 
 **Count:** Not specifically enumerated in official sources reviewed
@@ -336,7 +328,6 @@ Each of the 88 campsites includes:[^26]
 **Official Rate Availability:** Nightly camping fees are not published on the WV State Parks website. Rates display in the online booking system.
 
 **Comparative West Virginia State Park Camping Rates (2025 data):**
-
 
 | Park | Site Type | Rate/Night | Source |
 | :-- | :-- | :-- | :-- |
@@ -355,7 +346,6 @@ Each of the 88 campsites includes:[^26]
 
 **Pavilion Inventory:**
 
-
 | Pavilion Name | Capacity | Features | Reservable |
 | :-- | :-- | :-- | :-- |
 | **Carpenter Pavilion** | Large groups, family reunions[^34] | Modern construction[^34] | Yes, up to 1 year advance[^35] |
@@ -370,7 +360,6 @@ Each of the 88 campsites includes:[^26]
 **Type:** Outdoor pool[^36]
 
 **Operating Schedule:**
-
 
 | Period | Days Open | Hours | Notes |
 | :-- | :-- | :-- | :-- |
@@ -414,7 +403,6 @@ Each of the 88 campsites includes:[^26]
 - Retails gift and souvenir items[^39]
 - Hours not specified in sources[^39]
 
-
 ### Nature Center \& Programming
 
 **Dedicated Nature Center:** Holly River does NOT have a standalone nature center.[^40]
@@ -441,7 +429,6 @@ Only seven West Virginia State Parks feature dedicated Nature Centers (Blackwate
 - Asphalt-paved, located on island between Activity Building and Carpenter Pavilion[^41][^13]
 - Meets ADA standards[^41][^13]
 - Features: 4 rest stations, 2 shelters, 3 water fountains, 10 historical markers with Braille signs[^41][^13]
-
 
 ### Game Courts \& Recreation
 
@@ -470,7 +457,6 @@ Only seven West Virginia State Parks feature dedicated Nature Centers (Blackwate
 
 **Operating Hours (Seasonal):**
 
-
 | Period | Days | Hours |
 | :-- | :-- | :-- |
 | Opening - Memorial Day | Friday-Sunday | 8 AM - 8 PM[^43] |
@@ -490,7 +476,6 @@ Only seven West Virginia State Parks feature dedicated Nature Centers (Blackwate
 - **Holly River Grocery** (5 miles from park)[^44]
 - Full grocery, deli, hunting/fishing supplies, licenses[^44]
 - Hours: Mon-Fri 5:30 AM-7 PM; Sat 7 AM-7 PM; Sun 8 AM-6 PM[^44]
-
 
 ### Trail System Summary
 
@@ -559,7 +544,6 @@ Only seven West Virginia State Parks feature dedicated Nature Centers (Blackwate
 
 - "Pretty isolated" with limited/no cell reception noted by visitors ~20 years ago and confirmed recently
 
-
 ### Accuracy Verification
 
 Official WV State Parks data aligns with recent visitor reviews regarding:
@@ -627,7 +611,7 @@ This comprehensive inventory synthesizes data from:
 Hacker Valley, WV 26222
 
 **Phone:** 304-493-6353[^3]
-**Email:** hollyriversp@wv.gov[^3]
+**Email:** <hollyriversp@wv.gov>[^3]
 
 **Restaurant Phone:** 304-493-9493[^43]
 
@@ -713,7 +697,7 @@ Swiss immigrants originally settled the area around 1870, clearing timber for fa
 [^63]: [Holly River State Park - Vrbo](https://www.vrbo.com/vacation-rentals/united-states-of-america/west-virginia/webster-county/hacker-valley/northern/holly-river-state-park)
 [^64]: [Holly River Trails and Map V5](https://wvstateparks.com/wp-content/uploads/2021/03/HollyRiverTrailsandMapV5.pdf)
 [^65]: [Holly River Campground Application](https://wvstateparks.com/wp-content/uploads/2017/03/holly-river-campground-application.pdf)
-[^66]: [Holly River State Park Trail Map - GIS](https://gis.transportation.wv.gov/gti/Trails/images/Holly River State Park.pdf)
+[^66]: [Holly River State Park Trail Map - GIS](<https://gis.transportation.wv.gov/gti/Trails/images/Holly> River State Park.pdf)
 [^67]: [Summer Pool Schedules - AHPD](https://www.ahpd.org/facilities/pools/summer-pool-schedules/)
 [^68]: [Virginia State Parks Reservations](https://www.dcr.virginia.gov/state-parks/reservations)
 [^69]: [Accessible Accommodations](https://wvstateparks.com/accessible-accommodations/)
@@ -781,4 +765,3 @@ Swiss immigrants originally settled the area around 1870, clearing timber for fa
 [^131]: [Beautiful World Photography - Facebook](https://www.facebook.com/groups/ourbeautifulworldphotography/posts/712308181476468/)
 [^132]: [West Virginia State Parks - HomeToGo](https://www.hometogo.com/west-virginia/state-parks/)
 [^133]: [Cabins at Lost River State Park](https://wvstateparks.com/parks/lost-river-state-park/lodging/cabins-at-lost-river-state-park/)
-

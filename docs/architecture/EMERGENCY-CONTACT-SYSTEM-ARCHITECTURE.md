@@ -11,6 +11,7 @@
 ## Executive Summary
 
 This document defines a comprehensive multi-tier emergency contact system for WV backcountry destinations where:
+
 - Cell service is absent or unreliable
 - SAR (Search and Rescue) response times can be 4-8 hours
 - County jurisdiction varies by location within a destination
@@ -57,6 +58,7 @@ emergencyContact: { service: string; contact: string }[];
 ### Backcountry Emergency Reality
 
 **WV Backcountry Statistics:**
+
 - Average SAR response time: 4-8 hours (source: WV SAR Association)
 - Cell coverage in Monongahela NF: ~15% of terrain
 - Nearest trauma center from Cranberry Wilderness: 90+ minutes by air
@@ -69,6 +71,7 @@ emergencyContact: { service: string; contact: string }[];
 ### Decision: Multi-Tier Hierarchical Structure
 
 **Rationale:**
+
 1. **Primary contact** - Destination-specific (ranger station, outfitter)
 2. **County SAR** - Jurisdiction-aware rescue coordination
 3. **Supporting agencies** - WVDNR, Forest Service, State Police
@@ -982,6 +985,7 @@ const adventures = defineCollection({
 ### Step 3: Create UI Components
 
 Create in `wv-wild-web/src/components/emergency/`:
+
 - `EmergencyContactSection.astro`
 - `PrimaryContactCard.astro`
 - `SARContactCard.astro`

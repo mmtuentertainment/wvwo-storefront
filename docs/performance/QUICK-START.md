@@ -17,6 +17,7 @@ npm run perf:all
 ```
 
 This will:
+
 - ✅ Convert images to WebP (<500KB each)
 - ✅ Extract critical CSS (<5KB inline)
 - ✅ Optimize fonts (150KB → 75KB)
@@ -24,6 +25,7 @@ This will:
 ## Step 2: Update Components (2 minutes)
 
 **Add to Layout.astro `<head>`**:
+
 ```astro
 ---
 import CriticalCSS from '../components/CriticalCSS.astro';
@@ -40,6 +42,7 @@ const { page } = Astro.props;
 ```
 
 **Update WMA pages to pass page prop**:
+
 ```astro
 <Layout page="elk-river" title="Elk River WMA">
 ```
@@ -63,11 +66,13 @@ npm run perf:lighthouse
 ## Expected Results
 
 **Bundle Analysis**:
+
 - Total page weight: <500KB ✅
 - CSS: <15KB ✅
 - Fonts: <75KB ✅
 
 **Lighthouse Scores**:
+
 - Performance: ≥95/100 ✅
 - LCP: <2.5s ✅
 - CLS: <0.1 ✅
@@ -75,20 +80,24 @@ npm run perf:lighthouse
 ## Troubleshooting
 
 **Images not found?**
+
 - Place hero images in `public/images/wma/`
 - Re-run: `npm run perf:images`
 
 **CSS still large?**
+
 - Check Tailwind purge in `tailwind.config.js`
 - Verify content paths include all .astro files
 
 **Fonts not loading?**
+
 - Confirm `<FontPreload />` is in Layout.astro
 - Check browser Network tab for font requests
 
 ## Success Criteria
 
 All 5 WMA pages achieve:
+
 - ✅ Lighthouse Performance: ≥95/100
 - ✅ Load time on 3G: <2s
 - ✅ Page weight: <500KB

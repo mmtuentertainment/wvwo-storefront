@@ -167,6 +167,7 @@ import {
 **Decision: Use Prop Drilling - No Context Required**
 
 **Rationale:**
+
 1. **Single-page templates**: BackcountryTemplate is a self-contained page component
 2. **Shallow component tree**: Maximum 2-3 levels of nesting
 3. **Explicit data flow**: All props visible in component signatures
@@ -196,6 +197,7 @@ import {
 ### 4.2 When Context Would Be Needed (Future Consideration)
 
 Context would only be needed if:
+
 - Interactive map components that need shared state across deeply nested children
 - Real-time data updates (weather, trail conditions) shared across multiple sections
 - User session state (saved favorites, trip planning)

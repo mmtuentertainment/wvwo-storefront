@@ -9,6 +9,7 @@
 ---
 
 ## Table of Contents
+
 1. [Executive Summary](#executive-summary)
 2. [Component Hierarchy & Decomposition](#component-hierarchy--decomposition)
 3. [Props Interface Architecture](#props-interface-architecture)
@@ -28,12 +29,14 @@
 ### Architecture Decision: Monolithic Template (Recommended)
 
 **Rationale:**
+
 - **Consistency**: LakeTemplate.astro (557 lines) establishes successful monolithic pattern
 - **Simplicity**: Single-file reduces cognitive overhead for content editors
 - **Performance**: Zero additional component imports = faster SSG builds
 - **Maintainability**: Easier to audit WVWO compliance rules (rounded-sm, fonts, colors)
 
 **Rejected Alternative:** Decomposed sub-components (Rapids cards, Season cards, Access Point cards)
+
 - ✗ Premature abstraction - only 1 template using these components initially
 - ✗ Component coordination overhead for conditional rendering
 - ✗ Harder to enforce rounded-sm ONLY rule across multiple files
@@ -56,6 +59,7 @@
 ## Component Hierarchy & Decomposition
 
 ### Level 1: Page Entry Point
+
 ```
 /near/gauley-river.astro
 ├── imports data from: src/data/rivers/gauley.ts
@@ -64,6 +68,7 @@
 ```
 
 ### Level 2: Template Component (Monolithic)
+
 ```
 src/components/templates/RiverTemplate.astro (660 lines)
 ├── Frontmatter (Lines 1-60)
@@ -169,6 +174,7 @@ Total: 660 lines
 ```
 
 ### Level 3: Shared Adventure Components (Existing)
+
 ```
 AdventureGearChecklist.astro
 ├── Props: { title, intro, items: GearItem[], columns, variant }
@@ -373,11 +379,13 @@ export type NearbyAttraction = z.infer<typeof NearbyAttractionSchema>;
 ### Default Values Strategy
 
 **Required Props (No Defaults):**
+
 - `name`, `image`, `imageAlt`, `tagline`, `description` - Core identity
 - `stats` - Hero section requires at least 2 stats
 - `rapids` - Core content (empty array = hide section, but prop required)
 
 **Optional Props (With Sensible Defaults):**
+
 ```typescript
 // In component frontmatter
 const {
@@ -439,6 +447,7 @@ const rivers = adventures.filter(isRiverAdventure);
 ### Decision: Lookup Objects (NOT Inline Ternaries)
 
 **Rationale:**
+
 - **Maintainability**: Centralized color mappings = single source of truth
 - **Type Safety**: Exhaustive enum checking at build time
 - **Readability**: `RAPID_COLORS[rapid.class.base]` vs. nested ternaries
@@ -693,6 +702,7 @@ export function getAttractionIcon(type: string): string {
 ### Breakpoint System
 
 **Tailwind Breakpoints (Mobile-First):**
+
 ```css
 /* Default (< 640px) - Mobile */
 /* sm: (640px+) - Large phones */
@@ -721,6 +731,7 @@ export function getAttractionIcon(type: string): string {
 **WCAG 2.5.5 Target Size (Level AAA):** 44x44 CSS pixels minimum
 
 **RiverTemplate Implementation:**
+
 - All buttons: `min-h-[48px] px-6` (exceeds 44px)
 - Rapid cards: Full card clickable (160px+ height on mobile)
 - Outfitter phone links: `py-3 px-4` (48px+ tap area)
@@ -730,6 +741,7 @@ export function getAttractionIcon(type: string): string {
 ### Responsive Layout Architecture
 
 **Container Pattern:**
+
 ```astro
 <section class="section-name bg-{color} py-12">
   <div class="container mx-auto px-4">
@@ -747,6 +759,7 @@ export function getAttractionIcon(type: string): string {
 ```
 
 **Card Pattern:**
+
 ```astro
 <article class="bg-white p-6 md:p-8 rounded-sm shadow-sm border-l-4 border-l-{color}">
   <h3 class="font-display text-xl md:text-2xl font-bold text-brand-brown mb-3">
@@ -763,6 +776,7 @@ export function getAttractionIcon(type: string): string {
 ### Typography Scaling
 
 **Heading Scale (Mobile → Desktop):**
+
 ```css
 h1 (Hero): text-4xl (36px) → md:text-5xl (48px) → lg:text-6xl (60px)
 h2 (Section): text-3xl (30px) → md:text-4xl (36px)
@@ -772,6 +786,7 @@ Small: text-sm (14px) [badges, metadata]
 ```
 
 **Line Height Adjustments:**
+
 - Headings: `leading-tight` (1.25)
 - Body text: `leading-relaxed` (1.625)
 - Metadata: `leading-normal` (1.5)
@@ -779,6 +794,7 @@ Small: text-sm (14px) [badges, metadata]
 ### Performance Optimization
 
 **Image Lazy Loading:**
+
 ```astro
 <!-- Hero image (above fold) -->
 <img src={image} alt={imageAlt} loading="eager" />
@@ -788,6 +804,7 @@ Small: text-sm (14px) [badges, metadata]
 ```
 
 **Grid Stacking Order (Mobile):**
+
 1. Hero (always visible)
 2. Description (context)
 3. Rapids Guide (core content)
@@ -816,6 +833,7 @@ Small: text-sm (14px) [badges, metadata]
 ```
 
 **Rationale:**
+
 - Cleaner HTML output (no empty `<section>` tags)
 - Better SEO (search engines ignore empty sections)
 - Improved accessibility (screen readers skip empty regions)
@@ -919,10 +937,12 @@ rapids: z.array(RapidSchema).max(20) // Reasonable UI limit
 ### Fallback Content Strategy
 
 **No Fallback Content (Hide Empty Sections):**
+
 - Rapids, Fishing, Outfitters, Seasonal Flow, Access Points, Nearby Attractions
 - **Rationale:** These are content-specific sections. Showing "No rapids available" is confusing and breaks user trust.
 
 **Required Safety Section (Warn if Missing):**
+
 ```astro
 {!safety || safety.length === 0 ? (
   <section class="safety-warning bg-brand-orange py-12">
@@ -948,6 +968,7 @@ rapids: z.array(RapidSchema).max(20) // Reasonable UI limit
 **New Component: `SchemaRiverTemplate.astro`**
 
 **Rationale:**
+
 - Rivers are distinct entity type (TouristAttraction + WaterBodyUsage)
 - Different properties vs. SchemaAdventureHero (warnings, water levels, outfitters)
 - Separate @graph structure (LocalBusiness entities for outfitters)
@@ -1085,18 +1106,21 @@ rapids: z.array(RapidSchema).max(20) // Reasonable UI limit
 **Location:** Page-level (src/pages/near/{river-name}.astro)
 
 **Title Tag Pattern:**
+
 ```html
 <title>{name} - {primaryActivity} Guide | WV Wild Outdoors</title>
 <!-- Example: "Gauley River - Whitewater Rafting & Fishing Guide | WV Wild Outdoors" -->
 ```
 
 **Meta Description Pattern:**
+
 ```html
 <meta name="description" content="Complete {name} guide: {difficultyRange} {primaryActivity}, {secondaryActivity}, and expert-guided trips. {length} miles of {adjective} {feature}. {driveTime} from our shop." />
 <!-- Example: "Complete Gauley River guide: Class II-V whitewater rafting, world-class smallmouth fishing, and expert-guided trips. 53 miles of WV's most challenging rapids. 30 minutes from our shop." -->
 ```
 
 **Open Graph Tags:**
+
 ```html
 <meta property="og:type" content="article" />
 <meta property="og:title" content="{name} | WV Wild Outdoors" />
@@ -1120,6 +1144,7 @@ rapids: z.array(RapidSchema).max(20) // Reasonable UI limit
 ```
 
 **Twitter Card Tags:**
+
 ```html
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="{name} - {primaryActivity} Guide" />
@@ -1128,6 +1153,7 @@ rapids: z.array(RapidSchema).max(20) // Reasonable UI limit
 ```
 
 **Geo Tags (Important for Local SEO):**
+
 ```html
 <meta name="geo.region" content="US-WV" />
 <meta name="geo.placename" content="{county}, West Virginia" />
@@ -1311,6 +1337,7 @@ const schemaProps = {
 ### Type Inference Through Layers
 
 **Flow:**
+
 ```typescript
 // Layer 2: Data file defines structure
 export const gauleyRiverData: RiverTemplateProps = {
@@ -1965,9 +1992,11 @@ Total: 660 lines
 **Objective:** Establish type-safe foundation for all river data
 
 **Files:**
+
 - `wv-wild-web/src/types/adventure.ts` (extend +350 lines)
 
 **Tasks:**
+
 1. ✅ Add 7 Zod schemas (Rapid, RiverFishing, Outfitter, SeasonalFlow, RiverAccessPoint, RiverSafety, NearbyAttraction)
    - Lines 395-450: Schema definitions
    - Validation rules: min/max lengths, required fields, at-least-one-contact refine
@@ -1999,9 +2028,11 @@ Total: 660 lines
 **Objective:** Build complete 660-line RiverTemplate.astro component
 
 **Files:**
+
 - `wv-wild-web/src/components/templates/RiverTemplate.astro` (NEW, 660 lines)
 
 **Tasks:**
+
 1. ✅ Scaffold file structure (Lines 1-60)
    - JSDoc header with SPEC-14 reference
    - Import statements (Layout, shared components, types)
@@ -2076,9 +2107,11 @@ Total: 660 lines
 **Objective:** Extend Content Collections schema to support river adventures
 
 **Files:**
+
 - `wv-wild-web/src/content.config.ts` (extend +50 lines)
 
 **Tasks:**
+
 1. ✅ Update type discriminator (Line 99)
    - Add `'river'` to enum: `z.enum(['adventure', 'wma', 'lake', 'river'])`
 
@@ -2104,9 +2137,11 @@ Total: 660 lines
 **Objective:** Create SchemaRiverTemplate.astro for structured data
 
 **Files:**
+
 - `wv-wild-web/src/components/seo/SchemaRiverTemplate.astro` (NEW, 200 lines)
 
 **Tasks:**
+
 1. ✅ Create component scaffolding (Lines 1-40)
    - Props interface
    - JSON-LD script tag wrapper
@@ -2123,7 +2158,7 @@ Total: 660 lines
 4. ✅ Test JSON-LD output (Lines 196-200)
    - Build site: `npm run build`
    - Copy JSON from HTML source
-   - Validate: https://search.google.com/test/rich-results
+   - Validate: <https://search.google.com/test/rich-results>
 
 5. ✅ Document meta tags pattern (Lines 1-20)
    - JSDoc header with example usage
@@ -2138,11 +2173,13 @@ Total: 660 lines
 **Objective:** Create reference data files and developer documentation
 
 **Files:**
+
 - `wv-wild-web/src/data/rivers/_example.ts` (NEW, 300 lines)
 - `wv-wild-web/src/data/rivers/gauley.ts` (NEW, 280 lines)
 - `wv-wild-web/src/data/rivers/README.md` (NEW, 50 lines)
 
 **Tasks:**
+
 1. ✅ Create _example.ts (Lines 1-300)
    - Complete reference implementation
    - All 8 sections fully populated
@@ -2172,9 +2209,11 @@ Total: 660 lines
 **Objective:** Demonstrate complete integration in gauley-river.astro
 
 **Files:**
+
 - `wv-wild-web/src/pages/near/gauley-river.astro` (refactor to 50 lines)
 
 **Tasks:**
+
 1. ✅ Refactor page to template pattern (Lines 1-50)
    - Import RiverTemplate and SchemaRiverTemplate
    - Import gauleyRiverData
@@ -2207,6 +2246,7 @@ Total: 660 lines
 **Scope:** Deferred to Phase 6 (post-implementation)
 
 **Tasks (Future):**
+
 1. 🔮 Playwright E2E tests
    - Mobile viewport (375px)
    - Tablet viewport (768px)
@@ -2265,12 +2305,14 @@ Total: 660 lines
 ### Migration Workflow (Per River)
 
 **Step 1: Audit Existing Content (15 min)**
+
 1. Open existing river page (e.g., elk-river.astro)
 2. Identify implemented sections (Hero, Rapids, Fishing, etc.)
 3. Extract inline data (rapidsList, fishingInfo, etc.)
 4. Note missing sections (compare to SPEC-14 8-section checklist)
 
 **Step 2: Create Data File (60 min)**
+
 1. Create `src/data/rivers/{river-slug}.ts`
 2. Copy `_example.ts` template
 3. Populate required fields:
@@ -2290,8 +2332,10 @@ Total: 660 lines
 6. Run typecheck: `npm run typecheck`
 
 **Step 3: Create Schema Props (15 min)**
+
 1. Open existing river page (e.g., elk-river.astro)
 2. Add schema props extraction in frontmatter:
+
    ```typescript
    const schemaProps = {
      name: elkRiverData.name,
@@ -2315,20 +2359,24 @@ Total: 660 lines
    ```
 
 **Step 4: Refactor Page to Template Pattern (20 min)**
+
 1. Delete manual section HTML (150+ lines)
 2. Replace with:
+
    ```astro
    <Layout>
      <SchemaRiverTemplate {...schemaProps} />
      <RiverTemplate {...elkRiverData} />
    </Layout>
    ```
+
 3. Update meta tags in `<head>`:
    - Title: `{name} - {primaryActivity} Guide | WV Wild Outdoors`
    - Description: Generate from data (150-160 chars)
    - OG tags, Twitter card, geo tags
 
 **Step 5: Build & Validate (10 min)**
+
 1. Run: `npm run build`
 2. Check build output (no type errors)
 3. Open localhost:4321/near/{river-slug}/
@@ -2343,6 +2391,7 @@ Total: 660 lines
    - SEO = 100
 
 **Step 6: Commit & PR (10 min)**
+
 1. Git add changed files:
    - `src/data/rivers/{river-slug}.ts`
    - `src/pages/near/{river-slug}.astro`
@@ -2357,34 +2406,42 @@ Total: 660 lines
 ## Appendix A: WVWO Compliance Checklist
 
 ### Fonts (MUST USE)
+
 - [ ] `font-display` (Bitter serif) - All headings, river names, rapid names
 - [ ] `font-hand` (Permanent Marker cursive) - Kim's tips ONLY
 - [ ] `font-body` (Noto Sans) - All body text, descriptions, lists
 
 ### Fonts (FORBIDDEN - Instant PR Rejection)
+
 - [ ] ❌ Inter, Poppins, DM Sans, Space Grotecast, Outfit, Montserrat, Raleway, Open Sans, system-ui
 
 ### Colors (MUST USE)
+
 - [ ] `--brand-brown` (#3E2723) - Headers, text, detail borders
 - [ ] `--sign-green` (#2E7D32) - Fishing, access points, safe rapids (Class I-III)
 - [ ] `--brand-cream` (#FFF8E1) - Section backgrounds
 - [ ] `--brand-orange` (#FF6F00) - CTAs, safety warnings, Class IV rapids (<5% of screen)
 
 ### Colors (FORBIDDEN - Instant PR Rejection)
+
 - [ ] ❌ Purple gradients, hot pink (#ec4899), neon, corporate blue, diagonal multi-stop gradients
 
 ### Border Radius (MUST USE)
+
 - [ ] `rounded-sm` (0.125rem / ~2px) - Sharp hardware store aesthetic
 
 ### Border Radius (FORBIDDEN - Instant PR Rejection)
+
 - [ ] ❌ `rounded-md`, `rounded-lg`, `rounded-xl`, `rounded-3xl`, `rounded-full`
 
 ### Voice (MUST USE - Kim's Authentic WV Voice)
+
 - [ ] Direct, humble, faith-forward
 - [ ] Example: "The water's gin-clear, so downsize your line to 6-8 lb test"
 - [ ] Example: "Class V rapids require expert skills - no shortcuts"
 
 ### Voice (FORBIDDEN - Instant PR Rejection)
+
 - [ ] ❌ "Unlock potential", "Seamless experience", "Revolutionize", "Transform the way you"
 - [ ] ❌ "All-in-one platform", "Cutting-edge solutions", "Next-level"
 

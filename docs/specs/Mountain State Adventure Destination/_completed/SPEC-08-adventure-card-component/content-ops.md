@@ -11,6 +11,7 @@
 ### **Phase 1: Research Existing Patterns** (1 hour)
 
 **Scout Mission:**
+
 ```bash
 # Analyze ProductCard pattern
 Read wv-wild-web/src/components/ProductCard.astro
@@ -23,6 +24,7 @@ Read CLAUDE.md (Frontend Aesthetics section)
 ```
 
 **Extract:**
+
 - Border-left accent pattern (border-l-4 border-l-sign-green)
 - Hover animation (translateY(-2px), border-orange)
 - Grid stagger timing (60ms delay per card)
@@ -45,6 +47,7 @@ interface AdventureCardProps {
 ```
 
 **Layout Structure:**
+
 - Image (aspect-[4/3], lazy loading)
 - Type badge (WMA/Lake/River, bg-sign-green/10)
 - Title (font-display, line-clamp-2)
@@ -53,6 +56,7 @@ interface AdventureCardProps {
 - Season tags (pill chips)
 
 **WVWO Aesthetic Compliance:**
+
 - rounded-sm (NOT rounded-md/lg)
 - border-l-4 border-l-sign-green
 - hover:border-brand-orange
@@ -77,6 +81,7 @@ Write wv-wild-web/src/components/adventures/AdventureCard.tsx
 ```
 
 **Code Quality:**
+
 - TypeScript strict mode
 - No hardcoded values (use props)
 - WVWO litmus tests pass (Neighbor, Voice, Five-Year)
@@ -86,6 +91,7 @@ Write wv-wild-web/src/components/adventures/AdventureCard.tsx
 ### **Phase 4: Test with Real Data** (1 hour)
 
 **Test Checklist:**
+
 ```bash
 # Build site
 npm run build
@@ -133,6 +139,7 @@ Thanks!
 **Kim's Response Time:** Within 3-7 days (async, no deadline)
 
 **Matt's Action After Kim Responds:**
+
 - Adjust design based on feedback (1-2 hours)
 - Re-screenshot if major changes
 - Get Kim's approval
@@ -143,16 +150,19 @@ Thanks!
 ## Deliverables
 
 **Code:**
+
 - [ ] `wv-wild-web/src/components/adventures/AdventureCard.tsx` (~110 LOC)
 - [ ] TypeScript types integrated with adventures collection
 - [ ] WVWO aesthetic verified (rounded-sm, brand colors, 44px clickable)
 
 **Documentation:**
+
 - [ ] Component API documented (props, slots, usage examples)
 - [ ] Screenshot for Kim review
 - [ ] Kim's design approval (via Messenger)
 
 **Quality Gates:**
+
 - [ ] Renders with real adventure data (spring-gobbler-burnsville)
 - [ ] Responsive (1-col → 2-col → 3-col grid)
 - [ ] Hover states work (border-orange, image scale)
@@ -164,6 +174,7 @@ Thanks!
 ## Success Criteria
 
 **Component is DONE when:**
+
 - ✅ Renders adventures from SPEC-06 collection
 - ✅ WVWO aesthetic compliance (all 5 litmus tests pass)
 - ✅ Kim design approval ("Feels like us, not corporate")

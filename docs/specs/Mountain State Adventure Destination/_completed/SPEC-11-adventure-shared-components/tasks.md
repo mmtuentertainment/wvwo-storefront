@@ -21,32 +21,38 @@
 **Objective:** Extend `adventure.ts` with schemas and types for SPEC-11 components
 
 ### T-001: Extend StatIconSchema
+
 - [ ] [S] Add `circle` icon to `StatIconSchema` enum in `adventure.ts`
 - **File:** `wv-wild-web/src/types/adventure.ts:130-139`
 - **LOC:** ~2
 
 ### T-002: Extend STAT_ICON_PATHS
+
 - [ ] [S] Add circle SVG path to `STAT_ICON_PATHS` mapping
 - **File:** `wv-wild-web/src/types/adventure.ts:169-181`
 - **LOC:** ~2
 - **Depends on:** T-001
 
 ### T-003: Add GearItemSchema
+
 - [ ] [P] Add `GearItemSchema` Zod schema and `GearItem` type
 - **File:** `wv-wild-web/src/types/adventure.ts` (after STAT_ICON_PATHS)
 - **LOC:** ~15
 
 ### T-004: Add GearColumns Type
+
 - [ ] [P] Add `GearColumns` type alias (1 | 2 | 3)
 - **File:** `wv-wild-web/src/types/adventure.ts` (after GearItem)
 - **LOC:** ~2
 
 ### T-005: Add RelatedCategorySchema
+
 - [ ] [P] Add `RelatedCategorySchema` Zod schema and `RelatedCategory` type
 - **File:** `wv-wild-web/src/types/adventure.ts` (after GearColumns)
 - **LOC:** ~15
 
 ### T-006: Verify Type Exports
+
 - [ ] [S] Run `npm run typecheck` to verify all exports work
 - **Depends on:** T-001 through T-005
 - **LOC:** 0
@@ -60,18 +66,21 @@
 **Objective:** Create directions component with drive stats and Google Maps integration
 
 ### T-007: Create File with Props Interface
+
 - [ ] [S] Create `AdventureGettingThere.astro` with frontmatter, imports, Props interface
 - **File:** `wv-wild-web/src/components/adventure/AdventureGettingThere.astro`
 - **LOC:** ~50
 - **Depends on:** T-006
 
 ### T-008: Build Template Structure
+
 - [ ] [S] Add section container, heading, directions card, drive stats, map button, slot
 - **File:** `wv-wild-web/src/components/adventure/AdventureGettingThere.astro`
 - **LOC:** ~70
 - **Depends on:** T-007
 
 ### T-009: Add Scoped Styles
+
 - [ ] [S] Add gentle-reveal animation with prefers-reduced-motion
 - **File:** `wv-wild-web/src/components/adventure/AdventureGettingThere.astro`
 - **LOC:** ~22
@@ -88,18 +97,21 @@
 **Objective:** Create gear checklist with required/optional distinction and responsive grid
 
 ### T-010: Create File with Props Interface
+
 - [ ] [P] Create `AdventureGearChecklist.astro` with frontmatter, imports, Props interface
 - **File:** `wv-wild-web/src/components/adventure/AdventureGearChecklist.astro`
 - **LOC:** ~55
 - **Depends on:** T-006 (types exist)
 
 ### T-011: Build Template Structure
+
 - [ ] [S] Add section container, heading, intro, gear grid with required/optional icons, footer slot
 - **File:** `wv-wild-web/src/components/adventure/AdventureGearChecklist.astro`
 - **LOC:** ~60
 - **Depends on:** T-010
 
 ### T-012: Add Scoped Styles
+
 - [ ] [S] Add gentle-reveal animation with prefers-reduced-motion
 - **File:** `wv-wild-web/src/components/adventure/AdventureGearChecklist.astro`
 - **LOC:** ~22
@@ -116,18 +128,21 @@
 **Objective:** Create shop categories component with hover effects and CTA
 
 ### T-013: Create File with Props Interface
+
 - [ ] [P] Create `AdventureRelatedShop.astro` with frontmatter, imports, Props interface
 - **File:** `wv-wild-web/src/components/adventure/AdventureRelatedShop.astro`
 - **LOC:** ~50
 - **Depends on:** T-006 (types exist)
 
 ### T-014: Build Template Structure
+
 - [ ] [S] Add section container, heading, intro, category cards grid, CTA button
 - **File:** `wv-wild-web/src/components/adventure/AdventureRelatedShop.astro`
 - **LOC:** ~55
 - **Depends on:** T-013
 
 ### T-015: Add Scoped Styles with Hover Effects
+
 - [ ] [S] Add gentle-reveal animation, card hover effects, prefers-reduced-motion
 - **File:** `wv-wild-web/src/components/adventure/AdventureRelatedShop.astro`
 - **LOC:** ~35
@@ -144,30 +159,35 @@
 **Objective:** Verify components work in summersville-lake.astro
 
 ### T-016: Add Imports to summersville-lake.astro
+
 - [ ] [S] Add component and type imports
 - **File:** `wv-wild-web/src/pages/near/summersville-lake.astro`
 - **LOC:** ~5
 - **Depends on:** T-009, T-012, T-015
 
 ### T-017: Add Test Data
+
 - [ ] [S] Add `summersvilleGear[]` and `summersvilleCategories[]` arrays
 - **File:** `wv-wild-web/src/pages/near/summersville-lake.astro`
 - **LOC:** ~20
 - **Depends on:** T-016
 
 ### T-018: Replace Hardcoded Sections
+
 - [ ] [S] Replace "Getting There" and "What to Bring" sections with components
 - **File:** `wv-wild-web/src/pages/near/summersville-lake.astro`
 - **LOC:** ~30 (net reduction from removing hardcoded)
 - **Depends on:** T-017
 
 ### T-019: Add AdventureRelatedShop Section
+
 - [ ] [S] Add new related shop section after gear checklist
 - **File:** `wv-wild-web/src/pages/near/summersville-lake.astro`
 - **LOC:** ~10
 - **Depends on:** T-018
 
 ### T-020: Visual Testing Checklist
+
 - [ ] [P] Test all viewports (375px, 768px, 1280px)
 - [ ] [P] Verify component rendering
 - [ ] [P] Test reduced-motion mode
@@ -175,12 +195,14 @@
 - **Depends on:** T-019
 
 ### T-021: Accessibility Audit
+
 - [ ] [S] Run axe-core audit
 - [ ] [S] Verify keyboard navigation
 - [ ] [S] Check WCAG 2.1 AA compliance
 - **Depends on:** T-020
 
 ### T-022: Final Build Verification
+
 - [ ] [S] Run `npm run build` and verify no errors
 - [ ] [S] Run `npm run typecheck` clean
 - **Depends on:** T-021
@@ -198,6 +220,7 @@
 **Recommended Strategy:** Single PR with all changes
 
 **Rationale:**
+
 - All types needed before any component works
 - Components are interdependent with shared patterns
 - Integration testing validates all components together
@@ -207,19 +230,22 @@
 
 ## Parallelization Opportunities
 
-### Fully Parallel After Types (T-006):
+### Fully Parallel After Types (T-006)
+
 ```
 T-007 (GettingThere Props)  ←──┐
 T-010 (GearChecklist Props) ←──┼── Can run in parallel
 T-013 (RelatedShop Props)   ←──┘
 ```
 
-### Sequential Within Components:
+### Sequential Within Components
+
 ```
 Props → Template → Styles (must be sequential per component)
 ```
 
-### Integration Must Be Last:
+### Integration Must Be Last
+
 ```
 All Components Complete → Integration → Testing → Build Verification
 ```

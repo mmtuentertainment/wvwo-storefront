@@ -13,6 +13,7 @@
 This document provides comprehensive dependency analysis, critical path identification, and parallelization strategies for all 42 tasks in SPEC-14 River Template implementation. Based on the implementation plan, this analysis reveals optimal execution order and identifies bottlenecks.
 
 **Key Findings:**
+
 - **Critical Path:** 8 tasks (T-001 → T-008 → T-009 → T-010 → T-027 → T-034 → T-040 → T-041)
 - **Parallelizable Tasks:** 29 tasks (69% of total)
 - **Quality Gates:** 5 major gates with clear success criteria
@@ -256,6 +257,7 @@ These tasks have the highest number of dependencies and should receive priority 
 ```
 
 **Developer Assignment Strategy:**
+
 - **Option A (Team):** Assign 7 developers, each takes 1 schema (30 min)
 - **Option B (Solo):** Single developer, batch-implement all schemas (2 hours)
 
@@ -365,9 +367,11 @@ These tasks have the highest number of dependencies and should receive priority 
 ### Gate 1: Type System Complete (After Phase 1)
 
 **Entry Criteria:**
+
 - T-001 through T-008 all completed
 
 **Validation Checklist:**
+
 ```bash
 # Run these commands to validate Gate 1
 npm run typecheck                    # Must pass with 0 errors
@@ -382,6 +386,7 @@ npm run build                        # Must compile without errors
 ```
 
 **Exit Criteria:**
+
 - All validation checks pass
 - Schemas can be imported by components
 - Type inference works in IDE
@@ -393,10 +398,12 @@ npm run build                        # Must compile without errors
 ### Gate 2: Component Complete (After Phase 2)
 
 **Entry Criteria:**
+
 - T-009 through T-018 all completed
 - Gate 1 passed
 
 **Validation Checklist:**
+
 ```bash
 # Run these commands
 npm run build                        # Must compile
@@ -420,6 +427,7 @@ npm run dev                          # Test component renders
 ```
 
 **Exit Criteria:**
+
 - Component renders without errors
 - WVWO compliance 100%
 - All sections display correctly with test data
@@ -431,10 +439,12 @@ npm run dev                          # Test component renders
 ### Gate 3: Content Collections Integration (After Phase 3)
 
 **Entry Criteria:**
+
 - T-027 through T-030 all completed
 - Gate 1 passed (type system required)
 
 **Validation Checklist:**
+
 ```bash
 # Run these commands
 npm run typecheck                    # Must pass
@@ -453,6 +463,7 @@ node -e "import { getCollection } from 'astro:content'; const adventures = await
 ```
 
 **Exit Criteria:**
+
 - Collection queries work
 - Type guard filters rivers correctly
 - Zero errors on existing content
@@ -464,10 +475,12 @@ node -e "import { getCollection } from 'astro:content'; const adventures = await
 ### Gate 4: SEO Component Complete (After Phase 4)
 
 **Entry Criteria:**
+
 - T-034 through T-039 all completed
 - Gate 1 passed (RiverTemplateProps required)
 
 **Validation Checklist:**
+
 ```bash
 # Build and extract JSON-LD
 npm run build
@@ -490,6 +503,7 @@ npm run build
 ```
 
 **Google Rich Results Test Requirements:**
+
 - ✅ Zero errors
 - ✅ Zero warnings (or only minor/cosmetic warnings)
 - ✅ TouristAttraction detected
@@ -497,6 +511,7 @@ npm run build
 - ✅ BreadcrumbList valid
 
 **Exit Criteria:**
+
 - Google Rich Results Test passes
 - JSON-LD validates
 - All schema entities detected
@@ -508,10 +523,12 @@ npm run build
 ### Gate 5: Implementation Reference Complete (After Phase 5)
 
 **Entry Criteria:**
+
 - T-040 through T-042 all completed
 - Gates 1, 2, 3, 4 all passed
 
 **Validation Checklist:**
+
 ```bash
 # Run these commands
 npm run typecheck                    # All data files must typecheck
@@ -528,6 +545,7 @@ ls src/data/rivers/                  # Verify files created
 ```
 
 **Exit Criteria:**
+
 - All files typecheck successfully
 - Example data complete and serves as reference
 - Skeleton provides clear TODO structure for content team
@@ -661,6 +679,7 @@ ls src/data/rivers/                  # Verify files created
 **Impact:** Blocks 8 downstream tasks across multiple phases
 
 **Mitigation Strategies:**
+
 1. **Pre-work:** Have all 7 schema files (T-001 through T-007) reviewed and approved before starting T-008
 2. **Template Reuse:** Copy LakeTemplateProps structure and adapt (saves ~10 min)
 3. **Parallel Prep:** While T-008 is in progress, prepare scaffolding for T-009, T-027, T-034
@@ -673,6 +692,7 @@ ls src/data/rivers/                  # Verify files created
 **Impact:** Blocks 9 component section tasks (T-010 through T-018)
 
 **Mitigation Strategies:**
+
 1. **Template Reuse:** Copy LakeTemplate.astro structure directly (saves ~15 min)
 2. **Props Validation:** Ensure all props from T-008 are destructured correctly
 3. **Hero Validation:** Test hero rendering immediately (catches WVWO issues early)
@@ -685,6 +705,7 @@ ls src/data/rivers/                  # Verify files created
 **Impact:** Longest single task, holds up Phase 2a completion
 
 **Mitigation Strategies:**
+
 1. **Inline Logic Pre-test:** Validate color-coding logic in isolation before integration
 2. **Data Prep:** Have test rapid data ready (3-5 rapids with varying classes)
 3. **Accessibility:** Use shape icons (●▲■) early to catch screen reader issues
@@ -697,6 +718,7 @@ ls src/data/rivers/                  # Verify files created
 **Impact:** If component fails WVWO review, must rework all sections
 
 **Mitigation Strategies:**
+
 1. **Scoped Styles First:** Implement T-018 styles early (enforce rounded-sm from start)
 2. **Font Checklist:** Create automated lint rule for forbidden fonts
 3. **Color Validator:** Script to check brand-orange usage (<5% screen rule)
@@ -792,14 +814,17 @@ BENEFIT: 2 hours saved via batch operations
 ### Phase Independence Analysis
 
 **Phases that CAN run in parallel (after T-008):**
+
 - Phase 2 (Component) + Phase 3 (Collections) + Phase 4 (SEO) + Phase 5 (Example Data)
 
 **Why they can parallelize:**
+
 - All depend ONLY on T-008 (RiverTemplateProps)
 - No inter-phase dependencies
 - Different file targets (no merge conflicts)
 
 **Coordination Requirements:**
+
 - All must reference same type definitions from T-008
 - WVWO compliance applies to Phase 2 only
 - Phase 3 validates after Phase 2 completes (but can start earlier)
@@ -902,18 +927,21 @@ TOTAL:    7h
 ### Execution Recommendations
 
 **For Solo Developer:**
+
 - Follow 8-hour optimized timeline
 - Batch similar tasks (all schemas in one session)
 - Validate gates immediately after phase completion
 - Use _example.ts as implementation reference
 
 **For Small Team (2-3 developers):**
+
 - Phase 1: Divide schemas (Dev 1: 3 schemas, Dev 2: 4 schemas)
 - Phase 2: Divide sections (Dev 1: core, Dev 2: new, Dev 3: shared)
 - Phases 3-5: Parallelize completely (Collections, SEO, Example Data)
 - Daily standups to align on type definitions and WVWO compliance
 
 **For Large Team (4-7 developers):**
+
 - Maximize parallelization (aim for 3h 45m critical path time)
 - Assign dedicated developer to critical path (T-008 → T-009 → T-010)
 - Designate WVGO compliance reviewer (validates all PRs)

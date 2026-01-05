@@ -45,6 +45,7 @@ Use JSON-LD `@graph` to combine multiple related schemas in a single script bloc
 ```
 
 **Benefits**:
+
 - Single script block for all related schemas
 - Cross-referencing via `@id` for semantic connections
 - Cleaner HTML output
@@ -75,6 +76,7 @@ Use JSON-LD `@graph` to combine multiple related schemas in a single script bloc
 ```
 
 **Note**: `elevation` is optional but valuable for:
+
 - Mountain destinations (Spruce Knob: 4,863 ft)
 - Ski resorts (base vs summit elevation)
 - Hiking trails (trailhead elevation)
@@ -95,11 +97,13 @@ For WMAs, lakes, and forests, use `GeoShape` to define boundaries:
 ```
 
 **Use GeoShape when**:
+
 - Area exceeds 1,000 acres
 - Multiple access points exist
 - Boundary accuracy matters for "near me" searches
 
 **Use GeoCoordinates when**:
+
 - Single point of interest
 - Specific trailhead/boat ramp
 - Business location
@@ -522,6 +526,7 @@ Use `travelTime` to capture drive time from shop:
 ```
 
 **ISO 8601 Duration Format**:
+
 - PT15M = 15 minutes
 - PT1H = 1 hour
 - PT1H30M = 1 hour 30 minutes
@@ -576,6 +581,7 @@ Use `travelTime` to capture drive time from shop:
 ```
 
 **Best Practices**:
+
 - `datePublished`: When content first went live
 - `dateModified`: Last significant update (NOT deployment date)
 - Update `dateModified` when:
@@ -657,6 +663,7 @@ Custom property for content currency:
 ### 6.2 Integration with AdventureHero
 
 The breadcrumb schema should be generated in the hero component since it:
+
 - Has access to page context
 - Can share the `@graph` with other schemas
 - Keeps all structured data in one location

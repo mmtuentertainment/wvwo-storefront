@@ -541,11 +541,13 @@ const directions = formatDirections(props.county, props.name);
 ### Option A: Use AdventureFeatureSection (Recommended)
 
 **Pros**:
+
 - ✅ 50% reuse (wrapper component)
 - ✅ Consistent styling with other feature sections
 - ✅ Less code to maintain
 
 **Cons**:
+
 - ⚠️ Requires transformation to FeatureItem format
 - ⚠️ Less flexibility for activity-specific layouts
 
@@ -564,10 +566,12 @@ const directions = formatDirections(props.county, props.name);
 ### Option B: Custom Activities Grid
 
 **Pros**:
+
 - ✅ Full control over layout
 - ✅ Can display difficulty badges with custom styling
 
 **Cons**:
+
 - ❌ 0% reuse (fully custom)
 - ❌ More code to maintain (~60 lines)
 
@@ -640,6 +644,7 @@ const directions = formatDirections(props.county, props.name);
 ### 7.2 Development Priority
 
 **Phase 1: Low Complexity** (Quick wins)
+
 - Quick Stats transformation
 - What to Fish transformation
 - Camping pass-through
@@ -647,12 +652,14 @@ const directions = formatDirections(props.county, props.name);
 - Breadcrumbs building
 
 **Phase 2: Medium Complexity** (Custom sections)
+
 - Hero section
 - Where to Fish section
 - Seasonal Guide section
 - Safety & Regulations section
 
 **Phase 3: High Complexity** (Complex layouts)
+
 - Marina section (multi-column, contact formatting)
 - Activities section decision (Option A vs B)
 

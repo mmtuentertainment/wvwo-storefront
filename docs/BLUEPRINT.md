@@ -138,6 +138,7 @@ faith perspective)
 **Constitution v2.0.0 (2025-12-09) REMOVED these technologies.**
 
 **Current architecture** (as of December 2025):
+
 - Astro 5.x + Tailwind CSS 4.x (static site generation)
 - Cloudflare Pages (hosting)
 - Web3Forms (contact forms)
@@ -146,6 +147,7 @@ faith perspective)
 - React + shadcn/ui (interactive components)
 
 **E-commerce status** (as of December 2025):
+
 - PUBLIC_COMMERCE_ENABLED=false (SPEC-05 - disabled by feature flag)
 - Product catalog browsable with "Call to Order" CTAs
 - Cart/checkout UI hidden (preserved for future re-enablement)
@@ -990,7 +992,6 @@ TERMS OF SERVICE
 **Create 12 placeholder posts (4 per main category):**
 
 **HUNTING (4 posts):**
-
 
 1. "The Best Boots for Deer Hunting"
    - Excerpt: "Worn-out boots can ruin a hunt. Here's why we stock Danner and LaCrosse, and how to pick the right pair for Braxton County terrain."

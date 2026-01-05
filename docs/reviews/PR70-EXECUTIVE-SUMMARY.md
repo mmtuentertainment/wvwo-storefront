@@ -37,6 +37,7 @@
 **Reality**: These are **DELETIONS** (`D` prefix in git diff), not new empty files. We're cleaning up the old `specs/` directory after consolidating to `docs/specs/`.
 
 **Proof**:
+
 ```bash
 $ git diff --name-status origin/main | grep "^D"
 D specs/Mountain State Adventure Destination/SPEC-05-.../PROMPT.md
@@ -51,6 +52,7 @@ D specs/Mountain State Adventure Destination/SPEC-06-.../PROMPT.md
 **Reality**: plan.md files are **intentionally comprehensive** (1000-2000 lines). The 500-line limit applies to implementation files (.astro, .ts), not planning documents.
 
 **Contents**:
+
 - 10 phases with 42 tasks
 - Risk assessment matrix
 - Timeline estimates
@@ -62,6 +64,7 @@ D specs/Mountain State Adventure Destination/SPEC-06-.../PROMPT.md
 **Greptile Said**: "These appear to be fictional systems"
 
 **Reality**: These are **real MCP-integrated systems** documented in `CLAUDE.md`:
+
 - **AgentDB**: Vector database (150x faster pattern storage)
 - **ReasoningBank**: Adaptive learning for trajectory tracking
 - Used in Phase 2/3 WMA content generation
@@ -71,16 +74,19 @@ D specs/Mountain State Adventure Destination/SPEC-06-.../PROMPT.md
 ## What Needs Fixing (3 Critical Issues)
 
 ### Issue 1: Undefined `bg-camo` Class
+
 **File**: `wv-wild-web/src/pages/near/cranberry.astro:122`
 **Impact**: Visual rendering broken
 **Fix**: Replace with `bg-noise`
 
 ### Issue 2: Hardcoded Acreage Values (2 instances)
+
 **Files**: `wv-wild-web/src/pages/near/burnsville-lake.astro:62, 83`
 **Impact**: Data inconsistency, schema ignored
 **Fix**: Use `{adventure.data.acreage}`
 
 ### Issue 3: Division by Zero Risk
+
 **File**: `tests/performance/lighthouse-audit.mjs:184`
 **Impact**: Runtime crash in error scenarios
 **Fix**: Add `if (validResults.length === 0) return;` guard
@@ -92,6 +98,7 @@ D specs/Mountain State Adventure Destination/SPEC-06-.../PROMPT.md
 To prevent future false positives, add these rules to Greptile:
 
 ### 1. plan.md Exception
+
 ```json
 {
   "type": "CUSTOM_INSTRUCTION",
@@ -101,6 +108,7 @@ To prevent future false positives, add these rules to Greptile:
 ```
 
 ### 2. Deletion Recognition
+
 ```json
 {
   "type": "PATTERN",
@@ -110,6 +118,7 @@ To prevent future false positives, add these rules to Greptile:
 ```
 
 ### 3. MCP Systems
+
 ```json
 {
   "type": "PATTERN",
@@ -125,14 +134,16 @@ Full JSON: See `docs/reviews/GREPTILE-CUSTOM-CONTEXTS.json`
 ## Next Steps
 
 ### Immediate (5 minutes)
+
 1. Fix 3 critical issues (see `PR70-FIX-CHECKLIST.md`)
 2. Run `npm run build && npm run test`
 3. Commit and push
 
 ### Post-Fix (10 minutes)
-4. Post response on PR #70 (template in `GREPTILE-PR70-ANALYSIS.md`)
-5. Add custom contexts to Greptile dashboard
-6. Request re-review: `@greptileai review`
+
+1. Post response on PR #70 (template in `GREPTILE-PR70-ANALYSIS.md`)
+2. Add custom contexts to Greptile dashboard
+3. Request re-review: `@greptileai review`
 
 ---
 

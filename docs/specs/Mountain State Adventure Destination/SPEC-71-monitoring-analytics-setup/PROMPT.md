@@ -5,6 +5,7 @@
 **Status:** Specification Draft
 **Execute After:** SPEC-29-38 (Batch 4 - Launch Checkpoint with first 10 adventures)
 **Dependencies:**
+
 - Launch Checkpoint Complete (first 10 adventures live)
 - Adventures Hub deployed to production
 - Cloudflare Pages active
@@ -14,6 +15,7 @@
 ## Problem Statement
 
 After launching the Adventures Hub and first 10 destinations (Feb 15-20, 2025), we need comprehensive monitoring and analytics to:
+
 - Track user behavior and conversion funnels
 - Measure Core Web Vitals and performance
 - Identify high-traffic filter combinations for SEO strategy
@@ -33,6 +35,7 @@ After launching the Adventures Hub and first 10 destinations (Feb 15-20, 2025), 
 Configure GA4 custom events for user journey tracking:
 
 **Events to Track:**
+
 1. `adventure_view` - When user clicks adventure card
 2. `filter_applied` - When any filter changes (dimension: which filter)
 3. `empty_state_shown` - When no results match filters
@@ -43,12 +46,14 @@ Configure GA4 custom events for user journey tracking:
 8. `get_directions` - When user clicks directions (future adventure detail pages)
 
 **Conversion Funnel:**
+
 - Homepage → Adventures: 50% target
 - Filter interaction: 40% target
 - Results → Detail: 30% target (future, when detail pages exist)
 - Detail → Conversion (call/directions): 5% target
 
 **Core Web Vitals:**
+
 - Enable automatic tracking via gtag.js
 - Monitor: TTFB, LCP, FID, CLS
 - Alert thresholds defined (see below)
@@ -60,6 +65,7 @@ Configure GA4 custom events for user journey tracking:
 Access Cloudflare Analytics dashboard and capture baseline metrics:
 
 **Metrics to Track:**
+
 - Cache hit ratio (expect ~50% Week 1, >90% Week 2+)
 - Edge response time (US-East region priority - closest to WV)
 - Request volume by page
@@ -67,6 +73,7 @@ Access Cloudflare Analytics dashboard and capture baseline metrics:
 - Geographic distribution (where visitors come from)
 
 **Alerts to Configure:**
+
 - Cache hit ratio <70% → investigate caching config
 - Response time >1s → investigate performance bottleneck
 
@@ -77,12 +84,14 @@ Access Cloudflare Analytics dashboard and capture baseline metrics:
 Create centralized monitoring checklist document:
 
 **Dashboard Links:**
+
 - GA4: Core Web Vitals report URL
 - GA4: User journey funnel report URL
 - Cloudflare: Analytics dashboard URL
 - Lighthouse CI: Automated reports (if configured)
 
 **Alert Thresholds:**
+
 - TTFB >600ms on 3G → investigate (Argo should optimize)
 - LCP >2.5s → investigate (check image optimization)
 - Filter response >200ms → consider Cloudflare Workers pre-rendering (SPEC-08 decision)
@@ -90,6 +99,7 @@ Create centralized monitoring checklist document:
 - Conversion rate <3% (call/directions clicks) → review CTAs
 
 **Review Cadence:**
+
 - **Week 1-2 post-launch:** Daily monitoring (catch critical issues fast)
 - **Week 3-4:** Weekly review (establish baseline patterns)
 - **Month 2+:** Monthly review (track long-term trends)
@@ -132,6 +142,7 @@ const GA4_ID = import.meta.env.PUBLIC_GA4_ID; // Add to .env
 
 **Environment Variable:**
 Add to `.env`:
+
 ```
 PUBLIC_GA4_ID=G-XXXXXXXXXX
 ```
@@ -360,6 +371,7 @@ After 4 weeks of data collection, decide whether to implement Cloudflare Workers
 ```bash
 npx agentdb@latest reflexion store "wvwo-session" "SPEC-08-decision" 1.0 true "[decision + reasoning]"
 ```
+
 ```
 
 ---

@@ -13,12 +13,14 @@
 **Purpose:** Directions from shop + from I-79 (dual-audience pattern)
 
 **Scout Mission:**
+
 ```bash
 # Analyze Summersville Lake "Getting There" section
 Read wv-wild-web/src/pages/near/summersville-lake.astro (Getting There section)
 ```
 
 **Design API:**
+
 ```typescript
 interface Props {
   fromShop: string;      // "Head south on US-19 for 30 min"
@@ -29,6 +31,7 @@ interface Props {
 ```
 
 **Implementation:**
+
 - 2-route tabs or sections (From Shop, From I-79)
 - Map embed (optional, iframe or static image)
 - Typography: font-body for directions (Kim's voice)
@@ -41,12 +44,14 @@ interface Props {
 **Purpose:** What to bring (specific gear per adventure type)
 
 **Scout Mission:**
+
 ```bash
 # Analyze gear sections across pages
 Read wv-wild-web/src/content/adventures/spring-gobbler-burnsville.md (gear list)
 ```
 
 **Design API:**
+
 ```typescript
 interface Props {
   gearItems: string[];  // From adventure.data.gear
@@ -55,6 +60,7 @@ interface Props {
 ```
 
 **Implementation:**
+
 - Bulleted list or grid of gear items
 - Optional: Link each item to shop product page
 - Typography: font-body for items
@@ -68,12 +74,14 @@ interface Props {
 **Purpose:** Product recommendations (specific products for this adventure)
 
 **Scout Mission:**
+
 ```bash
 # Check how products link to adventures
 Read wv-wild-web/src/content.config.ts (related_adventures field in products schema)
 ```
 
 **Design API:**
+
 ```typescript
 interface Props {
   adventureSlug: string;           // Current adventure
@@ -83,6 +91,7 @@ interface Props {
 ```
 
 **Implementation:**
+
 - Query products with related_adventures including this adventure
 - Display 3-4 product cards
 - CTA: "Shop All [Category] Gear"
@@ -118,6 +127,7 @@ Thanks!
 **Kim's Response:** Optional (if she has time/opinion)
 
 **Matt's Action:**
+
 - If Kim responds: Adjust based on feedback
 - If no response after 7 days: Proceed (component is fine)
 
@@ -126,6 +136,7 @@ Thanks!
 ## Deliverables
 
 **Code:**
+
 - [ ] `AdventureGettingThere.astro` (~60 LOC)
 - [ ] `AdventureGearChecklist.astro` (~50 LOC)
 - [ ] `AdventureRelatedShop.astro` (~80 LOC)
@@ -133,12 +144,14 @@ Thanks!
 **Total:** ~190 LOC (3 components)
 
 **Testing:**
+
 - [ ] Each component renders with real adventure data
 - [ ] GettingThere shows 2 routes correctly
 - [ ] GearChecklist maps gear array to bullets
 - [ ] RelatedShop queries products correctly
 
 **Quality Gates:**
+
 - [ ] TypeScript compiles
 - [ ] Build passes
 - [ ] WVWO aesthetic compliant
@@ -149,6 +162,7 @@ Thanks!
 ## Success Criteria
 
 **Bundle is DONE when:**
+
 - ✅ All 3 components render without errors
 - ✅ GettingThere: Dual-route pattern works
 - ✅ GearChecklist: Maps gear array to UI

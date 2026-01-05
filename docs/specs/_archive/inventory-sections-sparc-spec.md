@@ -1,6 +1,7 @@
 # SPARC Task Specification: Inventory Sections Update
 
 ## META
+
 - **Version**: 1.0
 - **Generated**: 2025-12-15
 - **Methodology**: First-Party Source + Authentic Naming
@@ -11,9 +12,11 @@
 ## 1. SPECIFICATION
 
 ### 1.1 Objective
+
 Update all inventory/category references across the codebase to use Kim's official 12 store sections. This is first-party source data that supersedes any previous category assumptions.
 
 ### 1.2 Context
+
 | Field | Value |
 |-------|-------|
 | **Source** | Kim Utt (store owner) - direct communication |

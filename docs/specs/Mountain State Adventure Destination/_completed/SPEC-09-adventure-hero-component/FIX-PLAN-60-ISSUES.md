@@ -11,6 +11,7 @@
 This plan addresses all 60 issues identified by the 10-agent swarm review, organized into **5 priority tiers** with specific code fixes, testing strategies, and dependencies.
 
 **Issue Breakdown:**
+
 - 🔴 **CRITICAL (5)**: Must fix before merge - accessibility/performance blockers
 - 🟠 **HIGH (8)**: Should fix before merge - significant UX/SEO impact
 - 🟡 **MEDIUM (15)**: Fix in follow-up PR - code quality improvements
@@ -22,12 +23,14 @@ This plan addresses all 60 issues identified by the 10-agent swarm review, organ
 ## Phase 1: CRITICAL Fixes (5 Issues)
 
 ### 🔴 CRITICAL-1: Missing `sr-only` Context for Difficulty Badges
+
 **File**: `AdventureHeroBadge.astro:72`
 **WCAG**: 1.3.1 Info and Relationships, 4.1.2 Name, Role, Value
 
 **Problem**: Shape icons (●▲■◆) have `aria-hidden="true"` but no screen reader context explaining what difficulty level the shape represents.
 
 **Fix**:
+
 ```astro
 <!-- BEFORE -->
 <span class="..." aria-hidden="true">{difficultyShapes[difficulty]}</span>
@@ -40,18 +43,21 @@ This plan addresses all 60 issues identified by the 10-agent swarm review, organ
 ```
 
 **Testing**:
+
 - VoiceOver/NVDA should announce "Difficulty level: Challenging"
 - Run axe-core accessibility audit
 
 ---
 
 ### 🔴 CRITICAL-2: External Link Missing "(opens in new tab)"
+
 **File**: `AdventureHero.astro:209-216`
 **WCAG**: G200 Technique, 2.4.4 Link Purpose
 
 **Problem**: Google Maps link uses `target="_blank"` without warning users it opens externally.
 
 **Fix**:
+
 ```astro
 <!-- BEFORE -->
 <a
@@ -83,18 +89,21 @@ This plan addresses all 60 issues identified by the 10-agent swarm review, organ
 ```
 
 **Testing**:
+
 - Screen reader announces "opens in new tab"
 - Visual icon indicates external link
 
 ---
 
 ### 🔴 CRITICAL-3: Badge Container Missing `role="group"`
+
 **File**: `AdventureHero.astro:133`
 **WCAG**: 1.3.1 Info and Relationships
 
 **Problem**: Badge container lacks semantic grouping for assistive technologies.
 
 **Fix**:
+
 ```astro
 <!-- BEFORE -->
 <div class="adventure-hero__badges ...">
@@ -108,17 +117,20 @@ This plan addresses all 60 issues identified by the 10-agent swarm review, organ
 ```
 
 **Testing**:
+
 - Screen reader announces "Adventure information badges, group"
 
 ---
 
 ### 🔴 CRITICAL-4: Hero Image Missing `fetchpriority="high"`
+
 **File**: `AdventureHero.astro:102-109`
 **Core Web Vitals**: LCP optimization
 
 **Problem**: Hero image is LCP element but doesn't use Astro 5.10's `priority` attribute.
 
 **Fix** (per Astro 5.10 - June 2025):
+
 ```astro
 <!-- BEFORE -->
 <Image
@@ -142,23 +154,27 @@ This plan addresses all 60 issues identified by the 10-agent swarm review, organ
 ```
 
 **Note**: `priority` automatically sets:
+
 - `loading="eager"`
 - `decoding="sync"`
 - `fetchpriority="high"`
 
 **Testing**:
+
 - Lighthouse LCP score improvement
 - Network waterfall shows image loaded first
 
 ---
 
 ### 🔴 CRITICAL-5: Missing Focus Indicators (WCAG 2.2)
+
 **File**: `adventure-hero.css`
 **WCAG 2.2**: 2.4.13 Focus Appearance (Enhanced)
 
 **Problem**: Interactive elements may not have visible focus indicators meeting 2.2 requirements.
 
 **Fix**:
+
 ```css
 /* Add to adventure-hero.css */
 .adventure-hero__cta:focus-visible,
@@ -178,6 +194,7 @@ This plan addresses all 60 issues identified by the 10-agent swarm review, organ
 ```
 
 **Testing**:
+
 - Tab through component, verify visible focus ring
 - Windows High Contrast mode test
 
@@ -186,9 +203,11 @@ This plan addresses all 60 issues identified by the 10-agent swarm review, organ
 ## Phase 2: HIGH Priority Fixes (8 Issues)
 
 ### 🟠 HIGH-1: Add JSON-LD Schema for TouristAttraction
+
 **File**: New `AdventureHeroSchema.astro` component
 
 **Fix**: Create reusable schema component using Multi-Type Entity pattern:
+
 ```astro
 ---
 interface Props {
@@ -229,9 +248,11 @@ const { name, description, image, coordinates, difficulty } = Astro.props;
 ---
 
 ### 🟠 HIGH-2: Centralize Difficulty Type Definition
+
 **File**: New `types/adventure.ts`
 
 **Fix**:
+
 ```typescript
 // src/types/adventure.ts
 export type DifficultyLevel = 'easy' | 'moderate' | 'challenging' | 'rugged';
@@ -261,9 +282,11 @@ export const DIFFICULTY_COLORS: Record<DifficultyLevel, string> = {
 ---
 
 ### 🟠 HIGH-3: Add Reduced Motion Support
+
 **File**: `adventure-hero.css`
 
 **Fix**:
+
 ```css
 /* Ensure all animations respect user preference */
 @media (prefers-reduced-motion: reduce) {
@@ -287,12 +310,14 @@ export const DIFFICULTY_COLORS: Record<DifficultyLevel, string> = {
 ---
 
 ### 🟠 HIGH-4: Optimize `sizes` Attribute
+
 **File**: `AdventureHero.astro:102-109`
 
 **Current**: `sizes="(max-width: 768px) 100vw, 50vw"`
 **Issue**: Doesn't account for actual rendered size in layout
 
 **Fix**:
+
 ```astro
 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 800px"
 ```
@@ -300,9 +325,11 @@ sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 800px"
 ---
 
 ### 🟠 HIGH-5: Add `decoding="async"` for Non-LCP Images
+
 **File**: Any secondary images in slots
 
 **Fix**: Ensure slot images use lazy loading:
+
 ```astro
 <!-- In documentation/usage examples -->
 <Image src={secondaryImage} alt="..." loading="lazy" decoding="async" />
@@ -311,11 +338,13 @@ sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 800px"
 ---
 
 ### 🟠 HIGH-6: Improve Color Contrast for `challenging` Badge
+
 **File**: `AdventureHeroBadge.astro`
 
 **Current**: `bg-brand-mud text-brand-cream` (may not meet 4.5:1)
 
 **Fix**: Verify contrast ratio, adjust if needed:
+
 ```typescript
 challenging: 'bg-brand-mud text-white', // Higher contrast
 ```
@@ -323,6 +352,7 @@ challenging: 'bg-brand-mud text-white', // Higher contrast
 ---
 
 ### 🟠 HIGH-7: Add Storybook Stories
+
 **File**: New `AdventureHero.stories.ts`
 
 **Fix**: Create comprehensive Storybook documentation (see Phase 4)
@@ -330,9 +360,11 @@ challenging: 'bg-brand-mud text-white', // Higher contrast
 ---
 
 ### 🟠 HIGH-8: Add Print Stylesheet
+
 **File**: `adventure-hero.css`
 
 **Fix**:
+
 ```css
 @media print {
   .adventure-hero {
@@ -378,6 +410,7 @@ challenging: 'bg-brand-mud text-white', // Higher contrast
 ## Phase 4: LOW Priority Fixes (22 Issues)
 
 ### Documentation & Polish
+
 - L-1: Add CHANGELOG.md entry for SPEC-09
 - L-2: Create usage examples in UNIFIED-ARCHITECTURE.md
 - L-3: Add migration guide from old hero components
@@ -391,6 +424,7 @@ challenging: 'bg-brand-mud text-white', // Higher contrast
 - L-11: Add performance benchmarks to docs
 
 ### Code Quality
+
 - L-12: Extract animation classes to constants
 - L-13: Add CSS custom properties for colors
 - L-14: Consider dark mode support (future)
@@ -408,6 +442,7 @@ challenging: 'bg-brand-mud text-white', // Higher contrast
 ## Phase 5: Implementation Roadmap
 
 ### PR 1: Critical Accessibility (5 fixes)
+
 **Scope**: CRITICAL-1 through CRITICAL-5
 **Estimate**: Single PR, ready to merge
 **Dependencies**: None
@@ -420,6 +455,7 @@ Files to modify:
 ```
 
 ### PR 2: High Priority (8 fixes)
+
 **Scope**: HIGH-1 through HIGH-8
 **Dependencies**: PR 1 merged
 
@@ -436,10 +472,12 @@ Files to modify:
 ```
 
 ### PR 3: Testing & Quality (15 fixes)
+
 **Scope**: MEDIUM-1 through MEDIUM-15
 **Dependencies**: PR 2 merged
 
 ### PR 4: Documentation (22 fixes)
+
 **Scope**: LOW-1 through LOW-22
 **Dependencies**: Can run parallel to PR 3
 
@@ -448,6 +486,7 @@ Files to modify:
 ## Testing Strategy
 
 ### Automated Tests
+
 ```bash
 # Unit tests (existing)
 npm run test:unit
@@ -463,6 +502,7 @@ npx playwright test --project=a11y
 ```
 
 ### Manual Testing Checklist
+
 - [ ] VoiceOver (macOS) navigation test
 - [ ] NVDA (Windows) navigation test
 - [ ] Keyboard-only navigation (Tab, Enter, Escape)
@@ -477,20 +517,20 @@ npx playwright test --project=a11y
 ## Research Sources
 
 1. **WCAG 2.2** - ISO/IEC 40500:2025 (Published December 2024)
-   - https://www.w3.org/WAI/standards-guidelines/wcag/
+   - <https://www.w3.org/WAI/standards-guidelines/wcag/>
 
 2. **Astro 5.10** - Image Priority Attribute (June 2025)
-   - https://docs.astro.build/en/reference/modules/astro-assets/
+   - <https://docs.astro.build/en/reference/modules/astro-assets/>
 
 3. **Schema.org 2025** - TouristAttraction + Multi-Type Entities
-   - https://schema.org/TouristAttraction
-   - https://www.w3.org/community/tourismdata/
+   - <https://schema.org/TouristAttraction>
+   - <https://www.w3.org/community/tourismdata/>
 
 4. **CSS GPU Acceleration** - will-change Best Practices
-   - https://www.lexo.ch/blog/2025/01/boost-css-performance-with-will-change/
+   - <https://www.lexo.ch/blog/2025/01/boost-css-performance-with-will-change/>
 
 5. **External Link Accessibility** - WCAG G200 Technique
-   - https://www.w3.org/WAI/GL/wiki/Using_aria-label_for_link_purpose
+   - <https://www.w3.org/WAI/GL/wiki/Using_aria-label_for_link_purpose>
 
 ---
 

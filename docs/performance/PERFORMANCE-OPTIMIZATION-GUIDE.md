@@ -27,6 +27,7 @@
 **Goal**: Hero images <500KB, WebP format, responsive srcsets
 
 **Implementation**:
+
 ```bash
 # Run image optimizer
 cd wv-wild-web
@@ -37,12 +38,14 @@ node scripts/performance/image-optimizer.mjs
 ```
 
 **Output**:
+
 - Generates 400w, 800w, 1200w versions of each hero image
 - Converts to WebP format at 85% quality
 - Compresses to <500KB per image
 - Saves to `public/images/wma/optimized/{wma-name}/`
 
 **Usage in .astro files**:
+
 ```astro
 <!-- Replace standard img tags with optimized picture elements -->
 <picture>
@@ -76,6 +79,7 @@ node scripts/performance/image-optimizer.mjs
 ```
 
 **Verification**:
+
 - Check Network tab: Images should be WebP format
 - Verify size: Each image <500KB
 - Test on 3G throttling: Images load quickly
@@ -87,17 +91,20 @@ node scripts/performance/image-optimizer.mjs
 **Goal**: Extract critical CSS, inline in `<head>`, defer full CSS
 
 **Implementation**:
+
 ```bash
 # Generate critical CSS
 node scripts/performance/critical-css-extractor.mjs
 ```
 
 **Output**:
+
 - Creates `src/styles/critical/{page}-critical.css` for each WMA page
 - Generates `CriticalCSS.astro` component
 - Target: <5KB inline CSS per page
 
 **Usage in Layout.astro**:
+
 ```astro
 ---
 import CriticalCSS from '../components/CriticalCSS.astro';
@@ -127,6 +134,7 @@ const { page } = Astro.props;
 ```
 
 **WMA Page Usage**:
+
 ```astro
 ---
 // elk-river.astro
@@ -139,7 +147,9 @@ import Layout from '../../layouts/Layout.astro';
 ```
 
 **Tailwind Tree-Shaking**:
+
 - Verify in `tailwind.config.js`:
+
   ```js
   module.exports = {
     content: [
@@ -149,9 +159,11 @@ import Layout from '../../layouts/Layout.astro';
     safelist: [] // Only add if specific classes are dynamically generated
   };
   ```
+
 - Expected result: 3MB → ~15KB after build
 
 **Verification**:
+
 - Run bundle analyzer: `node tests/performance/bundle-analyzer.mjs`
 - Check CSS size: Should be <15KB
 - Lighthouse audit: "Eliminate render-blocking resources" should pass
@@ -163,23 +175,27 @@ import Layout from '../../layouts/Layout.astro';
 **Goal**: Subset WVWO fonts, preload critical fonts, target 75KB total
 
 **Implementation**:
+
 ```bash
 # Generate font optimization strategy
 node scripts/performance/font-optimizer.mjs
 ```
 
 **Output**:
+
 - Creates `FontPreload.astro` component
 - Optimizes Bitter (display), Noto Sans (body), Permanent Marker (accents)
 - Implements preload for critical fonts
 - Uses `font-display: swap` to prevent FOIT
 
 **WVWO Brand Fonts**:
+
 1. **Bitter** (serif): Display headings, weights 700+900 - PRELOAD ✅
 2. **Noto Sans** (sans-serif): Body text, weights 400+700 - PRELOAD ✅
 3. **Permanent Marker** (cursive): Handwritten accents, weight 400 - ASYNC LOAD
 
 **Usage in Layout.astro**:
+
 ```astro
 ---
 import FontPreload from '../components/FontPreload.astro';
@@ -196,6 +212,7 @@ import FontPreload from '../components/FontPreload.astro';
 ```
 
 **CSS Classes**:
+
 ```css
 /* Auto-generated in FontPreload.astro */
 .font-display { font-family: 'Bitter', Georgia, serif; }
@@ -204,6 +221,7 @@ import FontPreload from '../components/FontPreload.astro';
 ```
 
 **Verification**:
+
 - Network tab: Fonts load in priority order (Bitter → Noto Sans → Permanent Marker)
 - Total font size: Should be <75KB
 - Lighthouse: No "Ensure text remains visible during webfont load" warnings
@@ -216,6 +234,7 @@ import FontPreload from '../components/FontPreload.astro';
 **Goal**: Run comprehensive audits, achieve ≥95/100 Performance
 
 **Prerequisites**:
+
 ```bash
 # 1. Build the project
 npm run build
@@ -226,17 +245,20 @@ npm run preview
 ```
 
 **Implementation**:
+
 ```bash
 # Run Lighthouse audits on all 5 WMA pages
 node tests/performance/lighthouse-audit.mjs
 ```
 
 **Output**:
+
 - HTML reports saved to `tests/performance/reports/`
 - Console summary with scores and Core Web Vitals
 - Identifies optimization opportunities
 
 **Reports Generated**:
+
 - `elk-river-lighthouse.html`
 - `burnsville-lake-lighthouse.html`
 - `summersville-lake-lighthouse.html`
@@ -244,6 +266,7 @@ node tests/performance/lighthouse-audit.mjs
 - `cranberry-lighthouse.html`
 
 **Manual Lighthouse Testing**:
+
 ```bash
 # Chrome DevTools method:
 # 1. Open DevTools (F12)
@@ -253,11 +276,13 @@ node tests/performance/lighthouse-audit.mjs
 ```
 
 **Interpreting Results**:
+
 - **Performance ≥95**: ✅ PASS
 - **Performance 90-94**: ⚠️ Close, minor optimizations needed
 - **Performance <90**: ❌ FAIL, review T-029, T-030, T-031
 
 **Core Web Vitals Targets**:
+
 - **FCP (First Contentful Paint)**: <1.8s
 - **LCP (Largest Contentful Paint)**: <2.5s
 - **TBT (Total Blocking Time)**: <200ms
@@ -282,23 +307,27 @@ node tests/performance/lighthouse-audit.mjs
 **Goal**: Validate page weight <500KB, identify optimization opportunities
 
 **Prerequisites**:
+
 ```bash
 # Build the project first
 npm run build
 ```
 
 **Implementation**:
+
 ```bash
 # Analyze bundle sizes
 node tests/performance/bundle-analyzer.mjs
 ```
 
 **Output**:
+
 - Per-page breakdown (JS, CSS, HTML, Images, Fonts)
 - Tailwind tree-shaking analysis
 - Optimization recommendations
 
 **Target Breakdown (per page)**:
+
 - **Total**: <500KB
   - JS: <150KB
   - CSS: <15KB (Tailwind tree-shaking)
@@ -307,6 +336,7 @@ node tests/performance/bundle-analyzer.mjs
   - Fonts: <75KB (total across all pages)
 
 **Reading the Report**:
+
 ```
 📦 Analyzing: near/elk-river
    Total: 387KB ✅ (target: 500KB)
@@ -319,10 +349,12 @@ node tests/performance/bundle-analyzer.mjs
 ```
 
 **Interpreting Status**:
+
 - ✅ **Green**: Under target, no action needed
 - ⚠️ **Yellow**: Over target, optimization recommended
 
 **Common Optimization Actions**:
+
 1. **JS over 150KB**:
    - Code split large components
    - Lazy load below-fold features
@@ -341,6 +373,7 @@ node tests/performance/bundle-analyzer.mjs
    - Consider using AVIF format
 
 **Tailwind Tree-Shaking Verification**:
+
 ```
 🌲 Tailwind Tree-Shaking Analysis:
    Main CSS bundle: 12.4KB
@@ -355,6 +388,7 @@ node tests/performance/bundle-analyzer.mjs
 ## Complete Workflow
 
 ### 1. Initial Setup
+
 ```bash
 cd wv-wild-web
 
@@ -363,6 +397,7 @@ npm install
 ```
 
 ### 2. Run Optimizations (Sequential)
+
 ```bash
 # T-029: Optimize images
 node scripts/performance/image-optimizer.mjs
@@ -375,6 +410,7 @@ node scripts/performance/font-optimizer.mjs
 ```
 
 ### 3. Update WMA Pages
+
 ```astro
 ---
 // Example: elk-river.astro
@@ -421,6 +457,7 @@ import Layout from '../../layouts/Layout.astro';
 ```
 
 ### 4. Update Layout.astro
+
 ```astro
 ---
 import CriticalCSS from '../components/CriticalCSS.astro';
@@ -454,6 +491,7 @@ const { page, title } = Astro.props;
 ```
 
 ### 5. Build & Test
+
 ```bash
 # Build production bundle
 npm run build
@@ -463,6 +501,7 @@ npm run preview
 ```
 
 ### 6. Run Audits (Parallel - in separate terminals)
+
 ```bash
 # Terminal 1: Bundle analysis
 node tests/performance/bundle-analyzer.mjs
@@ -476,6 +515,7 @@ node tests/performance/lighthouse-audit.mjs
 ## Verification Checklist
 
 ### Pre-Deployment
+
 - [ ] All 5 WMA pages have optimized images (WebP, <500KB)
 - [ ] CriticalCSS component imported in Layout.astro
 - [ ] FontPreload component imported in Layout.astro
@@ -485,12 +525,14 @@ node tests/performance/lighthouse-audit.mjs
 - [ ] Alt text is ~125 characters for accessibility
 
 ### Post-Build
+
 - [ ] Bundle analysis shows total page weight <500KB
 - [ ] CSS bundle is <15KB (Tailwind tree-shaking effective)
 - [ ] Font files total <75KB
 - [ ] No console errors in browser DevTools
 
 ### Lighthouse Audit
+
 - [ ] Performance score ≥95/100
 - [ ] LCP <2.5s
 - [ ] FCP <1.8s
@@ -499,6 +541,7 @@ node tests/performance/lighthouse-audit.mjs
 - [ ] All images properly sized
 
 ### 3G Network Test
+
 - [ ] Page loads in <2 seconds on 3G throttling
 - [ ] Hero image appears quickly (eager loading)
 - [ ] Below-fold images lazy load correctly
@@ -511,6 +554,7 @@ node tests/performance/lighthouse-audit.mjs
 ### Issue: Lighthouse Score Still Low After Optimization
 
 **Possible Causes**:
+
 1. Dev server instead of production build
    - **Fix**: Use `npm run preview` not `npm run dev`
 
@@ -523,6 +567,7 @@ node tests/performance/lighthouse-audit.mjs
 ### Issue: Images Not Displaying
 
 **Possible Causes**:
+
 1. Image optimizer hasn't run
    - **Fix**: `node scripts/performance/image-optimizer.mjs`
 
@@ -535,6 +580,7 @@ node tests/performance/lighthouse-audit.mjs
 ### Issue: CSS Bundle Still Large (>15KB)
 
 **Possible Causes**:
+
 1. Tailwind purge not configured
    - **Fix**: Check `tailwind.config.js` content paths
 
@@ -547,6 +593,7 @@ node tests/performance/lighthouse-audit.mjs
 ### Issue: Fonts Not Preloading
 
 **Possible Causes**:
+
 1. FontPreload component not imported
    - **Fix**: Add `<FontPreload />` to Layout.astro `<head>`
 
@@ -560,6 +607,7 @@ node tests/performance/lighthouse-audit.mjs
 ### Continuous Monitoring
 
 Set up automated Lighthouse audits in CI/CD:
+
 ```yaml
 # .github/workflows/performance.yml
 name: Performance Audit
@@ -589,6 +637,7 @@ jobs:
 ### Real User Monitoring (RUM)
 
 Consider adding Web Vitals tracking:
+
 ```astro
 ---
 // src/components/WebVitals.astro
@@ -613,6 +662,7 @@ Consider adding Web Vitals tracking:
 ## Success Criteria Summary
 
 **All 5 WMA pages must achieve**:
+
 - ✅ Lighthouse Performance: ≥95/100
 - ✅ 3G Load Time: <2 seconds
 - ✅ Page Weight: <500KB
@@ -621,6 +671,7 @@ Consider adding Web Vitals tracking:
 - ✅ CLS: <0.1
 
 **Component Targets**:
+
 - ✅ Images: WebP format, <500KB each, responsive srcsets
 - ✅ CSS: <15KB (Tailwind tree-shaking from 3MB)
 - ✅ Fonts: <75KB total (Bitter, Noto Sans, Permanent Marker)

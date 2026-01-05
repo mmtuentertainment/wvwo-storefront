@@ -11,11 +11,13 @@
 ### Battle of Bulltown - October 13, 1863 [VERIFY]
 
 **Context**:
+
 - Part of Union effort to protect B&O Railroad during Civil War [VERIFY]
 - Minor skirmish but locally significant [VERIFY]
 - Union forces held position against Confederate raid [VERIFY]
 
 **Location**:
+
 - Present-day Bulltown, Braxton County, WV [VERIFY]
 - Now within Burnsville Lake recreation area [VERIFY]
 - Accessible via I-79 Exit 67 (Burnsville) [VERIFY]
@@ -23,11 +25,13 @@
 ### Historical Structures [VERIFY ALL]
 
 **Cunningham Farmhouse**:
+
 - Used as Union headquarters during battle [VERIFY]
 - May still show battle damage (bullet holes) [VERIFY]
 - Status: [NEEDS VERIFICATION - Standing? Restored? Ruins?]
 
 **Other Possible Structures**:
+
 - Church building [VERIFY]
 - Barn or outbuildings [VERIFY]
 - Cemetery [VERIFY]
@@ -35,11 +39,13 @@
 ### Current Status [CRITICAL - NEEDS VERIFICATION]
 
 **Managed By**:
+
 - U.S. Army Corps of Engineers (Burnsville Lake project) [VERIFY]
 - OR West Virginia Division of Culture and History [VERIFY]
 - OR National Park Service partnership [VERIFY]
 
 **Visitor Access**:
+
 - Hours: [UNKNOWN - RESEARCH NEEDED]
 - Admission: [UNKNOWN - Likely free if USACE managed]
 - Facilities: [UNKNOWN - RESEARCH NEEDED]
@@ -52,12 +58,14 @@
 > "Multiple parking areas and access points throughout the WMA. Main access via Bulltown Historical Area off I-79."
 
 **What This Tells Us**:
+
 - Bulltown is a MAJOR access point (not obscure side attraction)
 - Located at/near main entrance to WMA
 - Already established as navigation landmark
 - Likely has parking for visitors
 
 **Implications**:
+
 - Every I-79 traveler going to Burnsville Lake PASSES the historical site
 - Natural "while you're here" opportunity
 - Already mentioned on our page - just needs expansion
@@ -69,6 +77,7 @@
 ### Summersville Lake Page (Existing)
 
 **Unique Angles Used**:
+
 - Bridge Day (world's largest BASE jumping event)
 - Rock climbing destination
 - Canyon views
@@ -77,6 +86,7 @@
 ### Sutton Lake Page (Existing)
 
 **Unique Angles Used**:
+
 - Elk River WMA access
 - Family fishing focus
 - Multiple campgrounds
@@ -85,12 +95,14 @@
 ### Burnsville Lake Opportunity
 
 **Untapped Unique Angle**:
+
 - ✅ Civil War battlefield preservation
 - ✅ Educational + recreational combo
 - ✅ ONLY WV lake with historical site at entrance
 - ✅ Appeals to broader audience (not just anglers)
 
 **SEO Gap**:
+
 - Competitors focus 100% on outdoor recreation
 - Burnsville can own "history + outdoors" niche
 - Targets: Families, history buffs, educational trips, multi-generational groups
@@ -102,10 +114,12 @@
 ### Current Burnsville Lake Page Status
 
 **Already Mentions Bulltown** (Line 167):
+
 - Brief mention in "Getting There" section
 - Positioned as access point, not destination
 
 **Missing Opportunities**:
+
 1. **No "what makes this lake different" section** (all 3 lakes need this)
 2. **No historical/cultural content** (competitive gap vs. Summersville's Bridge Day)
 3. **No "more than fishing" pitch** (limits audience)
@@ -172,18 +186,21 @@ To (pending research):
 ## SEO Keywords to Target (Post-Research)
 
 **Primary Keywords** (pending verification):
+
 - "Burnsville Lake Civil War history"
 - "West Virginia lake with battlefield"
 - "Bulltown historical area"
 - "Civil War sites near I-79"
 
 **Long-Tail Keywords**:
+
 - "things to do Burnsville Lake besides fishing"
 - "family activities Burnsville Lake WV"
 - "educational sites near Burnsville Lake"
 - "Civil War battlefields West Virginia recreation"
 
 **Search Intent**:
+
 - Families looking for multi-activity destinations
 - History buffs who also fish/camp
 - School groups/educational trips
@@ -194,6 +211,7 @@ To (pending research):
 ## Questions for Kim/Bryan (Local Knowledge)
 
 **Before finalizing content, ask**:
+
 1. Have you been to Bulltown historical area? What's actually there?
 2. Do your customers ever mention it?
 3. Is it well-maintained or overgrown?
@@ -201,6 +219,7 @@ To (pending research):
 5. Do you send people there (or should you)?
 
 **Why This Matters**:
+
 - Kim's authenticity is core brand value
 - Can't write about it if she hasn't seen it
 - Local knowledge > generic historical facts
@@ -221,6 +240,7 @@ To (pending research):
 | Historical facts are disputed/unclear | LOW - Use careful language | Multiple source verification |
 
 **Go/No-Go Decision**:
+
 - **GO**: If site is accessible, maintained, has visible structures, <10 min from campgrounds
 - **NO-GO**: If site is closed, overgrown, or just a historical marker sign
 
@@ -229,18 +249,21 @@ To (pending research):
 ## Next Steps (Research Workflow)
 
 **Phase 1: Verification** (DO THIS FIRST)
+
 1. Visit USACE Burnsville Lake website - search for "Bulltown"
 2. Visit WV Tourism website - check current status
 3. Check WV Encyclopedia for historical facts + sources
 4. Google Maps street view (if available) to see current condition
 
 **Phase 2: Depth** (If Phase 1 looks promising)
+
 1. Contact USACE Burnsville Lake office - ask about visitor info
 2. Check local historical society records
 3. Review recent visitor reviews (Google, TripAdvisor, etc.)
 4. Ask Kim if any customers have mentioned it
 
 **Phase 3: Content** (If Phase 1-2 confirm it's worth featuring)
+
 1. Write factual historical summary (2-3 sentences max)
 2. Write visitor info (hours, parking, what to see)
 3. Write integration pitch ("while you're here")
@@ -249,6 +272,7 @@ To (pending research):
 6. Create content blocks for page
 
 **Phase 4: Implementation** (If content approved)
+
 1. Add to quick info grid
 2. Create "More Than Fishing" section
 3. Update "Getting There" section
@@ -260,6 +284,7 @@ To (pending research):
 ## Success Metrics
 
 **How We'll Know This Works**:
+
 - [ ] Burnsville Lake page differentiates from Summersville/Sutton
 - [ ] Content appeals to families and history buffs (not just anglers)
 - [ ] "Civil War + fishing" keyword combinations rank
