@@ -1,0 +1,72 @@
+---
+/**
+ * Schema.org EventSeries Component
+ * SPEC-18 Phase 3.5: EventSeries schema for recurring programs
+ *
+ * Features:
+ * - EventSeries schema for weekly/monthly ranger programs
+ * - eventSchedule with repeatFrequency (ISO 8601 duration format)
+ * - byDay, byMonth scheduling properties
+ * - subEvent array for individual occurrences
+ *
+ * Frequency Examples:
+ * - P1W: Weekly (every 1 week)
+ * - P1M: Monthly (every 1 month)
+ * - P2W: Bi-weekly (every 2 weeks)
+ *
+ * @see https://schema.org/EventSeries
+ * @see https://schema.org/Schedule
+ */
+
+import type { EventSeries } from '@/types/state-park-seo-types';
+
+interface Props {
+  series: EventSeries;
+  pageUrl: string;
+}
+
+const { series, pageUrl } = Astro.props;
+
+// Build schedule schema
+const buildEventSchedule = () => {
+  if (!series.repeatFrequency && !series.frequency) {
+    return undefined;
+  }
+
+  return {
+    '@type': 'Schedule',
+    repeatFrequency: series.repeatFrequency, // E.g., "P1W" for weekly
+    duration: series.duration, // E.g., "PT2H" for 2 hours
+  };
+};
+
+// Build complete event series schema
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'EventSeries',
+  name: series.name,
+  description: series.description,
+  organizer: {
+    '@type': 'Organization',
+    name: 'WV State Parks',
+  },
+  location: {
+    '@type': 'Place',
+    name: series.location.name,
+  },
+  startDate: series.startDate,
+  endDate: series.endDate,
+  eventSchedule: buildEventSchedule(),
+  subEvent: series.subEvent
+    ? series.subEvent.map((event) => ({
+        '@type': event['@type'] || 'Event',
+        name: event.name,
+        startDate: event.startDate,
+        endDate: event.endDate,
+      }))
+    : undefined,
+  url: pageUrl,
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

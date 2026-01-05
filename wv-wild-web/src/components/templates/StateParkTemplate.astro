@@ -1,0 +1,779 @@
+---
+/**
+ * State Park Template Component
+ * SPEC-18 Phase 3.1: Main template for WV State Parks
+ *
+ * 8-Section Architecture:
+ * 1. Hero - AdventureHero.astro with park name, image, acreage, signature feature
+ * 2. Overview - ParkOverviewSection (hours, fees, contact, managing agency)
+ * 3. Facilities - FacilitiesSection (lodging, camping, picnic, pools, other)
+ * 4. Activities - ActivitiesSection (ranger programs, Junior Ranger, workshops, events)
+ * 5. Trails - TrailsSection (reused from SPEC-17 with accessibility indicators)
+ * 6. Overlooks - ScenicOverlooksSection (reused from SPEC-17)
+ * 7. Accessibility - ADA facilities, TAI trail info, assistive services
+ * 8. Planning - ReservationSection + Park Passes info + Safety/Emergency
+ *
+ * Features:
+ * - Conditional rendering (sections hide if no data)
+ * - Skip-to-content links (WCAG 2.1 AA)
+ * - WVWO aesthetic compliance (rounded-sm, brand colors, Kim's voice)
+ * - Responsive breakpoints (mobile-first)
+ * - Industry color exceptions for trail difficulty (green/blue/red/black)
+ *
+ * WVWO Aesthetics:
+ * - Font: font-display (Bitter), font-hand (Permanent Marker), font-body (Noto Sans)
+ * - Borders: rounded-sm ONLY
+ * - Colors: brand-brown (#3E2723), sign-green (#2E7D32), brand-cream (#FFF8E1), brand-orange (#FF6F00)
+ * - Orange: <5% of screen (CTAs only)
+ * - Voice: Kim's authentic rural WV
+ */
+
+import AdventureHero from '@/components/adventure/AdventureHero.astro';
+import ParkOverviewSection from '@/components/state-park/ParkOverviewSection.astro';
+import FacilitiesSection from '@/components/state-park/FacilitiesSection.astro';
+import ActivitiesSection from '@/components/state-park/ActivitiesSection.astro';
+import ReservationSection from '@/components/state-park/ReservationSection.astro';
+import SchemaStateParkTemplate from '@/components/seo/SchemaStateParkTemplate.astro';
+import SchemaFAQ from '@/components/seo/SchemaFAQ.astro';
+import SchemaEvent from '@/components/seo/SchemaEvent.astro';
+import type { StateParkTemplateProps } from '@/types/state-park-template-types';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  park: StateParkTemplateProps;
+  relatedParks?: StateParkTemplateProps[];
+  showRelatedShop?: boolean;
+  heroImage?: ImageMetadata;
+  heroImageAlt?: string;
+}
+
+const {
+  park,
+  relatedParks = [],
+  showRelatedShop = true,
+  heroImage,
+  heroImageAlt,
+} = Astro.props;
+
+// Compute booleans for conditional rendering
+const hasFacilities = Boolean(
+  park.facilities?.lodging ||
+  park.facilities?.camping ||
+  park.facilities?.picnicAreas?.length ||
+  park.facilities?.pools?.length ||
+  park.facilities?.visitorCenters?.length ||
+  park.facilities?.natureCenters?.length ||
+  park.facilities?.boatLaunches?.length ||
+  park.facilities?.playgrounds?.length ||
+  park.facilities?.amphitheaters?.length ||
+  park.facilities?.otherAmenities?.length
+);
+
+const hasActivities = Boolean(
+  park.activitiesPrograms?.rangerPrograms?.length ||
+  park.activitiesPrograms?.educationalPrograms?.length ||
+  park.activitiesPrograms?.juniorRanger ||
+  park.activitiesPrograms?.specialEvents?.length ||
+  park.activitiesPrograms?.recreationalActivities?.length
+);
+
+const hasTrails = Boolean(park.trails?.trails?.length && park.trails.trails.length > 0);
+
+const hasOverlooks = Boolean(park.overlooks?.overlooks?.length && park.overlooks.overlooks.length > 0);
+
+const hasAccessibility = Boolean(
+  park.accessibility?.features?.length ||
+  park.accessibility?.accessibleTrails?.length ||
+  park.accessibility?.accessibleFacilities?.length ||
+  park.accessibility?.assistiveEquipment?.length
+);
+
+const hasReservations = Boolean(
+  park.reservations?.cabins ||
+  park.reservations?.camping ||
+  park.reservations?.groupFacilities
+);
+
+const hasFAQs = Boolean(park.seo?.faqItems?.length && park.seo.faqItems.length > 0);
+
+const hasEvents = Boolean(park.seo?.events?.length && park.seo.events.length > 0);
+
+// Format hero highlights from quick highlights or build from data
+const heroQuickHighlights = park.hero.quickHighlights || [];
+
+// Determine difficulty from trails if available
+const primaryDifficulty = park.trails?.trails?.[0]?.difficulty || 'easy';
+
+// Determine season (default to year-round unless specified)
+const primarySeason = park.overview.operatingHours.general.includes('year-round')
+  ? 'Year-round'
+  : 'Spring-Fall';
+
+// Build canonical URL with proper slugify (handles apostrophes)
+const slugify = (text: string) => text
+  .toLowerCase()
+  .replace(/['']/g, '')          // Remove apostrophes
+  .replace(/[^a-z0-9]+/g, '-')   // Replace non-alphanumeric with dashes
+  .replace(/^-+|-+$/g, '');      // Trim leading/trailing dashes
+
+const canonicalUrl = `https://www.wvwildoutdoors.com/state-parks/${slugify(park.hero.name)}`;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Primary Meta Tags -->
+  <title>{park.seo?.title || `${park.hero.name} State Park Guide | WV Wild Outdoors`}</title>
+  <meta name="title" content={park.seo?.title || `${park.hero.name} State Park Guide | WV Wild Outdoors`} />
+  <meta name="description" content={park.seo?.description || `Plan your visit to ${park.hero.name}. Family-friendly facilities, trails, and outdoor recreation in West Virginia's beautiful state parks.`} />
+  <link rel="canonical" href={canonicalUrl} />
+  <meta name="robots" content="index, follow" />
+
+  <!-- OpenGraph Meta Tags -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonicalUrl} />
+  <meta property="og:title" content={park.seo?.title || `${park.hero.name} State Park Guide | WV Wild Outdoors`} />
+  <meta property="og:description" content={park.seo?.description || `Plan your visit to ${park.hero.name}. Family-friendly facilities, trails, and outdoor recreation in West Virginia's beautiful state parks.`} />
+  <meta property="og:site_name" content="WV Wild Outdoors" />
+
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={park.seo?.title || `${park.hero.name} State Park Guide | WV Wild Outdoors`} />
+  <meta name="twitter:description" content={park.seo?.description || `Plan your visit to ${park.hero.name}. Family-friendly facilities, trails, and outdoor recreation in West Virginia's beautiful state parks.`} />
+
+  <!-- Geo Meta Tags -->
+  {park.overview.coordinates && (
+    <>
+      <meta name="geo.region" content="US-WV" />
+      <meta name="geo.position" content={`${park.overview.coordinates.lat};${park.overview.coordinates.lng}`} />
+      <meta name="ICBM" content={`${park.overview.coordinates.lat}, ${park.overview.coordinates.lng}`} />
+    </>
+  )}
+
+  <!-- Schema.org Structured Data -->
+  <SchemaStateParkTemplate park={park} canonicalUrl={canonicalUrl} />
+
+  {hasFAQs && park.seo?.faqItems && (
+    <SchemaFAQ faqItems={park.seo.faqItems} pageUrl={canonicalUrl} />
+  )}
+
+  {hasEvents && park.seo?.events && park.seo.events.map((event) => (
+    <SchemaEvent event={event} pageUrl={canonicalUrl} />
+  ))}
+</head>
+
+<body class="bg-white text-brand-brown font-body">
+  <!-- Skip-to-content Link (WCAG 2.1 AA) -->
+  <a
+    href="#main-content"
+    class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-brand-orange focus:text-white focus:rounded-sm focus:font-bold"
+  >
+    Skip to main content
+  </a>
+
+  <!-- Navigation Links -->
+  <nav
+    class="bg-brand-brown text-white py-3 sticky top-0 z-40 border-b-2 border-sign-green"
+    aria-label="Page sections"
+  >
+    <div class="container mx-auto px-4">
+      <ul class="flex flex-wrap gap-4 text-sm font-body">
+        <li><a href="#overview" class="hover:text-brand-orange transition-colors">Overview</a></li>
+        {hasFacilities && <li><a href="#facilities" class="hover:text-brand-orange transition-colors">Facilities</a></li>}
+        {hasActivities && <li><a href="#activities" class="hover:text-brand-orange transition-colors">Activities</a></li>}
+        {hasTrails && <li><a href="#trails" class="hover:text-brand-orange transition-colors">Trails</a></li>}
+        {hasOverlooks && <li><a href="#overlooks" class="hover:text-brand-orange transition-colors">Overlooks</a></li>}
+        {hasAccessibility && <li><a href="#accessibility" class="hover:text-brand-orange transition-colors">Accessibility</a></li>}
+        {hasReservations && <li><a href="#reservations" class="hover:text-brand-orange transition-colors">Reservations</a></li>}
+        <li><a href="#safety" class="hover:text-brand-orange transition-colors">Safety</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main id="main-content">
+    <!-- Section 1: Hero -->
+    <AdventureHero
+      title={park.hero.name}
+      description={park.hero.tagline || `Discover family-friendly adventures, scenic trails, and outdoor recreation at ${park.hero.name}.`}
+      difficulty={primaryDifficulty}
+      season={primarySeason}
+      driveTime={park.overview.distanceFromCity}
+      image={heroImage}
+      imageAlt={heroImageAlt || `${park.hero.name} scenic view`}
+      imagePosition={park.hero.imagePosition || 'center'}
+      loading="eager"
+      coordinates={park.overview.coordinates}
+      slug={slugify(park.hero.name)}
+    >
+      {/* Quick Highlights */}
+      {heroQuickHighlights.length > 0 && (
+        <div slot="default" class="flex flex-wrap gap-3 text-brand-cream/90">
+          {heroQuickHighlights.map((highlight) => (
+            <div class="flex items-center gap-2 bg-brand-brown/60 px-3 py-1 rounded-sm">
+              <span class="text-sign-green">✓</span>
+              <span class="text-sm font-body">{highlight}</span>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Park Stats */}
+      {(park.hero.acreage || park.hero.established || park.hero.signatureFeature) && (
+        <div slot="default" class="mt-4 grid grid-cols-2 md:grid-cols-3 gap-4">
+          {park.hero.acreage && (
+            <div class="bg-brand-brown/60 px-4 py-3 rounded-sm">
+              <p class="text-xs text-brand-cream/60 uppercase tracking-wider mb-1">Total Acreage</p>
+              <p class="font-display text-2xl font-bold text-white">{park.hero.acreage.toLocaleString()}</p>
+            </div>
+          )}
+
+          {park.hero.established && (
+            <div class="bg-brand-brown/60 px-4 py-3 rounded-sm">
+              <p class="text-xs text-brand-cream/60 uppercase tracking-wider mb-1">Established</p>
+              <p class="font-display text-2xl font-bold text-white">{park.hero.established}</p>
+            </div>
+          )}
+
+          {park.hero.signatureFeature && (
+            <div class="bg-brand-brown/60 px-4 py-3 rounded-sm col-span-2 md:col-span-1">
+              <p class="text-xs text-brand-cream/60 uppercase tracking-wider mb-1">Signature Feature</p>
+              <p class="font-display text-lg font-bold text-white">{park.hero.signatureFeature}</p>
+            </div>
+          )}
+        </div>
+      )}
+    </AdventureHero>
+
+    <!-- Section 2: Overview -->
+    <div id="overview">
+      <ParkOverviewSection overview={park.overview} />
+    </div>
+
+    <!-- Section 3: Facilities -->
+    {hasFacilities && park.facilities && (
+      <div id="facilities">
+        <FacilitiesSection facilities={park.facilities} />
+      </div>
+    )}
+
+    <!-- Section 4: Activities & Programs -->
+    {hasActivities && park.activitiesPrograms && (
+      <div id="activities">
+        <ActivitiesSection programs={park.activitiesPrograms} />
+      </div>
+    )}
+
+    <!-- Section 5: Trails -->
+    {hasTrails && park.trails && (
+      <section
+        id="trails"
+        class="py-16 bg-gradient-to-br from-sign-green/5 to-white"
+        aria-labelledby="trails-heading"
+      >
+        <div class="container mx-auto px-4">
+          <h2
+            id="trails-heading"
+            class="font-display text-4xl md:text-5xl font-black text-brand-brown mb-4"
+          >
+            Trail System
+          </h2>
+
+          {park.trails.totalMileage && (
+            <p class="text-lg text-brand-brown/80 mb-8">
+              Explore <strong class="text-sign-green">{park.trails.totalMileage} miles</strong> of trails through diverse landscapes.
+            </p>
+          )}
+
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {park.trails.trails && park.trails.trails.map((trail) => (
+              <div class="bg-white rounded-sm border-l-4 border-l-sign-green p-6 shadow-md">
+                <h3 class="font-display text-2xl font-bold text-brand-brown mb-2">
+                  {trail.name}
+                </h3>
+
+                {trail.distance && (
+                  <p class="text-sm text-brand-brown/60 mb-3">
+                    <strong>Distance:</strong> {trail.distance} miles
+                  </p>
+                )}
+
+                {trail.difficulty && (
+                  <p class="text-sm mb-3">
+                    <strong>Difficulty:</strong>{' '}
+                    <span class={
+                      trail.difficulty === 'easy' ? 'text-sign-green' :
+                      trail.difficulty === 'moderate' ? 'text-blue-700' :
+                      trail.difficulty === 'difficult' ? 'text-red-900' :
+                      'text-black'
+                    }>
+                      {trail.difficulty.charAt(0).toUpperCase() + trail.difficulty.slice(1)}
+                    </span>
+                  </p>
+                )}
+
+                {trail.accessible && (
+                  <p class="text-sm text-sign-green font-semibold mb-3">
+                    ♿ ADA Accessible
+                  </p>
+                )}
+
+                {trail.description && (
+                  <p class="text-sm text-brand-brown/80">
+                    {trail.description}
+                  </p>
+                )}
+
+                {trail.surface && (
+                  <p class="text-xs text-brand-brown/60 mt-3">
+                    <strong>Surface:</strong> {trail.surface.charAt(0).toUpperCase() + trail.surface.slice(1)}
+                  </p>
+                )}
+
+                {trail.dogsAllowed !== undefined && (
+                  <p class="text-xs text-brand-brown/60 mt-1">
+                    <strong>Dogs:</strong> {trail.dogsAllowed ? (trail.leashRequired ? 'Leash required' : 'Allowed') : 'Not permitted'}
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
+
+          {park.trails.trailMapUrl && (
+            <div class="mt-8 text-center">
+              <a
+                href={park.trails.trailMapUrl}
+                class="inline-block bg-brand-orange text-white font-display font-bold px-6 py-3 rounded-sm hover:bg-brand-orange/90 transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Download Trail Map (PDF)
+              </a>
+            </div>
+          )}
+        </div>
+      </section>
+    )}
+
+    <!-- Section 6: Scenic Overlooks -->
+    {hasOverlooks && park.overlooks && (
+      <section
+        id="overlooks"
+        class="py-16 bg-white"
+        aria-labelledby="overlooks-heading"
+      >
+        <div class="container mx-auto px-4">
+          <h2
+            id="overlooks-heading"
+            class="font-display text-4xl md:text-5xl font-black text-brand-brown mb-12"
+          >
+            Scenic Overlooks
+          </h2>
+
+          <div class="grid md:grid-cols-2 gap-8">
+            {park.overlooks.overlooks && park.overlooks.overlooks.map((overlook) => (
+              <div class="bg-brand-cream rounded-sm border-l-4 border-l-sign-green p-6">
+                <h3 class="font-display text-2xl font-bold text-brand-brown mb-3">
+                  {overlook.name}
+                </h3>
+
+                {overlook.description && (
+                  <p class="text-brand-brown/80 mb-4">
+                    {overlook.description}
+                  </p>
+                )}
+
+                {overlook.accessible && (
+                  <p class="text-sm text-sign-green font-semibold mb-2">
+                    ♿ ADA Accessible
+                  </p>
+                )}
+
+                {overlook.bestTimes && overlook.bestTimes.length > 0 && (
+                  <div class="mb-3">
+                    <p class="text-sm font-semibold text-brand-brown/60 mb-1">BEST TIMES TO VISIT</p>
+                    <div class="flex flex-wrap gap-2">
+                      {overlook.bestTimes.map((time) => (
+                        <span class="text-xs bg-sign-green/10 text-sign-green px-2 py-1 rounded-sm">
+                          {time}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {overlook.distanceFromParking && (
+                  <p class="text-sm text-brand-brown/60">
+                    <strong>From Parking:</strong> {overlook.distanceFromParking}
+                  </p>
+                )}
+
+                {overlook.elevation && (
+                  <p class="text-sm text-brand-brown/60">
+                    <strong>Elevation:</strong> {overlook.elevation}
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- Section 7: Accessibility -->
+    {hasAccessibility && park.accessibility && (
+      <section
+        id="accessibility"
+        class="py-16 bg-gradient-to-br from-sign-green/5 to-white"
+        aria-labelledby="accessibility-heading"
+      >
+        <div class="container mx-auto px-4">
+          <h2
+            id="accessibility-heading"
+            class="font-display text-4xl md:text-5xl font-black text-brand-brown mb-4"
+          >
+            ♿ Accessibility Information
+          </h2>
+
+          {park.accessibility.statement && (
+            <p class="text-lg text-brand-brown/80 mb-8 max-w-3xl">
+              {park.accessibility.statement}
+            </p>
+          )}
+
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* Accessible Facilities */}
+            {park.accessibility.accessibleFacilities && park.accessibility.accessibleFacilities.length > 0 && (
+              <div class="bg-white rounded-sm border-l-4 border-l-sign-green p-6">
+                <h3 class="font-display text-xl font-bold text-brand-brown mb-4">
+                  Accessible Facilities
+                </h3>
+                <ul class="space-y-2">
+                  {park.accessibility.accessibleFacilities.map((facility) => (
+                    <li class="flex items-start gap-2 text-sm text-brand-brown">
+                      <span class="text-sign-green flex-shrink-0">✓</span>
+                      <span>{facility}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {/* Assistive Equipment */}
+            {park.accessibility.assistiveEquipment && park.accessibility.assistiveEquipment.length > 0 && (
+              <div class="bg-white rounded-sm border-l-4 border-l-sign-green p-6">
+                <h3 class="font-display text-xl font-bold text-brand-brown mb-4">
+                  Assistive Equipment
+                </h3>
+                <div class="space-y-3">
+                  {park.accessibility.assistiveEquipment.map((item) => (
+                    <div>
+                      <p class="font-semibold text-brand-brown text-sm">
+                        {item.equipment}
+                      </p>
+                      {item.description && (
+                        <p class="text-xs text-brand-brown/70 mt-1">
+                          {item.description}
+                        </p>
+                      )}
+                      {item.reservationRequired && (
+                        <p class="text-xs text-brand-orange mt-1">
+                          Reservation required{item.advanceNotice ? ` (${item.advanceNotice} notice)` : ''}
+                        </p>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Service Animal Policy */}
+            {park.accessibility.serviceAnimalPolicy && (
+              <div class="bg-white rounded-sm border-l-4 border-l-sign-green p-6">
+                <h3 class="font-display text-xl font-bold text-brand-brown mb-4">
+                  Service Animals
+                </h3>
+                <p class="text-sm text-brand-brown mb-3">
+                  {park.accessibility.serviceAnimalPolicy.allowed ? 'Service animals are welcome.' : 'Please contact park for service animal policies.'}
+                </p>
+                {park.accessibility.serviceAnimalPolicy.details && (
+                  <p class="text-xs text-brand-brown/70">
+                    {park.accessibility.serviceAnimalPolicy.details}
+                  </p>
+                )}
+              </div>
+            )}
+          </div>
+
+          {/* Accommodations Contact */}
+          {park.accessibility.advanceNoticeRequired && (
+            <div class="mt-8 bg-brand-cream border-l-4 border-l-sign-green p-6 rounded-sm">
+              <p class="font-display font-bold text-brand-brown mb-2">
+                Need Accommodations?
+              </p>
+              <p class="text-sm text-brand-brown/80 mb-2">
+                {park.accessibility.advanceNoticeDetails || 'Please contact us in advance to arrange accommodations.'}
+              </p>
+              {park.accessibility.accommodationsContact && (
+                <p class="text-sm">
+                  <strong>Contact:</strong> {park.accessibility.accommodationsContact}
+                </p>
+              )}
+            </div>
+          )}
+        </div>
+      </section>
+    )}
+
+    <!-- Section 8: Planning (Reservations + Park Passes + Safety) -->
+    <div id="reservations">
+      {hasReservations && park.reservations && (
+        <ReservationSection reservations={park.reservations} />
+      )}
+
+      {/* Park Passes Info Section */}
+      <section class="py-16 bg-brand-cream" aria-labelledby="park-passes-heading">
+        <div class="container mx-auto px-4">
+          <h2
+            id="park-passes-heading"
+            class="font-display text-4xl md:text-5xl font-black text-brand-brown mb-8"
+          >
+            💳 Annual Park Passes
+          </h2>
+
+          <div class="bg-white rounded-sm border-2 border-sign-green p-8 max-w-3xl">
+            <p class="text-lg text-brand-brown mb-6">
+              Save money with annual passes if you're planning multiple visits to West Virginia State Parks.
+            </p>
+
+            <div class="space-y-4 mb-6">
+              <div class="flex items-start gap-3">
+                <span class="text-2xl">🎟️</span>
+                <div>
+                  <p class="font-bold text-brand-brown">Annual Pass</p>
+                  <p class="text-sm text-brand-brown/80">Unlimited entry to all WV State Parks for one year</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3">
+                <span class="text-2xl">👵</span>
+                <div>
+                  <p class="font-bold text-brand-brown">Senior Pass</p>
+                  <p class="text-sm text-brand-brown/80">Discounted rates for visitors age 60+</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3">
+                <span class="text-2xl">🎖️</span>
+                <div>
+                  <p class="font-bold text-brand-brown">Veteran Pass</p>
+                  <p class="text-sm text-brand-brown/80">Special rates for military veterans</p>
+                </div>
+              </div>
+            </div>
+
+            <a
+              href="https://wvstateparks.com/passes"
+              class="inline-block bg-brand-orange text-white font-display font-bold px-6 py-3 rounded-sm hover:bg-brand-orange/90 transition-colors"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Learn More About Park Passes →
+            </a>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Safety & Emergency Contacts -->
+    <section
+      id="safety"
+      class="py-16 bg-gradient-to-br from-red-50 to-white"
+      aria-labelledby="safety-heading"
+    >
+      <div class="container mx-auto px-4">
+        <h2
+          id="safety-heading"
+          class="font-display text-4xl md:text-5xl font-black text-brand-brown mb-8"
+        >
+          🚨 Safety & Emergency Contacts
+        </h2>
+
+        {/* Emergency Contacts */}
+        {park.emergencyContacts && park.emergencyContacts.length > 0 && (
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            {park.emergencyContacts.map((contact) => (
+              <div class="bg-white rounded-sm border-l-4 border-l-red-700 p-6">
+                <h3 class="font-display text-xl font-bold text-brand-brown mb-2">
+                  {contact.name}
+                </h3>
+                <p class="text-sm text-brand-brown/60 mb-3">
+                  {contact.type}
+                </p>
+                {contact.phone && (
+                  <a
+                    href={`tel:${contact.phone.replace(/\D/g, '')}`}
+                    class="font-display text-2xl font-bold text-red-700 hover:text-red-800 block mb-2"
+                  >
+                    {contact.phone}
+                  </a>
+                )}
+                {contact.description && (
+                  <p class="text-xs text-brand-brown/70">
+                    {contact.description}
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Regulations */}
+        <div class="bg-white rounded-sm border-2 border-brand-brown p-8">
+          <h3 class="font-display text-2xl font-bold text-brand-brown mb-6">
+            Park Regulations
+          </h3>
+
+          <div class="grid md:grid-cols-2 gap-6">
+            {park.regulations?.petPolicy && (
+              <div>
+                <p class="font-bold text-brand-brown mb-2">🐕 Pet Policy</p>
+                <p class="text-sm text-brand-brown/80">
+                  {park.regulations.petPolicy.allowed ? `Pets allowed${park.regulations.petPolicy.leashRequired ? ' (leash required)' : ''}` : 'Pets not permitted'}
+                </p>
+                {park.regulations.petPolicy.details && (
+                  <p class="text-xs text-brand-brown/60 mt-1">
+                    {park.regulations.petPolicy.details}
+                  </p>
+                )}
+              </div>
+            )}
+
+            {park.regulations?.alcoholPolicy && (
+              <div>
+                <p class="font-bold text-brand-brown mb-2">🍺 Alcohol Policy</p>
+                <p class="text-sm text-brand-brown/80">
+                  {park.regulations.alcoholPolicy}
+                </p>
+              </div>
+            )}
+
+            {park.regulations?.smokingPolicy && (
+              <div>
+                <p class="font-bold text-brand-brown mb-2">🚭 Smoking Policy</p>
+                <p class="text-sm text-brand-brown/80">
+                  {park.regulations.smokingPolicy}
+                </p>
+              </div>
+            )}
+
+            {park.regulations?.quietHours && (
+              <div>
+                <p class="font-bold text-brand-brown mb-2">🔇 Quiet Hours</p>
+                <p class="text-sm text-brand-brown/80">
+                  {park.regulations.quietHours}
+                </p>
+              </div>
+            )}
+
+            {park.regulations?.fireworksPolicy && (
+              <div>
+                <p class="font-bold text-brand-brown mb-2">🎆 Fireworks</p>
+                <p class="text-sm text-brand-brown/80">
+                  {park.regulations.fireworksPolicy}
+                </p>
+              </div>
+            )}
+
+            {park.regulations?.weaponPolicy && (
+              <div>
+                <p class="font-bold text-brand-brown mb-2">🔫 Weapons</p>
+                <p class="text-sm text-brand-brown/80">
+                  {park.regulations.weaponPolicy}
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Managing Agency Footer */}
+        <div class="mt-8 text-center bg-brand-brown text-white py-6 rounded-sm">
+          <p class="font-display text-lg font-bold mb-2">
+            Managed by {park.overview.managingAgency.name}
+          </p>
+          <p class="text-sm text-brand-cream/80">
+            {park.overview.managingAgency.jurisdiction}
+          </p>
+          {park.overview.managingAgency.website && (
+            <a
+              href={park.overview.managingAgency.website}
+              class="inline-block mt-4 text-brand-orange hover:text-brand-orange/80 font-semibold"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Visit Official Website →
+            </a>
+          )}
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Parks -->
+    {relatedParks && relatedParks.length > 0 && (
+      <section class="py-16 bg-brand-cream" aria-labelledby="related-parks-heading">
+        <div class="container mx-auto px-4">
+          <h2
+            id="related-parks-heading"
+            class="font-display text-4xl md:text-5xl font-black text-brand-brown mb-8"
+          >
+            Nearby State Parks
+          </h2>
+
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {relatedParks.slice(0, 3).map((relatedPark) => (
+              <a
+                href={`/state-parks/${slugify(relatedPark.hero.name)}`}
+                class="block bg-white rounded-sm border-l-4 border-l-sign-green p-6 hover:shadow-lg transition-shadow"
+              >
+                <h3 class="font-display text-xl font-bold text-brand-brown mb-2">
+                  {relatedPark.hero.name}
+                </h3>
+                {relatedPark.hero.signatureFeature && (
+                  <p class="text-sm text-brand-brown/80 mb-2">
+                    {relatedPark.hero.signatureFeature}
+                  </p>
+                )}
+                {relatedPark.overview.distanceFromCity && (
+                  <p class="text-xs text-brand-brown/60">
+                    {relatedPark.overview.distanceFromCity}
+                  </p>
+                )}
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+  </main>
+
+  <style>
+    /* Smooth focus states for accessibility */
+    a:focus-visible,
+    button:focus-visible {
+      outline: 2px solid theme('colors.brand-orange');
+      outline-offset: 2px;
+    }
+
+    /* Respect reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        transition: none !important;
+        animation: none !important;
+      }
+    }
+  </style>
+</body>
+</html>
