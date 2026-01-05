@@ -75,15 +75,10 @@ const schema = {
   eventAttendanceMode:
     event.eventAttendanceMode || 'https://schema.org/OfflineEventAttendanceMode',
   location: buildLocation(),
-  organizer: event.organizer
-    ? {
-        '@type': 'Organization',
-        name: event.organizer.name || 'WV State Parks',
-      }
-    : {
-        '@type': 'Organization',
-        name: 'WV State Parks',
-      },
+  organizer: {
+    '@type': 'Organization',
+    name: event.organizer?.name || 'WV State Parks',
+  },
   offers: buildOffers(),
   isAccessibleForFree: event.isAccessibleForFree !== false,
   performer: event.performer
