@@ -1,8 +1,10 @@
-<img src="https://r2cdn.perplexity.ai/pplx-full-logo-primary-dark%402x.png" style="height:64px;margin-right:32px"/>
+# Holly River State Park: Comprehensive Facility Data & Metadata Inventory
 
-# Park Metadata \& Facilities Inventory
+<img src="https://r2cdn.perplexity.ai/pplx-full-logo-primary-dark%402x.png" alt="Perplexity AI logo" style="height:64px;margin-right:32px"/>
 
-```
+## Park Metadata \& Facilities Inventory
+
+```text
 Research Holly River State Park in West Virginia and provide comprehensive facility data in structured format:
 
 PARK METADATA:
@@ -43,8 +45,6 @@ Provide citations from wvstateparks.com official pages and cross-reference with 
 ```
 
 Now I'll generate the comprehensive facility inventory report with the data I've gathered.
-
-# Holly River State Park: Comprehensive Facility Data \& Metadata Inventory
 
 ## Executive Summary
 
@@ -156,7 +156,7 @@ Holly River State Park features multiple cascading waterfalls accessible via 42+
 
 ### Legacy Cabins (Cabins 1-9) – Historic CCC Construction
 
-These nine cabins represent authentic 1930s WPA craftsmanship with modern upgrades completed in recent years.[^21][^2]
+These nine cabins represent authentic 1930s WPA craftsmanship with modern upgrades recently completed.[^21][^2]
 
 **Construction \& Character:**
 
@@ -458,7 +458,7 @@ Only seven West Virginia State Parks feature dedicated Nature Centers (Blackwate
 
 **Softball Field:** 1 field available[^10]
 
-**Seasonal Activities:** Organized games and tournaments offered during summer season.[^10]
+**Seasonal Activities:** Organized games and tournaments offered during summer.[^10]
 
 ### Dining \& Retail
 
@@ -648,269 +648,137 @@ Swiss immigrants originally settled the area around 1870, clearing timber for fa
 
 <div align="center">⁂</div>
 
-[^1]: https://wvstateparks.com/parks/holly-river-state-park/park-history/
-
-[^2]: https://wvstateparks.com/parks/holly-river-state-park/lodging/cabins-at-holly-river-state-park/
-
-[^3]: https://wvstateparks.com/parks/holly-river-state-park/
-
-[^4]: https://wvculture.org/wp-content/uploads/2021/03/New-deal-resources-in-holly-river-state-park-historic-district.pdf
-
-[^5]: https://klishis.com/Hiking/Holly_River_SP.php
-
-[^6]: https://roadtriptails.com/trip-report-holly-river-state-park-wv/
-
-[^7]: https://www.wvencyclopedia.org/entries/426
-
-[^8]: https://www.topozone.com/west-virginia/webster-wv/park/holly-river-state-park/
-
-[^9]: https://www.wvfalls.com/upper-falls-2/
-
-[^10]: https://en.wikipedia.org/wiki/Holly_River_State_Park
-
-[^11]: https://diyoutdoors.wvu.edu/files/d/4cf12d09-1b4c-4b78-9330-7337e329bf89/hollyriverstateparktrailguide.pdf
-
-[^12]: https://www.tripadvisor.com/Attraction_Review-g59131-d296686-Reviews-Holly_River_State_Park-Hacker_Valley_West_Virginia.html
-
-[^13]: https://wvstateparks.com/parks/holly-river-state-park/trails/
-
-[^14]: https://wvstateparks.com/holly-river-nature-at-its-best/
-
-[^15]: https://www.wvfalls.com/tecumseh-falls/
-
-[^16]: https://www.wvfalls.com/tenskwatana-falls/
-
-[^17]: https://midatlanticdaytrips.com/2022/04/holly-river-state-parks-beautiful-waterfalls/
-
-[^18]: https://wvtourism.com/things-to-do/outdoor-adventures/watersports/swimming/
-
-[^19]: https://wvstateparks.com/cozy-cabin-stays-for-your-bucket-list/
-
-[^20]: https://wvstateparks.com/wv-state-parks-offer-pet-friendly-cabins-for-you-and-your-best-friend/
-
-[^21]: https://www.reddit.com/r/WestVirginia/comments/1cobkpw/how_is_holly_river_state_park/
-
-[^22]: https://wvstateparks.com/deals-newsletter/
-
-[^23]: https://www.cozycozy.com/us/landmark-holly-river-state-park-hacker-valley
-
-[^24]: https://www.hipcamp.com/en-US/d/united-states/west-virginia/camping/cabins-and-forest
-
-[^25]: https://wvtourism.com/company/holly-river-state-park/
-
-[^26]: https://wvstateparks.com/parks/holly-river-state-park/lodging/camping-at-holly-river-state-park/
-
-[^27]: https://wvstateparks.com/parks/holly-river-state-park/lodging/
-
-[^28]: https://www.outdoorsy.com/guide/holly-river-state-park-wv
-
-[^29]: https://thedyrt.com/camping/west-virginia/west-virginia-holly-river-state-park
-
-[^30]: https://rvthereyet.com/holly-river-state-park/
-
-[^31]: https://rvshare.com/state-parks/west-virginia/babcock-state-park
-
-[^32]: https://thedyrt.com/camping/west-virginia/west-virginia-tomlinson-run-state-park
-
-[^33]: https://www.stonewallresort.com/roanoke-west-virginia-accommodations/campgrounds/
-
-[^34]: https://stateparks.com/holly_river_state_park_in_west_virginia.html
-
-[^35]: https://wvstateparks.com/parks/holly-river-state-park/additional-information/
-
-[^36]: https://wvstateparks.com/parks/holly-river-state-park/activities/
-
-[^37]: https://wvstateparks.com/wp-content/uploads/2017/03/2023.06.01-Holly-River-State-Park-Map.pdf
-
-[^38]: https://wvstateparks.com/wp-content/uploads/2025/06/2024.07.12_WVSP_HollyRiver_Map_FINAL.pdf
-
-[^39]: https://www.visitwebsterwv.com/shopping/holly-river-state-park-gift-shop/
-
-[^40]: https://wvstateparks.com/programs/naturalist/
-
-[^41]: https://wvstateparks.com/accessible-trails-at-west-virginia-state-parks/
-
-[^42]: https://www.visitwebsterwv.com/explore/holly-river-state-park/
-
-[^43]: https://www.visitwebsterwv.com/dining/holly-river-state-park-restaurant/
-
-[^44]: https://kickinbackinthevalley.com/holly-river-grocery/
-
-[^45]: https://www.facebook.com/groups/950235228958973/posts/1594909584491531/
-
-[^46]: https://wvtourism.com/company/upper-and-lower-falls/
-
-[^47]: https://www.tripadvisor.com/ShowUserReviews-g59131-d296686-r787057020-Holly_River_State_Park-Hacker_Valley_West_Virginia.html
-
-[^48]: https://elevation.maplogs.com/poi/holly_river_state_park_state_park_rd_hacker_valley_wv_usa.317770.html
-
-[^49]: https://www.facebook.com/groups/rvparkreviews/posts/23957275663914292/
-
-[^50]: https://gis.transportation.wv.gov/ftp/Park_Nav_Points/Holly%20River%20State%20Park%20Entrance.pdf
-
-[^51]: https://www.hipcamp.com/en-US/state-park/united-states/west-virginia/holly-river/all
-
-[^52]: https://kids.kiddle.co/Holly_River_State_Park
-
-[^53]: https://en-us.topographic-map.com/map-34fj18/Holly-River-State-Park/
-
-[^54]: https://diyoutdoors.wvu.edu/camping/holly-river-state-park
-
-[^55]: https://geoinfo.nmt.edu/publications/periodicals/nmg/details.cfml?id=33145
-
-[^56]: https://geoinfo.nmt.edu/publications/periodicals/nmg/details.cfml?id=11791
-
-[^57]: https://digitalcommons.uri.edu/cgi/viewcontent.cgi?article=1686\&context=theses
-
-[^58]: https://www.wvfalls.com/2020/10/05/enjoy-every-waterfall-at-holly-river-state-park-in-one-day/
-
-[^59]: https://kickinbackinthevalley.com/cabin-rentals-in-hacker-valley-west-virginia/
-
-[^60]: https://www.youtube.com/watch?v=MdUKg75pU3I
-
-[^61]: https://www.facebook.com/groups/3403548833010254/posts/6008780435820401/
-
-[^62]: https://rvshare.com/state-parks/west-virginia/holly-river-state-park
-
-[^63]: https://www.vrbo.com/vacation-rentals/united-states-of-america/west-virginia/webster-county/hacker-valley/northern/holly-river-state-park
-
-[^64]: https://wvstateparks.com/wp-content/uploads/2021/03/HollyRiverTrailsandMapV5.pdf
-
-[^65]: https://wvstateparks.com/wp-content/uploads/2017/03/holly-river-campground-application.pdf
-
-[^66]: https://gis.transportation.wv.gov/gti/Trails/images/Holly River State Park.pdf
-
-[^67]: https://www.ahpd.org/facilities/pools/summer-pool-schedules/
-
-[^68]: https://www.dcr.virginia.gov/state-parks/reservations
-
-[^69]: https://wvstateparks.com/accessible-accommodations/
-
-[^70]: https://www.cityofelyria.org/department/parks-and-recreation/pools/
-
-[^71]: https://wvstateparks.com/rules-and-regulations/
-
-[^72]: https://thedyrt.com/camping/west-virginia/near/french-creek/with/cabin
-
-[^73]: https://mh3wv.org/wp-content/uploads/2015/05/HollyRiverStateParkBrochure.pdf
-
-[^74]: https://wvstateparks.com/plan-a-memorable-stay-in-a-unique-dwelling-at-west-virginia-state-parks/
-
-[^75]: https://wvstateparks.com/careers/
-
-[^76]: https://wchstv.com/news/local/state-park-campsites-picnic-shelters-available-for-reservation-online-upgrades-announced
-
-[^77]: https://www.visitcumberlandvalley.com/blog/post/swimming-in-the-valley/
-
-[^78]: https://www.qeios.com/read/VUWXV5/pdf
-
-[^79]: https://www.mdpi.com/2071-1050/13/1/292/pdf
-
-[^80]: https://en.wikipedia.org/wiki/Holly_River
-
-[^81]: https://ohiodnr.gov/wps/portal/gov/odnr/discover-and-learn/safety-conservation/about-odnr/division-parks-watercraft/stay-overnight/rates/cabin-rates-osp
-
-[^82]: https://hub.arcgis.com/api/v3/datasets/ec20dc56cbd5470f92da938f23675078_39/downloads/data?format=csv\&spatialRefId=32145\&where=1%3D1
-
-[^83]: https://www.hipcamp.com/en-US/campground/united-states/west-virginia/holly-river-campground-9448c3dw
-
-[^84]: https://www.mdpi.com/2073-445X/13/11/1882
-
-[^85]: https://www.tandfonline.com/doi/full/10.1080/1533015X.2018.1496863
-
-[^86]: http://www.jcreview.com/index.php?fulltxt=111074\&fulltxtj=197\&fulltxtp=197-1590749949.pdf
-
-[^87]: http://journals.tsu.ru/culture/\&journal_page=archive\&id=2011\&article_id=45227
-
-[^88]: http://www.jcreview.com/index.php?fulltxt=111042\&fulltxtj=197\&fulltxtp=197-1590747900.pdf
-
-[^89]: https://www.semanticscholar.org/paper/2aa6861683a496a6a58e95546dd0ccf3ed733125
-
-[^90]: https://www.semanticscholar.org/paper/829dc7394d64375c9c60b313c6ad5727239cf729
-
-[^91]: https://www.semanticscholar.org/paper/3a04f707b4174097b5ba6962e5e65c0d14273d45
-
-[^92]: https://peerj.com/articles/12242
-
-[^93]: https://wvdnr.gov/plan-the-perfect-family-trip-to-the-west-virginia-wildlife-center/
-
-[^94]: https://wvstateparks.com/state-parks-make-learning-fun-with-nature-centers-and-wildlife-exhibits/
-
-[^95]: https://www.facebook.com/groups/200385480017996/posts/2428607237195798/
-
-[^96]: https://holly-river-state-park.wheree.com
-
-[^97]: https://zenodo.org/record/2489358/files/article.pdf
-
-[^98]: https://www.gopetfriendly.com/blog/us-state-parks-that-allow-pets-your-guide-to-pet-friendly-cabins-campgrounds-beaches-and-more/
-
-[^99]: https://www.facebook.com/groups/250465337537241/posts/754375977146172/
-
-[^100]: https://www.facebook.com/groups/waterfallphotography/posts/3287337121483470/
-
-[^101]: https://www.sciencevision.org/storage/journal-articles/February2020/wcwXJgeBXu0hYY1C4dYU.pdf
-
-[^102]: https://www.reddit.com/r/RVLiving/comments/169wvd4/looking_at_travel_trailers_in_the_3032_length_am/
-
-[^103]: https://www.yelp.com/biz/holly-river-state-park-hacker-valley
-
-[^104]: https://www.tripadvisor.com/Attractions-g28971-Activities-c57-t81-West_Virginia.html
-
-[^105]: https://www.stateparks.com/holly_river_state_park_visitor_reviews.html
-
-[^106]: https://wvstateparks.com/wp-content/uploads/2017/03/Holly-River-State-Park-Campground-Map-1.pdf.2018.04.20-1.pdf
-
-[^107]: https://www.semanticscholar.org/paper/33d24686048e7db9492866bf33bb710afedf67bd
-
-[^108]: https://zenodo.org/record/1841263/files/article.pdf
-
-[^109]: https://wvstateparks.com/parks/greenbrier-state-forest/lodging/camping-at-greenbrier-state-forest/
-
-[^110]: https://wvstateparks.com/parks/coopers-rock-state-forest/lodging/
-
-[^111]: https://wvstateparks.com/parks/pipestem-state-park/lodging/lodge-at-pipestem-state-park/
-
-[^112]: https://wvstateparks.com/press-release/blackwater-falls-state-park-sled-run-tickets-now-available-for-advance-purchase-online/
-
-[^113]: https://wvtourism.com/company/holly-river-restaurant/
-
-[^114]: https://wvstateparks.com/press-release/new-stargazing-cabins-now-open-at-coopers-rock-state-forest/
-
-[^115]: https://wvstateparks.com/parks/tygart-lake-state-park/lodging/cabins-at-tygart-lake-state-park/
-
-[^116]: https://wvstateparks.com/mountain-creek-dinner-with-a-view/
-
-[^117]: https://www.facebook.com/p/The-Cookhouse-at-Holly-River-State-Park-61556216831041/
-
-[^118]: https://wvstateparks.com/parks/greenbrier-state-forest/lodging/cabins-at-greenbrier-state-forest/
-
-[^119]: https://wvstateparks.com/parks/moncove-lake-state-park/lodging/camping-at-moncove-lake-state-park/
-
-[^120]: https://www.tandfonline.com/doi/pdf/10.1080/13683500.2024.2329278?needAccess=true
-
-[^121]: https://www.mdpi.com/2306-5338/11/3/31/pdf?version=1708951099
-
-[^122]: https://pmc.ncbi.nlm.nih.gov/articles/PMC10791641/
-
-[^123]: https://pmc.ncbi.nlm.nih.gov/articles/PMC6732669/
-
-[^124]: https://pmc.ncbi.nlm.nih.gov/articles/PMC9226168/
-
-[^125]: https://www.ccsenet.org/journal/index.php/jgg/article/download/72098/39716
-
-[^126]: https://zenodo.org/record/2156892/files/article.pdf
-
-[^127]: https://www.wvfalls.com/shupes-chute/
-
-[^128]: http://www.wvfalls.com/wp-content/uploads/2020/10/Holly-River-State-Park-Map.pdf
-
-[^129]: https://www.youtube.com/watch?v=5rPoRK6Kpk0
-
-[^130]: https://latitude.to/articles-by-country/us/united-states/153312/holly-river-state-park
-
-[^131]: https://www.facebook.com/groups/ourbeautifulworldphotography/posts/712308181476468/
-
-[^132]: https://www.hometogo.com/west-virginia/state-parks/
-
-[^133]: https://wvstateparks.com/parks/lost-river-state-park/lodging/cabins-at-lost-river-state-park/
+[^1]: [Holly River State Park - Park History](https://wvstateparks.com/parks/holly-river-state-park/park-history/)
+[^2]: [Cabins at Holly River State Park](https://wvstateparks.com/parks/holly-river-state-park/lodging/cabins-at-holly-river-state-park/)
+[^3]: [Holly River State Park](https://wvstateparks.com/parks/holly-river-state-park/)
+[^4]: [New Deal Resources in Holly River State Park Historic District](https://wvculture.org/wp-content/uploads/2021/03/New-deal-resources-in-holly-river-state-park-historic-district.pdf)
+[^5]: [Holly River State Park - Klishis Hiking Guide](https://klishis.com/Hiking/Holly_River_SP.php)
+[^6]: [Trip Report: Holly River State Park](https://roadtriptails.com/trip-report-holly-river-state-park-wv/)
+[^7]: [Holly River State Park - WV Encyclopedia](https://www.wvencyclopedia.org/entries/426)
+[^8]: [Holly River State Park - TopoZone](https://www.topozone.com/west-virginia/webster-wv/park/holly-river-state-park/)
+[^9]: [Upper Falls](https://www.wvfalls.com/upper-falls-2/)
+[^10]: [Holly River State Park - Wikipedia](https://en.wikipedia.org/wiki/Holly_River_State_Park)
+[^11]: [Holly River State Park Trail Guide](https://diyoutdoors.wvu.edu/files/d/4cf12d09-1b4c-4b78-9330-7337e329bf89/hollyriverstateparktrailguide.pdf)
+[^12]: [Holly River State Park - TripAdvisor](https://www.tripadvisor.com/Attraction_Review-g59131-d296686-Reviews-Holly_River_State_Park-Hacker_Valley_West_Virginia.html)
+[^13]: [Holly River State Park Trails](https://wvstateparks.com/parks/holly-river-state-park/trails/)
+[^14]: [Holly River: Nature at its Best](https://wvstateparks.com/holly-river-nature-at-its-best/)
+[^15]: [Tecumseh Falls](https://www.wvfalls.com/tecumseh-falls/)
+[^16]: [Tenskwatawa Falls](https://www.wvfalls.com/tenskwatana-falls/)
+[^17]: [Holly River State Park's Beautiful Waterfalls](https://midatlanticdaytrips.com/2022/04/holly-river-state-parks-beautiful-waterfalls/)
+[^18]: [Swimming in WV](https://wvtourism.com/things-to-do/outdoor-adventures/watersports/swimming/)
+[^19]: [Cozy Cabin Stays for Your Bucket List](https://wvstateparks.com/cozy-cabin-stays-for-your-bucket-list/)
+[^20]: [Pet-Friendly Cabins](https://wvstateparks.com/wv-state-parks-offer-pet-friendly-cabins-for-you-and-your-best-friend/)
+[^21]: [Holly River State Park - Reddit Discussion](https://www.reddit.com/r/WestVirginia/comments/1cobkpw/how_is_holly_river_state_park/)
+[^22]: [WV State Parks Deals Newsletter](https://wvstateparks.com/deals-newsletter/)
+[^23]: [Holly River State Park - CozyCozy](https://www.cozycozy.com/us/landmark-holly-river-state-park-hacker-valley)
+[^24]: [West Virginia Cabin Camping - Hipcamp](https://www.hipcamp.com/en-US/d/united-states/west-virginia/camping/cabins-and-forest)
+[^25]: [Holly River State Park - WV Tourism](https://wvtourism.com/company/holly-river-state-park/)
+[^26]: [Camping at Holly River State Park](https://wvstateparks.com/parks/holly-river-state-park/lodging/camping-at-holly-river-state-park/)
+[^27]: [Holly River State Park Lodging](https://wvstateparks.com/parks/holly-river-state-park/lodging/)
+[^28]: [Holly River State Park - Outdoorsy Guide](https://www.outdoorsy.com/guide/holly-river-state-park-wv)
+[^29]: [Holly River State Park - The Dyrt](https://thedyrt.com/camping/west-virginia/west-virginia-holly-river-state-park)
+[^30]: [Holly River State Park - RV There Yet](https://rvthereyet.com/holly-river-state-park/)
+[^31]: [Babcock State Park - RVshare](https://rvshare.com/state-parks/west-virginia/babcock-state-park)
+[^32]: [Tomlinson Run State Park - The Dyrt](https://thedyrt.com/camping/west-virginia/west-virginia-tomlinson-run-state-park)
+[^33]: [Stonewall Resort Campgrounds](https://www.stonewallresort.com/roanoke-west-virginia-accommodations/campgrounds/)
+[^34]: [Holly River State Park - StateparksUSA](https://stateparks.com/holly_river_state_park_in_west_virginia.html)
+[^35]: [Holly River State Park - Additional Information](https://wvstateparks.com/parks/holly-river-state-park/additional-information/)
+[^36]: [Holly River State Park Activities](https://wvstateparks.com/parks/holly-river-state-park/activities/)
+[^37]: [Holly River State Park Map - 2023](https://wvstateparks.com/wp-content/uploads/2017/03/2023.06.01-Holly-River-State-Park-Map.pdf)
+[^38]: [Holly River State Park Map - 2024](https://wvstateparks.com/wp-content/uploads/2025/06/2024.07.12_WVSP_HollyRiver_Map_FINAL.pdf)
+[^39]: [Holly River State Park Gift Shop](https://www.visitwebsterwv.com/shopping/holly-river-state-park-gift-shop/)
+[^40]: [Naturalist Programs at WV State Parks](https://wvstateparks.com/programs/naturalist/)
+[^41]: [Accessible Trails at West Virginia State Parks](https://wvstateparks.com/accessible-trails-at-west-virginia-state-parks/)
+[^42]: [Holly River State Park - Visit Webster WV](https://www.visitwebsterwv.com/explore/holly-river-state-park/)
+[^43]: [Holly River State Park Restaurant](https://www.visitwebsterwv.com/dining/holly-river-state-park-restaurant/)
+[^44]: [Holly River Grocery](https://kickinbackinthevalley.com/holly-river-grocery/)
+[^45]: [Holly River State Park - Facebook Post](https://www.facebook.com/groups/950235228958973/posts/1594909584491531/)
+[^46]: [Upper and Lower Falls - WV Tourism](https://wvtourism.com/company/upper-and-lower-falls/)
+[^47]: [Holly River State Park Review - TripAdvisor](https://www.tripadvisor.com/ShowUserReviews-g59131-d296686-r787057020-Holly_River_State_Park-Hacker_Valley_West_Virginia.html)
+[^48]: [Holly River State Park Elevation Data](https://elevation.maplogs.com/poi/holly_river_state_park_state_park_rd_hacker_valley_wv_usa.317770.html)
+[^49]: [Holly River State Park - RV Park Reviews Facebook](https://www.facebook.com/groups/rvparkreviews/posts/23957275663914292/)
+[^50]: [Holly River State Park Entrance - GIS](https://gis.transportation.wv.gov/ftp/Park_Nav_Points/Holly%20River%20State%20Park%20Entrance.pdf)
+[^51]: [Holly River State Park - Hipcamp](https://www.hipcamp.com/en-US/state-park/united-states/west-virginia/holly-river/all)
+[^52]: [Holly River State Park - Kiddle](https://kids.kiddle.co/Holly_River_State_Park)
+[^53]: [Holly River State Park Topographic Map](https://en-us.topographic-map.com/map-34fj18/Holly-River-State-Park/)
+[^54]: [Holly River State Park - WVU DIY Outdoors](https://diyoutdoors.wvu.edu/camping/holly-river-state-park)
+[^55]: [Geoinfo Publication](https://geoinfo.nmt.edu/publications/periodicals/nmg/details.cfml?id=33145)
+[^56]: [Geoinfo Publication](https://geoinfo.nmt.edu/publications/periodicals/nmg/details.cfml?id=11791)
+[^57]: [Digital Commons URI](https://digitalcommons.uri.edu/cgi/viewcontent.cgi?article=1686\&context=theses)
+[^58]: [Every Waterfall at Holly River State Park](https://www.wvfalls.com/2020/10/05/enjoy-every-waterfall-at-holly-river-state-park-in-one-day/)
+[^59]: [Cabin Rentals in Hacker Valley](https://kickinbackinthevalley.com/cabin-rentals-in-hacker-valley-west-virginia/)
+[^60]: [Holly River State Park - YouTube](https://www.youtube.com/watch?v=MdUKg75pU3I)
+[^61]: [Holly River State Park - Facebook Post](https://www.facebook.com/groups/3403548833010254/posts/6008780435820401/)
+[^62]: [Holly River State Park - RVshare](https://rvshare.com/state-parks/west-virginia/holly-river-state-park)
+[^63]: [Holly River State Park - Vrbo](https://www.vrbo.com/vacation-rentals/united-states-of-america/west-virginia/webster-county/hacker-valley/northern/holly-river-state-park)
+[^64]: [Holly River Trails and Map V5](https://wvstateparks.com/wp-content/uploads/2021/03/HollyRiverTrailsandMapV5.pdf)
+[^65]: [Holly River Campground Application](https://wvstateparks.com/wp-content/uploads/2017/03/holly-river-campground-application.pdf)
+[^66]: [Holly River State Park Trail Map - GIS](https://gis.transportation.wv.gov/gti/Trails/images/Holly River State Park.pdf)
+[^67]: [Summer Pool Schedules - AHPD](https://www.ahpd.org/facilities/pools/summer-pool-schedules/)
+[^68]: [Virginia State Parks Reservations](https://www.dcr.virginia.gov/state-parks/reservations)
+[^69]: [Accessible Accommodations](https://wvstateparks.com/accessible-accommodations/)
+[^70]: [Pools - City of Elyria](https://www.cityofelyria.org/department/parks-and-recreation/pools/)
+[^71]: [WV State Parks Rules and Regulations](https://wvstateparks.com/rules-and-regulations/)
+[^72]: [Camping Near French Creek with Cabins](https://thedyrt.com/camping/west-virginia/near/french-creek/with/cabin)
+[^73]: [Holly River State Park Brochure](https://mh3wv.org/wp-content/uploads/2015/05/HollyRiverStateParkBrochure.pdf)
+[^74]: [Unique Dwelling Stays at WV State Parks](https://wvstateparks.com/plan-a-memorable-stay-in-a-unique-dwelling-at-west-virginia-state-parks/)
+[^75]: [WV State Parks Careers](https://wvstateparks.com/careers/)
+[^76]: [State Park Online Reservations Announced](https://wchstv.com/news/local/state-park-campsites-picnic-shelters-available-for-reservation-online-upgrades-announced)
+[^77]: [Swimming in the Valley](https://www.visitcumberlandvalley.com/blog/post/swimming-in-the-valley/)
+[^78]: [Qeios Article](https://www.qeios.com/read/VUWXV5/pdf)
+[^79]: [MDPI Sustainability Article](https://www.mdpi.com/2071-1050/13/1/292/pdf)
+[^80]: [Holly River - Wikipedia](https://en.wikipedia.org/wiki/Holly_River)
+[^81]: [Ohio State Parks Cabin Rates](https://ohiodnr.gov/wps/portal/gov/odnr/discover-and-learn/safety-conservation/about-odnr/division-parks-watercraft/stay-overnight/rates/cabin-rates-osp)
+[^82]: [ArcGIS Hub Dataset](https://hub.arcgis.com/api/v3/datasets/ec20dc56cbd5470f92da938f23675078_39/downloads/data?format=csv\&spatialRefId=32145\&where=1%3D1)
+[^83]: [Holly River Campground - Hipcamp](https://www.hipcamp.com/en-US/campground/united-states/west-virginia/holly-river-campground-9448c3dw)
+[^84]: [MDPI Land Article](https://www.mdpi.com/2073-445X/13/11/1882)
+[^85]: [Taylor & Francis Article](https://www.tandfonline.com/doi/full/10.1080/1533015X.2018.1496863)
+[^86]: [JC Review Article](http://www.jcreview.com/index.php?fulltxt=111074\&fulltxtj=197\&fulltxtp=197-1590749949.pdf)
+[^87]: [TSU Culture Journal](http://journals.tsu.ru/culture/\&journal_page=archive\&id=2011\&article_id=45227)
+[^88]: [JC Review Article](http://www.jcreview.com/index.php?fulltxt=111042\&fulltxtj=197\&fulltxtp=197-1590747900.pdf)
+[^89]: [Semantic Scholar Paper](https://www.semanticscholar.org/paper/2aa6861683a496a6a58e95546dd0ccf3ed733125)
+[^90]: [Semantic Scholar Paper](https://www.semanticscholar.org/paper/829dc7394d64375c9c60b313c6ad5727239cf729)
+[^91]: [Semantic Scholar Paper](https://www.semanticscholar.org/paper/3a04f707b4174097b5ba6962e5e65c0d14273d45)
+[^92]: [PeerJ Article](https://peerj.com/articles/12242)
+[^93]: [WV Wildlife Center Trip Planning](https://wvdnr.gov/plan-the-perfect-family-trip-to-the-west-virginia-wildlife-center/)
+[^94]: [Nature Centers at WV State Parks](https://wvstateparks.com/state-parks-make-learning-fun-with-nature-centers-and-wildlife-exhibits/)
+[^95]: [Beautiful World Photography - Facebook](https://www.facebook.com/groups/200385480017996/posts/2428607237195798/)
+[^96]: [Holly River State Park - Wheree](https://holly-river-state-park.wheree.com)
+[^97]: [Zenodo Article](https://zenodo.org/record/2489358/files/article.pdf)
+[^98]: [Pet-Friendly US State Parks Guide](https://www.gopetfriendly.com/blog/us-state-parks-that-allow-pets-your-guide-to-pet-friendly-cabins-campgrounds-beaches-and-more/)
+[^99]: [Facebook Post](https://www.facebook.com/groups/250465337537241/posts/754375977146172/)
+[^100]: [Waterfall Photography - Facebook](https://www.facebook.com/groups/waterfallphotography/posts/3287337121483470/)
+[^101]: [Science Vision Article](https://www.sciencevision.org/storage/journal-articles/February2020/wcwXJgeBXu0hYY1C4dYU.pdf)
+[^102]: [RV Living Reddit Discussion](https://www.reddit.com/r/RVLiving/comments/169wvd4/looking_at_travel_trailers_in_the_3032_length_am/)
+[^103]: [Holly River State Park - Yelp](https://www.yelp.com/biz/holly-river-state-park-hacker-valley)
+[^104]: [West Virginia Attractions - TripAdvisor](https://www.tripadvisor.com/Attractions-g28971-Activities-c57-t81-West_Virginia.html)
+[^105]: [Holly River State Park Visitor Reviews](https://www.stateparks.com/holly_river_state_park_visitor_reviews.html)
+[^106]: [Holly River State Park Campground Map](https://wvstateparks.com/wp-content/uploads/2017/03/Holly-River-State-Park-Campground-Map-1.pdf.2018.04.20-1.pdf)
+[^107]: [Semantic Scholar Paper](https://www.semanticscholar.org/paper/33d24686048e7db9492866bf33bb710afedf67bd)
+[^108]: [Zenodo Article](https://zenodo.org/record/1841263/files/article.pdf)
+[^109]: [Camping at Greenbrier State Forest](https://wvstateparks.com/parks/greenbrier-state-forest/lodging/camping-at-greenbrier-state-forest/)
+[^110]: [Coopers Rock State Forest Lodging](https://wvstateparks.com/parks/coopers-rock-state-forest/lodging/)
+[^111]: [Lodge at Pipestem State Park](https://wvstateparks.com/parks/pipestem-state-park/lodging/lodge-at-pipestem-state-park/)
+[^112]: [Blackwater Falls Sled Run Tickets](https://wvstateparks.com/press-release/blackwater-falls-state-park-sled-run-tickets-now-available-for-advance-purchase-online/)
+[^113]: [Holly River Restaurant - WV Tourism](https://wvtourism.com/company/holly-river-restaurant/)
+[^114]: [Stargazing Cabins at Coopers Rock](https://wvstateparks.com/press-release/new-stargazing-cabins-now-open-at-coopers-rock-state-forest/)
+[^115]: [Cabins at Tygart Lake State Park](https://wvstateparks.com/parks/tygart-lake-state-park/lodging/cabins-at-tygart-lake-state-park/)
+[^116]: [Mountain Creek Dinner with a View](https://wvstateparks.com/mountain-creek-dinner-with-a-view/)
+[^117]: [The Cookhouse at Holly River - Facebook](https://www.facebook.com/p/The-Cookhouse-at-Holly-River-State-Park-61556216831041/)
+[^118]: [Cabins at Greenbrier State Forest](https://wvstateparks.com/parks/greenbrier-state-forest/lodging/cabins-at-greenbrier-state-forest/)
+[^119]: [Camping at Moncove Lake State Park](https://wvstateparks.com/parks/moncove-lake-state-park/lodging/camping-at-moncove-lake-state-park/)
+[^120]: [Taylor & Francis Tourism Article](https://www.tandfonline.com/doi/pdf/10.1080/13683500.2024.2329278?needAccess=true)
+[^121]: [MDPI Tourism Article](https://www.mdpi.com/2306-5338/11/3/31/pdf?version=1708951099)
+[^122]: [PMC Article](https://pmc.ncbi.nlm.nih.gov/articles/PMC10791641/)
+[^123]: [PMC Article](https://pmc.ncbi.nlm.nih.gov/articles/PMC6732669/)
+[^124]: [PMC Article](https://pmc.ncbi.nlm.nih.gov/articles/PMC9226168/)
+[^125]: [CCSENET Geography Article](https://www.ccsenet.org/journal/index.php/jgg/article/download/72098/39716)
+[^126]: [Zenodo Article](https://zenodo.org/record/2156892/files/article.pdf)
+[^127]: [Shupe's Chute](https://www.wvfalls.com/shupes-chute/)
+[^128]: [Holly River State Park Map - WV Falls](http://www.wvfalls.com/wp-content/uploads/2020/10/Holly-River-State-Park-Map.pdf)
+[^129]: [Holly River State Park - YouTube](https://www.youtube.com/watch?v=5rPoRK6Kpk0)
+[^130]: [Holly River State Park Coordinates](https://latitude.to/articles-by-country/us/united-states/153312/holly-river-state-park)
+[^131]: [Beautiful World Photography - Facebook](https://www.facebook.com/groups/ourbeautifulworldphotography/posts/712308181476468/)
+[^132]: [West Virginia State Parks - HomeToGo](https://www.hometogo.com/west-virginia/state-parks/)
+[^133]: [Cabins at Lost River State Park](https://wvstateparks.com/parks/lost-river-state-park/lodging/cabins-at-lost-river-state-park/)
 
