@@ -10,9 +10,6 @@
  */
 
 import type {
-  FacilityType,
-  AmenityType,
-  AccessibilityFeature,
   Cabin,
   CampingFacility,
   RangerProgram,
@@ -111,10 +108,9 @@ export const INDUSTRY_SAFETY_COLORS = {
  * These colors are ALLOWED even if they're outside WVWO brand palette.
  *
  * @param color - Color to check
- * @param context - Context (e.g., 'trail-difficulty', 'fire-danger', 'accessibility')
  * @returns true if this is an industry safety color
  */
-export function isIndustrySafetyColor(color: string, context?: string): boolean {
+export function isIndustrySafetyColor(color: string): boolean {
   const safetyColors = Object.values(INDUSTRY_SAFETY_COLORS)
     .flatMap((cat) => (typeof cat === 'object' ? Object.values(cat) : [cat]))
     .map((c) => c.toLowerCase());
@@ -327,7 +323,7 @@ export function meetsWCAG_LargeText(contrastRatio: number): boolean {
  * Validate that all WVWO brand color combinations meet WCAG AA.
  * Tests common combinations used in the design system.
  *
- * @returns Array of failing combinations (empty if all pass)
+ * @returns Array of all tested combinations with pass/fail status
  */
 export function validateWVWOColorContrasts(): Array<{
   bg: string;
@@ -411,7 +407,8 @@ export function countWords(text: string): number {
 }
 
 /**
- * Validate FAQ answer is optimal length (40-50 words).
+ * Validate FAQ answer length is acceptable (20-100 words).
+ * Answers in the 40-50 word range are flagged as optimal for featured snippets.
  *
  * @param answer - FAQ answer text
  * @returns Validation result
