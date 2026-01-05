@@ -48,7 +48,7 @@ export const FORBIDDEN_COLORS = [
  * Check if color is WVWO compliant.
  * Returns true if color does NOT contain forbidden colors.
  *
- * @param color - Tailwind class string or hex color
+ * @param color - Hex color string (e.g., '#ec4899')
  * @returns true if compliant, false if forbidden
  */
 export function isWVWOCompliantColor(color: string): boolean {
@@ -136,15 +136,17 @@ export function isIndustrySafetyColor(color: string, context?: string): boolean 
 export function createMockStatePark(
   overrides?: Partial<StateParkTemplateProps>
 ): StateParkTemplateProps {
+  const { hero, overview, regulations, ...rest } = overrides ?? {};
+
   return {
     hero: {
       name: 'Test State Park',
       heroImage: '/images/test-park-hero.jpg',
       imagePosition: 'center',
-      tagline: 'Family Adventure Awaits',
+      tagline: 'Family Adventure Awaait',
       acreage: 1500,
       established: 1950,
-      ...overrides?.hero,
+      ...hero,
     },
     overview: {
       operatingHours: {
@@ -162,7 +164,7 @@ export function createMockStatePark(
         website: 'https://wvstateparks.com',
       },
       county: 'Test County',
-      ...overrides?.overview,
+      ...overview,
     },
     regulations: {
       pets: {
@@ -174,9 +176,9 @@ export function createMockStatePark(
         restrictions: ['Fire pits only', 'No ground fires'],
         firePits: true,
       },
-      ...overrides?.regulations,
+      ...regulations,
     },
-    ...overrides,
+    ...rest,
   };
 }
 
@@ -260,6 +262,11 @@ export function calculateContrastRatio(bgColor: string, fgColor: string): number
   const getLuminance = (hex: string): number => {
     // Remove # if present
     hex = hex.replace('#', '');
+
+    // Expand shorthand hex (e.g., 'FFF' -> 'FFFFFF')
+    if (hex.length === 3) {
+      hex = hex.split('').map((c) => c + c).join('');
+    }
 
     // Convert to RGB
     const rgb = parseInt(hex, 16);
