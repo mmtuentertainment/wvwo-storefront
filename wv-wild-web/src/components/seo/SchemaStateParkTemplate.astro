@@ -96,6 +96,11 @@ const buildOpeningHours = () => {
   }));
 };
 
+// Pre-calculate totals used in multiple places
+const totalCampsites = park.facilities?.camping?.campgrounds?.reduce(
+  (sum, cg) => sum + (cg.siteCount || 0), 0
+) || 0;
+
 // Build amenity features (20+ facilities)
 const buildAmenityFeatures = () => {
   const amenities = [];
@@ -120,12 +125,11 @@ const buildAmenityFeatures = () => {
   }
 
   // Camping amenities
-  if (park.facilities?.camping?.campgrounds && park.facilities.camping.campgrounds.length > 0) {
-    const totalSites = park.facilities.camping.campgrounds.reduce((sum, cg) => sum + (cg.siteCount || 0), 0);
+  if (totalCampsites > 0) {
     amenities.push({
       '@type': 'LocationFeatureSpecification',
       name: 'Camping Sites',
-      value: totalSites,
+      value: totalCampsites,
       unitText: 'sites',
     });
   }
@@ -256,15 +260,12 @@ const buildAdditionalProperties = () => {
     });
   }
 
-  if (park.facilities?.camping?.campgrounds) {
-    const totalCampsites = park.facilities.camping.campgrounds.reduce((sum, cg) => sum + (cg.siteCount || 0), 0);
-    if (totalCampsites > 0) {
-      properties.push({
-        '@type': 'PropertyValue',
-        name: 'Campsite Count',
-        value: totalCampsites,
-      });
-    }
+  if (totalCampsites > 0) {
+    properties.push({
+      '@type': 'PropertyValue',
+      name: 'Campsite Count',
+      value: totalCampsites,
+    });
   }
 
   if (park.facilities?.lodging?.cabins && park.facilities.lodging.cabins.length > 0) {
