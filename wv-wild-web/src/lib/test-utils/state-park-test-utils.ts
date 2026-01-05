@@ -143,7 +143,7 @@ export function createMockStatePark(
       name: 'Test State Park',
       heroImage: '/images/test-park-hero.jpg',
       imagePosition: 'center',
-      tagline: 'Family Adventure Awaait',
+      tagline: 'Family Adventure Awaits',
       acreage: 1500,
       established: 1950,
       ...hero,
