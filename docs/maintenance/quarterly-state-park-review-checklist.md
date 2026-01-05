@@ -1,3 +1,4 @@
+
 # Quarterly State Park Content Review Checklist
 
 **Schedule:** January, April, July, October
@@ -64,7 +65,7 @@ This checklist ensures WVWO State Park content remains accurate and up-to-date. 
 
 ## Update Process
 
-1. Make changes to data files in src/data/state-parks/
+1. Update data files in src/data/state-parks/
 2. Validate against Zod schemas
 3. Run tests to ensure no breakage
 4. Commit changes: `git commit -m "chore: Quarterly state park data update (Q1 2026)"`

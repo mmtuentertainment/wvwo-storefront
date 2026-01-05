@@ -2422,6 +2422,6 @@ src/
 
 ---
 
-**End of Component Architecture Specification**
+## End of Component Architecture Specification
 
 This document serves as the authoritative reference for SPEC-18 implementation. All code must adhere to these specifications to ensure consistency, accessibility, and WVWO brand compliance.

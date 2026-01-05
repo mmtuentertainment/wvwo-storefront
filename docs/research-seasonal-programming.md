@@ -1,11 +1,14 @@
 # State Park Seasonal Programming Research - SPEC-18
 
 ## Research Date
+
 2026-01-02
 
 ## Program Categories Identified
 
 ### 1. RANGER-LED PROGRAMS
+
+
 **Types:**
 - Guided nature walks and hikes
 - Campfire programs and evening presentations
@@ -37,15 +40,19 @@
 - Survival skills training
 
 **Delivery:**
+
+
 - Staff-led programs by trained interpreters
 - Self-guided activities with materials provided
 - Virtual options (Florida offers Virtual Junior Ranger)
 
 ### 3. SEASONAL EVENTS
+
+
 **Winter Events:**
 - Festival of Trees (Virginia - 30th Annual in 2025)
 - Holiday lighting displays (Natural Bridge State Park)
-- Christmas Village (Stone Mountain Park: Nov 8, 2025 - Jan 4, 2026)
+- Christmas Village (Stone Mountain Park: Nov 8, 2025–Jan 4, 2026)
 
 **Spring Events:**
 - Wildflower blooms (Oconee Bell: mid-March to early April, South Carolina)
@@ -64,6 +71,8 @@
 - Creepy Campout (Lake Wateree State Park - Oct 25, 2025)
 
 ### 4. JUNIOR RANGER PROGRAMS
+
+
 **Scale:**
 - Offered at 100+ parks nationwide
 - California: 70+ state parks
@@ -83,6 +92,8 @@
 - Park-specific themes and activities
 
 ### 5. VOLUNTEER PROGRAMS
+
+
 **Types:**
 - Campground/Park Hosts (25-30 hrs/week, 1-6 month commitment)
 - Individual volunteers (flexible schedule, once a week/month)
@@ -109,6 +120,8 @@
 - Application through volunteer coordinators
 
 ### 6. NATURE CENTERS & INTERPRETIVE SERVICES
+
+
 **Offerings:**
 - Educational displays and exhibits
 - Live animal programs
@@ -122,6 +135,8 @@
 - Volunteers with specialized knowledge
 
 ### 7. SCHOOL PROGRAMS
+
+
 **Characteristics:**
 - FREE field trips to state parks (must be pre-arranged)
 - Led by trained state park interpreters
@@ -130,6 +145,8 @@
 - Available year-round with advance booking
 
 ## ACCESSIBILITY CONSIDERATIONS
+
+
 **Not extensively documented in research, but standard practices include:**
 - ASL interpreters (mentioned in best practices)
 - Sensory-friendly program options
@@ -139,6 +156,8 @@
 **NOTE:** This is a gap area - most state park websites do not prominently feature accessibility details for programs.
 
 ## REGISTRATION & BOOKING PATTERNS
+
+
 **Systems Identified:**
 - Online event calendars (California, Virginia, Texas, Florida)
 - Advance reservation systems (Minnesota - opens March 31 for summer)
@@ -158,7 +177,8 @@
 ### Recommended UI Components
 
 **1. Program Cards:**
-```
+
+```text
 - Program title
 - Category badge (Ranger-Led, Kids Program, Workshop, Special Event)
 - Date/time OR "Seasonal" indicator
@@ -171,7 +191,8 @@
 ```
 
 **2. Filtering System:**
-```
+
+```text
 - By program type (Ranger-Led, Educational, Kids, Volunteer, Special Events)
 - By season (Winter, Spring, Summer, Fall, Year-round)
 - By age group (Kids, Family, Adults, Seniors)
@@ -181,7 +202,8 @@
 ```
 
 **3. Calendar View:**
-```
+
+```text
 - Month/week/day views
 - Color-coding by program type
 - Recurring events marked differently
@@ -189,7 +211,8 @@
 ```
 
 **4. Program Detail Pages:**
-```
+
+```text
 - Full description
 - What to bring/wear
 - Meeting location within park
@@ -202,7 +225,9 @@
 
 ## DATA STRUCTURE RECOMMENDATIONS
 
-### Program Schema:
+### Program Schema
+
+
 ```typescript
 {
   id: string,
@@ -287,6 +312,8 @@
 - [Florida Volunteer Portal](https://volunteers.floridastateparks.org/)
 
 ## NEXT STEPS FOR SPEC-18
+
+
 1. Design program card component with WVWO aesthetics (Bitter font, sign-green accents)
 2. Implement filtering system with sharp corners (rounded-sm only)
 3. Create seasonal programming data structure

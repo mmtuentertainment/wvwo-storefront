@@ -1337,7 +1337,7 @@ meta_description: z.string().min(120).max(160),
 
 ### File Organization
 
-```
+```text
 src/
   data/
     state-parks/
@@ -1356,21 +1356,29 @@ src/
 
 ### Progressive Implementation Approach
 
-**Phase 1: Core Structure**
+### Phase 1: Core Structure
+
+
 1. Define Zod schemas
 2. Create TypeScript types
 3. Build one complete reference (Holly River)
 
-**Phase 2: Variations**
+### Phase 2: Variations
+
+
 4. Adapt schema for resort parks (Watoga)
 5. Adapt schema for overlook parks (Cacapon)
 
-**Phase 3: Validation**
+### Phase 3: Validation
+
+
 6. Runtime validation testing
 7. Data accuracy verification
 8. SEO content optimization
 
-**Phase 4: Integration**
+### Phase 4: Integration
+
+
 9. Dynamic route implementation
 10. Component integration
 11. WVWO product cross-linking
@@ -1423,6 +1431,7 @@ description: "Experience the majestic beauty of Tecumseh Falls via our scenic hi
 ---
 
 **Storage Command:**
+
 ```bash
 claude-flow memory store "spec-18-data-structure" "Complete TypeScript/Zod schema for WV State Park data files with three reference implementations (Holly River, Watoga, Cacapon). Includes validation patterns, SEO structure, and Kim's voice content guidelines." --namespace wvwo-successes --reasoningbank
 ```

@@ -10,7 +10,7 @@ This guide documents the stacked PR strategy for merging SPEC-18 State Park Temp
 
 ## Branch Structure
 
-```
+```text
 main
   └─ spec-18/pr-1-types (PR #83)
        └─ spec-18/pr-2-components (PR #84)
@@ -344,6 +344,8 @@ git push origin spec-18/pr-6-docs
 ```
 
 **Automation Script** (for merge-forward):
+
+
 ```bash
 #!/bin/bash
 # merge-forward.sh
@@ -553,6 +555,8 @@ After all 6 PRs merged to main:
 **Cause**: Base branch was updated after PR creation.
 
 **Solution**:
+
+
 ```bash
 git checkout <your-pr-branch>
 git fetch origin
@@ -565,6 +569,8 @@ git push -f origin <your-pr-branch>
 **Cause**: Environment differences (Node version, dependencies).
 
 **Solution**:
+
+
 ```bash
 # Match CI Node version
 nvm use 18.17.0  # Or version specified in .nvmrc
@@ -582,6 +588,8 @@ npm test
 **Cause**: Build optimization not applied in dev mode.
 
 **Solution**:
+
+
 ```bash
 npm run build
 npm run preview  # Test production build
@@ -593,6 +601,8 @@ npm run lighthouse  # Run against preview server
 **Cause**: Missing required fields or incorrect types.
 
 **Solution**:
+
+
 1. Visit https://validator.schema.org/
 2. Paste page URL or markup
 3. Review error messages

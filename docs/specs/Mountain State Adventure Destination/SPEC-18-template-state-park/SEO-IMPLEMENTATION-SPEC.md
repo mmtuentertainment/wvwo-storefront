@@ -1290,4 +1290,4 @@ npm run audit:seo
 
 ---
 
-**End of SEO Implementation Specification**
+## End of SEO Implementation Specification

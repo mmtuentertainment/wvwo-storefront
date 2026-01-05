@@ -45,7 +45,7 @@ AccessibilityFeatureSchema = z.object({
 ### 2. VISUAL ACCESSIBILITY (CRITICAL - COMPLETELY MISSING)
 
 **Federal Requirements:**
-- WCAG 2.1 Level AA compliance for web content (deadline: April 26, 2026 for entities 50K+)
+- WCAG 2.1 Level AA compliance for web content (deadline: April 26, 2026, for entities 50K+)
 - Tactile exhibits required at visitor centers
 - Braille signage required for permanent facilities
 
