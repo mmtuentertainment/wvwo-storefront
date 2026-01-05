@@ -1,0 +1,568 @@
+---
+/**
+ * Facilities Section Component
+ * SPEC-18 Phase 2.1: State Park Facilities Display
+ *
+ * Displays all park facilities including:
+ * - Lodging (cabins and lodges)
+ * - Campgrounds with hookup details
+ * - Picnic areas and pavilions
+ * - Swimming pools (indoor/outdoor)
+ * - Other amenities
+ *
+ * WVWO Aesthetics:
+ * - Font: font-display (Bitter), font-body (Noto Sans)
+ * - Borders: rounded-sm ONLY
+ * - Colors: brand-brown, sign-green, brand-cream, brand-orange
+ * - Voice: Kim's authentic WV
+ */
+
+import type { FacilitiesSection } from '@/types/state-park-template-types';
+
+interface Props {
+  facilities: FacilitiesSection;
+  parkName: string;
+}
+
+const { facilities, parkName } = Astro.props;
+
+// Helper: Format price range
+const formatPriceRange = (priceRange?: string): string => {
+  if (!priceRange) return 'Contact for rates';
+  return priceRange;
+};
+
+// Helper: Format season dates
+const formatSeason = (season?: string): string => {
+  if (!season) return 'Contact park for availability';
+  return season;
+};
+
+// Helper: Capitalize first letter
+const capitalize = (str: string): string => str && str.length ? str.charAt(0).toUpperCase() + str.slice(1) : str;
+
+// Deep link to WV State Parks reservation system
+const reservationUrl = `https://reservations.wvstateparks.com/${parkName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`;
+
+// Check if section has any content
+const hasContent =
+  facilities?.lodging?.cabins?.length ||
+  facilities?.lodging?.lodges?.length ||
+  facilities?.camping?.campgrounds?.length ||
+  facilities?.picnicAreas?.length ||
+  facilities?.pools?.length ||
+  facilities?.otherAmenities?.length;
+
+if (!hasContent) {
+  return null;
+}
+---
+
+<section
+  class="py-16 bg-brand-cream"
+  aria-labelledby="facilities-heading"
+>
+  <div class="container mx-auto px-4">
+    <h2
+      id="facilities-heading"
+      class="font-display text-4xl md:text-5xl font-black text-brand-brown mb-12"
+    >
+      Park Facilities
+    </h2>
+
+    <!-- Lodging: Cabins -->
+    {facilities?.lodging?.cabins && facilities.lodging.cabins.length > 0 && (
+      <div class="mb-16">
+        <h3 class="font-display text-3xl font-bold text-brand-brown mb-6 border-l-4 border-l-sign-green pl-4">
+          🏠 Cabins
+        </h3>
+
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          role="list"
+          aria-label="Available cabin rentals"
+        >
+          {facilities.lodging.cabins.map((cabin) => (
+            <article
+              class="bg-white rounded-sm border-2 border-brand-brown overflow-hidden hover:shadow-lg transition-shadow"
+              role="listitem"
+            >
+              <!-- Image -->
+              {cabin.photoUrl && (
+                <div class="aspect-video overflow-hidden">
+                  <img
+                    src={cabin.photoUrl}
+                    alt={`${cabin.name || `Cabin ${cabin.cabinNumber}`} exterior`}
+                    class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                </div>
+              )}
+
+              <!-- Content -->
+              <div class="p-6">
+                <div class="flex items-start justify-between mb-3">
+                  <h4 class="font-display text-xl font-bold text-brand-brown">
+                    {cabin.name || `Cabin ${cabin.cabinNumber}`}
+                  </h4>
+                  {cabin.accessible && (
+                    <span
+                      class="text-blue-700 text-sm font-semibold"
+                      aria-label="ADA Accessible"
+                      title="ADA Accessible"
+                    >
+                      ♿ ADA
+                    </span>
+                  )}
+                </div>
+
+                {cabin.description && (
+                  <p class="text-sm text-brand-brown/80 mb-4 font-body line-clamp-3">
+                    {cabin.description}
+                  </p>
+                )}
+
+                <!-- Capacity -->
+                <div class="flex items-center gap-4 mb-4 text-sm text-brand-brown">
+                  <span class="font-semibold">
+                    Sleeps {cabin.maxOccupancy}
+                  </span>
+                  <span>•</span>
+                  <span>
+                    {cabin.bedrooms} BR / {cabin.bathrooms} BA
+                  </span>
+                </div>
+
+                <!-- Key Amenities -->
+                <div class="mb-4">
+                  <p class="text-xs font-semibold text-brand-brown/60 mb-2">KEY FEATURES</p>
+                  <div class="flex flex-wrap gap-2">
+                    <span class="text-xs bg-sign-green/10 text-sign-green px-2 py-1 rounded-sm">
+                      {cabin.kitchenType === 'full' ? 'Full Kitchen' : cabin.kitchenType === 'partial' ? 'Kitchenette' : 'No Kitchen'}
+                    </span>
+                    {cabin.hasFireplace && (
+                      <span class="text-xs bg-brand-brown/10 text-brand-brown px-2 py-1 rounded-sm">
+                        Fireplace
+                      </span>
+                    )}
+                    {cabin.petFriendly && (
+                      <span class="text-xs bg-brand-brown/10 text-brand-brown px-2 py-1 rounded-sm">
+                        Pet Friendly
+                      </span>
+                    )}
+                    {cabin.hasPorch && (
+                      <span class="text-xs bg-sign-green/10 text-sign-green px-2 py-1 rounded-sm">
+                        Porch
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                <!-- Season & Price -->
+                <div class="border-t border-brand-brown/20 pt-4 mb-4">
+                  {cabin.seasonalAvailability && (
+                    <p class="text-sm text-brand-brown/80 mb-2">
+                      <strong>Season:</strong> {formatSeason(cabin.seasonalAvailability)}
+                    </p>
+                  )}
+                  <p class="text-lg font-bold text-brand-brown">
+                    {formatPriceRange(cabin.priceRange)}
+                  </p>
+                </div>
+
+                <!-- CTA -->
+                <a
+                  href={cabin.bookingUrl || reservationUrl}
+                  class="block w-full bg-brand-orange hover:bg-brand-orange/90 text-white font-bold py-3 px-4 rounded-sm text-center transition-colors"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  aria-label={`Reserve ${cabin.name || `Cabin ${cabin.cabinNumber}`}`}
+                >
+                  Reserve Cabin
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    )}
+
+    <!-- Lodging: Lodges -->
+    {facilities?.lodging?.lodges && facilities.lodging.lodges.length > 0 && (
+      <div class="mb-16">
+        <h3 class="font-display text-3xl font-bold text-brand-brown mb-6 border-l-4 border-l-sign-green pl-4">
+          🏨 Lodge
+        </h3>
+
+        {facilities.lodging.lodges.map((lodge) => (
+          <article class="bg-white rounded-sm border-2 border-brand-brown p-6 mb-6">
+            <h4 class="font-display text-2xl font-bold text-brand-brown mb-4">
+              {lodge.name}
+            </h4>
+
+            {lodge.description && (
+              <p class="text-brand-brown/80 font-body mb-4">
+                {lodge.description}
+              </p>
+            )}
+
+            <div class="grid md:grid-cols-3 gap-6 mb-6">
+              <div>
+                <p class="text-sm font-semibold text-brand-brown/60 mb-1">ROOMS</p>
+                <p class="text-2xl font-black text-brand-brown">{lodge.rooms}</p>
+              </div>
+              {lodge.hasRestaurant && (
+                <div>
+                  <p class="text-sm font-semibold text-brand-brown/60 mb-1">DINING</p>
+                  <p class="text-lg font-bold text-sign-green">On-Site Restaurant</p>
+                </div>
+              )}
+              {lodge.hasConferenceFacilities && (
+                <div>
+                  <p class="text-sm font-semibold text-brand-brown/60 mb-1">EVENTS</p>
+                  <p class="text-lg font-bold text-sign-green">Conference Center</p>
+                </div>
+              )}
+            </div>
+
+            <!-- Amenities -->
+            {lodge.amenities && lodge.amenities.length > 0 && (
+              <div class="mb-6">
+                <p class="text-sm font-semibold text-brand-brown/60 mb-3">AMENITIES</p>
+                <div class="flex flex-wrap gap-2">
+                  {lodge.amenities.map((amenity) => (
+                    <span class="text-sm bg-brand-cream text-brand-brown px-3 py-1 rounded-sm border border-brand-brown/20">
+                      {amenity}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {lodge.priceRange && (
+              <p class="text-lg font-bold text-brand-brown mb-4">
+                {formatPriceRange(lodge.priceRange)}
+              </p>
+            )}
+
+            <a
+              href={lodge.bookingUrl || reservationUrl}
+              class="inline-block bg-brand-orange hover:bg-brand-orange/90 text-white font-bold py-3 px-6 rounded-sm transition-colors"
+              rel="noopener noreferrer"
+              target="_blank"
+              aria-label={`Reserve room at ${lodge.name}`}
+            >
+              Reserve Room
+            </a>
+          </article>
+        ))}
+      </div>
+    )}
+
+    <!-- Campgrounds -->
+    {facilities?.camping?.campgrounds && facilities.camping.campgrounds.length > 0 && (
+      <div class="mb-16">
+        <h3 class="font-display text-3xl font-bold text-brand-brown mb-6 border-l-4 border-l-sign-green pl-4">
+          ⛺ Campgrounds
+        </h3>
+
+        {facilities.camping.campgrounds.map((campground) => (
+          <article class="bg-white rounded-sm border-2 border-brand-brown p-6 mb-6">
+            <div class="flex items-start justify-between mb-4">
+              <h4 class="font-display text-2xl font-bold text-brand-brown">
+                {campground.name}
+              </h4>
+              {campground.accessible && (
+                <span
+                  class="text-blue-700 text-sm font-semibold"
+                  aria-label="ADA Accessible sites available"
+                  title="ADA Accessible Sites Available"
+                >
+                  ♿ ADA Sites {campground.accessibleSiteCount && `(${campground.accessibleSiteCount})`}
+                </span>
+              )}
+            </div>
+
+            <!-- Hookup Types -->
+            <div class="mb-6">
+              <p class="text-sm font-semibold text-brand-brown/60 mb-3">HOOKUP TYPES AVAILABLE</p>
+              <div class="flex flex-wrap gap-3">
+                {campground.hookupTypes.map((hookup) => (
+                  <span class="text-sm bg-sign-green text-white px-3 py-2 rounded-sm font-semibold">
+                    {capitalize(hookup)}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+              <div class="text-center p-4 bg-sign-green/10 rounded-sm">
+                <p class="text-3xl font-black text-sign-green">{campground.siteCount}</p>
+                <p class="text-sm font-semibold text-brand-brown mt-1">Total Sites</p>
+              </div>
+              {campground.bathhouse && (
+                <div class="text-center p-4 bg-brand-cream rounded-sm border border-brand-brown/20">
+                  <p class="text-2xl font-black text-brand-brown">✓</p>
+                  <p class="text-sm font-semibold text-brand-brown mt-1">Bathhouse</p>
+                </div>
+              )}
+              {campground.dumpStation && (
+                <div class="text-center p-4 bg-brand-cream rounded-sm border border-brand-brown/20">
+                  <p class="text-2xl font-black text-brand-brown">✓</p>
+                  <p class="text-sm font-semibold text-brand-brown mt-1">Dump Station</p>
+                </div>
+              )}
+              {campground.maxRVLength && (
+                <div class="text-center p-4 bg-brand-cream rounded-sm border border-brand-brown/20">
+                  <p class="text-2xl font-black text-brand-brown">{campground.maxRVLength}</p>
+                  <p class="text-sm font-semibold text-brand-brown mt-1">Max RV</p>
+                </div>
+              )}
+            </div>
+
+            <!-- Amenities -->
+            {campground.amenities && campground.amenities.length > 0 && (
+              <div class="mb-6">
+                <p class="text-sm font-semibold text-brand-brown/60 mb-3">CAMPGROUND AMENITIES</p>
+                <div class="flex flex-wrap gap-3">
+                  {campground.amenities.map((amenity) => (
+                    <span class="text-sm bg-brand-cream text-brand-brown px-3 py-1 rounded-sm border border-brand-brown/20">
+                      {amenity}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            <!-- Fees & Season -->
+            <div class="border-t border-brand-brown/20 pt-4">
+              {campground.fees && (
+                <p class="text-lg font-bold text-brand-brown mb-2">
+                  {campground.fees}
+                </p>
+              )}
+              {campground.season && (
+                <p class="text-sm text-brand-brown/80 mb-4">
+                  <strong>Season:</strong> {formatSeason(campground.season)}
+                </p>
+              )}
+              <a
+                href={campground.bookingUrl || reservationUrl}
+                class="inline-block bg-brand-orange hover:bg-brand-orange/90 text-white font-bold py-3 px-6 rounded-sm transition-colors"
+                rel="noopener noreferrer"
+                target="_blank"
+                aria-label={`Reserve campsite at ${campground.name}`}
+              >
+                Reserve Campsite
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+    )}
+
+    <!-- Picnic Areas -->
+    {facilities?.picnicAreas && facilities.picnicAreas.length > 0 && (
+      <div class="mb-16">
+        <h3 class="font-display text-3xl font-bold text-brand-brown mb-6 border-l-4 border-l-sign-green pl-4">
+          👥 Picnic Areas
+        </h3>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {facilities.picnicAreas.map((area) => (
+            <article class="bg-white rounded-sm border border-brand-brown/20 p-5">
+              <div class="flex items-start justify-between mb-3">
+                <h4 class="font-display text-lg font-bold text-brand-brown">
+                  {area.name}
+                </h4>
+                <div class="flex gap-2">
+                  {area.accessible && (
+                    <span
+                      class="text-blue-700 text-xs"
+                      aria-label="ADA Accessible"
+                      title="ADA Accessible"
+                    >
+                      ♿
+                    </span>
+                  )}
+                  {area.reservable && (
+                    <span class="text-xs bg-brand-orange/10 text-brand-orange px-2 py-1 rounded-sm">
+                      Reservable
+                    </span>
+                  )}
+                </div>
+              </div>
+
+              {area.description && (
+                <p class="text-sm text-brand-brown/80 mb-3 font-body">
+                  {area.description}
+                </p>
+              )}
+
+              <div class="grid grid-cols-2 gap-4 mb-3">
+                <div>
+                  <p class="text-xs text-brand-brown/60">Capacity</p>
+                  <p class="text-lg font-bold text-brand-brown">{area.capacity} people</p>
+                </div>
+                {area.shelterCount > 0 && (
+                  <div>
+                    <p class="text-xs text-brand-brown/60">Shelters</p>
+                    <p class="text-lg font-bold text-brand-brown">{area.shelterCount}</p>
+                  </div>
+                )}
+              </div>
+
+              <div class="flex flex-wrap gap-2 mb-3">
+                {area.grills && (
+                  <span class="text-xs bg-brand-brown/10 text-brand-brown px-2 py-1 rounded-sm">
+                    Grills
+                  </span>
+                )}
+                {area.electricity && (
+                  <span class="text-xs bg-sign-green/10 text-sign-green px-2 py-1 rounded-sm">
+                    Electricity
+                  </span>
+                )}
+              </div>
+
+              {area.rentalFee && (
+                <p class="text-sm font-bold text-brand-brown">
+                  {area.rentalFee}
+                </p>
+              )}
+            </article>
+          ))}
+        </div>
+      </div>
+    )}
+
+    <!-- Swimming Pools -->
+    {facilities?.pools && facilities.pools.length > 0 && (
+      <div class="mb-16">
+        <h3 class="font-display text-3xl font-bold text-brand-brown mb-6 border-l-4 border-l-sign-green pl-4">
+          🏊 Swimming Pools
+        </h3>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {facilities.pools.map((pool) => (
+            <article class="bg-white rounded-sm border-2 border-blue-700/20 p-6">
+              <div class="flex items-start justify-between mb-3">
+                <h4 class="font-display text-xl font-bold text-brand-brown">
+                  {pool.name || `${capitalize(pool.type.replace('_', ' '))} Pool`}
+                </h4>
+                <span class="text-sm bg-blue-700 text-white px-3 py-1 rounded-sm font-semibold">
+                  {capitalize(pool.type.replace('_', ' '))}
+                </span>
+              </div>
+
+              {pool.depth && (
+                <p class="text-sm text-brand-brown/80 mb-2">
+                  <strong>Depth:</strong> {pool.depth}
+                </p>
+              )}
+
+              {pool.lifeguard && (
+                <p class="text-sm text-sign-green font-semibold mb-3">
+                  ✓ Lifeguard on Duty
+                </p>
+              )}
+
+              {pool.features && pool.features.length > 0 && (
+                <div class="mb-4">
+                  <p class="text-xs font-semibold text-brand-brown/60 mb-2">FEATURES</p>
+                  <div class="flex flex-wrap gap-2">
+                    {pool.features.map((feature) => (
+                      <span class="text-xs bg-blue-700/10 text-blue-700 px-2 py-1 rounded-sm">
+                        {feature}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {pool.seasonalOperation && (
+                <p class="text-sm text-brand-brown/80 mb-3">
+                  <strong>Season:</strong> {pool.seasonalOperation}
+                </p>
+              )}
+
+              {pool.fees && (
+                <p class="text-lg font-bold text-brand-brown">
+                  {pool.fees}
+                </p>
+              )}
+
+              {pool.accessible && (
+                <p class="text-sm text-blue-700 font-semibold mt-3">
+                  ♿ ADA Accessible
+                </p>
+              )}
+            </article>
+          ))}
+        </div>
+      </div>
+    )}
+
+    <!-- Other Amenities -->
+    {facilities?.otherAmenities && facilities.otherAmenities.length > 0 && (
+      <div>
+        <h3 class="font-display text-3xl font-bold text-brand-brown mb-6 border-l-4 border-l-sign-green pl-4">
+          Additional Amenities
+        </h3>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {facilities.otherAmenities.map((amenity) => (
+            <div class="bg-white rounded-sm border border-brand-brown/20 p-5">
+              <h4 class="font-display text-lg font-bold text-brand-brown mb-2">
+                {amenity.name || amenity.type.split('_').map(w => capitalize(w)).join(' ')}
+              </h4>
+
+              {amenity.description && (
+                <p class="text-sm text-brand-brown/80 mb-3 font-body">
+                  {amenity.description}
+                </p>
+              )}
+
+              {amenity.fees && (
+                <p class="text-sm font-bold text-brand-brown mb-2">
+                  {amenity.fees}
+                </p>
+              )}
+
+              {amenity.seasonal && amenity.season && (
+                <p class="text-xs text-brand-brown/60">
+                  Seasonal: {amenity.season}
+                </p>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  /* Morning Mist Lift Animation - respects prefers-reduced-motion */
+  @media (prefers-reduced-motion: no-preference) {
+    @keyframes mist-lift {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    article {
+      animation: mist-lift 0.6s ease-out forwards;
+    }
+
+    article:nth-child(2) { animation-delay: 0.1s; }
+    article:nth-child(3) { animation-delay: 0.2s; }
+    article:nth-child(4) { animation-delay: 0.3s; }
+  }
+</style>

@@ -1,0 +1,342 @@
+---
+/**
+ * Park Overview Section Component
+ * SPEC-18 Phase 2.4: State Park Overview Display
+ *
+ * Displays essential park information:
+ * - Operating hours (with seasonal variations)
+ * - Day-use fees
+ * - Contact information (phone, email, address)
+ * - Managing agency (WV State Parks)
+ * - Park alerts/closures
+ *
+ * WVWO Aesthetics:
+ * - Font: font-display (Bitter), font-body (Noto Sans)
+ * - Borders: rounded-sm ONLY, border-l-4 accents
+ * - Colors: brand-brown, sign-green, brand-cream, brand-orange
+ * - Voice: Kim's authentic WV
+ */
+
+import type { ParkOverview } from '@/types/state-park-template-types';
+
+interface Props {
+  overview: ParkOverview;
+  alerts?: Array<{
+    type: 'info' | 'warning' | 'closure';
+    message: string;
+    date?: string;
+  }>;
+}
+
+const { overview, alerts } = Astro.props;
+
+// Format phone for click-to-call
+const phoneLink = overview.contact.phone
+  ? `tel:${overview.contact.phone.replace(/\D/g, '')}`
+  : null;
+
+// Helper: Get alert color based on type
+const getAlertColor = (type: string) => {
+  switch (type) {
+    case 'closure':
+      return 'border-l-red-700 bg-red-50';
+    case 'warning':
+      return 'border-l-brand-orange bg-brand-orange/5';
+    case 'info':
+    default:
+      return 'border-l-blue-700 bg-blue-50';
+  }
+};
+---
+
+<section
+  class="py-16 bg-white"
+  aria-labelledby="overview-heading"
+>
+  <div class="container mx-auto px-4">
+    <h2
+      id="overview-heading"
+      class="font-display text-4xl md:text-5xl font-black text-brand-brown mb-12"
+    >
+      Plan Your Visit
+    </h2>
+
+    <!-- Park Alerts (if any) -->
+    {alerts && alerts.length > 0 && (
+      <div
+        class="mb-12"
+        role="region"
+        aria-live="polite"
+        aria-label="Park alerts and notifications"
+      >
+        <h3 class="font-display text-2xl font-bold text-brand-brown mb-4">
+          Current Alerts
+        </h3>
+        <div class="space-y-4">
+          {alerts.map((alert) => (
+            <div class={`rounded-sm border-l-4 p-4 ${getAlertColor(alert.type)}`}>
+              <div class="flex items-start gap-3">
+                <span class="text-2xl flex-shrink-0">
+                  {alert.type === 'closure' ? '🚫' : alert.type === 'warning' ? '⚠️' : 'ℹ️'}
+                </span>
+                <div>
+                  <p class="font-body text-brand-brown">
+                    {alert.message}
+                  </p>
+                  {alert.date && (
+                    <p class="text-sm text-brand-brown/60 mt-1">
+                      {alert.date}
+                    </p>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+
+    <div class="grid lg:grid-cols-2 gap-8">
+      <!-- Operating Hours -->
+      <div class="bg-brand-cream rounded-sm border-l-4 border-l-sign-green p-6">
+        <h3 class="font-display text-2xl font-bold text-brand-brown mb-4 flex items-center gap-2">
+          🕐 Operating Hours
+        </h3>
+
+        <div class="space-y-4">
+          <div>
+            <p class="font-body text-brand-brown">
+              <strong>General Park Hours:</strong> {overview.operatingHours.general}
+            </p>
+          </div>
+
+          {overview.operatingHours.dayUse && (
+            <div>
+              <p class="font-body text-brand-brown">
+                <strong>Day-Use Hours:</strong> {overview.operatingHours.dayUse}
+              </p>
+            </div>
+          )}
+
+          {overview.operatingHours.overnightCamping && (
+            <div>
+              <p class="text-sm text-sign-green font-semibold">
+                ✓ Overnight Camping Available
+              </p>
+            </div>
+          )}
+
+          {overview.operatingHours.seasonalHours && overview.operatingHours.seasonalHours.length > 0 && (
+            <div class="mt-4 pt-4 border-t border-brand-brown/20">
+              <p class="text-sm font-semibold text-brand-brown/60 mb-3">SEASONAL VARIATIONS</p>
+              <div class="space-y-3">
+                {overview.operatingHours.seasonalHours.map((season) => (
+                  <div class="text-sm">
+                    <p class="font-semibold text-brand-brown mb-1">
+                      {season.season}
+                    </p>
+                    <p class="text-brand-brown/80">
+                      {season.startDate} - {season.endDate}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {overview.operatingHours.facilityHours && Object.keys(overview.operatingHours.facilityHours).length > 0 && (
+            <div class="mt-4 pt-4 border-t border-brand-brown/20">
+              <p class="text-sm font-semibold text-brand-brown/60 mb-3">FACILITY HOURS</p>
+              <div class="space-y-2">
+                {Object.entries(overview.operatingHours.facilityHours).map(([facility, hours]) => (
+                  <div class="flex items-center justify-between text-sm">
+                    <span class="text-brand-brown">{facility}:</span>
+                    <span class="text-brand-brown/80 font-semibold">{hours}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
+      <!-- Contact Information -->
+      <div class="bg-brand-cream rounded-sm border-l-4 border-l-sign-green p-6">
+        <h3 class="font-display text-2xl font-bold text-brand-brown mb-4 flex items-center gap-2">
+          📞 Contact Information
+        </h3>
+
+        <div class="space-y-4">
+          {overview.contact.phone && (
+            <div>
+              <p class="text-sm text-brand-brown/60 mb-1">Phone</p>
+              <a
+                href={phoneLink}
+                class="font-display text-xl font-bold text-brand-orange hover:text-brand-orange/80 transition-colors"
+              >
+                {overview.contact.phone}
+              </a>
+            </div>
+          )}
+
+          {overview.contact.email && (
+            <div>
+              <p class="text-sm text-brand-brown/60 mb-1">Email</p>
+              <a
+                href={`mailto:${overview.contact.email}`}
+                class="text-brand-brown hover:text-sign-green transition-colors font-body"
+              >
+                {overview.contact.email}
+              </a>
+            </div>
+          )}
+
+          {overview.contact.address && (
+            <div>
+              <p class="text-sm text-brand-brown/60 mb-1">Address</p>
+              <p class="font-body text-brand-brown">
+                {overview.contact.address}
+              </p>
+            </div>
+          )}
+
+          {overview.county && (
+            <div>
+              <p class="text-sm text-brand-brown/60 mb-1">County</p>
+              <p class="font-body text-brand-brown">
+                {overview.county}
+              </p>
+            </div>
+          )}
+
+          {overview.region && (
+            <div>
+              <p class="text-sm text-brand-brown/60 mb-1">Region</p>
+              <p class="font-body text-brand-brown">
+                {overview.region}
+              </p>
+            </div>
+          )}
+
+          {overview.nearestTown && (
+            <div>
+              <p class="text-sm text-brand-brown/60 mb-1">Nearest Town</p>
+              <p class="font-body text-brand-brown">
+                {overview.nearestTown}
+              </p>
+            </div>
+          )}
+
+          {overview.distanceFromCity && (
+            <div>
+              <p class="text-sm text-brand-brown/60 mb-1">Driving Distance</p>
+              <p class="font-body text-brand-brown">
+                {overview.distanceFromCity}
+              </p>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+
+    <!-- Day-Use Fees -->
+    {overview.dayUseFees && overview.dayUseFees.required && (
+      <div class="mt-8 bg-white rounded-sm border-2 border-brand-brown p-6">
+        <h3 class="font-display text-2xl font-bold text-brand-brown mb-4">
+          💵 Day-Use Fees
+        </h3>
+
+        <div class="space-y-3">
+          {overview.dayUseFees.amount && (
+            <p class="font-body text-brand-brown">
+              <strong>Fee:</strong> {overview.dayUseFees.amount}
+            </p>
+          )}
+
+          {overview.dayUseFees.details && (
+            <p class="text-sm text-brand-brown/80 font-body">
+              {overview.dayUseFees.details}
+            </p>
+          )}
+
+          <p class="text-sm text-sign-green font-semibold">
+            💳 Annual park passes available - great value for frequent visitors!
+          </p>
+        </div>
+      </div>
+    )}
+
+    <!-- Managing Agency -->
+    <div class="mt-8 bg-gradient-to-br from-brand-brown/5 to-sign-green/5 rounded-sm border border-brand-brown/20 p-6">
+      <h3 class="font-display text-xl font-bold text-brand-brown mb-4">
+        Managed By
+      </h3>
+
+      <div class="flex flex-col md:flex-row items-start md:items-center gap-4">
+        <div class="flex-grow">
+          <p class="font-display text-2xl font-bold text-brand-brown mb-1">
+            {overview.managingAgency.name}
+          </p>
+          <p class="text-sm text-brand-brown/80 mb-3">
+            {overview.managingAgency.jurisdiction}
+          </p>
+
+          <div class="space-y-2 text-sm">
+            {overview.managingAgency.phone && (
+              <p>
+                <strong>Phone:</strong>{' '}
+                <a
+                  href={`tel:${overview.managingAgency.phone.replace(/\D/g, '')}`}
+                  class="text-brand-orange hover:text-brand-orange/80"
+                >
+                  {overview.managingAgency.phone}
+                </a>
+              </p>
+            )}
+
+            {overview.managingAgency.email && (
+              <p>
+                <strong>Email:</strong>{' '}
+                <a
+                  href={`mailto:${overview.managingAgency.email}`}
+                  class="text-brand-orange hover:text-brand-orange/80"
+                >
+                  {overview.managingAgency.email}
+                </a>
+              </p>
+            )}
+
+            {overview.managingAgency.website && (
+              <p>
+                <a
+                  href={overview.managingAgency.website}
+                  class="text-sign-green hover:text-sign-green/80 font-semibold"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  Visit Official Website →
+                </a>
+              </p>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Smooth focus states for accessibility */
+  a:focus-visible {
+    outline: 2px solid theme('colors.brand-orange');
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  /* Respect reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      transition: none !important;
+    }
+  }
+</style>

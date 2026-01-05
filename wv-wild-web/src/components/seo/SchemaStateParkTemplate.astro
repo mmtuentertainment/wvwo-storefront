@@ -1,0 +1,407 @@
+---
+/**
+ * Schema.org State Park Template Component
+ * SPEC-18 Phase 3.2: Structured data for state park pages
+ *
+ * @graph Structure (8 entities):
+ * 1. Organization (WV Wild Outdoors as publisher)
+ * 2. StateGovernmentOrganization (WV State Parks managing agency)
+ * 3. Park + TouristAttraction (dual @type)
+ * 4. Article (page content metadata)
+ * 5. BreadcrumbList (Home > State Parks > {name})
+ * 6. ImageObject (hero with credit/license)
+ * 7. OpeningHoursSpecification (seasonal hours)
+ * 8. AmenityFeature array (20+ LocationFeatureSpecification)
+ *
+ * PropertyValue Extensions:
+ * - campsite_count, trail_miles, cabin_count, acreage
+ *
+ * SEO Compliance:
+ * - Schema.org validation via Google Rich Results Test
+ * - OpenGraph and Twitter Card meta tags
+ * - Canonical URLs
+ */
+
+import type { StateParkTemplateProps } from '@/types/state-park-template-types';
+
+interface Props {
+  park: StateParkTemplateProps;
+  canonicalUrl: string;
+  heroImage?: {
+    src: string;
+    width: number;
+    height: number;
+    alt: string;
+    credit?: string;
+    license?: string;
+  };
+}
+
+const { park, canonicalUrl, heroImage } = Astro.props;
+
+// Build Organization schema (WV Wild Outdoors as publisher)
+const publisherOrg = {
+  '@type': 'Organization',
+  '@id': 'https://www.wvwildoutdoors.com/#organization',
+  name: 'WV Wild Outdoors',
+  url: 'https://www.wvwildoutdoors.com',
+  logo: {
+    '@type': 'ImageObject',
+    url: 'https://www.wvwildoutdoors.com/images/wvwo-logo.png',
+    width: 600,
+    height: 60,
+  },
+  sameAs: [
+    'https://www.facebook.com/wvwildoutdoors',
+  ],
+};
+
+// Build managing agency schema (WV State Parks)
+const managingAgency = {
+  '@type': 'StateGovernmentOrganization',
+  '@id': park.overview.managingAgency.website ? `${park.overview.managingAgency.website}#organization` : 'https://wvstateparks.com/#organization',
+  name: park.overview.managingAgency.name,
+  url: park.overview.managingAgency.website || 'https://wvstateparks.com',
+  telephone: park.overview.managingAgency.phone,
+  email: park.overview.managingAgency.email,
+  address: park.overview.managingAgency.address ? {
+    '@type': 'PostalAddress',
+    addressLocality: 'Charleston',
+    addressRegion: 'WV',
+    addressCountry: 'US',
+  } : undefined,
+};
+
+// Build seasonal opening hours
+const buildOpeningHours = () => {
+  if (!park.overview.operatingHours.seasonalHours || park.overview.operatingHours.seasonalHours.length === 0) {
+    return [];
+  }
+
+  return park.overview.operatingHours.seasonalHours.map((season) => ({
+    '@type': 'OpeningHoursSpecification',
+    validFrom: season.startDate,
+    validThrough: season.endDate,
+    dayOfWeek: [
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+      'Sunday',
+    ],
+    opens: season.opens || '08:00',  // Default 8 AM if not specified
+    closes: season.closes || '20:00', // Default 8 PM if not specified
+  }));
+};
+
+// Pre-calculate totals used in multiple places
+const totalCampsites = park.facilities?.camping?.campgrounds?.reduce(
+  (sum, cg) => sum + (cg.siteCount || 0), 0
+) || 0;
+
+// Build amenity features (20+ facilities)
+const buildAmenityFeatures = () => {
+  const amenities = [];
+
+  // Lodging amenities
+  if (park.facilities?.lodging?.cabins && park.facilities.lodging.cabins.length > 0) {
+    amenities.push({
+      '@type': 'LocationFeatureSpecification',
+      name: 'Rental Cabins',
+      value: park.facilities.lodging.cabins.length,
+      unitText: 'cabins',
+    });
+  }
+
+  if (park.facilities?.lodging?.lodges && park.facilities.lodging.lodges.length > 0) {
+    amenities.push({
+      '@type': 'LocationFeatureSpecification',
+      name: 'Lodge Facilities',
+      value: park.facilities.lodging.lodges.length,
+      unitText: 'lodges',
+    });
+  }
+
+  // Camping amenities
+  if (totalCampsites > 0) {
+    amenities.push({
+      '@type': 'LocationFeatureSpecification',
+      name: 'Camping Sites',
+      value: totalCampsites,
+      unitText: 'sites',
+    });
+  }
+
+  // Trail amenities
+  if (park.trails?.trails && park.trails.trails.length > 0) {
+    amenities.push({
+      '@type': 'LocationFeatureSpecification',
+      name: 'Hiking Trails',
+      value: park.trails.trails.length,
+      unitText: 'trails',
+    });
+  }
+
+  if (park.trails?.totalMileage) {
+    amenities.push({
+      '@type': 'LocationFeatureSpecification',
+      name: 'Trail Miles',
+      value: park.trails.totalMileage,
+      unitText: 'miles',
+    });
+  }
+
+  // Other facilities
+  if (park.facilities?.picnicAreas && park.facilities.picnicAreas.length > 0) {
+    amenities.push({
+      '@type': 'LocationFeatureSpecification',
+      name: 'Picnic Areas',
+      value: park.facilities.picnicAreas.length,
+      unitText: 'areas',
+    });
+  }
+
+  if (park.facilities?.pools && park.facilities.pools.length > 0) {
+    amenities.push({
+      '@type': 'LocationFeatureSpecification',
+      name: 'Swimming Pool',
+    });
+  }
+
+  if (park.facilities?.boatLaunches && park.facilities.boatLaunches.length > 0) {
+    amenities.push({
+      '@type': 'LocationFeatureSpecification',
+      name: 'Boat Launch',
+    });
+  }
+
+  if (park.facilities?.visitorCenters && park.facilities.visitorCenters.length > 0) {
+    amenities.push({
+      '@type': 'LocationFeatureSpecification',
+      name: 'Visitor Center',
+    });
+  }
+
+  if (park.facilities?.natureCenters && park.facilities.natureCenters.length > 0) {
+    amenities.push({
+      '@type': 'LocationFeatureSpecification',
+      name: 'Nature Center',
+    });
+  }
+
+  if (park.facilities?.playgrounds && park.facilities.playgrounds.length > 0) {
+    amenities.push({
+      '@type': 'LocationFeatureSpecification',
+      name: 'Playground',
+    });
+  }
+
+  if (park.facilities?.amphitheaters && park.facilities.amphitheaters.length > 0) {
+    amenities.push({
+      '@type': 'LocationFeatureSpecification',
+      name: 'Amphitheater',
+    });
+  }
+
+  // Accessibility amenities
+  if (park.accessibility?.accessibleTrails && park.accessibility.accessibleTrails.length > 0) {
+    amenities.push({
+      '@type': 'LocationFeatureSpecification',
+      name: 'Accessible Trails',
+      value: park.accessibility.accessibleTrails.length,
+      unitText: 'trails',
+    });
+  }
+
+  if (park.accessibility?.features && park.accessibility.features.includes('ada_restrooms')) {
+    amenities.push({
+      '@type': 'LocationFeatureSpecification',
+      name: 'ADA-Compliant Restrooms',
+    });
+  }
+
+  if (park.accessibility?.features && park.accessibility.features.includes('wheelchair_accessible_trails')) {
+    amenities.push({
+      '@type': 'LocationFeatureSpecification',
+      name: 'Wheelchair Accessible Facilities',
+    });
+  }
+
+  // Activities
+  if (park.activitiesPrograms?.rangerPrograms && park.activitiesPrograms.rangerPrograms.length > 0) {
+    amenities.push({
+      '@type': 'LocationFeatureSpecification',
+      name: 'Ranger-Led Programs',
+    });
+  }
+
+  if (park.activitiesPrograms?.juniorRanger) {
+    amenities.push({
+      '@type': 'LocationFeatureSpecification',
+      name: 'Junior Ranger Program',
+    });
+  }
+
+  return amenities;
+};
+
+// Build PropertyValue extensions for custom metrics
+const buildAdditionalProperties = () => {
+  const properties = [];
+
+  if (park.hero.acreage) {
+    properties.push({
+      '@type': 'PropertyValue',
+      name: 'Total Acreage',
+      value: park.hero.acreage,
+      unitText: 'acres',
+    });
+  }
+
+  if (totalCampsites > 0) {
+    properties.push({
+      '@type': 'PropertyValue',
+      name: 'Campsite Count',
+      value: totalCampsites,
+    });
+  }
+
+  if (park.facilities?.lodging?.cabins && park.facilities.lodging.cabins.length > 0) {
+    properties.push({
+      '@type': 'PropertyValue',
+      name: 'Cabin Count',
+      value: park.facilities.lodging.cabins.length,
+    });
+  }
+
+  if (park.trails?.totalMileage) {
+    properties.push({
+      '@type': 'PropertyValue',
+      name: 'Trail Miles',
+      value: park.trails.totalMileage,
+      unitText: 'miles',
+    });
+  }
+
+  if (park.hero.established) {
+    properties.push({
+      '@type': 'PropertyValue',
+      name: 'Year Established',
+      value: park.hero.established,
+    });
+  }
+
+  return properties;
+};
+
+// Build main park schema with dual @type
+const parkSchema = {
+  '@type': ['Park', 'TouristAttraction'],
+  '@id': `${canonicalUrl}#park`,
+  name: park.hero.name,
+  description: park.hero.tagline || `Family-friendly state park in West Virginia offering outdoor recreation, trails, and natural beauty.`,
+  url: canonicalUrl,
+  image: heroImage
+    ? {
+        '@type': 'ImageObject',
+        '@id': `${canonicalUrl}#heroImage`,
+        url: heroImage.src,
+        width: heroImage.width,
+        height: heroImage.height,
+        caption: heroImage.alt,
+        creator: heroImage.credit,
+        license: heroImage.license,
+      }
+    : undefined,
+  address: park.overview.contact.address
+    ? {
+        '@type': 'PostalAddress',
+        streetAddress: park.overview.contact.address,
+        addressRegion: 'WV',
+        addressCountry: 'US',
+      }
+    : undefined,
+  geo: park.overview.coordinates
+    ? {
+        '@type': 'GeoCoordinates',
+        latitude: park.overview.coordinates.lat,
+        longitude: park.overview.coordinates.lng,
+      }
+    : undefined,
+  telephone: park.overview.contact.phone,
+  email: park.overview.contact.email,
+  openingHoursSpecification: buildOpeningHours(),
+  amenityFeature: buildAmenityFeatures(),
+  additionalProperty: buildAdditionalProperties(),
+  petsAllowed: park.regulations?.petPolicy?.allowed !== false,
+  smokingAllowed: false,
+  publicAccess: true,
+  isAccessibleForFree: !park.overview.dayUseFees?.required,
+  managedBy: {
+    '@id': park.overview.managingAgency.website ? `${park.overview.managingAgency.website}#organization` : 'https://wvstateparks.com/#organization',
+  },
+};
+
+// Build Article schema for page content
+const articleSchema = {
+  '@type': 'Article',
+  '@id': `${canonicalUrl}#article`,
+  headline: `${park.hero.name} - Complete Visitor Guide`,
+  description: park.hero.tagline || `Plan your visit to ${park.hero.name} with this comprehensive guide.`,
+  author: {
+    '@id': 'https://www.wvwildoutdoors.com/#organization',
+  },
+  publisher: {
+    '@id': 'https://www.wvwildoutdoors.com/#organization',
+  },
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': canonicalUrl,
+  },
+  // datePublished and dateModified removed - will add when content metadata available
+  image: heroImage
+    ? {
+        '@id': `${canonicalUrl}#heroImage`,
+      }
+    : undefined,
+  about: {
+    '@id': `${canonicalUrl}#park`,
+  },
+};
+
+// Build BreadcrumbList schema
+const breadcrumbSchema = {
+  '@type': 'BreadcrumbList',
+  '@id': `${canonicalUrl}#breadcrumb`,
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: 'https://www.wvwildoutdoors.com',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'State Parks',
+      item: 'https://www.wvwildoutdoors.com/state-parks',
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: park.hero.name,
+      item: canonicalUrl,
+    },
+  ],
+};
+
+// Assemble complete @graph
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [publisherOrg, managingAgency, parkSchema, articleSchema, breadcrumbSchema],
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

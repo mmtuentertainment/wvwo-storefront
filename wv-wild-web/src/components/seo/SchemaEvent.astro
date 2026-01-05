@@ -1,0 +1,100 @@
+---
+/**
+ * Schema.org Event Component
+ * SPEC-18 Phase 3.4: Event schema for ranger programs and park events
+ *
+ * Features:
+ * - Event schema for Google events carousel
+ * - EducationEvent, SocialEvent, FestivalEvent support
+ * - eventSchedule, location, offers, isAccessibleForFree properties
+ * - Performer, organizer, audience metadata
+ *
+ * Event Types:
+ * - EducationEvent: Ranger programs, workshops, Junior Ranger
+ * - SocialEvent: Community gatherings, festivals
+ * - FestivalEvent: Seasonal celebrations
+ *
+ * @see https://schema.org/Event
+ * @see https://developers.google.com/search/docs/appearance/structured-data/event
+ */
+
+import type { ParkEvent } from '@/types/state-park-seo-types';
+
+interface Props {
+  event: ParkEvent;
+  pageUrl: string;
+}
+
+const { event, pageUrl } = Astro.props;
+
+// Build location schema
+const buildLocation = () => {
+  return {
+    '@type': 'Place',
+    name: event.location.name,
+    address: event.location.address
+      ? {
+          '@type': 'PostalAddress',
+          streetAddress: event.location.address,
+          addressRegion: 'WV',
+          addressCountry: 'US',
+        }
+      : undefined,
+  };
+};
+
+// Build offers schema
+const buildOffers = () => {
+  if (!event.offers) {
+    return {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+      availability: 'https://schema.org/InStock',
+    };
+  }
+
+  return {
+    '@type': 'Offer',
+    price: event.offers.price,
+    priceCurrency: event.offers.priceCurrency || 'USD',
+    availability: event.offers.availability || 'https://schema.org/InStock',
+    validFrom: event.startDate,
+  };
+};
+
+// Build complete event schema
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': event['@type'] || 'Event',
+  name: event.name,
+  description: event.description,
+  startDate: event.startDate,
+  endDate: event.endDate || event.startDate,
+  eventStatus: event.eventStatus || 'https://schema.org/EventScheduled',
+  eventAttendanceMode:
+    event.eventAttendanceMode || 'https://schema.org/OfflineEventAttendanceMode',
+  location: buildLocation(),
+  organizer: {
+    '@type': 'Organization',
+    name: event.organizer?.name || 'WV State Parks',
+  },
+  offers: buildOffers(),
+  isAccessibleForFree: event.isAccessibleForFree !== false,
+  performer: event.performer
+    ? {
+        '@type': event.performer['@type'] || 'Person',
+        name: event.performer.name,
+      }
+    : undefined,
+  audience: event.audience
+    ? {
+        '@type': 'Audience',
+        audienceType: event.audience.audienceType,
+      }
+    : undefined,
+  url: pageUrl,
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />
