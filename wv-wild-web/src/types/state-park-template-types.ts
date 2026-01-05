@@ -593,10 +593,10 @@ export type StateParkTemplateProps = z.infer<typeof StateParkTemplatePropsSchema
 // ============================================================================
 
 /**
- * Type guard to check if adventure is state park template.
+ * Determines whether a value conforms to the StateParkTemplateProps shape.
  *
- * @param adventure - Collection entry
- * @returns true if state park template
+ * @param adventure - The value to test for the StateParkTemplateProps structure
+ * @returns `true` if `adventure` has the required `hero`, `overview`, and `regulations` fields, `false` otherwise
  */
 export function isStateParkTemplate(adventure: any): adventure is StateParkTemplateProps {
   if (!adventure) return false;
@@ -607,10 +607,10 @@ export function isStateParkTemplate(adventure: any): adventure is StateParkTempl
 }
 
 /**
- * Type guard to check if park has accessibility features.
+ * Determine whether the park defines any accessibility features.
  *
- * @param park - State park template props
- * @returns true if accessibility features exist
+ * @param park - The state park template props to inspect
+ * @returns `true` if `park.accessibility.features` exists and has at least one item, `false` otherwise
  */
 export function hasAccessibleFacilities(park: StateParkTemplateProps): boolean {
   return (
@@ -620,10 +620,9 @@ export function hasAccessibleFacilities(park: StateParkTemplateProps): boolean {
 }
 
 /**
- * Type guard to check if park has lodging.
+ * Determine whether the park includes lodging.
  *
- * @param park - State park template props
- * @returns true if lodging exists
+ * @returns `true` if the park defines cabins or lodges, `false` otherwise.
  */
 export function hasLodging(park: StateParkTemplateProps): boolean {
   return (
@@ -635,10 +634,10 @@ export function hasLodging(park: StateParkTemplateProps): boolean {
 }
 
 /**
- * Type guard to check if park has camping.
+ * Determines whether the park includes one or more campgrounds.
  *
- * @param park - State park template props
- * @returns true if camping exists
+ * @param park - State park template props to inspect
+ * @returns `true` if the park has one or more campgrounds, `false` otherwise.
  */
 export function hasCamping(park: StateParkTemplateProps): boolean {
   return (
@@ -648,10 +647,9 @@ export function hasCamping(park: StateParkTemplateProps): boolean {
 }
 
 /**
- * Type guard to check if park has water activities.
+ * Determines whether the park includes water-related facilities or activities.
  *
- * @param park - State park template props
- * @returns true if water activities exist
+ * @returns `true` if the park has pools, boat launches, or recreational activities of type `'swimming'`, `'boating'`, or `'fishing'`, `false` otherwise.
  */
 export function hasWaterActivities(park: StateParkTemplateProps): boolean {
   return (
