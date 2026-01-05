@@ -590,13 +590,18 @@ describe('Helper Functions', () => {
         schedule: 'Saturdays 7pm',
       };
 
-      const event = rangerProgramToEvent(program, 'Blackwater Falls State Park');
+      const event = rangerProgramToEvent(
+        program,
+        'Blackwater Falls State Park',
+        '2026-06-15T19:00:00-04:00'
+      );
 
       expect(event['@type']).toBe('EducationEvent');
       expect(event.name).toBe('Owl Prowl Night Hike');
       expect(event.location['@type']).toBe('Place');
       expect(event.location.name).toBe('Blackwater Falls State Park');
       expect(event.isAccessibleForFree).toBe(true);
+      expect(event.startDate).toBe('2026-06-15T19:00:00-04:00');
     });
   });
 
