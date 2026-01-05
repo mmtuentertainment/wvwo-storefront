@@ -179,6 +179,7 @@ Hero section uses `bg-brand-brown/50` overlay on images:
 ```
 
 Estimated contrast ratios with overlay:
+
 - White on overlay: ~6.5:1 (PASS)
 - brand-cream on overlay: ~5.8:1 (PASS)
 
@@ -189,6 +190,7 @@ Estimated contrast ratios with overlay:
 ### 3.1 Focus Indicator Requirements
 
 All interactive elements MUST have visible focus states that:
+
 - Are clearly distinguishable from default state
 - Have sufficient contrast (3:1 minimum against adjacent colors)
 - Do not rely solely on color change
@@ -206,6 +208,7 @@ All interactive elements MUST have visible focus states that:
 ### 3.3 Focus States by Element Type
 
 #### External Links
+
 ```html
 <a
   href={bookingUrl}
@@ -224,6 +227,7 @@ All interactive elements MUST have visible focus states that:
 ```
 
 #### Booking Buttons (Primary CTA)
+
 ```html
 <a
   href={bookingUrl}
@@ -239,6 +243,7 @@ All interactive elements MUST have visible focus states that:
 ```
 
 #### Secondary Buttons
+
 ```html
 <a
   href={websiteUrl}
@@ -254,6 +259,7 @@ All interactive elements MUST have visible focus states that:
 ```
 
 #### Text Links
+
 ```html
 <a
   href={url}
@@ -414,6 +420,7 @@ Icons that convey meaning not duplicated in text:
 ### 5.3 Alt Text Patterns for Images
 
 #### Hero Image
+
 ```html
 <img
   src={image}
@@ -424,11 +431,13 @@ Icons that convey meaning not duplicated in text:
 ```
 
 Alt text requirements:
+
 - Descriptive but concise (125 characters max)
 - Conveys the purpose/content of the image
 - Does NOT start with "Image of" or "Photo of"
 
 #### Formation Images (if added in future)
+
 ```html
 <img
   src={formation.image}
@@ -438,6 +447,7 @@ Alt text requirements:
 ```
 
 #### Decorative Background Images
+
 ```html
 <!-- Applied via CSS, no alt needed -->
 <div class="bg-[url('/patterns/cave-texture.svg')]" role="presentation"></div>
@@ -446,6 +456,7 @@ Alt text requirements:
 ### 5.4 Screen Reader Announcements
 
 #### Live Regions (Future Enhancement)
+
 If adding dynamic content updates:
 
 ```html

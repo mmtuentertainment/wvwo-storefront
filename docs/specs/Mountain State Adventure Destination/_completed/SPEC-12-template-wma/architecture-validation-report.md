@@ -205,6 +205,7 @@ interface Props {
 ### Missing Component Specifications: **NONE** ✅
 
 All 6 components have:
+
 - ✅ Props interfaces defined
 - ✅ DOM structure documented
 - ✅ Tailwind styling specified
@@ -214,6 +215,7 @@ All 6 components have:
 ### Missing Schema Definitions: **NONE** ✅
 
 All 7 nested schemas defined:
+
 - ✅ SpeciesSchema (hunting)
 - ✅ FishingWaterSchema (fishing)
 - ✅ FacilitySchema (facilities)
@@ -305,6 +307,7 @@ All 7 nested schemas defined:
 ### Sample Test Specifications
 
 **Unit Test** (Schema):
+
 ```typescript
 test('SpeciesSchema rejects empty name', () => {
   expect(() => SpeciesSchema.parse({ name: '', season: 'Nov 1-15' }))
@@ -313,6 +316,7 @@ test('SpeciesSchema rejects empty name', () => {
 ```
 
 **E2E Test** (Component):
+
 ```typescript
 test('AdventureWhatToHunt hides when no species', async ({ page }) => {
   await page.goto('/wma/hunting-only');
@@ -321,6 +325,7 @@ test('AdventureWhatToHunt hides when no species', async ({ page }) => {
 ```
 
 **A11y Test** (Heading Hierarchy):
+
 ```typescript
 test('feature section has proper h2 → h3 hierarchy', async ({ page }) => {
   const h2 = page.locator('h2:has-text("What to Hunt")');
@@ -375,6 +380,7 @@ test('feature section has proper h2 → h3 hierarchy', async ({ page }) => {
 ### Architecture Quality Score: **98/100**
 
 **Breakdown**:
+
 - Component specifications: 100/100 (complete, detailed)
 - Schema design: 100/100 (type-safe, validated)
 - Type system: 100/100 (Zod inference + TypeScript)
@@ -386,6 +392,7 @@ test('feature section has proper h2 → h3 hierarchy', async ({ page }) => {
 - Documentation: 100/100 (detailed, implementation-ready)
 
 **Minor Deduction Reasons**:
+
 - Performance (97/100): Mapbox Static API key management not documented (minor)
 - Testing (95/100): Visual regression tool not finalized (Percy vs Playwright screenshots)
 

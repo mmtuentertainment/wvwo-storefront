@@ -21,11 +21,13 @@
 ### 1. MISMATCH: `@/types/river-template` (Line 61 in MIGRATION-STRATEGY-SPEC-45.md)
 
 **Documentation Reference**:
+
 ```typescript
 import type { RiverTemplateProps } from '@/types/river-template';
 ```
 
 **Actual Implementation**:
+
 ```typescript
 // File: wv-wild-web/src/types/adventure.ts (Line 484)
 export interface RiverTemplateProps {
@@ -34,6 +36,7 @@ export interface RiverTemplateProps {
 ```
 
 **Correct Import Path**:
+
 ```typescript
 import type { RiverTemplateProps } from '@/types/adventure';
 ```
@@ -41,6 +44,7 @@ import type { RiverTemplateProps } from '@/types/adventure';
 **Impact**: HIGH - This is the only actual mismatch. Developers following the migration guide will encounter type errors.
 
 **Files Affected**:
+
 - `docs/MIGRATION-STRATEGY-SPEC-45.md` (Line 61)
 
 ---
@@ -48,6 +52,7 @@ import type { RiverTemplateProps } from '@/types/adventure';
 ### 2. FUTURE PLACEHOLDER: `@/components/schema/SchemaRiverTemplate` (Line 134)
 
 **Documentation Reference**:
+
 ```typescript
 import SchemaRiverTemplate from '@/components/schema/SchemaRiverTemplate.astro';
 ```
@@ -55,6 +60,7 @@ import SchemaRiverTemplate from '@/components/schema/SchemaRiverTemplate.astro';
 **Actual Implementation**: DOES NOT EXIST YET
 
 **Current Schema Components**:
+
 - `wv-wild-web/src/components/seo/SchemaAdventureHero.astro` ✅
 - `wv-wild-web/src/components/seo/SchemaBreadcrumb.astro` ✅
 
@@ -150,6 +156,7 @@ export interface RiverTemplateProps {
 **File**: `wv-wild-web/src/types/river-types.ts`
 
 This file contains specialized river-specific schemas:
+
 - `OutfitterSchema` / `Outfitter`
 - `RapidSchema` / `Rapid`
 - `RiverFishingSchema` / `RiverFishing`
@@ -164,6 +171,7 @@ This file contains specialized river-specific schemas:
 ## Path Alias Configuration
 
 **tsconfig.json** (wv-wild-web):
+
 ```json
 {
   "compilerOptions": {
@@ -186,11 +194,13 @@ This file contains specialized river-specific schemas:
 **File**: `docs/MIGRATION-STRATEGY-SPEC-45.md`
 
 **Line 61 - BEFORE**:
+
 ```typescript
 import type { RiverTemplateProps } from '@/types/river-template';
 ```
 
 **Line 61 - AFTER**:
+
 ```typescript
 import type { RiverTemplateProps } from '@/types/adventure';
 ```
@@ -204,6 +214,7 @@ sed -i "s|from '@/types/river-template'|from '@/types/adventure'|g" \
 ```
 
 **OR** (for Windows PowerShell):
+
 ```powershell
 (Get-Content docs/MIGRATION-STRATEGY-SPEC-45.md) -replace "@/types/river-template", "@/types/adventure" | Set-Content docs/MIGRATION-STRATEGY-SPEC-45.md
 ```
@@ -286,6 +297,7 @@ Expected: No type errors related to `RiverTemplateProps` imports.
 ### River Type Duplication
 
 **OBSERVATION**: Some river-related types exist in BOTH files:
+
 - `RiverFishing`: In both `adventure.ts` (line 353) and `river-types.ts` (line 109)
 - `RiverAccessPoint`: In both `adventure.ts` (line 408) and `river-types.ts` (line 159)
 - `RiverSafety`: In both `adventure.ts` (line 423) and `river-types.ts` (line 172)
@@ -293,6 +305,7 @@ Expected: No type errors related to `RiverTemplateProps` imports.
 **STATUS**: This is intentional for backwards compatibility during SPEC-14 migration.
 
 **RECOMMENDATION**: After SPEC-14 completion, consolidate by:
+
 1. Keep all river types in `river-types.ts`
 2. Re-export from `adventure.ts` for backwards compatibility
 3. Update all imports to use `river-types.ts` in future specs

@@ -30,6 +30,7 @@
 ### ✅ **Covered Scenarios** (12 tests)
 
 **Happy Paths:**
+
 - ✅ Filter adventures by `type='river'`
 - ✅ Backward compatibility: Lake adventures still load
 - ✅ Backward compatibility: WMA adventures still load
@@ -38,11 +39,13 @@
 - ✅ WMA-specific fields validated (acreage, county, species)
 
 **Edge Cases:**
+
 - ✅ Empty river collection (no river content yet)
 - ✅ Content without type field allowed (optional)
 - ✅ Type validation: only ['adventure', 'wma', 'river', 'lake']
 
 **Performance:**
+
 - ✅ Collection query completes in <1000ms
 
 ### ❌ **Missing Test Scenarios** (Priority: P0-P1)
@@ -50,6 +53,7 @@
 #### P0 - Critical Schema Validation Gaps
 
 1. **River with Partial Fields**
+
    ```typescript
    // MISSING: River content with ONLY rapids, no fishing/outfitters
    const partialRiver = {
@@ -62,6 +66,7 @@
    ```
 
 2. **Invalid Rapid Class**
+
    ```typescript
    // MISSING: Should fail Zod validation
    const badRapid = {
@@ -72,6 +77,7 @@
    ```
 
 3. **Outfitter with No Contact Methods**
+
    ```typescript
    // MISSING: Should fail refine() validation
    const badOutfitter = {
@@ -86,6 +92,7 @@
    ```
 
 4. **Rapids Array Exceeding Max Length**
+
    ```typescript
    // MISSING: Should fail .max(50) validation (if defined in schema)
    const tooManyRapids = {
@@ -102,6 +109,7 @@
 ### ✅ **Covered Scenarios** (11 tests)
 
 **Type Guard Tests:**
+
 - ✅ Identify river adventures correctly (`type='river'`)
 - ✅ Reject WMA adventures
 - ✅ Reject generic adventures
@@ -109,17 +117,20 @@
 - ✅ Handle null/undefined/empty objects safely
 
 **Collection Filtering:**
+
 - ✅ Filter array by `type='river'`
 - ✅ Return empty array when no rivers exist
 - ✅ Handle mixed content (nulls, undefined) safely
 
 **Backward Compatibility:**
+
 - ✅ Don't break WMA content without river fields
 - ✅ Don't break legacy content without type field
 
 ### ❌ **Missing Test Scenarios** (Priority: P1)
 
-5. **River with Invalid Type Value**
+1. **River with Invalid Type Value**
+
    ```typescript
    // MISSING: Should fail literal type check
    const invalidType = {
@@ -128,7 +139,8 @@
    // Should: Not be identified as river adventure
    ```
 
-6. **Type Coercion Edge Cases**
+2. **Type Coercion Edge Cases**
+
    ```typescript
    // MISSING: Handle JavaScript type coercion
    const edgeCases = [
@@ -146,6 +158,7 @@
 ### ✅ **Covered Scenarios** (15 tests)
 
 **OutfitterSchema (8 tests):**
+
 - ✅ Accept phone-only contact
 - ✅ Accept email-only contact
 - ✅ Accept website-only contact
@@ -158,6 +171,7 @@
 - ✅ Reject invalid service types
 
 **RapidClassSchema (6 tests):**
+
 - ✅ Accept Class I-VI
 - ✅ Accept Class II+ (plus modifier)
 - ✅ Accept Class III-IV (range)
@@ -166,6 +180,7 @@
 - ✅ Reject lowercase classes ('iii')
 
 **SeasonalFlowSchema (4 tests):**
+
 - ✅ Accept 'Low', 'Medium', 'High', 'Flood'
 - ✅ Reject 'Very Low' (not in enum)
 - ✅ Reject numeric values
@@ -173,7 +188,8 @@
 
 ### ❌ **Missing Test Scenarios** (Priority: P1-P2)
 
-7. **RapidSchema Hazards Max Length**
+1. **RapidSchema Hazards Max Length**
+
    ```typescript
    // MISSING: Test .max(10) validation on hazards array
    const tooManyHazards = {
@@ -184,14 +200,16 @@
    // Should: Fail validation
    ```
 
-8. **RiverFishingSchema Species Boundaries**
+2. **RiverFishingSchema Species Boundaries**
+
    ```typescript
    // MISSING: Test .min(1) and .max(15) on species array
    const noSpecies = { species: [] }; // Should fail
    const tooManySpecies = { species: Array(16).fill('Fish') }; // Should fail
    ```
 
-9. **Fishing Rating Boundary Values**
+3. **Fishing Rating Boundary Values**
+
    ```typescript
    // MISSING: Test rating edge cases
    const ratings = [
@@ -209,10 +227,12 @@
 ### ✅ **Covered Scenarios** (15 tests)
 
 **Structure Validation:**
+
 - ✅ Component file path defined
 - ✅ Props interface with required/optional fields
 
 **TouristAttraction+Place Schema:**
+
 - ✅ Valid entity structure with @type array
 - ✅ @id format with fragment identifier
 - ✅ additionalType: WaterBodyUsage
@@ -223,20 +243,24 @@
 - ✅ amenityFeature array included
 
 **Article Schema:**
+
 - ✅ Valid entity structure
 - ✅ Link to TouristAttraction via about property
 - ✅ author: Organization
 - ✅ publisher with logo: ImageObject
 
 **BreadcrumbList Schema:**
+
 - ✅ Valid entity with 3 items (Home → Rivers → River Name)
 - ✅ Absolute URLs for breadcrumb items
 
 **LocalBusiness Schema:**
+
 - ✅ Valid entity structure
 - ✅ Unique IDs for multiple outfitters
 
 **JSON-LD Syntax:**
+
 - ✅ Valid @graph structure with 4 entities
 - ✅ JSON.stringify/parse without errors
 
@@ -244,7 +268,8 @@
 
 #### P0 - SEO Critical Gaps
 
-10. **Missing Coordinates Handling**
+1. **Missing Coordinates Handling**
+
     ```typescript
     // MISSING: What happens when coordinates are undefined?
     const noCoords = {
@@ -256,7 +281,8 @@
     // Or: Default to county-level coordinates?
     ```
 
-11. **Empty Outfitters Array**
+2. **Empty Outfitters Array**
+
     ```typescript
     // MISSING: @graph should have 3 entities (no LocalBusiness)
     const noOutfitters = {
@@ -268,7 +294,8 @@
 
 #### P1 - Data Quality Gaps
 
-12. **Invalid URL Generation**
+1. **Invalid URL Generation**
+
     ```typescript
     // MISSING: Special characters in slug
     const specialChars = {
@@ -277,7 +304,8 @@
     // Should: Sanitize slug or throw validation error
     ```
 
-13. **Very Long River Names**
+2. **Very Long River Names**
+
     ```typescript
     // MISSING: Test name length limits
     const longName = {
@@ -286,7 +314,8 @@
     // Should: Truncate headline or handle gracefully
     ```
 
-14. **Missing publishedDate/updatedDate**
+3. **Missing publishedDate/updatedDate**
+
     ```typescript
     // MISSING: What happens when dates are undefined?
     const noDates = {
@@ -297,7 +326,8 @@
     // Should: Article schema omit datePublished/dateModified?
     ```
 
-15. **Outfitter Contact Validation**
+4. **Outfitter Contact Validation**
+
     ```typescript
     // MISSING: LocalBusiness with only phone (no email/website)
     const phoneOnly = {
@@ -318,24 +348,29 @@
 ### ✅ **Covered Scenarios** (11 tests)
 
 **Complete Schema Generation:**
+
 - ✅ @graph with all 5+ entities (Attraction, Article, Breadcrumb, 2 Outfitters)
 - ✅ Valid JSON-LD output (stringify/parse)
 
 **TouristAttraction Entity:**
+
 - ✅ All required properties included
 - ✅ warnings array (3 items)
 - ✅ amenityFeature array (4 items)
 
 **LocalBusiness Entities:**
+
 - ✅ ACE Adventure Resort with full contact info
 - ✅ River Expeditions with partial contact (no email)
 
 **Google Rich Results:**
+
 - ✅ TouristAttraction requirements (name, description, geo, address)
 - ✅ Article requirements (headline, author, publisher, dates)
 - ✅ LocalBusiness requirements (name, address)
 
 **Edge Cases:**
+
 - ✅ River without coordinates
 - ✅ River without outfitters (3 entities instead of 5)
 - ✅ Minimal required data only
@@ -344,7 +379,8 @@
 
 #### P0 - End-to-End Integration Gaps
 
-16. **Content Collections → SchemaRiverTemplate Flow**
+1. **Content Collections → SchemaRiverTemplate Flow**
+
     ```typescript
     // MISSING: Full pipeline test
     // 1. Fetch river from getCollection('adventures')
@@ -354,7 +390,8 @@
     // Should: Complete E2E test from content → SEO output
     ```
 
-17. **Invalid Content Causing Schema Failures**
+2. **Invalid Content Causing Schema Failures**
+
     ```typescript
     // MISSING: Error handling when river content is malformed
     const badRiver = {
@@ -366,14 +403,16 @@
 
 #### P1 - SEO Validation Gaps
 
-18. **Google Rich Results Test Validation**
+1. **Google Rich Results Test Validation**
+
     ```typescript
     // MISSING: Actual validation against Google's schema.org validator
     // Use https://search.google.com/test/rich-results API
     // Or: Validate against official JSON-LD schema
     ```
 
-19. **Breadcrumb Schema ↔ Visual Breadcrumb Matching**
+2. **Breadcrumb Schema ↔ Visual Breadcrumb Matching**
+
     ```typescript
     // MISSING: Ensure schema.org breadcrumbs match UI breadcrumbs
     // Compare:
@@ -387,19 +426,19 @@
 
 ### ❌ **Completely Missing Test Coverage**
 
-20. **`SchemaRiverTemplate.astro` Component Tests**
+1. **`SchemaRiverTemplate.astro` Component Tests**
     - **File**: Not found
     - **Missing**: Component rendering tests with Vitest + @astro/test
     - **Priority**: P1
     - **Why**: Validate component actually renders correct JSON-LD
 
-21. **`config.ts` River Schema Extension Tests**
+2. **`config.ts` River Schema Extension Tests**
     - **File**: Not found
     - **Missing**: Validation that `defineCollection` accepts river type
     - **Priority**: P1
     - **Why**: Ensure Astro content collections config is valid
 
-22. **Performance Tests for Large Rapids Arrays**
+3. **Performance Tests for Large Rapids Arrays**
     - **File**: Not found
     - **Missing**: Test with 50 rapids (max array size)
     - **Priority**: P2
@@ -522,6 +561,7 @@ describe('Performance: Large River Data', () => {
 ## Risk Assessment
 
 ### High Risk (P0 - Critical)
+
 - ❌ No E2E tests (Content → SEO)
 - ❌ Missing coordinates handling undefined
 - ❌ Outfitter contact validation gaps
@@ -530,6 +570,7 @@ describe('Performance: Large River Data', () => {
 **Impact**: Could ship with broken SEO or invalid schema.org markup.
 
 ### Medium Risk (P1 - Important)
+
 - ⚠️ No Google Rich Results validation
 - ⚠️ Breadcrumb schema ↔ UI mismatch not tested
 - ⚠️ URL generation with special characters not tested
@@ -537,6 +578,7 @@ describe('Performance: Large River Data', () => {
 **Impact**: SEO may work but not be optimal.
 
 ### Low Risk (P2 - Nice-to-Have)
+
 - 💡 Performance testing missing
 - 💡 Boundary value testing incomplete
 
@@ -549,6 +591,7 @@ describe('Performance: Large River Data', () => {
 ### Before Merging PR #73
 
 **Must Add (P0):**
+
 1. ✅ Add 4 schema validation tests to `collections.test.ts`
 2. ✅ Add 3 SEO edge case tests to `SchemaRiverTemplate.test.ts`
 3. ✅ Add 2 E2E tests (new file: `RiverTemplate.e2e.test.ts`)
@@ -557,16 +600,16 @@ describe('Performance: Large River Data', () => {
 
 ### Post-Merge (P1)
 
-4. ✅ Add Google Rich Results validation tests
-5. ✅ Add breadcrumb matching tests
-6. ✅ Add URL sanitization tests
+1. ✅ Add Google Rich Results validation tests
+2. ✅ Add breadcrumb matching tests
+3. ✅ Add URL sanitization tests
 
 **Estimated Time**: 3-4 hours
 
 ### Future Iterations (P2)
 
-7. ✅ Add performance tests for large datasets
-8. ✅ Add comprehensive boundary value tests
+1. ✅ Add performance tests for large datasets
+2. ✅ Add comprehensive boundary value tests
 
 **Estimated Time**: 2-3 hours
 

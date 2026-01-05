@@ -9,6 +9,7 @@
 ## 🚨 When to Execute Rollback
 
 ### Critical Issues (Immediate Rollback)
+
 - Page fails to render (500 error)
 - Schema.org validation fails critically
 - Mobile site broken
@@ -16,6 +17,7 @@
 - Multiple user-reported broken links
 
 ### Warning Issues (Monitor, May Rollback)
+
 - Page load time > 3 seconds
 - Minor Schema.org warnings
 - Single broken outfitter link
@@ -94,6 +96,7 @@ echo "🚀 Deploy with: npm run deploy"
 ```
 
 **Execute**:
+
 ```bash
 chmod +x scripts/rollback-rivers-full.sh
 ./scripts/rollback-rivers-full.sh
@@ -193,6 +196,7 @@ echo "📝 Don't forget to manually update vercel.json redirects"
 ```
 
 **Execute**:
+
 ```bash
 chmod +x scripts/rollback-river.sh
 ./scripts/rollback-river.sh gauley
@@ -205,6 +209,7 @@ chmod +x scripts/rollback-river.sh
 After executing rollback, verify:
 
 ### 1. Pages Load Correctly
+
 ```bash
 # Test original URLs
 curl -I https://wvwildoutdoors.com/near/elk-river
@@ -214,24 +219,28 @@ curl -I https://wvwildoutdoors.com/near/holly-river
 ```
 
 ### 2. Build Succeeds
+
 ```bash
 npm run build
 # Should complete without errors
 ```
 
 ### 3. No TypeScript Errors
+
 ```bash
 npm run typecheck
 # Should show 0 errors
 ```
 
 ### 4. Sitemap Valid
+
 ```bash
 curl https://wvwildoutdoors.com/sitemap.xml | xmllint --format -
 # Should parse without errors
 ```
 
 ### 5. Google Search Console
+
 - Check "Coverage" report for 404 errors
 - Verify old URLs still indexed
 - No sudden index drops
@@ -258,6 +267,7 @@ curl https://wvwildoutdoors.com/sitemap.xml | xmllint --format -
 ## 🛠️ Manual Rollback Steps (If Scripts Fail)
 
 ### 1. Restore Original Files
+
 ```bash
 # Copy from baseline tag
 git show river-migration-baseline:src/pages/near/elk-river.astro > src/pages/near/elk-river.astro
@@ -267,12 +277,14 @@ git show river-migration-baseline:public/sitemap.xml > public/sitemap.xml
 ```
 
 ### 2. Remove Migration Files
+
 ```bash
 rm -rf src/pages/rivers/
 rm -rf src/data/rivers/
 ```
 
 ### 3. Commit Rollback
+
 ```bash
 git add .
 git commit -m "revert: rollback SPEC-45 river migration"
@@ -280,6 +292,7 @@ git push origin main
 ```
 
 ### 4. Deploy
+
 ```bash
 npm run build
 vercel deploy --prod
@@ -294,7 +307,7 @@ If rollback fails or issues persist:
 
 1. **Technical Lead**: [Contact info]
 2. **DevOps**: [Contact info]
-3. **Hosting Support**: Vercel support (https://vercel.com/support)
+3. **Hosting Support**: Vercel support (<https://vercel.com/support>)
 4. **Google Search Console**: [GSC login link]
 
 ---

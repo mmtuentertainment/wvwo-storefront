@@ -11,6 +11,7 @@ Phase 6 implements comprehensive testing and validation for the River Template C
 **Location**: `tests/e2e/river-template.spec.ts`
 
 **Coverage**:
+
 - RiverTemplate component rendering with example data
 - SchemaRiverTemplate JSON-LD generation and validation
 - Content Collections integration
@@ -23,6 +24,7 @@ Phase 6 implements comprehensive testing and validation for the River Template C
 - SEO metadata
 
 **Run**:
+
 ```bash
 npm run test:e2e
 ```
@@ -32,6 +34,7 @@ npm run test:e2e
 **Location**: `tests/accessibility/wcag-compliance.spec.ts`
 
 **Coverage**:
+
 - WCAG AA compliance (automated with axe-core)
 - Color contrast ratios (4.5:1 text, 3:1 large text)
 - Keyboard navigation
@@ -48,6 +51,7 @@ npm run test:e2e
 - Page titles
 
 **Run**:
+
 ```bash
 npm run test:accessibility
 ```
@@ -57,6 +61,7 @@ npm run test:accessibility
 **Location**: `tests/performance/lighthouse-metrics.spec.ts`
 
 **Coverage**:
+
 - Lighthouse scores ≥90 (Performance, Accessibility, Best Practices, SEO)
 - Core Web Vitals:
   - LCP (Largest Contentful Paint) <2.5s
@@ -73,6 +78,7 @@ npm run test:accessibility
 - Performance budgets
 
 **Run**:
+
 ```bash
 npm run test:performance
 ```
@@ -82,6 +88,7 @@ npm run test:performance
 **Location**: `tests/validation/acceptance-criteria.spec.ts`
 
 **Coverage**: All 42 acceptance criteria from SPEC-14
+
 - Component existence (RiverTemplate, SchemaRiverTemplate)
 - Content collection configuration
 - 8 sections implementation
@@ -101,6 +108,7 @@ npm run test:performance
 - Checkpoint validations
 
 **Run**:
+
 ```bash
 npm run test:validation
 ```
@@ -110,11 +118,13 @@ npm run test:validation
 ### Checkpoint Validations
 
 **All Checkpoints**:
+
 ```bash
 npm run validate:checkpoints
 ```
 
 This runs all 5 checkpoint validation scripts:
+
 1. Foundation (content collection, types, schema component)
 2. Schema (JSON-LD structure, entities, validation)
 3. Template Structure (8 sections, navigation, layout)
@@ -126,11 +136,13 @@ This runs all 5 checkpoint validation scripts:
 ### Google Rich Results Test
 
 **Run**:
+
 ```bash
 npm run validate:rich-results
 ```
 
 **Process**:
+
 1. Extracts JSON-LD from built test page
 2. Validates schema structure
 3. Checks Place entity requirements
@@ -141,8 +153,9 @@ npm run validate:rich-results
 **Reports**: `reports/phase6/google-rich-results-*.txt`
 
 **Manual Verification**:
+
 1. Copy JSON-LD from report
-2. Open https://search.google.com/test/rich-results
+2. Open <https://search.google.com/test/rich-results>
 3. Paste schema
 4. Verify all entities recognized
 5. Screenshot results
@@ -150,11 +163,13 @@ npm run validate:rich-results
 ### Full Validation Suite
 
 **Run complete Phase 6 validation**:
+
 ```bash
 npm run phase6:full-validation
 ```
 
 This executes:
+
 1. Build site (`npm run build`)
 2. All checkpoint validations
 3. Google Rich Results validation
@@ -170,6 +185,7 @@ This executes:
 **Path**: `src/pages/test/river-template-example.astro`
 
 Uses example data from `src/content/rivers/new-river.md` to test:
+
 - RiverTemplate rendering
 - SchemaRiverTemplate JSON-LD
 - All 8 sections
@@ -182,6 +198,7 @@ Uses example data from `src/content/rivers/new-river.md` to test:
 ## WVWO Brand Compliance Tests
 
 ### Fonts
+
 ```typescript
 // ✓ APPROVED
 Bitter (display headings)
@@ -193,6 +210,7 @@ Inter, Poppins, DM Sans, Space Grotesk, etc.
 ```
 
 ### Colors
+
 ```typescript
 // ✓ APPROVED
 --brand-brown: #3E2723
@@ -205,6 +223,7 @@ Purple gradients, hot pink, neon, corporate blue
 ```
 
 ### Styles
+
 ```typescript
 // ✓ APPROVED
 rounded-sm (2px corners)
@@ -216,6 +235,7 @@ Parallax, confetti, neumorphic
 ```
 
 ### Copy
+
 ```typescript
 // ✗ FORBIDDEN BUZZWORDS
 "Unlock potential"
@@ -277,6 +297,7 @@ Parallax, confetti, neumorphic
 ### Generated Reports
 
 All reports saved to `reports/phase6/`:
+
 - `checkpoint-validation-*.txt` - Checkpoint results
 - `google-rich-results-*.txt` - Schema validation
 - `playwright-report/` - Test results HTML
@@ -286,6 +307,7 @@ All reports saved to `reports/phase6/`:
 ### Screenshots
 
 Automatically captured on test failure:
+
 - Component rendering
 - Accessibility violations
 - Performance issues
@@ -294,6 +316,7 @@ Automatically captured on test failure:
 ### Videos
 
 Automatically recorded on test failure:
+
 - User interaction flows
 - Navigation testing
 - Mobile responsive behavior
@@ -326,6 +349,7 @@ jobs:
 ### Ready for Production
 
 All must pass:
+
 - ✓ All E2E tests passing
 - ✓ All accessibility tests passing (100% WCAG AA)
 - ✓ All performance tests passing (Lighthouse ≥90)
@@ -357,21 +381,25 @@ All must pass:
 ### Test Failures
 
 **E2E failures**:
+
 - Check dev server is running (`npm run preview`)
 - Verify test page built correctly (`dist/test/river-template-example/`)
 - Check example data exists (`src/content/rivers/new-river.md`)
 
 **Accessibility failures**:
+
 - Run axe-core manually in browser DevTools
 - Check contrast ratios with DevTools
 - Verify keyboard navigation manually
 
 **Performance failures**:
+
 - Clear build cache (`rm -rf dist .astro`)
 - Rebuild project (`npm run build`)
 - Check network throttling settings
 
 **Validation failures**:
+
 - Review checkpoint scripts for errors
 - Verify file paths are correct
 - Check JSON-LD syntax
@@ -379,6 +407,7 @@ All must pass:
 ## Next Steps
 
 After Phase 6 passes:
+
 1. Review all reports with team
 2. Address any warnings or recommendations
 3. Create final sign-off document
@@ -390,6 +419,7 @@ After Phase 6 passes:
 ## Support
 
 Questions or issues:
+
 - Review test output in `reports/phase6/`
 - Check Playwright traces for failed tests
 - Verify all dependencies installed (`npm install`)

@@ -325,7 +325,7 @@ This is the first line of defense. It prevents the crawler from wasting resource
 Even if a page is crawled, we must tell Google which version is authoritative.
 
 * **Scenario:** A user lands on ?activity=hiking\&sort=newest.  
-* **Canonical:** The tag should point to the "clean" version: \<link rel="canonical" href="https://example.com/adventures?activity=hiking" /\>.  
+* **Canonical:** The tag should point to the "clean" version: \<link rel="canonical" href="<https://example.com/adventures?activity=hiking>" /\>.  
 * This consolidates the "link equity" of all sorted versions back to the main category page.29
 
 ### **7.2. Structured Data (Schema.org)**
@@ -339,7 +339,7 @@ The main discovery page is a CollectionPage.31
 JSON
 
 {  
-  "@context": "https://schema.org",  
+  "@context": "<https://schema.org>",  
   "@type": "CollectionPage",  
   "name": "Hiking Adventures in California",  
   "description": "Top 70 curated trails...",  
@@ -349,12 +349,12 @@ JSON
       {  
         "@type": "ListItem",  
         "position": 1,  
-        "url": "https://example.com/adventures/yosemite-falls"  
+        "url": "<https://example.com/adventures/yosemite-falls>"  
       },  
       {  
         "@type": "ListItem",  
         "position": 2,  
-        "url": "https://example.com/adventures/half-dome"  
+        "url": "<https://example.com/adventures/half-dome>"  
       }  
     \]  
   }  

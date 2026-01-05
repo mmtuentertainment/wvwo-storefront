@@ -14,6 +14,7 @@ A reusable Astro template component for West Virginia ski resorts (Snowshoe Moun
 WVWO's adventure destination hub needs a standardized way to present ski resort information that serves both destination resorts (Snowshoe - 257 acres, 60 trails) and smaller family resorts (Canaan Valley - 95 acres, 47 trails). Current templates (RiverTemplate, LakeTemplate) don't support ski-specific content like trail difficulty ratings, lift systems, snow conditions, or terrain parks.
 
 **Who has this problem:**
+
 - Adventure seekers researching WV ski destinations
 - Families planning winter trips on a budget
 - WVWO wanting to drive affiliate revenue from ski content
@@ -38,22 +39,27 @@ WVWO's adventure destination hub needs a standardized way to present ski resort 
 ## User Stories
 
 ### As a winter trip planner
+
 - I want to see trail counts by difficulty at a glance
 - So that I can pick a resort matching my family's skill levels
 
 ### As a budget-conscious family
+
 - I want clear pricing for lift tickets, rentals, and lodging
 - So that I can compare Canaan Valley vs Snowshoe costs
 
 ### As a ski enthusiast
+
 - I want vertical drop, lift capacity, and terrain park info
 - So that I can find challenging terrain worth the drive
 
 ### As a summer visitor
+
 - I want to see what activities are available off-season
 - So that I can plan a mountain biking or hiking trip
 
 ### As Kim (shop owner)
+
 - I want to add personal tips about each resort
 - So that visitors get insider local knowledge
 
@@ -83,17 +89,20 @@ WVWO's adventure destination hub needs a standardized way to present ski resort 
 ## Non-Functional Requirements
 
 ### Performance
+
 - Hero image lazy loading with blur placeholder
 - Template renders in <100ms (Astro static generation)
 - All images have explicit width/height to prevent CLS
 
 ### Accessibility
+
 - Trail difficulty uses color + shape + text (green circle, blue square, black diamond)
 - All sections have proper heading hierarchy (h2 → h3 → h4)
 - Kim's Tips use ARIA role="note"
 - `@media (prefers-reduced-motion: reduce)` on all animations
 
 ### Security
+
 - All external URLs (booking, conditions) open in new tab with `rel="noopener noreferrer"`
 - No user input handling (static content only)
 
@@ -309,11 +318,13 @@ src/content/adventures/
 ## Dependencies
 
 ### External
+
 - Resort snow condition APIs (linked, not integrated)
 - Resort booking systems (linked via bookingUrl)
 - Trail map images/PDFs (embedded or linked)
 
 ### Internal
+
 - `src/types/adventure.ts` - Base types (StatItem, GearItem, etc.)
 - `src/components/adventure/*` - Shared adventure components
 - `src/styles/global.css` - WVWO brand tokens
@@ -321,12 +332,14 @@ src/content/adventures/
 ## Acceptance Criteria
 
 ### Template Structure
+
 - [x] ~550-600 lines total *(Accepted deviation: 770 lines - includes Kim's Tips section)*
 - [x] All 9+ sections implemented *(10 sections: Hero, Description, Kim's Tips, Trails, Lifts, Pricing, Terrain Parks, Lodging, Dining, Amenities, Summer Activities, Gear, Shop, CTA)*
 - [x] TypeScript props interface complete with Zod validation
 - [x] Responsive grid layouts (mobile-first)
 
 ### WVWO Aesthetic Compliance
+
 - [x] `rounded-sm` enforced throughout (zero rounded-md/lg/xl)
 - [x] Trail difficulty color-coded with shapes for accessibility
 - [x] Border-left accents on cards (border-l-4) *(Kim's Tips uses border-l-4)*
@@ -336,6 +349,7 @@ src/content/adventures/
 - [x] Zero purple/pink/neon colors
 
 ### Functionality
+
 - [x] Conditional rendering for optional sections (terrain parks, summer activities, Kim's Tips)
 - [x] Snow conditions link integration *(includes OnTheSnow widget embed support)*
 - [x] Booking URL support for lodging cards
@@ -343,12 +357,14 @@ src/content/adventures/
 - [x] Pass affiliations displayed (Indy Pass, etc.)
 
 ### Accessibility
+
 - [x] Trail difficulty uses color + shape + text label
 - [x] All images have alt text
 - [x] Heading hierarchy maintained (h1 → h2 → h3)
 - [x] prefers-reduced-motion respected *(motion-safe:/motion-reduce: prefixes on all transitions)*
 
 ### Testing
+
 - [x] Example content file validates against schema *(Build: 62 pages)*
 - [x] Component renders without errors *(Build passed)*
 - [ ] Mobile responsive (320px - 768px) *(Pending visual testing)*
@@ -368,6 +384,7 @@ src/content/adventures/
 ## Clarifications
 
 ### Session 2025-12-30
+
 - Q: Intermediate trail color uses blue-700, but blue is forbidden in WVWO palette. How to handle?
 - A: **Allow blue exception** - Trail difficulty colors are industry standard (green/blue/black). Blue (#1976D2 or blue-700) is approved as an exception specifically for ski trail difficulty indicators only.
 
@@ -396,33 +413,39 @@ src/content/adventures/
 ## Implementation Phases
 
 ### Phase 1: Research (COMPLETED)
+
 - Snowshoe Mountain content patterns
 - Canaan Valley positioning analysis
 - Ski website UX best practices
 - Codebase pattern analysis
 
 ### Phase 2: Architecture Design (COMPLETED)
+
 - Finalize props interface ✓
 - Create Zod schemas ✓
 - Design section layouts ✓
 
 ### Phase 3: Template Generation (COMPLETED)
+
 - Build SkiTemplate.astro (~590 lines) ✓
 - Implement all sections ✓
 - Add conditional rendering ✓
 
 ### Phase 4: Content Population (COMPLETED)
+
 - Create Snowshoe Mountain content file ✓
 - Create Canaan Valley content file ✓
 - Validate against schema ✓
 
 ### Phase 5: Page Routes & Build Verification (COMPLETED)
+
 - Create snowshoe-mountain.astro page route ✓
 - Create canaan-valley.astro page route ✓
 - Build verification: 62 pages built successfully ✓
 - Fixed AdventureCTA prop mapping ✓
 
 ### Phase 6: Testing & Refinement (FUTURE)
+
 - Visual regression testing
 - Accessibility audit (trail colors use shape + text + color)
 - Mobile responsiveness check

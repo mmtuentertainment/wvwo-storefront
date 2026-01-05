@@ -47,14 +47,17 @@ Display named fishing spots within the lake with depth information, bottom struc
 ### 2.2 Responsive Behavior
 
 **Desktop (lg: 1024px+)**:
+
 - 2-column grid within each card (info left, species right)
 - Full-width cards stacked vertically
 
 **Tablet (md: 768px)**:
+
 - 2-column grid maintained
 - Slightly tighter spacing
 
 **Mobile (< 768px)**:
+
 - 1-column stack within each card
 - Info first, then species below
 - Full-width cards
@@ -179,17 +182,20 @@ Display named fishing spots within the lake with depth information, bottom struc
 ### 3.2 WVWO Compliance
 
 **Fonts**:
+
 - ✅ `font-display` (Bitter) - Section header, spot names
 - ✅ `font-body` implied for descriptions
 - ❌ NO `font-hand` (Kim's tips go in species section, not spots)
 
 **Colors**:
+
 - ✅ `brand-brown` - Border-left accent (FR-004), headings, labels
 - ✅ `sign-green` - Species badges
 - ✅ `white` - Card backgrounds
 - ❌ NO purple, pink, neon, orange (orange reserved for regulations)
 
 **Border Radius**:
+
 - ✅ `rounded-sm` ONLY (spot cards, species badges)
 - ❌ NO rounded-md/lg/xl
 
@@ -229,6 +235,7 @@ export interface FishingSpot {
 ### 4.3 Validation
 
 **Zod Schema**:
+
 ```typescript
 export const FishingSpotSchema = z.object({
   name: z.string().min(1),
@@ -240,6 +247,7 @@ export const FishingSpotSchema = z.object({
 ```
 
 **Build-Time Checks**:
+
 - `fishingSpots.length <= 15` - Performance limit (NFR-009)
 - Each spot has at least 1 species
 - All string fields non-empty
@@ -253,6 +261,7 @@ export const FishingSpotSchema = z.object({
 **Format**: "X-Y feet" or "X+ feet"
 
 **Examples**:
+
 - "20-45 feet"
 - "40-60 feet"
 - "100+ feet"
@@ -263,6 +272,7 @@ export const FishingSpotSchema = z.object({
 **Format**: Descriptive text, comma-separated
 
 **Examples**:
+
 - "Rocky points with submerged ledges"
 - "Sandy bottom with fallen timber"
 - "Steep drop-offs and boulders"
@@ -273,6 +283,7 @@ export const FishingSpotSchema = z.object({
 **Format**: Common name (capitalized)
 
 **Examples**:
+
 - "Smallmouth Bass"
 - "Walleye"
 - "Muskie"
@@ -284,6 +295,7 @@ export const FishingSpotSchema = z.object({
 **Format**: Descriptive text with directions
 
 **Examples**:
+
 - "Boat only, 2 miles from Battle Run launch"
 - "Shore accessible from Battle Run Beach"
 - "Kayak launch nearby at Salmon Run"
@@ -335,6 +347,7 @@ export const FishingSpotSchema = z.object({
 **Maximum**: 15 fishing spots (NFR-009)
 
 **Render Performance**:
+
 ```
 15 spots × 95 lines HTML each = ~1,425 lines HTML output
 Estimated DOM size: ~50 KB HTML
@@ -345,6 +358,7 @@ Estimated DOM size: ~50 KB HTML
 ### 7.2 Animation Performance
 
 **Staggered Reveal**:
+
 ```css
 animation-delay: ${index * 0.1}s
 ```
@@ -418,6 +432,7 @@ describe('Where to Fish Section', () => {
 ### 9.2 Visual Regression Tests
 
 **Playwright Screenshots**:
+
 1. With 3 fishing spots (typical)
 2. With 15 fishing spots (max limit)
 3. With 0 fishing spots (fallback)
@@ -486,6 +501,7 @@ describe('Where to Fish Section', () => {
 **After**: AdventureCampingList (facilities)
 
 **Visual Flow**:
+
 - Cream bg (species) → White bg (spots) → Cream bg (camping)
 
 ---
@@ -541,6 +557,7 @@ const summersvilleFishingSpots: FishingSpot[] = [
 **Where to Fish Section Architecture**: ✅ **COMPLETE**
 
 **Key Features**:
+
 - Full-width cards with brown border-left accent (FR-004)
 - 2-column responsive grid (depth/structure/access + species)
 - Species badges (sign-green, rounded-sm)
@@ -548,12 +565,14 @@ const summersvilleFishingSpots: FishingSpot[] = [
 - Fallback for empty arrays (FR-011)
 
 **WVWO Compliance**:
+
 - ✅ `rounded-sm` ONLY
 - ✅ `font-display` for headings
 - ✅ `brand-brown` border accent
 - ✅ `sign-green` species badges
 
 **Integration Ready**:
+
 - Props interface defined (FishingSpot type)
 - Accessibility compliant (semantic HTML, definition lists)
 - Performance tested (15 spots max)

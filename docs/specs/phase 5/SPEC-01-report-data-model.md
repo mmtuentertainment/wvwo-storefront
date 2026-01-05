@@ -3,9 +3,11 @@
 ## 1. SPECIFICATION
 
 ### 1.1 Objective
+
 Define the data structure for hunting/fishing reports that can be stored as JSON and rendered on both web and email.
 
 ### 1.2 Requirements
+
 | Req | Description | Priority |
 |-----|-------------|----------|
 | R1 | Support 3 report types: hunting, fishing, restock | Must |
@@ -17,6 +19,7 @@ Define the data structure for hunting/fishing reports that can be stored as JSON
 | R7 | SEO-friendly slug generation | Should |
 
 ### 1.3 Constraints
+
 - JSON storage (no database)
 - Must render in Astro templates
 - Must work with Buttondown markdown
@@ -24,7 +27,6 @@ Define the data structure for hunting/fishing reports that can be stored as JSON
 ---
 
 ## 2. PSEUDOCODE
-
 
 ```typescript
 interface Report {
@@ -72,7 +74,6 @@ interface Report {
 
 ## 3. ARCHITECTURE
 
-
 ```
 wv-wild-web/
 ├── src/
@@ -95,12 +96,14 @@ wv-wild-web/
 ## 4. REFINEMENT
 
 ### Edge Cases
+
 - Empty reports array → Show "No reports yet" message
 - Missing optional fields → Graceful fallback in templates
 - Old reports → Archive view with year filtering
 - Duplicate slugs → Append date suffix
 
 ### Quality Gates
+
 - [ ] All required fields validated before save
 - [ ] Slug uniqueness enforced
 - [ ] Date format validated (ISO)
@@ -111,6 +114,7 @@ wv-wild-web/
 ## 5. COMPLETION
 
 ### Success Criteria
+
 - [ ] TypeScript interface defined
 - [ ] Sample reports.json with 3 test reports
 - [ ] Schema validates against interface

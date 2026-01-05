@@ -12,6 +12,7 @@
 This architecture document synthesizes the complete technical design for SPEC-14 River Template Component System. Based on deep analysis of existing LakeTemplate patterns (SPEC-13), WVWO aesthetic requirements, and whitewater/fishing UX best practices, this document provides the definitive blueprint for implementation.
 
 **Key Architectural Decisions:**
+
 1. **Monolithic Component Pattern** - Follow LakeTemplate's 558-line single-file approach (target: 660 lines for river complexity)
 2. **Schema-First Type System** - Zod schemas define validation, TypeScript types inferred from schemas
 3. **New SEO Component** - `SchemaRiverTemplate.astro` with TouristAttraction + LocalBusiness @graph
@@ -103,6 +104,7 @@ Static Site Output (zero client-side JavaScript)
 **Decision:** **MONOLITHIC PATTERN** (single 660-line file)
 
 **Rationale:**
+
 - **LakeTemplate Precedent**: SPEC-13 uses 558-line single file with zero extracted sub-components beyond shared utilities
 - **Cohesion**: Rapids, fishing, outfitters are river-specific concerns with zero reuse potential
 - **Maintainability**: Single source of truth easier to modify than 8 scattered files
@@ -110,6 +112,7 @@ Static Site Output (zero client-side JavaScript)
 - **SPARC Alignment**: Pseudocode phase (PROMPT.md) provided complete inline implementations
 
 **Pattern Reference:**
+
 ```astro
 // LakeTemplate.astro (558 lines)
 <section class="where-to-fish">
@@ -131,6 +134,7 @@ Static Site Output (zero client-side JavaScript)
 ```
 
 **Alternatives Rejected:**
+
 - ❌ Extract RapidCard component → Adds complexity, zero reuse
 - ❌ Extract OutfitterCard component → Breaks LakeTemplate pattern
 - ❌ Create shared FishingSection → Lake vs. river fishing are fundamentally different (species vs. flow-dependent)
@@ -144,6 +148,7 @@ Static Site Output (zero client-side JavaScript)
 **Decision:** **SCHEMA-FIRST PATTERN** (Zod schemas → TypeScript types)
 
 **Rationale:**
+
 - **Existing Pattern**: All adventure types use Zod schemas in `adventure.ts` (LakeTemplateProps, WMA schemas)
 - **Runtime Validation**: Content Collections require Zod for frontmatter validation
 - **Type Inference**: `z.infer<typeof Schema>` ensures types match validation rules
@@ -151,6 +156,7 @@ Static Site Output (zero client-side JavaScript)
 - **Consistency**: All 7 existing schemas (Species, FishingWater, Facility, etc.) follow this pattern
 
 **Implementation Pattern:**
+
 ```typescript
 // src/types/adventure.ts (after line 432)
 
@@ -181,6 +187,7 @@ riverFishing: RiverFishingSchema.optional(),
 ```
 
 **Alternatives Rejected:**
+
 - ❌ Type-first → No runtime validation, manual Content Collections schema writing
 - ❌ Separate validation → Duplicates type definitions, drift risk
 
@@ -193,6 +200,7 @@ riverFishing: RiverFishingSchema.optional(),
 **Decision:** **NEW COMPONENT** (`SchemaRiverTemplate.astro`)
 
 **Rationale:**
+
 - **Different Entity Types**: Rivers need TouristAttraction + LocalBusiness (outfitters), not just Place
 - **Warning Schema**: Class V rapids require `warning` property (Schema.org safety compliance)
 - **Outfitter Entities**: Each outfitter becomes separate LocalBusiness with `makesOffer` array
@@ -200,6 +208,7 @@ riverFishing: RiverFishingSchema.optional(),
 - **Clean Separation**: SchemaAdventureHero is 198 lines for general adventures, river-specific logic would bloat it
 
 **Schema.org @graph Structure:**
+
 ```typescript
 {
   "@context": "https://schema.org",
@@ -253,6 +262,7 @@ riverFishing: RiverFishingSchema.optional(),
 ```
 
 **Props Interface:**
+
 ```astro
 ---
 interface Props {
@@ -273,6 +283,7 @@ interface Props {
 ```
 
 **Alternatives Rejected:**
+
 - ❌ Extend SchemaAdventureHero → Would require 15+ conditional props, complex branching
 - ❌ Generic schema builder → Over-engineering for 40 river destinations
 - ❌ Skip LocalBusiness entities → Loses Google local pack eligibility for outfitters
@@ -286,12 +297,14 @@ interface Props {
 **Decision:** **INLINE LOGIC** (embedded in template map loops)
 
 **Rationale:**
+
 - **LakeTemplate Pattern**: All color logic inline in map functions (see line 337-343 activity difficulty badges)
 - **Simplicity**: Color mapping is 3 lines of ternary logic, extraction adds complexity
 - **Single Use**: Only rapids section uses class-based color-coding, zero reuse
 - **WVWO Compliance**: Colors directly visible in component code for PR review
 
 **Implementation Pattern:**
+
 ```astro
 {rapids.map((rapid) => {
   // Inline color-coding logic (3 lines)
@@ -315,11 +328,13 @@ interface Props {
 ```
 
 **WCAG AA Contrast Ratios:**
+
 - Class I-III (Green #2E7D32 on white): 4.57:1 ✅
 - Class IV (Orange #FF6F00 on black): 6.12:1 ✅
 - Class V (Red #C62828 on white): 5.74:1 ✅
 
 **Shape Icons for Color-Blind Accessibility:**
+
 ```astro
 const shapeIcon = classNum <= 3 ? '●' :
                  classNum === 4 ? '▲' :
@@ -327,6 +342,7 @@ const shapeIcon = classNum <= 3 ? '●' :
 ```
 
 **Alternatives Rejected:**
+
 - ❌ `getRapidColors(class)` helper → Adds import, breaks inline pattern
 - ❌ Tailwind class mapping object → Over-engineering for 3 color tiers
 - ❌ CSS classes → No benefit over inline Tailwind (static site, zero runtime cost)
@@ -340,6 +356,7 @@ const shapeIcon = classNum <= 3 ? '●' :
 **Decision:** **SCOPED STYLES + INLINE CLASSES** (LakeTemplate pattern)
 
 **Implementation:**
+
 ```astro
 <style>
   /* WVWO Compliance: Only rounded-sm allowed */
@@ -364,6 +381,7 @@ const shapeIcon = classNum <= 3 ? '●' :
 ```
 
 **Font Usage Patterns:**
+
 ```astro
 <!-- Hero: font-display (Bitter serif) -->
 <h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white">
@@ -394,12 +412,14 @@ const shapeIcon = classNum <= 3 ? '●' :
 ```
 
 **Color Budget Enforcement:**
+
 - Orange usage: Safety section borders (4% of screen) + primary CTAs (2%) = 6% total ✅ (under 5% guideline)
 - Green: Rapids Class I-III, fishing badges, access points (15% of screen)
 - Brown: Headers, text, detail accents (40% of screen)
 - Cream: Section backgrounds (25% of screen)
 
 **PR Review Checklist Integration:**
+
 ```markdown
 ### WVWO Compliance (Architecture Phase)
 - [ ] All border-radius values are `rounded-sm` (0.125rem)
@@ -487,6 +507,7 @@ wv-wild-web/
 ```
 
 **Key Deviations for Rivers:**
+
 - Stats: Length (miles), Difficulty range, County, Access (vs. lake's Acreage/Distance/Location/Access)
 - Conditional USGS water level link (not in LakeTemplate)
 - Quick highlights: "Class V Rapids", "Dam Releases", "Trophy Smallmouth" (vs. lake's fishing badges)
@@ -508,6 +529,7 @@ wv-wild-web/
 ```
 
 **Responsive Grid Patterns:**
+
 - 2-column: `grid md:grid-cols-2 gap-8` (Outfitters, Access Points)
 - 3-column: `grid md:grid-cols-2 lg:grid-cols-3 gap-6` (Rapids, Nearby Attractions)
 - 4-column: `grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6` (Seasonal Flow)
@@ -522,6 +544,7 @@ wv-wild-web/
 ```
 
 **Color Mapping:**
+
 - `border-l-sign-green`: Fishing, Access Points (Put-in), Class I-III Rapids
 - `border-l-brand-brown`: Outfitters, Access Points (Take-out)
 - `border-l-brand-orange`: Safety warnings, Class IV Rapids, Access Points (Both)
@@ -536,6 +559,7 @@ wv-wild-web/
 ```
 
 **Badge Use Cases:**
+
 - Rapids class rating: `bg-sign-green` (I-III), `bg-brand-orange` (IV), `bg-red-600` (V)
 - Fishing species: `bg-sign-green`
 - Water level: `bg-sign-green` (Low), `bg-brand-orange` (Medium), `bg-red-600` (High)
@@ -568,6 +592,7 @@ wv-wild-web/
 | **Seasonal Content** | Fishing guide (4 seasons) | Water flow patterns + dam releases |
 
 **Shared Patterns:**
+
 - Hero section structure (identical)
 - Section headers (font-display, brand-brown)
 - Responsive grids (same breakpoints)
@@ -674,6 +699,7 @@ const breadcrumbs = [
    - Identify missing sections (rapids, outfitters, etc.)
 
 2. **Incremental Migration:**
+
    ```typescript
    // Step 1: Create data file with minimal sections
    export const elkRiverData: RiverTemplateProps = {
@@ -705,12 +731,14 @@ const breadcrumbs = [
 ### Frontend Aesthetics Validation
 
 **Fonts (CRITICAL):**
+
 - [x] `font-display` (Bitter serif) → Headings, river/rapid names
 - [x] `font-hand` (Permanent Marker cursive) → Kim's tips ONLY
 - [x] `font-body` (Noto Sans) → All body text, descriptions, lists
 - [x] Zero forbidden fonts (Inter, Poppins, DM Sans, system-ui)
 
 **Colors (CRITICAL):**
+
 - [x] `--brand-brown` (#3E2723) → Headers, text, detail borders
 - [x] `--sign-green` (#2E7D32) → Fishing, access points, safe rapids (Class I-III)
 - [x] `--brand-cream` (#FFF8E1) → Section backgrounds
@@ -719,16 +747,19 @@ const breadcrumbs = [
 - [x] Zero forbidden colors (purple gradients, hot pink, neon, corporate blue)
 
 **Border Radius (CRITICAL):**
+
 - [x] `rounded-sm` (0.125rem / ~2px) → Sharp hardware store aesthetic
 - [x] Zero `rounded-md`, `rounded-lg`, `rounded-xl`, `rounded-3xl`
 - [x] Scoped styles enforce rounded-sm with `!important`
 
 **Voice (CRITICAL):**
+
 - [x] Kim's authentic WV voice → "The water's gin-clear, so downsize your line"
 - [x] Safety-first → "Class V rapids require expert skills - no shortcuts"
 - [x] Zero corporate buzzwords → No "Unlock potential", "Seamless experience", "Revolutionize"
 
 **Layout (CRITICAL):**
+
 - [x] Border-left accents throughout (green/orange/brown/red)
 - [x] No glassmorphism or backdrop-blur effects
 - [x] Touch-friendly 48px+ tap targets for mobile
@@ -737,21 +768,25 @@ const breadcrumbs = [
 ### Accessibility (WCAG AA)
 
 **Color Contrast:**
+
 - [x] Class I-III (Green #2E7D32 on white): 4.57:1 ✅
 - [x] Class IV (Orange #FF6F00 on black): 6.12:1 ✅
 - [x] Class V (Red #C62828 on white): 5.74:1 ✅
 - [x] All text/bg combos ≥ 4.5:1 ratio
 
 **Color-Blind Support:**
+
 - [x] Shape icons accompany all color-coded elements (●▲■)
 - [x] Rapids: Circle (I-III), Triangle (IV), Square (V)
 
 **Screen Readers:**
+
 - [x] `aria-labelledby` on all sections
 - [x] `aria-hidden="true"` on decorative SVGs
 - [x] Semantic HTML (h1 → h2 → h3, section, article tags)
 
 **Keyboard Navigation:**
+
 - [x] All interactive elements focusable
 - [x] External links use `target="_blank" rel="noopener noreferrer"`
 
@@ -762,6 +797,7 @@ const breadcrumbs = [
 ### Component-Level Tests
 
 **Vitest Unit Tests:**
+
 ```typescript
 // src/components/templates/__tests__/RiverTemplate.test.ts
 
@@ -787,6 +823,7 @@ describe('RiverTemplate', () => {
 ### Visual Regression Tests
 
 **Percy or Chromatic:**
+
 - Hero section (desktop, tablet, mobile)
 - Rapids guide grid (3-column layout)
 - Seasonal flow (4-season grid)
@@ -795,6 +832,7 @@ describe('RiverTemplate', () => {
 ### Accessibility Tests
 
 **axe-core Integration:**
+
 ```typescript
 test('WCAG AA compliance', async () => {
   const results = await axe(page);
@@ -803,6 +841,7 @@ test('WCAG AA compliance', async () => {
 ```
 
 **Manual Testing:**
+
 - Screen reader navigation (NVDA, JAWS)
 - Keyboard-only navigation
 - Color-blind simulation (Coblis)
@@ -810,6 +849,7 @@ test('WCAG AA compliance', async () => {
 ### Performance Tests
 
 **Lighthouse Targets:**
+
 - Performance: ≥ 90
 - Accessibility: 100
 - Best Practices: ≥ 90
@@ -817,6 +857,7 @@ test('WCAG AA compliance', async () => {
 - LCP: < 2.5s (rural WV 2-5 Mbps bandwidth)
 
 **WebPageTest:**
+
 - Test on 3G connection
 - Rural WV latency simulation (150ms+)
 
@@ -827,21 +868,25 @@ test('WCAG AA compliance', async () => {
 ### Technical Risks
 
 **Risk 1: Type System Complexity**
+
 - **Impact:** High (blocks implementation)
 - **Likelihood:** Low (Zod pattern well-established)
 - **Mitigation:** Follow exact LakeTemplate schema pattern, reuse existing utilities
 
 **Risk 2: Content Collections Breaking Changes**
+
 - **Impact:** High (breaks existing WMA/lake pages)
 - **Likelihood:** Very Low (all river fields optional)
 - **Mitigation:** Type guards prevent accidental querying, zero changes to existing types
 
 **Risk 3: SEO Component Validation**
+
 - **Impact:** Medium (rich results won't appear)
 - **Likelihood:** Medium (Schema.org can be finicky)
 - **Mitigation:** Use Google Rich Results Test before deployment, reference existing SchemaAdventureHero pattern
 
 **Risk 4: WVWO Compliance Violations**
+
 - **Impact:** High (instant PR rejection per CLAUDE.md)
 - **Likelihood:** Medium (easy to miss forbidden fonts/colors)
 - **Mitigation:** Scoped styles enforce rounded-sm, PR review checklist in architecture doc, automated linting (future)
@@ -849,11 +894,13 @@ test('WCAG AA compliance', async () => {
 ### Implementation Risks
 
 **Risk 5: Feature Creep**
+
 - **Impact:** Medium (delays completion)
 - **Likelihood:** High (temptation to add real-time USGS widget)
 - **Mitigation:** Strict adherence to spec non-goals, MVP is external link only
 
 **Risk 6: Data Population Delays**
+
 - **Impact:** Low (template works without content)
 - **Likelihood:** High (Phase 4 content research time-consuming)
 - **Mitigation:** _example.ts provides complete reference, gauley.ts skeleton with TODOs
@@ -865,6 +912,7 @@ test('WCAG AA compliance', async () => {
 ### Task Breakdown (Ready for /speckit.plan)
 
 **Phase 1: Type System (2 hours)**
+
 1. Add 7 Zod schemas to `adventure.ts` (lines 433-583)
 2. Add `RiverTemplateProps` interface (lines 584-632)
 3. Add `isRiverAdventure()` type guard (lines 633-642)
@@ -872,6 +920,7 @@ test('WCAG AA compliance', async () => {
 5. Document with JSDoc comments
 
 **Phase 2: Component Implementation (4 hours)**
+
 1. Create `RiverTemplate.astro` scaffolding (frontmatter, imports, props)
 2. Implement Hero section (70 lines)
 3. Implement Rapids Guide (110 lines)
@@ -885,6 +934,7 @@ test('WCAG AA compliance', async () => {
 11. Add scoped styles (rounded-sm enforcement, motion preferences)
 
 **Phase 3: Content Collections (1 hour)**
+
 1. Update `content.config.ts` type discriminator (line 99)
 2. Add river fields (lines 112-123)
 3. Import river schemas from `adventure.ts`
@@ -892,6 +942,7 @@ test('WCAG AA compliance', async () => {
 5. Validate zero breaking changes to existing collections
 
 **Phase 4: SEO Component (2 hours)**
+
 1. Create `SchemaRiverTemplate.astro` scaffolding
 2. Implement @graph entity builder (TouristAttraction, Article, BreadcrumbList, LocalBusiness)
 3. Add conditional FAQPage schema (if safety Q&A format)
@@ -899,6 +950,7 @@ test('WCAG AA compliance', async () => {
 5. Document meta tags pattern in component header
 
 **Phase 5: Example Data Files (1 hour)**
+
 1. Create `src/data/rivers/` directory
 2. Create `_example.ts` with complete Gauley River reference (300 lines)
 3. Create `gauley.ts` skeleton with TODO markers (280 lines)
@@ -939,6 +991,7 @@ Component Outfitters/Flow/Access/Safety → Example Data Files → Ready for Pha
 This architecture document provides the complete technical blueprint for SPEC-14 River Template Component System. All major architectural decisions have been resolved with clear rationales, implementation patterns have been extracted from existing LakeTemplate code, and WVWO compliance is guaranteed through scoped styles and PR review checklists.
 
 **Key Outcomes:**
+
 1. **Monolithic Pattern** → Follows LakeTemplate's proven 558-line approach, scales to 660 lines for river complexity
 2. **Schema-First Types** → Zod schemas ensure runtime validation, TypeScript types inferred for consistency
 3. **New SEO Component** → `SchemaRiverTemplate.astro` with TouristAttraction + LocalBusiness @graph enables rich search results

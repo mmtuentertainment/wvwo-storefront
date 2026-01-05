@@ -49,6 +49,7 @@ wv-wild-web/src/types/
 **Purpose**: Named fishing location within a lake with depth, structure, and target species information.
 
 **Schema Design**:
+
 ```typescript
 /**
  * Fishing spot schema for named locations within lakes
@@ -75,6 +76,7 @@ export type FishingSpot = z.infer<typeof FishingSpotSchema>;
 ```
 
 **Validation Rules**:
+
 - `name`: Required, non-empty string
 - `depth`: Required string (no numeric validation, allows descriptive ranges)
 - `structure`: Required string (supports detailed descriptions)
@@ -82,6 +84,7 @@ export type FishingSpot = z.infer<typeof FishingSpotSchema>;
 - `access`: Required string (human-readable access method)
 
 **Usage Example**:
+
 ```typescript
 const summersvilleFishingSpots: FishingSpot[] = [
   {
@@ -110,6 +113,7 @@ const summersvilleFishingSpots: FishingSpot[] = [
 **Purpose**: Boat access facility with services, launch details, rentals, and contact information.
 
 **Schema Design**:
+
 ```typescript
 /**
  * Marina schema for boat access facilities
@@ -145,6 +149,7 @@ export type Marina = z.infer<typeof MarinaSchema>;
 ```
 
 **Validation Rules**:
+
 - `name`: Required, non-empty string
 - `services`: Required array (at least 1 service)
 - `boatLaunch.ramps`: Required positive integer
@@ -154,6 +159,7 @@ export type Marina = z.infer<typeof MarinaSchema>;
 - `contact`: Required string (no phone format validation)
 
 **Usage Example**:
+
 ```typescript
 const summersvilleMarina: Marina = {
   name: 'Summersville Lake Marina',
@@ -183,6 +189,7 @@ const summersvilleMarina: Marina = {
 **Purpose**: Non-fishing recreation activity with seasonal availability and difficulty rating.
 
 **Schema Design**:
+
 ```typescript
 /**
  * Activity schema for non-fishing recreation options
@@ -206,12 +213,14 @@ export type Activity = z.infer<typeof ActivitySchema>;
 ```
 
 **Validation Rules**:
+
 - `name`: Required, non-empty string
 - `description`: Required, non-empty string (supports long-form content)
 - `season`: Required string (descriptive, not date range)
 - `difficulty`: Optional enum with 3 valid values
 
 **Usage Example**:
+
 ```typescript
 const summersvilleActivities: Activity[] = [
   {
@@ -244,6 +253,7 @@ const summersvilleActivities: Activity[] = [
 **Purpose**: Season-specific activity highlights and fishing patterns to help visitors plan trips.
 
 **Schema Design**:
+
 ```typescript
 /**
  * Seasonal guide schema for season-by-season breakdown
@@ -264,11 +274,13 @@ export type SeasonalGuide = z.infer<typeof SeasonalGuideSchema>;
 ```
 
 **Validation Rules**:
+
 - `season`: Required enum (exactly 4 valid values)
 - `highlights`: Required array with at least 1 highlight
 - `fishingFocus`: Optional string (allows omitting for non-fishing seasons)
 
 **Usage Example**:
+
 ```typescript
 const summersvilleSeasonalGuide: SeasonalGuide[] = [
   {
@@ -327,6 +339,7 @@ const summersvilleSeasonalGuide: SeasonalGuide[] = [
 **Purpose**: Safety or legal regulation organized by category for easy scanning.
 
 **Schema Design**:
+
 ```typescript
 /**
  * Regulation schema for safety rules and legal requirements
@@ -344,10 +357,12 @@ export type Regulation = z.infer<typeof RegulationSchema>;
 ```
 
 **Validation Rules**:
+
 - `category`: Required, non-empty string (user-defined categories)
 - `rules`: Required array with at least 1 rule
 
 **Usage Example**:
+
 ```typescript
 const summersvilleRegulations: Regulation[] = [
   {
@@ -394,6 +409,7 @@ const summersvilleRegulations: Regulation[] = [
 **Purpose**: Complete type-safe interface for all Lake Template props, combining existing SPEC-11 types with new lake-specific types.
 
 **Interface Definition**:
+
 ```typescript
 /**
  * Complete props interface for LakeTemplate.astro component
@@ -523,6 +539,7 @@ export interface LakeTemplateProps {
 ```
 
 **Field Breakdown by Type**:
+
 - **Primitives**: 4 fields (name, acreage, maxDepth, county)
 - **Arrays**: 6 fields (quickHighlights, fishSpecies, fishingSpots, campgrounds, activities, seasonalGuide, regulations)
 - **Objects**: 1 field (marina)
@@ -606,6 +623,7 @@ export interface LakeTemplateProps {
 ### Build-Time Validation Architecture
 
 **Validation Flow**:
+
 ```
 Page Build (summersville-lake.astro)
     │
@@ -624,6 +642,7 @@ Page Build (summersville-lake.astro)
 ```
 
 **Implementation Pattern**:
+
 ```typescript
 // In LakeTemplate.astro frontmatter
 ---
@@ -663,6 +682,7 @@ try {
 ```
 
 **Error Handling**:
+
 - **Invalid data**: Build fails with descriptive Zod error message
 - **Missing required fields**: TypeScript error at compilation
 - **Type mismatches**: TypeScript error at compilation
@@ -696,6 +716,7 @@ try {
 ### Array Size Enforcement
 
 **Performance Limits** (documented, not enforced by schema):
+
 - `fishSpecies`: 20 maximum (typical: 6-12)
 - `fishingSpots`: 15 maximum (typical: 5-10)
 - `campgrounds`: 10 maximum (typical: 3-6)
@@ -714,30 +735,35 @@ try {
 **Existing types used as-is**:
 
 1. **GearItem** (SPEC-11)
+
    ```typescript
    export type GearItem = z.infer<typeof GearItemSchema>;
    // Used in gear checklist section
    ```
 
 2. **RelatedCategory** (SPEC-11)
+
    ```typescript
    export type RelatedCategory = z.infer<typeof RelatedCategorySchema>;
    // Used in shop categories section
    ```
 
 3. **CampingFacility** (SPEC-12)
+
    ```typescript
    export type CampingFacility = z.infer<typeof CampingFacilitySchema>;
    // Used directly for campgrounds array
    ```
 
 4. **StatItem** (SPEC-10)
+
    ```typescript
    export type StatItem = z.infer<typeof StatItemSchema>;
    // Used for quick stats bar (acreage, depth, location)
    ```
 
 **Integration Pattern**:
+
 ```typescript
 // In LakeTemplate.astro
 import type {
@@ -766,6 +792,7 @@ const statsData: StatItem[] = [
 **Location**: After line 295 (after existing SPEC-12 types)
 
 **Code Block**:
+
 ```typescript
 // ============================================================================
 // SPEC-13: LAKE TEMPLATE SCHEMAS
@@ -849,6 +876,7 @@ export type Regulation = z.infer<typeof RegulationSchema>;
 **Location**: Immediately after Regulation schema
 
 **Code Block**:
+
 ```typescript
 /**
  * Complete props interface for LakeTemplate.astro component
@@ -919,6 +947,7 @@ export interface LakeTemplateProps {
 **Location**: Add to existing exports
 
 **Code Block**:
+
 ```typescript
 export type {
   LakeTemplateProps,
@@ -992,11 +1021,13 @@ export type {
 **Breaking Changes**: **NONE**
 
 All changes are additive:
+
 - New types are opt-in (only used by Lake Template)
 - Existing SPEC-11/12 components continue working unchanged
 - No modifications to existing type definitions
 
 **Type System Growth**:
+
 - **Before**: adventure.ts = 295 lines
 - **After**: adventure.ts = ~500 lines (+205 lines, +69%)
 - **File Organization**: All adventure-related types remain in single file
@@ -1012,6 +1043,7 @@ All changes are additive:
 **Memory Key**: `swarm/planner/phase1-data-model`
 
 **Storage Pattern**:
+
 ```javascript
 mcp__claude-flow__memory_usage {
   action: "store",
@@ -1036,12 +1068,14 @@ mcp__claude-flow__memory_usage {
 ## Next Steps
 
 ### Phase 2: Template Component Structure
+
 - Create LakeTemplate.astro component (~600 lines)
 - Implement 6 custom sections (hero, fishing spots, marina, activities, seasonal, regulations)
 - Integrate 10 existing SPEC-11 components
 - Apply data transformation layer
 
 ### Phase 3: WVWO Compliance & Testing
+
 - Enforce rounded-sm only (no rounded-md/lg/xl)
 - Apply border-left color accents (green/brown/orange)
 - Implement Kim's voice (font-hand for tips)

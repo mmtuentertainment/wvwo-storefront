@@ -12,6 +12,7 @@
 ## Executive Summary
 
 **Current State (as of 2025-12-27):**
+
 - ✅ SPEC-07: Adventures Hub Filtering (PR #1-8 complete, merged)
 - ✅ SPEC-07B: Navigation Consolidation (PR #60 merged, all silent failures fixed)
 - ✅ SPEC-08: Adventure Card Component (PR #61 merged, drive time badge + stagger animation)
@@ -21,6 +22,7 @@
 
 **Goal:**
 Systematically execute all 64 specs using hierarchical hive mind coordination with:
+
 - Spec-specific content ops workflows (customized per type)
 - Quality gates (don't proceed until current spec validated)
 - Kim review coordination (async, batched, respectful of her time)
@@ -77,6 +79,7 @@ Systematically execute all 64 specs using hierarchical hive mind coordination wi
 | SPEC-07B | Navigation Consolidation | 152 | None (navigation is Matt's domain) | ✅ MERGED |
 
 **Execution Results:**
+
 - ✅ **Completed:** 2025-12-26
 - ✅ **PR #60:** Merged to main (3 commits, df398e6)
 - ✅ **Implementation:** 152 LOC (6 files modified, 1 new component)
@@ -85,6 +88,7 @@ Systematically execute all 64 specs using hierarchical hive mind coordination wi
 - ✅ **Silent Failures Fixed:** Case sensitivity, URL parsing, dev-mode warnings
 
 **Deliverables:**
+
 - ✅ Updated Header.astro with Adventures link (desktop + mobile)
 - ✅ GuideBanner.tsx component (filter-specific guide links, case-insensitive)
 - ✅ CTAs in buck-season and turkey-season guides linking to filtered Adventures
@@ -93,11 +97,13 @@ Systematically execute all 64 specs using hierarchical hive mind coordination wi
 - ✅ Performance: +0.43KB gzipped (GuideBanner component)
 
 **Key Decision:** Hybrid approach
+
 - ✅ Keep `/guides` (seasonal prep content)
 - ⏭️ Migrate `/near` to Adventures (deferred to SPEC-21-28)
 - ✅ Adventures now accessible from header (was hidden, user typed URL manually)
 
 **AgentDB Patterns Stored:**
+
 - Episode #163: SPEC-07B navigation consolidation workflow
 - Episode #164: Case-insensitive URL parameter pattern
 - Episode #165: WVWO aesthetic enforcement checklist
@@ -118,6 +124,7 @@ Systematically execute all 64 specs using hierarchical hive mind coordination wi
 | SPEC-11 | Shared Components | ~150 | Design review: "Breadcrumb, CTA sections?" | Pending |
 
 **Execution Strategy:**
+
 - **Sequential:** SPEC-08 → 09 → 10 → 11 (each builds on previous)
 - **Scout Phase:** Read SPEC-XX/PROMPT.md, analyze requirements
 - **Architect Phase:** Design component structure, WVWO aesthetic compliance
@@ -128,6 +135,7 @@ Systematically execute all 64 specs using hierarchical hive mind coordination wi
 **Timeline:** 1.5 weeks (12-14 hours per spec)
 
 **Deliverables Per Spec:**
+
 - `SPEC-XX/content-ops.md` (code workflow, not content workflow)
 - React component file(s)
 - Unit tests
@@ -154,6 +162,7 @@ Systematically execute all 64 specs using hierarchical hive mind coordination wi
 | SPEC-20 | Resort Hub | Pipestem Resort | "Resort facilities vs trails?" |
 
 **Execution Strategy:**
+
 - **Sequential:** SPEC-12 → 13 → ... → 20 (templates build on each other)
 - **Scout Phase:** Read existing examples (Summersville Lake for SPEC-13)
 - **Architect Phase:** Extract reusable structure, identify variable sections
@@ -165,6 +174,7 @@ Systematically execute all 64 specs using hierarchical hive mind coordination wi
 **Timeline:** 3 weeks (1.5 days per template)
 
 **Deliverables Per Spec:**
+
 - `SPEC-XX/content-ops.md` (template-specific workflow)
 - `SPEC-XX/kim-prompt.md` (structure validation questions)
 - Astro template component file
@@ -191,6 +201,7 @@ Systematically execute all 64 specs using hierarchical hive mind coordination wi
 | SPEC-28 | Setup 301 Redirects | Technical | High (SEO preservation) |
 
 **Execution Strategy:**
+
 - **Can parallelize:** 3-4 migrations at once (independent)
 - **Scout Phase:** Read existing .astro file, extract content sections
 - **Worker Phase:** Convert to markdown frontmatter + body
@@ -201,6 +212,7 @@ Systematically execute all 64 specs using hierarchical hive mind coordination wi
 **Timeline:** 1.5 weeks (2 hours per migration, can parallelize)
 
 **Deliverables Per Spec:**
+
 - `SPEC-XX/content-ops.md` (migration workflow)
 - `SPEC-XX/kim-prompt.md` (preservation check)
 - New markdown file in `src/content/adventures/`
@@ -230,6 +242,7 @@ Systematically execute all 64 specs using hierarchical hive mind coordination wi
 | SPEC-38 | Hawks Nest | Scenic | Year-round | 50 min | 🟡 MEDIUM |
 
 **Execution Strategy:**
+
 - **Batch processing:** All 10 researched → All 10 drafted → ALL 10 sent to Kim in ONE Messenger thread
 - **Scout Phase:** 45 min research per destination (parallel, 10 scouts)
   - Google Maps: coordinates, drive time
@@ -247,11 +260,13 @@ Systematically execute all 64 specs using hierarchical hive mind coordination wi
 - **Quality Gate:** All 10 have Kim's voice, practical details, WVWO aesthetic
 
 **Timeline:** 3 weeks
+
 - Week 1: Matt research + draft (20 hours)
 - Week 2: Kim review + Matt integration (Kim: 2-3 hours, Matt: 5 hours)
 - Week 3: Polish, test, deploy
 
 **Deliverables Per Spec:**
+
 - `SPEC-XX/content-ops.md` (your async system, destination-specific)
 - `SPEC-XX/kim-prompt.md` (4 questions tailored to destination type)
 - `SPEC-XX/research-checklist.md` (Scout output)
@@ -266,10 +281,12 @@ Systematically execute all 64 specs using hierarchical hive mind coordination wi
 **Kim Input:** 20 destinations × 15 min = 5 hours total (split into 2 batches of 10)
 
 **Destinations 11-30** (mix of activities, distances, seasons):
+
 - SPEC-39-48: Second batch of 10 (hiking, fishing, family spots)
 - SPEC-49-58: Third batch of 10 (state parks, resorts, scenic drives)
 
 **Execution Strategy:**
+
 - **Sub-Batch 5A:** SPEC-39-48 (10 destinations)
   - Same workflow as Batch 4
   - Timeline: 3 weeks
@@ -280,6 +297,7 @@ Systematically execute all 64 specs using hierarchical hive mind coordination wi
 **Total Timeline:** 6 weeks (Batch 5A + 5B)
 
 **Quality Gates:**
+
 - After 5A: Review analytics (are first 20 adventures performing?)
 - After 5B: Adjust strategy based on data (what's working?)
 
@@ -292,9 +310,11 @@ Systematically execute all 64 specs using hierarchical hive mind coordination wi
 **Kim Input:** 12 destinations × 15 min = 3 hours total (1 batch)
 
 **Destinations 31-42:**
+
 - SPEC-59-70: Final 12 destinations (fill gaps, cover all WV regions)
 
 **Execution Strategy:**
+
 - Single batch (all 12 at once)
 - Timeline: 2.5 weeks
 - Quality gate: All 42 destinations live, filtering works end-to-end
@@ -306,6 +326,7 @@ Systematically execute all 64 specs using hierarchical hive mind coordination wi
 ### **1. Spec Sequencing (What Order?)**
 
 **Batch Execution Order:**
+
 ```
 Batch 0: Navigation (SPEC-07B)
   → Quality Gate: Adventures accessible from header, cross-links work
@@ -339,6 +360,7 @@ Batch 6: Destinations Phase 3 (SPEC-59-70)
 ```
 
 **Why This Order:**
+
 1. **Navigation first:** Users need to access Adventures (discovered manually typing URL)
 2. **Components next:** Infrastructure before content (can't display adventures without components)
 3. **Templates after:** Structural patterns before individual content
@@ -350,6 +372,7 @@ Batch 6: Destinations Phase 3 (SPEC-59-70)
 ### **2. Quality Gates (What Validates "Done"?)**
 
 **Component Batch Gates:**
+
 - [ ] All 4 components render without errors
 - [ ] TypeScript compiles (0 errors)
 - [ ] WVWO aesthetic verified (rounded-sm, brand colors, 44px targets)
@@ -357,6 +380,7 @@ Batch 6: Destinations Phase 3 (SPEC-59-70)
 - [ ] Components integrate with FilterContext (PR #1)
 
 **Template Batch Gates:**
+
 - [ ] Template builds successfully (Astro component)
 - [ ] 1 example destination created using template
 - [ ] Kim structure validation: "Keep these sections for all [type]?"
@@ -364,6 +388,7 @@ Batch 6: Destinations Phase 3 (SPEC-59-70)
 - [ ] WVWO voice in all copy sections
 
 **Migration Batch Gates:**
+
 - [ ] Original content preserved (no information loss)
 - [ ] Kim's voice intact (compared old vs new)
 - [ ] Frontmatter valid (Zod validation passes)
@@ -371,6 +396,7 @@ Batch 6: Destinations Phase 3 (SPEC-59-70)
 - [ ] Kim preservation check: "Did I keep your meaning?"
 
 **Destination Batch Gates:**
+
 - [ ] All destinations in batch have Kim's local knowledge
 - [ ] Practical details included (parking, timing, permits)
 - [ ] Elevation backfilled (script run)
@@ -386,30 +412,35 @@ Batch 6: Destinations Phase 3 (SPEC-59-70)
 **Batching Strategy:**
 
 **For Components (Batch 1):**
+
 - **One Messenger review** after all 4 components complete
 - **Format:** Screenshot + "Does this design feel like us?"
 - **Kim time:** 15-20 minutes (1-time review)
 - **Timing:** Week 2 of Batch 1
 
 **For Templates (Batch 2):**
+
 - **One Messenger review per template** (9 reviews total)
 - **Format:** "Should [lake/river/WMA] pages all have these sections?"
 - **Kim time:** 20-30 min per template (3 hours total over 3 weeks)
 - **Timing:** After each template + example created
 
 **For Migrations (Batch 3):**
+
 - **One Messenger thread** with all 8 migrations
 - **Format:** "Read old vs new - did I preserve your voice?"
 - **Kim time:** 1.5 hours (check each migration)
 - **Timing:** Week 2 of Batch 3
 
 **For Destinations (Batch 4-6):**
+
 - **One Messenger thread per 10 destinations**
 - **Format:** Your async system (4 questions each)
 - **Kim time:** 2-3 hours per batch of 10
 - **Timing:** After Matt drafts complete, before integration
 
 **Total Kim Time Across All 63 Specs:**
+
 - Batch 1: 15-20 min
 - Batch 2: 3 hours
 - Batch 3: 1.5 hours
@@ -425,6 +456,7 @@ Batch 6: Destinations Phase 3 (SPEC-59-70)
 **Queen Coordinator Stores Patterns:**
 
 **After Each Batch:**
+
 ```bash
 # Successful workflows
 npx agentdb@latest reflexion store "batch-complete" "batch-X-[type]-workflow" 1.0 true "[what worked]"
@@ -437,12 +469,14 @@ npx agentdb@latest reflexion store "kim-review" "batch-X-kim-feedback" 1.0 true 
 ```
 
 **Pattern Recognition:**
+
 - Which Kim questions get best responses? (store successful prompts)
 - Which research sources are most useful? (WVDNR vs AllTrails)
 - Which templates Kim loves vs tolerates? (iterate on structure)
 - What time estimates were accurate? (adjust future batches)
 
 **Memory Synthesis:**
+
 ```bash
 # After Batch 4 (first 10 destinations)
 npx agentdb@latest skill consolidate 3 0.8 7 true
@@ -452,6 +486,7 @@ npx agentdb@latest learner run 3 0.6 0.7
 ```
 
 **Continuous Improvement:**
+
 - Batch 4 workflow informs Batch 5 improvements
 - Batch 5 workflow refines for Batch 6
 - Faster, better, more Kim-authentic over time
@@ -532,6 +567,7 @@ npx agentdb@latest learner run 3 0.6 0.7
 ```
 
 **Launch Checkpoints:**
+
 - **Soft Launch:** Feb 20, 2026 (10 adventures, core functionality)
 - **Expand:** March-April 2026 (add 20 more)
 - **Complete:** May 2026 (all 42 destinations)
@@ -630,6 +666,7 @@ QUEEN: Quality gate - template approved, ready for 5+ lakes
 ### **Messenger Thread Organization**
 
 **One Thread Per Batch:**
+
 - Batch 1 (Components): 1 thread, 4 screenshots
 - Batch 2 (Templates): 9 threads (1 per template)
 - Batch 3 (Migrations): 1 thread, 8 preservation checks
@@ -641,6 +678,7 @@ QUEEN: Quality gate - template approved, ready for 5+ lakes
 **Total Threads:** ~16 Messenger threads over 14 weeks (≈1 per week)
 
 **Kim's Experience:**
+
 - Gets 1 Messenger notification/week (not overwhelming)
 - Reviews when convenient (async, no deadlines)
 - Batched questions (not scattered across 63 separate threads)
@@ -671,10 +709,12 @@ QUEEN: Quality gate - template approved, ready for 5+ lakes
 ### **Checkpoint 1: After Batch 1 (Components)**
 
 **Decision:** Are components production-ready?
+
 - ✅ **If YES:** Proceed to Batch 2 (Templates)
 - ⚠️ **If NO:** Iterate on component design, Kim re-review
 
 **Metrics:**
+
 - Components render without errors
 - Kim approves design
 - TypeScript compiles
@@ -684,10 +724,12 @@ QUEEN: Quality gate - template approved, ready for 5+ lakes
 ### **Checkpoint 2: After Batch 2 (Templates)**
 
 **Decision:** Are templates reusable and Kim-approved?
+
 - ✅ **If YES:** Proceed to Batch 3 (Migrations)
 - ⚠️ **If NO:** Refine templates, create more examples
 
 **Metrics:**
+
 - Each template used for 1 example successfully
 - Kim validates structure
 - No hardcoded content (all variables extracted)
@@ -697,10 +739,12 @@ QUEEN: Quality gate - template approved, ready for 5+ lakes
 ### **Checkpoint 3: After Batch 3 (Migrations)**
 
 **Decision:** Is existing content preserved and migrated?
+
 - ✅ **If YES:** Proceed to Batch 4 (Destinations)
 - ⚠️ **If NO:** Fix preservation issues
 
 **Metrics:**
+
 - All Kim's voice passages intact
 - No information loss
 - 301 redirects working
@@ -712,6 +756,7 @@ QUEEN: Quality gate - template approved, ready for 5+ lakes
 **Decision:** Launch to public OR continue building in private?
 
 **Criteria to Launch:**
+
 - ✅ 10+ adventures live (enough to demonstrate value)
 - ✅ Filtering works end-to-end
 - ✅ WCAG 2.1 AA compliant (accessibility audit passed)
@@ -727,12 +772,14 @@ QUEEN: Quality gate - template approved, ready for 5+ lakes
 ### **Checkpoint 5-7: After Each Destination Batch**
 
 **Analytics Review:**
+
 - Which adventures get most traffic?
 - Which filters are used most?
 - Bounce rate acceptable (<50%)?
 - Conversion rate (directions, phone clicks) meeting targets?
 
 **Adjust Strategy:**
+
 - More of what's working (e.g., if turkey hunting performs well, prioritize more hunting content)
 - Less of what's not (e.g., if cave tours get low traffic, deprioritize)
 
@@ -743,16 +790,19 @@ QUEEN: Quality gate - template approved, ready for 5+ lakes
 ### **Risk #1: Matt Bandwidth Insufficient**
 
 **Symptoms:**
+
 - Batch 4 takes 5 weeks instead of 3 weeks
 - Quality drops (AI slop creeps in)
 - Burnout signals (Matt stops enjoying work)
 
 **Mitigation:**
+
 - **Flexible timeline:** If Batch 4 needs 4 weeks, take 4 weeks (no hard deadlines)
 - **Reduce batch size:** 10 destinations → 5 destinations per batch
 - **Pause button:** If Matt needs break, pause between batches
 
 **Queen Coordinator Action:**
+
 - Monitor batch completion time
 - If >20% over estimate, reduce next batch size
 - Prioritize quality over hitting February launch
@@ -762,15 +812,18 @@ QUEEN: Quality gate - template approved, ready for 5+ lakes
 ### **Risk #2: Kim Doesn't Respond to Messenger**
 
 **Symptoms:**
+
 - 7 days pass, no Kim response
 - Matt blocked on integration
 
 **Mitigation:**
+
 - **Publish with placeholder:** "Local tips coming soon - Kim's adding her knowledge"
 - **Follow-up:** Gentle Messenger nudge after 7 days ("No rush, whenever you have time!")
 - **Continue:** Don't block on Kim - move to next batch
 
 **Queen Coordinator Action:**
+
 - Track Kim response time per batch
 - If >10 days no response, publish without Local Tips
 - Add Kim's voice in v2 update when she responds
@@ -780,16 +833,19 @@ QUEEN: Quality gate - template approved, ready for 5+ lakes
 ### **Risk #3: Quality Drops at Scale (Destination #40 Feels Generic)**
 
 **Symptoms:**
+
 - Batch 6 adventures lack Kim's voice
 - Copy-paste from previous adventures
 - AI slop detected (corporate tone)
 
 **Mitigation:**
+
 - **Litmus tests after every 10:** Run 5 WVWO litmus tests (Neighbor, Voice, Five-Year, etc.)
 - **Variety in Kim questions:** Rotate question bank (don't ask same 4 every time)
 - **Break between batches:** 1 week buffer to reset, avoid fatigue
 
 **Queen Coordinator Action:**
+
 - Audit every 10th adventure for voice authenticity
 - If slop detected, pause batch, review workflow
 - Store anti-patterns in AgentDB (what NOT to do)
@@ -799,6 +855,7 @@ QUEEN: Quality gate - template approved, ready for 5+ lakes
 ## Hive Mind Agent Assignments
 
 ### **Queen Coordinator Agent:**
+
 - **Subagent:** `queen-coordinator`
 - **Responsibilities:**
   - Sequence all 63 specs
@@ -808,6 +865,7 @@ QUEEN: Quality gate - template approved, ready for 5+ lakes
   - Learn and store patterns (AgentDB)
 
 ### **Scout Explorer Agents (Research):**
+
 - **Subagent:** `scout-explorer` (spawn 1-10 in parallel)
 - **Responsibilities:**
   - Research destinations (Google Maps, WVDNR, AllTrails)
@@ -816,6 +874,7 @@ QUEEN: Quality gate - template approved, ready for 5+ lakes
   - Compile into research-checklist.md
 
 ### **Worker Specialist Agents (Content Creation):**
+
 - **Subagent:** `worker-specialist` (spawn 1-10 in parallel)
 - **Responsibilities:**
   - Write markdown drafts from Scout research
@@ -825,6 +884,7 @@ QUEEN: Quality gate - template approved, ready for 5+ lakes
   - Commit to Git
 
 ### **Architect Agents (Design Work):**
+
 - **Subagent:** `system-architect` OR `code-architect` (for components/templates)
 - **Responsibilities:**
   - Design component structure
@@ -833,6 +893,7 @@ QUEEN: Quality gate - template approved, ready for 5+ lakes
   - Ensure reusability
 
 ### **Memory Manager:**
+
 - **Subagent:** `swarm-memory-manager`
 - **Responsibilities:**
   - Store successful workflows in AgentDB
@@ -845,6 +906,7 @@ QUEEN: Quality gate - template approved, ready for 5+ lakes
 ## Next Action for Matt
 
 **Immediate:** Execute SPEC-07B (Navigation Consolidation) - 2-3 hours
+
 - Unblocks SPEC-08-11 (Components need navigation for manual testing)
 - Solves user discovery issue (no link to Adventures)
 - No Kim review needed (technical navigation only)
@@ -854,11 +916,13 @@ QUEEN: Quality gate - template approved, ready for 5+ lakes
 Should I **generate content-ops.md for all 63 specs now**, or **execute one batch at a time**?
 
 ### **Option A: Generate All 63 Content Ops Guides First** (~4-6 hours)
+
 - **Pro:** Complete roadmap, know what's coming
 - **Pro:** Can review all workflows before executing
 - **Con:** Front-loaded work, might change strategy after Batch 1 learnings
 
 ### **Option B: Generate Just Batch 1 (SPEC-08-11), Execute, Learn, Repeat** (incremental)
+
 - **Pro:** Learn from doing, adjust workflow based on reality
 - **Pro:** Less upfront time, start executing faster
 - **Con:** Less visibility into future batches
@@ -866,6 +930,7 @@ Should I **generate content-ops.md for all 63 specs now**, or **execute one batc
 **My Recommendation:** **Option B** (incremental)
 
 **Why:** WVWO principle "Quality > Speed" + "No artificial deadlines"
+
 - Learn from Batch 1 execution
 - Refine workflow based on Kim's actual responses
 - Adjust estimates based on real timings
@@ -874,6 +939,7 @@ Should I **generate content-ops.md for all 63 specs now**, or **execute one batc
 ---
 
 **Current Status:**
+
 - ✅ SPEC-07: Complete (filtering infrastructure)
 - 📋 SPEC-07B: Spec created, ready to execute (navigation)
 - ⏸️ SPEC-08-70: Awaiting sequential execution

@@ -43,11 +43,13 @@ npm run preview
 ### Step 1: E2E Integration Tests
 
 **Command**:
+
 ```bash
 npm run test:e2e
 ```
 
 **Expected**:
+
 - ✓ 12/12 tests passing
 - 0 failures
 - All sections render correctly
@@ -56,7 +58,8 @@ npm run test:e2e
 - Mobile responsive
 
 **If Failed**:
-1. Check test page URL: http://localhost:4321/test/river-template-example
+
+1. Check test page URL: <http://localhost:4321/test/river-template-example>
 2. Verify example data: `src/content/rivers/new-river.md`
 3. Check browser console for errors
 4. Review Playwright trace: `npx playwright show-trace`
@@ -71,11 +74,13 @@ _______________________________________________________________________
 ### Step 2: Accessibility Tests
 
 **Command**:
+
 ```bash
 npm run test:accessibility
 ```
 
 **Expected**:
+
 - ✓ 18/18 tests passing
 - 0 WCAG violations
 - Color contrast 4.5:1 (text), 3:1 (large text)
@@ -84,6 +89,7 @@ npm run test:accessibility
 - ARIA landmarks present
 
 **If Failed**:
+
 1. Run axe DevTools extension manually
 2. Check color contrast in DevTools
 3. Test keyboard navigation manually (Tab, Enter, Escape)
@@ -101,11 +107,13 @@ _______________________________________________________________________
 ### Step 3: Performance Tests
 
 **Command**:
+
 ```bash
 npm run test:performance
 ```
 
 **Expected**:
+
 - ✓ 17/17 tests passing
 - Lighthouse Performance ≥90
 - Lighthouse Accessibility ≥90
@@ -116,6 +124,7 @@ npm run test:performance
 - CLS <0.1
 
 **If Failed**:
+
 1. Run Lighthouse manually in Chrome DevTools
 2. Check bundle sizes: `ls -lh dist/_astro/`
 3. Verify image optimization
@@ -124,6 +133,7 @@ npm run test:performance
 **Status**: ⬜ Not Started | ⏳ In Progress | ✅ Passed | ❌ Failed
 
 **Lighthouse Scores**:
+
 - Performance: _____
 - Accessibility: _____
 - Best Practices: _____
@@ -137,11 +147,13 @@ _______________________________________________________________________
 ### Step 4: Acceptance Criteria Validation
 
 **Command**:
+
 ```bash
 npm run test:validation
 ```
 
 **Expected**:
+
 - ✓ 26/26 tests passing
 - All 42 acceptance criteria validated
 - WVWO brand compliance verified
@@ -151,6 +163,7 @@ npm run test:validation
 - No marketing buzzwords
 
 **If Failed**:
+
 1. Review specific failing criteria
 2. Check component files exist
 3. Verify frontmatter in example data
@@ -168,11 +181,13 @@ _______________________________________________________________________
 ### Step 5: Checkpoint Validations
 
 **Command**:
+
 ```bash
 npm run validate:checkpoints
 ```
 
 **Expected**:
+
 - ✓ Checkpoint 1: Type System Review (PASSED)
 - ✓ Checkpoint 2: WVWO Compliance (PASSED)
 - ✓ Checkpoint 3: Accessibility (PASSED)
@@ -180,6 +195,7 @@ npm run validate:checkpoints
 - ✓ Checkpoint 5: Integration Testing (PASSED)
 
 **If Failed**:
+
 1. Run individual checkpoints: `bash scripts/checkpoint-N-validation.sh`
 2. Review checkpoint script output
 3. Fix reported issues
@@ -188,6 +204,7 @@ npm run validate:checkpoints
 **Status**: ⬜ Not Started | ⏳ In Progress | ✅ Passed | ❌ Failed
 
 **Checkpoint Results**:
+
 - CP1: _____
 - CP2: _____
 - CP3: _____
@@ -202,11 +219,13 @@ _______________________________________________________________________
 ### Step 6: Google Rich Results Validation
 
 **Command**:
+
 ```bash
 npm run validate:rich-results
 ```
 
 **Expected**:
+
 - ✓ Valid @context and @graph
 - ✓ Place entity complete
 - ✓ TouristAttraction entity complete
@@ -215,10 +234,11 @@ npm run validate:rich-results
 - 0-2 warnings (optional entities)
 
 **If Failed**:
+
 1. Review report: `reports/phase6/google-rich-results-*.txt`
 2. Check JSON-LD syntax
 3. Verify required fields in example data
-4. Test schema manually at https://search.google.com/test/rich-results
+4. Test schema manually at <https://search.google.com/test/rich-results>
 
 **Status**: ⬜ Not Started | ⏳ In Progress | ✅ Passed | ❌ Failed
 
@@ -226,6 +246,7 @@ npm run validate:rich-results
 **Warnings**: _____
 
 **Manual Google Rich Results Test**:
+
 - [x] Schema pasted into tool
 - [x] Screenshot captured
 - [x] All entities recognized
@@ -241,11 +262,13 @@ _______________________________________________________________________
 ### Step 7: Full Validation Suite
 
 **Command**:
+
 ```bash
 npm run phase6:full-validation
 ```
 
 **Expected**:
+
 - ✓ Build successful
 - ✓ All checkpoints passed
 - ✓ Rich Results validation passed
@@ -253,6 +276,7 @@ npm run phase6:full-validation
 - Total duration: ~5-10 minutes
 
 **If Failed**:
+
 1. Review which step failed
 2. Run individual test suites for debugging
 3. Check all reports in `reports/phase6/`
@@ -310,6 +334,7 @@ _______________________________________________________________________
 ### Screenshots
 
 Capture and save:
+
 - [ ] Desktop view (1920x1080)
 - [ ] Mobile view (390x844 - iPhone 12)
 - [ ] Tablet view (1024x1366 - iPad Pro)
@@ -329,6 +354,7 @@ Capture and save:
 Use: `docs/phase6-validation-report-template.md`
 
 Fill in:
+
 - [ ] Executive Summary (status, totals)
 - [ ] E2E test results
 - [ ] Accessibility results (WCAG AA)

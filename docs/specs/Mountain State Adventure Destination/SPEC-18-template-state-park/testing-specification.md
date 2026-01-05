@@ -30,6 +30,7 @@ This specification defines the comprehensive testing strategy for SPEC-18 State 
 #### Test Coverage
 
 **Schema Validation Tests:**
+
 ```typescript
 describe('StateParkTypeSchema', () => {
   it('accepts all valid park types', () => {
@@ -130,6 +131,7 @@ describe('SeasonalHoursSchema', () => {
 ```
 
 **Display Constants Completeness:**
+
 ```typescript
 describe('Display Constants', () => {
   describe('FACILITY_TYPE_LABELS', () => {
@@ -163,6 +165,7 @@ describe('Display Constants', () => {
 ```
 
 **Helper Function Tests:**
+
 ```typescript
 describe('Helper Functions', () => {
   describe('getFacilityTypeLabel', () => {
@@ -218,6 +221,7 @@ describe('Helper Functions', () => {
 ```
 
 **WVWO Color Compliance Tests:**
+
 ```typescript
 describe('WVWO Color Compliance', () => {
   it('uses no forbidden colors', () => {
@@ -248,6 +252,7 @@ describe('WVWO Color Compliance', () => {
 ```
 
 **Edge Cases:**
+
 ```typescript
 describe('Edge Cases', () => {
   it('handles facilities with zero count', () => {
@@ -285,6 +290,7 @@ describe('Edge Cases', () => {
 #### Test Coverage
 
 **OpeningHours Schema:**
+
 ```typescript
 describe('OpeningHoursSchema', () => {
   it('accepts valid year-round hours', () => {
@@ -322,6 +328,7 @@ describe('OpeningHoursSchema', () => {
 ```
 
 **FAQ Schema (40-50 word answers):**
+
 ```typescript
 describe('FAQPageItemSchema', () => {
   it('accepts valid FAQ with proper answer length', () => {
@@ -355,6 +362,7 @@ describe('FAQPageItemSchema', () => {
 ```
 
 **Event Schema:**
+
 ```typescript
 describe('EventSchema', () => {
   it('accepts valid one-time event', () => {
@@ -408,6 +416,7 @@ describe('EventSchema', () => {
 ```
 
 **EventSeries Recurring Patterns:**
+
 ```typescript
 describe('EventSeries Recurring Patterns', () => {
   it('accepts weekly recurring pattern', () => {
@@ -441,6 +450,7 @@ describe('EventSeries Recurring Patterns', () => {
 #### Test Coverage
 
 **Props Interface Validation:**
+
 ```typescript
 describe('StateParkTemplatePropsSchema', () => {
   const minimalValid = {
@@ -501,6 +511,7 @@ describe('StateParkTemplatePropsSchema', () => {
 ```
 
 **Optional vs Required Fields:**
+
 ```typescript
 describe('Optional Fields', () => {
   it('accepts props with all optional fields', () => {
@@ -543,6 +554,7 @@ describe('Optional Fields', () => {
 ```
 
 **Default Values Testing:**
+
 ```typescript
 describe('Default Values', () => {
   it('uses default empty arrays for optional fields', () => {
@@ -559,6 +571,7 @@ describe('Default Values', () => {
 ```
 
 **Nested Object Validation:**
+
 ```typescript
 describe('Nested Objects', () => {
   it('validates address object structure', () => {
@@ -602,6 +615,7 @@ describe('Nested Objects', () => {
 ```
 
 **Array Validation:**
+
 ```typescript
 describe('Array Validation', () => {
   it('validates facilities array elements', () => {

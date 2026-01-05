@@ -12,6 +12,7 @@
 ### From Ski Template (ski-types.ts)
 
 **LodgingSchema** (lines 297-312)
+
 ```typescript
 {
   name: string,
@@ -21,9 +22,10 @@
   priceRange: string (optional),
   bookingUrl: string (optional)
 }
-```
+```text
 
 **DiningSchema** (lines 322-333)
+
 ```typescript
 {
   name: string,
@@ -34,27 +36,31 @@
 ```
 
 **AmenitySchema** (lines 343-350)
+
 ```typescript
 {
   category: string,  // Rentals, Lessons, Childcare, State Park Features
   services: string[]  // 1-20 items
 }
-```
+```markdown
 
 ### From BackcountryTemplate (backcountry-template-types.ts)
 
 **BackcountryCampingSchema** (via water-safety.ts)
+
 - Designated sites
 - Primitive camping allowed
 - Camping restrictions
 
-**WaterSourceSchema**
+### WaterSourceSchema
+
 - Water sources list
 - Treatment requirements
 
 ### From WMA/Lake Templates (adventure.ts)
 
 **CampingFacilitySchema** (lines 234-253)
+
 ```typescript
 {
   type: string,  // Camping Sites, Shooting Ranges, Primitive Camping, Hiking Trails, Horse Trails, Adjacent State Park
@@ -67,6 +73,7 @@
 ```
 
 Features observed in data:
+
 - Electric hookups
 - Showers and restrooms
 - Restaurant and pool
@@ -75,6 +82,7 @@ Features observed in data:
 ### From Cave Template (cave-types.ts)
 
 **CaveTourSchema** (lines 150-172)
+
 - Tour scheduling
 - Duration and difficulty
 - Stairs count
@@ -82,6 +90,7 @@ Features observed in data:
 - Highlights
 
 **CaveAccessibilitySchema** (lines 232-248)
+
 - Physical requirements
 - Limitations
 - Accommodations
@@ -97,7 +106,8 @@ Features observed in data:
 **Current State:** Generic LodgingSchema.type = "Cabin"
 **Gap:** No detailed cabin specifications
 
-**Needed Fields:**
+### Needed Fields:
+
 - `cabinNumber`: string (e.g., "Cabin 1-9", "Cabin 10")
 - `bedrooms`: number (1-4 typical)
 - `maxOccupancy`: number
@@ -110,7 +120,8 @@ Features observed in data:
 - `hasPorch`: boolean
 - `hasGrill`: boolean
 
-**Evidence:**
+### Evidence:
+
 - Holly River: "10 furnished cabins with stone fireplaces. Cabins 1-9 available April-November; Cabin 10 year-round"
 - Canaan Valley: "Full kitchen, Fireplace, Deck, Privacy"
 
@@ -119,7 +130,8 @@ Features observed in data:
 **Current State:** Listed generically in amenities[]
 **Gap:** No structured pool schema
 
-**Needed Schema:**
+### Needed Schema:
+
 ```typescript
 PoolFacilitySchema {
   type: 'indoor' | 'outdoor' | 'splash_pad' | 'lazy_river',
@@ -131,9 +143,10 @@ PoolFacilitySchema {
   ageRestrictions: string (optional),
   fees: string (optional)
 }
-```
+```text
 
-**Evidence:**
+### Evidence:
+
 - Holly River: "seasonal swimming pool"
 - Canaan Valley: "Indoor pool"
 
@@ -142,7 +155,8 @@ PoolFacilitySchema {
 **Current State:** Not represented
 **Gap:** No playground schema
 
-**Needed Schema:**
+### Needed Schema:
+
 ```typescript
 PlaygroundSchema {
   ageGroups: ('toddler' | 'preschool' | 'school_age' | 'all_ages')[],
@@ -159,7 +173,8 @@ PlaygroundSchema {
 **Current State:** MarinaSchema exists but lacks state park specifics
 **Gap:** Boat launch details for free/low-cost park launches
 
-**Extension Needed:**
+### Extension Needed:
+
 ```typescript
 BoatLaunchSchema extends MarinaSchema {
   rampType: 'concrete' | 'gravel' | 'natural',
@@ -172,14 +187,15 @@ BoatLaunchSchema extends MarinaSchema {
   depthAtLaunch: string,  // e.g., "Adequate at normal pool"
   restrictions: string[]  // Gas motors, HP limits, etc.
 }
-```
+```markdown
 
 ### 5. Visitor Centers / Nature Centers
 
 **Current State:** Not represented
 **Gap:** Educational facility schema
 
-**Needed Schema:**
+### Needed Schema:
+
 ```typescript
 VisitorCenterSchema {
   name: string,
@@ -195,7 +211,8 @@ VisitorCenterSchema {
 }
 ```
 
-**Evidence:**
+### Evidence:
+
 - Blackwater Falls Lodge: "Nature center"
 
 ### 6. Restaurants/Food Service (Enhanced)
@@ -203,7 +220,8 @@ VisitorCenterSchema {
 **Current State:** Basic DiningSchema
 **Gap:** State park-specific restaurant details
 
-**Enhancement Needed:**
+### Enhancement Needed:
+
 ```typescript
 DiningSchema {
   // ... existing fields
@@ -216,9 +234,10 @@ DiningSchema {
   seasonalDates: string (optional),
   priceRange: string  // $, $$, $$$
 }
-```
+```text
 
-**Evidence:**
+### Evidence:
+
 - Canaan Valley: "Hickory Dining Room - Breakfast and dinner buffets available"
 - Holly River: "Restaurant (seasonal)"
 
@@ -227,7 +246,8 @@ DiningSchema {
 **Current State:** Boolean flag in VisitorCenterSchema (proposed)
 **Gap:** Standalone gift shop schema
 
-**Needed Schema:**
+### Needed Schema:
+
 ```typescript
 GiftShopSchema {
   name: string,
@@ -245,7 +265,8 @@ GiftShopSchema {
 **Current State:** Partially in CampingFacilitySchema
 **Gap:** Detailed group camping and event spaces
 
-**Needed Schema:**
+### Needed Schema:
+
 ```typescript
 GroupFacilitySchema {
   type: 'pavilion' | 'group_camp' | 'shelter' | 'picnic_area',
@@ -259,14 +280,15 @@ GroupFacilitySchema {
   seasonal: boolean,
   nearParking: boolean
 }
-```
+```markdown
 
 ### 9. Recreation Equipment Rentals
 
 **Current State:** Ski rental patterns exist
 **Gap:** State park recreation rentals
 
-**Needed Schema:**
+### Needed Schema:
+
 ```typescript
 RecreationRentalSchema {
   equipment: string,  // Kayak, Canoe, Paddleboard, Bike, Fishing rod
@@ -284,7 +306,8 @@ RecreationRentalSchema {
 **Current State:** Not represented
 **Gap:** Meeting and event facilities
 
-**Needed Schema:**
+### Needed Schema:
+
 ```typescript
 ConferenceSpaceSchema {
   name: string,
@@ -296,13 +319,14 @@ ConferenceSpaceSchema {
   rentalFee: string,
   bookingContact: string
 }
-```
+```text
 
 ---
 
 ## REUSABLE PATTERNS FROM EXISTING TEMPLATES
 
 ### From Ski Template (Excellent Reuse)
+
 - ✅ **LodgingSchema.amenities[]** - Perfect for cabin features
 - ✅ **DiningSchema** - Can extend for state park restaurants
 - ✅ **Pricing tier patterns** (Adult/Child/Senior) - Apply to all paid facilities
@@ -310,15 +334,18 @@ ConferenceSpaceSchema {
 - ✅ **Reservation requirement flags** - Needed for cabins, pavilions
 
 ### From Lake Template (marina/boat launch patterns)
+
 - ✅ **MarinaSchema**: services[], contact, hours, fees - Adaptable to boat launches
 - ✅ **ActivitySchema**: name, description, season, difficulty - Perfect for recreation offerings
 
 ### From Cave Template (visitor experience)
+
 - ✅ **Accessibility schemas** - Excellent for ADA compliance across all facilities
 - ✅ **Operating hours by season** - State parks have variable schedules
 - ✅ **Tour/program scheduling patterns** - Nature center programs
 
 ### From Backcountry Template
+
 - ✅ **Managing agency patterns** - State parks managed by WV State Parks
 - ✅ **Emergency contact systems** - Required for all parks
 - ✅ **Regulations schemas** - Park rules and restrictions
@@ -329,9 +356,10 @@ ConferenceSpaceSchema {
 
 ### Architecture Strategy
 
-**State Park Template = Master Composition Pattern**
+### State Park Template = Master Composition Pattern
 
 State parks combine facilities from ALL existing templates:
+
 - **Lodging** (from Ski) + enhanced cabin details
 - **Water access** (from Lake) + boat launches
 - **Educational components** (from Cave) + visitor centers
@@ -340,25 +368,27 @@ State parks combine facilities from ALL existing templates:
 
 ### New Schemas Priority
 
-**P0 (Required for MVP):**
+### P0 (Required for MVP):
+
 1. Enhanced CabinSchema (extends LodgingSchema)
 2. BoatLaunchSchema
 3. VisitorCenterSchema
 4. GroupFacilitySchema (pavilions/shelters)
 
-**P1 (High Value):**
-5. PoolFacilitySchema
+### P1 (High Value):
+1. PoolFacilitySchema
 6. Enhanced DiningSchema
 7. RecreationRentalSchema
 
-**P2 (Nice to Have):**
-8. PlaygroundSchema
+### P2 (Nice to Have):
+1. PlaygroundSchema
 9. GiftShopSchema
 10. ConferenceSpaceSchema
 
 ### Type Safety Approach
 
 All new schemas MUST:
+
 - Use Zod for runtime validation
 - Extend existing base schemas where applicable
 - Use discriminated unions for facility variants
@@ -367,6 +397,7 @@ All new schemas MUST:
 ### Data Constraints
 
 Follow established patterns:
+
 - Arrays: max 20-30 items
 - String descriptions: 10-500 chars
 - Required fields: name, type, description minimum
@@ -375,11 +406,13 @@ Follow established patterns:
 ### File Organization
 
 Proposed new file:
-```
+
+```text
 wv-wild-web/src/types/state-park-types.ts
 ```
 
 Should import and extend:
+
 - ski-types.ts (LodgingSchema, DiningSchema)
 - adventure.ts (CampingFacilitySchema, ActivitySchema)
 - cave-types.ts (AccessibilitySchema, operating hours patterns)
@@ -388,7 +421,8 @@ Should import and extend:
 
 ## DISCOVERY METRICS
 
-**Files Analyzed:**
+### Files Analyzed:
+
 - ✅ wv-wild-web/src/types/ski-types.ts (lines 290-350)
 - ✅ wv-wild-web/src/types/adventure.ts (lines 234-253)
 - ✅ wv-wild-web/src/types/cave-types.ts (lines 230-290)
@@ -407,13 +441,15 @@ Should import and extend:
 
 **Risk Level:** ✅ LOW
 
-**Assessment:**
+### Assessment:
+
 - Missing types are **additive**, not breaking changes
 - All proposed schemas extend existing patterns
 - No architectural conflicts detected
 - Type safety maintained throughout
 
-**Opportunities Identified:**
+### Opportunities Identified:
+
 1. State Park template can become MASTER facility composition reference
 2. Most comprehensive facility coverage in codebase
 3. Reusable by future recreation destination templates

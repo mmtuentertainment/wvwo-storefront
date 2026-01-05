@@ -322,6 +322,7 @@ export const dataName: LakeTemplateProps = { /* ... */ };
 **File**: `tests/fixtures/minimal-lake.ts`
 **Purpose**: Smallest valid data for schema validation
 **Use Cases**:
+
 - Quick schema validation tests
 - Negative testing (remove fields to test validation errors)
 - Performance baseline (minimal render overhead)
@@ -331,6 +332,7 @@ export const dataName: LakeTemplateProps = { /* ... */ };
 **File**: `tests/fixtures/summersville-lake-data.ts`
 **Purpose**: Complete real-world data from Summersville Lake page
 **Use Cases**:
+
 - Integration testing with realistic data
 - Visual regression testing
 - Performance testing with typical array sizes
@@ -340,6 +342,7 @@ export const dataName: LakeTemplateProps = { /* ... */ };
 **File**: `tests/fixtures/invalid-lake.ts`
 **Purpose**: Intentionally invalid data to test build-time validation
 **Use Cases**:
+
 - Test Zod schema catches errors
 - Verify build fails with clear error messages
 - Document common data validation mistakes
@@ -348,6 +351,7 @@ export const dataName: LakeTemplateProps = { /* ... */ };
 
 **Pattern**: `tests/fixtures/{test-case}-lake.ts`
 **Examples**:
+
 - `max-species-lake.ts` - 20 fish species (array size limit)
 - `max-spots-lake.ts` - 15 fishing spots (array size limit)
 - `empty-arrays-lake.ts` - Empty optional arrays (edge case)
@@ -360,11 +364,13 @@ export const dataName: LakeTemplateProps = { /* ... */ };
 
 **Output Location**: `wv-wild-web/coverage/`
 **Formats**:
+
 - `coverage/index.html` - HTML coverage report
 - `coverage/lcov.info` - LCOV format for CI
 - Terminal summary during test run
 
 **View Coverage**:
+
 ```bash
 cd wv-wild-web
 npm run test:run -- --coverage
@@ -375,11 +381,13 @@ open coverage/index.html
 
 **Output Location**: `wv-wild-web/playwright-report/`
 **Formats**:
+
 - HTML report with screenshots
 - Trace files for debugging
 - Video recordings (on failure)
 
 **View Report**:
+
 ```bash
 cd wv-wild-web
 npx playwright show-report
@@ -389,10 +397,12 @@ npx playwright show-report
 
 **Output Location**: `wv-wild-web/lighthouse-reports/`
 **Formats**:
+
 - JSON report (parseable)
 - HTML report (visual)
 
 **View Report**:
+
 ```bash
 cd wv-wild-web
 open lighthouse-reports/latest.html
@@ -444,6 +454,7 @@ Add to `.gitignore`:
 ### Test Review Checklist
 
 Before PR submission:
+
 - [ ] All 7 test layers passing
 - [ ] Coverage meets 80%+ threshold
 - [ ] No WVWO violations found

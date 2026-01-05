@@ -19,6 +19,7 @@ This spec incorporates findings from deep research of real WV whitewater outfitt
 ## Problem Statement
 
 **Current State:**
+
 - Existing river pages (elk-river.astro, holly-river.astro) manually compose all components inline (~17-20KB each)
 - No centralized template = inconsistent structure, duplicated code, no reusability
 - Original SPEC-14 PROMPT.md incomplete:
@@ -29,6 +30,7 @@ This spec incorporates findings from deep research of real WV whitewater outfitt
   - ❌ No real-world UX validation from WV whitewater sites
 
 **Who Has This Problem:**
+
 - **Developers**: Repetitive manual composition, hard to maintain consistency
 - **Content Editors**: No structured data model, difficult to update river information
 - **Users**: Inconsistent UX across river pages, missing critical safety information, no real-time water levels
@@ -38,6 +40,7 @@ This spec incorporates findings from deep research of real WV whitewater outfitt
 ## Goals
 
 ### Primary Goals
+
 1. **Complete Missing Implementations**: Deliver production-ready code for 3 missing sections (Seasonal Flow, Access Points, Nearby Attractions)
 2. **Type-Safe Data Model**: Full TypeScript interface system with Zod schemas for Content Collections validation
 3. **SEO Excellence**: Comprehensive Schema.org @graph architecture enabling rich search results (TouristAttraction + LocalBusiness + Article)
@@ -45,9 +48,10 @@ This spec incorporates findings from deep research of real WV whitewater outfitt
 5. **Mobile-First Performance**: 50%+ mobile traffic, rural WV bandwidth constraints (2-5 Mbps), offline-friendly
 
 ### Secondary Goals
+
 6. **Real-Time Data Integration**: USGS water gauge API integration for current flow conditions (CFS)
-7. **Reusability**: Extend pattern to 40+ river destinations (New River, Cheat River, Elk River, etc.)
-8. **WVWO Compliance**: 100% adherence to brand aesthetics (rounded-sm ONLY, font-display/hand/body, authentic voice)
+2. **Reusability**: Extend pattern to 40+ river destinations (New River, Cheat River, Elk River, etc.)
+3. **WVWO Compliance**: 100% adherence to brand aesthetics (rounded-sm ONLY, font-display/hand/body, authentic voice)
 
 ---
 
@@ -65,26 +69,32 @@ This spec incorporates findings from deep research of real WV whitewater outfitt
 ## User Stories
 
 ### As a Weekend Whitewater Rafter
+
 - I want to see rapid classifications (Class I-V) with hazard warnings upfront
 - So that I can assess if the river matches my skill level before booking
 
 ### As a Fly Fisherman
+
 - I want to know which fish species are available in different seasons and river sections
 - So that I can plan my trip during peak fishing times
 
 ### As a First-Time Visitor
+
 - I want to see outfitter comparisons (services, pricing, contact info)
 - So that I can choose a guided trip provider that fits my budget and needs
 
 ### As a Trip Planner
+
 - I want to see put-in/take-out access points with GPS coordinates and shuttle information
 - So that I can plan multi-day river logistics and parking
 
 ### As a Safety-Conscious Paddler
+
 - I want prominent safety warnings, required gear lists, and skill level requirements
 - So that I understand the risks before committing to the trip
 
 ### As a Mobile User (50% of Traffic)
+
 - I want touch-friendly navigation with sticky phone CTAs
 - So that I can book trips while on-site with limited rural WV bandwidth
 
@@ -95,6 +105,7 @@ This spec incorporates findings from deep research of real WV whitewater outfitt
 ### Core Requirements
 
 #### 1. Hero Section (CRITICAL - Above Fold)
+
 - **Display**: River name, total length (miles), difficulty range (Class II-V), county
 - **Stats Grid**: 2-4 quick stats (length, distance from shop, access, season)
 - **Quick Highlights**: Badges for key features (e.g., "Class V Rapids", "Dam Releases", "Trophy Smallmouth")
@@ -102,6 +113,7 @@ This spec incorporates findings from deep research of real WV whitewater outfitt
 - **Responsive**: `h-[70vh] min-h-[500px]` with dark overlay (`bg-brand-brown/60`)
 
 #### 2. Rapids Guide Section (Lines ~154-208, From PROMPT.md)
+
 - **Color-Coded Classification** (based on `class.base`):
   - Class I-III: `border-l-sign-green`, `bg-sign-green` badges
   - Class IV: `border-l-brand-orange`, `bg-brand-orange` badges
@@ -112,6 +124,7 @@ This spec incorporates findings from deep research of real WV whitewater outfitt
 - **Layout**: 2-3 column responsive grid (`md:grid-cols-2 lg:grid-cols-3`)
 
 #### 3. Fishing Section (Lines ~211-293, From PROMPT.md)
+
 - **Species**: Display as badges (`bg-sign-green text-white px-3 py-1 rounded-sm`)
 - **Seasons**: Best fishing times (e.g., "Spring (April-May), Fall (September-October)")
 - **Access Points**: Named locations with descriptions (e.g., "Below Summersville Dam - Tailwater access")
@@ -119,6 +132,7 @@ This spec incorporates findings from deep research of real WV whitewater outfitt
 - **Kim's Tip** (Optional): Render in `font-hand italic text-sm` with `bg-brand-cream` background
 
 #### 4. Outfitters Section (Lines ~296-353, From PROMPT.md)
+
 - **Per Outfitter Card**:
   - Business name (h3)
   - Services list (guided trips, rentals, shuttles, multi-day packages)
@@ -128,6 +142,7 @@ This spec incorporates findings from deep research of real WV whitewater outfitt
 - **Layout**: 2-column grid (`md:grid-cols-2`), cream backgrounds (`bg-brand-cream`)
 
 #### 5. Seasonal Flow Section (NEW - Lines ~356-445, From Research Plan)
+
 - **4-Season Grid**: Spring, Summer, Fall, Winter cards
 - **Per Season**:
   - Season name with underline (`border-b-2 border-b-sign-green`)
@@ -139,6 +154,7 @@ This spec incorporates findings from deep research of real WV whitewater outfitt
 - **Layout**: `grid-cols-1 md:grid-cols-2 lg:grid-cols-4`
 
 #### 6. Access Points Section (NEW - Lines ~448-542, From Research Plan)
+
 - **Per Access Point Card**:
   - Name (h3)
   - Type badge (based on `type` enum): PUT-IN (green), TAKE-OUT (brown), BOTH (orange)
@@ -149,6 +165,7 @@ This spec incorporates findings from deep research of real WV whitewater outfitt
 - **Layout**: 2-column grid (`md:grid-cols-2`), sign-green border-left (`border-l-sign-green`)
 
 #### 7. Safety Section (Lines ~545-620, From PROMPT.md - CRITICAL Prominence)
+
 - **Per Safety Category**:
   - Category name (h3): "Rescue Equipment", "First Aid", "Required Skills", "Emergency Contacts"
   - Items list with bullet points
@@ -157,6 +174,7 @@ This spec incorporates findings from deep research of real WV whitewater outfitt
 - **Layout**: Full-width stacked sections (`space-y-6`), white backgrounds on cream section
 
 #### 8. Nearby Attractions Section (NEW - Lines ~623-697, From Research Plan)
+
 - **Per Attraction Card**:
   - Type icon: Standard icons for "Camping" (tent), "Hiking" (boot), "Town" (building), "State Park" (tree), "Restaurant" (utensils), "Historic Site" (landmark)
   - Fallback icon: Generic map pin for custom/unknown types
@@ -167,16 +185,19 @@ This spec incorporates findings from deep research of real WV whitewater outfitt
 - **Layout**: 3-column grid (`md:grid-cols-2 lg:grid-cols-3`)
 
 #### 9. Gear Checklist (Shared Component Integration)
+
 - **Use**: `AdventureGearChecklist.astro` (existing SPEC-10 component)
 - **Props**: `items: GearItem[]` (name, optional: boolean)
 - **Visual**: Required items (green checkmark), Optional items (circle icon + "(optional)" suffix)
 
 #### 10. Related Shop (Shared Component Integration)
+
 - **Use**: `AdventureRelatedShop.astro` (existing SPEC-11 component)
 - **Props**: `categories: RelatedCategory[]` (name, description, href)
 - **Layout**: Grid of shop category cards with CTA to main shop
 
 #### 11. Call-to-Action (Shared Component Integration)
+
 - **Use**: `AdventureCTA.astro` (existing component)
 - **Props**: Primary CTA (Get Directions), Secondary CTA (Call Shop)
 - **Visual**: Sign-green filled button + outlined button
@@ -249,6 +270,7 @@ This spec incorporates findings from deep research of real WV whitewater outfitt
 ### TypeScript Interfaces (src/types/adventure.ts)
 
 #### Primary Interface
+
 ```typescript
 export interface RiverTemplateProps {
   // Hero section (required)
@@ -361,6 +383,7 @@ export interface NearbyAttraction {
 ### Zod Schemas (Content Collections Validation)
 
 All 7 interfaces above have corresponding Zod schemas in `src/types/adventure.ts`:
+
 - `RapidSchema`
 - `RiverFishingSchema`
 - `OutfitterSchema` - Contact validation requires at least one method: `z.object({ phone, website, email }).refine(c => c.phone || c.website || c.email)`
@@ -370,6 +393,7 @@ All 7 interfaces above have corresponding Zod schemas in `src/types/adventure.ts
 - `NearbyAttractionSchema`
 
 **Content Collections Extension** (src/content.config.ts):
+
 ```typescript
 // Line 99: Update type discriminator
 type: z.enum(['adventure', 'wma', 'lake', 'river']).optional(),
@@ -518,6 +542,7 @@ interface Props {
 ```
 
 **Meta Tags** (src/pages/near/{river-name}.astro):
+
 ```html
 <title>Gauley River - Whitewater Rafting & Fishing Guide | WV Wild Outdoors</title>
 <meta name="description" content="Complete Gauley River guide: Class II-V whitewater rafting, world-class smallmouth fishing, and expert-guided trips. 53 miles of WV's most challenging rapids. 30 minutes from our shop." />
@@ -539,6 +564,7 @@ interface Props {
 ## Dependencies
 
 ### Internal (Existing WVWO Components)
+
 - ✅ `AdventureGearChecklist.astro` (SPEC-10) - Gear lists
 - ✅ `AdventureRelatedShop.astro` (SPEC-11) - Shop category cards
 - ✅ `AdventureCTA.astro` (existing) - Dual-button call-to-action
@@ -547,11 +573,13 @@ interface Props {
 - ✅ `SchemaBreadcrumb.astro` - JSON-LD breadcrumb schema
 
 ### Internal (Types)
+
 - ✅ `Difficulty`, `Season`, `StatIcon`, `Coordinates` (existing enums/types)
 - ✅ `StatItem`, `GearItem`, `RelatedCategory` (existing schemas)
 - ✅ `LakeTemplateProps` (reference pattern for RiverTemplateProps)
 
 ### External (APIs - Future Phase)
+
 - 🔮 USGS Water Services REST API (Phase 5):
   - Endpoint: `https://waterservices.usgs.gov/nwis/iv/`
   - Parameters: `sites`, `parameterCd` (00060 = streamflow CFS), `format=json`
@@ -560,6 +588,7 @@ interface Props {
   - **MVP**: External link only, no API calls
 
 ### Tech Stack
+
 - ✅ Astro 5.x (Static Site Generator)
 - ✅ TypeScript 5.x (Type safety)
 - ✅ Tailwind CSS 4.x (Styling)
@@ -571,9 +600,11 @@ interface Props {
 ## Implementation Roadmap
 
 ### Phase 1: Type System (2 hours)
+
 **File**: `wv-wild-web/src/types/adventure.ts`
 
 ✅ **Tasks**:
+
 1. Add 7 Zod schemas after line 394 (after Lake schemas)
 2. Add `RiverTemplateProps` interface matching `LakeTemplateProps` pattern
 3. Add type guard: `export function isRiverAdventure(adventure: any): boolean`
@@ -585,9 +616,11 @@ interface Props {
 ---
 
 ### Phase 2: Missing Section Implementations (4 hours)
+
 **File**: `wv-wild-web/src/components/templates/RiverTemplate.astro` (NEW)
 
 ✅ **Tasks**:
+
 1. Create template file structure (frontmatter, imports, props interface)
 2. Implement Hero section (from SPEC-14 PROMPT.md)
 3. Implement Rapids Guide section (from PROMPT.md)
@@ -605,9 +638,11 @@ interface Props {
 ---
 
 ### Phase 3: Content Collections Integration (1 hour)
+
 **File**: `wv-wild-web/src/content.config.ts`
 
 ✅ **Tasks**:
+
 1. Update type discriminator (line 99): Add `'river'` to enum
 2. Add river-specific optional fields (after line 111)
 3. Import river Zod schemas
@@ -619,9 +654,11 @@ interface Props {
 ---
 
 ### Phase 4: SEO & Schema.org Component (2 hours)
+
 **File**: `wv-wild-web/src/components/seo/SchemaRiverTemplate.astro` (NEW)
 
 ✅ **Tasks**:
+
 1. Create component scaffolding with Props interface
 2. Implement @graph entity builder:
    - TouristAttraction + Place hybrid
@@ -637,9 +674,11 @@ interface Props {
 ---
 
 ### Phase 5: Example Data Files (1 hour)
+
 **Files**: `wv-wild-web/src/data/rivers/` (NEW directory)
 
 ✅ **Tasks**:
+
 1. Create `_example.ts` - Complete reference implementation (~300 lines)
 2. Create `gauley.ts` - Skeleton with TODO markers (~280 lines)
 3. Create `README.md` - Developer documentation for river data files
@@ -651,9 +690,11 @@ interface Props {
 ---
 
 ### Phase 6: Testing & Validation (Future - Post-Implementation)
+
 **Scope**: E2E tests, visual regression, accessibility audit
 
 🔮 **Deferred Tasks** (Phase 6):
+
 1. Playwright E2E tests (mobile, tablet, desktop viewports)
 2. Visual regression tests (Percy or Chromatic)
 3. Accessibility audit (axe-core, WAVE, manual testing)
@@ -667,6 +708,7 @@ interface Props {
 ## Acceptance Criteria
 
 ### Completeness
+
 - [ ] All 8 sections implemented (Rapids, Fishing, Outfitters, Seasonal Flow, Access Points, Safety, Nearby Attractions, plus Gear/Shop/CTA)
 - [ ] TypeScript interface system complete (7 Zod schemas + RiverTemplateProps)
 - [ ] Content Collections extended with `type: 'river'` discriminator
@@ -674,6 +716,7 @@ interface Props {
 - [ ] Example data files created (_example.ts, gauley.ts, README.md)
 
 ### WVWO Compliance
+
 - [ ] `rounded-sm` ONLY (no other border-radius values)
 - [ ] Fonts: Bitter (display), Permanent Marker (hand), Noto Sans (body)
 - [ ] Colors: Brown, green, cream, orange (<5% screen)
@@ -682,6 +725,7 @@ interface Props {
 - [ ] Kim's authentic voice (no corporate buzzwords)
 
 ### Accessibility (WCAG AA)
+
 - [ ] Color contrast ≥ 4.5:1 on all text/bg combos
 - [ ] Color-blind friendly (shape icons + colors for rapids)
 - [ ] Screen reader friendly (aria-labelledby, semantic HTML)
@@ -689,18 +733,21 @@ interface Props {
 - [ ] Touch-friendly (48px+ tap targets for mobile)
 
 ### Performance
+
 - [ ] Static rendering (zero client-side JS)
 - [ ] Lazy-loaded images (except hero: `loading="eager"`)
 - [ ] Conditional sections (hide if empty arrays)
 - [ ] Bundle size < 100KB uncompressed
 
 ### SEO
+
 - [ ] Schema.org @graph validates (Google Rich Results Test)
 - [ ] Meta tags complete (title, description, OG, geo)
 - [ ] Breadcrumb schema matches visual breadcrumb
 - [ ] Outfitters as LocalBusiness entities (local pack eligibility)
 
 ### Testing (Phase 6 - Future)
+
 - [ ] Responsive grids work (375px mobile, 768px tablet, 1024px+ desktop)
 - [ ] Real-time gauge link opens USGS site in new tab
 - [ ] GPS coords open Google Maps in new tab
@@ -712,6 +759,7 @@ interface Props {
 ## Open Questions
 
 ### Resolved During Planning
+
 1. ✅ **Q**: Should rivers use existing `adventures` collection or new `rivers` collection?
    **A**: Extend `adventures` with `type: 'river'` discriminator (consistent with WMA pattern)
 
@@ -725,13 +773,14 @@ interface Props {
    **A**: Shape icons (●▲■) + color, WCAG AA contrast ratios, ARIA labels
 
 ### Outstanding (Phase 4+ Decisions)
+
 5. ❓ **Q**: Should we create a dedicated `/rivers/` top-level route or keep `/near/{river-name}/`?
    **A**: Defer to Phase 4 content population (affects breadcrumb schema)
 
-6. ❓ **Q**: Do we need outfitter booking integration or keep phone-first?
+2. ❓ **Q**: Do we need outfitter booking integration or keep phone-first?
    **A**: Defer to Phase 6 (phone-first matches rural WV user research)
 
-7. ❓ **Q**: Should seasonal flow be 4 seasons or custom periods (e.g., "Dam Release Season")?
+3. ❓ **Q**: Should seasonal flow be 4 seasons or custom periods (e.g., "Dam Release Season")?
    **A**: Template supports both - content editors decide per river
 
 ---
@@ -739,6 +788,7 @@ interface Props {
 ## References
 
 ### Codebase Patterns
+
 - **LakeTemplate**: `wv-wild-web/src/components/templates/LakeTemplate.astro` (558 lines) - Reference for component structure, responsive grids, WVWO compliance
 - **Type System**: `wv-wild-web/src/types/adventure.ts` (433 lines) - LakeTemplateProps (lines 399-432), shared types (Difficulty, Season, StatIcon)
 - **Content Collections**: `wv-wild-web/src/content.config.ts` (249 lines) - Adventures collection (line 79-112), WMA schemas (lines 37-77)
@@ -746,6 +796,7 @@ interface Props {
 - **Data Files**: `wv-wild-web/src/data/lakes/summersville.ts` (284 lines), `_example.ts` (283 lines)
 
 ### Research Reports
+
 - **Plan File**: `~/.claude/plans/parsed-singing-pond.md` - Complete implementation plan with all agent research
 - **WV Whitewater UX Research**: ACE Adventure Resort, Adventures on the Gorge analysis (agent a9d35b4)
 - **Outdoor Recreation Best Practices**: USGS API integration, accessibility, mobile UX (agent ac74798)
@@ -755,15 +806,17 @@ interface Props {
 - **LakeTemplate Analysis**: Component patterns, shared components, WVWO compliance (agent a5a9ca6)
 
 ### External Sources
-- **USGS Water Data API**: https://waterservices.usgs.gov/docs/
-- **USGS National Water Dashboard**: https://dashboard.waterdata.usgs.gov/
-- **Schema.org TouristAttraction**: https://schema.org/TouristAttraction
-- **Schema.org LocalBusiness**: https://schema.org/LocalBusiness
-- **WCAG 2 Guidelines**: https://www.w3.org/WAI/standards-guidelines/wcag/
-- **ACE Adventure Resort**: https://aceraft.com/white-water-rafting/gauley-river-rafting/
-- **Adventures on the Gorge**: https://www.adventuresonthegorge.com/whitewater-rafting
+
+- **USGS Water Data API**: <https://waterservices.usgs.gov/docs/>
+- **USGS National Water Dashboard**: <https://dashboard.waterdata.usgs.gov/>
+- **Schema.org TouristAttraction**: <https://schema.org/TouristAttraction>
+- **Schema.org LocalBusiness**: <https://schema.org/LocalBusiness>
+- **WCAG 2 Guidelines**: <https://www.w3.org/WAI/standards-guidelines/wcag/>
+- **ACE Adventure Resort**: <https://aceraft.com/white-water-rafting/gauley-river-rafting/>
+- **Adventures on the Gorge**: <https://www.adventuresonthegorge.com/whitewater-rafting>
 
 ### Related Specs
+
 - **SPEC-13**: Lake Template (COMPLETED - reference pattern)
 - **SPEC-10**: AdventureGearChecklist component (dependency)
 - **SPEC-11**: AdventureRelatedShop component (dependency)
@@ -793,26 +846,31 @@ interface Props {
 ### Session 2025-01-20
 
 **Q1: Outfitter Contact Requirements**
+
 - **Question**: Should outfitter phone be required, or support web-only/email-only outfitters?
 - **Answer**: Make phone, website, and email all optional, but require at least one contact method (validated via Zod refine)
 - **Rationale**: Rural WV prefers phone-first, but newer seasonal outfitters may only have online booking. Flexibility prevents dummy data.
 
 **Q2: Rapids Classification Format**
+
 - **Question**: Should rapid class be free-form string or structured with base + modifier?
 - **Answer**: Structured format: `{ base: 'I'|'II'|'III'|'IV'|'V', modifier?: '+'|'-' }` plus `displayName: string` for UI
 - **Rationale**: Enables consistent color-coding (map base class to colors) while preserving precision (IV+ vs IV). Type-safe, prevents parsing errors from variations like "Class 4" vs "IV".
 
 **Q3: Seasonal Flow Water Level Format**
+
 - **Question**: Should water level be free-form string or structured enum + numeric range?
 - **Answer**: Separate fields: `level: 'Low'|'Medium'|'High'` for color-coding, `cfsRange?: string` for optional numeric precision
 - **Rationale**: Color-coding needs consistent categories (Low/Medium/High → green/orange/red). CFS ranges provide expert-level precision without breaking UI logic.
 
 **Q4: Access Point Type Format**
+
 - **Question**: Should access point type be free-form string or strict enum for badge color mapping?
 - **Answer**: Strict enum: `type: 'Put-in'|'Take-out'|'Both'` for badge colors, `typeNotes?: string` for edge cases
 - **Rationale**: Template needs reliable badge color mapping (Put-in=green, Take-out=brown, Both=orange). Notes field handles exceptions like "Emergency Exit" or "Seasonal Access" without breaking color logic.
 
 **Q5: Nearby Attraction Type Icons**
+
 - **Question**: Should nearby attraction types be strict enum or support custom types with fallback icon?
 - **Answer**: Free-form string with standard types ("Camping", "Hiking", "Town", "State Park", "Restaurant", "Historic Site") and fallback icon for custom types
 - **Rationale**: Most attractions fit 6 standard categories. Template provides icons for common types, uses generic map pin for custom. Balances type-safety with extensibility.

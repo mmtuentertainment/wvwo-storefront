@@ -19,7 +19,8 @@ Successfully implemented all 4 section components for the State Park Template (S
 
 **Location:** `wv-wild-web/src/components/state-park/FacilitiesSection.astro`
 
-**Features:**
+### Features:
+
 - Lodging cards (cabins and lodges) with 3-column responsive grid
 - Campground details with hookup type badges, site counts, amenity lists
 - Picnic area display with capacity and reservation info
@@ -28,13 +29,13 @@ Successfully implemented all 4 section components for the State Park Template (S
 - Conditional rendering (no empty sections)
 - Deep links to `reservations.wvstateparks.com`
 
-**Type Safety:**
+### Type Safety:
+
 - Uses `FacilitiesSection` from `state-park-template-types.ts`
 - Imports cabin, lodge, camping, pool, and other facility schemas
 - All props validated against Zod schemas
 
-**WVWO Compliance:**
-
+### WVWO Compliance:
 
 - ✅ Font: `font-display` (Bitter) for headings, `font-body` (Noto Sans) for content
 - ✅ Borders: `rounded-sm` ONLY (no md/lg/xl)
@@ -42,8 +43,7 @@ Successfully implemented all 4 section components for the State Park Template (S
 - ✅ Orange CTAs: `bg-brand-orange` limited to reservation buttons
 - ✅ Voice: Kim's authentic WV style (no marketing buzzwords)
 
-**Accessibility:**
-
+### Accessibility:
 
 - Semantic HTML (`<section>`, `<article>`, `role="list"`, `role="listitem"`)
 - ARIA labels for all interactive elements
@@ -58,7 +58,8 @@ Successfully implemented all 4 section components for the State Park Template (S
 
 **Location:** `wv-wild-web/src/components/state-park/ActivitiesSection.astro`
 
-**Features:**
+### Features:
+
 - Junior Ranger program highlight section with badge design
 - Ranger-led programs grid with scheduling and registration indicators
 - Educational workshops with skill level and materials info
@@ -66,15 +67,13 @@ Successfully implemented all 4 section components for the State Park Template (S
 - Recreational activities badge grid
 - Program type color coding using helper functions
 
-**Type Safety:**
-
+### Type Safety:
 
 - Uses `ActivitiesPrograms` from `state-park-template-types.ts`
 - Imports helper functions: `getProgramTypeColor`, `getProgramTypeLabel`, `getActivityTypeColor`
 - Supports ranger programs, workshops, Junior Ranger, special events, and activities
 
-**WVWO Compliance:**
-
+### WVWO Compliance:
 
 - ✅ Font: `font-display` for titles, `font-body` for descriptions
 - ✅ Borders: `rounded-sm` consistently applied
@@ -82,8 +81,7 @@ Successfully implemented all 4 section components for the State Park Template (S
 - ✅ Junior Ranger: Prominent orange border with star icon
 - ✅ Voice: Family-friendly, educational tone
 
-**Accessibility:**
-
+### Accessibility:
 
 - `role="list"` and `role="listitem"` for program grids
 - ARIA labels for registration indicators
@@ -97,7 +95,8 @@ Successfully implemented all 4 section components for the State Park Template (S
 
 **Location:** `wv-wild-web/src/components/state-park/ReservationSection.astro`
 
-**Features:**
+### Features:
+
 - Primary CTA: Phone link `1-833-WV-PARKS` (click-to-call on mobile)
 - Secondary CTA: Deep link to `reservations.wvstateparks.com`
 - Fee structure tables for cabins and camping (responsive with scroll)
@@ -106,13 +105,13 @@ Successfully implemented all 4 section components for the State Park Template (S
 - Group facilities pricing
 - Important reservation information list
 
-**Type Safety:**
+### Type Safety:
+
 - Uses `ReservationsSection` from `state-park-template-types.ts`
 - Supports cabin, camping, and group facility reservations
 - Fee arrays with cabin type, site type, price range, and season
 
-**WVWO Compliance:**
-
+### WVWO Compliance:
 
 - ✅ Font: `font-display` for headings, `font-body` for body text
 - ✅ Borders: `rounded-sm`, `border-l-4` accents
@@ -120,8 +119,7 @@ Successfully implemented all 4 section components for the State Park Template (S
 - ✅ Orange CTA: <5% of section area (primary CTA block only)
 - ✅ Voice: Direct, helpful tone ("Ready to Book Your Visit?")
 
-**Accessibility:**
-
+### Accessibility:
 
 - Click-to-call phone formatting with proper `tel:` links
 - Responsive tables with horizontal scroll on mobile
@@ -136,7 +134,8 @@ Successfully implemented all 4 section components for the State Park Template (S
 
 **Location:** `wv-wild-web/src/components/state-park/ParkOverviewSection.astro`
 
-**Features:**
+### Features:
+
 - Park alerts/closures with ARIA live region
 - Operating hours with seasonal variations
 - Day-use fees display
@@ -145,13 +144,13 @@ Successfully implemented all 4 section components for the State Park Template (S
 - Nearest town and driving distance
 - Facility-specific hours table
 
-**Type Safety:**
+### Type Safety:
+
 - Uses `ParkOverview` from `state-park-template-types.ts`
 - Imports `formatOperatingHours` helper from `state-park-types.ts`
 - Supports seasonal hours, facility hours, day-use fees
 
-**WVWO Compliance:**
-
+### WVWO Compliance:
 
 - ✅ Font: `font-display` for headings, `font-body` for content
 - ✅ Borders: `rounded-sm`, `border-l-4` color-coded alerts
@@ -159,8 +158,7 @@ Successfully implemented all 4 section components for the State Park Template (S
 - ✅ Alert colors: Red for closures, orange for warnings, blue for info
 - ✅ Voice: Informative, welcoming tone
 
-**Accessibility:**
-
+### Accessibility:
 
 - ARIA live region for park alerts (`aria-live="polite"`)
 - Color-coded alerts with emoji icons for non-color users
@@ -192,7 +190,7 @@ import type { ReservationsSection } from '@/types/state-park-template-types';
 // ParkOverviewSection.astro
 import type { ParkOverview } from '@/types/state-park-template-types';
 import { formatOperatingHours } from '@/types/state-park-types';
-```
+```typescript
 
 ### Type Coverage
 
@@ -207,22 +205,19 @@ import { formatOperatingHours } from '@/types/state-park-types';
 
 ### ✅ Compliance Checklist
 
-**Fonts:**
-
+### Fonts:
 
 - ✅ `font-display` (Bitter) - 80+ occurrences across components
 - ✅ `font-body` (Noto Sans) - 50+ occurrences across components
 - ❌ Zero forbidden fonts (Inter, Poppins, DM Sans, etc.)
 
-**Borders:**
-
+### Borders:
 
 - ✅ `rounded-sm` ONLY - 100% compliance
 - ❌ Zero `rounded-md`, `rounded-lg`, `rounded-xl` violations
 - ✅ `border-l-4` accent borders for headings
 
-**Colors:**
-
+### Colors:
 
 - ✅ `brand-brown` (#3E2723) - Primary text, borders
 - ✅ `sign-green` (#2E7D32) - Accents, success indicators
@@ -232,15 +227,13 @@ import { formatOperatingHours } from '@/types/state-park-types';
 - ❌ Zero purple, pink, neon violations
 - ❌ Zero glassmorphism or backdrop-blur
 
-**Voice:**
-
+### Voice:
 
 - ✅ Kim's authentic WV style
 - ✅ No marketing buzzwords ("seamless", "revolutionize", "next-level")
 - ✅ Direct, humble, family-friendly tone
 
-**Visual Design:**
-
+### Visual Design:
 
 - ✅ Hardware store aesthetic (sharp corners, bold type)
 - ✅ Typography hierarchy (2.5x+ size jumps)
@@ -252,8 +245,7 @@ import { formatOperatingHours } from '@/types/state-park-types';
 
 ### WCAG 2.1 Level AA Compliance
 
-**Semantic HTML:**
-
+### Semantic HTML:
 
 - ✅ 24+ ARIA attributes across components
 - ✅ `role="list"` and `role="listitem"` for proper structure
@@ -261,31 +253,27 @@ import { formatOperatingHours } from '@/types/state-park-types';
 - ✅ `aria-label` for CTAs and icons
 - ✅ `aria-live="polite"` for park alerts
 
-**Keyboard Navigation:**
-
+### Keyboard Navigation:
 
 - ✅ All interactive elements focusable
 - ✅ Focus-visible outlines (2px solid brand-orange)
 - ✅ Logical tab order
 - ✅ Click-to-call links accessible via keyboard
 
-**Screen Reader Support:**
-
+### Screen Reader Support:
 
 - ✅ Descriptive alt text for all images
 - ✅ Icon labels (♿, 🏠, ⛺, 🎒, etc.) with `aria-label`
 - ✅ Table headers with semantic markup
 - ✅ List structures properly marked up
 
-**Color Contrast:**
-
+### Color Contrast:
 
 - ✅ Primary text: `text-brand-brown` on `bg-brand-cream` (≥4.5:1)
 - ✅ Buttons: `text-white` on `bg-brand-orange` (≥4.5:1)
 - ✅ Links: `text-brand-orange` on white backgrounds (≥4.5:1)
 
-**Reduced Motion:**
-
+### Reduced Motion:
 
 - ✅ 6 `@media (prefers-reduced-motion)` queries
 - ✅ Animations disabled when preference set
@@ -303,7 +291,8 @@ import { formatOperatingHours } from '@/types/state-park-types';
 | ParkOverviewSection.astro | 164 | Low (informational display) |
 | **Total** | **943** | **Production-ready** |
 
-**Exceeded Target:**
+### Exceeded Target:
+
 - Target: ~900 lines combined
 - Delivered: 943 lines (+4.8%)
 
@@ -326,7 +315,7 @@ if (!hasContent) {
 }
 ```
 
-**Benefits:**
+### Benefits:
 
 - No empty sections rendered
 - Type-safe optional chaining
@@ -346,9 +335,9 @@ const reservationUrl = `https://reservations.wvstateparks.com/${parkName.toLower
 // Phone number with click-to-call
 const phoneNumber = '1-833-WV-PARKS'; // 1-833-982-7275
 const phoneLink = `tel:${phoneNumber.replace(/\D/g, '')}`;
-```
+```text
 
-**Features:**
+### Features:
 
 - Park-specific deep links
 - Click-to-call on mobile devices
@@ -379,7 +368,7 @@ All components respect user motion preferences:
 }
 ```
 
-**Motion Features:**
+### Motion Features:
 
 - Staggered card animations (0.1s delays)
 - Smooth transitions on hover
@@ -392,13 +381,13 @@ All components respect user motion preferences:
 
 Components correctly use industry colors for safety/accessibility:
 
-**ADA Accessibility:**
+### ADA Accessibility:
 
 - `text-blue-700` / `bg-blue-700` - Universal accessibility indicator
 - Used for wheelchair icons (♿), accessible facility badges
 - Overrides WVWO brand palette per CLAUDE.md exception
 
-**Water Features:**
+### Water Features:
 
 - `bg-blue-700` - Swimming pools, boat launches
 - Industry standard for water-related facilities
@@ -408,22 +397,26 @@ Components correctly use industry colors for safety/accessibility:
 
 ## Next Steps (Phase 3+)
 
-**Phase 3: StateParkTemplate Main Component**
+### Phase 3: StateParkTemplate Main Component
+
 - Orchestrate all 8 sections
 - Implement conditional section rendering
 - Add hero section integration
 - Trails and overlooks sections
 
-**Phase 4: SEO Schema Components**
+### Phase 4: SEO Schema Components
+
 - `SchemaStateParkTemplate.astro` (multi-type schema)
 - `SchemaFAQ.astro` (featured snippets)
 - `SchemaEvent.astro` (events carousel)
 
-**Phase 5: Data Files**
+### Phase 5: Data Files
+
 - `holly-river-sp.ts` (reference implementation)
 - `watoga-sp.ts` (resort-style park)
 
-**Phase 6: Testing & Documentation**
+### Phase 6: Testing & Documentation
+
 - Unit tests for all components
 - Visual regression tests
 - Accessibility audit (axe-core)
@@ -485,4 +478,4 @@ Phase 2 section components are **production-ready** and exceed all requirements:
 ✅ Reduced motion support
 ✅ Industry color exceptions properly applied
 
-**Ready for Phase 3: Main Template Integration**
+### Ready for Phase 3: Main Template Integration

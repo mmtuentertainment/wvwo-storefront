@@ -14,6 +14,7 @@ SPEC-12 creates a **modular component system** for West Virginia Wildlife Manage
 **Architecture Strategy**: Build 4 new generic components + 2 semantic wrappers that compose with 4 existing SPEC-10/11 components to form complete WMA pages. All components are pure Astro (zero JavaScript), type-safe (Zod + TypeScript), and WCAG 2.1 AA compliant.
 
 **Key Architectural Decisions** (from clarification session 2025-12-27):
+
 1. **Type Discrimination**: Explicit `type: 'wma'` field for adventure differentiation
 2. **Wrapper Pattern**: Generic base + hunting/fishing wrappers (DRY principle)
 3. **Map Strategy**: Static-first (Mapbox API), progressive enhancement later
@@ -66,6 +67,7 @@ wv-wild-web/src/
 **Goal**: Establish type-safe schema and TypeScript infrastructure
 
 **Tasks**:
+
 1. ✅ Extend `content.config.ts` with `type` field
    - Add `type: z.enum(['adventure', 'wma', 'trail', 'campground']).optional()`
    - Location: Line 596 (after images schema)
@@ -86,11 +88,13 @@ wv-wild-web/src/
    - Verify build passes with new schema
 
 **Testing**:
+
 - Run `npm run typecheck` - TypeScript compiles without errors
 - Run `npm run build` - Zod validation passes
 - Unit test: Schema validation with valid/invalid WMA data
 
 **Deliverables**:
+
 - Type system extended (~50 LOC in config, ~80 LOC in types)
 - elk-river.md updated (+1 line)
 - 8 unit tests passing
@@ -105,6 +109,7 @@ wv-wild-web/src/
 **Goal**: Build AdventureFeatureSection as reusable foundation
 
 **Tasks**:
+
 1. ✅ Create `AdventureFeatureSection.astro`
    - Props interface with 9 configurable options
    - Responsive grid system (2-3 column mapping)
@@ -128,11 +133,13 @@ wv-wild-web/src/
    - Test empty state handling
 
 **Testing**:
+
 - Unit tests: Props validation, column mapping, variant classes
 - E2E tests: Component rendering, responsive grids, icons
 - Accessibility: axe-core scan, heading hierarchy, ARIA labels
 
 **Deliverables**:
+
 - AdventureFeatureSection.astro (150 lines)
 - AdventureWhatToHunt.astro (50 lines)
 - AdventureWhatToFish.astro (50 lines)
@@ -148,6 +155,7 @@ wv-wild-web/src/
 **Goal**: Build CampingList and AmenitiesGrid for facility display
 
 **Tasks**:
+
 1. ✅ Create `AdventureCampingList.astro`
    - Props interface with CampingFacility type
    - 3-column responsive grid (1 → 2 → 3)
@@ -172,11 +180,13 @@ wv-wild-web/src/
    - Print stylesheet verification
 
 **Testing**:
+
 - Unit tests: Phone formatting, external link attributes, column mapping
 - E2E tests: Component rendering, responsive behavior, empty states
 - Accessibility: Color contrast, keyboard navigation, screen reader
 
 **Deliverables**:
+
 - AdventureCampingList.astro (180 lines)
 - AdventureAmenitiesGrid.astro (120 lines)
 - 15 unit tests, 12 E2E tests
@@ -191,6 +201,7 @@ wv-wild-web/src/
 **Goal**: Build AdventureCTA universal call-to-action component
 
 **Tasks**:
+
 1. ✅ Create `AdventureCTA.astro`
    - Props interface with dual-button support
    - Variant system (sign-green or brand-brown background)
@@ -214,11 +225,13 @@ wv-wild-web/src/
    - Mobile responsive layout
 
 **Testing**:
+
 - Unit tests: Variant mapping, external link detection
 - E2E tests: Button rendering, navigation, focus states
 - Accessibility: Focus indicators, sr-only text, ARIA
 
 **Deliverables**:
+
 - AdventureCTA.astro (140 lines)
 - elk-river.astro refactored (-21 lines net)
 - 8 unit tests, 7 E2E tests
@@ -233,6 +246,7 @@ wv-wild-web/src/
 **Goal**: Refactor existing elk-river.astro to use all 6 new components
 
 **Tasks**:
+
 1. ✅ Replace "What to Hunt" section
    - Lines 103-172 (70 lines) → AdventureWhatToHunt component (5 lines)
    - Extract species data to features array in frontmatter
@@ -256,12 +270,14 @@ wv-wild-web/src/
    - Accessibility audit (no regressions)
 
 **Testing**:
+
 - Visual regression: Before/after screenshots match
 - E2E tests: All sections render correctly from components
 - Accessibility: Zero new axe-core violations
 - Performance: Lighthouse score unchanged or improved
 
 **Deliverables**:
+
 - elk-river.astro refactored (463 → ~150 lines, -313 LOC)
 - 8 visual regression snapshots
 - Performance comparison report
@@ -276,12 +292,14 @@ wv-wild-web/src/
 **Goal**: Create 4 new WMA pages with rich frontmatter data
 
 **WMAs to Create** (Session 2025-12-27 decision):
+
 1. Burnsville Lake WMA (25 min from shop)
 2. Summersville Lake WMA (30 min from shop)
 3. Holly River WMA (35 min from shop)
 4. Cranberry WMA (40 min from shop)
 
 **Per WMA Tasks**:
+
 1. ✅ Create content file `src/content/adventures/{wma-slug}.md`
    - Add frontmatter with 15+ fields (type, acreage, county, species, fishingWaters, facilities, etc.)
    - Write 2-3 paragraph description in Kim's voice
@@ -304,12 +322,14 @@ wv-wild-web/src/
    - Save to `public/images/wma/`
 
 **Content Sources**:
+
 - WV DNR WMA pages (acreage, GPS, species)
 - Kim's local knowledge (tips, best times, access notes)
 - Google Maps (driving directions, GPS coordinates)
 - WV DNR PDFs (hunting regulations, facility lists)
 
 **Testing** (per WMA):
+
 - Build validation: Frontmatter passes Zod schema
 - Visual QA: All sections render correctly
 - Accessibility: axe-core zero violations
@@ -317,6 +337,7 @@ wv-wild-web/src/
 - Content review: Kim's voice authentic, no marketing buzzwords
 
 **Deliverables**:
+
 - 4 new adventure markdown files (~100 lines each = 400 lines)
 - 4 new WMA page files (~150 lines each = 600 lines)
 - 12+ hero images optimized
@@ -334,6 +355,7 @@ wv-wild-web/src/
 **Unit Tests** (Target: 43+ tests):
 
 **Schema Validation** (15 tests):
+
 - Valid WMA frontmatter passes
 - Invalid `type` field fails
 - Missing required fields fail
@@ -346,12 +368,14 @@ wv-wild-web/src/
 - Regulations with empty restrictions passes
 
 **Backward Compatibility** (8 tests):
+
 - Existing elk-river.md still builds
 - Non-WMA adventures ignore WMA fields
 - Partial WMA data (only acreage + county) valid
 - Type inference works for Content Collections
 
 **Component Logic** (10 tests):
+
 - FeatureSection column mapping correct
 - CampingList phone formatting works
 - AmenitiesGrid checkmark rendering
@@ -359,6 +383,7 @@ wv-wild-web/src/
 - Wrapper components delegate correctly
 
 **Type Safety** (10 tests):
+
 - TypeScript autocomplete works
 - Type guard `isWMAAdventure()` narrows correctly
 - Optional fields are `| undefined`
@@ -367,6 +392,7 @@ wv-wild-web/src/
 **E2E Tests** (Target: 35+ scenarios):
 
 **Component Rendering** (20 tests):
+
 - AdventureFeatureSection (2-col, 3-col grids)
 - AdventureWhatToHunt (species cards, Kim's tips)
 - AdventureWhatToFish (waters, species lists)
@@ -375,12 +401,14 @@ wv-wild-web/src/
 - AdventureCTA (dual buttons, variants)
 
 **Responsive Behavior** (8 tests):
+
 - Mobile (375px) - 1 column stacking
 - Tablet (768px) - 2 column grids
 - Desktop (1280px) - 3-4 column grids
 - Grid reflow at breakpoints
 
 **Accessibility** (7 tests):
+
 - Heading hierarchy (h1 → h2 → h3)
 - Keyboard navigation (tab order)
 - Focus indicators visible
@@ -391,6 +419,7 @@ wv-wild-web/src/
 **Accessibility Tests** (axe-core):
 
 **Color Contrast** (5 tests):
+
 - Brown on cream ≥4.5:1 (expected: 13.8:1)
 - Green on cream ≥4.5:1 (expected: 6.2:1)
 - Orange on white ≥4.5:1 (validate)
@@ -398,6 +427,7 @@ wv-wild-web/src/
 - Large text ≥3:1
 
 **Semantic HTML** (8 tests):
+
 - Single h1 per page
 - No skipped heading levels
 - Lists use ul/ol
@@ -406,22 +436,26 @@ wv-wild-web/src/
 - Proper landmark regions
 
 **Screen Reader** (5 tests):
+
 - ARIA labels on icon buttons
 - aria-hidden on decorative icons
 - External link notifications
 - Table headers for data tables
 
 **Visual Regression** (20 snapshots):
+
 - Full WMA pages (mobile/desktop)
 - Individual components (all variants)
 - State variations (hover, focus, empty)
 
 **Testing Framework Setup**:
+
 ```bash
 npm install --save-dev @axe-core/playwright  # Accessibility testing
 ```
 
 **Test Files to Create**:
+
 - `src/types/__tests__/wma-schemas.test.ts` - Schema validation (15 tests)
 - `src/types/__tests__/type-guards.test.ts` - Type guard logic (5 tests)
 - `tests/e2e/wma-components.spec.ts` - Component rendering (20 tests)
@@ -429,6 +463,7 @@ npm install --save-dev @axe-core/playwright  # Accessibility testing
 - `tests/visual/wma-snapshots.spec.ts` - Visual regression (20 snapshots)
 
 **Deliverables**:
+
 - 43 unit tests passing
 - 35+ E2E tests passing
 - Zero axe-core violations
@@ -445,6 +480,7 @@ npm install --save-dev @axe-core/playwright  # Accessibility testing
 **Goal**: Achieve <2s load on 3G, Lighthouse 95+/100
 
 **Tasks**:
+
 1. ✅ Image optimization
    - Convert hero images to WebP (<500KB each)
    - Generate responsive srcset (400w/800w/1200w)
@@ -473,6 +509,7 @@ npm install --save-dev @axe-core/playwright  # Accessibility testing
    - Identify optimization opportunities
 
 **Performance Budget**:
+
 - Hero image: 150KB (30%)
 - Other images: 100KB (20%)
 - Fonts: 75KB (15%)
@@ -483,11 +520,13 @@ npm install --save-dev @axe-core/playwright  # Accessibility testing
 - **Total: 450KB** (90% of budget)
 
 **Testing**:
+
 - Lighthouse Performance ≥95/100
 - Load time <2s on 3G
 - Core Web Vitals (LCP <2.5s, FID <100ms, CLS <0.1)
 
 **Deliverables**:
+
 - WebP images optimized (12 images)
 - Critical CSS extracted and inlined
 - Fonts subsetted
@@ -503,6 +542,7 @@ npm install --save-dev @axe-core/playwright  # Accessibility testing
 **Goal**: 100% compliance with WVWO design system
 
 **Tasks**:
+
 1. ✅ Visual audit checklist
    - Zero `rounded-md/lg/xl` (only rounded-sm)
    - All colors from brand palette
@@ -527,11 +567,13 @@ npm install --save-dev @axe-core/playwright  # Accessibility testing
    - Consistent spacing (py-12 md:py-16)
 
 **Testing**:
+
 - Automated: Grep for forbidden patterns
 - Manual: Visual inspection against CLAUDE.md checklist
 - Content review: Kim reads all tips for authenticity
 
 **Deliverables**:
+
 - WVWO compliance report (100% pass)
 - Content edits if marketing language found
 - Visual fixes if aesthetic violations detected
@@ -546,6 +588,7 @@ npm install --save-dev @axe-core/playwright  # Accessibility testing
 **Goal**: Complete documentation and prepare PR for review
 
 **Tasks**:
+
 1. ✅ Component API documentation
    - Add JSDoc examples to all 6 components
    - Update `.serena/memories/wvwo-component-patterns.md`
@@ -570,11 +613,13 @@ npm install --save-dev @axe-core/playwright  # Accessibility testing
    - Before/after screenshots
 
 5. ✅ Create feature branch
+
    ```bash
    git checkout -b feature/spec-12-wma-template
    ```
 
 **Deliverables**:
+
 - Component API docs complete
 - Migration guide created
 - CHANGELOG.md written
@@ -608,35 +653,42 @@ npm install --save-dev @axe-core/playwright  # Accessibility testing
 ### External Dependencies
 
 **Runtime** (no new dependencies):
+
 - ✅ Astro 4.x - Static site generation
 - ✅ Tailwind CSS 3.x - Utility-first CSS
 - ✅ Zod 3.x - Schema validation
 - ✅ TypeScript 5.x - Type system
 
 **Development** (1 new dependency):
+
 - ⏳ @axe-core/playwright - Accessibility testing (need to install)
+
   ```bash
   npm install --save-dev @axe-core/playwright
   ```
 
 **Optional** (future enhancements):
+
 - ⏳ Mapbox Static API - Static map images (free tier: 50k requests/month)
 - ⏳ Leaflet.js - Interactive maps (Phase 2 progressive enhancement)
 
 ### Internal Dependencies
 
 **Required Components** (SPEC-10/11):
+
 - ✅ AdventureQuickStats.astro - Stats grid
 - ✅ AdventureGettingThere.astro - Directions
 - ✅ AdventureGearChecklist.astro - Gear lists
 - ✅ AdventureRelatedShop.astro - Category links
 
 **Required Schemas** (SPEC-06):
+
 - ✅ `adventures` collection - Base schema to extend
 - ✅ ImageSchema - Hero image validation
 - ✅ StatIconSchema - Icon type definitions
 
 **Shared Utilities**:
+
 - ✅ STAT_ICON_PATHS - Checkmark, location, info icons
 - ✅ Tailwind config - Brand colors, font families
 - ✅ Layout components - BaseLayout, Header, Footer, EmailCapture
@@ -644,12 +696,14 @@ npm install --save-dev @axe-core/playwright  # Accessibility testing
 ### Data Dependencies
 
 **WV DNR Sources**:
+
 - WMA boundaries GeoJSON (96 WMAs)
 - Species hunting seasons (annual updates from wvdnr.gov)
 - Facility listings (boat ramps, camping, ADA access)
 - GPS coordinates (NAD 1983 standard)
 
 **Content Requirements** (per WMA):
+
 - Hero image (1920×1080, <500KB WebP)
 - 3-5 huntable species with seasons
 - 1-3 fishing waters with species lists
@@ -680,6 +734,7 @@ npm install --save-dev @axe-core/playwright  # Accessibility testing
 ### Estimated Total LOC
 
 **New Code**:
+
 - 6 components: 690 lines
 - 4 new WMA pages: 600 lines
 - 4 new content files: 400 lines
@@ -688,6 +743,7 @@ npm install --save-dev @axe-core/playwright  # Accessibility testing
 - **Total New**: 2,320 lines
 
 **Code Reduction**:
+
 - elk-river.astro refactored: -313 lines
 
 **Net Addition**: ~2,000 lines
@@ -697,12 +753,14 @@ npm install --save-dev @axe-core/playwright  # Accessibility testing
 **Recommended: Single Atomic PR** (matches SPEC-11 precedent)
 
 **Rationale**:
+
 1. Components are tightly coupled (wrappers depend on base)
 2. Schema extension required for all components to function
 3. Testing validates entire system, not individual pieces
 4. SPEC-11 PR #69 was similar size (1,800 LOC) and scored 94/100
 
 **PR Structure**:
+
 ```
 PR Title: feat(SPEC-12): WMA Template Component System
 
@@ -717,6 +775,7 @@ LOC: ~2,000 lines
 ```
 
 **Checkpoint Warnings**:
+
 - ⚠️ 300 LOC - No warning needed (components are cohesive)
 - ⚠️ 500 LOC - Expected for comprehensive feature
 - ⚠️ 2,000 LOC - Matches SPEC-11 precedent (94/100 review score)
@@ -724,25 +783,30 @@ LOC: ~2,000 lines
 **Alternative: Multi-PR Approach** (if reviewer requests):
 
 **PR 1: Schema + Type System** (~200 LOC)
+
 - Extend adventures schema with type field + 8 WMA fields
 - Add TypeScript types and type guards
 - Unit tests for schema validation (15 tests)
 
 **PR 2: Generic Components** (~470 LOC)
+
 - AdventureFeatureSection + wrappers (250 lines)
 - AdventureAmenitiesGrid (120 lines)
 - Component unit/E2E tests (100 lines)
 
 **PR 3: Complex Components** (~320 LOC)
+
 - AdventureCampingList (180 lines)
 - AdventureCTA (140 lines)
 - Component tests
 
 **PR 4: elk-river Refactoring** (~50 LOC)
+
 - Refactor elk-river.astro to use components
 - Visual regression tests
 
 **PR 5-8: New WMAs** (4 PRs × ~250 LOC)
+
 - One PR per WMA (content + page)
 
 ---
@@ -831,10 +895,13 @@ test('Burnsville Lake WMA desktop snapshot', async ({ page }) => {
 **Symptoms**: Build fails, elk-river.md validation errors
 
 **Rollback Steps**:
+
 1. Revert `content.config.ts` to previous version
+
    ```bash
    git checkout HEAD~1 -- src/content.config.ts
    ```
+
 2. Remove `type: 'wma'` from elk-river.md
 3. Rebuild: `npm run build`
 4. Verify elk-river page renders correctly
@@ -850,8 +917,10 @@ test('Burnsville Lake WMA desktop snapshot', async ({ page }) => {
 **Symptoms**: PR review flags forbidden patterns (rounded-md, purple colors, etc.)
 
 **Rollback Steps**:
+
 1. Identify violating component (CodeRabbit comment)
 2. Fix locally:
+
    ```astro
    <!-- Before: rounded-lg -->
    class="rounded-sm"
@@ -859,6 +928,7 @@ test('Burnsville Lake WMA desktop snapshot', async ({ page }) => {
    <!-- Before: bg-purple-500 -->
    class="bg-sign-green"
    ```
+
 3. Re-run visual regression tests
 4. Push fix, request re-review
 
@@ -871,6 +941,7 @@ test('Burnsville Lake WMA desktop snapshot', async ({ page }) => {
 **Symptoms**: Lighthouse score <95, load time >2s on 3G
 
 **Rollback Steps**:
+
 1. Identify bottleneck via Chrome DevTools Performance tab
 2. Common fixes:
    - Compress images further (WebP quality 80 → 70)
@@ -889,6 +960,7 @@ test('Burnsville Lake WMA desktop snapshot', async ({ page }) => {
 **Symptoms**: axe-core reports WCAG failures
 
 **Rollback Steps**:
+
 1. Review axe-core violation details
 2. Common fixes:
    - Add missing alt text to images
@@ -907,12 +979,15 @@ test('Burnsville Lake WMA desktop snapshot', async ({ page }) => {
 **Symptoms**: WV DNR reports incorrect hunting season dates
 
 **Rollback Steps**:
+
 1. Update affected WMA markdown file
+
    ```yaml
    species:
      - name: "White-tailed Deer"
        season: "Nov 20 - Dec 3" # CORRECTED from Nov 13
    ```
+
 2. Rebuild site: `npm run build`
 3. Deploy corrected content
 4. No code rollback needed (data-only issue)
@@ -944,6 +1019,7 @@ patterns:
 ```
 
 **How It Works**:
+
 1. Developer creates new WMA adventure with species data
 2. Forgets to add `type: "wma"` field
 3. Opens PR
@@ -957,6 +1033,7 @@ patterns:
 ## Success Criteria
 
 ### Component Quality (Match SPEC-10/11)
+
 - ✅ PR review score: ≥90/100 (target: 94+)
 - ✅ Unit test coverage: ≥40 tests passing
 - ✅ E2E test coverage: ≥30 scenarios passing
@@ -964,18 +1041,21 @@ patterns:
 - ✅ Visual regression: Zero unexpected changes
 
 ### Template Quality
+
 - ✅ Line count: ~150 lines per page (73% reduction)
 - ✅ Component reuse: ≥80%
 - ✅ Load time: <2s on 3G
 - ✅ Lighthouse: 100/100/100/100 (or 95+/100/100/100 minimum)
 
 ### Content Quality (Per WMA)
+
 - ✅ Kim's voice: Authentic (passes "neighbor" litmus test)
 - ✅ Data accuracy: 100% (verified against WV DNR)
 - ✅ Accessibility: WCAG 2.1 AA compliant
 - ✅ Print-friendly: Regulations/maps print cleanly
 
 ### WVWO Aesthetic
+
 - ✅ Zero forbidden patterns (corporate fonts, colors, corners)
 - ✅ 100% brand palette compliance
 - ✅ Orange <5% of screen
@@ -986,6 +1066,7 @@ patterns:
 ## Timeline & Milestones
 
 ### Week 1: Foundation & Components (40 hours)
+
 - Days 1-2: Type system (schema + TypeScript)
 - Days 3-4: AdventureFeatureSection + wrappers
 - Days 5-7: Facility components (CampingList, AmenitiesGrid, CTA)
@@ -993,12 +1074,14 @@ patterns:
 **Milestone 1**: All 6 components functional with unit tests
 
 ### Week 2: Integration & Testing (40 hours)
+
 - Days 1-2: AdventureCTA + elk-river refactoring
 - Days 3-5: E2E test suite (35+ scenarios)
 
 **Milestone 2**: elk-river.astro refactored, E2E tests passing
 
 ### Week 3: Content Population (40 hours)
+
 - Days 1-2: Burnsville Lake + Summersville Lake
 - Days 3-4: Holly River + Cranberry
 - Days 5-7: Content review, polish, Kim's approval
@@ -1006,12 +1089,14 @@ patterns:
 **Milestone 3**: 4 new WMAs published, content quality verified
 
 ### Week 4: QA & Optimization (32 hours)
+
 - Days 1-3: Testing suite completion (accessibility, visual)
 - Days 4-5: Performance optimization (images, CSS, fonts)
 
 **Milestone 4**: All tests passing, Lighthouse 95+/100
 
 ### Week 5: Final QA & PR (24 hours)
+
 - Days 1-2: WVWO aesthetic audit
 - Days 3-5: Documentation, PR prep, review cycle
 
@@ -1050,6 +1135,7 @@ patterns:
    - **Blockers**: elk-river refactored and validated
 
 **Parallelization Opportunities**:
+
 - Week 1 Days 5-7: Build CampingList, AmenitiesGrid, CTA concurrently (3-agent swarm)
 - Week 3: Populate 4 WMAs concurrently (4-agent swarm, one per WMA)
 
@@ -1058,12 +1144,14 @@ patterns:
 ## Code Quality Standards
 
 ### Pre-Commit Checks
+
 - ✅ Prettier formatting (enforced)
 - ✅ TypeScript compilation (`npm run typecheck`)
 - ✅ Zod schema validation (build succeeds)
 - ✅ No forbidden patterns grep (rounded-md, purple, etc.)
 
 ### PR Review Checklist
+
 - ✅ All 40 acceptance criteria met (from spec.md)
 - ✅ Zero CodeRabbit "must fix" issues
 - ✅ Lighthouse 95+/100/100/100
@@ -1073,6 +1161,7 @@ patterns:
 - ✅ Documentation complete
 
 ### Merge Requirements
+
 - ✅ 2 approvals (1 code, 1 design)
 - ✅ All CI checks passing
 - ✅ No merge conflicts with main
@@ -1083,16 +1172,19 @@ patterns:
 ## Next Steps After Merge
 
 ### Immediate (Week 6)
+
 1. **Monitor production**: Check Lighthouse scores, Core Web Vitals, error logs
 2. **Content feedback**: Gather Kim's thoughts on 4 new WMA pages
 3. **User testing**: Observe hunters navigating WMA pages (analytics)
 
 ### Short-term (Weeks 7-12)
+
 1. **Phase 2 Content**: Add 5 more regional WMAs (Northern/Southern/Eastern WV)
 2. **Progressive Enhancement**: Add Leaflet.js for Cranberry (3+ access points)
 3. **Content Optimization**: Improve Kim's tips based on user engagement
 
 ### Long-term (Months 4-6)
+
 1. **Phase 3 Content**: Complete 96 WV WMAs catalog
 2. **Automation**: Build WV DNR data scraper for acreage/GPS/species
 3. **Analytics**: Track which WMAs drive highest shop traffic
@@ -1102,23 +1194,27 @@ patterns:
 ## Constitutional Compliance Checklist
 
 **WVWO Strategic Principles** (from CLAUDE.md):
+
 - ✅ **Simplicity**: No over-engineering, wrapper pattern is DRY but not complex
 - ✅ **Authenticity**: Kim's voice guidelines enforced, inline tips feel personal
 - ✅ **Free-Tier**: Mapbox Static API free tier (50k requests/month) sufficient
 - ✅ **Quality > Speed**: 5-week timeline prioritizes testing, aesthetic compliance, accessibility
 
 **Hard Rules**:
+
 - ✅ **Tech Stack**: Pure Astro components (no Vue/Angular/Svelte)
 - ✅ **Voice**: All content reviewed for Kim's authentic rural WV voice
 - ✅ **Paid Services**: Mapbox free tier only, no premium plans
 
 **Frontend Aesthetics**:
+
 - ✅ **Corners**: rounded-sm ONLY (enforced in all components)
 - ✅ **Fonts**: Bitter/Noto Sans/Permanent Marker (no Inter/Poppins)
 - ✅ **Colors**: Brand palette only (brown/green/cream/orange <5%)
 - ✅ **Effects**: Gentle-reveal only (no glassmorphism/parallax)
 
 **Workflow Rules**:
+
 - ✅ **Ask, Don't Decide**: 5 critical questions asked, all approved
 - ✅ **Short Questions**: Each question answerable in 1-2 words
 - ✅ **Concurrent Execution**: All agents spawned in parallel (10-agent swarm)
@@ -1150,6 +1246,7 @@ patterns:
 ### Files to CREATE (14 files)
 
 **Components** (6 files, 690 lines):
+
 1. `wv-wild-web/src/components/adventure/AdventureFeatureSection.astro` (150 lines)
 2. `wv-wild-web/src/components/adventure/AdventureWhatToHunt.astro` (50 lines)
 3. `wv-wild-web/src/components/adventure/AdventureWhatToFish.astro` (50 lines)
@@ -1171,17 +1268,17 @@ patterns:
 
 ### Files to MODIFY (3 files)
 
-15. `wv-wild-web/src/content.config.ts` (+130 lines)
+1. `wv-wild-web/src/content.config.ts` (+130 lines)
     - Add `type` enum field (line 596)
     - Add 8 WMA optional fields (lines 600-622)
     - Add 5 nested schemas (SpeciesSchema, FishingWaterSchema, etc.)
 
-16. `wv-wild-web/src/types/adventure.ts` (+80 lines)
+2. `wv-wild-web/src/types/adventure.ts` (+80 lines)
     - Add CampingFacilitySchema, FeatureItemSchema, AccentColor type
     - Add isWMAAdventure() type guard
     - Export new TypeScript types
 
-17. `wv-wild-web/src/pages/near/elk-river.astro` (-313 lines)
+3. `wv-wild-web/src/pages/near/elk-river.astro` (-313 lines)
     - Add imports for 6 new components (lines 6-11)
     - Replace What to Hunt section (lines 103-172 → 5 lines)
     - Replace Fishing Waters section (lines 174-209 → 5 lines)
@@ -1189,16 +1286,16 @@ patterns:
     - Replace CTA section (lines 414-445 → 11 lines)
     - **Before: 463 lines → After: 150 lines**
 
-18. `wv-wild-web/src/content/adventures/elk-river.md` (+1 line)
+4. `wv-wild-web/src/content/adventures/elk-river.md` (+1 line)
     - Add `type: "wma"` field to frontmatter
 
 ### Files to CREATE (Tests) (5 files, 500 lines)
 
-19. `wv-wild-web/src/types/__tests__/wma-schemas.test.ts` (150 lines, 15 tests)
-20. `wv-wild-web/src/types/__tests__/type-guards.test.ts` (80 lines, 10 tests)
-21. `wv-wild-web/tests/e2e/wma-components.spec.ts` (120 lines, 20 tests)
-22. `wv-wild-web/tests/e2e/wma-accessibility.spec.ts` (100 lines, 18 tests)
-23. `wv-wild-web/tests/visual/wma-snapshots.spec.ts` (50 lines, 20 snapshots)
+1. `wv-wild-web/src/types/__tests__/wma-schemas.test.ts` (150 lines, 15 tests)
+2. `wv-wild-web/src/types/__tests__/type-guards.test.ts` (80 lines, 10 tests)
+3. `wv-wild-web/tests/e2e/wma-components.spec.ts` (120 lines, 20 tests)
+4. `wv-wild-web/tests/e2e/wma-accessibility.spec.ts` (100 lines, 18 tests)
+5. `wv-wild-web/tests/visual/wma-snapshots.spec.ts` (50 lines, 20 snapshots)
 
 **Total Files Changed**: 23 files
 **Total New LOC**: ~2,000 lines (1,690 new + 210 schema/types - 313 refactored)
@@ -1208,6 +1305,7 @@ patterns:
 ## Post-Implementation Validation
 
 ### Automated Checks (CI/CD)
+
 ```bash
 # Type checking
 npm run typecheck
@@ -1232,6 +1330,7 @@ npm run test:visual
 ```
 
 ### Manual Checks
+
 - [ ] All 5 WMA pages render correctly
 - [ ] Responsive behavior (375px → 1920px)
 - [ ] Print preview (regulations, maps)

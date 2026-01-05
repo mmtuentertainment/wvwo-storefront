@@ -74,6 +74,7 @@ Filter selections correctly sync to URL query parameters (e.g., `?season=spring&
 ### Mobile Bottom Sheet
 
 The MobileFiltersSheet component:
+
 - Opens as a bottom drawer on mobile viewports
 - Contains all 5 filter axes (Season, Difficulty, Gear, Elevation, Suitability)
 - Shows live result count on Apply button
@@ -86,6 +87,7 @@ The OfflineBanner component is present and ready to display when network connect
 ## Screenshots
 
 Test screenshots saved to `test-screenshots/`:
+
 - `desktop_initial.png` - Full page desktop view with filters
 - `mobile_initial.png` - Mobile view before drawer
 - `mobile_drawer.png` - Mobile filter drawer open

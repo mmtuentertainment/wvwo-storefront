@@ -248,6 +248,7 @@ Per SPEC-17 Section 8, these arrays require warning messages when empty:
 **Purpose:** First impression, identity, critical safety stats (cell coverage)
 
 **Layout:**
+
 ```
 +------------------------------------------------------+
 |  [Hero Image - full width, 70vh]                     |
@@ -268,6 +269,7 @@ Per SPEC-17 Section 8, these arrays require warning messages when empty:
 ```
 
 **Key Elements:**
+
 - Cell coverage badge with warning icon if `none` or `spotty`
 - Remoteness stat (miles from nearest road)
 - Managing agency badge
@@ -277,6 +279,7 @@ Per SPEC-17 Section 8, these arrays require warning messages when empty:
 **Purpose:** Named zones within the backcountry area
 
 **Layout:**
+
 ```
 +---------------------------+  +---------------------------+
 | Zone Name         [Diff]  |  | Zone Name         [Diff]  |
@@ -296,6 +299,7 @@ Per SPEC-17 Section 8, these arrays require warning messages when empty:
 **Purpose:** Camping rules and water source safety
 
 **Layout:**
+
 ```
 +---------------------------+  +---------------------------+
 | Camping Regulations       |  | Water Sources             |
@@ -317,6 +321,7 @@ Per SPEC-17 Section 8, these arrays require warning messages when empty:
 **Purpose:** Trail information with industry-standard difficulty colors
 
 **Layout:**
+
 ```
 +----------------+  +----------------+  +----------------+
 | Trail Name     |  | Trail Name     |  | Trail Name     |
@@ -335,6 +340,7 @@ Per SPEC-17 Section 8, these arrays require warning messages when empty:
 **Purpose:** Self-sufficiency requirements
 
 **Layout:**
+
 ```
 +---------------------------+  +---------------------------+
 | Required Skills           |  | Required Gear             |
@@ -355,6 +361,7 @@ Per SPEC-17 Section 8, these arrays require warning messages when empty:
 **Purpose:** Critical safety information
 
 **Layout:**
+
 ```
 +------------------------------------------------------+
 | EMERGENCY CONTACTS (border-l-4 border-brand-orange)   |
@@ -385,6 +392,7 @@ Per SPEC-17 Section 8, these arrays require warning messages when empty:
 **Purpose:** Responsible recreation principles
 
 **Layout:**
+
 ```
 +------------------------------------------------------+
 | 1. Plan Ahead and Prepare                             |
@@ -404,6 +412,7 @@ Per SPEC-17 Section 8, these arrays require warning messages when empty:
 **Purpose:** How to get to trailheads
 
 **Layout:**
+
 ```
 +----------------+  +----------------+  +----------------+
 | Trailhead Name |  | Trailhead Name |  | Trailhead Name |
@@ -420,6 +429,7 @@ Per SPEC-17 Section 8, these arrays require warning messages when empty:
 **Purpose:** When to visit
 
 **Layout:**
+
 ```
 +----------+  +----------+  +----------+  +----------+
 | Spring   |  | Summer   |  | Fall     |  | Winter   |

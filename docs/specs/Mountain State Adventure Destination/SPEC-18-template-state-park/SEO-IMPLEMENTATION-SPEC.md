@@ -12,6 +12,7 @@
 This specification defines the complete SEO implementation for the State Park template, addressing 20 identified gaps through structured data, meta optimization, and featured snippet targeting. Implementation targets 85%+ Rich Results eligibility and top-3 SERP positioning for "{Park Name} state park" queries.
 
 ### Key Deliverables
+
 1. **5 Schema Components** (~770 lines total)
 2. **Meta Tag Strategy** (9 templates)
 3. **Featured Snippet Optimization** (3 snippet types)
@@ -400,11 +401,12 @@ const schema = {
 ---
 
 <script type="application/ld+json" set:html={JSON.stringify(schema)} />
-```
+```typescript
 
 ### 1.2 Data Integration Points
 
-**Required Park Data Fields:**
+### Required Park Data Fields:
+
 ```typescript
 interface StatePark {
   // Core identification
@@ -497,7 +499,8 @@ interface StatePark {
 
 ### 1.3 Validation Procedures
 
-**Automated Testing:**
+### Automated Testing:
+
 ```typescript
 // wv-wild-web/tests/schema/state-park-schema.test.ts
 import { validateSchema } from '@/utils/schema-validator';
@@ -523,9 +526,10 @@ describe('SchemaStateParkTemplate', () => {
     expect(parkEntity.amenityFeature.length).toBeGreaterThanOrEqual(20);
   });
 });
-```
+```typescript
 
-**Manual Validation:**
+### Manual Validation:
+
 1. Google Rich Results Test: `https://search.google.com/test/rich-results`
 2. Schema.org Validator: `https://validator.schema.org/`
 3. Bing Webmaster Tools: Markup Validator
@@ -606,30 +610,35 @@ const schema = {
 
 ### 2.2 FAQ Content Guidelines
 
-**Optimal Question Formats:**
+### Optimal Question Formats:
 
-**Priority 1: Direct "is" questions (paragraph snippets)**
+### Priority 1: Direct "is" questions (paragraph snippets)
+
 - "Is {Park Name} State Park pet-friendly?"
 - "Is camping available at {Park Name} State Park?"
 - "Is {Park Name} State Park open year-round?"
 - "Is there cell phone service at {Park Name}?"
 
-**Priority 2: "How do I" questions (list snippets)**
+### Priority 2: "How do I" questions (list snippets)
+
 - "How do I reserve a campsite at {Park Name}?"
 - "How do I get to {Park Name} State Park?"
 - "What activities are available at {Park Name}?"
 
-**Priority 3: "What" informational questions**
+### Priority 3: "What" informational questions
+
 - "What are the cabin rental rates at {Park Name}?"
 - "What trails are best for beginners at {Park Name}?"
 - "What amenities does {Park Name} offer?"
 
-**Answer Structure (40-50 words):**
-```
+### Answer Structure (40-50 words):
+
+```json
 {Opening "is" statement}. {Supporting detail 1}. {Supporting detail 2}. {Supporting detail 3 or CTA}.
 ```
 
-**Example:**
+### Example:
+
 ```typescript
 const exampleAnswer = `
 Blackwater Falls State Park is pet-friendly with leashed dogs allowed on trails and in campgrounds.
@@ -637,11 +646,12 @@ Pets must be on a 6-foot leash at all times.
 Dogs are not permitted in cabins, the lodge, or swimming areas.
 Pet waste stations are available throughout the park.
 `; // 48 words
-```
+```typescript
 
 ### 2.3 FAQ Templates by Park Type
 
-**Mountain Parks (Blackwater Falls, Canaan Valley):**
+### Mountain Parks (Blackwater Falls, Canaan Valley):
+
 ```typescript
 const mountainParkFAQs: FAQItem[] = [
   {
@@ -655,7 +665,8 @@ const mountainParkFAQs: FAQItem[] = [
 ];
 ```
 
-**Lake Parks (Tygart Lake, Stonewall Jackson):**
+### Lake Parks (Tygart Lake, Stonewall Jackson):
+
 ```typescript
 const lakeParkFAQs: FAQItem[] = [
   {
@@ -667,7 +678,7 @@ const lakeParkFAQs: FAQItem[] = [
     answer: "Tygart Lake offers excellent fishing for largemouth bass, smallmouth bass, walleye, and crappie. The lake also holds muskellunge, channel catfish, and various panfish species. Bass fishing is best in spring and fall. A valid West Virginia fishing license is required. Check current size and creel limits before fishing."
   }
 ];
-```
+```typescript
 
 ---
 
@@ -866,7 +877,7 @@ const schema = {
 ---
 
 <script type="application/ld+json" set:html={JSON.stringify(schema)} />
-```
+```typescript
 
 ---
 
@@ -919,7 +930,7 @@ const generateDescription = (params: {
 
   return `${s1}. ${s2}. ${s3}. ${s4}. ${cta}`;
 };
-```
+```typescript
 
 ### 5.3 Complete Meta Tag Component
 
@@ -1019,7 +1030,7 @@ const campsiteReservationHowTo = {
     }
   ]
 };
-```
+```markdown
 
 ### 6.2 Table Markup for Fee Structures
 
@@ -1069,7 +1080,7 @@ const campsiteReservationHowTo = {
 
 <!-- ❌ WRONG: Keyword stuffing -->
 <h2>Blackwater Falls Winter Hours Open</h2>
-```
+```markdown
 
 ### 7.2 Natural Language Answer Structure
 
@@ -1097,7 +1108,7 @@ const campsiteReservationHowTo = {
   swimming areas. Pet waste stations are available throughout the park.
 </p>
 <!-- 52 words -->
-```
+```markdown
 
 ### 8.2 List Snippets (6-8 items)
 
@@ -1145,7 +1156,7 @@ const coreWebVitalsTargets = {
     ]
   }
 };
-```
+```typescript
 
 ### 9.2 Image Optimization
 
@@ -1211,13 +1222,14 @@ ${parkUrls.map(url => `  <url>
     }
   });
 };
-```
+```text
 
 ---
 
 ## Implementation Roadmap
 
 ### Phase 1: Core Schema (Week 1)
+
 - [ ] Create `SchemaStateParkTemplate.astro`
 - [ ] Create `StateParkMeta.astro`
 - [ ] Update `StatePark` TypeScript interface
@@ -1225,6 +1237,7 @@ ${parkUrls.map(url => `  <url>
 - [ ] Test in Rich Results Test
 
 ### Phase 2: FAQ & Events (Week 2)
+
 - [ ] Create `SchemaFAQ.astro`
 - [ ] Create `SchemaEvent.astro`
 - [ ] Create `SchemaEventSeries.astro`
@@ -1232,6 +1245,7 @@ ${parkUrls.map(url => `  <url>
 - [ ] Test featured snippet eligibility
 
 ### Phase 3: Structured Data (Week 3)
+
 - [ ] Create `SchemaHowTo.astro`
 - [ ] Implement table markup
 - [ ] Implement list markup
@@ -1239,6 +1253,7 @@ ${parkUrls.map(url => `  <url>
 - [ ] Voice search optimization
 
 ### Phase 4: Technical SEO (Week 4)
+
 - [ ] Optimize Core Web Vitals
 - [ ] Image optimization pipeline
 - [ ] Responsive image components
@@ -1246,6 +1261,7 @@ ${parkUrls.map(url => `  <url>
 - [ ] Configure robots.txt
 
 ### Phase 5: Validation (Ongoing)
+
 - [ ] Automated schema validation in CI/CD
 - [ ] Monitor Rich Results in Search Console
 - [ ] Track featured snippets
@@ -1255,14 +1271,16 @@ ${parkUrls.map(url => `  <url>
 
 ## Success Metrics
 
-**Target (Post-Implementation):**
+### Target (Post-Implementation):
+
 - Rich Results Eligibility: 85%+
 - Average SERP Position: Top 3 for "{Park Name} state park"
 - Organic CTR: 12%+ (vs. 8% average)
 - Featured Snippets: 15+ appearances
 - Voice Search Visibility: 25%+ of queries
 
-**Technical Performance:**
+### Technical Performance:
+
 - LCP: <2.0s (95th percentile)
 - FID: <50ms (95th percentile)
 - CLS: <0.05 (95th percentile)

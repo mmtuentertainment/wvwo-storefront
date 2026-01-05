@@ -42,6 +42,7 @@ Your designs must feel like they came from Kim and Bryan, not from a model train
 ```
 
 ### APPROVED ALTERNATIVES BY VIBE
+
 | Vibe | Display | Body | Hand |
 |------|---------|------|------|
 | **Hardware Store** | Rokkitt, Arvo | Public Sans, Karla | Kalam |
@@ -49,11 +50,13 @@ Your designs must feel like they came from Kim and Bryan, not from a model train
 | **Government Surplus** | Courier Prime | IBM Plex Sans | - |
 
 **Impact font choices (avoid but know they exist):**
+
 - Code aesthetic: JetBrains Mono, Fira Code → Wrong for WVWO
 - Editorial: Playfair Display, Crimson Pro → Too fancy for WVWO
 - Startup: Clash Display, Satoshi → FORBIDDEN for WVWO
 
 ### PAIRING PRINCIPLE
+
 **High contrast = warmth.** Slab serif + humanist sans, handwritten breaks the grid.
 
 ```text
@@ -66,6 +69,7 @@ WRONG PAIRING:
 ```
 
 ### USE EXTREMES (Not Middle Ground)
+
 ```css
 /* ✅ CORRECT: High contrast - confident, clear hierarchy */
 h1 { font-weight: 800; font-size: 4rem; }   /* Big, bold, like painted signage */
@@ -78,19 +82,23 @@ h2 { font-weight: 500; font-size: 1.25rem; } /* No hierarchy */
 ```
 
 **Rules:**
+
 - Size jumps of **2.5x+** between heading levels (not 1.5x)
 - Weight jumps of **300+** (800 vs 400, not 600 vs 500)
 - Timid typography = forgettable design
 
 ### TYPOGRAPHY RATIOS
+
 - **Display (Bitter)**: 60% visual weight - bold 700-900, establishes authority
 - **Handwritten (Permanent Marker)**: 20% - Kim's voice on quotes, CTAs, personal touches
 - **Body (Noto Sans)**: 20% - carries the story without shouting
 
 ### FORBIDDEN FONTS (AI Slop Indicators)
+
 ```text
 NEVER USE: Inter, DM Sans, Space Grotesk, Poppins, Outfit, Montserrat, Raleway, Open Sans, system-ui stack
 ```
+
 **Why**: These fonts scream "SaaS startup" or "VC pitch deck." They communicate coastal tech, not Appalachian storefront.
 
 **Red Flag Test**: If the font could appear unchanged on a venture capital website, it's wrong for WVWO.
@@ -100,6 +108,7 @@ NEVER USE: Inter, DM Sans, Space Grotesk, Poppins, Outfit, Montserrat, Raleway, 
 ## COLOR: WEATHERED EARTH, NOT DIGITAL NEON
 
 ### THE WVWO PALETTE (Tied to Physical WV Objects)
+
 ```css
 /* PRIMARY COLORS */
 --brand-brown: #3E2723;        /* Rifle stocks, weathered barn wood */
@@ -124,6 +133,7 @@ NEVER USE: Inter, DM Sans, Space Grotesk, Poppins, Outfit, Montserrat, Raleway, 
 ```
 
 ### FORBIDDEN COLOR SCHEMES
+
 ```text
 NEVER USE:
 - Purple gradients (every AI tool landing page since 2022)
@@ -135,6 +145,7 @@ NEVER USE:
 ```
 
 ### INDUSTRY STANDARD COLOR EXCEPTIONS (REQUIRED FOR SAFETY)
+
 **CRITICAL: Industry safety/danger colors OVERRIDE WVWO brand palette in adventure contexts.**
 These colors are REQUIRED (not optional) when displaying safety-critical information:
 
@@ -176,7 +187,9 @@ Using WVWO brand colors for safety-critical info would confuse users and CREATE 
 Brand aesthetics NEVER override safety communication. These are life-or-death standards, not style choices.
 
 ### BLAZE ORANGE STRATEGY
+
 Orange should occupy <5% of any screen view. It's a highlighter, not a paint bucket.
+
 - **USE FOR**: Primary CTAs, safety notices, active nav states, hover accents
 - **DON'T**: Full-section backgrounds, redundant borders, multiple orange elements competing
 
@@ -185,6 +198,7 @@ Orange should occupy <5% of any screen view. It's a highlighter, not a paint buc
 ## TEXTURES: TACTILE, NOT FLAT
 
 ### WOOD GRAIN (Subtle)
+
 ```css
 .bg-wood-grain {
   background-color: var(--brand-mud);
@@ -195,6 +209,7 @@ Orange should occupy <5% of any screen view. It's a highlighter, not a paint buc
 ```
 
 ### WORN PAPER (Field Notes)
+
 ```css
 .bg-cardstock {
   background-color: var(--brand-cream-aged);
@@ -206,6 +221,7 @@ Orange should occupy <5% of any screen view. It's a highlighter, not a paint buc
 ```
 
 ### NOISE TEXTURE (Organic Feel)
+
 ```css
 .bg-noise {
   background-image: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)" opacity="0.05"/%3E%3C/svg%3E');
@@ -213,6 +229,7 @@ Orange should occupy <5% of any screen view. It's a highlighter, not a paint buc
 ```
 
 ### SUBTLE CAMO (10-15% opacity max)
+
 Use as overlay, not direct background. Should be a hint, not a statement.
 
 ---
@@ -220,9 +237,11 @@ Use as overlay, not direct background. Should be a hint, not a statement.
 ## MOTION: WARM, NOT SLICK
 
 ### PHILOSOPHY
+
 Like carefully arranged hunting gear in a wooden display case - deliberate, quality reveals. Not flashy tech, but warm craftsmanship.
 
 ### PAGE LOAD: "Curtain Opening" Stagger
+
 ```css
 @keyframes gentle-reveal {
   from { opacity: 0; transform: translateY(12px); }
@@ -240,6 +259,7 @@ Like carefully arranged hunting gear in a wooden display case - deliberate, qual
 ```
 
 ### HOVER STATES: Tactile Materials
+
 ```css
 /* Buttons feel like pressing real buttons */
 .btn-primary {
@@ -269,6 +289,7 @@ a:not(.btn):hover {
 ```
 
 ### SIGNATURE DELIGHT: "The Compass Spin"
+
 ```css
 @keyframes compass-find-north {
   0% { transform: rotate(0deg); opacity: 0.6; }
@@ -282,6 +303,7 @@ a:not(.btn):hover {
 ```
 
 ### FORBIDDEN ANIMATIONS
+
 ```text
 NEVER USE:
 - Parallax scrolling (tech conference websites)
@@ -293,6 +315,7 @@ NEVER USE:
 ```
 
 ### RESPECT ACCESSIBILITY
+
 ```css
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -307,6 +330,7 @@ NEVER USE:
 ## LAYOUT: HANDMADE, NOT TEMPLATE
 
 ### FORBIDDEN LAYOUT PATTERNS
+
 ```text
 NEVER USE:
 - Center-aligned hero with "Revolutionize Your [Noun]" (Y Combinator default)
@@ -317,6 +341,7 @@ NEVER USE:
 ```
 
 ### USE INSTEAD
+
 - **Asymmetric layouts** (text-heavy left, photo right)
 - **Border accents** instead of floating shadows (like file tabs)
 - **Real photos** instead of illustrations or stock
@@ -325,6 +350,7 @@ NEVER USE:
 - **Slight rotations** on photos (2-3 degrees, like scrapbook/bulletin board)
 
 ### SPACING PHILOSOPHY
+
 ```css
 /* Human-feeling spacing with variation */
 /* NOT: Perfectly aligned 8px grid everywhere */
@@ -337,6 +363,7 @@ padding: 4rem 1rem; /* Not everything needs perfect ratios */
 ## VOICE: KIM'S CLIPBOARD, NOT MARKETING DECK
 
 ### FORBIDDEN PHRASES (Silicon Valley Speak)
+
 ```text
 NEVER USE:
 "Unlock your potential" | "Seamless experience" | "Cutting-edge solutions"
@@ -346,6 +373,7 @@ NEVER USE:
 ```
 
 ### USE INSTEAD (Kim's Voice)
+
 ```text
 "Don't trust a laser bore sight alone. We mount it level, torque it right, and get you on paper."
 "If we don't have it, you probably don't need it."
@@ -362,6 +390,7 @@ NEVER USE:
 ## IMAGERY: REAL, NOT STAGED
 
 ### FORBIDDEN IMAGE STYLES
+
 ```text
 NEVER USE:
 - Diverse coworkers high-fiving in modern office
@@ -375,6 +404,7 @@ NEVER USE:
 ```
 
 ### USE INSTEAD (Image Styles)
+
 - **Real photos** of Kim and Bryan's actual shop
 - **Flood damage photos** (raw, unedited testimony)
 - **Grayscale treatments** (not trying to be glossy)
@@ -405,26 +435,31 @@ If dark mode is needed, think fireside-dark, not tech-dark:
 ## LITMUS TESTS (Run Before Every Design Decision)
 
 ### Test 1: The Neighbor Test
+>
 > "If Kim's neighbor walked into the shop and saw this on her computer, would they say 'That's fancy!' or 'That's you'?"
 
 If "fancy" = wrong. Fancy means inauthentic.
 
 ### Test 2: The Bulletin Board Test
+>
 > "If we printed this and hung it next to handwritten notes and feed receipts on the shop's bulletin board, would it look out of place?"
 
 If yes = too polished.
 
 ### Test 3: The Voice Test
+>
 > "Does this sound like Kim wrote it, or like a marketing agency wrote it?"
 
 Any doubt = AI slop.
 
 ### Test 4: The Five-Year Test
+>
 > "Will this design trend look embarrassing in 2030?"
 
 Purple gradients failed. Glassmorphism failed. Earthy colors and serif fonts endure.
 
 ### Test 5: The Free-Tier Test
+>
 > "Does this require a paid service, ongoing maintenance, or technical expertise Kim doesn't have?"
 
 If yes = violates simplicity principle.
@@ -434,6 +469,7 @@ If yes = violates simplicity principle.
 ## ENFORCEMENT CHECKLIST
 
 Before merging ANY design change:
+
 ```text
 [ ] Zero SaaS marketing language
 [ ] Zero trendy fonts (Inter, DM Sans, Poppins, Space Grotesk)
@@ -479,6 +515,7 @@ If the latter, start over.
 
 </wvwo_frontend_aesthetics>
 """
+
 ```
 
 ---
@@ -517,6 +554,7 @@ Rural signage energy, not SaaS dashboard. Timid = forgettable.
 ```
 
 ### Color-Only
+
 ```xml
 <wvwo_color>
 Brown #3E2723, Green #2E7D32, Cream #FFF8E1, Orange #FF6F00.
@@ -527,6 +565,7 @@ Colors tied to real WV objects: barn wood, forest, blaze orange.
 ```
 
 ### Motion-Only
+
 ```xml
 <wvwo_motion>
 CSS-only, performant for rural internet.
@@ -539,6 +578,7 @@ Respect prefers-reduced-motion always.
 ```
 
 ### Voice-Only
+
 ```xml
 <wvwo_voice>
 Write like Kim, not a marketing agency.
@@ -549,6 +589,7 @@ Faith-forward, humble, rural WV authentic. Zero buzzwords.
 ```
 
 ### WVWO Theme Lock (Full Constraint)
+
 Use this to lock ALL design decisions to WVWO aesthetic:
 
 ```xml
@@ -585,6 +626,7 @@ This prompt builds on [Anthropic's frontend aesthetics prompting guide](https://
 | **Theme Lock** | Solarpunk example | WVWO holler aesthetic |
 
 **What we added from Anthropic's research:**
+
 - Font alternatives by vibe (Hardware Store, Field Guide, Government Surplus)
 - Pairing principles ("High contrast = warmth")
 - Weight/size extremes guidance (2.5x+ jumps, 300+ weight difference)
@@ -592,6 +634,7 @@ This prompt builds on [Anthropic's frontend aesthetics prompting guide](https://
 - Theme lock pattern for full constraint
 
 **What WVWO adds beyond Anthropic:**
+
 - Context-specific identity (Kim & Bryan, faith-forward, 2016 flood)
 - Voice/copy guidance with specific phrases
 - Imagery rules (real photos, phone-quality acceptable)

@@ -3,9 +3,11 @@
 ## 1. SPECIFICATION
 
 ### 1.1 Objective
+
 Auto-send a welcome email when someone subscribes. Welcome emails get 4x open rates - critical first impression.
 
 ### 1.2 Requirements
+
 | Req | Description | Priority |
 |-----|-------------|----------|
 | R1 | Auto-trigger on subscription | Must |
@@ -15,13 +17,13 @@ Auto-send a welcome email when someone subscribes. Welcome emails get 4x open ra
 | R5 | Optional first-timer discount | Could |
 
 ### 1.3 Constraints
+
 - Buttondown automation feature
 - Single template (not segmented)
 
 ---
 
 ## 2. PSEUDOCODE
-
 
 ```markdown
 Subject: Grand love ya for subscribing! Here's what to expect
@@ -62,7 +64,6 @@ Kim & Bryan
 
 ## 3. ARCHITECTURE
 
-
 ```
 Buttondown Automation:
 Trigger: New subscriber
@@ -76,10 +77,12 @@ Delay: Immediate (or 5 min for better deliverability)
 ## 4. REFINEMENT
 
 ### First-Timer Discount (Optional)
+
 - "Mention this email for 10% off your first purchase"
 - Track redemption to measure email value
 
 ### Follow-Up Sequence (Future)
+
 - Day 3: "Here's what's biting this week" (if fishing season)
 - Day 7: "Need a license? We can help"
 
@@ -88,6 +91,7 @@ Delay: Immediate (or 5 min for better deliverability)
 ## 5. COMPLETION
 
 ### Success Criteria
+
 - [ ] Automation triggers on new signup
 - [ ] Email delivers within 5 minutes
 - [ ] Links work (directions, shop, etc.)

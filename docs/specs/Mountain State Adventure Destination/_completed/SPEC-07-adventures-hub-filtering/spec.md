@@ -6,6 +6,7 @@
 **Status:** Specification Complete → Ready for Implementation
 **Phase:** Mountain State Adventure Destination (Phase 3)
 **Dependencies:**
+
 - SPEC-06 (Content Collections schema - COMPLETED ✅)
 - **BLOCKING: SPEC-06 Schema Update Required** - Add elevation_gain and suitability[] fields BEFORE SPEC-07
 
@@ -16,10 +17,12 @@
 ### Session 2025-12-23
 
 **Q1: Launch with 3 axes (schema ready) OR 5 axes (requires schema update)?**
+
 - Answer: Option B - 5 axes (Season, Difficulty, Gear, Elevation, Suitability)
 - Timeline: +3-4 days for schema update + data backfill
 
 **Q2: Elevation slider - Single or dual-thumb?**
+
 - Answer: Option A - Dual-thumb range slider (min-max)
 - Specification: 0-5000 ft range, 100 ft increments, "1,200 ft" display format
 - URL: ?elevation=500-2000 (min-max pair)

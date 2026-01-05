@@ -24,6 +24,7 @@ This master architecture document ties together all architectural decisions for 
 ### 1.1 Mission
 
 Create a reusable Astro template for West Virginia lake recreation pages that:
+
 - Achieves **70%+ component reuse** from SPEC-11 Adventure Shared Components
 - Maintains **100% WVWO brand compliance** (rounded-sm only, brand fonts/colors)
 - Provides **build-time validation** via Zod schemas
@@ -85,6 +86,7 @@ Create a reusable Astro template for West Virginia lake recreation pages that:
 ### 2.2 Component Reuse Strategy
 
 **16 Total Sections**:
+
 - **10 Existing Components** (62.5%): AdventureQuickStats, AdventureWhatToFish, AdventureCampingList, AdventureGearChecklist, AdventureRelatedShop, AdventureCTA, AdventureGettingThere, EmailCapture, Breadcrumb, SchemaBreadcrumb
 - **1 Partial Reuse** (6.25%): Activities section can use AdventureFeatureSection
 - **5 Custom Sections** (31.25%): Hero, Where to Fish, Marina, Seasonal Guide, Safety & Regulations
@@ -338,28 +340,33 @@ function transformActivities(activities: Activity[]): FeatureItem[] {
 ### 6.1 Brand Requirements
 
 **Fonts**:
+
 - `font-display` (Bitter): All headings, stats, species names
 - `font-hand` (Permanent Marker): Kim's tips ONLY
 - `font-body` (Noto Sans): Body text, descriptions
 
 **Colors**:
+
 - `brand-brown` (#3E2723): Primary text, spot accents
 - `sign-green` (#2E7D32): Fish species accents, CTAs
 - `brand-cream` (#FFF8E1): Background alternating sections
 - `brand-orange` (#FF6F00): Safety/regulations accents (use sparingly)
 
 **Border Radius**:
+
 - `rounded-sm` (0.125rem): **ONLY ALLOWED VALUE**
 - ❌ FORBIDDEN: rounded-md, rounded-lg, rounded-xl, rounded-2xl, rounded-3xl
 
 ### 6.2 Enforcement Strategy
 
 **Build-Time Checks**:
+
 - [ ] Automated test: Search template for forbidden border-radius classes
 - [ ] Visual regression test: Compare screenshots to reference implementation
 - [ ] Lighthouse audit: Verify color contrast ratios (WCAG AA)
 
 **Code Review Checklist**:
+
 ```markdown
 - [ ] Zero instances of rounded-md/lg/xl in template
 - [ ] All border-left accents use WVWO colors (green, brown, orange)
@@ -377,6 +384,7 @@ function transformActivities(activities: Activity[]): FeatureItem[] {
 **Decision**: Leverage existing SPEC-11 components for 70%+ of template
 
 **Rationale**:
+
 - DRY principle: Don't duplicate existing components
 - Maintainability: Updates propagate automatically
 - Consistency: All lake pages use identical patterns
@@ -391,6 +399,7 @@ function transformActivities(activities: Activity[]): FeatureItem[] {
 **Decision**: `wv-wild-web/src/components/templates/LakeTemplate.astro`
 
 **Rationale**:
+
 - Clear separation: templates/ = page-level, adventure/ = atomic
 - Scalability: Future templates (RiverTemplate, TrailTemplate) in same directory
 - Common pattern: Aligns with Astro project conventions
@@ -402,6 +411,7 @@ function transformActivities(activities: Activity[]): FeatureItem[] {
 **Decision**: Extend `wv-wild-web/src/types/adventure.ts` (not separate lake.ts)
 
 **Rationale**:
+
 - Single source of truth for all adventure types
 - Lake pages are subcategory of adventures
 - Simplifies imports (one file, not multiple)
@@ -415,6 +425,7 @@ function transformActivities(activities: Activity[]): FeatureItem[] {
 **Decision**: Zod validation in frontmatter, build MUST fail on invalid data
 
 **Rationale**:
+
 - Fail-fast: Catch errors before production
 - No runtime overhead: Validation at build, not page load
 - Clear errors: Zod messages pinpoint exact issues
@@ -497,6 +508,7 @@ const summersvilleData: LakeTemplateProps = {
 ### 9.2 Runtime Performance (Lighthouse Projections)
 
 **With Max Array Sizes** (20 species, 15 spots, 10 campgrounds, 20 activities):
+
 - **Performance**: 92+ (LCP <2.5s, FCP <1.5s)
 - **Accessibility**: 98+ (semantic HTML, ARIA, contrast)
 - **SEO**: 100 (structured data, meta tags)
@@ -511,6 +523,7 @@ const summersvilleData: LakeTemplateProps = {
 ### Phase 1: Type System (1-2 hours)
 
 **Tasks**:
+
 - [ ] Open `wv-wild-web/src/types/adventure.ts`
 - [ ] Add 5 new Zod schemas (FishingSpot, Marina, Activity, SeasonalGuide, Regulation)
 - [ ] Export type inferences
@@ -524,6 +537,7 @@ const summersvilleData: LakeTemplateProps = {
 ### Phase 2: Template Structure (3-4 hours)
 
 **Tasks**:
+
 - [ ] Create `wv-wild-web/src/components/templates/LakeTemplate.astro`
 - [ ] Implement frontmatter (imports, validation, transformations) - ~160 lines
 - [ ] Implement Hero section (custom HTML) - ~50 lines
@@ -537,6 +551,7 @@ const summersvilleData: LakeTemplateProps = {
 ### Phase 3: WVWO Compliance (1 hour)
 
 **Tasks**:
+
 - [ ] Audit all custom sections for rounded-sm enforcement
 - [ ] Apply border-left accents (green for fish, brown for spots, orange for regulations)
 - [ ] Implement Kim's voice (font-hand for tips)
@@ -549,6 +564,7 @@ const summersvilleData: LakeTemplateProps = {
 ### Phase 4: Testing & Validation (1-2 hours)
 
 **Tasks**:
+
 - [ ] Refactor summersville-lake.astro to use LakeTemplate
 - [ ] Run visual regression test (before/after screenshot comparison)
 - [ ] Test build with valid data (should succeed)
@@ -596,11 +612,13 @@ const summersvilleData: LakeTemplateProps = {
 ### 12.1 Additional Templates
 
 **Post-SPEC-13**:
+
 - **SPEC-14**: River Template (flowing water, current patterns, wading access)
 - **SPEC-15**: Hiking Trail Template (trail maps, elevation, difficulty)
 - **SPEC-16**: Enhanced WMA Template (expanded hunting content)
 
 **All future templates should**:
+
 - Leverage SPEC-11 shared components
 - Follow WVWO aesthetic guidelines
 - Use TypeScript with Zod schemas
@@ -609,6 +627,7 @@ const summersvilleData: LakeTemplateProps = {
 ### 12.2 Potential Enhancements
 
 **Not in SPEC-13, future iterations**:
+
 - Embedded interactive maps (Google Maps iframe)
 - Photo galleries/lightboxes for lake images
 - Real-time weather integration
@@ -721,6 +740,7 @@ try {
 **Status**: Architecture Design Complete ✅
 
 **Related Documents**:
+
 - [spec.md](../spec.md) - Feature specification
 - [research.md](../research.md) - Hivemind research findings
 - [data-model.md](../data-model.md) - Type system documentation

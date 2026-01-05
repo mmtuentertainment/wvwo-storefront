@@ -1,6 +1,7 @@
 # SPEC-14 Quality Gates - Documentation Index
 
 ## Quick Start
+
 ```bash
 # Run all checkpoints
 bash scripts/run-all-checkpoints.sh
@@ -18,9 +19,11 @@ bash scripts/checkpoint-5-validation.sh  # After Phase 5
 ## Documentation Files
 
 ### 1. QUALITY-GATES-SUMMARY.md
+
 **Purpose**: Executive overview of the quality gate system
 **Audience**: Project managers, team leads, new developers
 **Contents**:
+
 - High-level checkpoint definitions
 - Timeline and effort estimates
 - Quality standards reference
@@ -31,9 +34,11 @@ bash scripts/checkpoint-5-validation.sh  # After Phase 5
 ---
 
 ### 2. CHECKPOINT-GUIDE.md
+
 **Purpose**: Detailed implementation guide for quality checkpoints
 **Audience**: Developers, QA engineers, reviewers
 **Contents**:
+
 - Detailed checkpoint procedures
 - Manual review checklists
 - Troubleshooting guide
@@ -45,9 +50,11 @@ bash scripts/checkpoint-5-validation.sh  # After Phase 5
 ---
 
 ### 3. CHECKPOINT-CHECKLIST.md
+
 **Purpose**: Tracking template for checkpoint completion
 **Audience**: Developers, reviewers, project managers
 **Contents**:
+
 - Checkbox lists for all criteria
 - Sign-off sections
 - Notes areas for findings
@@ -58,9 +65,11 @@ bash scripts/checkpoint-5-validation.sh  # After Phase 5
 ---
 
 ### 4. scripts/README.md
+
 **Purpose**: Validation script documentation
 **Audience**: Developers, DevOps engineers
 **Contents**:
+
 - Script descriptions
 - Usage examples
 - Common issues
@@ -72,9 +81,11 @@ bash scripts/checkpoint-5-validation.sh  # After Phase 5
 ---
 
 ### 5. tests/integration/RiverTemplate.test.ts
+
 **Purpose**: End-to-end integration test suite
 **Audience**: Developers, QA engineers
 **Contents**:
+
 - Template rendering tests
 - Conditional rendering tests
 - Interactive element tests
@@ -163,6 +174,7 @@ bash scripts/checkpoint-5-validation.sh  # After Phase 5
 ## Key Files by Role
 
 ### Developer
+
 1. **Start**: Read `QUALITY-GATES-SUMMARY.md`
 2. **Implement**: Follow `CHECKPOINT-GUIDE.md`
 3. **Track**: Fill out `CHECKPOINT-CHECKLIST.md`
@@ -170,12 +182,14 @@ bash scripts/checkpoint-5-validation.sh  # After Phase 5
 5. **Validate**: Run checkpoint scripts after each phase
 
 ### Reviewer
+
 1. **Understand**: Read `QUALITY-GATES-SUMMARY.md`
 2. **Review**: Use `CHECKPOINT-CHECKLIST.md` as guide
 3. **Manual Checks**: Follow `CHECKPOINT-GUIDE.md` manual sections
 4. **Sign-Off**: Complete `CHECKPOINT-CHECKLIST.md` approval
 
 ### Project Manager
+
 1. **Overview**: Read `QUALITY-GATES-SUMMARY.md`
 2. **Track Progress**: Review `CHECKPOINT-CHECKLIST.md`
 3. **Estimate**: Use time estimates from summary
@@ -186,19 +200,22 @@ bash scripts/checkpoint-5-validation.sh  # After Phase 5
 ## Related Documentation
 
 ### WVWO Project Standards
+
 - **CLAUDE.md**: Frontend aesthetics, forbidden patterns (project root)
 - **docs/spec-14-river-template.md**: Full RiverTemplate specification
 
 ### External Standards
-- **WCAG 2.1 AA**: https://www.w3.org/WAI/WCAG21/quickref/?currentsidebar=%23col_customize&levels=aaa
-- **Schema.org**: https://schema.org/TouristAttraction
-- **Google Rich Results**: https://developers.google.com/search/docs/appearance/structured-data
+
+- **WCAG 2.1 AA**: <https://www.w3.org/WAI/WCAG21/quickref/?currentsidebar=%23col_customize&levels=aaa>
+- **Schema.org**: <https://schema.org/TouristAttraction>
+- **Google Rich Results**: <https://developers.google.com/search/docs/appearance/structured-data>
 
 ---
 
 ## Script Locations
 
 All validation scripts are in `scripts/`:
+
 - `checkpoint-1-validation.sh` - Type System Review
 - `checkpoint-2-validation.sh` - WVWO Compliance
 - `checkpoint-3-validation.sh` - Accessibility
@@ -215,6 +232,7 @@ All scripts are executable (`chmod +x` already applied).
 Integration tests: `tests/integration/RiverTemplate.test.ts`
 
 Run with:
+
 ```bash
 npm test tests/integration/RiverTemplate.test.ts
 ```
@@ -226,6 +244,7 @@ npm test tests/integration/RiverTemplate.test.ts
 Blank checklist template: `docs/CHECKPOINT-CHECKLIST.md`
 
 **Usage**:
+
 1. Make a copy for each implementation: `cp CHECKPOINT-CHECKLIST.md SPEC-14-checklist-YYYY-MM-DD.md`
 2. Fill out during development
 3. Include in PR description
@@ -238,6 +257,7 @@ Blank checklist template: `docs/CHECKPOINT-CHECKLIST.md`
 Example GitHub Actions workflow in `CHECKPOINT-GUIDE.md` under "CI/CD Integration" section.
 
 To implement:
+
 1. Create `.github/workflows/spec-14-quality.yml`
 2. Copy workflow from guide
 3. Adjust paths if needed
@@ -248,6 +268,7 @@ To implement:
 ## Support & Contact
 
 For issues:
+
 - **Script errors**: Check `scripts/README.md` troubleshooting
 - **Checkpoint failures**: Check `CHECKPOINT-GUIDE.md` troubleshooting
 - **WVWO standards**: Check `CLAUDE.md` Frontend Aesthetics

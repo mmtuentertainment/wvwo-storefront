@@ -3,9 +3,11 @@
 ## 1. SPECIFICATION
 
 ### 1.1 Objective
+
 Create a `/reports` section on the website to archive all field reports for SEO value and visitor reference.
 
 ### 1.2 Requirements
+
 | Req | Description | Priority |
 |-----|-------------|----------|
 | R1 | Index page listing all reports | Must |
@@ -17,6 +19,7 @@ Create a `/reports` section on the website to archive all field reports for SEO 
 | R7 | Cross-link to /near pages | Should |
 
 ### 1.3 Constraints
+
 - Follow existing /near and /guides patterns
 - Static generation (Astro)
 - No client-side JavaScript required
@@ -24,7 +27,6 @@ Create a `/reports` section on the website to archive all field reports for SEO 
 ---
 
 ## 2. PSEUDOCODE
-
 
 ```astro
 // pages/reports/index.astro
@@ -72,7 +74,6 @@ const fishingReports = sortedReports.filter(r => r.type === 'fishing');
 </Layout>
 
 ```
-
 
 ```astro
 // pages/reports/[slug].astro
@@ -134,7 +135,6 @@ const articleSchema = {
 
 ## 3. ARCHITECTURE
 
-
 ```
 /reports                    → Index page (all reports)
 /reports/elk-river-trout-jan-2025  → Individual report
@@ -151,11 +151,13 @@ Cross-links:
 ## 4. REFINEMENT
 
 ### Design Patterns
+
 - Follow /guides hero pattern (brown + camo)
 - Cards similar to /near index page
 - Report detail similar to /guides/* pages
 
 ### Edge Cases
+
 - No reports yet → "First report coming soon!" message
 - Very old reports → Year headers in archive
 - Broken cross-links → Check /near page exists before linking
@@ -165,6 +167,7 @@ Cross-links:
 ## 5. COMPLETION
 
 ### Success Criteria
+
 - [ ] /reports renders with sample data
 - [ ] Individual report pages generate
 - [ ] Article schema validates

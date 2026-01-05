@@ -41,6 +41,7 @@ Three comprehensive architecture documents:
 **Decision**: Use layout component (`WMATemplate.astro`) imported by individual WMA pages instead of dynamic routing.
 
 **Rationale**:
+
 - Allows per-page customization via slot injection
 - Incremental migration path (convert pages one-by-one)
 - Easier debugging (explicit imports vs. dynamic lookup)
@@ -68,6 +69,7 @@ Three comprehensive architecture documents:
 ```
 
 **Ordering Rationale**:
+
 - **Hero First**: Immediate context (LCP optimization, visual hierarchy)
 - **Stats Second**: Fast facts above fold (acreage, distance, access)
 - **Hunting Third**: Primary WMA intent ("What can I hunt?")
@@ -84,6 +86,7 @@ Three comprehensive architecture documents:
 ### 3. Background Rhythm: Alternating Variant System
 
 **Algorithm**:
+
 ```typescript
 function calculateVariant(index: number, heroFirst: boolean): Variant {
   if (index === 0 && heroFirst) return 'brown'; // Hero always dark
@@ -94,12 +97,14 @@ function calculateVariant(index: number, heroFirst: boolean): Variant {
 ```
 
 **Visual Pattern**:
+
 ```
 brown → white → cream → white → cream → white → cream → ...
 (Hero)  (Stats) (Hunt)  (Fish)  (Dir)   (Fac)   (Camp) ...
 ```
 
 **Benefits**:
+
 - Prevents visual monotony (all-cream or all-white)
 - Background changes mark section boundaries (improves scanability)
 - WVWO aesthetic compliance (cream = warm rustic, white = clean modern)
@@ -133,6 +138,7 @@ AdventureGearChecklist:
 ```
 
 **Benefits**:
+
 - Template code stays clean (no complex `{#if}` blocks)
 - Graceful degradation (minimal-data WMAs still render functional pages)
 - DRY principle (conditional logic in component, not duplicated across 8 WMA pages)
@@ -154,6 +160,7 @@ AdventureGearChecklist:
 **Design Principle**: Use slots for custom content injection instead of props to prevent "prop explosion" (20+ optional props per component).
 
 **Example Usage**:
+
 ```astro
 <WMAFacilitiesGrid facilities={facilities}>
   <div slot="footer">
@@ -169,21 +176,25 @@ AdventureGearChecklist:
 ## Integration with Existing Components
 
 ### SPEC-09: AdventureHero
+
 - **Replacement**: Lines 52-77 (26 lines) → 2 lines
 - **Reduction**: 92%
 - **Benefits**: SEO schema injection, responsive images, accessible badges
 
 ### SPEC-10: AdventureQuickStats
+
 - **Replacement**: Lines 80-101 (22 lines) → 1 line
 - **Reduction**: 95%
 - **Benefits**: Semantic `<dl>` markup, icon system integration
 
 ### SPEC-11: Shared Components
+
 - **AdventureGettingThere**: Lines 212-245 (34 lines) → 1 line (97% reduction)
 - **AdventureGearChecklist**: Lines 330-411 (82 lines) → 1 line (99% reduction)
 - **AdventureRelatedShop**: New section (conversion funnel optimization)
 
 ### SPEC-12: New WMA Components
+
 - **WMASpeciesGrid**: Lines 104-172 (68 lines) → 1 line
 - **WMAFishingWaters**: Lines 175-209 (34 lines) → 1 line
 - **WMAFacilitiesGrid**: Lines 248-327 (79 lines) → 1 line
@@ -195,18 +206,21 @@ AdventureGearChecklist:
 ## Code Reduction Metrics
 
 **Before** (elk-river.astro current state):
+
 - **Total Lines**: 533 lines (layout + content mixed)
 - **Layout Code**: 333 lines (62% duplication across 8 WMAs)
 - **Content**: 200 lines (38% unique per WMA)
 - **Total Across 8 WMAs**: 4,264 lines
 
 **After** (template integration):
+
 - **Total Lines**: ~150 lines (pure content configuration)
 - **Layout Code**: 0 lines (moved to reusable components)
 - **Content**: 150 lines (100% unique per WMA)
 - **Total Across 8 WMAs**: 1,200 lines
 
 **Savings**:
+
 - **Per Page**: 383 lines reduced (73% reduction)
 - **Across 8 WMAs**: 3,064 lines removed from production codebase
 - **Maintenance**: Change navigation once → updates 8 pages automatically
@@ -258,6 +272,7 @@ const heroImage = await import('../../assets/wma/elk-river-hero.jpg');
 ## Accessibility Architecture
 
 **WCAG 2.1 AA Compliance Enforced**:
+
 - Semantic HTML structure (`<section>`, `<h1>`, `<dl>`, `<nav>`)
 - Proper heading hierarchy (h1 → h2 → h3, no skips)
 - ARIA labels for sections and interactive elements
@@ -268,6 +283,7 @@ const heroImage = await import('../../assets/wma/elk-river-hero.jpg');
 - `prefers-reduced-motion` support (disables animations)
 
 **Keyboard Navigation Flow**:
+
 1. Skip to content link
 2. Header navigation
 3. Breadcrumb links
@@ -281,18 +297,22 @@ const heroImage = await import('../../assets/wma/elk-river-hero.jpg');
 ## Architecture Decision Records (ADRs)
 
 ### ADR-001: Layout Component over Dynamic Route
+
 **Status**: Accepted
 **Consequence**: Flexibility for per-page customization vs. slight code duplication
 
 ### ADR-002: Variant System for Background Alternation
+
 **Status**: Accepted
 **Consequence**: Improved scanability vs. manual variant assignment
 
 ### ADR-003: Conditional Rendering at Component Level
+
 **Status**: Accepted
 **Consequence**: Graceful degradation vs. slightly slower rendering
 
 ### ADR-004: Slot-Based Customization over Prop Explosion
+
 **Status**: Accepted
 **Consequence**: Unlimited flexibility vs. unvalidated slot content
 
@@ -301,16 +321,19 @@ const heroImage = await import('../../assets/wma/elk-river-hero.jpg');
 ## Migration Roadmap
 
 **Phase 1** (SPEC-12 Implementation):
+
 - Create 5 new WMA-specific components (WMASpeciesGrid, WMAFishingWaters, etc.)
 - Extend adventures schema with 8 optional fields (wma_acreage, wma_species, etc.)
 - Build integration tests for component composition
 
 **Phase 2** (SPEC-21+):
+
 - Migrate elk-river.astro to template (reference implementation)
 - Test with real production data
 - Document any template adjustments needed
 
 **Phase 3** (Future):
+
 - Migrate remaining 7 WMA pages (Beech Fork, Stonewall Jackson, etc.)
 - Archive old hardcoded sections
 - Celebrate 73% codebase reduction 🎉
@@ -320,21 +343,25 @@ const heroImage = await import('../../assets/wma/elk-river-hero.jpg');
 ## Success Metrics
 
 **Code Reduction**:
+
 - ✅ 533 lines → 150 lines per WMA page (73% reduction)
 - ✅ 4,264 total lines → 1,200 total across 8 WMAs (3,064 lines removed)
 
 **Maintainability**:
+
 - ✅ Navigation changes: 1 commit → 8 pages updated automatically
 - ✅ Component improvements propagate to all WMAs instantly
 - ✅ New WMA addition: 30 minutes vs. 2+ hours (87% time savings)
 
 **User Experience**:
+
 - ✅ Consistent layout across all WMA pages
 - ✅ Predictable navigation patterns
 - ✅ WCAG 2.1 AA compliant structure
 - ✅ Fast load times (<2s on 3G per NFR requirements)
 
 **Developer Experience**:
+
 - ✅ Type-safe content configuration (TypeScript + Zod validation)
 - ✅ Reusable component library (10 components across SPEC-09/10/11/12)
 - ✅ Clear separation of concerns (content vs. structure)

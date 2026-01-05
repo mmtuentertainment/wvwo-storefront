@@ -32,6 +32,7 @@ This SEO strategy focuses on capturing **mobile "near me" searches** from highwa
 ### Long-Tail Keywords (WV-Specific Hunting)
 
 **Seasonal Opportunities** (WV deer season generates $300M+ annually):
+
 - `WV deer season hunting supplies`
 - `buck season gear Braxton County`
 - `deer hunting supplies near Sutton Lake`
@@ -39,6 +40,7 @@ This SEO strategy focuses on capturing **mobile "near me" searches** from highwa
 - `bear hunting supplies WV`
 
 **Product-Specific**:
+
 - `blaze orange gear near me`
 - `hunting ammo I-79 corridor`
 - `deer stand supplies Braxton County`
@@ -46,6 +48,7 @@ This SEO strategy focuses on capturing **mobile "near me" searches** from highwa
 - `trail cameras near me`
 
 **Informational** (builds authority, captures early-stage searchers):
+
 - `WV hunting season dates 2025`
 - `how to get WV hunting license out of state`
 - `best hunting spots Braxton County`
@@ -68,6 +71,7 @@ This SEO strategy focuses on capturing **mobile "near me" searches** from highwa
 **Pattern**: `[Primary Keyword] | [Location] | [Brand/USP]`
 
 **Examples**:
+
 ```html
 <!-- Homepage -->
 <title>FFL Dealer & Hunting Supplies | Birch River, WV | WV Wild Outdoors</title>
@@ -83,6 +87,7 @@ This SEO strategy focuses on capturing **mobile "near me" searches** from highwa
 ```
 
 **Key Rules**:
+
 - Primary keyword at START (Google prioritizes first words)
 - Include location in EVERY title
 - Keep under 60 chars (525-535 pixels desktop)
@@ -93,6 +98,7 @@ This SEO strategy focuses on capturing **mobile "near me" searches** from highwa
 **Pattern**: `[What you do] in [Location]. [Key benefit/differentiator]. [Call to action with contact info]`
 
 **Examples**:
+
 ```html
 <!-- Homepage (Mobile-optimized: 120 chars) -->
 <meta name="description" content="FFL dealer & hunting supplies in Birch River, WV on I-79. Family-owned since 2008. Stop in or call 304-XXX-XXXX.">
@@ -105,6 +111,7 @@ This SEO strategy focuses on capturing **mobile "near me" searches** from highwa
 ```
 
 **Key Rules**:
+
 - Start with action/benefit (not fluff)
 - Include location + phone number for emergency/immediate needs
 - Use conversational language (voice search optimization)
@@ -128,6 +135,7 @@ This SEO strategy focuses on capturing **mobile "near me" searches** from highwa
 ```
 
 **Key Rules**:
+
 - One H1 per page (same or similar to title tag)
 - Use H2 for main sections (keywords!)
 - Use H3 for subsections (long-tail keywords)
@@ -140,6 +148,7 @@ This SEO strategy focuses on capturing **mobile "near me" searches** from highwa
 **Word Count**: 500-800 words minimum for service pages, 300+ for product pages
 
 **Natural Location Integration** (avoid "keyword stuffing"):
+
 ```markdown
 ❌ WRONG: "We are an FFL dealer in Braxton County, WV. Our Braxton County, WV FFL dealer shop..."
 
@@ -148,6 +157,7 @@ we've served hunters across central West Virginia since 2008."
 ```
 
 **Conversational Language** (voice search + Kim's voice):
+
 ```markdown
 ❌ CORPORATE: "Unlock seamless FFL transfer solutions with our cutting-edge service platform."
 
@@ -292,6 +302,7 @@ Use **Store** subtype (most specific for retail hunting shop).
 ```
 
 **Key Benefits**:
+
 - Enables rich results (star ratings, business hours, price range)
 - Helps Google understand location data ("near me" searches)
 - Improves mobile search display (quick info boxes)
@@ -321,6 +332,7 @@ Use **Store** subtype (most specific for retail hunting shop).
 ### NAP Consistency (Critical for Local SEO)
 
 **Name, Address, Phone must be IDENTICAL across**:
+
 - Google Business Profile
 - Website footer
 - Schema markup
@@ -328,6 +340,7 @@ Use **Store** subtype (most specific for retail hunting shop).
 - Any directory listings (FFLDealer Network, etc.)
 
 **Example**:
+
 ```
 WV Wild Outdoors
 [Street Address]
@@ -340,12 +353,14 @@ Birch River, WV [ZIP]
 **Goal**: 50+ reviews with 4.5+ star average (reviews are a top 3 local ranking factor)
 
 **How to Get Reviews**:
+
 1. Ask happy customers in-person: "Would you mind leaving us a Google review? It really helps."
 2. Text/email a review link after FFL transfers (transaction complete, customer satisfied)
 3. Print QR code on receipts linking to Google review page
 4. Respond to EVERY review (positive and negative) within 48 hours
 
 **Review Response Templates**:
+
 ```
 Positive: "Thanks [Name]! Glad we could help with your [FFL transfer/hunting license/gear].
 See you next season! - Kim"
@@ -357,12 +372,14 @@ Please call us at 304-XXX-XXXX. - Bryan"
 ### Google Posts (Weekly Updates)
 
 **Post Types**:
+
 - **Product posts**: "Just got [new inventory] in stock for deer season!"
 - **Event posts**: "WV Buck Season Nov 25 - Get your license & gear here!"
 - **Offer posts**: "$5 off FFL transfers this week"
 - **Update posts**: "Winter hours: Mon-Sat 9am-5pm"
 
 **Best Practices**:
+
 - Include photo with every post
 - Add call-to-action button (Call, Visit, Learn More)
 - Use location keywords naturally
@@ -373,6 +390,7 @@ Please call us at 304-XXX-XXXX. - Bryan"
 ## 5. Mobile Optimization Priorities
 
 **Critical Stats**:
+
 - 84% of local searches are on mobile
 - 76% visit a business within 24 hours of mobile search
 - Sites that take >3 seconds to load lose significant traffic
@@ -380,12 +398,14 @@ Please call us at 304-XXX-XXXX. - Bryan"
 ### Technical Mobile SEO
 
 **Page Speed** (Test with PageSpeed Insights):
+
 - Target: <2 seconds load time on 4G
 - Optimize images (WebP format, lazy loading)
 - Minimize JavaScript (critical for Astro sites)
 - Use Cloudflare CDN (already using!)
 
 **Mobile-Friendly Design**:
+
 - [ ] Tap targets 48x48px minimum (Google requirement)
 - [ ] Font size 16px+ (readable without zooming)
 - [ ] Avoid horizontal scrolling
@@ -394,6 +414,7 @@ Please call us at 304-XXX-XXXX. - Bryan"
 - [ ] Click-to-navigate address links: `<a href="https://maps.google.com/?cid=[CID]">`
 
 **Content Prioritization** (Above the fold on mobile):
+
 ```
 1. Business name + "FFL Dealer Birch River WV"
 2. Phone number (click to call)
@@ -415,6 +436,7 @@ Please call us at 304-XXX-XXXX. - Bryan"
 ### Page Structure (Recommended Pages)
 
 **Core Pages** (Must-have):
+
 1. **Homepage** - Overview, location, hours, core services
 2. **FFL Transfers** - Process, fees, turnaround time, contact
 3. **Hunting Licenses** - WV DNR agent info, what to bring, hours
@@ -436,23 +458,27 @@ Please call us at 304-XXX-XXXX. - Bryan"
 ### Blog/Article Ideas (Build Authority)
 
 **Local Focus**:
+
 - "Best Deer Hunting Spots in Braxton County, WV"
 - "Elk River Hunting Access: What You Need to Know"
 - "WV Deer Season 2025: Dates, Regulations & Gear Checklist"
 - "Out-of-State Hunter's Guide to West Virginia"
 
 **Product/Service**:
+
 - "How FFL Transfers Work: A Simple Guide"
 - "What to Bring When Buying a WV Hunting License"
 - "Blaze Orange Requirements in West Virginia"
 - "Best Ammo for WV Whitetail Deer"
 
 **Seasonal**:
+
 - "Buck Season Prep: Gear Checklist from WV Wild Outdoors"
 - "Turkey Hunting in Central WV: Tips from the Locals"
 - "Getting Ready for Bear Season"
 
 **Content Format**:
+
 - 500-800 words per article
 - Include photos (real photos from shop/area, not stock)
 - Add FAQ sections (schema opportunity)
@@ -464,6 +490,7 @@ Please call us at 304-XXX-XXXX. - Bryan"
 ## 7. "Near Me" Search Optimization
 
 **How "Near Me" Works**:
+
 - Google uses GPS location (mobile) or IP address (desktop)
 - Matches search intent to nearby businesses with strong local signals
 - Prioritizes Google Business Profile rankings, NOT just website SEO
@@ -496,6 +523,7 @@ Please call us at 304-XXX-XXXX. - Bryan"
 ### Optimizing Without Paid Ads
 
 **Google Business Profile** (free, highest ROI):
+
 - Complete 100% of profile fields
 - Post 1-2x per week
 - Get 50+ reviews with 4.5+ stars
@@ -503,13 +531,15 @@ Please call us at 304-XXX-XXXX. - Bryan"
 - Respond to all reviews
 
 **Website Content** (free, high effort):
+
 - Add location to EVERY page title/meta
 - Create location-specific landing pages
 - Embed Google Map on contact page
 - Add LocalBusiness schema markup
 
 **Citations/Directories** (free, medium effort):
-- FFL Dealer Network (https://www.ffldealernetwork.com/)
+
+- FFL Dealer Network (<https://www.ffldealernetwork.com/>)
 - WV DNR Agent Directory
 - Facebook Business Page
 - Yelp (even if reviews are mixed)
@@ -517,7 +547,8 @@ Please call us at 304-XXX-XXXX. - Bryan"
 - Bing Places
 
 **Local Link Building** (free, medium effort):
-- Get listed on Visit Braxton WV (https://braxtonwv.org/)
+
+- Get listed on Visit Braxton WV (<https://braxtonwv.org/>)
 - Braxton County Chamber of Commerce
 - WV Tourism outdoor recreation pages
 - Local news mentions (sponsor events, press releases)
@@ -531,25 +562,29 @@ Please call us at 304-XXX-XXXX. - Bryan"
 ### High-Value Link Opportunities
 
 **Industry Directories** (dofollow, high authority):
-- FFL Dealer Network - https://www.ffldealernetwork.com/
+
+- FFL Dealer Network - <https://www.ffldealernetwork.com/>
 - WV DNR Agent Directory
 - Where to Buy WV Hunting Licenses (state site)
 - Firearms Websites directories
 
 **Local/Regional**:
-- Visit Braxton WV - https://braxtonwv.org/
-- WV Tourism - https://wvtourism.com/
+
+- Visit Braxton WV - <https://braxtonwv.org/>
+- WV Tourism - <https://wvtourism.com/>
 - Braxton County Chamber of Commerce
 - Sutton Lake/Burnsville Lake tourism pages
 - Local news sites (interviews, sponsorships)
 
 **Hunting/Outdoor Publications** (editorial mentions):
+
 - Deer & Deer Hunting (mention in WV hunting guides)
 - Field & Stream state hunting guides
 - Outdoor Life regional content
 - Local hunting blogs
 
 **Forums/Communities** (nofollow, but drive traffic + brand signals):
+
 - WV Hunting Forums (participate authentically, mention shop when relevant)
 - Reddit r/WVhunting (NO spamming - add value first)
 - Facebook WV Hunting Groups
@@ -558,24 +593,28 @@ Please call us at 304-XXX-XXXX. - Bryan"
 ### Link Building Tactics
 
 **1. Create Linkable Content**:
+
 - "Ultimate Guide to Braxton County Hunting"
 - "Out-of-State Hunter's Guide to WV" (with map, regulations, local tips)
 - "WV Deer Season Harvest Reports" (annual data roundup)
 - Interactive hunting season calendar
 
 **2. Local Partnerships**:
+
 - Sponsor local hunting club events (get website mention)
 - Partner with Sutton Lake Marina (cross-promotion)
 - Donate to WV hunting conservation orgs (acknowledgment page link)
 - Host hunter safety courses (DNR website mention)
 
 **3. Press & Media**:
+
 - Press release for major inventory arrivals
 - Local news interviews during deer season
 - "Business Spotlight" features in local papers
 - Flood recovery story (2016 WV floods - resilience angle)
 
 **4. Forum Participation** (value-first, not spammy):
+
 - Join WV hunting forums
 - Answer questions about local hunting spots
 - Share WV regulation updates
@@ -601,6 +640,7 @@ Please call us at 304-XXX-XXXX. - Bryan"
 **Voice Search**: "Where can I get an FFL transfer near Sutton, West Virginia?"
 
 **Optimization Strategy**:
+
 1. Use conversational, question-based language
 2. Create FAQ pages (natural voice query matching)
 3. Include long-tail, natural phrases
@@ -609,6 +649,7 @@ Please call us at 304-XXX-XXXX. - Bryan"
 ### FAQ Page Optimization
 
 **Questions to Answer** (actual voice searches):
+
 - "Where can I buy a hunting license in Braxton County?"
 - "How much does an FFL transfer cost in West Virginia?"
 - "What do I need to bring to get a WV hunting license?"
@@ -617,6 +658,7 @@ Please call us at 304-XXX-XXXX. - Bryan"
 - "Do you sell [specific ammo type]?"
 
 **Format**:
+
 ```html
 <h2>Frequently Asked Questions</h2>
 
@@ -648,25 +690,30 @@ transfers are ready in 1-2 business days. Call us at 304-XXX-XXXX with any quest
 ### Seasonal Content Calendar
 
 **September** (Archery season starts):
+
 - Publish "WV Archery Season 2025: Dates & Gear"
 - Google Post: "Archery season opens Sept 27! Get your license & gear here."
 - Email/social: "Archery hunters - we're stocked and ready!"
 
 **October** (Gun season approaches):
+
 - Publish "Buck Season Checklist: Gear, License & Local Spots"
 - Google Post: "Gun season Oct 25! Last chance to get your license."
 - Homepage banner: "Buck Season Starts Soon - Get Ready!"
 
 **November** (Peak deer season):
+
 - Google Post: "Buck season is here! Open extended hours Mon-Sat."
 - Blog: "Best Deer Hunting Spots Near Sutton Lake"
 - Social: Daily harvest photos from customers (with permission)
 
 **December-February** (Post-season):
+
 - Blog: "Preparing for Spring Turkey Season"
 - Inventory posts: "New gear arriving for 2026 season"
 
 **March-April** (Turkey season):
+
 - Turkey hunting content
 - Google Post: "Turkey season starts April X - calls, camo & licenses in stock"
 
@@ -679,25 +726,29 @@ transfers are ready in 1-2 business days. Call us at 304-XXX-XXXX with any quest
 ### Priority Citation Sites
 
 **Tier 1** (Must-have):
+
 - [ ] Google Business Profile
 - [ ] Facebook Business Page
 - [ ] Apple Maps (claim via Maps Connect)
 - [ ] Bing Places
 
 **Tier 2** (Firearms/FFL Specific):
-- [ ] FFL Dealer Network - https://www.ffldealernetwork.com/
-- [ ] FFLs.com - https://www.ffls.com/
+
+- [ ] FFL Dealer Network - <https://www.ffldealernetwork.com/>
+- [ ] FFLs.com - <https://www.ffls.com/>
 - [ ] WV DNR Agent Directory (if publicly listed)
 - [ ] GunBroker FFL Finder
 
 **Tier 3** (Local/Regional):
-- [ ] Visit Braxton WV - https://braxtonwv.org/
+
+- [ ] Visit Braxton WV - <https://braxtonwv.org/>
 - [ ] WV Tourism Directory
 - [ ] Braxton County Chamber of Commerce
 - [ ] Yelp (even if not primary review site)
 - [ ] Yellow Pages
 
 **Tier 4** (General Directories):
+
 - [ ] Better Business Bureau
 - [ ] Manta
 - [ ] Merchant Circle
@@ -706,6 +757,7 @@ transfers are ready in 1-2 business days. Call us at 304-XXX-XXXX with any quest
 ### NAP Formatting Rules
 
 **Use EXACT same format everywhere**:
+
 ```
 Business Name: WV Wild Outdoors
 Address: [Street], Birch River, WV [ZIP]
@@ -713,6 +765,7 @@ Phone: (304) XXX-XXXX
 ```
 
 **Common Mistakes to Avoid**:
+
 - Abbreviating street types (St. vs Street)
 - Using different phone formats (304-XXX-XXXX vs (304) XXX-XXXX)
 - Adding suite numbers inconsistently
@@ -725,6 +778,7 @@ Phone: (304) XXX-XXXX
 ### Google Analytics 4 (Free)
 
 **Key Metrics to Track**:
+
 - Organic search traffic (SEO impact)
 - Mobile vs desktop traffic (should be 60-70% mobile for local)
 - Top landing pages (which pages rank?)
@@ -735,6 +789,7 @@ Phone: (304) XXX-XXXX
 ### Google Search Console (Free)
 
 **What to Monitor**:
+
 - Search query performance (which keywords drive traffic?)
 - Average ranking position (improving over time?)
 - Click-through rate (titles/descriptions compelling?)
@@ -742,6 +797,7 @@ Phone: (304) XXX-XXXX
 - Core Web Vitals (page speed, mobile experience)
 
 **Focus Keywords to Track**:
+
 - "ffl dealer braxton county"
 - "hunting supplies birch river"
 - "wv hunting license near me"
@@ -751,6 +807,7 @@ Phone: (304) XXX-XXXX
 ### Google Business Profile Insights (Free)
 
 **Track**:
+
 - How customers find you (search vs maps vs direct)
 - Search queries that show your profile
 - Customer actions (calls, direction requests, website clicks)
@@ -773,6 +830,7 @@ Phone: (304) XXX-XXXX
 ## 13. Quick Win Checklist (Implement First)
 
 ### Week 1: Foundation
+
 - [ ] Claim/verify Google Business Profile
 - [ ] Complete 100% of GBP fields (name, address, phone, hours, categories, description)
 - [ ] Upload 10 photos to GBP (storefront, interior, products, Kim & Bryan)
@@ -783,6 +841,7 @@ Phone: (304) XXX-XXXX
 - [ ] Test mobile page speed (target <3 seconds)
 
 ### Week 2: Content Optimization
+
 - [ ] Optimize homepage title tag: "FFL Dealer & Hunting Supplies | Birch River, WV | WV Wild Outdoors"
 - [ ] Write homepage meta description (120 chars, mobile-optimized)
 - [ ] Add location keywords to H1, H2 headers
@@ -791,6 +850,7 @@ Phone: (304) XXX-XXXX
 - [ ] Add FAQ section to 2-3 pages (with FAQPage schema)
 
 ### Week 3: Local Visibility
+
 - [ ] Submit to FFL Dealer Network
 - [ ] Submit to Visit Braxton WV directory
 - [ ] Create/optimize Facebook Business Page (match NAP)
@@ -799,6 +859,7 @@ Phone: (304) XXX-XXXX
 - [ ] Ask 5 recent customers for Google reviews
 
 ### Week 4: Content & Monitoring
+
 - [ ] Publish "WV Hunting Seasons 2025" blog post
 - [ ] Publish "FFL Transfer FAQ" page
 - [ ] Create first Google Business Profile post
@@ -816,6 +877,7 @@ Phone: (304) XXX-XXXX
 **Stat**: 40.16% of local business queries now trigger Google AI Overviews (appears ABOVE map pack).
 
 **How to Optimize**:
+
 - Create comprehensive, authoritative content (1000+ words for guides)
 - Use structured data (schema markup)
 - Answer questions thoroughly (AI pulls from FAQ-style content)
@@ -823,6 +885,7 @@ Phone: (304) XXX-XXXX
 - Get cited by authoritative sources (backlinks from hunting publications)
 
 **Content Strategy**:
+
 - "Complete Guide to FFL Transfers in West Virginia" (3000 words, definitive resource)
 - "Out-of-State Hunter's Guide to WV" (regulations, licenses, best spots, gear)
 - "Braxton County Hunting: Everything You Need to Know" (local authority)
@@ -830,12 +893,14 @@ Phone: (304) XXX-XXXX
 ### Local Link Building (Advanced)
 
 **Create "Link Magnet" Content**:
+
 - Interactive WV hunting season calendar (embeddable widget for other sites)
 - Annual "Braxton County Deer Harvest Report" (data journalism)
 - "WV Public Land Hunting Map" (custom Google Map with tips)
 - Video: "How to Get a WV Hunting License" (YouTube SEO + embeds)
 
 **Outreach Strategy**:
+
 1. Create valuable content
 2. Find sites that would benefit (WV tourism, hunting blogs, local news)
 3. Email: "Hey [Name], I created [resource] that your readers might find useful. Feel free to link/share!"
@@ -846,6 +911,7 @@ Phone: (304) XXX-XXXX
 **Why**: YouTube is the 2nd largest search engine. Many hunters search YouTube for "how to" content.
 
 **Video Ideas**:
+
 - "How FFL Transfers Work" (1-2 min explainer)
 - "What to Bring When Buying a WV Hunting License" (quick guide)
 - "Shop Tour: WV Wild Outdoors" (introduce Kim & Bryan, show inventory)
@@ -853,6 +919,7 @@ Phone: (304) XXX-XXXX
 - "Best Hunting Spots Near Birch River, WV" (local tips)
 
 **Optimization**:
+
 - Title: Keyword-rich, front-load primary keyword
 - Description: Include links to website, phone number, location
 - Tags: Use target keywords + location modifiers
@@ -862,11 +929,13 @@ Phone: (304) XXX-XXXX
 ### Review Generation Automation
 
 **Tools** (consider if scaling):
+
 - Web3Forms already integrated → Add review request to confirmation page
 - Post-FFL-transfer follow-up (manual email/text with review link)
 - QR code on receipts → Google review page
 
 **Timing**:
+
 - Ask immediately after positive interaction (just completed FFL transfer)
 - Don't ask too frequently (once per customer, not every purchase)
 - Make it easy (direct link, not multi-step process)
@@ -878,35 +947,43 @@ Phone: (304) XXX-XXXX
 ### ❌ Don't Do This
 
 **Keyword Stuffing**:
+
 ```
 ❌ "We are an FFL dealer in Braxton County, WV. Our Braxton County, WV FFL dealer
 shop offers FFL dealer services in Braxton County, WV and surrounding areas."
 ```
+
 ✅ Natural: "We're a family-owned FFL dealer in Birch River, serving Braxton County and central WV since 2008."
 
 **Generic Content**:
+
 ```
 ❌ "We offer quality products and excellent customer service. Visit us today!"
 ```
+
 ✅ Specific: "Stop in for FFL transfers ($25), WV hunting licenses, and locally-stocked ammo. We're right off I-79 Exit 79."
 
 **Ignoring Mobile**:
+
 - Desktop-only optimization
 - Tiny tap targets
 - No click-to-call links
 - Slow page load
 
 **Inconsistent NAP**:
+
 - Different phone number on website vs Google
 - Abbreviated vs full street name
 - Old address not updated
 
 **No Schema Markup**:
+
 - Missing LocalBusiness schema
 - No FAQPage schema on Q&A content
 - No Product schema on inventory
 
 **Neglecting Google Business Profile**:
+
 - Claiming but not completing profile
 - Never posting updates
 - Ignoring reviews
@@ -919,21 +996,25 @@ shop offers FFL dealer services in Braxton County, WV and surrounding areas."
 ### Free Tools
 
 **Keyword Research**:
+
 - Google Keyword Planner (requires Google Ads account, but free)
 - Google Search Console (see what you already rank for)
 - Answer the Public (question-based keywords)
 
 **Technical SEO**:
+
 - Google PageSpeed Insights (page speed testing)
 - Google Mobile-Friendly Test
 - Google Rich Results Test (schema validation)
 
 **Analytics**:
+
 - Google Analytics 4 (traffic, behavior, conversions)
 - Google Search Console (search performance, rankings)
 - Google Business Profile Insights
 
 **Local SEO**:
+
 - Moz Local Check (NAP consistency checker)
 - Whitespark Local Citation Finder
 
@@ -947,11 +1028,13 @@ shop offers FFL dealer services in Braxton County, WV and surrounding areas."
 ### Competitive Analysis
 
 **Who to Watch**:
+
 - Other FFL dealers in WV (check their Google rankings)
 - Hunting shops in tourist areas (Sutton Lake, Snowshoe)
 - Bass Pro Shops / Cabela's (study their local SEO strategies)
 
 **How to Spy**:
+
 - Google "[your target keyword] + [location]" and see who ranks
 - Use Moz Link Explorer (free trial) to see their backlinks
 - Check their Google Business Profile (what do they do well?)

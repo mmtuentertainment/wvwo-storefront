@@ -17,6 +17,7 @@
 ## 1. Actual Orange Usage in RiverTemplate.astro
 
 ### Calculation Method
+
 ```bash
 # Orange CSS class instances
 grep -oE "(bg-brand-orange|text-brand-orange|border-brand-orange)" RiverTemplate.astro | wc -l
@@ -28,11 +29,13 @@ grep -oE 'class="[^"]*"' RiverTemplate.astro | wc -l
 ```
 
 ### Results
+
 - **Orange CSS classes:** 10 instances
 - **Total class attributes:** 123
 - **Orange percentage:** 8.13% (10/123)
 
 ### Orange Usage Breakdown (Line Numbers)
+
 | Line | Usage | Context |
 |------|-------|---------|
 | 21 | Comment | Documentation header (<5% of screen) |
@@ -47,7 +50,9 @@ grep -oE 'class="[^"]*"' RiverTemplate.astro | wc -l
 | 554 | `text-brand-orange` | Nearby attraction type label |
 
 ### Visual Screen Coverage Estimate
+
 Based on typical viewport:
+
 - **Quick highlights:** 4 small badges (~2% of hero)
 - **Class IV badges:** 2-3 badges (~1% of rapids section)
 - **Hazard labels:** Text only (~0.5%)
@@ -64,6 +69,7 @@ Based on typical viewport:
 ## 2. Constitutional Standard (Source of Truth)
 
 ### CLAUDE.md (Lines 138, 144)
+
 ```markdown
 --brand-orange: #FF6F00;   /* Blaze orange - CTAs ONLY, <5% of screen */
 
@@ -71,6 +77,7 @@ Based on typical viewport:
 ```
 
 ### WVWO_FRONTEND_AESTHETICS.md (Lines 138, 482)
+
 ```markdown
 Orange should occupy <5% of any screen view. It's a highlighter, not a paint bucket.
 
@@ -78,6 +85,7 @@ Orange <5% of screen (CTAs only). Weathered variations for depth.
 ```
 
 ### greptile.json (Line 49)
+
 ```json
 "rule": "Orange color (#FF6F00) must occupy less than 5% of any screen - use for CTAs only, never backgrounds"
 ```
@@ -89,6 +97,7 @@ Orange <5% of screen (CTAs only). Weathered variations for depth.
 ## 3. Checkpoint Scripts Inconsistency
 
 ### checkpoint-2-validation.sh (Line 62)
+
 ```bash
 if [ $ORANGE_PERCENT -gt 20 ]; then
   echo "⚠️  WARNING: Orange usage >20% (should be <5% for CTAs only)"
@@ -98,6 +107,7 @@ if [ $ORANGE_PERCENT -gt 20 ]; then
 **Issue:** Script checks code percentage (20%) instead of visual coverage (5%)
 
 ### checkpoint-2-validation.sh (Line 112)
+
 ```bash
 echo "  [ ] Visual inspection: Orange appears ONLY in primary CTAs (<5% screen)"
 ```
@@ -105,6 +115,7 @@ echo "  [ ] Visual inspection: Orange appears ONLY in primary CTAs (<5% screen)"
 **Good:** Manual checklist correctly references <5% screen coverage
 
 ### Other Checkpoint Scripts
+
 - checkpoint-1-validation.sh: No orange checks
 - checkpoint-3-validation.sh: Does not exist
 - checkpoint-4-validation.sh: Does not exist
@@ -115,6 +126,7 @@ echo "  [ ] Visual inspection: Orange appears ONLY in primary CTAs (<5% screen)"
 ## 4. All Threshold References by Category
 
 ### A. Strict <5% Standard (CORRECT)
+
 | File | Line | Reference |
 |------|------|-----------|
 | CLAUDE.md | 138, 144 | `<5% of screen` |
@@ -129,6 +141,7 @@ echo "  [ ] Visual inspection: Orange appears ONLY in primary CTAs (<5% screen)"
 **Total Files:** 47 files with correct <5% reference
 
 ### B. Incorrect <20% Code Threshold (WRONG)
+
 | File | Line | Reference | Issue |
 |------|------|-----------|-------|
 | checkpoint-2-validation.sh | 62 | `>20%` warning threshold | Should be visual check, not code % |
@@ -139,6 +152,7 @@ echo "  [ ] Visual inspection: Orange appears ONLY in primary CTAs (<5% screen)"
 **Total Files:** 4 files with incorrect <20% code threshold
 
 ### C. 6% Documented Tolerance (SPEC-14 Only)
+
 | File | Line | Reference | Context |
 |------|------|-----------|---------|
 | SPARC-REFINEMENT-PROGRESS.md | 91, 247 | `6% (4% safety + 2% CTAs)` | RiverTemplate actual usage with note "within tolerance" |
@@ -151,6 +165,7 @@ echo "  [ ] Visual inspection: Orange appears ONLY in primary CTAs (<5% screen)"
 ## 5. Validation Test Thresholds
 
 ### wvwo-compliance.test.ts (Line 138)
+
 ```typescript
 // Should be limited to CTAs only (max 5 buttons per page)
 expect(orangeMatches.length).toBeLessThanOrEqual(10);
@@ -159,6 +174,7 @@ expect(orangeMatches.length).toBeLessThanOrEqual(10);
 **Issue:** Test allows 10 orange elements (too permissive for <5% visual rule)
 
 ### tests/comprehensive-spec-validation.py (Lines 237-239)
+
 ```python
 print(f"  ✅ Orange usage: {orange_pct:.2f}% (within <5% limit)")
 # ...
@@ -177,6 +193,7 @@ print(f"  ⚠️ Orange usage: {orange_pct:.2f}% (exceeds 5% guideline)")
 > Orange usage: Safety borders (~4%) + CTAs (~2%) = 6% (within tolerance)
 
 **Actual Measurement:**
+
 - Code percentage: 8.13% (10 orange classes / 123 total classes)
 - Visual percentage: ~6% (estimated from viewport coverage)
 
@@ -192,37 +209,45 @@ print(f"  ⚠️ Orange usage: {orange_pct:.2f}% (exceeds 5% guideline)")
 ## 7. Recommended Standard
 
 ### Option A: Strict 5% Visual Coverage (RECOMMENDED)
+
 **Standard:** `Orange must occupy <5% of visual screen area (CTAs only)`
 
 **Implementation:**
+
 1. Update checkpoint-2-validation.sh to remove 20% code check
 2. Rely on manual visual inspection checklist
 3. Create visual coverage calculator script (pixel-based analysis)
 4. Update wvwo-compliance.test.ts to check element size, not just count
 
 **Benefits:**
+
 - Aligns with WVWO constitution (CLAUDE.md)
 - Matches design intent (orange as accent, not dominant color)
 - Consistent with all other documentation
 
 **Trade-offs:**
+
 - Requires visual inspection (can't be fully automated)
 - May require RiverTemplate refactor to reduce safety orange
 
 ### Option B: Document 6% Tolerance for Safety-Heavy Templates
+
 **Standard:** `Orange <5% of screen (general), <7% acceptable for safety-critical content`
 
 **Implementation:**
+
 1. Update CLAUDE.md to add exception clause
 2. Update checkpoint scripts to allow 5-7% for river/rapids content
 3. Keep strict 5% for other template types
 
 **Benefits:**
+
 - Acknowledges legitimate need for safety warnings
 - Doesn't break existing RiverTemplate implementation
 - Preserves WVWO aesthetic while allowing safety emphasis
 
 **Trade-offs:**
+
 - Creates two-tier standard (complexity)
 - May be abused to justify orange overuse
 
@@ -233,6 +258,7 @@ print(f"  ⚠️ Orange usage: {orange_pct:.2f}% (exceeds 5% guideline)")
 ### High Priority (Immediate)
 
 #### 1. scripts/checkpoint-2-validation.sh
+
 ```diff
 - if [ $ORANGE_PERCENT -gt 20 ]; then
 -   echo "⚠️  WARNING: Orange usage >20% (should be <5% for CTAs only)"
@@ -244,18 +270,21 @@ print(f"  ⚠️ Orange usage: {orange_pct:.2f}% (exceeds 5% guideline)")
 **Rationale:** 10% code usage typically equals ~5% visual coverage (accounting for smaller elements)
 
 #### 2. scripts/README.md (Line 47)
+
 ```diff
 - - Orange usage calculation (<20% in code)
 + - Orange usage calculation (<10% in code, <5% visual screen coverage)
 ```
 
 #### 3. docs/CHECKPOINT-GUIDE.md (Line 62)
+
 ```diff
 - - Orange usage calculation (<20% in code)
 + - Orange usage calculation (<10% in code, <5% visual screen coverage)
 ```
 
 #### 4. docs/CHECKPOINT-CHECKLIST.md (Line 56)
+
 ```diff
 - - [ ] Orange usage in code <20%
 + - [ ] Orange usage in code <10% (target: <5% visual screen)
@@ -264,6 +293,7 @@ print(f"  ⚠️ Orange usage: {orange_pct:.2f}% (exceeds 5% guideline)")
 ### Medium Priority
 
 #### 5. wvwo-compliance.test.ts (Line 138)
+
 ```diff
 - // Should be limited to CTAs only (max 5 buttons per page)
 - expect(orangeMatches.length).toBeLessThanOrEqual(10);
@@ -275,6 +305,7 @@ print(f"  ⚠️ Orange usage: {orange_pct:.2f}% (exceeds 5% guideline)")
 ### Low Priority (Documentation Clarification)
 
 #### 6. CLAUDE.md (Optional: Add Exception Clause)
+
 ```diff
 + **Exception:** Safety-critical templates (river rapids, climbing) may use up to 7%
 + orange for hazard warnings, but only if justified by user safety requirements.
@@ -285,22 +316,27 @@ print(f"  ⚠️ Orange usage: {orange_pct:.2f}% (exceeds 5% guideline)")
 ## 9. RiverTemplate Compliance Assessment
 
 ### Current Status
+
 - **Code Usage:** 8.13% (10/123 classes)
 - **Visual Usage:** ~6% (estimated)
 - **Standard:** <5% required
 
 ### Compliance Verdict
+
 ⚠️ **MINOR NON-COMPLIANCE** - Exceeds <5% standard by ~1%
 
 ### Mitigation Options
 
 #### Option 1: Accept as Safety Exception (NO CODE CHANGES)
+
 **Rationale:** River template has legitimate safety requirements
 **Action:** Document 6% as acceptable for safety-heavy templates
 **Risk:** Sets precedent for orange overuse
 
 #### Option 2: Reduce Orange Usage (RECOMMENDED)
+
 **Changes Required:**
+
 1. Remove orange from quick highlights badges (use green)
 2. Remove orange from "Hazards:" label (use red-800 for urgency)
 3. Remove orange from attraction type labels (use brown)
@@ -309,6 +345,7 @@ print(f"  ⚠️ Orange usage: {orange_pct:.2f}% (exceeds 5% guideline)")
 **New Visual Coverage:** ~4% (within standard)
 
 **Code Changes:**
+
 ```diff
 # Line 172: Quick highlights (hero)
 - <span class="bg-brand-orange text-white ...">
@@ -360,15 +397,18 @@ echo "✅ Orange threshold references updated to align with <5% standard"
 ## 11. Recommendations Summary
 
 ### Immediate Actions
+
 1. ✅ **Update checkpoint scripts** to use 10% code threshold (→ ~5% visual)
 2. ✅ **Update test thresholds** to max 7 elements (down from 10)
 3. ✅ **Document exception** for safety-heavy templates (6-7% acceptable)
 
 ### Short-Term Actions
+
 4. ⚠️ **Refactor RiverTemplate** to reduce orange from 10 to 7 elements
-5. ⚠️ **Create visual coverage calculator** for automated validation
+2. ⚠️ **Create visual coverage calculator** for automated validation
 
 ### Long-Term Actions
+
 6. 📋 **Establish two-tier standard:**
    - Standard templates: <5% visual
    - Safety templates: <7% visual (with justification)
@@ -382,6 +422,7 @@ echo "✅ Orange threshold references updated to align with <5% standard"
 **Status:** Complete
 
 **Key Findings:**
+
 - ❌ Checkpoint scripts use wrong metric (20% code vs 5% visual)
 - ⚠️ RiverTemplate exceeds standard by ~1% (6% vs 5%)
 - ✅ 47 files correctly reference <5% standard

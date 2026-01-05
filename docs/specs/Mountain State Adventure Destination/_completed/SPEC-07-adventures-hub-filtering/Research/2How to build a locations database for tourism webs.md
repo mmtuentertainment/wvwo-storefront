@@ -88,7 +88,6 @@ CREATE TABLE reviews (
 );
 ```
 
-
 ***
 
 ## Geo-Spatial Queries: Finding Nearby Stuff
@@ -125,13 +124,11 @@ WHERE ST_DWithin(
 ORDER BY rating DESC;
 ```
 
-
 ***
 
 ## Tech Stack (Budget-Friendly Approach)
 
 Based on your constraints:[^4][^5][^6]
-
 
 | Layer | Tech | Why |
 | :-- | :-- | :-- |
@@ -140,7 +137,6 @@ Based on your constraints:[^4][^5][^6]
 | **Frontend** | Next.js / React + Leaflet or Mapbox GL | Leaflet is free; Mapbox has generous free tier. |
 | **Hosting** | Vercel (free) + Railway/Render DB | Zero cost until scale. |
 | **Data Source** | OpenStreetMap (via Overpass API) + manual curation | Free POI data. Aggregate + clean it. |
-
 
 ***
 
@@ -183,7 +179,6 @@ CREATE INDEX idx_rating ON destinations(average_rating DESC);
 CREATE INDEX idx_city_rating ON destinations(city, average_rating DESC);
 ```
 
-
 ***
 
 ## API Endpoint Design (Simple Example)
@@ -208,7 +203,6 @@ async function getNearbyAttractions(lat, lng, radiusKm, category) {
   return db.query(query, [category, lat, lng]);
 }
 ```
-
 
 ***
 
@@ -274,89 +268,88 @@ Want me to dive deeper into any layer (API design, frontend map integration, aff
 
 <div align="center">⁂</div>
 
-[^1]: https://www.geeksforgeeks.org/sql/how-to-design-er-diagrams-for-travel-and-tourism-booking-systems/
+[^1]: <https://www.geeksforgeeks.org/sql/how-to-design-er-diagrams-for-travel-and-tourism-booking-systems/>
 
-[^2]: https://www.codingeasypeasy.com/blog/designing-a-robust-database-schema-for-a-travel-booking-system-customers-flights-hotels-and-bookings
+[^2]: <https://www.codingeasypeasy.com/blog/designing-a-robust-database-schema-for-a-travel-booking-system-customers-flights-hotels-and-bookings>
 
-[^3]: https://infinitejs.com/posts/optimizing-database-schema-for-location-tracking/
+[^3]: <https://infinitejs.com/posts/optimizing-database-schema-for-location-tracking/>
 
-[^4]: https://ohio.org/things-to-do
+[^4]: <https://ohio.org/things-to-do>
 
-[^5]: https://www.tripadvisor.com/Attractions-g28956-Activities-Ohio.html
+[^5]: <https://www.tripadvisor.com/Attractions-g28956-Activities-Ohio.html>
 
-[^6]: https://www.ohiotraveler.com/best-of-ohio/
+[^6]: <https://www.ohiotraveler.com/best-of-ohio/>
 
-[^7]: https://www.geoapify.com/places-api/
+[^7]: <https://www.geoapify.com/places-api/>
 
-[^8]: https://dl.acm.org/doi/10.1145/3665323
+[^8]: <https://dl.acm.org/doi/10.1145/3665323>
 
-[^9]: https://dl.acm.org/doi/10.1145/2983323.2983801
+[^9]: <https://dl.acm.org/doi/10.1145/2983323.2983801>
 
-[^10]: https://link.springer.com/10.1007/s41870-020-00515-8
+[^10]: <https://link.springer.com/10.1007/s41870-020-00515-8>
 
-[^11]: https://dl.acm.org/doi/10.14778/3611540.3611603
+[^11]: <https://dl.acm.org/doi/10.14778/3611540.3611603>
 
-[^12]: http://ieeexplore.ieee.org/document/6529069/
+[^12]: <http://ieeexplore.ieee.org/document/6529069/>
 
-[^13]: http://ieeexplore.ieee.org/document/6909358/
+[^13]: <http://ieeexplore.ieee.org/document/6909358/>
 
-[^14]: https://www.semanticscholar.org/paper/e97732b77bc8e21f82db2fb6d620f9c0d5a9168c
+[^14]: <https://www.semanticscholar.org/paper/e97732b77bc8e21f82db2fb6d620f9c0d5a9168c>
 
-[^15]: http://ieeexplore.ieee.org/document/7399106/
+[^15]: <http://ieeexplore.ieee.org/document/7399106/>
 
-[^16]: https://dl.acm.org/doi/10.1145/2503859.2503874
+[^16]: <https://dl.acm.org/doi/10.1145/2503859.2503874>
 
-[^17]: https://dl.acm.org/doi/10.1145/2396761.2398601
+[^17]: <https://dl.acm.org/doi/10.1145/2396761.2398601>
 
-[^18]: https://arxiv.org/pdf/1805.05744.pdf
+[^18]: <https://arxiv.org/pdf/1805.05744.pdf>
 
-[^19]: http://journal-isi.org/index.php/isi/article/download/328/171
+[^19]: <http://journal-isi.org/index.php/isi/article/download/328/171>
 
-[^20]: https://downloads.hindawi.com/journals/cin/2022/1424097.pdf
+[^20]: <https://downloads.hindawi.com/journals/cin/2022/1424097.pdf>
 
-[^21]: https://arxiv.org/pdf/0911.3945.pdf
+[^21]: <https://arxiv.org/pdf/0911.3945.pdf>
 
-[^22]: https://pmc.ncbi.nlm.nih.gov/articles/PMC6923287/
+[^22]: <https://pmc.ncbi.nlm.nih.gov/articles/PMC6923287/>
 
-[^23]: https://ace.ewapublishing.org/media/aa3096aee6ec49e69ee6a223292e1b68.marked.pdf
+[^23]: <https://ace.ewapublishing.org/media/aa3096aee6ec49e69ee6a223292e1b68.marked.pdf>
 
-[^24]: https://www.mdpi.com/2079-9292/12/3/642/pdf?version=1674880222
+[^24]: <https://www.mdpi.com/2079-9292/12/3/642/pdf?version=1674880222>
 
-[^25]: https://hrmars.com/papers_submitted/9206/development-of-tourism-database-management-system-creating-er-model.pdf
+[^25]: <https://hrmars.com/papers_submitted/9206/development-of-tourism-database-management-system-creating-er-model.pdf>
 
-[^26]: https://developers.google.com/ar/develop/geospatial
+[^26]: <https://developers.google.com/ar/develop/geospatial>
 
-[^27]: https://mapsted.com/blog/the-3-essentials-of-location-based-analytics
+[^27]: <https://mapsted.com/blog/the-3-essentials-of-location-based-analytics>
 
-[^28]: https://webofproceedings.org/proceedings_series/ESR/ICME%202019/D036.pdf
+[^28]: <https://webofproceedings.org/proceedings_series/ESR/ICME%202019/D036.pdf>
 
-[^29]: https://www.precisely.com/location-intelligence/location-intelligence-trends-for-2024/
+[^29]: <https://www.precisely.com/location-intelligence/location-intelligence-trends-for-2024/>
 
-[^30]: https://arinsider.co/2024/01/04/whats-being-built-with-googles-geospatial-api/
+[^30]: <https://arinsider.co/2024/01/04/whats-being-built-with-googles-geospatial-api/>
 
-[^31]: https://www.reddit.com/r/SQL/comments/192yqv3/need_guidance_to_create_a_dbms_for_storing/
+[^31]: <https://www.reddit.com/r/SQL/comments/192yqv3/need_guidance_to_create_a_dbms_for_storing/>
 
-[^32]: https://carto.com/blog/2024-best-maps-dataviz
+[^32]: <https://carto.com/blog/2024-best-maps-dataviz>
 
-[^33]: https://www.linkedin.com/pulse/innovative-tourism-ideas-leveraging-geoai-geospatial-artificial-phd-cnc8c
+[^33]: <https://www.linkedin.com/pulse/innovative-tourism-ideas-leveraging-geoai-geospatial-artificial-phd-cnc8c>
 
-[^34]: https://stackoverflow.com/questions/27644540/database-schema-for-itinerary
+[^34]: <https://stackoverflow.com/questions/27644540/database-schema-for-itinerary>
 
-[^35]: https://omdia.tech.informa.com/om124263/location-platform-index-2024
+[^35]: <https://omdia.tech.informa.com/om124263/location-platform-index-2024>
 
-[^36]: https://towardsdatascience.com/top-5-geospatial-data-apis-for-advanced-analysis-79349605c86d/
+[^36]: <https://towardsdatascience.com/top-5-geospatial-data-apis-for-advanced-analysis-79349605c86d/>
 
-[^37]: https://stackoverflow.com/questions/21701243/database-design-relations-for-tourism-web-app
+[^37]: <https://stackoverflow.com/questions/21701243/database-design-relations-for-tourism-web-app>
 
-[^38]: https://www.echo-analytics.com/blog/5-best-practices-for-geospatial-data-interoperability
+[^38]: <https://www.echo-analytics.com/blog/5-best-practices-for-geospatial-data-interoperability>
 
-[^39]: https://ojs.sgsci.org/journals/jitp/issue43-paper515.html
+[^39]: <https://ojs.sgsci.org/journals/jitp/issue43-paper515.html>
 
-[^40]: https://schema.org/Trip
+[^40]: <https://schema.org/Trip>
 
-[^41]: https://www.reddit.com/r/geospatial/comments/1bo42bm/whats_the_best_database_to_store_large_amounts_of/
+[^41]: <https://www.reddit.com/r/geospatial/comments/1bo42bm/whats_the_best_database_to_store_large_amounts_of/>
 
-[^42]: https://wiki.openstreetmap.org/wiki/Tag:tourism=hotel
+[^42]: <https://wiki.openstreetmap.org/wiki/Tag:tourism=hotel>
 
-[^43]: https://www.senecaregionalchamber.com/blog/2019/10/16/how-do-i-get-my-event-on-the-ohioorg-events-database
-
+[^43]: <https://www.senecaregionalchamber.com/blog/2019/10/16/how-do-i-get-my-event-on-the-ohioorg-events-database>

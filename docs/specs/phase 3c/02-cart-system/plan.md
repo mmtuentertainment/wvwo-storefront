@@ -11,6 +11,7 @@
 React-based shopping cart using Context + useReducer for state management, with localStorage persistence for guest checkout. The cart integrates into the existing Astro + React hybrid architecture, using `client:load` for critical hydration.
 
 **Key Decisions:**
+
 - No new dependencies beyond existing React/Radix stack
 - shadcn Sheet for drawer, Toast for notifications
 - Cart state lives in React Context, persists to localStorage

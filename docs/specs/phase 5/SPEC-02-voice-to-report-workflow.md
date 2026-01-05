@@ -3,9 +3,11 @@
 ## 1. SPECIFICATION
 
 ### 1.1 Objective
+
 Document the human workflow for Kim to record voice notes and Matt to publish reports. No code - this is process documentation.
 
 ### 1.2 Requirements
+
 | Req | Description | Priority |
 |-----|-------------|----------|
 | R1 | Kim can record on her phone (no app install) | Must |
@@ -15,6 +17,7 @@ Document the human workflow for Kim to record voice notes and Matt to publish re
 | R5 | Works when Matt is mobile | Should |
 
 ### 1.3 Constraints
+
 - Kim is not technical
 - Matt manages multiple responsibilities
 - No monthly costs for new tools
@@ -22,7 +25,6 @@ Document the human workflow for Kim to record voice notes and Matt to publish re
 ---
 
 ## 2. PSEUDOCODE
-
 
 ```
 WORKFLOW: Kim Records Report
@@ -63,7 +65,6 @@ TOTAL TIME: 15-25 minutes per report
 
 ## 3. ARCHITECTURE
 
-
 ```
 Kim's Phone          Matt's Phone/Computer       Website + Email
      │                        │                        │
@@ -88,6 +89,7 @@ Kim's Phone          Matt's Phone/Computer       Website + Email
 ## 4. REFINEMENT
 
 ### Failure Modes
+
 | Issue | Solution |
 |-------|----------|
 | Kim forgets to record | Weekly reminder text from Matt |
@@ -96,6 +98,7 @@ Kim's Phone          Matt's Phone/Computer       Website + Email
 | Transcription unclear | Matt texts Kim for clarification |
 
 ### Quality Gates
+
 - [ ] Voice note <5 minutes
 - [ ] Transcription reviewed before publish
 - [ ] Kim's voice preserved (no corporate edits)
@@ -106,6 +109,7 @@ Kim's Phone          Matt's Phone/Computer       Website + Email
 ## 5. COMPLETION
 
 ### Success Criteria
+
 - [ ] Kim comfortable recording (test run)
 - [ ] Matt can transcribe in <15 min
 - [ ] First 3 reports published successfully

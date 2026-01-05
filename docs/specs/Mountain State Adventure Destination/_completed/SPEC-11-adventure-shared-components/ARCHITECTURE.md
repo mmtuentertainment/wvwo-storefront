@@ -91,6 +91,7 @@ Runtime Validation (optional)
 ### 2. Props Flow Per Component
 
 **AdventureGettingThere:**
+
 ```
 Props: { title?, fromLocation?, directions, mapLink?, driveTime?, distance? }
                                     |
@@ -104,6 +105,7 @@ Props: { title?, fromLocation?, directions, mapLink?, driveTime?, distance? }
 ```
 
 **AdventureGearChecklist:**
+
 ```
 Props: { title?, intro?, items[], columns? }
                     |
@@ -120,6 +122,7 @@ Props: { title?, intro?, items[], columns? }
 ```
 
 **AdventureRelatedShop:**
+
 ```
 Props: { title?, intro?, categories[], ctaText?, ctaHref? }
                     |
@@ -143,6 +146,7 @@ Props: { title?, intro?, categories[], ctaText?, ctaHref? }
 All 3 components reuse `STAT_ICON_PATHS` from `adventure.ts`. No new icon map needed.
 
 **Icons to Add to STAT_ICON_PATHS:**
+
 ```typescript
 // Add to existing STAT_ICON_PATHS in adventure.ts
 circle: 'M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z',
@@ -151,6 +155,7 @@ externalLink: 'M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6
 ```
 
 **Icon Rendering Helper:**
+
 ```typescript
 // Shared helper function in each component
 function getIconPath(iconName: StatIcon | undefined): string | null {
@@ -162,6 +167,7 @@ function getIconPath(iconName: StatIcon | undefined): string | null {
 ### 2. Animation Pattern (Reuse from SPEC-09)
 
 **Shared CSS Class:**
+
 ```css
 /* adventure-shared.css - import adventure-hero.css keyframes */
 @import './adventure-hero.css';
@@ -182,6 +188,7 @@ function getIconPath(iconName: StatIcon | undefined): string | null {
 **Alternative: Reuse gentle-reveal from AdventureQuickStats**
 
 Each component uses its own scoped `<style>` block with `gentle-reveal` keyframes:
+
 ```css
 .adventure-getting-there {
   animation: gentle-reveal 0.6s ease-out both;
@@ -202,6 +209,7 @@ Each component uses its own scoped `<style>` block with `gentle-reveal` keyframe
 ### 3. Section Container Pattern
 
 All 3 components follow the same container structure:
+
 ```astro
 <section
   class:list={[
@@ -222,6 +230,7 @@ All 3 components follow the same container structure:
 ### 4. Accessibility Pattern
 
 All components implement:
+
 - `aria-labelledby` pointing to h2 heading
 - `sr-only` text for icon-only elements
 - External links: `target="_blank" rel="noopener noreferrer"`
@@ -231,6 +240,7 @@ All components implement:
 ### 5. WVWO Styling Compliance
 
 Enforced across all components:
+
 ```
 Allowed:
 - rounded-sm ONLY
@@ -330,6 +340,7 @@ export const STAT_ICON_PATHS: Record<StatIcon, string | null> = {
 ```
 
 **Slot Implementation:**
+
 ```astro
 {Astro.slots.has('default') && (
   <div class="mt-6 pt-4 border-t border-brand-brown/15">
@@ -350,6 +361,7 @@ export const STAT_ICON_PATHS: Record<StatIcon, string | null> = {
 ```
 
 **Slot Implementation:**
+
 ```astro
 {Astro.slots.has('footer') && (
   <div class="mt-8 text-center">
@@ -401,6 +413,7 @@ Each component uses scoped CSS matching AdventureQuickStats:
 ### Hover Transitions
 
 **AdventureRelatedShop Cards:**
+
 ```css
 .related-category-card {
   transition: border-color 0.3s ease, transform 0.3s ease;
@@ -424,6 +437,7 @@ Each component uses scoped CSS matching AdventureQuickStats:
 ### Focus States
 
 All interactive elements use:
+
 ```css
 .interactive-element:focus-visible {
   outline: 2px solid var(--brand-orange);
@@ -438,6 +452,7 @@ All interactive elements use:
 ### Responsive Column Mapping
 
 **AdventureGearChecklist:**
+
 ```typescript
 const columnClasses: Record<GearColumns, string> = {
   1: 'grid-cols-1',
@@ -447,6 +462,7 @@ const columnClasses: Record<GearColumns, string> = {
 ```
 
 **AdventureRelatedShop:**
+
 ```astro
 <!-- Auto-responsive based on category count -->
 <div class:list={[
@@ -525,6 +541,7 @@ const sectionId = `adventure-component-${/* unique id */}`;
 ### Unit Test Coverage
 
 Each component requires tests for:
+
 1. Renders with required props only
 2. Renders with all optional props
 3. Slot content appears correctly
@@ -554,6 +571,7 @@ Each component requires tests for:
 ### summersville-lake.astro Refactor
 
 **Before (hardcoded):**
+
 ```astro
 <!-- Getting There -->
 <section class="py-12 md:py-16 bg-white">
@@ -571,6 +589,7 @@ Each component requires tests for:
 ```
 
 **After (component):**
+
 ```astro
 <AdventureGettingThere
   directions="<p>Head south on <strong>US-19 South</strong>...</p>"

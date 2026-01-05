@@ -34,6 +34,7 @@ This PR introduces critical error handling deficiencies across three key areas:
 **Severity:** CRITICAL - Silent Failure Pattern
 
 **Code:**
+
 ```javascript
 catch (err) {
   console.error(`   Error: ${err.message}`);
@@ -42,6 +43,7 @@ catch (err) {
 ```
 
 **Problem:**
+
 - Catch block catches **ALL** errors (permissions, file system, memory, Sharp processing)
 - Returns empty array `[]` regardless of error type, masking directory processing failures
 - User cannot distinguish between "empty directory" and "catastrophic error"
@@ -49,6 +51,7 @@ catch (err) {
 - Next step in CI/CD pipeline may assume processing succeeded
 
 **Hidden Errors This Could Swallow:**
+
 - Permission denied on `/public/images/products` directory (read or write)
 - Directory doesn't exist after mkdir
 - Disk space exhausted during file operations
@@ -58,6 +61,7 @@ catch (err) {
 - Memory exhaustion on large images
 
 **User Impact:**
+
 - Images silently fail to optimize without explanation
 - Build completes successfully, but images remain uncompressed
 - Performance regression goes unnoticed until production
@@ -68,6 +72,7 @@ catch (err) {
 Replace with error-type-specific handling and non-zero exit code.
 
 **Fixed Code Example:**
+
 ```javascript
 catch (err) {
   const errorId = 'ERR_IMAGE_OPT_DIR_' + name.toUpperCase();
@@ -99,6 +104,7 @@ catch (err) {
 **Severity:** CRITICAL - Unhandled Promise Rejections
 
 **Code:**
+
 ```javascript
 async function optimizeImage(filePath, maxWidth, maxHeight, quality) {
   const ext = extname(filePath).toLowerCase();
@@ -126,6 +132,7 @@ async function optimizeImage(filePath, maxWidth, maxHeight, quality) {
 ```
 
 **Problem:**
+
 - Four separate await operations have NO try-catch protection
 - If `stat()` fails: crash propagates to optimizeDirectory caller (caught broadly)
 - If `image.metadata()` fails: corrupted image file leaves process hanging
@@ -135,6 +142,7 @@ async function optimizeImage(filePath, maxWidth, maxHeight, quality) {
 - If `rename()` fails: breaks atomic operation - file system state unknown
 
 **Hidden Errors This Could Swallow:**
+
 - File is locked (Windows - another process holding handle)
 - File permissions changed between stat() and operations
 - Image file is corrupted/truncated
@@ -144,6 +152,7 @@ async function optimizeImage(filePath, maxWidth, maxHeight, quality) {
 - Temp file already exists (collision)
 
 **User Impact:**
+
 - Image optimization silently fails; no indication which files failed
 - Partial files or orphaned `.tmp` files accumulate in directory
 - Running script again doesn't fix problem (same errors re-thrown, caught broadly)
@@ -154,6 +163,7 @@ async function optimizeImage(filePath, maxWidth, maxHeight, quality) {
 Wrap each operation with specific error handling.
 
 **Fixed Code Example:**
+
 ```javascript
 async function optimizeImage(filePath, maxWidth, maxHeight, quality) {
   const ext = extname(filePath).toLowerCase();
@@ -259,17 +269,20 @@ async function optimizeImage(filePath, maxWidth, maxHeight, quality) {
 **Severity:** HIGH - Incomplete Error Communication
 
 **Code:**
+
 ```javascript
 main().catch(console.error);
 ```
 
 **Problem:**
+
 - Only logs error object; doesn't provide context about what was being done
 - No error classification (is this fatal? retryable?)
 - Process exit code not set (script appears successful to CI/CD)
 - No distinction between "no images found" and "catastrophic failure"
 
 **User Impact:**
+
 - CI/CD pipeline doesn't fail on image optimization errors
 - Build proceeds despite images never being optimized
 - Error appears in logs but is easy to miss
@@ -278,6 +291,7 @@ main().catch(console.error);
 Add proper error handling with exit code.
 
 **Fixed Code Example:**
+
 ```javascript
 main().catch(err => {
   console.error('\n❌ Image optimization failed:');
@@ -298,6 +312,7 @@ main().catch(err => {
 **Severity:** CRITICAL - Silent Failure with Wrong Data
 
 **Code:**
+
 ```javascript
 import storeData from '../../data/store.json';
 const category = storeData.categories.find(c => c.id === product.categoryId);
@@ -305,6 +320,7 @@ const catSlug = categorySlug || category?.slug || product.categoryId;
 ```
 
 **Problem:**
+
 - `find()` returns undefined if category doesn't exist
 - Optional chaining `category?.slug` silently falls back to `product.categoryId`
 - If `product.categoryId` doesn't match any category: links point to `/shop/ammo` (wrong category)
@@ -312,12 +328,14 @@ const catSlug = categorySlug || category?.slug || product.categoryId;
 - No error logged; appears to work but displays wrong content
 
 **Hidden Errors:**
+
 - Corrupted store.json: category entry deleted but product still references it
 - Product imported with typo in categoryId
 - Data migration: categoryId values changed but products not updated
 - Store.json validation failed but component still loaded
 
 **User Impact:**
+
 - User clicks product link, gets wrong category page
 - Adds to cart from wrong category (if cart existed)
 - Creates confusion about inventory and pricing
@@ -330,6 +348,7 @@ const catSlug = categorySlug || category?.slug || product.categoryId;
 Add validation with actionable error message.
 
 **Fixed Code Example:**
+
 ```javascript
 const category = storeData.categories.find(c => c.id === product.categoryId);
 
@@ -353,6 +372,7 @@ const catSlug = categorySlug || category?.slug || product.categoryId;
 **Severity:** HIGH - Silent Fallback, Missing Data
 
 **Code:**
+
 ```javascript
 {product.images[0] ? (
   <img src={product.images[0]} alt={product.name} ... />
@@ -364,6 +384,7 @@ const catSlug = categorySlug || category?.slug || product.categoryId;
 ```
 
 **Problem:**
+
 - If `product.images` is undefined: `undefined[0]` returns undefined (falsy)
 - Component renders placeholder silently with no error
 - If image URL is invalid/404: browser silently shows broken image
@@ -371,6 +392,7 @@ const catSlug = categorySlug || category?.slug || product.categoryId;
 - Store.json validation doesn't catch missing images array
 
 **Hidden Errors:**
+
 - Product object created without images array
 - Images array exists but is empty `[]`
 - Images array contains empty strings or null values
@@ -378,6 +400,7 @@ const catSlug = categorySlug || category?.slug || product.categoryId;
 - Image file doesn't exist on disk but URL is wrong
 
 **User Impact:**
+
 - Products display with placeholder; users don't know if it's intentional
 - Missing product images = lower conversion (no way to see item)
 - No warning to fix store.json
@@ -386,6 +409,7 @@ const catSlug = categorySlug || category?.slug || product.categoryId;
 Add validation for both array existence and element validity.
 
 **Fixed Code Example:**
+
 ```javascript
 {product.images?.[0] ? (
   <img src={product.images[0]} alt={product.name} ... />
@@ -412,6 +436,7 @@ Add validation for both array existence and element validity.
 **Severity:** HIGH - Displays Incorrect Data
 
 **Code:**
+
 ```javascript
 <span class="text-lg font-bold text-brand-brown">
   {product.priceDisplay}
@@ -419,6 +444,7 @@ Add validation for both array existence and element validity.
 ```
 
 **Problem:**
+
 - If `product.priceDisplay` is undefined: renders empty string (invisible)
 - If `product.priceDisplay` is malformed (e.g., "forty-two dollars"): displays literally
 - No validation that price is numeric format
@@ -426,12 +452,14 @@ Add validation for both array existence and element validity.
 - User sees product with no visible price = lost sale
 
 **Hidden Errors:**
+
 - priceDisplay field missing from product object
 - Price calculation logic in store.json failed silently
 - Currency formatting error (e.g., "$42.99" became undefined)
 - Locale-specific price formatting error
 
 **User Impact:**
+
 - Product appears for sale with no visible price
 - User confusion: "How much does this cost?"
 - Low conversion rate for affected products
@@ -441,6 +469,7 @@ Add validation for both array existence and element validity.
 Add validation with fallback to raw price if display is missing.
 
 **Fixed Code Example:**
+
 ```javascript
 <span class="text-lg font-bold text-brand-brown">
   {product.priceDisplay || `$${(product.price / 100).toFixed(2)}`}
@@ -458,6 +487,7 @@ Add validation with fallback to raw price if display is missing.
 **Severity:** CRITICAL - Silent Failure, Filtering Breaks
 
 **Code:**
+
 ```javascript
 {products.map(product => {
   const category = categories.find(c => c.id === product.categoryId);
@@ -477,6 +507,7 @@ Add validation with fallback to raw price if display is missing.
 ```
 
 **Problem:**
+
 - If `product.tags` is undefined: `.join()` throws TypeError
 - Error occurs during Astro build (server-side)
 - Build fails silently if Astro error handling swallows it
@@ -484,12 +515,14 @@ Add validation with fallback to raw price if display is missing.
 - Search/filter functionality completely broken for affected product
 
 **Hidden Errors:**
+
 - Product object created without tags array
 - Store.json migration deleted tags field
 - Data import script created products without tags
 - Store.json validation layer failed
 
 **User Impact:**
+
 - Build fails without clear error message
 - Entire shop page becomes unavailable
 - Production deployment blocked
@@ -501,6 +534,7 @@ Add validation with fallback to raw price if display is missing.
 Add guards and provide clear error message with product info.
 
 **Fixed Code Example:**
+
 ```javascript
 {products.map(product => {
   const category = categories.find(c => c.id === product.categoryId);
@@ -544,6 +578,7 @@ Add guards and provide clear error message with product info.
 **Severity:** HIGH - Silent Failure in URL Restoration
 
 **Code:**
+
 ```javascript
 if (category) {
   const input = document.querySelector(`[data-filter-category][value="${category}"]`) as HTMLInputElement;
@@ -552,6 +587,7 @@ if (category) {
 ```
 
 **Problem:**
+
 - If user bookmarks URL with invalid category (e.g., `?category=invalid-cat`)
 - querySelector returns null (silently)
 - Category filter doesn't get checked; filter state is inconsistent
@@ -560,11 +596,13 @@ if (category) {
 - No logging that URL parameter was ignored
 
 **Hidden Errors:**
+
 - User modifies URL manually to invalid value
 - Category name was changed in store.json but bookmarks still have old value
 - XSS attack vector: untrusted category parameter in URL
 
 **User Impact:**
+
 - User clicks bookmark expecting filtered view; gets unfiltered
 - Confusion about filter state
 - No way to know filter wasn't applied
@@ -574,6 +612,7 @@ if (category) {
 Add validation and user feedback.
 
 **Fixed Code Example:**
+
 ```javascript
 if (category) {
   const input = document.querySelector(`[data-filter-category][value="${category}"]`) as HTMLInputElement;
@@ -602,6 +641,7 @@ if (category) {
 **Severity:** MEDIUM - Silent Filtering, Missing Data Feedback
 
 **Code:**
+
 ```javascript
 // Get related products (same category, excluding current)
 const relatedProducts = storeData.products
@@ -610,6 +650,7 @@ const relatedProducts = storeData.products
 ```
 
 **Problem:**
+
 - If `product.categoryId` doesn't match any products: filter returns empty (correct behavior)
 - But no indication to user that section will be hidden
 - If category only has 1 product: related section disappears silently
@@ -617,11 +658,13 @@ const relatedProducts = storeData.products
 - Template on line 199 checks `relatedProducts.length > 0` but no context if empty
 
 **Hidden Errors:**
+
 - Product's categoryId is incorrect (silent mismatch)
 - Product is orphaned (only one in category, should not be)
 - All products deleted from category except this one
 
 **User Impact:**
+
 - "More in [Category]" section disappears without explanation
 - Looks like a bug ("Why did that section disappear?")
 
@@ -629,6 +672,7 @@ const relatedProducts = storeData.products
 Add logging and optional empty state message.
 
 **Fixed Code Example:**
+
 ```javascript
 const relatedProducts = storeData.products
   .filter(p => p.categoryId === product.categoryId && p.id !== product.id)
@@ -640,6 +684,7 @@ if (relatedProducts.length === 0) {
 ```
 
 Then in template:
+
 ```html
 <!-- Related Products -->
 {relatedProducts.length > 0 ? (
@@ -682,17 +727,17 @@ Then in template:
 
 ### BEFORE PRODUCTION
 
-5. Add comprehensive store.json validation schema
-6. Add logging to product filtering (tags, images, category, price)
-7. Add error boundaries to shop pages
-8. Document expected product object structure
+1. Add comprehensive store.json validation schema
+2. Add logging to product filtering (tags, images, category, price)
+3. Add error boundaries to shop pages
+4. Document expected product object structure
 
 ### ARCHITECTURE IMPROVEMENTS
 
-9. Create ProductValidator module to catch data issues early
-10. Add store.json schema validation during build
-11. Implement health check for image optimization script
-12. Add Sentry error tracking for client-side filter failures
+1. Create ProductValidator module to catch data issues early
+2. Add store.json schema validation during build
+3. Implement health check for image optimization script
+4. Add Sentry error tracking for client-side filter failures
 
 ---
 

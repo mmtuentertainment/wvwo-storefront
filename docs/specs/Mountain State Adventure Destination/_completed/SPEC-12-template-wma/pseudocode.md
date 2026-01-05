@@ -520,6 +520,7 @@ END FUNCTION
 ## Edge Case Handling
 
 ### 1. Empty Data Arrays
+
 ```pseudocode
 IF features.length === 0 THEN
   RETURN null  // Don't render section
@@ -527,6 +528,7 @@ END IF
 ```
 
 ### 2. Missing Optional Fields
+
 ```pseudocode
 IF facility.count IS NULL THEN
   // Render facility without count badge
@@ -538,6 +540,7 @@ END IF
 ```
 
 ### 3. Invalid Column Counts
+
 ```pseudocode
 IF columns NOT IN [2, 3, 4] THEN
   DEFAULT columns = 3  // Fallback to safe default
@@ -545,6 +548,7 @@ END IF
 ```
 
 ### 4. Malformed Phone Numbers
+
 ```pseudocode
 FUNCTION formatPhoneForTelLink(phone: string) -> string
   DEFINE digits = phone.replace(/\D/g, '')
@@ -559,6 +563,7 @@ END FUNCTION
 ```
 
 ### 5. GPS Out of Bounds
+
 ```pseudocode
 // Handled at schema level - build fails if coordinates invalid
 CoordinatesSchema.refine(
@@ -572,6 +577,7 @@ CoordinatesSchema.refine(
 ## Performance Optimizations
 
 ### 1. Memoized Column Classes
+
 ```pseudocode
 // Pre-compute map at module load (not per component render)
 CONST COLUMN_CLASSES = {
@@ -585,6 +591,7 @@ FUNCTION getColumnClasses(cols) -> COLUMN_CLASSES[cols]
 ```
 
 ### 2. Early Return on Empty Arrays
+
 ```pseudocode
 // Check isEmpty BEFORE expensive operations
 IF features.length === 0 THEN
@@ -596,6 +603,7 @@ features.map((f) => renderFeatureCard(f))
 ```
 
 ### 3. Animation Only When Enabled
+
 ```pseudocode
 IF animate === false THEN
   // Skip stagger delay calculations

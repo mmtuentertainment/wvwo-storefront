@@ -75,6 +75,7 @@ wv-wild-web/
 **Goal**: Render hero with title, description, image, and badges
 
 **Tasks**:
+
 1. Create `AdventureHero.astro` with TypeScript props interface
 2. Implement brand-brown gradient background
 3. Create Appalachian Woodland camo SVG pattern
@@ -84,6 +85,7 @@ wv-wild-web/
 7. Add driveTime badge (optional third badge)
 
 **Files**:
+
 - `src/components/adventure/AdventureHero.astro`
 - `src/components/adventure/AdventureHeroBadge.astro`
 - `src/assets/patterns/appalachian-woodland.svg`
@@ -97,6 +99,7 @@ wv-wild-web/
 **Goal**: Full WCAG 2.2 AA compliance with motion safety
 
 **Tasks**:
+
 1. Add `aria-labelledby` pointing to h1 with dynamic ID (`adventure-hero-${slug}`)
 2. Add `aria-hidden="true"` and `role="presentation"` to camo SVG
 3. Implement Morning Mist Lift animation with stagger
@@ -105,6 +108,7 @@ wv-wild-web/
 6. Add visible focus indicators on CTA slots
 
 **Files**:
+
 - `src/components/adventure/AdventureHero.astro` (updates)
 - `src/styles/adventure-hero.css`
 
@@ -117,6 +121,7 @@ wv-wild-web/
 **Goal**: Valid structured data for "near me" search capture
 
 **Tasks**:
+
 1. Create `AdventureHeroSchema.astro` for JSON-LD generation
 2. Implement @graph with TouristAttraction + Article
 3. Add GeoCoordinates when coordinates prop provided
@@ -125,6 +130,7 @@ wv-wild-web/
 6. Validate with Google Rich Results Test
 
 **Files**:
+
 - `src/components/adventure/AdventureHeroSchema.astro`
 - `src/components/adventure/AdventureHero.astro` (integration)
 
@@ -137,6 +143,7 @@ wv-wild-web/
 **Goal**: Enable content customization without component modification
 
 **Tasks**:
+
 1. Implement 5-slot architecture:
    - `default`: Additional content below description
    - `cta`: Call-to-action buttons
@@ -148,6 +155,7 @@ wv-wild-web/
 4. Add print styles hiding CTAs
 
 **Files**:
+
 - `src/components/adventure/AdventureHero.astro` (updates)
 - `src/lib/adventures/hero-factory.ts`
 - `src/styles/adventure-hero.css` (print media query)
@@ -157,9 +165,11 @@ wv-wild-web/
 ---
 
 ### Phase 5: Error States & Edge Cases (P2)
+
 **Goal**: Graceful degradation for missing/invalid data
 
 **Tasks**:
+
 1. Add image fallback UI ("Image unavailable" placeholder)
 2. Add runtime validation for difficulty enum (default to 'moderate')
 3. Add CSS truncation for long titles (3-line clamp with ellipsis)
@@ -167,6 +177,7 @@ wv-wild-web/
 5. Add console warnings for invalid props (dev only)
 
 **Files**:
+
 - `src/components/adventure/AdventureHero.astro` (updates)
 
 **Acceptance**: Component doesn't crash with edge case inputs
@@ -174,9 +185,11 @@ wv-wild-web/
 ---
 
 ### Phase 6: Testing & Validation (P1)
+
 **Goal**: Comprehensive test coverage
 
 **Tasks**:
+
 1. Unit tests with Vitest:
    - Required props rendering
    - Difficulty badge color mapping
@@ -193,6 +206,7 @@ wv-wild-web/
    - Reduced-motion behavior
 
 **Files**:
+
 - `src/components/adventure/__tests__/AdventureHero.test.ts`
 - `src/components/adventure/__tests__/AdventureHero.a11y.ts`
 - `tests/e2e/adventure-hero.spec.ts`
@@ -202,9 +216,11 @@ wv-wild-web/
 ---
 
 ### Phase 7: Integration & Example Page (P2)
+
 **Goal**: Working example with real adventure data
 
 **Tasks**:
+
 1. Update summersville-lake.astro to use AdventureHero
 2. Verify Content Collections integration
 3. Test with Lighthouse CI (LCP < 2.5s, CLS < 0.1)
@@ -212,6 +228,7 @@ wv-wild-web/
 5. Document component usage in README
 
 **Files**:
+
 - `src/pages/near/summersville-lake.astro` (refactor)
 - `src/components/adventure/README.md`
 
@@ -237,17 +254,20 @@ wv-wild-web/
 ## Dependencies
 
 ### Internal
+
 - `src/styles/global.css` - Design tokens (brand-brown, sign-green, etc.)
 - `src/components/ui/badge.tsx` - Badge variant patterns (reference only)
 - Content Collections schema - Adventure type definition
 - `src/pages/near/summersville-lake.astro` - Gold standard pattern
 
 ### External
+
 - `astro:assets` - Image optimization (built-in)
 - `vitest` + `vitest-axe` - Testing
 - `playwright` - E2E visual regression (existing)
 
 ### None Required
+
 - Zero new npm dependencies
 - Zero third-party services
 - Zero runtime JS (pure Astro static)
@@ -273,6 +293,7 @@ wv-wild-web/
 Since this exceeds the 500 LOC threshold for single PRs, recommend splitting:
 
 ### PR 1: Core Component (~320 LOC)
+
 - `AdventureHero.astro` (~180 LOC)
 - `AdventureHeroBadge.astro` (~40 LOC)
 - `appalachian-woodland.svg` (~1.2KB)
@@ -304,6 +325,7 @@ Since this exceeds the 500 LOC threshold for single PRs, recommend splitting:
 ## Testing Strategy
 
 ### Unit Tests (Vitest)
+
 ```typescript
 describe('AdventureHero', () => {
   it('renders with required props');
@@ -321,6 +343,7 @@ describe('AdventureHero', () => {
 ```
 
 ### Accessibility Tests
+
 ```typescript
 import { axe } from 'vitest-axe';
 
@@ -331,6 +354,7 @@ it('color contrast meets 4.5:1');
 ```
 
 ### Visual Regression (Playwright)
+
 ```typescript
 test('mobile layout at 375px');
 test('desktop layout at 1024px');
@@ -338,6 +362,7 @@ test('reduced-motion disables animations');
 ```
 
 ### Performance Validation
+
 - Lighthouse CI in GitHub Actions
 - LCP < 2.5s on simulated 4G
 - CLS < 0.1

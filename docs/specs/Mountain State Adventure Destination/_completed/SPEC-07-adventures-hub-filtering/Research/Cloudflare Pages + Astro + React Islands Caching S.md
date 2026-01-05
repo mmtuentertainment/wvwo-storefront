@@ -3,7 +3,7 @@
 # Cloudflare Pages + Astro + React Islands Caching Strategy
 
 Why: Cloudflare's edge cache changes how we think about "offline-first."
- 
+
 Prompt for AI Research:
 MISSION: Optimize Cloudflare Pages caching strategy for Astro static site with React islands filtering.
 
@@ -47,7 +47,6 @@ I've completed a comprehensive investigation into Cloudflare's caching ecosystem
 - Argo Smart Routing analysis for spotty connections
 - Performance monitoring recommendations
 - All sources cited with confidence scores
-
 
 ### **📄 Document 2: Ready-to-Deploy Configuration** (`cloudflare-deployment-config.md`)
 
@@ -119,7 +118,6 @@ Tier 3 (Service Worker):
 
 **Evidence:** "Argo Smart Routing shaves an average of 33% off HTTP time to first byte (TTFB)" (Cloudflare blog, 2021-09-13, )
 
-
 | Argo Status | TTFB | Last-Mile RTT | User Experience |
 | :-- | :-- | :-- | :-- |
 | **Without** | 400-600ms | High | Noticeable delay on 3G |
@@ -132,7 +130,6 @@ Tier 3 (Service Worker):
 ## DOES CLOUDFLARE CACHE ELIMINATE NEED FOR SERVICE WORKERS?
 
 **Short answer: No. Different purposes.**
-
 
 | Technology | What It Does | For SPEC-07 |
 | :-- | :-- | :-- |
@@ -160,7 +157,6 @@ Tier 3 (Service Worker):
 - Cache headers via `_headers` file: **Well-documented, proven**
 - Service Worker offline-first: **Standard web pattern**
 - Argo Smart Routing for rural latency: **Real-world verified** (30%+ improvement)
-
 
 ### ⚠️ What Requires Testing
 
@@ -320,163 +316,162 @@ Before launching SPEC-07:
 
 <div align="center">⁂</div>
 
-[^1]: http://arxiv.org/pdf/2308.00562.pdf
+[^1]: <http://arxiv.org/pdf/2308.00562.pdf>
 
-[^2]: https://arxiv.org/html/2401.03613v1
+[^2]: <https://arxiv.org/html/2401.03613v1>
 
-[^3]: http://arxiv.org/pdf/2412.20221.pdf
+[^3]: <http://arxiv.org/pdf/2412.20221.pdf>
 
-[^4]: http://arxiv.org/pdf/2309.02055.pdf
+[^4]: <http://arxiv.org/pdf/2309.02055.pdf>
 
-[^5]: https://arxiv.org/pdf/2308.02875.pdf
+[^5]: <https://arxiv.org/pdf/2308.02875.pdf>
 
-[^6]: http://arxiv.org/pdf/2111.11608.pdf
+[^6]: <http://arxiv.org/pdf/2111.11608.pdf>
 
-[^7]: https://www.mdpi.com/1424-8220/24/11/3370/pdf?version=1716542638
+[^7]: <https://www.mdpi.com/1424-8220/24/11/3370/pdf?version=1716542638>
 
-[^8]: https://arxiv.org/pdf/2309.10239.pdf
+[^8]: <https://arxiv.org/pdf/2309.10239.pdf>
 
-[^9]: https://www.reddit.com/r/astrojs/comments/1gxjefu/page_caching/
+[^9]: <https://www.reddit.com/r/astrojs/comments/1gxjefu/page_caching/>
 
-[^10]: https://blog.logrocket.com/implementing-react-islands-static-web-applications/
+[^10]: <https://blog.logrocket.com/implementing-react-islands-static-web-applications/>
 
-[^11]: https://stackoverflow.com/questions/64254291/cache-control-headers-in-a-cloudflare-workers-site
+[^11]: <https://stackoverflow.com/questions/64254291/cache-control-headers-in-a-cloudflare-workers-site>
 
-[^12]: https://developers.cloudflare.com/pages/configuration/build-caching/
+[^12]: <https://developers.cloudflare.com/pages/configuration/build-caching/>
 
-[^13]: https://www.reddit.com/r/nextjs/comments/1phhxbe/replacing_nextjs_isr_with_a_custom_cloudflare/
+[^13]: <https://www.reddit.com/r/nextjs/comments/1phhxbe/replacing_nextjs_isr_with_a_custom_cloudflare/>
 
-[^14]: https://developers.cloudflare.com/workers/static-assets/headers/
+[^14]: <https://developers.cloudflare.com/workers/static-assets/headers/>
 
-[^15]: https://docs.astro.build/en/guides/integrations-guide/cloudflare/
+[^15]: <https://docs.astro.build/en/guides/integrations-guide/cloudflare/>
 
-[^16]: https://blog.cloudflare.com/rendering-react-on-the-edge-with-flareact-and-cloudflare-workers/
+[^16]: <https://blog.cloudflare.com/rendering-react-on-the-edge-with-flareact-and-cloudflare-workers/>
 
-[^17]: https://developers.cloudflare.com/cache/concepts/default-cache-behavior/
+[^17]: <https://developers.cloudflare.com/cache/concepts/default-cache-behavior/>
 
-[^18]: https://randombits.dev/articles/tips/cloudflare-pages-caching
+[^18]: <https://randombits.dev/articles/tips/cloudflare-pages-caching>
 
-[^19]: https://crystallize.com/blog/react-static-site-generators
+[^19]: <https://crystallize.com/blog/react-static-site-generators>
 
-[^20]: https://www.debugbear.com/docs/cloudflare-caching
+[^20]: <https://www.debugbear.com/docs/cloudflare-caching>
 
-[^21]: https://blog.cloudflare.com/full-stack-development-on-cloudflare-workers/
+[^21]: <https://blog.cloudflare.com/full-stack-development-on-cloudflare-workers/>
 
-[^22]: https://www.cloudflare.com/learning/cdn/caching-static-and-dynamic-content/
+[^22]: <https://www.cloudflare.com/learning/cdn/caching-static-and-dynamic-content/>
 
-[^23]: https://developers.cloudflare.com/cache/concepts/cache-control/
+[^23]: <https://developers.cloudflare.com/cache/concepts/cache-control/>
 
-[^24]: https://www.flex.com.ph/articles/astro-web-app-best-practices-for-cloudflare-pages
+[^24]: <https://www.flex.com.ph/articles/astro-web-app-best-practices-for-cloudflare-pages>
 
-[^25]: https://developers.cloudflare.com/cache/get-started/
+[^25]: <https://developers.cloudflare.com/cache/get-started/>
 
-[^26]: https://developers.cloudflare.com/pages/configuration/headers/
+[^26]: <https://developers.cloudflare.com/pages/configuration/headers/>
 
-[^27]: https://github.com/withastro/roadmap/discussions/181
+[^27]: <https://github.com/withastro/roadmap/discussions/181>
 
-[^28]: https://www.reddit.com/r/react/comments/1mm4crj/we_were_shipping_500kb_of_react_to_show_a_landing/
+[^28]: <https://www.reddit.com/r/react/comments/1mm4crj/we_were_shipping_500kb_of_react_to_show_a_landing/>
 
-[^29]: https://arxiv.org/html/2504.03884v1
+[^29]: <https://arxiv.org/html/2504.03884v1>
 
-[^30]: http://arxiv.org/pdf/2406.06799.pdf
+[^30]: <http://arxiv.org/pdf/2406.06799.pdf>
 
-[^31]: https://arxiv.org/html/2406.17565v2
+[^31]: <https://arxiv.org/html/2406.17565v2>
 
-[^32]: http://arxiv.org/pdf/2501.12689.pdf
+[^32]: <http://arxiv.org/pdf/2501.12689.pdf>
 
-[^33]: http://arxiv.org/pdf/2111.07153.pdf
+[^33]: <http://arxiv.org/pdf/2111.07153.pdf>
 
-[^34]: http://arxiv.org/pdf/2412.12488.pdf
+[^34]: <http://arxiv.org/pdf/2412.12488.pdf>
 
-[^35]: https://linkinghub.elsevier.com/retrieve/pii/S1570870524000246
+[^35]: <https://linkinghub.elsevier.com/retrieve/pii/S1570870524000246>
 
-[^36]: https://blog.cloudflare.com/introducing-the-workers-cache-api-giving-you-control-over-how-your-content-is-cached/
+[^36]: <https://blog.cloudflare.com/introducing-the-workers-cache-api-giving-you-control-over-how-your-content-is-cached/>
 
-[^37]: https://www.hostragons.com/en/blog/increasing-site-speed-with-cloudflare-argo/
+[^37]: <https://www.hostragons.com/en/blog/increasing-site-speed-with-cloudflare-argo/>
 
-[^38]: https://www.cdnplanet.com/blog/how-improve-ttfb-on-cloudflare-with-speculation-rules/
+[^38]: <https://www.cdnplanet.com/blog/how-improve-ttfb-on-cloudflare-with-speculation-rules/>
 
-[^39]: https://lowendtalk.com/discussion/194316/any-experiences-with-cloudflares-argo-smart-routing
+[^39]: <https://lowendtalk.com/discussion/194316/any-experiences-with-cloudflares-argo-smart-routing>
 
-[^40]: https://developers.cloudflare.com/speed/optimization/content/prefetch-urls/
+[^40]: <https://developers.cloudflare.com/speed/optimization/content/prefetch-urls/>
 
-[^41]: https://blog.cloudflare.com/builder-day-2024-announcements/
+[^41]: <https://blog.cloudflare.com/builder-day-2024-announcements/>
 
-[^42]: https://blog.cloudflare.com/argo-v2/
+[^42]: <https://blog.cloudflare.com/argo-v2/>
 
-[^43]: https://www.reddit.com/r/programming/comments/pxkzdf/offline_first_is_not_about_having_no_internet/
+[^43]: <https://www.reddit.com/r/programming/comments/pxkzdf/offline_first_is_not_about_having_no_internet/>
 
-[^44]: https://developers.cloudflare.com/workers/runtime-apis/cache/
+[^44]: <https://developers.cloudflare.com/workers/runtime-apis/cache/>
 
-[^45]: https://www.linkedin.com/posts/jlessa80_cloudflare-networking-sysadmin-activity-7372271700022951937--boJ
+[^45]: <https://www.linkedin.com/posts/jlessa80_cloudflare-networking-sysadmin-activity-7372271700022951937--boJ>
 
-[^46]: https://blog.centminmod.com/2021/10/13/2511/testing-page-speed-with-cloudflare-automatic-signed-exchanges-google-search-cache/
+[^46]: <https://blog.centminmod.com/2021/10/13/2511/testing-page-speed-with-cloudflare-automatic-signed-exchanges-google-search-cache/>
 
-[^47]: https://developers.cloudflare.com/workers/examples/cache-api/
+[^47]: <https://developers.cloudflare.com/workers/examples/cache-api/>
 
-[^48]: https://www.cloudflare.com/learning/performance/more/speed-up-the-web/
+[^48]: <https://www.cloudflare.com/learning/performance/more/speed-up-the-web/>
 
-[^49]: https://dev.to/00geekinside00/unlocking-the-potential-of-cloudflare-workers-for-small-projects-45d0
+[^49]: <https://dev.to/00geekinside00/unlocking-the-potential-of-cloudflare-workers-for-small-projects-45d0>
 
-[^50]: https://stackoverflow.com/questions/62353581/trouble-with-cloudflares-worker-cache-api
+[^50]: <https://stackoverflow.com/questions/62353581/trouble-with-cloudflares-worker-cache-api>
 
-[^51]: https://forum.xojo.com/t/urlconnection-best-practices-on-bad-slow-connections/76429
+[^51]: <https://forum.xojo.com/t/urlconnection-best-practices-on-bad-slow-connections/76429>
 
-[^52]: https://www.sherbers.de/cache-html-with-cloudflare-workers/
+[^52]: <https://www.sherbers.de/cache-html-with-cloudflare-workers/>
 
-[^53]: https://www.reddit.com/r/astrojs/comments/1g55oif/how_to_serve_static_and_ssr_for_cloudflare_pages/
+[^53]: <https://www.reddit.com/r/astrojs/comments/1g55oif/how_to_serve_static_and_ssr_for_cloudflare_pages/>
 
-[^54]: https://www.reddit.com/r/CloudFlare/comments/1cawtax/what_are_your_experiences_with_argo_vs_tiered/
+[^54]: <https://www.reddit.com/r/CloudFlare/comments/1cawtax/what_are_your_experiences_with_argo_vs_tiered/>
 
-[^55]: https://www.reddit.com/r/sveltejs/comments/ov1gmt/caching_for_the_cloudflare_workers_adapter/
+[^55]: <https://www.reddit.com/r/sveltejs/comments/ov1gmt/caching_for_the_cloudflare_workers_adapter/>
 
-[^56]: https://arxiv.org/html/2411.03292
+[^56]: <https://arxiv.org/html/2411.03292>
 
-[^57]: http://arxiv.org/pdf/2408.17044.pdf
+[^57]: <http://arxiv.org/pdf/2408.17044.pdf>
 
-[^58]: https://arxiv.org/pdf/0801.2618.pdf
+[^58]: <https://arxiv.org/pdf/0801.2618.pdf>
 
-[^59]: http://arxiv.org/pdf/2403.11905.pdf
+[^59]: <http://arxiv.org/pdf/2403.11905.pdf>
 
-[^60]: https://arxiv.org/ftp/arxiv/papers/2311/2311.16601.pdf
+[^60]: <https://arxiv.org/ftp/arxiv/papers/2311/2311.16601.pdf>
 
-[^61]: https://ph.pollub.pl/index.php/jcsi/article/download/1579/1265
+[^61]: <https://ph.pollub.pl/index.php/jcsi/article/download/1579/1265>
 
-[^62]: https://carijournals.org/journals/index.php/IJCE/article/download/1821/2195
+[^62]: <https://carijournals.org/journals/index.php/IJCE/article/download/1821/2195>
 
-[^63]: https://www.reddit.com/r/CloudFlare/comments/1l7cc1f/cloudflare_pages_vs_workers_for_static_blog_which/
+[^63]: <https://www.reddit.com/r/CloudFlare/comments/1l7cc1f/cloudflare_pages_vs_workers_for_static_blog_which/>
 
-[^64]: https://developers.cloudflare.com/kv/concepts/how-kv-works/
+[^64]: <https://developers.cloudflare.com/kv/concepts/how-kv-works/>
 
-[^65]: https://eastondev.com/blog/en/posts/dev/20251202-astro-ssr-guide/
+[^65]: <https://eastondev.com/blog/en/posts/dev/20251202-astro-ssr-guide/>
 
-[^66]: https://www.reddit.com/r/statichosting/comments/1plfi9t/cloudflare_pages_vs_workers_sites_which_one_are/
+[^66]: <https://www.reddit.com/r/statichosting/comments/1plfi9t/cloudflare_pages_vs_workers_sites_which_one_are/>
 
-[^67]: https://blog.cloudflare.com/faster-workers-kv/
+[^67]: <https://blog.cloudflare.com/faster-workers-kv/>
 
-[^68]: https://ntsd.dev/deploy-astro-on-clouflare-page/
+[^68]: <https://ntsd.dev/deploy-astro-on-clouflare-page/>
 
-[^69]: https://upstash.com/blog/edgecaching-benchmark
+[^69]: <https://upstash.com/blog/edgecaching-benchmark>
 
-[^70]: https://www.reddit.com/r/astrojs/comments/1b6flpp/confused_about_astro_cloudflare_workers/
+[^70]: <https://www.reddit.com/r/astrojs/comments/1b6flpp/confused_about_astro_cloudflare_workers/>
 
-[^71]: https://www.reddit.com/r/CloudFlare/comments/10e6gbq/social_media_site_cf_workers_vs_cf_cache_api/
+[^71]: <https://www.reddit.com/r/CloudFlare/comments/10e6gbq/social_media_site_cf_workers_vs_cf_cache_api/>
 
-[^72]: https://developers.cloudflare.com/pages/framework-guides/deploy-an-astro-site/
+[^72]: <https://developers.cloudflare.com/pages/framework-guides/deploy-an-astro-site/>
 
-[^73]: https://thefridaydeploy.substack.com/p/a-minimal-static-site-with-cloudflare
+[^73]: <https://thefridaydeploy.substack.com/p/a-minimal-static-site-with-cloudflare>
 
-[^74]: https://launchdarkly.com/blog/handling-data-at-the-edge-with-cloudflare-workers/
+[^74]: <https://launchdarkly.com/blog/handling-data-at-the-edge-with-cloudflare-workers/>
 
-[^75]: https://www.reddit.com/r/astrojs/comments/1g55oif/how_to_serve_static_and_ssr_for_cloudflare_pages/ls91ngf/
+[^75]: <https://www.reddit.com/r/astrojs/comments/1g55oif/how_to_serve_static_and_ssr_for_cloudflare_pages/ls91ngf/>
 
-[^76]: https://github.com/withastro/roadmap/issues/539
+[^76]: <https://github.com/withastro/roadmap/issues/539>
 
-[^77]: https://docs.astro.build/en/guides/on-demand-rendering/
+[^77]: <https://docs.astro.build/en/guides/on-demand-rendering/>
 
-[^78]: https://v4--astro-docs-2.netlify.app/en/guides/integrations-guide/cloudflare/
+[^78]: <https://v4--astro-docs-2.netlify.app/en/guides/integrations-guide/cloudflare/>
 
-[^79]: https://github.com/withastro/roadmap/discussions/641
+[^79]: <https://github.com/withastro/roadmap/discussions/641>
 
-[^80]: https://www.reddit.com/r/CloudFlare/comments/1ip87mx/workers_vs_pages/
-
+[^80]: <https://www.reddit.com/r/CloudFlare/comments/1ip87mx/workers_vs_pages/>

@@ -1,6 +1,6 @@
 <img src="https://r2cdn.perplexity.ai/pplx-full-logo-primary-dark%402x.png" style="height:64px;margin-right:32px"/>
 
-# i think your labs feature should have better luck Perfect. Now let me provide you with a comprehensive framework based on industry benchmarks and actionable steps you can take.
+# i think your labs feature should have better luck Perfect. Now let me provide you with a comprehensive framework based on industry benchmarks and actionable steps you can take
 
 ADVENTURE PAGE CONVERSION \& ENGAGEMENT: ANALYSIS FRAMEWORK
 I CANNOT ACCESS YOUR PRIVATE DATA, BUT HERE'S HOW TO FIND IT
@@ -244,8 +244,7 @@ Perfect! Now I have real-world data from AllTrails, REI, National Parks, and sta
 
 # REAL-WORLD DATA: ADVENTURE WEBSITE ENGAGEMENT \& CONVERSION EXAMPLES
 
-## You're at the beginning—here's how competitors structured their data to model WVWO's hub.
-
+## You're at the beginning—here's how competitors structured their data to model WVWO's hub
 
 ***
 
@@ -271,7 +270,6 @@ Perfect! Now I have real-world data from AllTrails, REI, National Parks, and sta
 - **"Most Popular" default sorting** (users find high-quality trails first, not buried alphabetically)
 
 ✅ **Top keywords driving traffic:**
-
 
 | Keyword | Volume | Position | Traffic % |
 | :-- | :-- | :-- | :-- |
@@ -417,7 +415,6 @@ From AllTrails Help Docs + Reddit discussions:
 | **Seneca Rocks Climbing** | Niche audiences = low bounce (<30%). REI climbing gear pages outperform general hiking. | Passionate micro-audience |
 | **Dog-Friendly Trails I-79 Corridor** | AllTrails "dog-friendly" filter is top secondary filter (high search volume) | Family/pet inclusion trend |
 
-
 ***
 
 ### **Tier 2: Predict 2-3 Min Sessions, 2-3% Conversion**
@@ -428,7 +425,6 @@ From AllTrails Help Docs + Reddit discussions:
 | **Coopers Rock Overlook (Wheelchair)** | NPS data: accessible sites have broader audience, higher return visits | Inclusive design = larger TAM |
 | **Fall Foliage Scenic Drives** | Seasonal spikes. REI shows 40%+ engagement increase during seasonal promotions | Oct-Nov traffic surge |
 
-
 ***
 
 ### **Tier 3: Predict <1 Min Session, <1% Conversion**
@@ -437,7 +433,6 @@ From AllTrails Help Docs + Reddit discussions:
 | :-- | :-- | :-- |
 | **Generic "All Adventures" Hub** | AllTrails' 61% bounce rate on homepage vs. 30% on specific trail pages | Choice paradox |
 | **Extreme Multi-Day Backpacking** | NPS data: remote/advanced parks (Gates of the Arctic) get <12k annual visits | Ultra-niche = low volume |
-
 
 ***
 
@@ -480,7 +475,6 @@ if (userFilters.activity === 'hunting' && userFilters.season === 'fall') {
   showRecommendation("Download: 2025 WV Hunting Season Dates PDF");
 }
 ```
-
 
 ***
 
@@ -601,51 +595,50 @@ This is exactly how AllTrails started in 2010 (200k users) → 2025 (65M users).
 
 <div align="center">⁂</div>
 
-[^1]: https://www.reddit.com/r/alltrails/comments/13ljck8/new_top_trails_list_on_alltrailscom_good_for/
+[^1]: <https://www.reddit.com/r/alltrails/comments/13ljck8/new_top_trails_list_on_alltrailscom_good_for/>
 
-[^2]: https://www.datadashboardhub.com/post/rei-looker-studio-case-study
+[^2]: <https://www.datadashboardhub.com/post/rei-looker-studio-case-study>
 
-[^3]: https://engineering.rei.com/web-performance/catch-the-wheel.html
+[^3]: <https://engineering.rei.com/web-performance/catch-the-wheel.html>
 
-[^4]: https://www.smithsonianmag.com/smart-news/these-were-the-most-and-least-visited-national-parks-in-2024-180986251/
+[^4]: <https://www.smithsonianmag.com/smart-news/these-were-the-most-and-least-visited-national-parks-in-2024-180986251/>
 
-[^5]: https://public.dhe.ibm.com/software/solutions/pdfs/g325-1341-00.pdf
+[^5]: <https://public.dhe.ibm.com/software/solutions/pdfs/g325-1341-00.pdf>
 
-[^6]: https://www.semanticscholar.org/paper/66784b7305d67fe6ecd6e37cca24f8e7f3f7bd69
+[^6]: <https://www.semanticscholar.org/paper/66784b7305d67fe6ecd6e37cca24f8e7f3f7bd69>
 
-[^7]: https://www.mdpi.com/1660-4601/18/16/8741/pdf
+[^7]: <https://www.mdpi.com/1660-4601/18/16/8741/pdf>
 
-[^8]: https://www.tandfonline.com/doi/pdf/10.1080/13683500.2024.2329278?needAccess=true
+[^8]: <https://www.tandfonline.com/doi/pdf/10.1080/13683500.2024.2329278?needAccess=true>
 
-[^9]: https://www.mdpi.com/1660-4601/18/4/1809/pdf
+[^9]: <https://www.mdpi.com/1660-4601/18/4/1809/pdf>
 
-[^10]: https://www.semrush.com/website/alltrails.com/overview/
+[^10]: <https://www.semrush.com/website/alltrails.com/overview/>
 
-[^11]: https://twosixdigital.com/state-tourism-website-traffic-analysis-q1/
+[^11]: <https://twosixdigital.com/state-tourism-website-traffic-analysis-q1/>
 
-[^12]: https://android-developers.googleblog.com/2024/09/alltrails-gains-over-1-million-downloads-wear-os-app.html
+[^12]: <https://android-developers.googleblog.com/2024/09/alltrails-gains-over-1-million-downloads-wear-os-app.html>
 
-[^13]: https://www.netconcepts.com/rei-doubles-sales-from-natural-search/
+[^13]: <https://www.netconcepts.com/rei-doubles-sales-from-natural-search/>
 
-[^14]: https://www.nps.gov/subjects/socialscience/visitor-use-statistics-dashboard.htm
+[^14]: <https://www.nps.gov/subjects/socialscience/visitor-use-statistics-dashboard.htm>
 
-[^15]: https://pcmac.download/stats/405075943/alltrails-hike-bike-run
+[^15]: <https://pcmac.download/stats/405075943/alltrails-hike-bike-run>
 
-[^16]: https://www.bruceclay.com/blog/large-scale-e-commerce-seo-rei/
+[^16]: <https://www.bruceclay.com/blog/large-scale-e-commerce-seo-rei/>
 
-[^17]: https://www.npca.org/articles/1146-who-counts-a-closer-look-at-parks-record-visitation-numbers
+[^17]: <https://www.npca.org/articles/1146-who-counts-a-closer-look-at-parks-record-visitation-numbers>
 
-[^18]: https://www.reddit.com/t/alltrails/
+[^18]: <https://www.reddit.com/t/alltrails/>
 
-[^19]: https://www.nps.gov/aboutus/visitation-numbers.htm
+[^19]: <https://www.nps.gov/aboutus/visitation-numbers.htm>
 
-[^20]: https://en.wikipedia.org/wiki/AllTrails
+[^20]: <https://en.wikipedia.org/wiki/AllTrails>
 
-[^21]: https://tdwi.org/microsites/solutionsgateway/pivotlink/~/media/tdwi/tdwi portals/solutions gateway/pivotlink/pdf/pivotlink rei case study.ashx
+[^21]: <https://tdwi.org/microsites/solutionsgateway/pivotlink/~/media/tdwi/tdwi> portals/solutions gateway/pivotlink/pdf/pivotlink rei case study.ashx
 
-[^22]: https://www.statista.com/topics/2393/national-park-tourism-in-the-us/
+[^22]: <https://www.statista.com/topics/2393/national-park-tourism-in-the-us/>
 
-[^23]: https://resources.clicks.so/top-websites/alltrails.com
+[^23]: <https://resources.clicks.so/top-websites/alltrails.com>
 
-[^24]: https://www.ndevr.io/blog/adventure-grade-performance-how-outdoor-brands-scale-like-media-giants/
-
+[^24]: <https://www.ndevr.io/blog/adventure-grade-performance-how-outdoor-brands-scale-like-media-giants/>

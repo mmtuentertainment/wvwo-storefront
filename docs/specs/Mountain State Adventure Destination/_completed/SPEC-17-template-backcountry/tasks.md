@@ -672,24 +672,28 @@ PR #4 (Tests + Content) ──────────────────�
 # Success Criteria per PR
 
 ## PR #1: Type System
+
 - [ ] Zero TypeScript errors
 - [ ] All 8 Zod schemas validate
 - [ ] 100% coverage on P0 schemas
 - [ ] Index exports work
 
 ## PR #2: Template
+
 - [ ] All 10 sections render
 - [ ] P0 empty states show warnings
 - [ ] WVWO aesthetic compliance
 - [ ] Accessibility audit passes
 
 ## PR #3: SEO
+
 - [ ] JSON-LD validates
 - [ ] AMD SpecialAnnouncement works
 - [ ] Routes generate correctly
 - [ ] Meta tags in range
 
 ## PR #4: Testing & Content
+
 - [ ] 85%+ test coverage
 - [ ] Dolly Sods content accurate
 - [ ] All P0 tests pass

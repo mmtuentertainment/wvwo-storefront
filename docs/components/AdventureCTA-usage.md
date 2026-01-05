@@ -77,6 +77,7 @@ interface Props {
 ```
 
 **Renders**:
+
 - Primary button: "Get Directions"
 - Secondary button: "Call the Shop"
 - No heading or description
@@ -101,6 +102,7 @@ interface Props {
 ```
 
 **Renders**:
+
 - Large heading in Bitter serif
 - Description text (white/90 opacity)
 - Custom button text
@@ -125,6 +127,7 @@ interface Props {
 ```
 
 **Renders**:
+
 - Brown background (shop/business theme)
 - Internal primary link (relative path)
 - Phone link for secondary
@@ -148,6 +151,7 @@ interface Props {
 ```
 
 **Renders**:
+
 - External primary link (auto-detects, adds `target="_blank"`)
 - Internal secondary link
 - Brown background
@@ -173,6 +177,7 @@ const phoneIcon = "M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.
 ```
 
 **Renders**:
+
 - Location pin icon before "Get Directions"
 - Phone icon before "Call the Shop"
 - Icons are `aria-hidden="true"` (decorative)
@@ -186,11 +191,13 @@ const phoneIcon = "M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.
 **Use for**: Outdoor/adventure CTAs
 
 **Styles**:
+
 - Background: `bg-sign-green` (#2E7D32)
 - Primary button: White bg, green text
 - Secondary button: White border, white text → fills white on hover
 
 **Color Contrast**:
+
 - White on green: 6.8:1 (exceeds WCAG AA 4.5:1)
 - Green on white: 6.8:1 (exceeds WCAG AA)
 
@@ -201,11 +208,13 @@ const phoneIcon = "M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.
 **Use for**: Shop-related CTAs
 
 **Styles**:
+
 - Background: `bg-brand-brown` (#3E2723)
 - Primary button: White bg, brown text
 - Secondary button: White border, white text → fills white on hover
 
 **Color Contrast**:
+
 - White on brown: 12.1:1 (exceeds WCAG AA)
 - Brown on white: 12.1:1 (exceeds WCAG AA)
 
@@ -214,26 +223,31 @@ const phoneIcon = "M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.
 ## WVWO Compliance Checklist
 
 ### ✅ Typography
+
 - Font: `font-display` (Bitter serif) - WVWO approved
 - Sizes: `text-4xl` (heading), `text-lg` (buttons, description)
 - Weights: `font-bold` (heading, buttons)
 
 ### ✅ Colors
+
 - Green: `#2E7D32` (sign-green)
 - Brown: `#3E2723` (brand-brown)
 - White: `#FFFFFF` (text, button backgrounds)
 - No forbidden colors (purple, pink, neon)
 
 ### ✅ Corners
+
 - Border radius: `rounded-sm` (0.125rem) ONLY
 - No `rounded-md/lg/xl/2xl/3xl` (forbidden)
 
 ### ✅ Transitions
+
 - Type: `motion-safe:transition-colors`
 - Duration: `motion-safe:duration-300`
 - Respects: `motion-reduce:transition-none`
 
 ### ✅ Accessibility
+
 - Focus states: `focus-visible:ring-2 ring-white/60`
 - Touch targets: `px-8 py-4` (exceeds 44×44px)
 - Semantic HTML: `<a>` tags (native keyboard focus)
@@ -246,6 +260,7 @@ const phoneIcon = "M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.
 The component automatically detects external links and adds security attributes:
 
 **External (starts with http:// or https://):**
+
 ```html
 <a
   href="https://maps.google.com"
@@ -255,6 +270,7 @@ The component automatically detects external links and adds security attributes:
 ```
 
 **Internal (relative paths, tel:, mailto:, #anchors):**
+
 ```html
 <a href="/contact">
 <!-- No target or rel attributes -->
@@ -265,6 +281,7 @@ The component automatically detects external links and adds security attributes:
 ## Voice Guidelines
 
 ### ✅ Approved CTA Text (Authentic, Humble)
+
 - "Get Directions"
 - "Call the Shop"
 - "Stop By Before You Head Out"
@@ -273,17 +290,20 @@ The component automatically detects external links and adds security attributes:
 - "View DNR Info"
 
 ### ❌ Forbidden CTA Text (Marketing Buzzwords)
+
 - "Unlock Your Adventure"
 - "Start Your Journey Today"
 - "Transform Your Hunt"
 - "Experience the Difference"
 
 ### ✅ Approved Heading/Description Patterns
+
 - "Ready to Hunt Elk River?" + "Stop by the shop for licenses and local tips."
 - "Plan Your Visit" + "Check regulations and contact us for insights."
 - "Need Directions?" + "We're 25 minutes from Burnsville Lake WMA."
 
 ### ❌ Forbidden Patterns (Generic, Corporate)
+
 - "Discover Your Next Adventure" + "Explore our premium offerings."
 - "Elevate Your Experience" + "Join thousands of satisfied hunters."
 
@@ -302,6 +322,7 @@ The component automatically detects external links and adds security attributes:
 ## Integration with elk-river.astro
 
 **Before** (inline, 32 lines):
+
 ```astro
 <!-- CTA -->
 <section class="bg-sign-green text-white py-12">
@@ -322,6 +343,7 @@ The component automatically detects external links and adds security attributes:
 ```
 
 **After** (component, 7 lines):
+
 ```astro
 <AdventureCTA
   heading="Stop By Before You Head Out"

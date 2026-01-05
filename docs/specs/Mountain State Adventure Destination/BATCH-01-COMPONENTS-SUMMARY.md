@@ -24,23 +24,27 @@
 ### **Week 1: Matt Builds All 4 Components**
 
 **Day 1-2: SPEC-08 (AdventureCard)**
+
 - Research ProductCard patterns
 - Design component API
 - Implement with WVWO aesthetic
 - Test with real adventure data
 
 **Day 3-4: SPEC-09 (AdventureHero)**
+
 - Analyze Summersville Lake hero
 - Design slot-based API
 - Implement camo pattern + badges
 - Create example page
 
 **Day 5: SPEC-10 (QuickStats)**
+
 - Analyze existing stats grids
 - Design flexible stats array API
 - Implement responsive grid
 
 **Day 6-7: SPEC-11 (Shared Components)**
+
 - Build GettingThere (dual-route pattern)
 - Build GearChecklist (gear array → bullets)
 - Build RelatedShop (product query)
@@ -102,6 +106,7 @@ Thanks!
 ```
 
 **Kim's Expected Response:**
+
 - "Card looks good, maybe make season tags bigger"
 - "Hero: flip image to left side"
 - "Stats: fine"
@@ -116,18 +121,21 @@ Thanks!
 **Batch 1 is COMPLETE when:**
 
 ### **Code Quality:**
+
 - [ ] All 4 components render without errors
 - [ ] TypeScript compiles (0 errors)
 - [ ] Build passes (Astro builds successfully)
 - [ ] WVWO aesthetic verified (rounded-sm, brand colors, 44px touch targets)
 
 ### **Functionality:**
+
 - [ ] AdventureCard: Renders adventures from collection, links to detail pages
 - [ ] AdventureHero: Slot-based composition works, camo pattern renders
 - [ ] QuickStats: Accepts any stats array (2-6 items), responsive grid
 - [ ] Shared Components: All 3 work with real adventure data
 
 ### **Design Review:**
+
 - [ ] Kim reviews all 4 screenshots (via Messenger)
 - [ ] Kim approves: "Yeah, these feel like us"
 - [ ] OR Kim requests changes: Matt iterates (1 round max)
@@ -138,6 +146,7 @@ Thanks!
 ## Deliverables (Batch 1 Complete)
 
 **Components Created (4 total, ~360 LOC):**
+
 1. AdventureCard.tsx (~110 LOC) - Hub grid item
 2. AdventureHero.astro (~120 LOC) - Page header with camo
 3. AdventureQuickStats.astro (~80 LOC) - Key facts grid
@@ -148,11 +157,13 @@ Thanks!
 **Wait, that's 6 components** - SPEC-11 is a bundle of 3.
 
 **Documentation:**
+
 - Component usage examples
 - Screenshot compilation for Kim
 - Kim's design approval (Messenger thread)
 
 **Integration:**
+
 - Components import into adventure detail pages
 - Work with SPEC-06 adventures collection
 - Ready for Batch 2 (templates can use these components)
@@ -162,11 +173,13 @@ Thanks!
 ## Next: Batch 2 (Templates)
 
 **After Batch 1 Complete:**
+
 - ✅ All UI components built
 - ✅ Kim design approved
 - ✅ Ready to build adventure page templates (SPEC-12-20)
 
 **Batch 2 will USE these components:**
+
 - Lake template: AdventureHero + QuickStats + GettingThere
 - WMA template: AdventureHero + GearChecklist + RelatedShop
 - River template: AdventureCard (for related adventures sidebar)

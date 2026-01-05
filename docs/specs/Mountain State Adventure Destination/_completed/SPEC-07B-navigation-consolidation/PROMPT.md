@@ -4,6 +4,7 @@
 **Created:** 2025-12-25
 **Status:** Specification Draft
 **Dependencies:**
+
 - SPEC-07 Complete ✅ (Adventures Hub filtering infrastructure)
 - Precedes: SPEC-08-11 (Components need navigation in place)
 
@@ -12,6 +13,7 @@
 ## Problem Statement
 
 Users have no way to access the Adventures Hub (`/adventures`) - the page exists but there's no navigation link. Current nav has:
+
 - `/shop` - Shop
 - `/guides` - Seasonal prep guides (buck-season, turkey-season, hunting-districts)
 - `/near` - Hunt Near Us (7 location pages)
@@ -55,6 +57,7 @@ Users have no way to access the Adventures Hub (`/adventures`) - the page exists
 **File:** `wv-wild-web/src/components/Header.astro`
 
 **Current:**
+
 ```astro
 <a href="/shop">Shop</a>
 <a href="/guides">Guides</a>
@@ -62,6 +65,7 @@ Users have no way to access the Adventures Hub (`/adventures`) - the page exists
 ```
 
 **Updated:**
+
 ```astro
 <a href="/shop">Shop</a>
 <a href="/guides">Guides</a>
@@ -70,6 +74,7 @@ Users have no way to access the Adventures Hub (`/adventures`) - the page exists
 ```
 
 **After SPEC-21-28 migrations complete:**
+
 ```astro
 <a href="/shop">Shop</a>
 <a href="/guides">Guides</a>
@@ -86,6 +91,7 @@ Users have no way to access the Adventures Hub (`/adventures`) - the page exists
 When users filter adventures, show relevant guide links:
 
 **Example: `/adventures?season=fall&activity=hunting`**
+
 ```astro
 <!-- Top of filtered results -->
 <div class="bg-brand-brown/10 border-l-4 border-l-brand-orange p-4 mb-6">
@@ -99,6 +105,7 @@ When users filter adventures, show relevant guide links:
 ```
 
 **Example: `/adventures?season=spring&activity=hunting`**
+
 ```astro
 <div class="bg-brand-brown/10 border-l-4 border-l-brand-orange p-4 mb-6">
   <p class="text-brand-brown font-body">
@@ -115,6 +122,7 @@ When users filter adventures, show relevant guide links:
 Add "Find Places to Hunt" CTAs to guide pages:
 
 **In `/guides/buck-season.astro`:**
+
 ```astro
 <!-- After gear/prep sections -->
 <section class="bg-sign-green text-white py-12">
@@ -136,6 +144,7 @@ Add "Find Places to Hunt" CTAs to guide pages:
 ```
 
 **In `/guides/turkey-season.astro`:**
+
 ```astro
 <section class="bg-sign-green text-white py-12">
   <div class="container mx-auto px-4 text-center">
@@ -221,6 +230,7 @@ Google: "west virginia turkey season 2025"
 ## SEO Considerations
 
 ### Preserve Guide URLs
+
 - `/guides/buck-season` stays (no redirect)
 - `/guides/turkey-season` stays (no redirect)
 - `/guides/hunting-districts` stays (no redirect)
@@ -228,6 +238,7 @@ Google: "west virginia turkey season 2025"
 **Why:** These pages rank for seasonal prep queries. Don't break existing SEO value.
 
 ### Sunset Hunt Near Us URLs (SPEC-28)
+
 - `/near/burnsville-lake` → 301 redirect to `/adventures/burnsville-lake`
 - `/near/elk-river` → 301 redirect to `/adventures/elk-river`
 - etc.
@@ -235,6 +246,7 @@ Google: "west virginia turkey season 2025"
 **Why:** Geographic content consolidates to Adventures. Location-specific SEO value transfers via 301s.
 
 ### New Internal Linking Opportunities
+
 - Guides link to Adventures (topical relevance signal)
 - Adventures link back to Guides (content depth signal)
 - Bidirectional linking improves crawl efficiency
@@ -281,6 +293,7 @@ Google: "west virginia turkey season 2025"
 ## Timeline
 
 **Effort:** 2-3 hours
+
 - Header update: 15 min
 - Filter-specific banners: 45 min
 - Guide CTA sections: 1 hour
@@ -293,11 +306,13 @@ Google: "west virginia turkey season 2025"
 ## Future Considerations (Post-SPEC-28)
 
 ### After /near/ Migration Complete
+
 - Remove "Hunt Near Us" from navigation
 - All geographic content accessed via Adventures
 - 301 redirects preserve old links
 
 ### Potential Footer Navigation
+
 ```
 Quick Links:
 - Shop
@@ -308,6 +323,7 @@ Quick Links:
 ```
 
 ### Breadcrumbs
+
 ```
 Adventures > Fall Hunting > Burnsville Lake WMA
 Guides > Buck Season Prep
@@ -318,12 +334,14 @@ Guides > Buck Season Prep
 ## Kim's Voice Guidelines
 
 **For cross-link banners:**
+
 - ✅ "Preparing for buck season? Read our Buck Season Prep Guide"
 - ✅ "Getting ready for turkey season? Check our Turkey Season Guide"
 - ❌ "Learn more about seasonal preparation"
 - ❌ "Optimize your hunting experience"
 
 **For CTAs:**
+
 - ✅ "Ready to Hunt? Browse Fall Hunting Destinations"
 - ✅ "Find Your Spot - Explore WV's Best Turkey Hunting Locations"
 - ❌ "Discover premium hunting opportunities"

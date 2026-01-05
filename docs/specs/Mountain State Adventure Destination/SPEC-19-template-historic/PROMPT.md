@@ -165,7 +165,7 @@ interface HistoricTemplateProps {
    - Respectful: "This battlefield saw 244 casualties in a single afternoon"
    - Educational: "The Civil War divided West Virginia families - neighbor against neighbor"
    - Storytelling: "General Floyd's retreat marked the beginning of Confederate losses in WV"
-   
+
 **Quality Gate (Kim's Voice)**:
 
 - [ ] Run the "Counter Test": Does this sound like Kim explaining it?

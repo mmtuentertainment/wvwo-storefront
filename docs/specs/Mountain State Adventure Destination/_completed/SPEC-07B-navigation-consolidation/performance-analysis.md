@@ -14,6 +14,7 @@
 PR #60 introduces minimal performance impact with optimal hydration strategy. The GuideBanner component adds only 0.4KB gzipped JS with lazy loading via `client:visible`, ensuring zero impact on initial page load.
 
 **Key Metrics**:
+
 - Bundle size: +0.4KB gzipped (0.94KB raw)
 - Hydration strategy: Optimal (`client:visible` - loads only when scrolled into view)
 - Network requests: 0 new API calls
@@ -68,6 +69,7 @@ For comparison, GuideBanner is one of the smallest React components in the bundl
 | `client:only` | Skip SSR, client-only | Browser APIs (URLSearchParams) | ❌ Not needed |
 
 **Rationale**:
+
 - GuideBanner is positioned **below the fold** (after hero + breadcrumb navigation)
 - Component is **conditional** (only renders for specific season+activity combos)
 - No user interaction required on page load
@@ -116,6 +118,7 @@ export function GuideBanner({ season = [], activity = [] }: GuideBannerProps) {
 ```
 
 **Time Complexity**: O(1)
+
 - Two array lookups with `.includes()` (max 2 elements each)
 - No loops, recursion, or expensive computations
 
@@ -145,6 +148,7 @@ Time  Event                          Impact
 ### Conditional Rendering Optimization
 
 GuideBanner only renders for 2 scenarios:
+
 1. `season=fall` AND `activity=hunting` (Buck Season)
 2. `season=spring` AND `activity=hunting` (Turkey Season)
 
@@ -180,6 +184,7 @@ PR #60 does not modify Service Worker caching strategy. GuideBanner.js will be c
 **Winner**: `client:visible` or `client:only` (identical performance for this use case)
 
 **Why not client:only?**
+
 - GuideBanner doesn't use browser-only APIs (no `window`, `URLSearchParams`, etc.)
 - SSR provides semantic HTML for SEO (banner content indexed by search engines)
 - `client:visible` gives better SEO while maintaining identical performance

@@ -54,6 +54,7 @@ D specs/Mountain State Adventure Destination/SPEC-07-adventures-hub-filtering/PR
 ### Analysis
 
 **User Confirmed**: plan.md files are **intentionally comprehensive** (1000-2000 lines) and contain:
+
 - Complete phase breakdown (10 phases, 42 tasks)
 - Risk assessment matrix
 - Timeline estimates
@@ -103,6 +104,7 @@ D specs/Mountain State Adventure Destination/SPEC-07-adventures-hub-filtering/PR
 - **Usage**: Phase 2/3 WMA content generation at scale (SPEC-13 through SPEC-70)
 
 **Evidence**:
+
 ```markdown
 # CLAUDE.md Lines 250-270
 ### agentdb-advanced
@@ -125,23 +127,28 @@ and continuous improvement.
 ### 🔴 CRITICAL (Breaks Functionality) - 3 Issues
 
 #### 1. Undefined `bg-camo` Class
+
 **File**: `wv-wild-web/src/pages/near/cranberry.astro:122`
 **Issue**: Uses undefined Tailwind class `bg-camo`
 **Impact**: Visual rendering broken (no camo background)
 **Fix**:
+
 ```diff
 - <div class="absolute inset-0 opacity-5 pointer-events-none bg-camo"></div>
 + <div class="absolute inset-0 opacity-5 pointer-events-none bg-noise"></div>
 ```
 
 #### 2. Hardcoded Acreage Values (2 instances)
+
 **Files**:
+
 - `wv-wild-web/src/pages/near/burnsville-lake.astro:62`
 - `wv-wild-web/src/pages/near/burnsville-lake.astro:83`
 
 **Issue**: Hardcoded `12,579 Acres` instead of schema field
 **Impact**: Data inconsistency, schema fields ignored
 **Fix**:
+
 ```diff
 - 12,579 Acres
 + {adventure.data.acreage} Acres
@@ -151,10 +158,12 @@ and continuous improvement.
 ```
 
 #### 3. Division by Zero Risk
+
 **File**: `tests/performance/lighthouse-audit.mjs:184-187`
 **Issue**: No guard clause if all audits fail (`validResults.length === 0`)
 **Impact**: Runtime crash during error scenarios
 **Fix**:
+
 ```diff
 const validResults = results.filter(r => r !== null);
 + if (validResults.length === 0) {
@@ -169,41 +178,49 @@ const avgPerformance = validResults.reduce((sum, r) => sum + r.metrics.scores.pe
 ### 🟡 IMPORTANT (Type Safety/Best Practices) - 8 Issues
 
 #### 4. Unused Import
+
 **File**: `tests/performance/bundle-analyzer.mjs:13`
 **Issue**: `readFile` imported but never used
 **Fix**: Remove from import statement
 
 #### 5. Icon Property Never Implemented
+
 **File**: `wv-wild-web/src/components/adventure/AdventureFeatureSection.astro:30-31`
 **Issue**: Icon prop defined but not rendered
 **Fix**: Either implement icon rendering or remove prop
 
 #### 6. Dynamic Tailwind Class Risk
+
 **File**: `wv-wild-web/src/components/adventure/AdventureCTA.astro:146`
 **Issue**: `hover:${currentVariant.primaryText}` may not be in safelist
 **Fix**: Add to Tailwind safelist config or use static classes
 
 #### 7. Hardcoded Background in Variant System
+
 **File**: `wv-wild-web/src/components/adventure/AdventureAmenitiesGrid.astro:109`
 **Issue**: `bg-white` conflicts with variant prop
 **Fix**: Use variant-based background
 
 #### 8. Implementation Logic in Test Files
+
 **File**: `wv-wild-web/src/components/adventure/__tests__/AdventureFeatureSection.test.ts:22-50`
 **Issue**: Helper functions duplicated in test instead of imported
 **Fix**: Export from component and import in test
 
 #### 9. Invalid Playwright Throttling API
+
 **File**: `docs/specifications/SPEC-12-TDD-STRATEGY.md:1328-1331`
 **Issue**: `route.continue({ throttling: '3G' })` not valid API
 **Fix**: Use Chrome DevTools Protocol network emulation
 
 #### 10. Undefined Schema Reference in Test
+
 **File**: `docs/specifications/SPEC-12-TDD-STRATEGY.md:175-177`
 **Issue**: `adventuresSchema` not imported
 **Fix**: Add import or use inline schema
 
 #### 11. Incorrect Import Path in Docs
+
 **File**: `docs/specifications/SPEC-12-TDD-STRATEGY.md:77-79`
 **Issue**: `../content.config` path likely wrong for test files
 **Fix**: Use `../../src/content.config` or absolute path
@@ -213,31 +230,37 @@ const avgPerformance = validResults.reduce((sum, r) => sum + r.metrics.scores.pe
 ### 🟢 MINOR (Documentation/Style) - 6 Issues
 
 #### 12. Duplicate Numbering in Docs
+
 **File**: `docs/architecture/SPEC-12-accessibility-architecture.md:18-19`
 **Issue**: Two principle #3s listed
 **Fix**: Renumber to 3, 4
 
 #### 13. Placeholder Contact Info
+
 **File**: `docs/architecture/SPEC-12-accessibility-architecture.md:1186-1188`
 **Issue**: Example contact data should be actual WVWO info
 **Fix**: Update before production
 
 #### 14. Aggressive Reduced-Motion Override
+
 **File**: `docs/specs/.../architecture/08-accessibility-architecture.md:290-295`
 **Issue**: `* { animation: none !important }` may break features
 **Fix**: Target specific animations
 
 #### 15. String Interpolation Syntax Error in Docs
+
 **File**: `docs/specs/.../architecture/09-integration-architecture.md:115`
 **Issue**: Heading uses wrong interpolation syntax
 **Fix**: Use template literal backticks
 
 #### 16. Netlify URLs in Cloudflare Project
+
 **File**: `docs/specifications/SPEC-12-PERFORMANCE-ARCHITECTURE.md:678-679`
 **Issue**: Lighthouse CI references `netlify.app` instead of `pages.dev`
 **Fix**: Update to Cloudflare Pages URLs
 
 #### 17. Performance Beacon Conflicts with Zero-JS
+
 **File**: `docs/specifications/SPEC-12-PERFORMANCE-ARCHITECTURE.md:731-748`
 **Issue**: Analytics script contradicts zero-JS principle
 **Fix**: Make optional or move to separate config
@@ -248,12 +271,12 @@ const avgPerformance = validResults.reduce((sum, r) => sum + r.metrics.scores.pe
 
 No action needed - these are Greptile acknowledging good practices:
 
-18. **Excellent validation** - `int().positive()` for acreage (line 102)
-19. **Well-structured nested schemas** for WMA data (lines 36-77)
-20. **Appropriate 1000ms timeout** for CSS animations in visual tests
-21. **Enforces WVWO design rule** - only `rounded-sm` allowed
-22. **0.5% tolerance** for visual regression tests
-23. **Aligns with visual regression rule** for timeouts
+1. **Excellent validation** - `int().positive()` for acreage (line 102)
+2. **Well-structured nested schemas** for WMA data (lines 36-77)
+3. **Appropriate 1000ms timeout** for CSS animations in visual tests
+4. **Enforces WVWO design rule** - only `rounded-sm` allowed
+5. **0.5% tolerance** for visual regression tests
+6. **Aligns with visual regression rule** for timeouts
 24-30. Various positive acknowledgments of good patterns
 
 ---
@@ -268,14 +291,14 @@ No action needed - these are Greptile acknowledging good practices:
 
 ### Should Fix (Optional but Recommended) (8 items)
 
-4. Remove unused `readFile` import
-5. Implement or remove icon prop
-6. Add dynamic classes to Tailwind safelist
-7. Fix hardcoded bg-white in variant system
-8. Extract test helpers to component
-9. Fix Playwright throttling API
-10. Add missing schema import
-11. Correct test import paths
+1. Remove unused `readFile` import
+2. Implement or remove icon prop
+3. Add dynamic classes to Tailwind safelist
+4. Fix hardcoded bg-white in variant system
+5. Extract test helpers to component
+6. Fix Playwright throttling API
+7. Add missing schema import
+8. Correct test import paths
 
 ### Can Defer (Documentation cleanup) (6 items)
 
@@ -296,9 +319,11 @@ We consolidated `specs/` → `docs/specs/` with complete content. The flagged fi
 
 **Evidence**: `git diff --name-status origin/main` shows:
 ```
+
 D specs/Mountain State Adventure Destination/SPEC-05-.../PROMPT.md
 D specs/Mountain State Adventure Destination/SPEC-06-.../PROMPT.md
 ...67 total deletions
+
 ```
 
 ### plan.md Line Limit (Comment 36) - By Design ✅

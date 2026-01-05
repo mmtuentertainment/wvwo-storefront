@@ -16,6 +16,7 @@ Complete dependency analysis and critical path planning for SPEC-14 River Templa
 3. **Critical path analysis** for time optimization
 
 **Key Metrics:**
+
 - **Total Tasks:** 96 tasks (65 core + 31 migration)
 - **Sequential Time:** 12 hours (one developer)
 - **Parallel Time:** 2.5 hours (7 developers, optimal)
@@ -54,6 +55,7 @@ Complete dependency analysis and critical path planning for SPEC-14 River Templa
 **Read:** CRITICAL-PATH-VISUAL.md (10 minutes)
 
 **Key Decisions:**
+
 1. Choose team size (solo / 3 devs / 7 devs)
 2. Allocate time budget (2.5h / 5h / 10h)
 3. Set quality gate checkpoints
@@ -66,6 +68,7 @@ Complete dependency analysis and critical path planning for SPEC-14 River Templa
 **Read:** EXECUTION-STRATEGY.md (15 minutes)
 
 **Key Actions:**
+
 1. Review team configuration recommendations
 2. Assign tasks based on dependencies
 3. Set up daily standups for coordination
@@ -78,6 +81,7 @@ Complete dependency analysis and critical path planning for SPEC-14 River Templa
 **Read:** tasks.md + CRITICAL-PATH-VISUAL.md (20 minutes)
 
 **Key Steps:**
+
 1. Start with T-001 (Create RapidSchema)
 2. Follow task dependencies in tasks.md
 3. Validate at each quality gate
@@ -124,18 +128,22 @@ Complete dependency analysis and critical path planning for SPEC-14 River Templa
 ### 69% of Tasks Can Run in Parallel
 
 **Wave 1: Schema Creation (Phase 1)**
+
 - All 7 Zod schemas (T-001 through T-007)
 - Reduces 2 hours → 30 minutes (7 developers)
 
 **Wave 2: Component Sections (Phase 2)**
+
 - All 7 sections after scaffolding (T-019 through T-025)
 - Reduces 6 hours → 60 minutes (7 developers)
 
 **Wave 3: SEO Entities (Phase 4)**
+
 - All 4 schema entities (T-038 through T-041)
 - Reduces 1.75 hours → 40 minutes (4 developers)
 
 **Wave 4: Example Data (Phase 5)**
+
 - Both data files (T-047, T-048)
 - Reduces 45 minutes → 30 minutes (2 developers)
 
@@ -144,11 +152,14 @@ Complete dependency analysis and critical path planning for SPEC-14 River Templa
 ## 🎯 Quality Gates (Must Pass)
 
 ### Gate 1: Type System Complete (After Phase 1)
+
 ```bash
 npm run typecheck  # MUST pass with 0 errors
 npm run build      # MUST compile without errors
 ```
+
 **Checklist:**
+
 - ✓ All 7 Zod schemas export types correctly
 - ✓ RiverTemplateProps interface complete
 - ✓ Type guard function works
@@ -159,11 +170,14 @@ npm run build      # MUST compile without errors
 ---
 
 ### Gate 2: Component Complete (After Phase 2)
+
 ```bash
 npm run build      # MUST compile
 npm run dev        # Component MUST render
 ```
+
 **WVWO Compliance (Critical):**
+
 - ✓ Fonts: ONLY font-display, font-hand, font-body
 - ✓ Colors: brand-brown, sign-green, brand-cream, brand-orange (<5%)
 - ✓ Borders: ONLY rounded-sm (no md/lg/xl)
@@ -174,11 +188,14 @@ npm run dev        # Component MUST render
 ---
 
 ### Gate 3: Collections Integration (After Phase 3)
+
 ```bash
 npm run typecheck  # MUST pass
 npm run build      # MUST compile
 ```
+
 **Checklist:**
+
 - ✓ Type discriminator includes 'river'
 - ✓ Type guard filters correctly
 - ✓ ZERO breaking changes to existing lake/WMA content
@@ -188,12 +205,15 @@ npm run build      # MUST compile
 ---
 
 ### Gate 4: SEO Component Complete (After Phase 4)
+
 **Google Rich Results Test:**
+
 1. Build and extract JSON-LD
-2. Go to: https://search.google.com/test/rich-results
+2. Go to: <https://search.google.com/test/rich-results>
 3. Validate
 
 **Requirements:**
+
 - ✓ Zero errors
 - ✓ TouristAttraction detected
 - ✓ LocalBusiness entities detected
@@ -204,11 +224,14 @@ npm run build      # MUST compile
 ---
 
 ### Gate 5: Implementation Reference (After Phase 5)
+
 ```bash
 npm run typecheck  # All data files MUST typecheck
 ls src/data/rivers/  # Verify all files created
 ```
+
 **Checklist:**
+
 - ✓ README.md documents pattern
 - ✓ _example.ts complete (300 lines)
 - ✓ gauley.ts has clear TODO markers
@@ -220,22 +243,28 @@ ls src/data/rivers/  # Verify all files created
 ## 🔴 The 3 Killer Bottlenecks
 
 ### 1. T-008 (RiverTemplateProps) - BLOCKS 8 TASKS
+
 **Impact:** If delayed, entire project stalls
 **Mitigation:**
+
 - Complete all 7 schemas before starting
 - Copy LakeTemplateProps structure
 - Assign most experienced TypeScript developer
 
 ### 2. T-016 (Component Scaffolding) - BLOCKS 9 TASKS
+
 **Impact:** Delays 4 hours of component work
 **Mitigation:**
+
 - Copy LakeTemplate.astro directly
 - Validate hero rendering immediately
 - Test all props destructuring
 
 ### 3. T-019 (Rapids Section) - 60 MINUTES
+
 **Impact:** Longest single task in project
 **Mitigation:**
+
 - Pre-test color-coding logic
 - Have test data ready (5 rapids)
 - Let others work on T-020/021 in parallel
@@ -245,35 +274,41 @@ ls src/data/rivers/  # Verify all files created
 ## 📅 Recommended Timelines
 
 ### Solo Developer (Realistic: 10 hours)
+
 ```
 Day 1 (4h):  Phase 1 + Phase 2a
 Day 2 (4h):  Phase 2b + Phase 3
 Day 3 (2h):  Phase 4 + Phase 5
 ```
+
 **Pros:** No coordination overhead
 **Cons:** Longest total time
 
 ---
 
 ### Small Team - 3 Developers (5 hours)
+
 ```
 Hour 1-2:  Phase 1 (divide schemas)
 Hour 2-3:  Phase 2 (parallel sections)
 Hour 3-4:  Phase 3, 4, 5 (parallel)
 Hour 4-5:  Testing + validation
 ```
+
 **Pros:** 5 hours saved, manageable coordination
 **Cons:** Requires daily standups
 
 ---
 
 ### Large Team - 7 Developers (2.5 hours)
+
 ```
 0:00-0:30:  Phase 1 (all schemas parallel)
 0:30-1:15:  T-008 + T-016 (critical path)
 1:15-2:15:  Phase 2 + 4 + 5 (massive parallel)
 2:15-2:30:  Final validation
 ```
+
 **Pros:** Fastest possible (9.5 hours saved)
 **Cons:** High coordination overhead
 
@@ -284,12 +319,14 @@ Hour 4-5:  Testing + validation
 **Every component task must pass this checklist:**
 
 ### Fonts ✓
+
 - ✅ `font-display` (headings ONLY)
 - ✅ `font-hand` (Kim's tips ONLY)
 - ✅ `font-body` (all other text)
 - ❌ NO Inter, Poppins, DM Sans, system-ui
 
 ### Colors ✓
+
 - ✅ `brand-brown` (primary brown)
 - ✅ `sign-green` (forest green)
 - ✅ `brand-cream` (aged paper)
@@ -297,10 +334,12 @@ Hour 4-5:  Testing + validation
 - ❌ NO purple, pink, neon gradients
 
 ### Borders ✓
+
 - ✅ `rounded-sm` ONLY (0.125rem)
 - ❌ NO rounded-md, rounded-lg, rounded-xl
 
 ### Effects ✓
+
 - ❌ NO glassmorphism
 - ❌ NO backdrop-blur
 - ❌ NO parallax scrolling
@@ -312,6 +351,7 @@ Hour 4-5:  Testing + validation
 ## 📈 Success Metrics
 
 ### Velocity Targets
+
 | Phase | Target Time | Critical Threshold |
 |-------|------------|-------------------|
 | Phase 1 | ≤2 hours | >2.5 hours |
@@ -321,6 +361,7 @@ Hour 4-5:  Testing + validation
 | Phase 5 | ≤1 hour | >1.5 hours |
 
 ### Quality Targets
+
 | Metric | Target | Critical Threshold |
 |--------|--------|-------------------|
 | Type Coverage | 100% | <95% |
@@ -336,16 +377,19 @@ Hour 4-5:  Testing + validation
 ### High-Risk Items
 
 **Risk 1: T-008 Delays**
+
 - **Impact:** HIGH (blocks 8 tasks)
 - **Likelihood:** MEDIUM
 - **Mitigation:** Pre-approve all 7 schemas, use LakeTemplateProps template
 
 **Risk 2: WVWO Compliance Violations**
+
 - **Impact:** HIGH (rework required)
 - **Likelihood:** MEDIUM
 - **Mitigation:** Implement scoped styles first, automated lint rules
 
 **Risk 3: Rich Results Test Failures**
+
 - **Impact:** MEDIUM (SEO benefits lost)
 - **Likelihood:** MEDIUM
 - **Mitigation:** Reference SchemaAdventureHero pattern, test entities in isolation
@@ -369,6 +413,7 @@ Hour 4-5:  Testing + validation
    - Add in Phase 2 iteration
 
 **⚠️ DO NOT SKIP:**
+
 - Phase 1 (Type System) - blocks everything
 - T-016 (Component Scaffolding) - blocks all sections
 - T-019 (Rapids Section) - pattern reference
@@ -379,6 +424,7 @@ Hour 4-5:  Testing + validation
 ## ✅ Final Acceptance Criteria
 
 **Project is COMPLETE when:**
+
 - [x] All 65 core tasks completed (Phases 1-6)
 - [x] All 5 quality gates passed
 - [x] `npm run typecheck` passes
@@ -389,6 +435,7 @@ Hour 4-5:  Testing + validation
 - [x] Content team has implementation guide
 
 **Project is READY FOR MERGE when:**
+
 - [x] All success criteria met
 - [x] PR review checklist complete
 - [x] No breaking changes to existing content
@@ -400,14 +447,17 @@ Hour 4-5:  Testing + validation
 ## 📞 Support & Questions
 
 ### Documentation Issues
+
 - Check architecture/MASTER-ARCHITECTURE.md for design decisions
 - Review spec.md for original requirements
 
 ### Implementation Issues
+
 - Check tasks.md for detailed code snippets
 - Review TASK-DEPENDENCY-GRAPH.md for dependencies
 
 ### Planning Issues
+
 - Check EXECUTION-STRATEGY.md for team configurations
 - Review CRITICAL-PATH-VISUAL.md for quick reference
 
@@ -432,6 +482,7 @@ npm run dev
 ### 3. Start Implementation
 
 **First Task:** T-001 (Create RapidSchema)
+
 - **File:** `src/types/adventure.ts`
 - **Line:** 433
 - **Time:** 30 minutes

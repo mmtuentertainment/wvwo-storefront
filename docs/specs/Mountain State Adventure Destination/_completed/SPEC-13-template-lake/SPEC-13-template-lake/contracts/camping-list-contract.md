@@ -44,11 +44,13 @@ interface CampingFacility {
 **NO TRANSFORMATION REQUIRED** - Direct pass-through of existing type.
 
 **Source Data** (from LakeTemplateProps):
+
 ```typescript
 campgrounds: CampingFacility[];  // Uses existing SPEC-12 type
 ```
 
 **Usage** (in LakeTemplate.astro):
+
 ```astro
 <!-- Direct pass-through, no transformation needed -->
 <AdventureCampingList
@@ -59,6 +61,7 @@ campgrounds: CampingFacility[];  // Uses existing SPEC-12 type
 ```
 
 **Example Data**:
+
 ```typescript
 campgrounds: [
   {
@@ -97,6 +100,7 @@ campgrounds: [
 ### Recommended Props
 
 **For Lakes**:
+
 ```astro
 <AdventureCampingList
   facilities={campgrounds}     // Direct from props
@@ -111,6 +115,7 @@ campgrounds: [
 **Order**: FACILITIES content - camping info after fishing details
 
 **Context**:
+
 ```astro
 <!-- Where to Fish (custom section) -->
 <section class="py-12 md:py-16 bg-white">
@@ -153,6 +158,7 @@ campgrounds: [
 ### Array Size Limits (NFR-009)
 
 **Performance Constraint**:
+
 - `campgrounds` max: **10 items**
 - Lighthouse performance score must remain 90+ within limit
 - Typical WV lake: 3-6 campgrounds (well within limit)
@@ -160,12 +166,15 @@ campgrounds: [
 ### Edge Cases
 
 **Empty Campgrounds Array**:
+
 ```typescript
 campgrounds: []  // ✅ VALID - Section hides, no error
 ```
+
 Component conditionally renders - if array empty, entire camping section hidden.
 
 **No Reservation Link**:
+
 ```typescript
 {
   type: 'Primitive Camping',
@@ -176,6 +185,7 @@ Component conditionally renders - if array empty, entire camping section hidden.
 ```
 
 **Missing Optional Fields**:
+
 ```typescript
 {
   type: 'Campground Name',
@@ -192,6 +202,7 @@ Component conditionally renders - if array empty, entire camping section hidden.
 ### Reservation Link Pattern
 
 **Component Rendering**:
+
 ```astro
 {facility.link && (
   <a
@@ -206,10 +217,12 @@ Component conditionally renders - if array empty, entire camping section hidden.
 ```
 
 **Security Attributes**:
+
 - `target="_blank"`: Opens in new tab
 - `rel="noopener noreferrer"`: Prevents window.opener access (security)
 
 **WVWO Styling**:
+
 - `bg-sign-green`: Green button (matches fishing theme)
 - `rounded-sm`: ONLY allowed border-radius
 - `hover:bg-sign-green/90`: 90% opacity on hover
@@ -217,6 +230,7 @@ Component conditionally renders - if array empty, entire camping section hidden.
 ### Phone Link Pattern
 
 **Component Rendering**:
+
 ```astro
 {facility.contact && (
   <p class="text-brand-brown">
@@ -229,6 +243,7 @@ Component conditionally renders - if array empty, entire camping section hidden.
 ```
 
 **Processing**:
+
 - Strips non-numeric characters for `tel:` link: `(304) 872-3459` → `tel:3048723459`
 - Displays original format: `(304) 872-3459`
 - Clickable on mobile devices (auto-dials)
@@ -294,6 +309,7 @@ it('hides camping section when campgrounds array empty', async () => {
 ### Expected Rendering
 
 **Desktop (1920px) - 2 Column Grid**:
+
 ```
 ┌──────────────────────────────┬──────────────────────────────┐
 │ Battle Run Campground        │ Salmon Run Campground        │
@@ -307,9 +323,11 @@ it('hides camping section when campgrounds array empty', async () => {
 │ [Reserve Now →]              │ [Reserve Now →]              │
 └──────────────────────────────┴──────────────────────────────┘
 ```
+
 White cards with subtle shadow, green badge for site count
 
 **Mobile (375px) - 1 Column Stacked**:
+
 ```
 ┌──────────────────────────────┐
 │ Battle Run Campground        │
@@ -327,6 +345,7 @@ White cards with subtle shadow, green badge for site count
 │ [Reserve Now →]              │
 └──────────────────────────────┘
 ```
+
 Full-width cards, stacked vertically
 
 ---
@@ -345,9 +364,11 @@ import type { CampingFacility } from '../../types/adventure';
 ### Type Dependencies
 
 **From `types/adventure.ts`**:
+
 - `CampingFacility` interface (existing SPEC-12 type)
 
 **SPEC-12 Component**:
+
 - AdventureCampingList.astro (lines 1-204 approx)
 
 ---
@@ -426,6 +447,7 @@ campgrounds: []  // Empty array - section hidden
 ## Change Log
 
 **v1.0.0** (2025-12-29):
+
 - Initial contract specification
 - Direct pass-through pattern (no transformation)
 - Uses existing CampingFacility type from SPEC-12

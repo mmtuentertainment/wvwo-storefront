@@ -30,7 +30,7 @@ speckit:
     - "SEO architecture (20 critical gaps)"
     - "Template patterns (5 content types)"
     - "Hybrid multi-template architecture"
-```
+```typescript
 
 ---
 
@@ -145,10 +145,12 @@ Based on comprehensive research identifying 63 gaps across 7 dimensions:
 ### 2.1 Core Requirements
 
 #### FR-001: Type System Creation
+
 **Priority:** P0
 **Description:** Create `state-park-types.ts` following the pattern established by `backcountry-types.ts` and `cave-types.ts`.
 
-**Acceptance Criteria:**
+### Acceptance Criteria:
+
 - [ ] File located at `src/types/state-park-types.ts`
 - [ ] All schemas use Zod from `astro/zod`
 - [ ] Imports shared types from `adventure.ts` (GearItemSchema, CoordinatesSchema, etc.)
@@ -161,20 +163,24 @@ Based on comprehensive research identifying 63 gaps across 7 dimensions:
 - [ ] Supports 7 seasonal program types
 
 #### FR-002: Content Config Extension
+
 **Priority:** P0
 **Description:** Extend `content.config.ts` to recognize `'state-park'` adventure type.
 
-**Acceptance Criteria:**
+### Acceptance Criteria:
+
 - [ ] Add `'state-park'` to type enum: `z.enum(['adventure', 'wma', 'lake', 'river', 'ski', 'cave', 'backcountry', 'state-park'])`
 - [ ] Import state park schemas from `./types/state-park-types`
 - [ ] Add optional state-park-specific fields to adventures schema
 - [ ] Zero breaking changes to existing content
 
 #### FR-003: Facility Type System
+
 **Priority:** P0 (CRITICAL)
 **Description:** Comprehensive facility categorization covering all park amenity types.
 
-**Acceptance Criteria:**
+### Acceptance Criteria:
+
 - [ ] `FacilityTypeSchema` includes minimum 10 types:
   - `'lodge'` - Park lodge/inn
   - `'cabin'` - Rental cabins
@@ -191,10 +197,12 @@ Based on comprehensive research identifying 63 gaps across 7 dimensions:
 - [ ] Kim's voice descriptions for each facility type
 
 #### FR-004: Lodging Amenities Detail
+
 **Priority:** P0
 **Description:** Detailed amenity tracking for park lodging (15+ amenities identified).
 
-**Acceptance Criteria:**
+### Acceptance Criteria:
+
 - [ ] `LodgingAmenitySchema` includes:
   - Kitchen facilities (full/partial/none)
   - Bathrooms (count, accessibility)
@@ -209,10 +217,12 @@ Based on comprehensive research identifying 63 gaps across 7 dimensions:
 - [ ] Conditional rendering based on amenity availability
 
 #### FR-005: Camping Amenities
+
 **Priority:** P0
 **Description:** Detailed campground and campsite amenity specifications.
 
-**Acceptance Criteria:**
+### Acceptance Criteria:
+
 - [ ] `CampingSchema` includes:
   - Site types (tent, RV, electric, full-hookup)
   - Hookup availability (20/30/50 amp, water, sewer)
@@ -228,10 +238,12 @@ Based on comprehensive research identifying 63 gaps across 7 dimensions:
 - [ ] Visual site type badges
 
 #### FR-006: Trail Difficulty Industry Standards
+
 **Priority:** P0
 **Description:** Use industry-standard difficulty colors that OVERRIDE WVWO brand palette per CLAUDE.md (same as backcountry).
 
-**Acceptance Criteria:**
+### Acceptance Criteria:
+
 - [ ] Reuse `DifficultySchema` from `adventure.ts`: `['easy', 'moderate', 'challenging', 'rugged']`
 - [ ] Apply `DIFFICULTY_COLORS` with industry-standard mapping:
   - easy: `bg-sign-green text-white` (Green circle ●)
@@ -241,10 +253,12 @@ Based on comprehensive research identifying 63 gaps across 7 dimensions:
 - [ ] Include `DIFFICULTY_SHAPES` for colorblind accessibility
 
 #### FR-007: Accessibility Features (ADA Compliance)
+
 **Priority:** P0 (CRITICAL)
 **Description:** Comprehensive accessibility tracking across all park facilities and trails.
 
-**Acceptance Criteria:**
+### Acceptance Criteria:
+
 - [ ] `AccessibilityRatingSchema` with levels:
   - `'fully-accessible'` - ADA compliant, paved, <5% grade
   - `'moderately-accessible'` - Paved/hard surface, 5-8% grade
@@ -261,10 +275,12 @@ Based on comprehensive research identifying 63 gaps across 7 dimensions:
 - [ ] Service animal policy documentation
 
 #### FR-008: Scenic Overlooks
+
 **Priority:** P1
 **Description:** Named viewpoint documentation with accessibility and best viewing times.
 
-**Acceptance Criteria:**
+### Acceptance Criteria:
+
 - [ ] `ScenicOverlookSchema` includes:
   - Overlook name
   - Description of view
@@ -278,10 +294,12 @@ Based on comprehensive research identifying 63 gaps across 7 dimensions:
 - [ ] Kim's voice photo tips
 
 #### FR-009: Visitor Center & Nature Center
+
 **Priority:** P1
 **Description:** Comprehensive visitor center and nature center information.
 
-**Acceptance Criteria:**
+### Acceptance Criteria:
+
 - [ ] `VisitorCenterSchema` includes:
   - Center name
   - Operating hours (seasonal variations)
@@ -299,10 +317,12 @@ Based on comprehensive research identifying 63 gaps across 7 dimensions:
 - [ ] Conditional rendering when centers exist
 
 #### FR-010: Reservation System Integration
+
 **Priority:** P0
 **Description:** Integration patterns for state park reservation systems.
 
-**Acceptance Criteria:**
+### Acceptance Criteria:
+
 - [ ] `ReservationInfoSchema` includes:
   - Reservation URL (WV Parks online booking)
   - Reservation phone with hours
@@ -315,10 +335,12 @@ Based on comprehensive research identifying 63 gaps across 7 dimensions:
 - [ ] Kim's voice: "Book early for weekends and fall foliage season"
 
 #### FR-011: Seasonal Programming
+
 **Priority:** P1
 **Description:** Structured seasonal programs and events (7 program types identified).
 
-**Acceptance Criteria:**
+### Acceptance Criteria:
+
 - [ ] `ProgramTypeSchema` with 7 types:
   - `'ranger-led'` - Ranger-led hikes, talks
   - `'educational-workshop'` - Skills workshops
@@ -339,10 +361,12 @@ Based on comprehensive research identifying 63 gaps across 7 dimensions:
 - [ ] Seasonal filtering and display
 
 #### FR-012: Fees and Pricing
+
 **Priority:** P0
 **Description:** Comprehensive fee structure for all park services.
 
-**Acceptance Criteria:**
+### Acceptance Criteria:
+
 - [ ] `FeeSchema` includes:
   - Fee type (`'day-use' | 'camping' | 'cabin' | 'shelter' | 'boat-launch' | 'special-use'`)
   - Amount (or "Free")
@@ -354,10 +378,12 @@ Based on comprehensive research identifying 63 gaps across 7 dimensions:
 - [ ] Clear visual hierarchy (free vs paid)
 
 #### FR-013: Pet Policy
+
 **Priority:** P1
 **Description:** Structured pet policy information.
 
-**Acceptance Criteria:**
+### Acceptance Criteria:
+
 - [ ] `PetPolicySchema` includes:
   - Pets allowed (yes/no/restricted)
   - Leash requirements (length)
@@ -368,10 +394,12 @@ Based on comprehensive research identifying 63 gaps across 7 dimensions:
 - [ ] Visual pet-friendly badges on applicable facilities
 
 #### FR-014: Park Rules and Regulations
+
 **Priority:** P1
 **Description:** Organized park rules by category.
 
-**Acceptance Criteria:**
+### Acceptance Criteria:
+
 - [ ] `ParkRulesSchema` includes categories:
   - Alcohol policy
   - Quiet hours
@@ -384,10 +412,12 @@ Based on comprehensive research identifying 63 gaps across 7 dimensions:
 - [ ] Kim's voice: "We want everyone to have a good time - just be respectful of others and the park"
 
 #### FR-015: SEO Schema Implementation
+
 **Priority:** P0 (CRITICAL)
 **Description:** Comprehensive schema.org structured data for search visibility (20 SEO gaps addressed).
 
-**Acceptance Criteria:**
+### Acceptance Criteria:
+
 - [ ] `TouristAttraction` primary type
 - [ ] `LocalBusiness` for park lodge
 - [ ] `CampingPitch` for campgrounds
@@ -410,7 +440,7 @@ Based on comprehensive research identifying 63 gaps across 7 dimensions:
 
 ### 3.0 Required vs Optional Fields
 
-**Minimum Viable State Park Page (6 Required Fields):**
+### Minimum Viable State Park Page (6 Required Fields):
 
 | Field | Type | Rationale |
 |-------|------|-----------|
@@ -421,12 +451,14 @@ Based on comprehensive research identifying 63 gaps across 7 dimensions:
 | `quickHighlights` | string[] | Key features for hero |
 | `fees` | FeeSchema[] | Visitor planning critical |
 
-**Important Arrays (show empty state message when empty):**
+### Important Arrays (show empty state message when empty):
+
 - `trails` - "Trail information coming soon"
 - `facilities` - "Facility details coming soon"
 - `programs` - "Check back for seasonal programs"
 
-**Optional Arrays (hide when empty):**
+### Optional Arrays (hide when empty):
+
 - `scenicOverlooks`, `nearbyAttractions`, `relatedShop`
 
 ### 3.1 Complete TypeScript Interfaces
@@ -1517,11 +1549,12 @@ export function isStateParkAdventure(adventure: any): boolean {
     </p>
   </div>
 )}
-```
+```markdown
 
 ### 4.4 Reusable Components
 
 Import and reuse from existing templates where applicable:
+
 - Difficulty badges from backcountry template
 - Stat cards from adventure.ts
 - Image galleries (if created)
@@ -1770,7 +1803,7 @@ const schema = {
     }),
   ],
 };
-```
+```javascript
 
 ### 5.2 Meta Tags
 
@@ -2324,7 +2357,7 @@ nearbyAttractions:
 
 <!-- Optional prose content -->
 Blackwater Falls State Park has been welcoming families since 1937. The park's centerpiece is the stunning 62-foot waterfall that gives the park its name...
-```
+```markdown
 
 ### 6.2 Minimum Viable Example
 
@@ -2430,7 +2463,7 @@ describe('StateParkTemplate', () => {
     // Test accessibility badges
   });
 });
-```
+```markdown
 
 ### 7.2 Integration Tests
 
@@ -2480,7 +2513,7 @@ describe('StateParkTemplate Accessibility', () => {
     // Test screen reader support
   });
 });
-```
+```markdown
 
 ### 7.4 SEO Tests
 
@@ -2527,7 +2560,7 @@ test('StateParkTemplate mobile view matches snapshot', async ({ page }) => {
   await page.goto('/state-parks/blackwater-falls');
   await expect(page).toHaveScreenshot('blackwater-falls-mobile.png');
 });
-```
+```typescript
 
 ### 7.6 Testing Coverage Goals
 
@@ -2545,18 +2578,21 @@ test('StateParkTemplate mobile view matches snapshot', async ({ page }) => {
 
 ### 8.1 Phase 1: Foundation (4-6 hours)
 
-**T-001: Create Type System**
+### T-001: Create Type System
+
 - [ ] Create `src/types/state-park-types.ts`
 - [ ] Implement all Zod schemas (10 facility types, accessibility, fees, etc.)
 - [ ] Add helper functions for color/label mappings
 - [ ] Write JSDoc comments
 
-**T-002: Extend Content Config**
+### T-002: Extend Content Config
+
 - [ ] Add `'state-park'` to type enum in `content.config.ts`
 - [ ] Import state park schemas
 - [ ] Add optional state-park fields
 
-**T-003: Create Basic Template Structure**
+### T-003: Create Basic Template Structure
+
 - [ ] Create `src/components/templates/StateParkTemplate.astro`
 - [ ] Implement hero section
 - [ ] Set up conditional rendering patterns
@@ -2564,68 +2600,79 @@ test('StateParkTemplate mobile view matches snapshot', async ({ page }) => {
 
 ### 8.2 Phase 2: Core Sections (4-6 hours)
 
-**T-004: Facilities Section**
+### T-004: Facilities Section
+
 - [ ] Lodging subsection with amenity cards
 - [ ] Camping subsection with hookup badges
 - [ ] Picnic areas subsection
 - [ ] Recreation facilities subsection
 
-**T-005: Trails & Overlooks**
+### T-005: Trails & Overlooks
+
 - [ ] Trail cards with industry-standard difficulty badges
 - [ ] Accessibility ratings
 - [ ] Scenic overlook cards with photography tips
 
-**T-006: Activities & Programs**
+### T-006: Activities & Programs
+
 - [ ] Activities section by category
 - [ ] Seasonal programs section
 - [ ] Visitor/nature center section
 
 ### 8.3 Phase 3: Accessibility & SEO (3-4 hours)
 
-**T-007: Accessibility Section**
+### T-007: Accessibility Section
+
 - [ ] Accessibility statement with border-l-brand-orange
 - [ ] ADA-compliant facilities list
 - [ ] Accessible trails
 - [ ] Assistive services
 - [ ] Contact for accommodations
 
-**T-008: SEO Schema Implementation**
+### T-008: SEO Schema Implementation
+
 - [ ] Create `src/components/seo/SchemaStateParkTemplate.astro`
 - [ ] Implement TouristAttraction schema
 - [ ] Add LocalBusiness/CampingPitch conditional schemas
 - [ ] Add BreadcrumbList, Article, Event schemas
 - [ ] Add meta tags and Open Graph
 
-**T-009: Fees & Policies Section**
+### T-009: Fees & Policies Section
+
 - [ ] Fee table with exemptions
 - [ ] Pet policy display
 - [ ] Park rules organized by category
 
 ### 8.4 Phase 4: Testing & Validation (2-3 hours)
 
-**T-010: Unit Tests**
+### T-010: Unit Tests
+
 - [ ] Write component unit tests (>80% coverage)
 - [ ] Test conditional rendering
 - [ ] Test helper functions
 
-**T-011: Accessibility Tests**
+### T-011: Accessibility Tests
+
 - [ ] Run axe accessibility tests
 - [ ] Test keyboard navigation
 - [ ] Validate ARIA labels
 
-**T-012: SEO Validation**
+### T-012: SEO Validation
+
 - [ ] Google Rich Results Test
 - [ ] Schema.org validator
 - [ ] Lighthouse SEO audit (target >= 95)
 
 ### 8.5 Phase 5: Content Creation (2-3 hours)
 
-**T-013: Example Content**
+### T-013: Example Content
+
 - [ ] Create Blackwater Falls State Park (comprehensive example)
 - [ ] Create Pipestem Resort State Park (minimal example)
 - [ ] Validate both with Zod schemas
 
-**T-014: Documentation**
+### T-014: Documentation
+
 - [ ] Content authoring guide
 - [ ] Field reference documentation
 - [ ] SEO validation checklist (based on SPEC-17 pattern)
@@ -2648,12 +2695,14 @@ test('StateParkTemplate mobile view matches snapshot', async ({ page }) => {
 ## 9. Non-Functional Requirements
 
 ### NFR-001: Performance
+
 - Template renders in <100ms server-side
 - Total component bundle <60KB gzipped (larger than backcountry due to more facility types)
 - Images lazy-loaded below the fold
 - Lighthouse Performance >= 90
 
 ### NFR-002: Accessibility
+
 - WCAG 2.1 AA compliance (100%)
 - Industry-standard difficulty colors with shape icons
 - Accessibility ratings for all trails/facilities
@@ -2662,6 +2711,7 @@ test('StateParkTemplate mobile view matches snapshot', async ({ page }) => {
 - Lighthouse Accessibility >= 95
 
 ### NFR-003: Responsiveness
+
 - Mobile-first design
 - Breakpoints: sm (640px), md (768px), lg (1024px), xl (1280px)
 - Grid layouts collapse appropriately
@@ -2669,6 +2719,7 @@ test('StateParkTemplate mobile view matches snapshot', async ({ page }) => {
 - Lighthouse Mobile-Friendly test passes
 
 ### NFR-004: SEO
+
 - Schema.org TouristAttraction structured data
 - LocalBusiness/CampingPitch conditional schemas
 - BreadcrumbList navigation
@@ -2678,6 +2729,7 @@ test('StateParkTemplate mobile view matches snapshot', async ({ page }) => {
 - Lighthouse SEO >= 95
 
 ### NFR-005: Maintainability
+
 - TypeScript strict mode compliance
 - Zod validation for all data
 - Component prop interfaces fully typed
@@ -2781,7 +2833,8 @@ test('StateParkTemplate mobile view matches snapshot', async ({ page }) => {
 
 ### 11.1 Validation Checklist
 
-**REQUIRED:**
+### REQUIRED:
+
 - [x] Fonts: `font-display` (Bitter), `font-hand` (Permanent Marker), `font-body` (Noto Sans)
 - [x] Colors: `brand-brown`, `sign-green`, `brand-cream`, `brand-orange` (<5% CTAs only)
 - [x] Corners: `rounded-sm` ONLY
@@ -2789,7 +2842,8 @@ test('StateParkTemplate mobile view matches snapshot', async ({ page }) => {
 - [x] Voice: Kim's authentic rural WV - direct, humble, faith-forward
 - [x] Industry colors: Trail difficulty badges with colorblind shapes
 
-**FORBIDDEN:**
+### FORBIDDEN:
+
 - [x] Zero Inter, Poppins, DM Sans, etc.
 - [x] Zero purple/pink/neon colors
 - [x] Zero glassmorphism/backdrop-blur
@@ -2799,6 +2853,7 @@ test('StateParkTemplate mobile view matches snapshot', async ({ page }) => {
 ### 11.2 Kim's Voice Examples
 
 Throughout the specification, Kim's voice is used for:
+
 - Trail tips: "Take your time on the steps - the canyon views are worth it"
 - Practical advice: "Book early for weekends and fall foliage season"
 - Shop CTAs: "Stop by before you head out - we'll make sure you're ready"
@@ -2828,34 +2883,34 @@ Throughout the specification, Kim's voice is used for:
 
 ### Session 2026-01-02
 
-**Q: How should state park content differ from backcountry content?**
+### Q: How should state park content differ from backcountry content?
 A: State parks emphasize family-friendly facilities (lodging, camping, picnic areas), reservation systems, and seasonal programming. Backcountry emphasizes self-sufficiency, navigation skills, and safety warnings. State parks are developed; backcountry is primitive.
 
-**Q: How should the template handle parks with varying facility levels?**
+### Q: How should the template handle parks with varying facility levels?
 A: Use conditional rendering - all facility sections are optional. Minimum viable page requires only: name, heroImage, acreage, location, quickHighlights, fees, accessibility, contactInfo.
 
-**Q: Should reservation integration be external links or embedded forms?**
+### Q: Should reservation integration be external links or embedded forms?
 A: External links (reservationUrl) to WV State Parks official booking system. Embedded forms are out of scope for this phase.
 
-**Q: How should accessibility features be balanced with other content?**
+### Q: How should accessibility features be balanced with other content?
 A: Accessibility is P0 priority. Dedicated accessibility section with border-l-brand-orange for visibility. ADA compliance flags on all facility types. Accessibility ratings on all trails.
 
-**Q: What's the first state park to implement?**
+### Q: What's the first state park to implement?
 A: Blackwater Falls State Park - most popular WV state park, comprehensive facilities, good accessibility, extensive documentation available.
 
-**Q: How should SEO schema differ from backcountry?**
+### Q: How should SEO schema differ from backcountry?
 A: Add TouristAttraction (primary), LocalBusiness (for lodges), CampingPitch (for campgrounds), Event (for ranger programs). More commercial/tourism-focused than backcountry wilderness.
 
-**Q: Should the template support multiple lodging types in one park?**
+### Q: Should the template support multiple lodging types in one park?
 A: Yes - lodging is an array to support lodge rooms, cabins, cottages, etc. Each has its own LodgingSchema with unique amenities.
 
-**Q: How granular should operating hours be?**
+### Q: How granular should operating hours be?
 A: OperatingHoursSchema supports seasonal variations (e.g., "Summer: Memorial Day - Labor Day, 9am-8pm daily"). Allows up to 6 seasonal hour blocks.
 
-**Q: Should pet policies be park-wide or facility-specific?**
+### Q: Should pet policies be park-wide or facility-specific?
 A: Both - park-wide PetPolicySchema with general rules, plus facility-specific petFriendly flags on lodging/camping for granular control.
 
-**Q: How should the template handle seasonal closures?**
+### Q: How should the template handle seasonal closures?
 A: Use SpecialAnnouncement schema for SEO visibility. Display seasonal notes on relevant facilities. OperatingHoursSchema includes season/dates fields.
 
 ---
@@ -2878,19 +2933,20 @@ A: Use SpecialAnnouncement schema for SEO visibility. Display seasonal notes on 
 
 ### Appendix B: External References
 
-- **WV State Parks:** https://wvstateparks.com/
-- **Blackwater Falls:** https://wvstateparks.com/park/blackwater-falls-state-park/
-- **Pipestem Resort:** https://wvstateparks.com/park/pipestem-resort-state-park/
-- **Schema.org TouristAttraction:** https://schema.org/TouristAttraction
-- **Schema.org LocalBusiness:** https://schema.org/LocalBusiness
-- **Schema.org CampingPitch:** https://schema.org/CampingPitch
-- **WCAG 2.1 AA:** https://www.w3.org/WAI/WCAG21/quickref/
+- **WV State Parks:** <https://wvstateparks.com/>
+- **Blackwater Falls:** <https://wvstateparks.com/park/blackwater-falls-state-park/>
+- **Pipestem Resort:** <https://wvstateparks.com/park/pipestem-resort-state-park/>
+- **Schema.org TouristAttraction:** <https://schema.org/TouristAttraction>
+- **Schema.org LocalBusiness:** <https://schema.org/LocalBusiness>
+- **Schema.org CampingPitch:** <https://schema.org/CampingPitch>
+- **WCAG 2.1 AA:** <https://www.w3.org/WAI/WCAG21/quickref/>
 
 ### Appendix C: Gap Analysis Summary
 
 **Total Gaps Identified:** 63
 
-**Gap Categories:**
+### Gap Categories:
+
 1. Facilities & Amenities: 10 gaps
 2. Accessibility Compliance: 8 gaps
 3. Reservation Systems: 3 gaps
@@ -2899,30 +2955,34 @@ A: Use SpecialAnnouncement schema for SEO visibility. Display seasonal notes on 
 6. Template Patterns: 5 gaps
 7. Architecture: 10 gaps
 
-**Resolution Strategy:**
+### Resolution Strategy:
 All 63 gaps addressed through comprehensive type system (state-park-types.ts), template structure (StateParkTemplate.astro), SEO implementation (SchemaStateParkTemplate.astro), and architectural patterns (conditional rendering, empty state handling, type guards).
 
-**Priority Distribution:**
+### Priority Distribution:
+
 - P0 (Critical): 23 gaps
 - P1 (High): 26 gaps
 - P2 (Medium): 14 gaps
 
 ### Appendix D: Coordinate with Future SPECs
 
-**SPEC-19: Historic Site Template**
+### SPEC-19: Historic Site Template
+
 - May reuse: ContactInfoSchema, AccessibilityRatingSchema, OperatingHoursSchema
 - Different focus: Historical interpretation vs recreation
 
-**SPEC-20: Resort Template**
+### SPEC-20: Resort Template
+
 - May reuse: LodgingSchema, ReservationInfoSchema, RecreationFacilitySchema
 - Different focus: Commercial resort vs state park
 
-**SPEC-21+: Individual Park Migrations**
+### SPEC-21+: Individual Park Migrations
+
 - Use StateParkTemplate for all state park destinations
 - Blackwater Falls (SPEC-35), Pipestem (SPEC-46), etc.
 
 ---
 
-**END OF SPEC-18 FINAL SPECIFICATION**
+### END OF SPEC-18 FINAL SPECIFICATION
 
 This specification is comprehensive, actionable, and production-ready. All 63 identified gaps have been addressed with specific schemas, components, SEO implementations, and architectural patterns. The specification follows the established SPEC-17 backcountry pattern while extending it for state park-specific requirements including facilities, accessibility, reservations, and seasonal programming.

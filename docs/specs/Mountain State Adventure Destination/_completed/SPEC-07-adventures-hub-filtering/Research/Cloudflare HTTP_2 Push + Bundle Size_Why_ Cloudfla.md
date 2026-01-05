@@ -3,7 +3,7 @@
 # Cloudflare HTTP/2 Push + Bundle Size
 
 Why: Cloudflare's HTTP/2 push can load React bundle in parallel with HTML.
- 
+
 Prompt for AI Research:
 MISSION: Optimize bundle size and loading strategy for Cloudflare Pages + HTTP/2 push.
 
@@ -45,7 +45,6 @@ Perfect! I've created a comprehensive bundle optimization guide. Here's the **ex
   Cache-Control: public, max-age=3600
 ```
 
-
 ***
 
 ## **Bundle Size Targets**
@@ -56,7 +55,6 @@ Perfect! I've created a comprehensive bundle optimization guide. Here's the **ex
 | shadcn/ui components (all) | <10 KB | Only import what you use |
 | Custom filter logic | <5 KB | Keep it minimal |
 | **TOTAL per island** | **<80 KB gzipped** | ✅ Achievable |
-
 
 ***
 
@@ -86,7 +84,6 @@ terserOptions: {
   mangle: true,
 }
 ```
-
 
 ***
 
@@ -121,7 +118,6 @@ Each island loads in parallel = faster time to interactive.
 | **4G** | 150ms | 50ms | 100ms faster |
 | **Broadband** | 30ms | 15ms | 15ms faster |
 
-
 ***
 
 ## **Implementation Checklist (This Week)**
@@ -147,59 +143,58 @@ The full **spec-07-bundle-optimization-guide.md** file has been saved with:
 
 <div align="center">⁂</div>
 
-[^1]: https://arxiv.org/pdf/1810.05554.pdf
+[^1]: <https://arxiv.org/pdf/1810.05554.pdf>
 
-[^2]: https://wjaets.com/sites/default/files/WJAETS-2024-0127.pdf
+[^2]: <https://wjaets.com/sites/default/files/WJAETS-2024-0127.pdf>
 
-[^3]: https://arxiv.org/pdf/1606.00264.pdf
+[^3]: <https://arxiv.org/pdf/1606.00264.pdf>
 
-[^4]: https://arxiv.org/pdf/2207.05885.pdf
+[^4]: <https://arxiv.org/pdf/2207.05885.pdf>
 
-[^5]: https://linkinghub.elsevier.com/retrieve/pii/S0167404822004436
+[^5]: <https://linkinghub.elsevier.com/retrieve/pii/S0167404822004436>
 
-[^6]: http://arxiv.org/pdf/2410.14924.pdf
+[^6]: <http://arxiv.org/pdf/2410.14924.pdf>
 
-[^7]: https://arxiv.org/pdf/2503.10846.pdf
+[^7]: <https://arxiv.org/pdf/2503.10846.pdf>
 
-[^8]: https://arxiv.org/html/2404.00056v1
+[^8]: <https://arxiv.org/html/2404.00056v1>
 
-[^9]: https://blog.cloudflare.com/http-2-server-push-with-multiple-assets-per-link-header/
+[^9]: <https://blog.cloudflare.com/http-2-server-push-with-multiple-assets-per-link-header/>
 
-[^10]: https://strapi.io/blog/astro-islands-architecture-explained-complete-guide
+[^10]: <https://strapi.io/blog/astro-islands-architecture-explained-complete-guide>
 
-[^11]: https://refine.dev/blog/shadcn-blog/
+[^11]: <https://refine.dev/blog/shadcn-blog/>
 
-[^12]: https://blog.cloudflare.com/announcing-support-for-http-2-server-push-2/
+[^12]: <https://blog.cloudflare.com/announcing-support-for-http-2-server-push-2/>
 
-[^13]: https://thebcms.com/blog/astro-server-islands-tutorial
+[^13]: <https://thebcms.com/blog/astro-server-islands-tutorial>
 
-[^14]: https://magicui.design/blog/shadcn-ui
+[^14]: <https://magicui.design/blog/shadcn-ui>
 
-[^15]: https://developers.cloudflare.com/pages/configuration/headers/
+[^15]: <https://developers.cloudflare.com/pages/configuration/headers/>
 
-[^16]: https://docs.astro.build/en/concepts/islands/
+[^16]: <https://docs.astro.build/en/concepts/islands/>
 
-[^17]: https://blog.openreplay.com/developers-switching-shadcn-ui-react/
+[^17]: <https://blog.openreplay.com/developers-switching-shadcn-ui-react/>
 
-[^18]: https://developers.cloudflare.com/workers/static-assets/headers/
+[^18]: <https://developers.cloudflare.com/workers/static-assets/headers/>
 
-[^19]: https://www.patterns.dev/vanilla/islands-architecture/
+[^19]: <https://www.patterns.dev/vanilla/islands-architecture/>
 
-[^20]: https://cubettech.com/resources/blog/benefits-of-using-shadcn-over-material-ui/
+[^20]: <https://cubettech.com/resources/blog/benefits-of-using-shadcn-over-material-ui/>
 
-[^21]: https://github.com/wp-media/wp-rocket/issues/4269
+[^21]: <https://github.com/wp-media/wp-rocket/issues/4269>
 
-[^22]: https://docs.astro.build/en/guides/styling/
+[^22]: <https://docs.astro.build/en/guides/styling/>
 
-[^23]: https://blog.bitsrc.io/5-react-ui-libraries-for-high-performing-web-apps-7b222d8c83ca
+[^23]: <https://blog.bitsrc.io/5-react-ui-libraries-for-high-performing-web-apps-7b222d8c83ca>
 
-[^24]: https://blog.cloudflare.com/http-2-for-web-developers/
+[^24]: <https://blog.cloudflare.com/http-2-for-web-developers/>
 
-[^25]: https://www.tutorialspoint.com/astrojs/astrojs-bundling.htm
+[^25]: <https://www.tutorialspoint.com/astrojs/astrojs-bundling.htm>
 
-[^26]: https://infinum.com/handbook/frontend/react/tailwind/shadcn
+[^26]: <https://infinum.com/handbook/frontend/react/tailwind/shadcn>
 
-[^27]: https://blog.cloudflare.com/transform-http-request-headers/
+[^27]: <https://blog.cloudflare.com/transform-http-request-headers/>
 
-[^28]: https://dev.to/this-is-learning/islands-server-components-resumability-oh-my-319d
-
+[^28]: <https://dev.to/this-is-learning/islands-server-components-resumability-oh-my-319d>

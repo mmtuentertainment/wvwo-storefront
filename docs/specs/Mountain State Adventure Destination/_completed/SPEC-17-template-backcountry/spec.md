@@ -63,10 +63,12 @@ Create a comprehensive type system and reusable Astro template for West Virginia
 ### 2.1 Core Requirements
 
 #### FR-001: Type System Creation
+
 **Priority:** P0
 **Description:** Create `backcountry-types.ts` following the pattern established by `cave-types.ts` and `ski-types.ts`.
 
 **Acceptance Criteria:**
+
 - [ ] File located at `wv-wild-web/src/types/backcountry-types.ts`
 - [ ] All schemas use Zod from `astro/zod`
 - [ ] Imports shared types from `adventure.ts` (GearItemSchema, CoordinatesSchema, etc.)
@@ -75,30 +77,36 @@ Create a comprehensive type system and reusable Astro template for West Virginia
 - [ ] Includes helper functions for color/label mappings
 
 #### FR-002: Content Config Extension
+
 **Priority:** P0
 **Description:** Extend `content.config.ts` to recognize `'backcountry'` adventure type.
 
 **Acceptance Criteria:**
+
 - [ ] Add `'backcountry'` to type enum: `z.enum(['adventure', 'wma', 'lake', 'river', 'ski', 'cave', 'backcountry'])`
 - [ ] Import backcountry schemas from `./types/backcountry-types`
 - [ ] Add optional backcountry-specific fields to adventures schema
 - [ ] Zero breaking changes to existing content
 
 #### FR-003: Water Source Safety (AMD Hazard)
+
 **Priority:** P0 (CRITICAL)
 **Description:** Water sources in WV backcountry may be contaminated by Acid Mine Drainage from coal mining legacy. System MUST flag unsafe water sources.
 
 **Acceptance Criteria:**
+
 - [ ] `WaterSourceSchema` includes `status` enum: `'potable' | 'treat-required' | 'do-not-use'`
 - [ ] `contamination` field for specific hazards (AMD, agricultural runoff, etc.)
 - [ ] Visual warning styling for `do-not-use` sources (brand-orange border, warning icon)
 - [ ] Kim's voice warning: "That orange water ain't rust - it's acid mine drainage. Don't drink it, don't filter it, find another source."
 
 #### FR-004: Trail Difficulty Industry Standards
+
 **Priority:** P0
 **Description:** Use industry-standard difficulty colors that OVERRIDE WVWO brand palette per CLAUDE.md.
 
 **Acceptance Criteria:**
+
 - [ ] Reuse `DifficultySchema` from `adventure.ts`: `['easy', 'moderate', 'challenging', 'rugged']`
 - [ ] Apply `DIFFICULTY_COLORS` with industry-standard mapping:
   - easy: `bg-sign-green text-white` (Green circle)
@@ -108,10 +116,12 @@ Create a comprehensive type system and reusable Astro template for West Virginia
 - [ ] Include `DIFFICULTY_SHAPES` for colorblind accessibility
 
 #### FR-005: Multi-Tier Emergency Contacts
+
 **Priority:** P1
 **Description:** Backcountry emergencies require multi-tier response structure.
 
 **Acceptance Criteria:**
+
 - [ ] `EmergencyContactSchema` with tiers:
   - `tier`: `'911' | 'sar' | 'ranger' | 'hospital' | 'poison-control'`
   - `name`: Service name
@@ -122,10 +132,12 @@ Create a comprehensive type system and reusable Astro template for West Virginia
 - [ ] Display prominently with brand-orange border for visibility
 
 #### FR-006: Accessibility/Physical Requirements
+
 **Priority:** P1
 **Description:** Backcountry requires clear physical requirement documentation for safety.
 
 **Acceptance Criteria:**
+
 - [ ] `BackcountryAccessibilitySchema` includes:
   - `physicalRequirements`: Array of required abilities
   - `fitnessLevel`: `'beginner' | 'intermediate' | 'advanced' | 'expert'`
@@ -136,10 +148,12 @@ Create a comprehensive type system and reusable Astro template for West Virginia
 - [ ] ADA statement for developed trailheads vs. wilderness areas
 
 #### FR-007: Navigation Data
+
 **Priority:** P1
 **Description:** Backcountry navigation requires detailed pre-trip planning data.
 
 **Acceptance Criteria:**
+
 - [ ] `NavigationSchema` includes:
   - `usgsQuads`: Array of USGS 7.5-minute quadrangle names
   - `coordinates`: `CoordinatesSchema` for trailhead/center point
@@ -150,10 +164,12 @@ Create a comprehensive type system and reusable Astro template for West Virginia
 - [ ] Display cell coverage prominently in hero/quick stats
 
 #### FR-008: Weather Hazards with Timing
+
 **Priority:** P1
 **Description:** WV backcountry weather is unpredictable; hazards need quantified data.
 
 **Acceptance Criteria:**
+
 - [ ] `WeatherHazardSchema` includes:
   - `type`: Hazard type string
   - `description`: Detailed description
@@ -164,10 +180,12 @@ Create a comprehensive type system and reusable Astro template for West Virginia
 - [ ] Common WV hazards: flash floods, rapid temperature drops, fog, ice storms, thunderstorms
 
 #### FR-009: Structured Regulations
+
 **Priority:** P2
 **Description:** Backcountry regulations vary by managing agency and location.
 
 **Acceptance Criteria:**
+
 - [ ] `RegulationsSchema` includes:
   - `managingAgency`: `'usfs' | 'nps' | 'wvdnr' | 'blm' | 'private'`
   - `permitRequired`: Boolean
@@ -180,10 +198,12 @@ Create a comprehensive type system and reusable Astro template for West Virginia
   - `regulationsUrl`: Link to official regulations
 
 #### FR-010: Wildlife Hazards with Disease Vectors
+
 **Priority:** P2
 **Description:** Enhance wildlife safety to include disease transmission risks.
 
 **Acceptance Criteria:**
+
 - [ ] `WildlifeHazardSchema` includes:
   - `animal`: Animal name
   - `dangerLevel`: `'low' | 'moderate' | 'high' | 'extreme'`
@@ -195,10 +215,12 @@ Create a comprehensive type system and reusable Astro template for West Virginia
 - [ ] Tick-borne disease warnings prominent for WV
 
 #### FR-011: WVWO Shop Integration
+
 **Priority:** P2
 **Description:** Connect backcountry content to shop product categories.
 
 **Acceptance Criteria:**
+
 - [ ] Include `relatedShop: RelatedCategorySchema[]` from adventure.ts
 - [ ] Include `gearList: GearItemSchema[]` from adventure.ts
 - [ ] Kim's voice CTA: "Stop by the shop before you head out - we'll make sure you're prepared."
@@ -220,12 +242,14 @@ Create a comprehensive type system and reusable Astro template for West Virginia
 | `regulations` | RegulationsSchema | Legal: managing agency, permits |
 
 **Safety-Critical Arrays (show warning when empty):**
+
 - `waterSources` - AMD hazard warnings
 - `weatherHazards` - Timing and mitigation
 - `wildlifeHazards` - Disease vectors
 - `trails` - Navigation requirements
 
 **Optional Arrays (hide when empty):**
+
 - `wildernessAreas`, `accessPoints`, `seasonalConditions`
 - `requiredSkills`, `requiredGear`, `leaveNoTrace`
 - `gearList`, `relatedShop`, `nearbyAttractions`
@@ -1064,22 +1088,26 @@ export function isBackcountryAdventure(adventure: any): boolean {
 ## 4. Non-Functional Requirements
 
 ### NFR-001: Performance
+
 - Template renders in <100ms server-side
 - Total component bundle <50KB gzipped
 - Images lazy-loaded below the fold
 
 ### NFR-002: Accessibility
+
 - WCAG 2.1 AA compliance
 - Industry-standard difficulty colors with shape icons for colorblind users
 - Screen reader labels for all interactive elements
 - Keyboard navigation support
 
 ### NFR-003: Responsiveness
+
 - Mobile-first design
 - Breakpoints: sm (640px), md (768px), lg (1024px), xl (1280px)
 - Grid layouts collapse appropriately
 
 ### NFR-004: SEO
+
 - Schema.org Place structured data
 - Semantic HTML5 elements
 - Proper heading hierarchy (h1 > h2 > h3)
@@ -1252,6 +1280,7 @@ heroImage: /images/adventures/dolly-sods-hero.jpg
 ### 7.5 First Example Content
 
 **Dolly Sods Wilderness** - First backcountry content to implement:
+
 - File: `wv-wild-web/src/content/adventures/dolly-sods-wilderness.mdx`
 - Location: Monongahela National Forest, Tucker/Randolph Counties
 - Key features: 17,371 acres, subalpine plateau, AMD concerns in some drainages
@@ -1286,12 +1315,14 @@ When safety-critical arrays are empty, display a warning instead of hiding the s
 ```
 
 **Safety-critical sections requiring warnings when empty:**
+
 - `waterSources` - "Pack all water needed"
 - `emergencyContacts` - "Contact local ranger district before trip"
 - `weatherHazards` - "Check current conditions with NOAA"
 - `trails` - "No documented trails - navigate with map/compass"
 
 **Non-critical sections (hide when empty):**
+
 - `nearbyAttractions`
 - `relatedShop`
 - `gearList` (optional enhancement)
@@ -1314,6 +1345,7 @@ When safety-critical arrays are empty, display a warning instead of hiding the s
 ## 10. Clarifications
 
 ### Session 2025-12-31
+
 - Q: How should content authors create backcountry area content? → A: MDX files with YAML frontmatter (consistent with existing Content Collections pattern)
 - Q: How should the template handle empty arrays for safety-critical data? → A: Show "No data available" warning with Kim's voice explaining why to research elsewhere
 - Q: What is the minimum viable backcountry page? → A: Strict minimum of 5 required fields: name, heroImage, navigation, emergencyContacts, regulations

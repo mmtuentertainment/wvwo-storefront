@@ -16,10 +16,12 @@
 ## Phase 1: Type System Foundation (6 hours)
 
 ### 1.1 Project Setup
+
 - [ ] [S] Create directory structure (src/types/, src/components/state-park/, src/data/state-parks/)
 - [ ] [S] Create type file stubs (state-park-types.ts, state-park-seo-types.ts, state-park-template-types.ts)
 
 ### 1.2 Core Facility Types (~4 hours)
+
 - [ ] [P] Define FacilityTypeSchema enum (10 types: lodge, cabin, campground, pool, etc.)
 - [ ] [P] Create LodgingFacilitySchema (bedrooms, bathrooms, kitchen, fireplace, petFriendly, seasonalAvail, priceRange, reservationUrl)
 - [ ] [P] Create CampingFacilitySchema (siteCount, hookupTypes, bathhouse, dumpStation, maxRVLength, season)
@@ -33,6 +35,7 @@
 - [ ] [P] Create OtherFacilitySchema (disc golf, tennis, stables with type-specific fields)
 
 ### 1.3 Activity & Program Types (~1 hour)
+
 - [ ] [P] Define ProgramTypeSchema enum (ranger-led, educational, junior-ranger, volunteer, exhibits, guided-tours, seasonal-events)
 - [ ] [P] Create RangerProgramSchema (title, description, schedule, duration, registration, ageRange, accessibility)
 - [ ] [P] Create WorkshopSchema (topic, instructor, materials, skillLevel, cost)
@@ -41,11 +44,13 @@
 - [ ] [P] Create ActivitySchema (name, category, season, difficulty, accessibility)
 
 ### 1.4 Accessibility Types (~30 minutes)
+
 - [ ] [P] Define AccessibilityFeatureSchema enum (18 features: all-terrain wheelchairs, beach wheelchairs, accessible fishing piers, etc.)
 - [ ] [P] Create TrailAccessInfoSchema (FSTAG specs: surface, width, grade, obstacles)
 - [ ] [P] Create ServiceAnimalPolicySchema (allowed, restrictions, reliefAreas)
 
 ### 1.5 SEO Types (~1 hour)
+
 - [ ] [P] Create OpeningHoursSpecificationSchema (dayOfWeek, opens, closes, validFrom, validThrough for seasonal variations)
 - [ ] [P] Create FAQItemSchema (question, answer with 40-50 word validation, acceptedAnswer structure)
 - [ ] [P] Create ParkEventSchema (name, startDate, endDate, eventSchedule, location, offers, isAccessibleForFree)
@@ -53,6 +58,7 @@
 - [ ] [P] Create AmenityFeatureSchema (LocationFeatureSpecification for 20+ features)
 
 ### 1.6 Helper Functions & Display Constants (~30 minutes)
+
 - [ ] [S] Create FACILITY_TYPE_LABELS, COLORS, SHAPES constants
 - [ ] [S] Create PROGRAM_TYPE_LABELS, COLORS, SHAPES constants
 - [ ] [S] Create ACCESSIBILITY_FEATURE_LABELS, COLORS, SHAPES constants
@@ -61,6 +67,7 @@
 - [ ] [S] Map industry safety color exceptions (trail difficulty: green/blue/red/black)
 
 ### 1.7 Template Props Composition (~30 minutes)
+
 - [ ] [S] Create StateParkTemplatePropsSchema (composition of all sections)
 - [ ] [S] Define optional vs required fields with sensible defaults
 - [ ] [S] Export Zod schema + inferred TypeScript type
@@ -74,6 +81,7 @@
 ## Phase 2: Section Components (10 hours)
 
 ### 2.1 FacilitiesSection Component (~4 hours)
+
 - [ ] [S] Create FacilitiesSection.astro file with props interface
 - [ ] [P] Build lodging cards layout (3-column grid desktop, stacked mobile)
 - [ ] [P] Implement lodging amenity badges (kitchen, fireplace, pet-friendly icons)
@@ -86,6 +94,7 @@
 - [ ] [S] Add "Reserve" CTAs with deep links to reservations.wvstateparks.com
 
 ### 2.2 ActivitiesSection Component (~3 hours)
+
 - [ ] [S] Create ActivitiesSection.astro file with props interface
 - [ ] [P] Build ranger program cards with scheduling info
 - [ ] [P] Create Junior Ranger highlight section (badge design, age range, activities)
@@ -97,6 +106,7 @@
 - [ ] [P] Add Event schema integration points (data attributes for SEO)
 
 ### 2.3 ReservationSection Component (~2 hours)
+
 - [ ] [S] Create ReservationSection.astro file with props interface
 - [ ] [P] Build fee structure grid/table (day-use, camping, cabins)
 - [ ] [P] Create booking window display card ("6 months advance" messaging)
@@ -107,6 +117,7 @@
 - [ ] [P] Apply WVWO styling (orange CTA <5% of section)
 
 ### 2.4 ParkOverviewSection Component (~1 hour)
+
 - [ ] [S] Create ParkOverviewSection.astro file with props interface
 - [ ] [P] Build operating hours display with seasonal variations table
 - [ ] [P] Create day-use fees display
@@ -123,6 +134,7 @@
 ## Phase 3: Main Template + SEO (12 hours)
 
 ### 3.1 StateParkTemplate Main Component (~5 hours)
+
 - [ ] [S] Create StateParkTemplate.astro file with StateParkTemplateProps interface
 - [ ] [P] Build Hero section (reuse AdventureHero.astro, pass park data)
 - [ ] [P] Build Park Overview section (integrate ParkOverviewSection)
@@ -139,6 +151,7 @@
 - [ ] [P] Add responsive breakpoints (mobile-first design)
 
 ### 3.2 SchemaStateParkTemplate SEO Component (~3 hours)
+
 - [ ] [S] Create SchemaStateParkTemplate.astro with @graph structure
 - [ ] [P] Build Organization entity (WV Wild Outdoors publisher)
 - [ ] [P] Build StateGovernmentOrganization entity (WV State Parks managing agency)
@@ -152,6 +165,7 @@
 - [ ] [P] Add PropertyValue extensions (campsite_count, trail_miles, cabin_count, acreage)
 
 ### 3.3 FAQ & Event SEO Components (~2.5 hours)
+
 - [ ] [S] Create SchemaFAQ.astro with FAQPage schema
 - [ ] [P] Implement Question/acceptedAnswer structure (40-50 word validation)
 - [ ] [P] Add microdata HTML rendering for accessibility
@@ -163,6 +177,7 @@
 - [ ] [P] Add repeatFrequency, duration properties
 
 ### 3.4 Dynamic Routing & Utilities (~1.5 hours)
+
 - [ ] [S] Create pages/state-parks/[slug].astro dynamic route
 - [ ] [P] Implement data loading by slug
 - [ ] [P] Build meta tag population (title, description, OpenGraph, Twitter Cards)
@@ -174,6 +189,7 @@
 - [ ] [P] Add distance formatting helper (e.g., "23 miles away")
 
 ### 3.5 Index Page & Navigation (~1 hour)
+
 - [ ] [S] Create pages/state-parks/index.astro hub page
 - [ ] [P] Build park category grid (resort-style, recreation, historic)
 - [ ] [P] Add regional grouping (Mountain Lakes, New River Gorge, Metro Valley, etc.)
@@ -189,6 +205,7 @@
 ## Phase 4: Data Files + Content (10 hours)
 
 ### 4.1 Holly River State Park Research (~2 hours)
+
 - [ ] [P] Research park metadata at wvstateparks.com/parks/holly-river (acreage, established, location)
 - [ ] [P] Document facility details (cabins: count, bedrooms, amenities; campground: sites, hookups)
 - [ ] [P] Collect trail data (names, distances, difficulty, elevation, accessibility)
@@ -200,6 +217,7 @@
 - [ ] [P] Collect keywords (primary: "Holly River State Park", secondary: "Holly River camping", long-tail: "things to do Holly River WV")
 
 ### 4.2 Holly River Data File Creation (~3 hours)
+
 - [ ] [S] Create data/state-parks/holly-river-sp.ts file
 - [ ] [P] Implement park metadata (name, slug, established, acreage, signatureFeature)
 - [ ] [P] Build location object (county, region, coordinates, nearestTown, distanceFromCity)
@@ -219,6 +237,7 @@
 - [ ] [P] Write content in Kim's authentic voice (no marketing buzzwords)
 
 ### 4.3 Watoga State Park Research (~2 hours)
+
 - [ ] [P] Research resort-style facilities (lodge, restaurant, conference center, golf course)
 - [ ] [P] Document extensive programming (nature center, interpretive programs)
 - [ ] [P] Collect Brooks Memorial Arboretum data
@@ -227,6 +246,7 @@
 - [ ] [P] Generate 6-8 FAQs for featured snippets
 
 ### 4.4 Watoga Data File Creation (~3 hours)
+
 - [ ] [S] Create data/state-parks/watoga-sp.ts file
 - [ ] [P] Implement complete StatePark object (~550 lines)
 - [ ] [P] Emphasize resort facilities (Watoga Lake Lodge, restaurant details, conference capacity)
@@ -244,7 +264,8 @@
 ## Phase 5: Comprehensive Testing (8 hours)
 
 ### 5.1 Type System Unit Tests (~3 hours)
-- [ ] [S] Create tests/types/__tests__/state-park-types.test.ts
+
+- [ ] [S] Create tests/types/**tests**/state-park-types.test.ts
 - [ ] [P] Write schema validation tests (10 facility type schemas parse correctly)
 - [ ] [P] Test helper functions (getFacilityTypeLabel returns correct strings)
 - [ ] [P] Test LABELS constant completeness (every enum value has label)
@@ -255,16 +276,17 @@
 - [ ] [P] Test edge cases (invalid enum values throw, required fields validated)
 - [ ] [P] Test 20+ amenity types validation
 - [ ] [P] Test 18 accessibility features validation
-- [ ] [S] Create tests/types/__tests__/state-park-seo-types.test.ts
+- [ ] [S] Create tests/types/**tests**/state-park-seo-types.test.ts
 - [ ] [P] Test OpeningHoursSpecification schema (seasonal variations parse)
 - [ ] [P] Test FAQItem schema (40-50 word answer validation)
 - [ ] [P] Test ParkEvent and EventSeries schemas
-- [ ] [S] Create tests/types/__tests__/state-park-template-types.test.ts
+- [ ] [S] Create tests/types/**tests**/state-park-template-types.test.ts
 - [ ] [P] Test StateParkTemplateProps optional fields
 - [ ] [P] Test nested object validation (facilities, activities, accessibility)
 - [ ] [P] Test complete park object parsing
 
 ### 5.2 Component Tests (~2 hours)
+
 - [ ] [S] Create tests/components/state-park/FacilitiesSection.test.tsx
 - [ ] [P] Test lodging cards render with correct data
 - [ ] [P] Test conditional rendering (no lodging = section doesn't render)
@@ -283,6 +305,7 @@
 - [ ] [P] Test contact information grid renders
 
 ### 5.3 Integration Tests (~1.5 hours)
+
 - [ ] [S] Create tests/integration/state-park-template.test.tsx
 - [ ] [P] Test full template renders with holly-river-sp data
 - [ ] [P] Test conditional sections (missing data doesn't error)
@@ -294,6 +317,7 @@
 - [ ] [P] Test 404 handling for invalid slugs
 
 ### 5.4 Accessibility Tests (~1 hour)
+
 - [ ] [S] Create tests/a11y/state-park-wcag.test.ts
 - [ ] [P] Run axe-core automated testing (0 violations target)
 - [ ] [P] Test keyboard navigation (tab order correct, focus indicators visible)
@@ -303,6 +327,7 @@
 - [ ] [P] Manual NVDA/JAWS testing (screen reader compatibility)
 
 ### 5.5 SEO Validation Tests (~0.5 hours)
+
 - [ ] [S] Create tests/seo/state-park-schema.test.ts
 - [ ] [P] Validate Schema.org markup with validator API
 - [ ] [P] Test @graph structure correct (8 entities)
@@ -313,6 +338,7 @@
 - [ ] [P] Test OpenGraph and Twitter Card tags present
 
 ### 5.6 Visual Regression Tests (~0.5 hours)
+
 - [ ] [S] Create tests/e2e/state-park-visual.spec.ts (Playwright)
 - [ ] [P] Capture hero section screenshots (desktop/tablet/mobile)
 - [ ] [P] Capture facilities grid responsive layout
@@ -321,6 +347,7 @@
 - [ ] [P] Test animation states (prefers-reduced-motion on/off)
 
 ### 5.7 Performance Tests (~0.5 hours)
+
 - [ ] [S] Configure Lighthouse CI for state park pages
 - [ ] [P] Test Core Web Vitals (LCP <2.5s, FID <100ms, CLS <0.1)
 - [ ] [P] Test total page weight <1.5MB
@@ -337,17 +364,20 @@
 ## Phase 6: Documentation + Polish (4 hours)
 
 ### 6.1 Code Documentation (~1 hour)
+
 - [ ] [P] Add JSDoc comments to all type exports (state-park-types.ts)
 - [ ] [P] Add JSDoc comments to all components (FacilitiesSection, ActivitiesSection, etc.)
 - [ ] [P] Add JSDoc comments to helper functions (geo-proximity.ts)
 - [ ] [P] Document prop interfaces with @example usage
 
 ### 6.2 Project Documentation (~0.5 hours)
+
 - [ ] [S] Update CLAUDE.md with State Park template patterns
 - [ ] [P] Add State Park to completed specs registry
 - [ ] [P] Document reusable component patterns
 
 ### 6.3 Quarterly Review Process (~0.5 hours)
+
 - [ ] [S] Create docs/maintenance/quarterly-state-park-review-checklist.md
 - [ ] [P] Document seasonal hours verification steps
 - [ ] [P] Document fee update verification (compare to wvstateparks.com)
@@ -356,7 +386,9 @@
 - [ ] [P] Document emergency contact validation
 
 ### 6.4 ReasoningBank Storage (~0.5 hours)
+
 - [ ] [S] Store pattern in ReasoningBank
+
   ```bash
   claude-flow memory store "spec-18-state-park-complete" \
     "State Park template completion patterns. 63 gaps addressed. Type system: 10 facility types with balanced detail (10-12 fields). Multi-type Schema.org (Park + TouristAttraction). Geographic proximity for related parks. Quarterly manual review process. Hybrid image strategy (public domain + attribution). 6 PRs, 50 hours, 85%+ coverage, Lighthouse 100, WCAG 2.1 AA." \
@@ -364,6 +396,7 @@
   ```
 
 ### 6.5 Performance Optimization (~1 hour)
+
 - [ ] [P] Optimize hero images (WebP conversion, responsive srcsets)
 - [ ] [P] Implement lazy loading for below-fold images
 - [ ] [P] Add preload hints for critical resources
@@ -371,6 +404,7 @@
 - [ ] [S] Run Lighthouse audit and address any issues (target: all 100s)
 
 ### 6.6 Final WVWO Compliance Audit (~0.5 hours)
+
 - [ ] [P] Audit all components for forbidden fonts (grep for "Inter", "Poppins", "DM Sans")
 - [ ] [P] Audit for forbidden colors (grep for purple, pink, neon hex codes)
 - [ ] [P] Audit for forbidden borders (grep for "rounded-md", "rounded-lg", "rounded-xl")
@@ -397,6 +431,7 @@
 **Total:** 160 tasks, ~6,500 LOC, ~15h review time
 
 **⚠️ Checkpoint Warnings:**
+
 - PR #3 exceeds 500 LOC (1,970 lines) - Consider split if review bandwidth limited
 - PR #5 exceeds 500 LOC (1,680 lines) - Low risk (tests don't affect production)
 
@@ -404,7 +439,7 @@
 
 ## Dependencies Graph
 
-```
+```text
 Phase 1: Type System Foundation
     ├─[P]─> Facility Schemas (10 types)
     ├─[P]─> Activity/Program Schemas
@@ -467,7 +502,8 @@ Phase 6: Documentation + Polish
 
 **Total Parallelizable:** 118 of 160 tasks (74%)
 
-**Optimal Execution:**
+### Optimal Execution:
+
 - Use concurrent agent spawning (Claude Code Task tool)
 - Batch file operations in single messages
 - Run tests in parallel (Vitest worker threads)
@@ -476,18 +512,21 @@ Phase 6: Documentation + Polish
 
 ## Notes
 
-**Blockers:**
+### Blockers:
+
 - Phase 2 blocked until Phase 1 complete (needs schemas)
 - Phase 3 blocked until Phase 2 complete (needs components)
 - Phase 4 can start after Phase 1 (only needs schemas for validation)
 - Phase 5 blocked until Phases 3 + 4 complete (needs template + data)
 
-**Critical Paths:**
+### Critical Paths:
+
 1. Type System (Phase 1) → Everything depends on this
 2. Main Template (Phase 3) → Testing depends on this
 3. Data Files (Phase 4) → Integration testing depends on this
 
-**Quality Gates:**
+### Quality Gates:
+
 - After Phase 1: All types validate, 0 TypeScript errors
 - After Phase 3: Template renders, WVWO compliance passes
 - After Phase 4: Data validates against schemas

@@ -12,6 +12,7 @@
 This document specifies the complete component architecture for the State Park Template system. State Parks represent "multi-template hybrid" destinations, combining facilities management (lodging, campgrounds), activity programming (ranger-led events, workshops), trail systems (hiking infrastructure), and accessibility features (ADA compliance, adaptive services).
 
 **Key Architectural Decisions:**
+
 - **Composition over Inheritance:** Reuse 5 proven components from SPEC-17 Backcountry
 - **Accessibility-First:** Dedicated AccessibilitySection with WCAG 2.1 Level AA compliance
 - **Schema.org Integration:** Government-specific schemas for park data
@@ -2349,11 +2350,13 @@ src/
 **Decision:** Reuse 5 components from SPEC-17 Backcountry, create 5 new specialized components.
 
 **Rationale:**
+
 - Reduces duplication (DRY principle)
 - Maintains consistency across adventure destination types
 - Focuses new development on State Park-specific features (facilities, programs, accessibility)
 
 **Consequences:**
+
 - Must maintain backward compatibility with SPEC-17 components
 - Changes to shared components affect multiple template types
 - Clear separation of concerns between adventure elements (trails, overlooks) and park management (facilities, reservations)
@@ -2367,12 +2370,14 @@ src/
 **Decision:** Make AccessibilitySection a REQUIRED component with high visual prominence (orange border).
 
 **Rationale:**
+
 - Government facilities have legal ADA compliance requirements
 - Trail Access Information (TAI) provides objective data for trip planning
 - Rural WV has aging population with higher accessibility needs
 - Sets precedent for inclusive design across all WVWO templates
 
 **Consequences:**
+
 - All State Park data sources must include accessibility information
 - Increased content creation effort (TAI data collection)
 - Improved user experience for underserved demographic
@@ -2386,12 +2391,14 @@ src/
 **Decision:** Use `bg-brand-orange` exclusively for reservation CTAs (book now, call buttons).
 
 **Rationale:**
+
 - Reservations are primary business goal for State Parks
 - Orange creates visual hierarchy (stand-out CTAs)
 - Maintains WVWO aesthetic (not SaaS startup)
 - Aligns with "blaze orange" hunting culture (action, safety)
 
 **Consequences:**
+
 - Other CTAs (contact, learn more) use `bg-brand-brown` or `bg-sign-green`
 - Design reviews must enforce orange usage limits
 - High contrast ensures accessibility (WCAG AAA compliant)

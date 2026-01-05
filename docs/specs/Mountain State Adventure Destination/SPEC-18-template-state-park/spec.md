@@ -12,7 +12,8 @@ A comprehensive, reusable Astro template for West Virginia State Parks that hand
 
 **Who has this problem:** WVWO content team and site visitors seeking state park information.
 
-**The problem:**
+### The problem:
+
 - No template exists for family-oriented, facility-rich state parks (vs wilderness backcountry)
 - Current adventure templates don't support complex facility types (lodges, cabins, campgrounds, pools, visitor centers)
 - No structured approach for ranger programs, educational events, or Junior Ranger activities
@@ -20,7 +21,8 @@ A comprehensive, reusable Astro template for West Virginia State Parks that hand
 - No integration with WV State Parks reservation system
 - SEO gaps prevent capturing high-volume keywords like "Blackwater Falls cabins" or "Pipestem camping"
 
-**Impact:**
+### Impact:
+
 - Cannot publish content for 50+ WV state parks, losing significant organic traffic
 - Legal liability for accessibility non-compliance after April 2026
 - Missed SEO opportunities (19% of searches show featured snippets)
@@ -28,10 +30,12 @@ A comprehensive, reusable Astro template for West Virginia State Parks that hand
 
 ## Goals
 
-**Primary Goal:**
+### Primary Goal:
+
 - Create a production-ready State Park template that addresses all 63 identified gaps with 85%+ test coverage and Lighthouse 100 score
 
-**Secondary Goals:**
+### Secondary Goals:
+
 - Achieve WCAG 2.1 Level AA compliance (federal requirement by April 2026)
 - Capture featured snippet opportunities with FAQ schema (19% of searches)
 - Integrate WV State Parks reservation system via deep links
@@ -40,7 +44,8 @@ A comprehensive, reusable Astro template for West Virginia State Parks that hand
 
 ## Non-Goals (Out of Scope)
 
-**What this feature will NOT do:**
+### What this feature will NOT do:
+
 - Real-time reservation API integration (WV State Parks system is third-party, no API access)
 - Interactive facility map components (future SPEC)
 - Online program registration/booking (defer to WV State Parks system)
@@ -51,26 +56,32 @@ A comprehensive, reusable Astro template for West Virginia State Parks that hand
 ## User Stories
 
 ### As a family planning a state park trip
+
 - I want to see available cabins, campgrounds, and amenities
 - So that I can decide if the park has facilities my family needs
 
 ### As a person with mobility needs
+
 - I want to know which trails, facilities, and programs are wheelchair-accessible
 - So that I can confidently plan my visit
 
 ### As a parent
+
 - I want to see ranger programs, Junior Ranger activities, and educational workshops
 - So that my kids can have engaging, educational experiences
 
 ### As a camping enthusiast
+
 - I want to see campground details (hookups, bathhouses, sites) and reservation info
 - So that I can book the right campsite for my RV/tent
 
 ### As a WVWO content manager (Kim)
+
 - I want a reusable template with clear data patterns
 - So that I can efficiently create pages for 50+ WV state parks
 
 ### As a search engine
+
 - I want comprehensive Schema.org structured data (Park, TouristAttraction, Event)
 - So that I can show rich results, featured snippets, and events carousels
 
@@ -129,12 +140,14 @@ A comprehensive, reusable Astro template for West Virginia State Parks that hand
 ## Non-Functional Requirements
 
 ### Performance
+
 - Lighthouse 100 score (all metrics: Performance, Accessibility, Best Practices, SEO)
 - Core Web Vitals: LCP <2.5s, FID <100ms, CLS <0.1
 - Image optimization: WebP format, responsive srcsets, lazy loading below fold
 - Bundle size: Target <1.5MB total page weight
 
 ### Accessibility
+
 - WCAG 2.1 Level AA compliance (0 axe violations)
 - Keyboard navigation 100% functional
 - Screen reader compatible (NVDA/JAWS tested)
@@ -143,12 +156,14 @@ A comprehensive, reusable Astro template for West Virginia State Parks that hand
 - Skip-to-content links
 
 ### Security
+
 - No sensitive data in client-side code
 - External links (WV State Parks reservation) with `rel="noopener noreferrer"`
 - No inline scripts (CSP compatibility)
 - Input sanitization for user-generated content (future reviews)
 
 ### Testability
+
 - 85%+ code coverage (match SPEC-17 standard)
 - Unit tests for all type schemas and helper functions (~600 lines)
 - Component tests for rendering and accessibility (~400 lines)
@@ -256,9 +271,10 @@ interface StatePark {
   galleryImages?: ImageObject[];    // Optional additional images
   parkMapUrl?: string;               // Link to downloadable park map PDF
 }
-```
+```typescript
 
 ### Relationships
+
 - **StatePark** → **Facilities** (1:Many)
 - **StatePark** → **Activities** (1:Many)
 - **StatePark** → **Trails** (1:Many)
@@ -288,7 +304,7 @@ export const blackwaterFallsStatePark: StatePark = {
   slug: "blackwater-falls",
   // ... complete data object
 };
-```
+```javascript
 
 ### Route Integration
 
@@ -304,6 +320,7 @@ import SchemaStateParkTemplate from '@/components/seo/SchemaStateParkTemplate.as
 ## Dependencies
 
 ### Internal Dependencies
+
 - **SPEC-17 Backcountry Template** (70% reusable architecture)
   - `AdventureHero.astro`
   - `AdventureQuickStats.astro`
@@ -326,6 +343,7 @@ import SchemaStateParkTemplate from '@/components/seo/SchemaStateParkTemplate.as
   - shadcn/ui components
 
 ### External Dependencies
+
 - **WV State Parks Reservation System** (third-party)
   - URL: reservations.wvstateparks.com
   - Phone: 1-833-WV-PARKS
@@ -339,6 +357,7 @@ import SchemaStateParkTemplate from '@/components/seo/SchemaStateParkTemplate.as
 ## Acceptance Criteria
 
 ### Code Quality
+
 - [ ] 0 TypeScript errors in strict mode
 - [ ] 85%+ test coverage (match SPEC-17)
 - [ ] All builds pass (Astro, TypeScript, tests)
@@ -346,6 +365,7 @@ import SchemaStateParkTemplate from '@/components/seo/SchemaStateParkTemplate.as
 - [ ] 0 WVWO aesthetic violations (rounded-sm only, brand colors only, no forbidden fonts)
 
 ### SEO Performance
+
 - [ ] Lighthouse SEO score = 100
 - [ ] Schema.org validation passes (Google Rich Results Test)
 - [ ] 15+ featured snippet optimization opportunities (FAQ schema)
@@ -354,6 +374,7 @@ import SchemaStateParkTemplate from '@/components/seo/SchemaStateParkTemplate.as
 - [ ] OpenGraph and Twitter Card tags present
 
 ### Accessibility (Legal Requirement)
+
 - [ ] WCAG 2.1 Level AA compliance (0 axe violations)
 - [ ] Keyboard navigation 100% functional
 - [ ] Screen reader compatible (NVDA/JAWS tested)
@@ -362,6 +383,7 @@ import SchemaStateParkTemplate from '@/components/seo/SchemaStateParkTemplate.as
 - [ ] Skip-to-content links present
 
 ### Functional Completeness
+
 - [ ] All 10 facility types supported (lodges, cabins, campgrounds, pools, etc.)
 - [ ] 7 program types implemented (ranger-led, educational, Junior Ranger, etc.)
 - [ ] 18 accessibility features documented
@@ -369,6 +391,7 @@ import SchemaStateParkTemplate from '@/components/seo/SchemaStateParkTemplate.as
 - [ ] 2 reference data files (Holly River, Watoga) complete and validated
 
 ### Performance
+
 - [ ] Lighthouse Performance score ≥90
 - [ ] Core Web Vitals: LCP <2.5s, FID <100ms, CLS <0.1
 - [ ] Total page weight <1.5MB
@@ -378,19 +401,24 @@ import SchemaStateParkTemplate from '@/components/seo/SchemaStateParkTemplate.as
 
 ### Session 2026-01-02
 
-**Q1: Facility Subtype Detail Level**
+### Q1: Facility Subtype Detail Level
+
 → **A: Balanced Detail (Option B)** - Use 10-12 fields per facility type covering key differentiators users care about. Examples: Cabins include bedrooms, bathrooms, kitchen (full/partial/none), fireplace, petFriendly, seasonalAvail, priceRange, reservationUrl. Campgrounds include siteCount, hookupTypes (electric/water/sewer), bathhouse, dumpStation, maxRVLength. This matches SPEC-17 Backcountry pattern - enough detail for decisions, not so burdensome for content team.
 
-**Q2: Related Parks Discovery Logic**
+### Q2: Related Parks Discovery Logic
+
 → **A: Geographic Proximity** - Determine related parks by calculating distance from GPS coordinates, sorting by proximity, and displaying top 3-5 nearest parks. Automatic, requires no additional data fields, matches user mental model ("I'm visiting X, what else is nearby?"). Implementation: ~1 hour using Haversine distance formula on existing coordinates field.
 
-**Q3: Content Update Process**
+### Q3: Content Update Process
+
 → **A: Quarterly Manual Review** - Kim reviews and updates all state park pages every 3 months (January, April, July, October) to verify hours, fees, and program schedules against official WV State Parks website. Estimated effort: ~8 hours per quarter (~2 hours/week amortized). Balances data freshness with sustainable maintenance burden. Document quarterly review checklist in Phase 6 covering: seasonal hours verification, fee updates, program schedule changes, facility status, emergency contact validation.
 
-**Q4: Multi-Park Pass Representation**
+### Q4: Multi-Park Pass Representation
+
 → **A: Link to External Pass Page** - Do not model annual/senior/veteran passes in Fee schema. Add static "Park Passes" informational section to StateParkTemplate explaining pass benefits with external link to wvstateparks.com/passes. Zero Phase 1 impact, zero maintenance burden, delegates to authoritative source. WVWO doesn't sell passes - WV State Parks does. Users must visit official site to purchase anyway.
 
-**Q5: Photography/Image Strategy**
+### Q5: Photography/Image Strategy
+
 → **A: Hybrid Approach (Option C)** - Phase 4 implementation: (1) Prioritize public domain sources (Unsplash CC0, Wikimedia Commons) for hero images - legal, free, good WV landscape coverage. (2) Fall back to WV State Parks official images with proper attribution per their media guidelines. (3) Future enhancement: Commission professional photographer if budget allows ($5K-10K for 50 parks). ImageObject schema includes `credit` and `license` fields for attribution. Estimated Phase 4 impact: ~2 hours for image sourcing and attribution.
 
 ## Open Questions
@@ -406,17 +434,20 @@ import SchemaStateParkTemplate from '@/components/seo/SchemaStateParkTemplate.as
 ## References
 
 ### Related Specifications
+
 - [SPEC-17: Backcountry Template](../SPEC-17-template-backcountry/SPEC-17-FINAL.md) - 70% reusable architecture
 - [SPEC-09: Adventure Card Component](../SPEC-09-adventure-card-component/PROMPT.md) - Shared types
 - [SPEC-16: Cave Template](../SPEC-16-template-cave/PROMPT.md) - Visitor center patterns
 
 ### Research Documents
+
 - [State Park Research Findings](../../state-park-research-findings.md) - 10+ facility types, 15+ amenities
 - [Accessibility Compliance Research](../../accessibility-compliance-research.md) - WCAG 2.1 Level AA requirements
 - [SEO Architecture](./SPEC-18-seo-architecture.md) - Schema.org multi-type approach
 - [Implementation Roadmap](../../reports/spec-18-implementation-roadmap.md) - 6-phase plan, 50 hours
 
 ### External Standards
+
 - [WCAG 2.1 Level AA](https://www.w3.org/WAI/WCAG21/quickref/?currentsidebar=%23col_overview&levels=aaa) - Accessibility standard
 - [FSTAG Guidelines](https://www.fs.usda.gov/sites/default/files/FSTAG-2013-Update.pdf) - Trail Access Information
 - [Schema.org Park](https://schema.org/Park) - Structured data type
@@ -424,12 +455,14 @@ import SchemaStateParkTemplate from '@/components/seo/SchemaStateParkTemplate.as
 - [WV State Parks Official](https://wvstateparks.com/) - Data source for verification
 
 ### Design Guidelines
+
 - [CLAUDE.md](../../../../CLAUDE.md) - WVWO aesthetic requirements, concurrent execution rules
 - [WVWO Component Patterns](../../../../.agentdb/wvwo-context.json) - Brand colors, fonts, voice
 
 ---
 
-**Next Steps:**
+### Next Steps:
+
 1. ✅ Review spec.md for completeness
 2. ⏭️ `/speckit.clarify` - If spec has ambiguities (recommend reviewing Open Questions)
 3. ⏭️ `/speckit.plan` - Create detailed implementation plan (6-phase roadmap ready)

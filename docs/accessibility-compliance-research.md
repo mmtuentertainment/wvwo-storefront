@@ -1,4 +1,5 @@
 # ADA Compliance & Accessibility Research for SPEC-18 State Parks
+
 Generated: 2026-01-02
 Researcher: Claude Code Research Agent
 
@@ -9,11 +10,13 @@ SPEC-18 currently focuses on facilities, programs, and recreation but LACKS comp
 ### 1. MOBILITY ACCESSIBILITY (HIGH PRIORITY - MISSING)
 
 **Federal Requirements:**
+
 - ADA Title II requires compliance with 2010 Standards for Accessible Design
 - Forest Service Outdoor Recreation Accessibility Guidelines (FSORAG) apply to state parks
 - Trail accessibility must meet Forest Service Trail Accessibility Guidelines (FSTAG 2013)
 
 **SPEC-18 GAPS:**
+
 - No wheelchair-accessible trail indicators or ratings
 - Missing paved/unpaved surface type indicators
 - No trail width specifications (FSTAG requires minimum tread width)
@@ -27,6 +30,7 @@ SPEC-18 currently focuses on facilities, programs, and recreation but LACKS comp
 - Missing walker/rollator accessible indicators
 
 **REQUIRED FOR COMPLIANCE:**
+
 ```typescript
 AccessibilityFeatureSchema = z.object({
   wheelchairAccessible: z.boolean(),
@@ -45,11 +49,13 @@ AccessibilityFeatureSchema = z.object({
 ### 2. VISUAL ACCESSIBILITY (CRITICAL - COMPLETELY MISSING)
 
 **Federal Requirements:**
+
 - WCAG 2.1 Level AA compliance for web content (deadline: April 26, 2026, for entities 50K+)
 - Tactile exhibits required at visitor centers
 - Braille signage required for permanent facilities
 
 **SPEC-18 GAPS:**
+
 - No braille signage indicators
 - Missing tactile map/exhibit availability
 - No large print material indicators
@@ -59,6 +65,7 @@ AccessibilityFeatureSchema = z.object({
 - No screen reader compatibility for digital content
 
 **REQUIRED FOR COMPLIANCE:**
+
 ```typescript
 VisualAccessibilitySchema = z.object({
   brailleSignage: z.array(z.enum(['trailheads', 'visitor-center', 'restrooms', 'campsites'])),
@@ -73,11 +80,13 @@ VisualAccessibilitySchema = z.object({
 ### 3. HEARING ACCESSIBILITY (MEDIUM PRIORITY - MISSING)
 
 **Federal Requirements:**
+
 - Visual alerts required for emergency systems
 - Captioning required for educational videos
 - TTY/relay services for park offices
 
 **SPEC-18 GAPS:**
+
 - No visual emergency alert system indicators
 - Missing captioned video availability for programs
 - No TTY/relay service information
@@ -85,6 +94,7 @@ VisualAccessibilitySchema = z.object({
 - No sign language interpreter availability
 
 **REQUIRED FOR COMPLIANCE:**
+
 ```typescript
 HearingAccessibilitySchema = z.object({
   visualEmergencyAlerts: z.boolean(),
@@ -98,11 +108,13 @@ HearingAccessibilitySchema = z.object({
 ### 4. COGNITIVE ACCESSIBILITY (HIGH PRIORITY - COMPLETELY MISSING)
 
 **Neurodiversity Best Practices:**
+
 - National Parks are implementing sensory guides, social stories, quiet spaces
 - Death Valley NP: sensory kits with noise-canceling headphones, polarized sunglasses
 - Gettysburg NMP: sensory-friendly days (turn off battle sounds, quiet rooms, fidget toys)
 
 **SPEC-18 GAPS:**
+
 - No sensory-friendly program indicators
 - Missing quiet space/calm zone locations
 - No simplified wayfinding signage indicators
@@ -113,6 +125,7 @@ HearingAccessibilitySchema = z.object({
 - Missing advance preparation materials
 
 **REQUIRED FOR BEST PRACTICES:**
+
 ```typescript
 CognitiveAccessibilitySchema = z.object({
   sensoryFriendlyPrograms: z.boolean(),
@@ -131,11 +144,13 @@ CognitiveAccessibilitySchema = z.object({
 ### 5. SERVICE ANIMAL POLICIES (MEDIUM PRIORITY - MISSING)
 
 **Federal Requirements:**
+
 - ADA Title II requires service animals be permitted in all public areas
 - Emotional support animals NOT protected under ADA
 - State parks must clearly communicate policies
 
 **SPEC-18 GAPS:**
+
 - No service animal policy statement
 - Missing service animal relief areas
 - No pet-friendly vs service animal distinction
@@ -143,6 +158,7 @@ CognitiveAccessibilitySchema = z.object({
 - No guidance on wildlife areas with service animals
 
 **REQUIRED FOR COMPLIANCE:**
+
 ```typescript
 ServiceAnimalPolicySchema = z.object({
   serviceAnimalsAllowed: z.boolean().default(true),
@@ -157,18 +173,21 @@ ServiceAnimalPolicySchema = z.object({
 ### 6. ACCESSIBLE EQUIPMENT RENTAL (LOW PRIORITY - MISSING)
 
 **Best Practices:**
+
 - Beach wheelchairs (all-terrain)
 - Adaptive bikes
 - Accessible kayaks/canoes
 - Fishing equipment adaptations
 
 **SPEC-18 GAPS:**
+
 - No accessible equipment rental indicators
 - Missing beach wheelchair availability
 - No adaptive bike rental information
 - Missing accessible watercraft
 
 **OPTIONAL BUT RECOMMENDED:**
+
 ```typescript
 AccessibleEquipmentSchema = z.object({
   beachWheelchairs: z.boolean(),
@@ -182,15 +201,18 @@ AccessibleEquipmentSchema = z.object({
 ### 7. TRAIL ACCESS INFORMATION (HIGH PRIORITY - FEDERAL REQUIREMENT)
 
 **FSTAG/ABA Requirements:**
+
 - Trail Access Information (TAI) required in ALL new trailhead signage
 - Must summarize trail features: length, surface, width, slope
 
 **SPEC-18 GAPS:**
+
 - No TAI (Trail Access Information) data structure
 - Missing trailhead signage compliance indicators
 - No trail difficulty ratings using accessibility criteria
 
 **REQUIRED FOR FSTAG COMPLIANCE:**
+
 ```typescript
 TrailAccessInfoSchema = z.object({
   trailLength: z.number(), // Miles
@@ -208,11 +230,13 @@ TrailAccessInfoSchema = z.object({
 ### 8. WV STATE-SPECIFIC REQUIREMENTS (CRITICAL - MISSING)
 
 **West Virginia Context:**
+
 - 1 in 3 WV residents (600,000 people) has a disability
 - 1 in 5 WV residents struggles with mobility
 - WV DNR has "slowly gaining greater awareness" of accessibility (per Southerly investigation)
 
 **SPEC-18 GAPS:**
+
 - No WV DNR accessibility contact information
 - Missing ADA coordinator contact
 - No grievance procedure for accessibility complaints
@@ -220,6 +244,7 @@ TrailAccessInfoSchema = z.object({
 - No accessibility statement on park pages
 
 **REQUIRED FOR WV STATE COMPLIANCE:**
+
 ```typescript
 AccessibilityComplianceSchema = z.object({
   adaCoordinator: z.object({
@@ -240,20 +265,23 @@ AccessibilityComplianceSchema = z.object({
 
 ## PRIORITY IMPLEMENTATION ROADMAP
 
-### P0 (MUST HAVE - Federal Law):
+### P0 (MUST HAVE - Federal Law)
+
 1. Trail Access Information (TAI) - FSTAG requirement
 2. Accessible facility indicators (parking, restrooms, campsites)
 3. WCAG 2.1 Level AA compliance for web content (April 2026 deadline)
 4. Service animal policy statement
 5. ADA coordinator contact information
 
-### P1 (SHOULD HAVE - Best Practices):
+### P1 (SHOULD HAVE - Best Practices)
+
 1. Cognitive accessibility features (quiet spaces, sensory guides)
 2. Visual accessibility (braille, tactile, audio descriptions)
 3. Hearing accessibility (captions, visual alerts)
 4. Accessible trail surface/slope data
 
-### P2 (NICE TO HAVE - Enhanced Experience):
+### P2 (NICE TO HAVE - Enhanced Experience)
+
 1. Accessible equipment rental
 2. Sensory-friendly program schedules
 3. Advance preparation materials
@@ -290,6 +318,7 @@ export const StateParkTemplatePropsSchema = z.object({
 ## DESIGN SYSTEM COMPLIANCE
 
 **Industry Safety Colors for Accessibility (OVERRIDE WVWO palette):**
+
 - Green (#2E7D32) = Accessible/Easy
 - Blue (#1976D2) = Partially Accessible/Moderate
 - Red (#B71C1C) = Not Accessible/Challenging
@@ -311,19 +340,23 @@ export const StateParkTemplatePropsSchema = z.object({
 ## SOURCES
 
 Federal Requirements:
+
 - [ADA Title II Web Accessibility Rule (April 2026 deadline)](https://www.ada.gov/resources/web-rule-first-steps/)
 - [WCAG 2.1 Level AA Standard](https://www.federalregister.gov/documents/2024/04/24/2024-07758/)
 - [FSORAG/FSTAG Guidelines](https://www.fs.usda.gov/sites/default/files/FSTAG-2013-Update.pdf)
 
 Universal Design Standards:
+
 - [NPS Accessibility Standards](https://www.nps.gov/dscw/ds-accessibility-universal-design.htm)
 - [Trail Accessibility Standards](https://www.accessoutdoorsot.com/accessibility-standards-guidelines)
 
 Neurodiversity Best Practices:
+
 - [National Parks Autism-Friendly Initiatives](https://www.afar.com/magazine/how-u-s-national-parks-are-becoming-more-autism-friendly)
 - [Sensory-Inclusive Design](https://www.mdpi.com/2073-445X/13/5/636)
 
 West Virginia Context:
+
 - [WV State Parks Accessibility Investigation](https://southerlymag.org/2021/11/03/wv-outdoor-rec-accessibility/)
 - [WV State Parks Accessible Accommodations](https://wvstateparks.com/accessible-accommodations/)
 

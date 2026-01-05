@@ -7,6 +7,7 @@ This document outlines a **cascade-forward branching strategy** for submitting 6
 ## The Problem
 
 With 6 large PRs totaling ~9,777 lines of code:
+
 - **PR #1**: Type system (2,620 lines) - Foundation for everything
 - **PR #2**: Components (943 lines) - Depends on types
 - **PR #3**: Template + SEO (1,970 lines) - Depends on components
@@ -20,7 +21,7 @@ With 6 large PRs totaling ~9,777 lines of code:
 
 ### Branch Strategy
 
-```
+```text
 main (production)
  │
  └─> spec-18/pr-1-types (PR #1 → main)
@@ -211,7 +212,7 @@ Part of SPEC-18 (6-phase implementation)
 Co-Authored-By: Claude Sonnet 4.5 (1M context) <noreply@anthropic.com>"
 
 git push -u origin spec-18/pr-6-docs
-```
+```typescript
 
 ### Phase 2: Create Pull Requests
 
@@ -233,8 +234,9 @@ gh pr create \
 ## Part of SPEC-18 (6-Phase Implementation)
 This is **PR #1 of 6** - the foundation for all subsequent PRs.
 
-**Dependency Chain:**
+### Dependency Chain:
 ```
+
 PR #1 (types) ← YOU ARE HERE
   ↓
 PR #2 (components)
@@ -246,7 +248,8 @@ PR #4 (data)
 PR #5 (testing)
   ↓
 PR #6 (docs)
-```
+
+```typescript
 
 ## Review Strategy
 - Merge this PR FIRST
@@ -283,8 +286,9 @@ gh pr create \
 ## Part of SPEC-18 (6-Phase Implementation)
 This is **PR #2 of 6** - depends on PR #1 (types).
 
-**Dependency Chain:**
+### Dependency Chain:
 ```
+
 PR #1 (types) ✓ MERGED
   ↓
 PR #2 (components) ← YOU ARE HERE
@@ -296,7 +300,8 @@ PR #4 (data)
 PR #5 (testing)
   ↓
 PR #6 (docs)
-```
+
+```typescript
 
 ## Review Strategy
 - Base branch: `spec-18/pr-1-types`
@@ -334,8 +339,9 @@ gh pr create \
 ## Part of SPEC-18 (6-Phase Implementation)
 This is **PR #3 of 6** - depends on PR #2 (components).
 
-**Dependency Chain:**
+### Dependency Chain:
 ```
+
 PR #1 (types) ✓ MERGED
   ↓
 PR #2 (components) ✓ MERGED
@@ -347,7 +353,8 @@ PR #4 (data)
 PR #5 (testing)
   ↓
 PR #6 (docs)
-```
+
+```markdown
 
 ## Review Strategy
 - Base branch: `spec-18/pr-2-components`
@@ -385,8 +392,9 @@ gh pr create \
 ## Part of SPEC-18 (6-Phase Implementation)
 This is **PR #4 of 6** - depends on PR #3 (template).
 
-**Dependency Chain:**
+### Dependency Chain:
 ```
+
 PR #1 (types) ✓ MERGED
   ↓
 PR #2 (components) ✓ MERGED
@@ -398,7 +406,8 @@ PR #4 (data) ← YOU ARE HERE
 PR #5 (testing)
   ↓
 PR #6 (docs)
-```
+
+```markdown
 
 ## Review Strategy
 - Base branch: `spec-18/pr-3-template-seo`
@@ -432,8 +441,9 @@ gh pr create \
 ## Part of SPEC-18 (6-Phase Implementation)
 This is **PR #5 of 6** - depends on PR #4 (data).
 
-**Dependency Chain:**
+### Dependency Chain:
 ```
+
 PR #1 (types) ✓ MERGED
   ↓
 PR #2 (components) ✓ MERGED
@@ -445,7 +455,8 @@ PR #4 (data) ✓ MERGED
 PR #5 (testing) ← YOU ARE HERE
   ↓
 PR #6 (docs)
-```
+
+```markdown
 
 ## Review Strategy
 - Base branch: `spec-18/pr-4-data`
@@ -480,8 +491,9 @@ gh pr create \
 ## Part of SPEC-18 (6-Phase Implementation)
 This is **PR #6 of 6** - FINAL PR, depends on PR #5 (testing).
 
-**Dependency Chain:**
+### Dependency Chain:
 ```
+
 PR #1 (types) ✓ MERGED
   ↓
 PR #2 (components) ✓ MERGED
@@ -493,7 +505,8 @@ PR #4 (data) ✓ MERGED
 PR #5 (testing) ✓ MERGED
   ↓
 PR #6 (docs) ← YOU ARE HERE (FINAL)
-```
+
+```markdown
 
 ## Review Strategy
 - Base branch: `spec-18/pr-5-testing`
@@ -554,9 +567,10 @@ git push origin spec-18/pr-5-testing
 git checkout spec-18/pr-6-docs
 git merge spec-18/pr-5-testing  # This includes PR #1 fix
 git push origin spec-18/pr-6-docs
-```
+```text
 
 **Automation Script**:
+
 ```bash
 # Save as: cascade-fix.sh
 #!/bin/bash
@@ -598,7 +612,7 @@ git merge spec-18/pr-5-testing  # This includes PR #4 fix
 git push origin spec-18/pr-6-docs
 
 # NO CASCADE NEEDED to PR #1-3 (they're already merged or don't depend on data)
-```
+```markdown
 
 ### Scenario 3: Fix Needed in PR #6 (Docs)
 
@@ -620,7 +634,8 @@ git push origin spec-18/pr-6-docs
 
 ### Merge Order (CRITICAL)
 
-**MUST merge in this order:**
+### MUST merge in this order:
+
 1. PR #1 (types) → main
 2. PR #2 (components) → main (after updating base)
 3. PR #3 (template) → main (after updating base)
@@ -648,9 +663,10 @@ git rebase spec-18/pr-2-components
 git push --force-with-lease origin spec-18/pr-3-template-seo
 
 # Continue for PR #4, #5, #6...
-```
+```text
 
 **Automation Script**:
+
 ```bash
 # Save as: post-merge-update.sh
 #!/bin/bash
@@ -677,7 +693,8 @@ GitHub CLI supports **draft PRs** and **base branch updates**, but not native st
 
 ### Third-Party Tools
 
-**1. Graphite (graphite.dev)**
+### 1. Graphite (graphite.dev)
+
 ```bash
 # Install
 npm install -g @withgraphite/graphite-cli
@@ -689,14 +706,16 @@ gt branch create spec-18/pr-1-types
 gt stack submit
 
 # Automatically handles base branch updates
-```
+```text
 
-**2. Aviator (aviator.co)**
+### 2. Aviator (aviator.co)
+
 - Auto-merge queues
 - Stacked PR visualization
 - Automated cascade merges
 
-**3. ghstack (Facebook)**
+### 3. ghstack (Facebook)
+
 ```bash
 pip install ghstack
 
@@ -707,12 +726,14 @@ ghstack submit
 ### Recommendation
 
 **For SPEC-18, use manual GitHub CLI approach**:
+
 - More control over review process
 - No external dependencies
 - Works with existing GitHub workflow
 - Team is already familiar with gh CLI
 
 **Consider Graphite/Aviator for future SPECs** if:
+
 - More than 6 sequential PRs
 - Frequent cascade fixes needed
 - Multiple developers working on chain
@@ -739,7 +760,7 @@ git push origin spec-18/pr-2-components
 # Continue cascade to PR #3
 git checkout spec-18/pr-3-template-seo
 git merge spec-18/pr-2-components  # Should be clean now
-```
+```markdown
 
 ### Prevention Strategies
 
@@ -751,18 +772,21 @@ git merge spec-18/pr-2-components  # Should be clean now
 ## Summary Checklist
 
 ### Initial Setup
+
 - [ ] Create 6 branches in sequence (each from previous)
 - [ ] Commit phase-specific code to each branch
 - [ ] Push all branches to origin
 - [ ] Create 6 PRs with correct base branches
 
 ### During Review
+
 - [ ] Fix feedback in appropriate branch
 - [ ] Cascade fixes forward to dependent PRs
 - [ ] Test cascade merges
 - [ ] Update PR descriptions if needed
 
 ### Merge Process
+
 - [ ] Merge PR #1 to main
 - [ ] Update PR #2 base to main, rebase
 - [ ] Merge PR #2 to main
@@ -771,6 +795,7 @@ git merge spec-18/pr-2-components  # Should be clean now
 - [ ] Delete feature branches after all merges
 
 ### Post-Merge
+
 - [ ] Archive SPEC-18 to `_completed/`
 - [ ] Store pattern in ReasoningBank memory
 - [ ] Update project documentation
@@ -794,20 +819,22 @@ git merge spec-18/pr-2-components  # Should be clean now
 
 ### When to Use
 
-**Use this strategy when:**
+### Use this strategy when:
+
 - Large feature split into 6+ sequential PRs
 - Each PR builds on previous work
 - Independent review of each phase needed
 - Changes unlikely to affect earlier phases
 
-**Don't use when:**
+### Don't use when:
+
 - PRs are independent (can all target main)
 - Frequent back-and-forth changes expected
 - Single developer working alone (just use feature branch)
 
 ---
 
-**Generated for SPEC-18 State Park Template - 6-Phase Implementation**
+### Generated for SPEC-18 State Park Template - 6-Phase Implementation
 
 Total Lines: ~9,777 across 6 PRs
 Estimated Review Time: 2-3 weeks (1-2 days per PR)

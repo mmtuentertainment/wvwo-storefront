@@ -22,12 +22,14 @@
 ### Prerequisites
 
 ✅ **Required**:
+
 - Astro 5+ project running
 - SPEC-11 Adventure Components installed
 - Types defined in `types/adventure.ts`
 - Tailwind CSS 4 configured with WVWO colors
 
 ✅ **Verify Installation**:
+
 ```bash
 cd wv-wild-web
 npm run typecheck  # Should pass with no errors
@@ -158,6 +160,7 @@ npm run preview
 ```
 
 ✅ **Success Indicators**:
+
 - Build completes without errors
 - Page renders with your lake data
 - Hero section shows lake name and stats
@@ -165,6 +168,7 @@ npm run preview
 - Marina section shows boat launch info
 
 ❌ **If Build Fails**:
+
 - Read error message carefully (Zod will tell you exactly what's wrong)
 - Common issues: Empty arrays for required fields, missing required properties
 - Fix data and rebuild
@@ -176,6 +180,7 @@ npm run preview
 ### Basic Info Section
 
 **All Required**:
+
 ```typescript
 {
   name: string;           // "Summersville Lake"
@@ -187,6 +192,7 @@ npm run preview
 ```
 
 **Hero Display**:
+
 - Lake name: Large white text over hero image (h1, font-display)
 - Stats: 4-column grid overlay (acreage, depth, county)
 - Quick highlights: Green badges below stats
@@ -194,6 +200,7 @@ npm run preview
 ### Fish Species (PRIMARY CONTENT)
 
 **At Least 1 Required**:
+
 ```typescript
 fishSpecies: Array<{
   title: string;         // "Smallmouth Bass"
@@ -203,17 +210,20 @@ fishSpecies: Array<{
 ```
 
 **Rendering**:
+
 - 2-column grid on desktop, 1-column mobile
 - Green border-left accent
 - Kim's tips in cursive font with border-top separator
 
 **Best Practices**:
+
 - Order by popularity/importance (most targeted first)
 - Include 4-6 species for typical WV lake
 - Keep descriptions 1-2 sentences
 - Kim's tips: Specific techniques, local knowledge
 
 **Example**:
+
 ```typescript
 {
   title: 'Walleye',
@@ -225,6 +235,7 @@ fishSpecies: Array<{
 ### Fishing Spots
 
 **At Least 1 Required**:
+
 ```typescript
 fishingSpots: Array<{
   name: string;          // "Long Point Cliff"
@@ -236,11 +247,13 @@ fishingSpots: Array<{
 ```
 
 **Rendering**:
+
 - Full-width stacked cards
 - Brown border-left accent
 - 2-column grid inside card (details left, species badges right)
 
 **Best Practices**:
+
 - Include 3-8 named spots
 - Be specific about depth ranges
 - Describe structure (rocky, sandy, timber, etc.)
@@ -249,6 +262,7 @@ fishingSpots: Array<{
 ### Marina & Boat Access
 
 **Required (Single Marina Object)**:
+
 ```typescript
 marina: {
   name: string;               // "Summersville Lake Marina"
@@ -264,11 +278,13 @@ marina: {
 ```
 
 **Rendering**:
+
 - Full-width card with brown border-left
 - 2-column grid (services left, boat launch right)
 - Phone number becomes clickable `tel:` link
 
 **Best Practices**:
+
 - List all available services
 - Include seasonal hours
 - Provide direct phone number
@@ -277,6 +293,7 @@ marina: {
 ### Campgrounds
 
 **Can Be Empty Array**:
+
 ```typescript
 campgrounds: Array<{
   type: string;          // "Battle Run Campground"
@@ -301,6 +318,7 @@ activities: Array<{
 ```
 
 **Rendering**:
+
 - 3-column grid via AdventureFeatureSection
 - Season + difficulty as metadata
 - Green border-left accent
@@ -316,6 +334,7 @@ seasonalGuide: Array<{
 ```
 
 **Rendering**:
+
 - 2-column grid (2 seasons per row)
 - Green border-left accent on cards
 - Fishing focus in bordered callout if present
@@ -325,6 +344,7 @@ seasonalGuide: Array<{
 ### Regulations & Safety
 
 **At Least 1 Category Required**:
+
 ```typescript
 regulations: Array<{
   category: string;      // "Walleye Regulations"
@@ -333,11 +353,13 @@ regulations: Array<{
 ```
 
 **Rendering**:
+
 - Full-width cards with **orange** border-left (warning color)
 - Bulleted rules list
 - Orange warning icon (⚠) prefix
 
 **Best Practices**:
+
 - Separate by category (Walleye, Boating, Diving, etc.)
 - Include slot limits, creel limits, safety rules
 - Note that regulations are subject to change (footer added automatically)
@@ -349,6 +371,7 @@ regulations: Array<{
 ### Pattern 1: Copy Existing Lake
 
 **Easiest Way to Start**:
+
 ```bash
 # Copy summersville-lake.astro as template
 cp src/pages/near/summersville-lake.astro src/pages/near/your-lake.astro
@@ -360,6 +383,7 @@ cp src/pages/near/summersville-lake.astro src/pages/near/your-lake.astro
 ### Pattern 2: Empty Optional Sections
 
 **If lake has no activities or seasonal guide**:
+
 ```typescript
 const lakeData: LakeTemplateProps = {
   // ... required fields ...
@@ -376,16 +400,19 @@ const lakeData: LakeTemplateProps = {
 ### Pattern 3: Kim's Tips Best Practices
 
 **Good Kim's Tips** (specific, practical):
+
 ```typescript
 notes: 'Downsize to 6-8 lb test in gin-clear water. Tube jigs and drop shot rigs work well. Target rocky points and ledges.'
 ```
 
 **Avoid Generic Tips**:
+
 ```typescript
 notes: 'Fish are active in spring.'  // Too vague
 ```
 
 **Kim's Voice Characteristics**:
+
 - Direct, practical advice
 - Local terminology ("gin-clear", "stack up on structure")
 - Specific techniques with gear/bait/depth recommendations
@@ -394,6 +421,7 @@ notes: 'Fish are active in spring.'  // Too vague
 ### Pattern 4: Array Size Limits
 
 **Performance Limits** (NFR-009):
+
 ```typescript
 fishSpecies: max 20 items
 fishingSpots: max 15 items
@@ -404,6 +432,7 @@ activities: max 20 items
 Lighthouse performance score must remain 90+ within these limits.
 
 **Typical WV Lake Data**:
+
 - Fish species: 6-12
 - Fishing spots: 5-10
 - Campgrounds: 3-6
@@ -412,17 +441,20 @@ Lighthouse performance score must remain 90+ within these limits.
 ### Pattern 5: Hero Image Best Practices
 
 **Image Requirements**:
+
 - Size: 1920x1080px minimum (16:9 aspect ratio)
 - Format: JPG or WebP
 - Quality: Compressed for web (aim for <500KB)
 - Content: Aerial view or wide landscape shot
 
 **Location**:
+
 ```
 wv-wild-web/public/images/lakes/your-lake-hero.jpg
 ```
 
 **Usage**:
+
 ```typescript
 heroImage: '/images/lakes/your-lake-hero.jpg'
 ```
@@ -436,6 +468,7 @@ heroImage: '/images/lakes/your-lake-hero.jpg'
 **Cause**: Empty `species` array in fishing spot
 
 **Fix**:
+
 ```typescript
 // ❌ WRONG
 fishingSpots: [
@@ -459,6 +492,7 @@ fishingSpots: [
 **Cause**: Missing required marina fields
 
 **Fix**:
+
 ```typescript
 // ✅ All required fields
 marina: {
@@ -475,11 +509,13 @@ marina: {
 ### Build Succeeds But Page Looks Broken
 
 **Check**:
+
 1. Hero image path correct? (Should be relative to `public/`)
 2. Empty arrays for optional sections? (They hide gracefully)
 3. Browser console errors? (May indicate missing assets)
 
 **Debug**:
+
 ```bash
 npm run build
 npm run preview
@@ -491,6 +527,7 @@ npm run preview
 **Cause**: Likely empty `fishSpecies` array
 
 **Fix**:
+
 ```typescript
 // ❌ WRONG
 fishSpecies: []
@@ -506,6 +543,7 @@ fishSpecies: [
 **Cause**: `marina` is likely `undefined` or missing
 
 **Fix**:
+
 ```typescript
 // Every lake MUST have a marina object
 marina: {
@@ -742,6 +780,7 @@ const lakeData: LakeTemplateProps = {
 ### After Your First Lake Page
 
 1. **Test Across Devices**:
+
    ```bash
    npm run preview
    # Test on mobile, tablet, desktop viewports
@@ -772,11 +811,13 @@ const lakeData: LakeTemplateProps = {
 ### Getting Help
 
 **Build Errors**:
+
 1. Read Zod error message (tells you exactly what's wrong)
 2. Check quickstart troubleshooting section
 3. Compare to example lake page (summersville-lake.astro)
 
 **Questions**:
+
 - Review SPEC-13 spec.md for requirements
 - Check data-model.md for type details
 - Reference architecture.md for system design

@@ -22,6 +22,7 @@ WebFetch https://raw.githubusercontent.com/ruvnet/claude-flow/main/docs/guides/s
 ```
 
 The 7 skills to evaluate:
+
 1. **agentdb-memory-patterns** - Session + long-term memory
 2. **agentdb-vector-search** - Semantic code search
 3. **reasoningbank-agentdb** - Learn from task outcomes
@@ -33,6 +34,7 @@ The 7 skills to evaluate:
 ## Step 2: Analyze This Codebase (Do These Concurrently)
 
 ### A. Tech Stack Detection
+
 ```bash
 # Find package.json, Cargo.toml, requirements.txt, go.mod, etc.
 Glob "**/package.json" OR "**/Cargo.toml" OR "**/requirements.txt" OR "**/go.mod" OR "**/pyproject.toml"
@@ -40,6 +42,7 @@ Read [found config files]
 ```
 
 ### B. Codebase Size
+
 ```bash
 # Count files by type
 Glob "**/*.{js,ts,jsx,tsx,py,go,rs,astro,vue,svelte}"
@@ -47,6 +50,7 @@ Glob "**/*.{js,ts,jsx,tsx,py,go,rs,astro,vue,svelte}"
 ```
 
 ### C. Architecture Patterns
+
 ```bash
 # Look for common patterns
 Glob "**/components/**/*"
@@ -56,6 +60,7 @@ Glob "**/tests/**/*" OR "**/*.test.*" OR "**/*.spec.*"
 ```
 
 ### D. Project Documentation
+
 ```bash
 Read README.md
 Read CLAUDE.md (if exists)
@@ -77,6 +82,7 @@ Based on your analysis, fill out this table:
 | reasoningbank-intelligence | | | |
 
 **Decision Criteria:**
+
 - **ESSENTIAL**: Codebase > 20 files, multi-session work, clear patterns/conventions
 - **USEFUL**: 50+ files (vector search), repeated similar tasks
 - **OVERKILL**: Solo dev (no advanced), small project (no optimization), prototype (no learning)
@@ -85,7 +91,8 @@ Based on your analysis, fill out this table:
 
 For each ESSENTIAL skill, create a specific prompt tailored to this project.
 
-### Template for Memory Patterns Prompt:
+### Template for Memory Patterns Prompt
+
 ```
 Use the agentdb-memory-patterns skill to set up persistent memory for this project.
 
@@ -99,7 +106,8 @@ Store in long-term memory:
 Create namespace "[project-name]" for session context.
 ```
 
-### Template for ReasoningBank Prompt:
+### Template for ReasoningBank Prompt
+
 ```
 Use the reasoningbank-agentdb skill to enable learning for this project.
 
@@ -112,7 +120,8 @@ Track these patterns:
 Enable verdict judgment to improve over time.
 ```
 
-### Template for Intelligence Prompt:
+### Template for Intelligence Prompt
+
 ```
 Use the reasoningbank-intelligence skill for strategic understanding.
 
@@ -124,7 +133,8 @@ Store strategic decisions:
 Check suggestions against these principles before recommending changes.
 ```
 
-### Template for Vector Search Prompt (if needed):
+### Template for Vector Search Prompt (if needed)
+
 ```
 Use the agentdb-vector-search skill to index this codebase.
 
@@ -171,6 +181,7 @@ npx agentdb@latest reflexion retrieve "[topic]" --k 5
 npx agentdb@latest reflexion store "[project]" "<task>" [1.0|0.0] [true|false] "<note>"
 npx agentdb@latest reflexion critique-summary "[PROJECT]"
 ```
+
 ```
 
 ## Step 6: Deliver Final Output
@@ -221,14 +232,17 @@ Provide:
 ## Example Results
 
 For a **React SaaS app**:
+
 - Essential: memory-patterns, reasoningbank-agentdb, vector-search
 - Skip: learning, optimization, advanced
 
 For a **Python CLI tool**:
+
 - Essential: memory-patterns, reasoningbank-intelligence
 - Skip: vector-search (small), learning, optimization, advanced
 
 For a **Rust systems library**:
+
 - Essential: memory-patterns, vector-search, reasoningbank-agentdb
 - Skip: learning, optimization (unless huge), advanced
 

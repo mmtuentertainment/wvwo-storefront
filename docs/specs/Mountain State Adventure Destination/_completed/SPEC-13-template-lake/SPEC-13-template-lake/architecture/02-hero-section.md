@@ -49,18 +49,21 @@ Display lake name, hero image, key statistics, and quick highlights in a visuall
 ### 2.2 Responsive Behavior
 
 **Desktop (lg: 1024px+)**:
+
 - Hero height: 70vh (max 800px)
 - Lake name: text-6xl (3.75rem)
 - Stats: 4-column grid
 - Badges: 4-per-row
 
 **Tablet (md: 768px)**:
+
 - Hero height: 70vh (max 700px)
 - Lake name: text-5xl (3rem)
 - Stats: 2-column grid (2 rows)
 - Badges: 2-per-row
 
 **Mobile (< 768px)**:
+
 - Hero height: 70vh (min 500px)
 - Lake name: text-4xl (2.25rem)
 - Stats: 1-column stack
@@ -166,21 +169,25 @@ Display lake name, hero image, key statistics, and quick highlights in a visuall
 ### 3.2 WVWO Compliance
 
 **Fonts**:
+
 - ✅ `font-display` (Bitter) - Lake name, stat values
 - ✅ `font-body` implied for location text
 - ❌ NO `font-hand` (not appropriate for hero)
 
 **Colors**:
+
 - ✅ `sign-green` - Border-left accent on stats
 - ✅ `brand-brown` - Stat text color
 - ✅ `white` - Hero text over dark image
 - ❌ NO purple, pink, neon
 
 **Border Radius**:
+
 - ✅ `rounded-sm` ONLY (stat cards, badges)
 - ❌ NO rounded-md/lg/xl
 
 **Orange Usage**:
+
 - ❌ NO orange in hero (not a CTA section)
 
 ---
@@ -211,6 +218,7 @@ Display lake name, hero image, key statistics, and quick highlights in a visuall
 ### 4.3 Validation
 
 **Build-Time Checks**:
+
 - `name.length > 0` - Required
 - `acreage > 0` - Positive number
 - `maxDepth > 0` - Positive number
@@ -247,12 +255,15 @@ Display lake name, hero image, key statistics, and quick highlights in a visuall
 ### 5.3 Color Contrast
 
 **Text on Dark Overlay**:
+
 - White text (rgb(255,255,255)) on rgba(0,0,0,0.6) = **12.6:1 contrast** ✅
 
 **Stat Cards**:
+
 - Brand-brown text (#3E2723) on white/90 bg = **11.3:1 contrast** ✅
 
 **Badges**:
+
 - White text on sign-green (#2E7D32) = **4.8:1 contrast** ✅
 
 ---
@@ -279,6 +290,7 @@ Display lake name, hero image, key statistics, and quick highlights in a visuall
 **Layout Shift**: Reserve space with `h-[70vh] min-h-[500px]` to prevent CLS
 
 **Largest Contentful Paint**: Hero image is likely LCP element
+
 - Target: <2.5s (Success Criteria #15)
 - Optimization: CDN, responsive images, modern formats (WebP)
 
@@ -367,11 +379,13 @@ describe('Hero Section', () => {
 ### 8.2 Visual Regression Tests
 
 **Playwright Screenshots**:
+
 1. Desktop (1920×1080)
 2. Tablet (768×1024)
 3. Mobile (375×667)
 
 **Validation**:
+
 - Hero image fills viewport height
 - Stats overlay centered
 - Badges wrap properly
@@ -471,6 +485,7 @@ text-4xl md:text-5xl lg:text-6xl
 **Hero Section Architecture**: ✅ **COMPLETE**
 
 **Key Features**:
+
 - 70vh full-width hero image with gradient overlay
 - 4-column responsive stats grid (acreage, depth, county, distance)
 - Quick highlights badges (sign-green, rounded-sm)
@@ -478,6 +493,7 @@ text-4xl md:text-5xl lg:text-6xl
 - WVWO brand compliance (fonts, colors, borders)
 
 **Integration Ready**:
+
 - Props interface defined
 - Accessibility compliant (WCAG 2.1 AA)
 - Performance optimized (eager loading, layout shift prevention)

@@ -24,6 +24,7 @@ PR #47 successfully merged via squash merge with **6 commits**:
 ## Build Verification ✅
 
 **Build Status**: PASSING
+
 ```
 56 pages built in 14.51s
 Content sync: Successful
@@ -32,6 +33,7 @@ Warnings: 0 (unused variables don't count)
 ```
 
 **Pages Generated**:
+
 - All shop pages (categories + products)
 - All adventure/destination pages
 - All static pages (about, contact, FFL, etc.)
@@ -42,6 +44,7 @@ Warnings: 0 (unused variables don't count)
 ## Content Collections Integration ✅
 
 **Collections Created**: 5
+
 - `adventures/` - 1 example file
 - `stories/` - 1 example file
 - `resources/` - 1 example file
@@ -51,12 +54,14 @@ Warnings: 0 (unused variables don't count)
 **Total Content Files**: 6 markdown files
 
 **TypeScript Types Generated**: ✅
+
 - File: `.astro/content.d.ts` (7,847 bytes)
 - All 5 collections have type definitions
 - Type-safe `getCollection()` queries available
 - Schema validation active
 
 **Content Layer Data Store**: ✅
+
 - File: `.astro/data-store.json` (21,600 bytes)
 - Persistent between builds
 - Enables incremental updates
@@ -69,18 +74,21 @@ Warnings: 0 (unused variables don't count)
 ### Constitution v2.3.0
 
 **New Principles**:
+
 1. **Principle I**: PUBLIC_COMMERCE_ENABLED flag governance added
 2. **Principle II**: Content Collections requirement mandated
 3. **Principle VII**: BOPIS mandatory for products >40 lbs (shipping economics)
 4. **Boundary Rules**: E-commerce scope updated to reflect disabled state
 
 **Version History**:
+
 - v2.2.0 → v2.3.0 (MINOR bump)
 - Reason: Strategic pivot alignment
 
 ### CLAUDE.md
 
 **Updates**:
+
 - Version reference: v2.3.0
 - Last updated: 2025-12-22
 - PHASE context: E-commerce disabled, BOPIS strategy
@@ -89,6 +97,7 @@ Warnings: 0 (unused variables don't count)
 ### BLUEPRINT.md
 
 **Updates**:
+
 - Version: 2.0 (Pivot Edition)
 - Added deprecation notice for obsolete Phase 1-2
 - Executive summary: Added research validation (goal #4)
@@ -97,6 +106,7 @@ Warnings: 0 (unused variables don't count)
 ### PIVOT_RATIONALE.md
 
 **New Section**: Research Validation (December 22, 2025)
+
 - Shipping economics ($488-768 per kayak)
 - Webrooming behavior (74% research online, buy in-store)
 - Huckberry model ($158M, content-first)
@@ -109,6 +119,7 @@ Warnings: 0 (unused variables don't count)
 **Independent 4-Agent Research Swarm**: 40+ primary sources
 
 **Key Findings**:
+
 1. ✅ Astro Content Layer prevents OOM crashes at 30k+ files
 2. ✅ Shipping costs $488-768 per kayak (erases 2-4.3% net margins)
 3. ✅ 85% of BOPIS customers make additional purchases
@@ -116,6 +127,7 @@ Warnings: 0 (unused variables don't count)
 5. ✅ Huckberry model proven ($158M revenue, content-first)
 
 **Documentation**:
+
 - `docs/RESEARCH_CORRECTIONS.md` - Full fact-checking report
 - `docs/Strategic Validation Report...md` - Your research with corrections applied
 
@@ -144,6 +156,7 @@ Warnings: 0 (unused variables don't count)
 **Implementation**: ✅ COMPLETE and VERIFIED
 
 **Files Modified**:
+
 - `.env.example` - Flag defined
 - `checkout.astro` - 307 redirect when disabled
 - `Layout.astro` - Conditional cart drawer
@@ -151,6 +164,7 @@ Warnings: 0 (unused variables don't count)
 - `[product].astro` - Three-state CTA logic
 
 **Current Production State**:
+
 - `PUBLIC_COMMERCE_ENABLED=false` (disabled)
 - Cart icon hidden from header
 - Product pages show "Call to Order: (304) 649-5765"
@@ -166,12 +180,14 @@ Warnings: 0 (unused variables don't count)
 **Implementation**: ✅ COMPLETE and VALIDATED
 
 **Schema Architecture**:
+
 - 5 Zod-validated collections
 - Content Layer API (`loader: glob()` pattern)
 - Type-safe cross-references (`reference('adventures')`)
 - WVWO-specific fields (seasons, geography, safety)
 
 **Commerce-Ready Features**:
+
 - Products collection with sku, fulfillment_type, commerce_enabled
 - BOPIS architecture (pickup_only for heavy items)
 - Per-item commerce toggle
@@ -220,6 +236,7 @@ Warnings: 0 (unused variables don't count)
 **Governance**: ✅ Aligned (v2.3.0)
 
 **Architecture**:
+
 - Astro 5.x + Tailwind CSS 4.x
 - React + shadcn/ui (interactive components)
 - Content Collections (5 schemas, Content Layer API)
@@ -227,6 +244,7 @@ Warnings: 0 (unused variables don't count)
 - PUBLIC_COMMERCE_ENABLED=false (e-commerce disabled)
 
 **Next Steps**:
+
 - SPEC-07: Adventures hub with filtering
 - SPEC-08-11: Adventure components
 - SPEC-12+: Geographic templates (66 destination specs)
@@ -255,6 +273,7 @@ Warnings: 0 (unused variables don't count)
 **Pattern**: Astro 5 Content Layer + Zod validation + commerce-ready schema
 
 **To retrieve for future work**:
+
 ```bash
 npx agentdb@latest reflexion retrieve "SPEC-06 Content Collections" --k 10
 ```

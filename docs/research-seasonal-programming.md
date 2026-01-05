@@ -8,8 +8,8 @@
 
 ### 1. RANGER-LED PROGRAMS
 
-
 **Types:**
+
 - Guided nature walks and hikes
 - Campfire programs and evening presentations
 - Historical tours and cultural programs
@@ -20,18 +20,22 @@
 - Birdwatching tours
 
 **Scheduling Patterns:**
+
 - Year-round programming at most parks
 - Seasonal variations (winter programs, summer concerts, fall foliage tours)
 - Specific time slots: campfire programs (evening), guided hikes (morning/afternoon)
 - Reservation systems: Minnesota DNR takes reservations for summer tours starting March 31
 
 **Program Duration:**
+
 - Short programs: 1-2 hours (guided walks, campfire talks)
 - Half-day programs: 3-4 hours (extensive hikes, workshops)
 - Full-day programs: educational field trips, volunteer days
 
 ### 2. EDUCATIONAL WORKSHOPS
+
 **Types:**
+
 - Photography workshops
 - Birding classes
 - Astronomy nights
@@ -41,45 +45,48 @@
 
 **Delivery:**
 
-
 - Staff-led programs by trained interpreters
 - Self-guided activities with materials provided
 - Virtual options (Florida offers Virtual Junior Ranger)
 
 ### 3. SEASONAL EVENTS
 
-
 **Winter Events:**
+
 - Festival of Trees (Virginia - 30th Annual in 2025)
 - Holiday lighting displays (Natural Bridge State Park)
 - Christmas Village (Stone Mountain Park: Nov 8, 2025–Jan 4, 2026)
 
 **Spring Events:**
+
 - Wildflower blooms (Oconee Bell: mid-March to early April, South Carolina)
 - Spring birding programs
 - Earth Day celebrations
 
 **Summer Events:**
+
 - Cultural celebrations (Cambodian Cultural Celebration - Aug 9, Washington)
 - Summer festivals (United Communities of Laos - Aug 23, Washington)
 - Summerfest (Raymond B. Winter State Park - June 21, 2025, Pennsylvania)
 - Summer concert series (Washington State Parks)
 
 **Fall Events:**
+
 - Fall foliage tours
 - Halloween programs (Haunted Island Halloween - Oct 25, 2025, South Carolina)
 - Creepy Campout (Lake Wateree State Park - Oct 25, 2025)
 
 ### 4. JUNIOR RANGER PROGRAMS
 
-
 **Scale:**
+
 - Offered at 100+ parks nationwide
 - California: 70+ state parks
 - Georgia: 59 parks and historic sites
 - North Carolina: 2025 is "Year of North Carolina" theme
 
 **Program Structure:**
+
 - Age range: typically 7-12, but some accept "any age"
 - Activity books with educational missions
 - Badge/certificate upon completion
@@ -87,19 +94,21 @@
 - Virtual options available (Florida)
 
 **Special Programs:**
+
 - Caledon Junior Rangers (Virginia - July 14, 2025)
 - Age 6-11, outdoor survival skills focus
 - Park-specific themes and activities
 
 ### 5. VOLUNTEER PROGRAMS
 
-
 **Types:**
+
 - Campground/Park Hosts (25-30 hrs/week, 1-6 month commitment)
 - Individual volunteers (flexible schedule, once a week/month)
 - Group volunteers (short-term projects)
 
 **Activities:**
+
 - Trail maintenance and invasive plant removal
 - Beach/waterway cleanups
 - Visitor center assistance
@@ -108,6 +117,7 @@
 - Special event support
 
 **Benefits:**
+
 - Free campsite + utilities for hosts
 - Family passes after 50 hours (Florida)
 - Special volunteer passes after 250 hours
@@ -115,14 +125,15 @@
 - Job experience and training
 
 **Requirements:**
+
 - Background check required
 - Orientation and training provided
 - Application through volunteer coordinators
 
 ### 6. NATURE CENTERS & INTERPRETIVE SERVICES
 
-
 **Offerings:**
+
 - Educational displays and exhibits
 - Live animal programs
 - Nature library and resources
@@ -130,14 +141,15 @@
 - Gateway to park's natural heritage
 
 **Staffing:**
+
 - Dedicated park naturalists
 - Trained state park interpreters
 - Volunteers with specialized knowledge
 
 ### 7. SCHOOL PROGRAMS
 
-
 **Characteristics:**
+
 - FREE field trips to state parks (must be pre-arranged)
 - Led by trained state park interpreters
 - Curriculum-aligned educational content
@@ -146,8 +158,8 @@
 
 ## ACCESSIBILITY CONSIDERATIONS
 
-
 **Not extensively documented in research, but standard practices include:**
+
 - ASL interpreters (mentioned in best practices)
 - Sensory-friendly program options
 - Wheelchair-accessible trails for guided hikes
@@ -157,8 +169,8 @@
 
 ## REGISTRATION & BOOKING PATTERNS
 
-
 **Systems Identified:**
+
 - Online event calendars (California, Virginia, Texas, Florida)
 - Advance reservation systems (Minnesota - opens March 31 for summer)
 - Call-ahead for school groups
@@ -166,6 +178,7 @@
 - Ticket systems for special events
 
 **Event Calendar Features:**
+
 - Date range filters
 - Park location filters
 - Program type filters
@@ -226,7 +239,6 @@
 ## DATA STRUCTURE RECOMMENDATIONS
 
 ### Program Schema
-
 
 ```typescript
 {
@@ -296,6 +308,7 @@
 7. **Volunteer paths:** Clear progression from casual volunteer (group cleanup) to dedicated host (months-long commitment)
 
 ## SOURCES
+
 - [North Carolina State Parks Junior Ranger](https://www.ncparks.gov/education/junior-ranger-program)
 - [Georgia State Parks Junior Ranger](https://gastateparks.org/JuniorRanger)
 - [California State Parks Programs](https://www.parks.ca.gov/?page_id=24691)
@@ -312,7 +325,6 @@
 - [Florida Volunteer Portal](https://volunteers.floridastateparks.org/)
 
 ## NEXT STEPS FOR SPEC-18
-
 
 1. Design program card component with WVWO aesthetics (Bitter font, sign-green accents)
 2. Implement filtering system with sharp corners (rounded-sm only)

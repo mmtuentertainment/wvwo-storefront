@@ -13,6 +13,7 @@
 **Decision:** Single 660-line RiverTemplate.astro component (NOT decomposed sub-components)
 
 **Rationale:**
+
 - ✅ Matches proven LakeTemplate pattern (557 lines)
 - ✅ Simpler for content editors (single file)
 - ✅ Faster SSG builds (zero additional component imports)
@@ -30,12 +31,14 @@ Content Collections (.md) → Data Files (.ts) → Page (.astro) → Template (.
 ```
 
 **Validation Strategy:**
+
 - **Layer 1 (Collections):** Runtime Zod validation for .md frontmatter
 - **Layer 2 (Data Files):** Build-time TypeScript type checking (PREFERRED)
 - **Layer 3 (Pages):** Type assertion, trust upstream
 - **Layer 4 (Template):** Props destructuring, pure presentation
 
 **7 New TypeScript Interfaces:**
+
 1. `Rapid` - Classification with color-coding (I-III green, IV orange, V red)
 2. `RiverFishing` - Flow-dependent fishing data
 3. `Outfitter` - Contact validation (at least one method required)
@@ -51,6 +54,7 @@ Content Collections (.md) → Data Files (.ts) → Page (.astro) → Template (.
 **Decision:** Centralized color mappings in `adventure.ts` (NOT inline ternaries)
 
 **Implementation:**
+
 ```typescript
 export const RAPID_COLORS = {
   'I': 'border-l-sign-green bg-sign-green',
@@ -64,6 +68,7 @@ export const RAPID_COLORS = {
 ```
 
 **3 Color-Coded Systems:**
+
 1. **Rapids:** Class I-III (green), IV (orange), V (red) + shape icons (●▲■◆)
 2. **Seasonal Flow:** Low (green), Medium (orange), High (red)
 3. **Access Points:** Put-in (green), Take-out (brown), Both (orange)
@@ -92,6 +97,7 @@ export const RAPID_COLORS = {
 ### 5. Conditional Rendering: HIDE EMPTY SECTIONS ✅
 
 **Pattern:**
+
 ```astro
 {rapids && rapids.length > 0 && (
   <section class="rapids-guide">
@@ -101,6 +107,7 @@ export const RAPID_COLORS = {
 ```
 
 **Edge Cases Handled:**
+
 - Empty arrays vs. undefined props (null-safe checks)
 - Optional nested properties (safe navigation `?.`)
 - String emptiness (trim before checking)
@@ -115,11 +122,13 @@ export const RAPID_COLORS = {
 **Decision:** `SchemaRiverTemplate.astro` (NEW FILE, NOT extend SchemaAdventureHero)
 
 **Rationale:**
+
 - Rivers are distinct entity type (TouristAttraction + WaterBodyUsage)
 - Different properties (warnings, water levels, outfitters as LocalBusiness entities)
 - Separate @graph structure (4 entities: TouristAttraction, Article, BreadcrumbList, LocalBusiness[])
 
 **Schema.org @graph:**
+
 ```json
 {
   "@context": "https://schema.org",
@@ -139,6 +148,7 @@ export const RAPID_COLORS = {
 **Recommended Pattern:** Data Files (src/data/rivers/*.ts)
 
 **Why:**
+
 - ✅ Complex nested objects (rapids arrays, outfitter objects)
 - ✅ TypeScript autocomplete (IDE support)
 - ✅ Reusable data (import anywhere)
@@ -151,6 +161,7 @@ export const RAPID_COLORS = {
 ### 8. Migration: 4 EXISTING RIVER PAGES ✅
 
 **Priority List:**
+
 1. **elk-river.astro** (HIGH) - 2 hours effort
 2. **holly-river.astro** (MEDIUM) - 3 hours effort
 3. **greenbrier-river.astro** (MEDIUM) - 3 hours (net new)
@@ -159,6 +170,7 @@ export const RAPID_COLORS = {
 **Total Migration Effort:** 11 hours for 4 rivers
 
 **Workflow per River:**
+
 1. Audit existing content (15 min)
 2. Create data file (60 min)
 3. Create schema props (15 min)
@@ -206,36 +218,43 @@ export const RAPID_COLORS = {
 ## Implementation Roadmap (12 Hours Total)
 
 ### Phase 1: Type System (2 hours) ✅ READY
+
 - Add 7 Zod schemas to adventure.ts
 - Add RiverTemplateProps interface
 - Add color mapping objects (RAPID_COLORS, FLOW_LEVEL_COLORS, ACCESS_TYPE_COLORS)
 - Add helper functions (getAttractionIcon, isRiverAdventure)
 
 ### Phase 2: Template Component (5 hours)
+
 - Scaffold RiverTemplate.astro (660 lines)
 - Implement 8 sections + 3 shared components
 - Add scoped styles (rounded-sm enforcement)
 
 ### Phase 3: Content Collections (1 hour)
+
 - Extend content.config.ts with river-specific fields
 - Update type discriminator (add 'river' to enum)
 
 ### Phase 4: SEO Component (2 hours)
+
 - Create SchemaRiverTemplate.astro (200 lines)
 - Implement @graph entity builder (4 entities)
 - Test with Google Rich Results Test
 
 ### Phase 5: Example Data Files (1 hour)
+
 - Create _example.ts (reference implementation)
 - Create gauley.ts (skeleton with TODOs)
 - Create README.md (developer docs)
 
 ### Phase 6: Page Integration (1 hour)
+
 - Refactor gauley-river.astro to template pattern
 - Add meta tags (title, description, OG, geo)
 - Build & validate output
 
 ### Phase 7: Testing (Future - 4-6 hours)
+
 - Playwright E2E tests (3 viewports)
 - Visual regression tests (Percy/Chromatic)
 - Accessibility audit (axe-core, WAVE)
@@ -247,6 +266,7 @@ export const RAPID_COLORS = {
 ## WVWO Compliance Checklist (CRITICAL)
 
 ### MUST USE ✅
+
 - ✅ `font-display` (Bitter serif) - Headings
 - ✅ `font-hand` (Permanent Marker) - Kim's tips ONLY
 - ✅ `font-body` (Noto Sans) - Body text
@@ -254,6 +274,7 @@ export const RAPID_COLORS = {
 - ✅ `--brand-brown`, `--sign-green`, `--brand-cream`, `--brand-orange` (<5% screen)
 
 ### FORBIDDEN (Instant PR Rejection) ❌
+
 - ❌ Inter, Poppins, DM Sans, system-ui (fonts)
 - ❌ Purple, hot pink, neon, corporate blue (colors)
 - ❌ `rounded-md/lg/xl/3xl` (border radius)
@@ -264,6 +285,7 @@ export const RAPID_COLORS = {
 ## Key Architectural Patterns
 
 ### 1. Monolithic Component Pattern (From LakeTemplate)
+
 ```astro
 RiverTemplate.astro (660 lines)
 ├── Frontmatter (imports, types, props)
@@ -273,6 +295,7 @@ RiverTemplate.astro (660 lines)
 ```
 
 ### 2. Color-Coding Pattern (NEW)
+
 ```typescript
 // Type system (adventure.ts)
 export const RAPID_COLORS = { 'I': '...', 'V': '...' };
@@ -284,6 +307,7 @@ export const RAPID_COLORS = { 'I': '...', 'V': '...' };
 ```
 
 ### 3. Conditional Rendering Pattern
+
 ```astro
 {rapids && rapids.length > 0 && (
   <section>
@@ -293,6 +317,7 @@ export const RAPID_COLORS = { 'I': '...', 'V': '...' };
 ```
 
 ### 4. SEO Integration Pattern
+
 ```astro
 ---
 // Page: gauley-river.astro
@@ -308,6 +333,7 @@ const schemaProps = {
 ```
 
 ### 5. Data File Pattern
+
 ```typescript
 // src/data/rivers/gauley.ts
 import type { RiverTemplateProps } from '../../types/adventure';
@@ -324,6 +350,7 @@ export const gauleyRiverData: RiverTemplateProps = {
 ## Success Criteria
 
 ### Completeness ✅
+
 - [x] All 8 sections designed (Rapids, Fishing, Outfitters, Seasonal Flow, Access Points, Safety, Nearby Attractions, plus Gear/Shop/CTA)
 - [x] TypeScript interface system complete (7 Zod schemas + RiverTemplateProps)
 - [x] Color-coding logic designed (3 lookup objects + helper functions)
@@ -334,6 +361,7 @@ export const gauleyRiverData: RiverTemplateProps = {
 - [x] Migration strategy created (4 rivers, 11 hours effort)
 
 ### WVWO Compliance ✅
+
 - [x] `rounded-sm` ONLY (no other border-radius values)
 - [x] Fonts: Bitter (display), Permanent Marker (hand), Noto Sans (body)
 - [x] Colors: Brown, green, cream, orange (<5% screen)
@@ -342,17 +370,20 @@ export const gauleyRiverData: RiverTemplateProps = {
 - [x] Kim's authentic voice (no corporate buzzwords)
 
 ### Accessibility ✅
+
 - [x] Color contrast ≥ 4.5:1 on all text/bg combos
 - [x] Color-blind friendly (shape icons + colors for rapids)
 - [x] Touch-friendly (48px+ tap targets for mobile)
 - [x] Screen reader friendly (aria-labelledby, semantic HTML)
 
 ### Performance ✅
+
 - [x] Static rendering (zero client-side JS)
 - [x] Conditional sections (hide if empty arrays)
 - [x] Bundle size < 100KB uncompressed
 
 ### SEO ✅
+
 - [x] Schema.org @graph structure designed (4 entities)
 - [x] Meta tags pattern documented (title, description, OG, geo)
 - [x] Breadcrumb integration planned
@@ -362,6 +393,7 @@ export const gauleyRiverData: RiverTemplateProps = {
 ## Next Steps
 
 ### Immediate Action: Phase 1 Implementation
+
 1. Open `wv-wild-web/src/types/adventure.ts`
 2. Add 7 Zod schemas (Lines 395-450)
 3. Add RiverTemplateProps interface (Lines 451-490)

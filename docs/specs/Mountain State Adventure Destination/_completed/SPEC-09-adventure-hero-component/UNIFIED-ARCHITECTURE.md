@@ -263,6 +263,7 @@ import { Image } from 'astro:assets';
 ```
 
 **Format Negotiation** (automatic):
+
 1. AVIF (50% smaller than WebP)
 2. WebP (30% smaller than JPEG)
 3. JPEG (fallback)
@@ -829,6 +830,7 @@ lighthouse --url=https://example.com/adventures/sutton-lake \
 ```
 
 **Budget assertions**:
+
 - LCP < 2500ms
 - CLS < 0.1
 - Performance score >= 90

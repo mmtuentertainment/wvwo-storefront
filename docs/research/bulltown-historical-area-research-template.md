@@ -8,21 +8,23 @@
 ## Research URLs to Check
 
 ### Primary Sources (Start Here)
-1. **WV Encyclopedia**: https://www.wvencyclopedia.org/articles/1241
+
+1. **WV Encyclopedia**: <https://www.wvencyclopedia.org/articles/1241>
    - Search: "Battle of Bulltown"
    - Expected: Date, casualties, significance
 
-2. **U.S. Army Corps of Engineers**: https://www.lrh.usace.army.mil/Missions/Recreation/Burnsville-Lake/
+2. **U.S. Army Corps of Engineers**: <https://www.lrh.usace.army.mil/Missions/Recreation/Burnsville-Lake/>
    - Search site for: "Bulltown", "historical", "Civil War"
    - Expected: Proximity to campgrounds, visitor info
 
-3. **WV Tourism**: https://wvtourism.com/company/bulltown-historic-area/
+3. **WV Tourism**: <https://wvtourism.com/company/bulltown-historic-area/>
    - Expected: Hours, admission, current status
 
-4. **National Park Service**: https://www.nps.gov/places/bulltown-historic-area.htm
+4. **National Park Service**: <https://www.nps.gov/places/bulltown-historic-area.htm>
    - Expected: Buildings, exhibits, walking trails
 
 ### Secondary Sources
+
 - Recreation.gov campground pages (search "Burnsville Lake")
 - Braxton County Historical Society
 - West Virginia Archives & History
@@ -86,6 +88,7 @@
 ### For Burnsville Lake Page
 
 **Historical Angle Additions**:
+
 - [ ] Add "Historical Site" to quick info grid
 - [ ] Create "More Than Fishing" section highlighting Civil War history
 - [ ] Update "Getting There" to mention Bulltown as landmark/access point
@@ -108,11 +111,13 @@ if you've got kids who need a break from the boat. [HOURS/ACCESS INFO].
 ### Voice Guidelines (Kim's Style)
 
 **DO**:
+
 - "The old Cunningham farmhouse is still there, bullet holes and all."
 - "Good spot to walk off your breakfast before you hit the water."
 - "If you're camping at [CAMPGROUND], you can walk to the historical site."
 
 **DON'T**:
+
 - "Immerse yourself in authentic Civil War heritage!"
 - "A transformative historical experience awaits!"
 - "Step back in time and witness history come alive!"
@@ -175,6 +180,7 @@ if you've got kids who need a break from the boat. [HOURS/ACCESS INFO].
 ## Research Completion Criteria
 
 Research is COMPLETE when you can answer:
+
 - [X] What happened at Bulltown? (1-2 sentence summary)
 - [X] What can visitors see TODAY? (specific structures/exhibits)
 - [X] How close to lake recreation? (walking/driving distance from campgrounds)
@@ -269,6 +275,7 @@ Research is COMPLETE when you can answer:
 ## Notes for Claude
 
 When research is complete:
+
 1. **Verify every fact** has a source URL
 2. **Check for staleness** (Is this 2019 info? Is the site still open?)
 3. **Test URLs** (Are sources still live?)
@@ -276,6 +283,7 @@ When research is complete:
 5. **Suggest alternatives** if Bulltown is defunct/inaccessible
 
 **Red Flags to Watch For**:
+
 - Sources older than 5 years (may be outdated)
 - "Under renovation" or "Temporarily closed" (check current status)
 - Conflicting information (need tiebreaker source)

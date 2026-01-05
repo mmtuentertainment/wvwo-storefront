@@ -732,6 +732,7 @@ export const validatedHollyRiverPark = StateParkSchema.parse(hollyRiverStatePark
 ### Content Writing Guidelines - Kim's Voice
 
 **DO:**
+
 - "Join us for..." instead of "Experience our..."
 - "Perfect for families who..." instead of "Ideal for..."
 - Mention specific distances: "18 miles north" not "nearby"
@@ -741,6 +742,7 @@ export const validatedHollyRiverPark = StateParkSchema.parse(hollyRiverStatePark
 - Mention gear needs with WVWO tie-ins where natural
 
 **DON'T:**
+
 - Use marketing buzzwords: "world-class", "premier", "unparalleled"
 - Over-romanticize: "majestic vistas" → "great views from the summit"
 - Generic descriptions: Be specific about what makes this park unique
@@ -1317,17 +1319,20 @@ meta_description: z.string().min(120).max(160),
 ### Data Accuracy Sources
 
 **Primary (Always Use):**
+
 1. Official WV State Parks website (wvstateparks.com)
 2. Park-specific pages
 3. Current fee schedules and policies
 
 **Secondary (Cross-Reference):**
+
 1. WV Division of Natural Resources (for fishing regulations)
 2. USGS topographic maps (for elevation data)
 3. National Park Service Trail Assessment Initiative (for accessible trail specs)
 4. Local county tourism boards
 
 **DO NOT Use as Primary Sources:**
+
 1. TripAdvisor reviews (outdated info)
 2. Old blog posts (policies change)
 3. Wikipedia (may be inaccurate)
@@ -1358,30 +1363,26 @@ src/
 
 ### Phase 1: Core Structure
 
-
 1. Define Zod schemas
 2. Create TypeScript types
 3. Build one complete reference (Holly River)
 
 ### Phase 2: Variations
 
-
-4. Adapt schema for resort parks (Watoga)
-5. Adapt schema for overlook parks (Cacapon)
+1. Adapt schema for resort parks (Watoga)
+2. Adapt schema for overlook parks (Cacapon)
 
 ### Phase 3: Validation
 
-
-6. Runtime validation testing
-7. Data accuracy verification
-8. SEO content optimization
+1. Runtime validation testing
+2. Data accuracy verification
+3. SEO content optimization
 
 ### Phase 4: Integration
 
-
-9. Dynamic route implementation
-10. Component integration
-11. WVWO product cross-linking
+1. Dynamic route implementation
+2. Component integration
+3. WVWO product cross-linking
 
 ### Code Quality Standards
 

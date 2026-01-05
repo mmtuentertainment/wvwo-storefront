@@ -13,6 +13,7 @@
 - [ ] **CTA buttons** use `rounded-sm`, not `rounded-md/lg`
 
 **How to verify**:
+
 ```bash
 # Search codebase for violations
 grep -r "rounded-md\|rounded-lg\|rounded-xl" wv-wild-web/src/components/adventure/
@@ -33,6 +34,7 @@ npm run test:compliance -- border-radius.spec.ts
 - [ ] **CSS variables** correctly defined: `--font-display`, `--font-hand`, `--font-body`
 
 **How to verify**:
+
 ```bash
 # Check for forbidden fonts
 grep -ri "Inter\|Poppins\|DM Sans\|system-ui" wv-wild-web/src/
@@ -58,6 +60,7 @@ npm run test:compliance -- fonts.spec.ts
 - [ ] **Accent colors** match semantic meaning (fish=green, camping=brown)
 
 **How to verify**:
+
 ```bash
 # Check accent color usage
 grep -r "border-l-" wv-wild-web/src/components/adventure/
@@ -81,6 +84,7 @@ npm run test:compliance -- color-accents.spec.ts
 - [ ] **Animations**: gentle-reveal with `prefers-reduced-motion` support ONLY
 
 **How to verify**:
+
 ```bash
 # Search for forbidden styles
 grep -ri "backdrop-blur\|parallax" wv-wild-web/src/
@@ -100,6 +104,7 @@ grep -r "@keyframes" wv-wild-web/src/components/adventure/
 - [ ] **Kim's notes** include quotes and authentic rural WV language
 
 **How to verify**:
+
 ```bash
 # Search for buzzwords (case-insensitive)
 grep -ri "unlock\|seamless\|revolutionize\|next-level\|transform the way" wv-wild-web/src/pages/adventures/
@@ -120,6 +125,7 @@ grep -ri "unlock\|seamless\|revolutionize\|next-level\|transform the way" wv-wil
 - [ ] **Screen reader** friendly (icons aria-hidden, info in text)
 
 **How to verify**:
+
 ```bash
 # Run accessibility tests
 npm run test:a11y
@@ -139,6 +145,7 @@ npm run test:a11y
 - [ ] **No unexpected visual changes** from baseline
 
 **How to verify**:
+
 ```bash
 # Run visual regression tests
 npm run test:visual
@@ -157,6 +164,7 @@ npm run test:visual
 - [ ] **NO (REJECT)**: Looks like a tech startup or SaaS landing page
 
 **If it feels like**:
+
 - ❌ Airbnb, Stripe, Vercel, Linear → **REJECT**
 - ✅ Rural hardware store, hunting magazine, WVDNR website → **APPROVE**
 

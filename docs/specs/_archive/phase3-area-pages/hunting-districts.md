@@ -34,31 +34,37 @@ This spec requires significant research before implementation:
 ## Content Sections (Tentative)
 
 ### Hero
+
 - "Know Your Zone Before You Go"
 - Explain why this matters
 
 ### What Are Hunting Districts?
+
 - Plain-English explanation
 - Why WV uses this system
 - How it affects your hunt
 
 ### Our Area
+
 - What district is the shop in?
 - What districts are nearby WMAs in?
 - Table showing: WMA → District → Key regulations
 
 ### District-Specific Regulations
+
 - Deer regulations by district
 - Turkey regulations by district
 - Bear zones
 - Antler restrictions where applicable
 
 ### How to Find Your Zone
+
 - Link to WV DNR district map
 - How to look up a specific location
 - Mobile-friendly lookup tips
 
 ### CTA Sections
+
 - Shop CTA: "Confused about regulations? Stop by and we'll help you figure it out"
 - License CTA: "We're a DNR license agent - get your license and ask questions"
 - Newsletter: Season updates and regulation changes

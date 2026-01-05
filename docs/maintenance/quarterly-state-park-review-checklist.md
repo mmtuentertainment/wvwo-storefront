@@ -58,8 +58,8 @@ This checklist ensures WVWO State Park content remains accurate and up-to-date. 
 
 ## Data Sources
 
-- Primary: https://wvstateparks.com
-- Reservations: https://reservations.wvstateparks.com
+- Primary: <https://wvstateparks.com>
+- Reservations: <https://reservations.wvstateparks.com>
 - WV DNR: Fishing/hunting regulations
 - Google Maps: Distance/direction verification
 

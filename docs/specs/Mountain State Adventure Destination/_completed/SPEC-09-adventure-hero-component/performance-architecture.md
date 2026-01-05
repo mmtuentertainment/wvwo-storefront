@@ -12,6 +12,7 @@
 This document defines the performance architecture for `AdventureHero.astro`, ensuring Core Web Vitals compliance while maintaining WVWO visual richness. The hero is the LCP element on adventure pages - optimizing it directly impacts SEO ranking.
 
 **Key Decisions**:
+
 1. Astro Image with responsive srcset (not CSS background-image)
 2. Inline critical CSS for first paint
 3. CSS-based camo pattern (not external SVG)
@@ -82,6 +83,7 @@ sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 600px"
 ### 1.3 Format Selection Strategy
 
 Astro Image automatically negotiates:
+
 1. **AVIF** - 50% smaller than WebP (Chrome 85+, Firefox 93+)
 2. **WebP** - 30% smaller than JPEG (universal modern browser support)
 3. **JPEG** - Fallback for older browsers
@@ -125,6 +127,7 @@ Astro Image automatically negotiates:
 **CLS Budget**: Each adventure image MUST have consistent aspect ratio in Content Collections schema.
 
 Recommended aspect ratios:
+
 - Landscape destinations (lakes, WMAs): 3:2 or 16:9
 - Trail/river shots: 4:3
 
@@ -256,6 +259,7 @@ For optimal first paint, inline hero-specific critical CSS in the component:
 ```
 
 **SVGO Optimization** (reduces 658B → ~520B):
+
 - Remove XML declaration
 - Shorten filter ID (`blur` → `b`)
 - Remove redundant rect element
@@ -497,6 +501,7 @@ if (isFirstParty && isAdventureAsset) {
 ```
 
 **Hero Image Offline**:
+
 - First visit: Network fetch, cache response
 - Subsequent visits: Serve from cache immediately, background revalidate
 - Offline: Serve from cache (may be stale)
@@ -519,6 +524,7 @@ const STATIC_ASSETS = [
 ### 6.1 Development LCP Verification
 
 **Chrome DevTools**:
+
 1. Open DevTools > Performance panel
 2. Start recording
 3. Hard refresh (Cmd+Shift+R)
@@ -526,6 +532,7 @@ const STATIC_ASSETS = [
 5. Check "Timings" row for LCP marker
 
 **Web Vitals Extension**:
+
 - Install: Chrome Web Store "Web Vitals"
 - Green badge = passing, Red = failing
 - Click for breakdown (LCP element highlighted)

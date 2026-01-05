@@ -12,6 +12,7 @@ Create a reusable `CaveTemplate.astro` component (~475 lines) for displaying Wes
 ## Problem Statement
 
 WV Wild Outdoors needs cave destination pages to support the Mountain State Adventure Destination initiative. Currently:
+
 - No template exists for cave/cavern content
 - Cave tourism represents a weather-independent attraction (constant 54-56°F year-round)
 - Three major WV caves need destination pages: Seneca Caverns, Smoke Hole Caverns, Lost World Caverns
@@ -35,18 +36,22 @@ WV Wild Outdoors needs cave destination pages to support the Mountain State Adve
 ## User Stories
 
 ### As a Highway Hunter (I-79/US-19 traveler)
+
 - I want to see cave tour options with clear duration, difficulty, and pricing
 - So that I can plan a cave visit as part of my WV outdoor trip
 
 ### As a Family Planner
+
 - I want to understand physical requirements and accessibility limitations upfront
 - So that I can determine if the cave tour is suitable for my family members
 
 ### As an Education-Focused Visitor
+
 - I want to learn about geological formations and cave history
 - So that I can appreciate the science and history during my visit
 
 ### As Kim (Store Owner)
+
 - I want to recommend nearby caves to customers seeking rainy-day activities
 - So that I can provide value and build relationships with visitors
 
@@ -115,11 +120,13 @@ WV Wild Outdoors needs cave destination pages to support the Mountain State Adve
 ## Non-Functional Requirements
 
 ### Performance
+
 - Template renders in < 100ms server-side
 - Images use loading="lazy" for below-fold content
 - Hero image uses loading="eager"
 
 ### Accessibility
+
 - All sections have aria-labelledby with unique IDs
 - Color contrast meets WCAG AA (4.5:1 minimum)
 - Orange badges use brown text (not white) for contrast
@@ -127,6 +134,7 @@ WV Wild Outdoors needs cave destination pages to support the Mountain State Adve
 - Motion-safe/motion-reduce supported
 
 ### Security
+
 - External links use rel="noopener noreferrer"
 - No user input accepted (static template)
 - Third-party disclaimers clearly displayed
@@ -245,15 +253,18 @@ const validated = CaveTemplatePropsSchema.parse(caveData);
 ## Dependencies
 
 ### Internal Dependencies
+
 - `src/types/adventure.ts` - StatItem, GearItem, RelatedCategory, NearbyAttraction, Coordinates
 - `src/components/adventure/AdventureGearChecklist.astro`
 - `src/components/adventure/AdventureRelatedShop.astro`
 - `src/components/adventure/AdventureCTA.astro`
 
 ### External Dependencies
+
 - None (pure Astro/TypeScript component)
 
 ### Downstream Dependencies (will use this template)
+
 - SPEC-36: Seneca Caverns destination page
 - SPEC-37: Smoke Hole Caverns destination page
 - SPEC-49: Lost World Caverns destination page
@@ -261,12 +272,14 @@ const validated = CaveTemplatePropsSchema.parse(caveData);
 ## Acceptance Criteria
 
 ### Template Structure
+
 - [ ] ~475 lines (acceptable range: 450-500)
 - [ ] All 8 required sections implemented
 - [ ] TypeScript props interface complete with Zod validation
 - [ ] Responsive grid layouts (mobile-first)
 
 ### WVWO Aesthetic Compliance
+
 - [ ] `rounded-sm` ONLY enforced (no rounded-md/lg/xl)
 - [ ] Border-left accents: sign-green (tours), brand-orange (accessibility/safety)
 - [ ] Fun facts in font-hand
@@ -274,24 +287,28 @@ const validated = CaveTemplatePropsSchema.parse(caveData);
 - [ ] Colors from WVWO palette only
 
 ### Educational Focus
+
 - [ ] Formations display with geological context
 - [ ] Formation type taxonomy implemented
 - [ ] Accessible language (no scientific jargon)
 - [ ] Fun facts with educational hooks
 
 ### Accessibility Requirements
+
 - [ ] Physical requirements clearly listed
 - [ ] Limitations prominently displayed (orange accent)
 - [ ] Accommodations section present
 - [ ] Third-party booking disclaimer displayed
 
 ### Safety Information
+
 - [ ] Rules section with bullet points
 - [ ] Prohibited items with X icons
 - [ ] Emergency contact displayed (if provided)
 - [ ] Orange accent for visibility
 
 ### Integration
+
 - [ ] AdventureGearChecklist renders correctly
 - [ ] AdventureRelatedShop renders correctly
 - [ ] AdventureCTA renders with cave-specific props
@@ -300,6 +317,7 @@ const validated = CaveTemplatePropsSchema.parse(caveData);
 ## Clarifications
 
 ### Session 2025-12-30
+
 - Q: How should `funFact` and `kimNote` fields differ in voice and usage? → A: **funFact** = Educational facts in neutral voice ("Takes 100 years to grow 1 inch"). **kimNote** = Kim's personal tips in her voice ("This one's my favorite - reminds me of the icicles on grandpa's barn")
 
 ## Open Questions
@@ -316,12 +334,14 @@ const validated = CaveTemplatePropsSchema.parse(caveData);
 ## References
 
 ### Related SPECs
+
 - SPEC-15: SkiTemplate (reference pattern, 774 lines)
 - SPEC-36: Seneca Caverns destination (will use this template)
 - SPEC-37: Smoke Hole Caverns destination (will use this template)
 - SPEC-49: Lost World Caverns destination (will use this template)
 
 ### Research Sources (completed)
+
 - Seneca Caverns website analysis (165ft depth, 54°F, ~250 stairs, Mirror Lake)
 - Smoke Hole Caverns features (Cave Ribbon, coral reef fossils, easier tour)
 - Lost World Caverns features (War Club stalactite, self-guided, wild cave option)
@@ -331,6 +351,7 @@ const validated = CaveTemplatePropsSchema.parse(caveData);
 - Cave safety guidelines (rules[], prohibited[], emergencyContact)
 
 ### Existing Templates (reference)
+
 - `wv-wild-web/src/components/templates/SkiTemplate.astro`
 - `wv-wild-web/src/components/templates/LakeTemplate.astro`
 - `wv-wild-web/src/components/templates/RiverTemplate.astro`

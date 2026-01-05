@@ -19,6 +19,7 @@
 | **River** | 10 | Length, CFS Range | Rapids Guide (class-coded), Fishing (flow-dependent), Outfitters, Seasonal Flow, Access Points (put-in/take-out) |
 
 ### Common Section Order Pattern
+
 1. **Hero** (stats grid, badges, tagline)
 2. **Description** (prose on cream background)
 3. **Primary Content** (2-4 sections, template-specific)
@@ -36,6 +37,7 @@
 ### Lodging Options Display
 
 **SkiTemplate Pattern** (most comprehensive):
+
 ```astro
 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
   {lodging.map((property) => (
@@ -61,9 +63,10 @@
     </div>
   ))}
 </div>
-```
+```typescript
 
 **Type Structure** (ski-types.ts):
+
 ```typescript
 export const LodgingSchema = z.object({
   name: z.string().min(1),
@@ -76,6 +79,7 @@ export const LodgingSchema = z.object({
 ```
 
 **State Parks Application**:
+
 - Use same card layout for cabins, campgrounds, lodges
 - Show distance/location relative to main park area
 - Display amenities as compact badges
@@ -84,6 +88,7 @@ export const LodgingSchema = z.object({
 ### Marina/Visitor Center Display
 
 **LakeTemplate Pattern**:
+
 ```astro
 <div class="space-y-6">
   {marinas.map((marina) => (
@@ -126,9 +131,10 @@ export const LodgingSchema = z.object({
     </article>
   ))}
 </div>
-```
+```text
 
 **State Parks Application**:
+
 - Visitor center: services, hours, contact
 - Park office: permits, regulations, ranger info
 - Nature center: programs, exhibits
@@ -140,6 +146,7 @@ export const LodgingSchema = z.object({
 ### Activity Cards (Grid Layout)
 
 **LakeTemplate Pattern** (clean, reusable):
+
 ```astro
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
   {activities.map((activity) => (
@@ -166,6 +173,7 @@ export const LodgingSchema = z.object({
 ```
 
 **Type Structure** (adventure.ts):
+
 ```typescript
 export const ActivitySchema = z.object({
   name: z.string().min(1),
@@ -174,9 +182,10 @@ export const ActivitySchema = z.object({
   difficulty: z.string().optional(),
   icon: StatIconSchema.optional(),
 });
-```
+```text
 
 **State Parks Application**:
+
 - Hiking trails
 - Programs (guided hikes, nature walks, campfire talks)
 - Educational activities
@@ -185,6 +194,7 @@ export const ActivitySchema = z.object({
 ### Tour/Program Schedule Display
 
 **CaveTemplate Pattern** (time-sensitive programs):
+
 ```astro
 {tours.map((tour) => (
   <div class="bg-brand-cream p-6 rounded-sm border-l-4 ${getTourBorderColor(tour.difficulty)}">
@@ -222,6 +232,7 @@ export const ActivitySchema = z.object({
 ```
 
 **State Parks Application**:
+
 - Ranger-led programs
 - Educational workshops
 - Guided nature walks
@@ -234,6 +245,7 @@ export const ActivitySchema = z.object({
 ### Seasonal Conditions Grid
 
 **BackcountryTemplate Pattern** (4-season grid):
+
 ```astro
 <div class="grid md:grid-cols-2 gap-6">
   {seasonalConditions.map((season) => (
@@ -283,9 +295,10 @@ export const ActivitySchema = z.object({
     </div>
   ))}
 </div>
-```
+```text
 
 **State Parks Application**:
+
 - Pool/beach opening dates
 - Winter trail closures
 - Seasonal programs
@@ -294,6 +307,7 @@ export const ActivitySchema = z.object({
 ### Seasonal Guide (Fishing/Activities)
 
 **LakeTemplate Pattern** (month-by-month):
+
 ```astro
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
   {seasonalGuide.map((season) => (
@@ -332,6 +346,7 @@ export const ActivitySchema = z.object({
 ```
 
 **State Parks Application**:
+
 - Best times for different activities
 - Seasonal wildlife viewing
 - Peak foliage timing
@@ -344,6 +359,7 @@ export const ActivitySchema = z.object({
 ### Tiered Pricing Cards
 
 **SkiTemplate Pattern** (most detailed):
+
 ```astro
 <div class="grid md:grid-cols-2 gap-8">
   <!-- Lift Tickets -->
@@ -384,9 +400,10 @@ export const ActivitySchema = z.object({
     </div>
   </div>
 </div>
-```
+```text
 
 **CaveTemplate Pattern** (simpler, single-column):
+
 ```astro
 <div class="bg-brand-cream p-6 rounded-sm border-l-4 border-sign-green">
   <h3 class="font-display text-xl font-bold mb-4">Tour Pricing</h3>
@@ -407,6 +424,7 @@ export const ActivitySchema = z.object({
 ```
 
 **State Parks Application**:
+
 - Day-use fees
 - Camping fees (primitive vs. full hookup)
 - Cabin rental rates
@@ -420,6 +438,7 @@ export const ActivitySchema = z.object({
 ### Booking Button Patterns
 
 **Common Pattern**:
+
 ```astro
 <!-- Primary booking CTA (orange) -->
 <a
@@ -444,9 +463,10 @@ export const ActivitySchema = z.object({
   </svg>
   Call for Reservations
 </a>
-```
+```text
 
 **Third-Party Disclaimer Pattern** (CaveTemplate):
+
 ```astro
 <aside class="p-5 bg-brand-cream border-l-4 border-brand-orange rounded-sm" role="note">
   <div class="flex items-start gap-4">
@@ -471,6 +491,7 @@ export const ActivitySchema = z.object({
 ```
 
 **State Parks Application**:
+
 - Link to WV State Parks reservation system
 - Park office phone for questions
 - Ranger station contact for programs
@@ -482,6 +503,7 @@ export const ActivitySchema = z.object({
 ### Physical Requirements Section
 
 **CaveTemplate Pattern** (upfront, detailed):
+
 ```astro
 <section class="py-16 bg-brand-cream">
   <h2 class="font-display text-3xl md:text-4xl font-bold text-center mb-8">
@@ -546,9 +568,10 @@ export const ActivitySchema = z.object({
     )}
   </div>
 </section>
-```
+```text
 
 **State Parks Application**:
+
 - ADA-compliant facilities
 - Trail accessibility ratings
 - Mobility equipment availability
@@ -561,6 +584,7 @@ export const ActivitySchema = z.object({
 ### Emergency Contacts (Tiered)
 
 **BackcountryTemplate Pattern** (3-tier system):
+
 ```astro
 <div class="space-y-3">
   {sortedEmergencyContacts.map((contact) => (
@@ -605,6 +629,7 @@ export const ActivitySchema = z.object({
 ```
 
 **Type Structure** (backcountry-template-types.ts):
+
 ```typescript
 export const TieredEmergencyContactSchema = z.object({
   service: z.string().min(1),
@@ -620,9 +645,10 @@ export const EMERGENCY_TIER_COLORS: Record<EmergencyTier, string> = {
   '24x7': 'bg-brand-orange text-white',
   business_hours: 'bg-sign-green text-white',
 };
-```
+```text
 
 **State Parks Application**:
+
 - Park rangers (business hours)
 - Park police (24/7)
 - Emergency services (911)
@@ -630,6 +656,7 @@ export const EMERGENCY_TIER_COLORS: Record<EmergencyTier, string> = {
 ### Park Office/Visitor Center Contact
 
 **Simpler Pattern** (for non-emergency):
+
 ```astro
 <div class="bg-brand-cream p-6 rounded-sm">
   <h3 class="font-display text-xl font-bold mb-4">Contact Information</h3>
@@ -673,6 +700,7 @@ export const EMERGENCY_TIER_COLORS: Record<EmergencyTier, string> = {
 ### AdventureGearChecklist
 
 **All templates use identical integration**:
+
 ```astro
 <AdventureGearChecklist
   items={gearList}
@@ -680,9 +708,10 @@ export const EMERGENCY_TIER_COLORS: Record<EmergencyTier, string> = {
   columns={3}
   variant="white"
 />
-```
+```typescript
 
 **Type Structure** (adventure.ts):
+
 ```typescript
 export const GearItemSchema = z.object({
   name: z.string().min(1),
@@ -694,14 +723,16 @@ export const GearItemSchema = z.object({
 ### AdventureRelatedShop
 
 **All templates use identical integration**:
+
 ```astro
 <AdventureRelatedShop
   categories={relatedShop}
   title="Shop Before You Go"
 />
-```
+```typescript
 
 **Type Structure** (adventure.ts):
+
 ```typescript
 export const RelatedCategorySchema = z.object({
   name: z.string().min(1),
@@ -714,6 +745,7 @@ export const RelatedCategorySchema = z.object({
 ### AdventureCTA
 
 **All templates use identical integration**:
+
 ```astro
 <AdventureCTA
   heading={`Plan Your Trip to ${name}`}
@@ -724,7 +756,7 @@ export const RelatedCategorySchema = z.object({
   secondaryHref="/contact"
   variant="sign-green"
 />
-```
+```typescript
 
 ---
 
@@ -861,7 +893,7 @@ export const BoatLaunchSchema = z.object({
   fees: z.string(),                      // "Free" | "$5/day"
   restrictions: z.array(z.string()),     // "No PWC", "10hp limit"
 });
-```
+```text
 
 ---
 

@@ -15,6 +15,7 @@
 **File**: `tests/e2e/river-template.spec.ts`
 
 Complete end-to-end testing covering:
+
 - RiverTemplate component rendering with example data
 - SchemaRiverTemplate JSON-LD generation and validation
 - Content Collections query integration
@@ -33,6 +34,7 @@ Complete end-to-end testing covering:
 **File**: `tests/accessibility/wcag-compliance.spec.ts`
 
 Comprehensive accessibility validation:
+
 - Automated axe-core scanning (WCAG 2.1 Level AA)
 - Color contrast testing (4.5:1 text, 3:1 large text)
 - Keyboard navigation for all interactive elements
@@ -55,6 +57,7 @@ Comprehensive accessibility validation:
 **File**: `tests/performance/lighthouse-metrics.spec.ts`
 
 Performance benchmarking and validation:
+
 - Lighthouse audits (Performance, Accessibility, Best Practices, SEO ≥90)
 - Core Web Vitals:
   - LCP (Largest Contentful Paint) <2.5s
@@ -76,6 +79,7 @@ Performance benchmarking and validation:
 **File**: `tests/validation/acceptance-criteria.spec.ts`
 
 Validates all 42 acceptance criteria from SPEC-14:
+
 - Component file existence (RiverTemplate, SchemaRiverTemplate)
 - Content collection configuration
 - 8 section implementation
@@ -102,6 +106,7 @@ Validates all 42 acceptance criteria from SPEC-14:
 **File**: `scripts/google-rich-results-test.ts`
 
 Automated schema validation:
+
 - Extracts JSON-LD from built test page
 - Validates @context and @graph structure
 - Checks Place entity requirements
@@ -122,6 +127,7 @@ Executes all 5 quality checkpoints in sequence with enhanced reporting.
 **File**: `playwright.config.ts`
 
 Complete test runner configuration:
+
 - Multi-browser support (Chromium, Firefox, WebKit)
 - Mobile device testing (Pixel 5, iPhone 12)
 - Tablet testing (iPad Pro)
@@ -135,6 +141,7 @@ Complete test runner configuration:
 **File**: `package.json`
 
 New npm scripts for testing:
+
 ```bash
 npm run test                    # Run all tests
 npm run test:e2e                # E2E integration tests
@@ -151,6 +158,7 @@ npm run phase6:full-validation  # COMPLETE validation suite
 ### 9. Documentation ✅
 
 **Files created**:
+
 - `docs/phase6-testing-guide.md` - Comprehensive testing guide
 - `docs/phase6-validation-report-template.md` - Report template
 - `tests/README.md` - Test suite documentation
@@ -166,6 +174,7 @@ npm install
 ```
 
 This installs:
+
 - `@playwright/test` - Test runner
 - `@axe-core/playwright` - Accessibility testing
 - `playwright-lighthouse` - Performance auditing
@@ -280,6 +289,7 @@ Ensure `src/content/rivers/new-river.md` exists with complete frontmatter (creat
 ### Passing Criteria
 
 All tests should pass with:
+
 - ✅ E2E integration: 12/12 tests passing
 - ✅ Accessibility: 18/18 tests passing (0 violations)
 - ✅ Performance: 17/17 tests passing (Lighthouse ≥90, Core Web Vitals green)
@@ -312,6 +322,7 @@ reports/phase6/
 **Issue**: `Error: page.goto: net::ERR_CONNECTION_REFUSED`
 
 **Solution**:
+
 ```bash
 # Ensure site is built
 npm run build
@@ -326,6 +337,7 @@ npm run preview
 **Issue**: Color contrast violations detected
 
 **Solution**:
+
 1. Run axe-core in browser DevTools
 2. Check actual vs. expected colors in WVWO palette
 3. Verify CSS variables are applied correctly
@@ -336,6 +348,7 @@ npm run preview
 **Issue**: Lighthouse scores below 90
 
 **Solution**:
+
 1. Check bundle sizes: `npm run build` and inspect `dist/`
 2. Verify image optimization (WebP/AVIF)
 3. Ensure fonts use `font-display: swap`
@@ -348,6 +361,7 @@ npm run preview
 
 **Solution**:
 Add address to `new-river.md` frontmatter:
+
 ```yaml
 address:
   streetAddress: "New River Gorge"
@@ -366,21 +380,25 @@ address:
 Before final sign-off, manually verify:
 
 #### Fonts
+
 - [ ] Headings use Bitter (serif)
 - [ ] Body text uses Noto Sans
 - [ ] No Inter, Poppins, DM Sans, or other forbidden fonts
 
 #### Colors
+
 - [ ] Primary CTAs use brand orange (#FF6F00)
 - [ ] Brown (#3E2723), green (#2E7D32), cream (#FFF8E1) present
 - [ ] No purple, hot pink, neon, or corporate blue
 
 #### Styles
+
 - [ ] All corners are sharp (rounded-sm = 2px only)
 - [ ] No glassmorphism or backdrop-blur
 - [ ] No excessive gradients
 
 #### Copy
+
 - [ ] No marketing buzzwords ("unlock potential", "seamless", etc.)
 - [ ] Voice sounds like Kim (direct, humble, rural WV)
 
@@ -399,6 +417,7 @@ npm run phase6:full-validation
 ### 2. Review Reports
 
 Check all reports in `reports/phase6/`:
+
 - Checkpoint validation logs
 - Google Rich Results validation
 - Lighthouse audit reports
@@ -407,7 +426,7 @@ Check all reports in `reports/phase6/`:
 ### 3. Manual Google Rich Results Test
 
 1. Copy JSON-LD from `reports/phase6/google-rich-results-*.txt`
-2. Open https://search.google.com/test/rich-results
+2. Open <https://search.google.com/test/rich-results>
 3. Paste schema
 4. Screenshot results
 5. Verify all entities recognized (Place, TouristAttraction)
@@ -421,6 +440,7 @@ Fill in all test results, metrics, and screenshots.
 ### 5. Stakeholder Sign-off
 
 Present validation report to:
+
 - Product owner
 - UX/Accessibility lead
 - Performance lead
@@ -431,6 +451,7 @@ Get approvals before merging.
 ### 6. Merge to Main
 
 After all approvals:
+
 ```bash
 git add .
 git commit -m "feat(SPEC-14): Phase 6 final testing and validation complete"
@@ -442,7 +463,7 @@ git push origin feature/spec-14-lake-template
 
 ## Success Metrics
 
-### Phase 6 Complete When:
+### Phase 6 Complete When
 
 - ✅ All E2E tests passing
 - ✅ 100% WCAG AA compliance (0 violations)
@@ -522,6 +543,7 @@ jobs:
 ### Performance Optimization Tips
 
 If performance tests fail:
+
 1. Enable image optimization (WebP/AVIF)
 2. Add `loading="lazy"` to below-fold images
 3. Use `font-display: swap` for fonts

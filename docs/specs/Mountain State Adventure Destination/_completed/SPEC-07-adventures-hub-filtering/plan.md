@@ -3,6 +3,7 @@
 **Version:** 1.0.0
 **Created:** 2025-12-23
 **Based On:**
+
 - spec.md v2.1.0 (5 clarifications resolved)
 - 4 Architect Agent Outputs (System, Code, Strategy, Performance)
 - 5 Research Documents (294 sources)
@@ -26,6 +27,7 @@ Phased implementation plan for Adventures Hub with 5-axis filtering (Season, Dif
 **Effort:** 2 hours
 
 **Deliverables:**
+
 - TypeScript interfaces: `FilterAxisConfig`, `FilterOption`, `FilterState`, `FilterAction`
 - 5 filter axes defined:
   1. Season (multi-select, 4 options)
@@ -35,6 +37,7 @@ Phased implementation plan for Adventures Hub with 5-axis filtering (Season, Dif
   5. Suitability (multi-select, 4 options)
 
 **Acceptance Criteria:**
+
 - [ ] All 5 axes have id, label, type, options
 - [ ] TypeScript compiles with no errors
 - [ ] Config exports `FILTER_CONFIG` array
@@ -46,11 +49,13 @@ Phased implementation plan for Adventures Hub with 5-axis filtering (Season, Dif
 ### 1.2 Filter Utilities (Pure Functions)
 
 **Tasks:**
+
 - Create `filter-utils.ts` (filterAdventures logic)
 - Create `filter-reducer.ts` (generic reducer)
 - Write unit tests
 
 **Files:**
+
 - `wv-wild-web/src/lib/adventures/filter-utils.ts`
 - `wv-wild-web/src/lib/adventures/filter-reducer.ts`
 - `wv-wild-web/tests/adventures/filter-utils.test.ts`
@@ -58,12 +63,14 @@ Phased implementation plan for Adventures Hub with 5-axis filtering (Season, Dif
 **Effort:** 4 hours
 
 **Deliverables:**
+
 - `filterAdventures(adventures, filters)` - Pure filtering function
 - `filterReducer(state, action)` - Generic axis-agnostic reducer
 - `countActiveFilters(filters)` - Active filter count for mobile badge
 - Unit tests: 10+ test cases (single filter, combined filters, edge cases)
 
 **Acceptance Criteria:**
+
 - [ ] Filters work independently (each axis tested)
 - [ ] Combined filters use AND intersection
 - [ ] OR logic within multi-select axes (season, gear, suitability)
@@ -81,12 +88,14 @@ Phased implementation plan for Adventures Hub with 5-axis filtering (Season, Dif
 **Effort:** 3 hours
 
 **Deliverables:**
+
 - `parseUrlParams()` - URL → FilterState
 - `syncStateToUrl(filters)` - FilterState → URL
 - Debouncing for slider (300ms delay)
 - Integration tests for URL sync
 
 **Acceptance Criteria:**
+
 - [ ] URL params populate filters on page load
 - [ ] Filter changes update URL (history.pushState)
 - [ ] Shareable links work (copy URL, open in new tab)
@@ -104,6 +113,7 @@ Phased implementation plan for Adventures Hub with 5-axis filtering (Season, Dif
 **Effort:** 3 hours
 
 **Deliverables:**
+
 - `FilterProvider` component (Context.Provider wrapper)
 - `useFilters()` hook (safe context access)
 - State initialization from URL
@@ -111,6 +121,7 @@ Phased implementation plan for Adventures Hub with 5-axis filtering (Season, Dif
 - ViewTransitions cleanup (astro:before-swap listener)
 
 **Acceptance Criteria:**
+
 - [ ] Context provides: state, dispatch, filteredAdventures, totalCount
 - [ ] URL state loads on mount
 - [ ] filterAdventures() memoized (not re-computed on every render)
@@ -132,24 +143,28 @@ Phased implementation plan for Adventures Hub with 5-axis filtering (Season, Dif
 **Components:**
 
 **A. SeasonFilter.tsx** (Multi-Select Checkboxes)
+
 - [ ] Checkboxes for Spring, Summer, Fall, Winter
 - [ ] `<fieldset>` + `<legend>` (WCAG requirement)
 - [ ] 44×44px touch targets
 - [ ] Dispatches `SET_MULTI_SELECT` action
 
 **B. DifficultyFilter.tsx** (Radio Group)
+
 - [ ] Radio buttons for Easy, Moderate, Challenging, Rugged
 - [ ] `<fieldset>` + `<legend>` (WCAG requirement)
 - [ ] Helper text for each option
 - [ ] Dispatches `SET_SINGLE_SELECT` action
 
 **C. GearFilter.tsx** (Multi-Select Checkboxes)
+
 - [ ] Dynamically generates checkboxes from GEAR_OPTIONS
 - [ ] Collapsible: Show 5, "Show More" expands to all
 - [ ] 44×44px touch targets
 - [ ] Dispatches `SET_MULTI_SELECT` action
 
 **D. ElevationSlider.tsx** (Dual-Thumb Range)
+
 - [ ] Install `react-slider` library
 - [ ] Dual-thumb slider: 0-5000 ft, 100 ft increments
 - [ ] Display: "1,200 ft" format (comma-separated)
@@ -158,12 +173,14 @@ Phased implementation plan for Adventures Hub with 5-axis filtering (Season, Dif
 - [ ] Dispatches `SET_RANGE` action
 
 **E. SuitabilityFilter.tsx** (Multi-Select Checkboxes)
+
 - [ ] Checkboxes for dog-friendly, kid-friendly, wheelchair-accessible, paved
 - [ ] Icons from lucide-react (Dog, Baby, Accessibility, Route)
 - [ ] 44×44px touch targets
 - [ ] Dispatches `SET_MULTI_SELECT` action
 
 **WVWO Aesthetic:**
+
 - All borders: `rounded-sm` (NOT rounded-md/lg)
 - Focus rings: `ring-sign-green` (NOT default blue)
 - Labels: `font-display font-medium text-brand-brown`
@@ -178,6 +195,7 @@ Phased implementation plan for Adventures Hub with 5-axis filtering (Season, Dif
 **Effort:** 4 hours
 
 **Deliverables:**
+
 - Sticky sidebar (1/4 width on desktop)
 - Collapsible sections (Accordion for each filter group)
 - Results count display with ARIA live region
@@ -185,6 +203,7 @@ Phased implementation plan for Adventures Hub with 5-axis filtering (Season, Dif
 - "Skip to Results" accessibility link
 
 **Acceptance Criteria:**
+
 - [ ] Sticky positioning works (CSS `sticky top-4`)
 - [ ] All 5 filter components render correctly
 - [ ] Results count updates in real-time
@@ -204,6 +223,7 @@ Phased implementation plan for Adventures Hub with 5-axis filtering (Season, Dif
 **Effort:** 3 hours
 
 **Deliverables:**
+
 - Card layout: image + content + metadata
 - Type badge (WMA, Lake, River, etc.)
 - Season badges (pill chips)
@@ -212,6 +232,7 @@ Phased implementation plan for Adventures Hub with 5-axis filtering (Season, Dif
 - "Learn More" link to detail page
 
 **WVWO Aesthetic:**
+
 - Border-left accent: `border-l-4 border-l-sign-green`
 - Hover: `hover:border-brand-orange`
 - Rounded corners: `rounded-sm`
@@ -219,6 +240,7 @@ Phased implementation plan for Adventures Hub with 5-axis filtering (Season, Dif
 - Image: `aspect-[4/3]` with `hover:scale-105` (subtle tactile)
 
 **Acceptance Criteria:**
+
 - [ ] All adventure data fields display correctly
 - [ ] Missing fields (elevation, suitability) handled gracefully
 - [ ] Image lazy loading: `loading="lazy"`
@@ -236,6 +258,7 @@ Phased implementation plan for Adventures Hub with 5-axis filtering (Season, Dif
 **Effort:** 3 hours
 
 **Deliverables:**
+
 - Responsive grid: 1-col → 2-col → 3-col
 - Results header: count + sort controls (Phase 1: alphabetical)
 - ARIA live region: "Showing 23 of 70 adventures"
@@ -243,6 +266,7 @@ Phased implementation plan for Adventures Hub with 5-axis filtering (Season, Dif
 - Loading skeleton (future: Phase 1 just shows grid)
 
 **Acceptance Criteria:**
+
 - [ ] Grid responsive: `grid-cols-1 md:grid-cols-2 lg:grid-cols-3`
 - [ ] Results count screen-reader accessible
 - [ ] Empty state renders when filteredAdventures.length === 0
@@ -257,17 +281,20 @@ Phased implementation plan for Adventures Hub with 5-axis filtering (Season, Dif
 **Effort:** 2 hours
 
 **Deliverables:**
+
 - Kim's voice message
 - "Clear Filters" button
 - "Call Us: (304) 649-5765" CTA
 - "Grand love ya!" in font-hand
 
 **WVWO Copy:**
+
 ```
 "Hmm, nothing matches those filters. Try widening your search - or give us a call. We know spots that aren't on any list. Grand love ya!"
 ```
 
 **Acceptance Criteria:**
+
 - [ ] Kim's voice (authentic, not generic)
 - [ ] Clear Filters button dispatches RESET_ALL
 - [ ] Phone link: `href="tel:+13046495765"`
@@ -286,6 +313,7 @@ Phased implementation plan for Adventures Hub with 5-axis filtering (Season, Dif
 **Effort:** 5 hours
 
 **Deliverables:**
+
 - Sheet component (bottom slide-up drawer)
 - All 5 filter components inside (reused from desktop)
 - Accordion groups (collapsible sections)
@@ -293,6 +321,7 @@ Phased implementation plan for Adventures Hub with 5-axis filtering (Season, Dif
 - Sticky "Apply Filters" button at bottom of drawer
 
 **Acceptance Criteria:**
+
 - [ ] Sheet opens from bottom (side="bottom")
 - [ ] Non-modal (can see page content behind)
 - [ ] Swipe-to-dismiss gesture works
@@ -307,6 +336,7 @@ Phased implementation plan for Adventures Hub with 5-axis filtering (Season, Dif
 ### 4.2 Mobile-Specific Optimizations
 
 **Tasks:**
+
 - Touch target verification (all 44×44px)
 - Thumb-friendly layout (important filters at top)
 - Apply button sticky positioning
@@ -314,6 +344,7 @@ Phased implementation plan for Adventures Hub with 5-axis filtering (Season, Dif
 **Effort:** 3 hours
 
 **Acceptance Criteria:**
+
 - [ ] All touch targets ≥44×44px (checked with inspector)
 - [ ] Drawer scrollable (can reach bottom filters)
 - [ ] Apply button always visible (sticky bottom-0)
@@ -330,6 +361,7 @@ Phased implementation plan for Adventures Hub with 5-axis filtering (Season, Dif
 **Effort:** 6 hours
 
 **Deliverables:**
+
 - Install event: Cache adventures hub HTML
 - Activate event: Clean old caches
 - Fetch event: Cache-first for adventure data
@@ -337,6 +369,7 @@ Phased implementation plan for Adventures Hub with 5-axis filtering (Season, Dif
 - Cache versioning strategy
 
 **Acceptance Criteria:**
+
 - [ ] Service Worker registers successfully
 - [ ] Adventures data cached on first load
 - [ ] Filtering works offline (airplane mode test)
@@ -354,17 +387,20 @@ Phased implementation plan for Adventures Hub with 5-axis filtering (Season, Dif
 **Effort:** 2 hours
 
 **Deliverables:**
+
 - Online/offline event listeners
 - Conditional render (only when offline)
 - Auto-hide on reconnect
 - ARIA status announcement
 
 **Message (Kim's Voice):**
+
 ```
 "You're offline, but don't worry - filters still work. Grand love ya!"
 ```
 
 **Acceptance Criteria:**
+
 - [ ] Banner appears when connection drops
 - [ ] Banner hides when connection returns
 - [ ] Screen reader announces status change
@@ -381,12 +417,14 @@ Phased implementation plan for Adventures Hub with 5-axis filtering (Season, Dif
 **Effort:** 4 hours
 
 **Deliverables:**
+
 - `openDB()` - Initialize IndexedDB
 - `cacheAdventures(adventures)` - Store on first load
 - `getCachedAdventures()` - Retrieve for offline filtering
 - `clearExpiredCache()` - Remove >24hr old data
 
 **Acceptance Criteria:**
+
 - [ ] Adventures stored in IndexedDB on first visit
 - [ ] Offline filtering queries IndexedDB (not network)
 - [ ] Cache cleared if >24 hours old
@@ -403,6 +441,7 @@ Phased implementation plan for Adventures Hub with 5-axis filtering (Season, Dif
 **Effort:** 4 hours
 
 **Deliverables:**
+
 - FilterProvider wrapper
 - Desktop layout (sidebar + grid)
 - Mobile layout (full-width grid + drawer)
@@ -410,6 +449,7 @@ Phased implementation plan for Adventures Hub with 5-axis filtering (Season, Dif
 - ViewTransitions cleanup
 
 **Acceptance Criteria:**
+
 - [ ] FilterProvider receives adventures from Astro
 - [ ] Desktop: Sidebar visible md:flex
 - [ ] Mobile: Drawer trigger visible md:hidden
@@ -427,6 +467,7 @@ Phased implementation plan for Adventures Hub with 5-axis filtering (Season, Dif
 **Effort:** 5 hours
 
 **Deliverables:**
+
 - Query `getCollection('adventures')` in frontmatter
 - Hero section (copy from /near/index.astro pattern)
 - Breadcrumb: Home → Adventures
@@ -435,6 +476,7 @@ Phased implementation plan for Adventures Hub with 5-axis filtering (Season, Dif
 - CTA section: "Stop By Before You Head Out"
 
 **Acceptance Criteria:**
+
 - [ ] Page builds without errors
 - [ ] getCollection() returns adventures with new schema fields
 - [ ] Hero uses WVWO aesthetic (bg-brand-brown, sign-green badge)
@@ -451,6 +493,7 @@ Phased implementation plan for Adventures Hub with 5-axis filtering (Season, Dif
 **Effort:** 3 hours
 
 **Deliverables:**
+
 - Meta description: "70+ outdoor destinations near I-79 Exit 57..."
 - CollectionPage JSON-LD (all 70 adventures in hasPart)
 - Breadcrumb schema
@@ -458,6 +501,7 @@ Phased implementation plan for Adventures Hub with 5-axis filtering (Season, Dif
 - robots meta (for future low-demand combos)
 
 **Acceptance Criteria:**
+
 - [ ] Google Rich Results Test passes
 - [ ] Breadcrumb renders in search results
 - [ ] CollectionPage recognized by Google
@@ -470,6 +514,7 @@ Phased implementation plan for Adventures Hub with 5-axis filtering (Season, Dif
 ### 7.1 Deployment Configuration Files
 
 **Tasks:**
+
 - Create `public/_headers` (cache rules + HTTP/2 Push)
 - Update `astro.config.mjs` (Vite terser optimization)
 - Add Service Worker registration to Layout.astro
@@ -479,6 +524,7 @@ Phased implementation plan for Adventures Hub with 5-axis filtering (Season, Dif
 **Deliverables:**
 
 **File:** `wv-wild-web/public/_headers`
+
 ```
 /adventures
   Link: </_astro/FilterIsland.[hash].js>; rel=preload; as=script; crossorigin
@@ -489,6 +535,7 @@ Phased implementation plan for Adventures Hub with 5-axis filtering (Season, Dif
 ```
 
 **File:** `astro.config.mjs` (Vite optimization)
+
 ```javascript
 vite: {
   build: {
@@ -502,6 +549,7 @@ vite: {
 ```
 
 **Acceptance Criteria:**
+
 - [ ] _headers file created with cache rules
 - [ ] HTTP/2 Push Link headers for React bundles
 - [ ] Vite terser minification enabled
@@ -517,12 +565,14 @@ vite: {
 **Effort:** 2 hours
 
 **Process:**
+
 ```bash
 npm run build
 du -sh dist/_astro/*.js | sort -h
 ```
 
 **Acceptance Criteria:**
+
 - [ ] Each React island <95 KB gzipped
 - [ ] No single file >150 KB (alert threshold)
 - [ ] Total bundle <200 KB (blocking threshold)
@@ -538,17 +588,20 @@ du -sh dist/_astro/*.js | sort -h
 **Effort:** 2 hours
 
 **Process:**
+
 ```bash
 wrangler pages deploy dist/
 ```
 
 **Post-Deployment:**
+
 - Enable Argo Smart Routing ($5/month)
 - Verify cache headers: `curl -I`
 - Verify HTTP/2 Push: `grep cf-h2-pushed`
 - Test offline mode on production
 
 **Acceptance Criteria:**
+
 - [ ] Deployed to Cloudflare Pages
 - [ ] Argo Smart Routing enabled
 - [ ] Cache headers correct
@@ -564,11 +617,13 @@ wrangler pages deploy dist/
 ### 8.1 Functional Testing
 
 **Manual Tests (5-device matrix):**
+
 - Desktop: Chrome, Safari, Firefox
 - Mobile: iOS Safari, Android Chrome
 - Network: Fast 4G, Slow 3G, Offline
 
 **Test Cases (20 total):**
+
 1. Filter by single season (fall) → correct results
 2. Filter by multiple seasons (spring, summer) → OR logic works
 3. Filter by difficulty (moderate) → exact match
@@ -593,6 +648,7 @@ wrangler pages deploy dist/
 **Effort:** 6 hours
 
 **Acceptance Criteria:**
+
 - [ ] All 20 test cases pass
 - [ ] No console errors
 - [ ] No visual glitches
@@ -602,6 +658,7 @@ wrangler pages deploy dist/
 ### 8.2 Accessibility Audit
 
 **Tasks:**
+
 - Automated: Run axe-core DevTools extension
 - Manual: NVDA screen reader testing
 - Keyboard-only navigation test
@@ -609,6 +666,7 @@ wrangler pages deploy dist/
 **Effort:** 4 hours
 
 **Checklist:**
+
 - [ ] 0 axe violations (Critical/Serious)
 - [ ] All filter groups have fieldset + legend
 - [ ] Results count has aria-live="polite"
@@ -628,6 +686,7 @@ wrangler pages deploy dist/
 ### 8.3 Performance Testing
 
 **Tasks:**
+
 - Lighthouse CI audit (target ≥90 score)
 - Filter response time measurement
 - Bundle size verification
@@ -636,11 +695,13 @@ wrangler pages deploy dist/
 **Effort:** 3 hours
 
 **Tools:**
+
 ```bash
 lighthouse https://wvwildoutdoors.pages.dev/adventures/ --view
 ```
 
 **Acceptance Criteria:**
+
 - [ ] Lighthouse Performance: ≥90
 - [ ] Lighthouse Accessibility: 100
 - [ ] Filter response time: 100-150ms (measured with DevTools)
@@ -658,6 +719,7 @@ lighthouse https://wvwildoutdoors.pages.dev/adventures/ --view
 **Effort:** 3 hours
 
 **Checklist (from CLAUDE.md):**
+
 - [ ] Zero SaaS marketing language
 - [ ] Zero trendy fonts (Inter, Poppins, Space Grotesk)
 - [ ] Zero purple/pink gradients or neon
@@ -670,6 +732,7 @@ lighthouse https://wvwildoutdoors.pages.dev/adventures/ --view
 - [ ] Passed all 5 litmus tests (Neighbor, Bulletin Board, Voice, Five-Year, Free-Tier)
 
 **shadcn Overrides:**
+
 - [ ] All rounded-md → rounded-sm
 - [ ] All default focus rings → ring-sign-green
 - [ ] All touch targets 32px → 44px
@@ -681,6 +744,7 @@ lighthouse https://wvwildoutdoors.pages.dev/adventures/ --view
 **NOTE:** Phase 9 monitoring and analytics setup has been moved to a separate spec:
 
 **SPEC-71: Monitoring & Analytics Setup**
+
 - Location: `docs/specs/Mountain State Adventure Destination/SPEC-71-monitoring-analytics-setup/`
 - Execute: After Launch Checkpoint (SPEC-29-38 complete)
 - Duration: 3.5 hours
@@ -695,6 +759,7 @@ This change allows monitoring to be set up as post-launch infrastructure (site-w
 **Effort:** 2 hours
 
 **GA4 Events to Create:**
+
 1. `adventure_view` - User clicks adventure card
 2. `filter_applied` - User changes any filter
 3. `map_download` - Highest intent (future: when map downloads added)
@@ -703,6 +768,7 @@ This change allows monitoring to be set up as post-launch infrastructure (site-w
 6. `phone_call_click` - Highest commercial intent
 
 **Acceptance Criteria:**
+
 - [ ] All 6 events fire correctly (verify in GA4 DebugView)
 - [ ] Core Web Vitals tracking enabled
 - [ ] Conversion funnel configured
@@ -715,12 +781,14 @@ This change allows monitoring to be set up as post-launch infrastructure (site-w
 **Effort:** 1 hour
 
 **Metrics:**
+
 - Cache hit ratio (target >90%)
 - Edge response time (US-East region)
 - Bandwidth usage
 - Request volume
 
 **Acceptance Criteria:**
+
 - [ ] Cloudflare Analytics accessible
 - [ ] Baseline metrics captured (Week 1)
 
@@ -732,11 +800,13 @@ This change allows monitoring to be set up as post-launch infrastructure (site-w
 **Effort:** 1 hour
 
 **Tools:**
+
 - GA4: Core Web Vitals report
 - Cloudflare: Analytics dashboard
 - Lighthouse CI: Automated regression testing
 
 **Acceptance Criteria:**
+
 - [ ] Can view TTFB, LCP, FID in one place
 - [ ] Alerts configured (if metrics degrade)
 
@@ -747,6 +817,7 @@ This change allows monitoring to be set up as post-launch infrastructure (site-w
 ### 10.1 Week 1-2: Baseline Collection
 
 **Monitor:**
+
 - Filter interaction rate
 - Bounce rate on /adventures/
 - Top filter combinations used
@@ -862,6 +933,7 @@ This change allows monitoring to be set up as post-launch infrastructure (site-w
 ## Definition of Done (38 Acceptance Criteria)
 
 ### Functional (8 criteria)
+
 - [ ] All 5 filter axes work independently
 - [ ] Combined filters use AND intersection
 - [ ] URL params sync bidirectionally
@@ -872,6 +944,7 @@ This change allows monitoring to be set up as post-launch infrastructure (site-w
 - [ ] Real adventures from getCollection()
 
 ### Performance (6 criteria)
+
 - [ ] LCP <2.5s on 3G
 - [ ] Filter response: 100-150ms
 - [ ] Bundle: <95 KB per island
@@ -880,6 +953,7 @@ This change allows monitoring to be set up as post-launch infrastructure (site-w
 - [ ] No layout shift
 
 ### Accessibility (7 criteria)
+
 - [ ] WCAG 2.1 AA: 0 violations
 - [ ] fieldset + legend for all filter groups
 - [ ] aria-live region for results count
@@ -889,6 +963,7 @@ This change allows monitoring to be set up as post-launch infrastructure (site-w
 - [ ] Screen reader testing passed
 
 ### Aesthetic (7 criteria)
+
 - [ ] rounded-sm (NO rounded-md/lg)
 - [ ] brand colors (brown, green, cream, orange <5%)
 - [ ] font-display for headings
@@ -898,6 +973,7 @@ This change allows monitoring to be set up as post-launch infrastructure (site-w
 - [ ] All 5 litmus tests passed
 
 ### Deployment (5 criteria)
+
 - [ ] _headers file with HTTP/2 Push
 - [ ] Service Worker offline support
 - [ ] Argo Smart Routing enabled
@@ -905,6 +981,7 @@ This change allows monitoring to be set up as post-launch infrastructure (site-w
 - [ ] GA4 tracking configured
 
 ### Post-Launch (5 criteria)
+
 - [ ] TTFB tracked (4 weeks)
 - [ ] Filter interaction rate >40%
 - [ ] Bounce rate <50%
@@ -927,6 +1004,7 @@ This change allows monitoring to be set up as post-launch infrastructure (site-w
 | Filter Interaction | >40% | N/A | N/A |
 
 **Decision Criteria (Week 4):**
+
 - ✅ Keep React if metrics within targets
 - ⚠️ Add Workers if filter_latency >200ms AND bounce >40%
 
@@ -935,6 +1013,7 @@ This change allows monitoring to be set up as post-launch infrastructure (site-w
 ## Next Steps
 
 **Immediate (This Week):**
+
 1. Start Phase 1: Create filter config + reducer + URL sync
 2. Write unit tests for filter-utils.ts
 3. Create FilterContext with URL state initialization

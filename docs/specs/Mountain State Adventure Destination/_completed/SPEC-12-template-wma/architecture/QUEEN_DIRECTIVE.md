@@ -19,46 +19,55 @@
 ## SUBJECTS & ASSIGNMENTS
 
 ### Agent 1: System Architect
+
 **Domain**: Overall system design, component relationships, data flow
 **Deliverable**: System architecture diagram + data flow documentation
 **Output**: `architecture/01-system-architecture.md`
 
 ### Agent 2: Component Architect 1
+
 **Domain**: AdventureFeatureSection + wrappers (WhatToHunt, WhatToFish)
 **Deliverable**: Component hierarchy + wrapper pattern design
 **Output**: `architecture/02-feature-section-components.md`
 
 ### Agent 3: Component Architect 2
+
 **Domain**: AdventureCampingList + AdventureAmenitiesGrid
 **Deliverable**: Facility display patterns + grid layouts
 **Output**: `architecture/03-camping-amenities-components.md`
 
 ### Agent 4: Component Architect 3
+
 **Domain**: AdventureCTA design
 **Deliverable**: CTA component architecture + variant system
 **Output**: `architecture/04-cta-component.md`
 
 ### Agent 5: Schema Architect
+
 **Domain**: Content Collections schema extension with type field
 **Deliverable**: Zod schema design + migration strategy
 **Output**: `architecture/05-schema-architecture.md`
 
 ### Agent 6: Type System Architect
+
 **Domain**: TypeScript interfaces, type guards, type safety
 **Deliverable**: Type system design + inference patterns
 **Output**: `architecture/06-type-system-architecture.md`
 
 ### Agent 7: Performance Architect
+
 **Domain**: Static generation, load time optimization, bundle analysis
 **Deliverable**: Performance optimization strategy
 **Output**: `architecture/07-performance-architecture.md`
 
 ### Agent 8: Accessibility Architect
+
 **Domain**: WCAG 2.1 AA implementation patterns, ARIA, semantic HTML
 **Deliverable**: Accessibility implementation guide
 **Output**: `architecture/08-accessibility-architecture.md`
 
 ### Agent 9: Integration Architect
+
 **Domain**: Component composition, page templates, existing component integration
 **Deliverable**: Integration patterns + composition examples
 **Output**: `architecture/09-integration-architecture.md`

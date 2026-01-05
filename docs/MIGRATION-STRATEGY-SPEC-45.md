@@ -10,6 +10,7 @@
 ## 🎯 Mission
 
 Migrate 4 existing river pages to the new RiverTemplate system established in SPEC-13, ensuring:
+
 - Consistent data structure across all rivers
 - Enhanced SEO with Schema.org markup
 - Improved maintainability through centralized templates
@@ -42,10 +43,12 @@ Migrate 4 existing river pages to the new RiverTemplate system established in SP
 Each river follows this standardized workflow:
 
 ### Step 1: Content Audit
+
 **Goal**: Extract all content from existing page(s)
 **Deliverable**: Markdown audit document with raw data
 
 **Tasks**:
+
 - Identify all rapids, classifications, GPS coordinates
 - Extract outfitter data (names, contacts, services)
 - Document fishing information (species, regulations, seasons)
@@ -53,10 +56,12 @@ Each river follows this standardized workflow:
 - Capture unique content (history, safety notes, local tips)
 
 ### Step 2: Data File Creation
+
 **Goal**: Transform audit into TypeScript data file
 **Deliverable**: `src/data/rivers/{river-name}.ts`
 
 **Structure**:
+
 ```typescript
 import type { RiverTemplateProps } from '@/types/adventure';
 
@@ -88,10 +93,12 @@ export const elkRiverData: RiverTemplateProps = {
 ```
 
 ### Step 3: Schema Mapping
+
 **Goal**: Ensure data conforms to interfaces
 **Deliverable**: Validated TypeScript (no type errors)
 
 **Validation Checklist**:
+
 - [ ] All required fields populated
 - [ ] GPS coordinates in decimal format
 - [ ] Phone numbers in (XXX) XXX-XXXX format
@@ -100,10 +107,12 @@ export const elkRiverData: RiverTemplateProps = {
 - [ ] Enums match type definitions
 
 ### Step 4: Page Refactor
+
 **Goal**: Replace manual composition with template
 **Deliverable**: Simplified `.astro` page file
 
 **Before** (manual):
+
 ```astro
 ---
 // 400+ lines of custom layout
@@ -117,6 +126,7 @@ export const elkRiverData: RiverTemplateProps = {
 ```
 
 **After** (template):
+
 ```astro
 ---
 import RiverTemplate from '@/components/templates/RiverTemplate.astro';
@@ -126,6 +136,7 @@ import { elkRiverData } from '@/data/rivers/elk';
 ```
 
 ### Step 5: SEO Integration
+
 **Goal**: Add Schema.org markup for search engines
 **Deliverable**: Enhanced metadata
 
@@ -139,10 +150,12 @@ import { elkRiverData } from '@/data/rivers/elk';
 ```
 
 ### Step 6: Validation
+
 **Goal**: Confirm functionality and compliance
 **Deliverable**: Test report
 
 **Test Checklist**:
+
 - [ ] Page renders without errors
 - [ ] All sections display correctly
 - [ ] Images load (hero, rapids, access points)
@@ -165,6 +178,7 @@ import { elkRiverData } from '@/data/rivers/elk';
 **Existing Data**: Good (17.9 KB page)
 
 **Tasks**:
+
 1. ⏱️ **30 min** - Audit elk-river.astro (rapids, fishing, outfitters)
 2. ⏱️ **45 min** - Create `src/data/rivers/elk.ts`
 3. ⏱️ **30 min** - Map rapids to new structure
@@ -173,6 +187,7 @@ import { elkRiverData } from '@/data/rivers/elk';
 6. ⏱️ **15 min** - Add SEO schema + test
 
 **Known Data**:
+
 - Class I-II rapids (beginner-friendly)
 - Trout fishing (catch-and-release)
 - 2-3 outfitters in area
@@ -186,6 +201,7 @@ import { elkRiverData } from '@/data/rivers/elk';
 **Existing Data**: Good (20.1 KB page + MD frontmatter)
 
 **Tasks**:
+
 1. ⏱️ **45 min** - Audit holly-river.astro + holly-river.md
 2. ⏱️ **45 min** - Create `src/data/rivers/holly.ts` (merge sources)
 3. ⏱️ **30 min** - Map fishing data (species, regulations)
@@ -194,6 +210,7 @@ import { elkRiverData } from '@/data/rivers/elk';
 6. ⏱️ **20 min** - Add SEO + test dual-source integration
 
 **Known Data**:
+
 - Class II-III rapids
 - State park access
 - Fishing: smallmouth bass, rock bass
@@ -207,6 +224,7 @@ import { elkRiverData } from '@/data/rivers/elk';
 **Existing Data**: Minimal (requires research)
 
 **Tasks**:
+
 1. ⏱️ **60 min** - Research Upper vs. Lower Gauley sections
 2. ⏱️ **90 min** - Create `src/data/rivers/gauley.ts` (50+ rapids catalog)
 3. ⏱️ **30 min** - Map seasonal flow (dam release schedules)
@@ -215,6 +233,7 @@ import { elkRiverData } from '@/data/rivers/elk';
 6. ⏱️ **30 min** - Add complete SEO (high-traffic page)
 
 **Research Needed**:
+
 - Upper Gauley: Class V (Pillow Rock, Lost Paddle, Insignificant)
 - Lower Gauley: Class III-IV (Heaven's Gate, Mash)
 - Dam release schedule (Summersville Dam)
@@ -230,6 +249,7 @@ import { elkRiverData } from '@/data/rivers/elk';
 **Existing Data**: Minimal (requires research)
 
 **Tasks**:
+
 1. ⏱️ **45 min** - Research Cheat Canyon sections
 2. ⏱️ **60 min** - Create `src/data/rivers/cheat.ts`
 3. ⏱️ **30 min** - Map fishing (trophy trout sections)
@@ -238,6 +258,7 @@ import { elkRiverData } from '@/data/rivers/elk';
 6. ⏱️ **10 min** - Add SEO schema
 
 **Research Needed**:
+
 - Cheat Canyon (Class III-IV)
 - Upper Cheat (Class II)
 - Big Nasty rapid (Class V)
@@ -249,12 +270,14 @@ import { elkRiverData } from '@/data/rivers/elk';
 ## 🔀 URL Migration Strategy
 
 ### Current Structure
+
 ```
 /near/elk-river/
 /near/holly-river/
 ```
 
 ### New Structure
+
 ```
 /rivers/elk-river/
 /rivers/holly-river/
@@ -265,6 +288,7 @@ import { elkRiverData } from '@/data/rivers/elk';
 ### Implementation
 
 **1. Create Directory Structure**
+
 ```bash
 mkdir -p src/pages/rivers
 mv src/pages/near/elk-river.astro src/pages/rivers/elk-river.astro
@@ -273,6 +297,7 @@ mv src/pages/near/holly-river.astro src/pages/rivers/holly-river.astro
 ```
 
 **2. Set Up 301 Redirects** (`vercel.json`)
+
 ```json
 {
   "redirects": [
@@ -291,6 +316,7 @@ mv src/pages/near/holly-river.astro src/pages/rivers/holly-river.astro
 ```
 
 **3. Update Internal Links**
+
 ```bash
 # Find all references to old URLs
 npx grep -r "/near/.*-river" src/
@@ -299,6 +325,7 @@ npx grep -r "/near/.*-river" src/
 ```
 
 **4. Submit New Sitemap**
+
 - Update `public/sitemap.xml` with `/rivers/` URLs
 - Submit to Google Search Console
 - Monitor 301 redirect performance
@@ -310,6 +337,7 @@ npx grep -r "/near/.*-river" src/
 If critical issues arise during migration:
 
 ### Immediate Rollback (< 5 minutes)
+
 ```bash
 # 1. Restore original files from git
 git checkout HEAD~1 src/pages/near/elk-river.astro
@@ -323,7 +351,9 @@ npm run build && vercel deploy --prod
 ```
 
 ### Partial Rollback (per river)
+
 Keep successfully migrated rivers, rollback problematic ones:
+
 ```bash
 # Example: Rollback only Gauley River
 rm src/pages/rivers/gauley-river.astro
@@ -332,6 +362,7 @@ rm src/data/rivers/gauley.ts
 ```
 
 ### Rollback Triggers
+
 - Schema.org validation fails
 - Page load time > 3 seconds
 - User-reported broken links > 5
@@ -343,6 +374,7 @@ rm src/data/rivers/gauley.ts
 ## 📈 Success Metrics
 
 ### Technical
+
 - [ ] All pages render in < 2 seconds
 - [ ] Zero TypeScript errors
 - [ ] 100% Schema.org validation pass rate
@@ -350,6 +382,7 @@ rm src/data/rivers/gauley.ts
 - [ ] 0 broken outfitter links
 
 ### SEO
+
 - [ ] Google Rich Results Test passes for all pages
 - [ ] Sitemap submitted and indexed within 48 hours
 - [ ] 301 redirects return proper status codes
@@ -357,6 +390,7 @@ rm src/data/rivers/gauley.ts
 - [ ] New pages (Gauley, Cheat) indexed within 1 week
 
 ### Design
+
 - [ ] WVWO aesthetic compliance 100%
 - [ ] No forbidden fonts (Inter, Poppins, etc.)
 - [ ] No purple/pink/neon colors
@@ -364,6 +398,7 @@ rm src/data/rivers/gauley.ts
 - [ ] Kim's authentic voice in copy
 
 ### Performance
+
 - [ ] Lighthouse Performance > 90
 - [ ] Lighthouse Accessibility > 95
 - [ ] Lighthouse SEO > 95
@@ -391,12 +426,14 @@ rm src/data/rivers/gauley.ts
 ## 📦 Deliverables
 
 ### Per River
+
 - [ ] `src/data/rivers/{river-name}.ts` (data file)
 - [ ] `src/pages/rivers/{river-name}.astro` (refactored page)
 - [ ] Content audit document (in `/docs/audits/`)
 - [ ] Validation test report
 
 ### Project-Wide
+
 - [ ] Updated `vercel.json` with redirects
 - [ ] Updated sitemap.xml
 - [ ] Updated navigation links

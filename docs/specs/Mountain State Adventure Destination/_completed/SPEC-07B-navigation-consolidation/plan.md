@@ -19,16 +19,20 @@ Add Adventures to header navigation and create bidirectional cross-linking betwe
 **Goal**: Make Adventures discoverable via header link
 
 ### Tasks
+
 1. Open `wv-wild-web/src/components/Header.astro`
 2. Locate existing nav links (Shop, Guides, Hunt Near Us)
 3. Add Adventures link between Guides and Hunt Near Us:
+
    ```astro
    <a href="/adventures" class="nav-link">Adventures</a>
    ```
+
 4. Verify mobile navigation updates (if separate mobile nav exists)
 5. Test on localhost - click Adventures → verify navigates to `/adventures`
 
 **Validation**:
+
 - [ ] Adventures link visible in desktop nav
 - [ ] Adventures link visible in mobile nav
 - [ ] Link navigates to `/adventures` correctly
@@ -43,6 +47,7 @@ Add Adventures to header navigation and create bidirectional cross-linking betwe
 ### Tasks
 
 #### 2A: Create Component (30 min)
+
 1. Create file: `wv-wild-web/src/components/GuideBanner.tsx`
 2. Copy implementation from technical spec (see existing spec.md lines 48-95)
 3. Verify TypeScript types correct
@@ -52,15 +57,19 @@ Add Adventures to header navigation and create bidirectional cross-linking betwe
    - Other combos → null
 
 #### 2B: Integrate in Adventures (15 min)
+
 1. Open `wv-wild-web/src/pages/adventures/index.astro` (or React island if using client-side filtering)
 2. Import GuideBanner component
 3. Pass active filter state as props:
+
    ```tsx
    <GuideBanner season={activeFilters.season} activity={activeFilters.activity} />
    ```
+
 4. Position above adventure grid
 
 **Validation**:
+
 - [ ] Visit `/adventures?season=fall&activity=hunting` → See buck season banner
 - [ ] Visit `/adventures?season=spring&activity=hunting` → See turkey season banner
 - [ ] Visit `/adventures?season=summer&activity=fishing` → No banner
@@ -75,6 +84,7 @@ Add Adventures to header navigation and create bidirectional cross-linking betwe
 ### Tasks
 
 #### 3A: Buck Season Guide (20 min)
+
 1. Open `wv-wild-web/src/pages/guides/buck-season.astro`
 2. Scroll to before `<EmailCapture>` component
 3. Add CTA section (see technical spec lines 115-133)
@@ -84,6 +94,7 @@ Add Adventures to header navigation and create bidirectional cross-linking betwe
    - Link: `/adventures?season=fall&activity=hunting`
 
 #### 3B: Turkey Season Guide (20 min)
+
 1. Open `wv-wild-web/src/pages/guides/turkey-season.astro`
 2. Scroll to before `<EmailCapture>` component
 3. Add CTA section (see technical spec lines 139-157)
@@ -93,6 +104,7 @@ Add Adventures to header navigation and create bidirectional cross-linking betwe
    - Link: `/adventures?season=spring&activity=hunting`
 
 **Validation**:
+
 - [ ] Buck guide shows CTA with correct text
 - [ ] Buck CTA navigates to fall hunting filter
 - [ ] Turkey guide shows CTA with correct text
@@ -106,12 +118,14 @@ Add Adventures to header navigation and create bidirectional cross-linking betwe
 **Goal**: Explain Guides vs Adventures distinction
 
 ### Tasks
+
 1. Open `wv-wild-web/src/pages/guides/index.astro`
 2. Add intro section after hero, before guide cards (see technical spec lines 168-180)
 3. Include link to Adventures hub
 4. Test navigation flow
 
 **Validation**:
+
 - [ ] Intro section visible on `/guides`
 - [ ] Explanation clear and concise
 - [ ] Link to Adventures works
@@ -123,6 +137,7 @@ Add Adventures to header navigation and create bidirectional cross-linking betwe
 **Goal**: Verify all user flows work correctly
 
 ### Desktop Testing (20 min)
+
 - [ ] Header shows Adventures link
 - [ ] Adventures link navigates correctly
 - [ ] Fall hunting filter shows buck banner
@@ -132,6 +147,7 @@ Add Adventures to header navigation and create bidirectional cross-linking betwe
 - [ ] Guides index explanation visible
 
 ### Mobile Testing (15 min)
+
 - [ ] Adventures visible in mobile nav
 - [ ] 44x44px tap targets maintained
 - [ ] Guide banners readable
@@ -139,7 +155,9 @@ Add Adventures to header navigation and create bidirectional cross-linking betwe
 - [ ] All links work on touch
 
 ### Screenshot Documentation (10 min)
+
 Take screenshots for PR:
+
 1. Desktop header with Adventures link
 2. Mobile nav with Adventures link
 3. Fall hunting filter with buck banner
@@ -156,12 +174,14 @@ Take screenshots for PR:
 ### Tasks
 
 1. **Stage changes**:
+
    ```bash
    git status  # Verify all modified files
    git add .
    ```
 
 2. **Commit with conventional format**:
+
    ```bash
    git commit -m "feat(SPEC-07B): add Adventures navigation and cross-linking
 
@@ -176,6 +196,7 @@ Take screenshots for PR:
    ```
 
 3. **Push and create PR**:
+
    ```bash
    git push -u origin feature/spec-07b-navigation-consolidation
    gh pr create --title "feat(SPEC-07B): Navigation Consolidation" --body-file docs/specs/Mountain\ State\ Adventure\ Destination/SPEC-07B-navigation-consolidation/PR-TEMPLATE.md
@@ -194,6 +215,7 @@ Take screenshots for PR:
 If issues discovered post-merge:
 
 **Option 1: Full Revert**
+
 ```bash
 git revert <commit-hash>
 git push
@@ -201,6 +223,7 @@ git push
 
 **Option 2: Selective Disable**
 Comment out sections temporarily:
+
 - Header: `<!-- <a href="/adventures">Adventures</a> -->`
 - GuideBanner: `{/* <GuideBanner ... /> */}`
 - CTAs: Comment out entire section tags
@@ -212,6 +235,7 @@ Comment out sections temporarily:
 ## Success Metrics (Post-Deployment)
 
 Track in GA4 (Phase 9):
+
 - Adventures page views (should increase >50%)
 - Guide → Adventures click-through rate
 - Adventures → Guides click-through rate

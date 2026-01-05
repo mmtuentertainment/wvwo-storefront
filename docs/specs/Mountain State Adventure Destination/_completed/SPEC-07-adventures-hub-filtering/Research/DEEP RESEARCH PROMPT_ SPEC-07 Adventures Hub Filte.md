@@ -4,9 +4,9 @@
 
 MISSION PARAMETERS
 ROLE: Senior Frontend Architect \& UX Researcher conducting technical due diligence for a production-ready adventure destination hub serving 70+ destinations across 63 downstream specs.
- 
+
 OBJECTIVE: Conduct a deep-dive investigation into scalable multi-axis filtering architectures, outdoor recreation discovery UX patterns, and technical implementation strategies to inform the COMPLETE implementation of SPEC-07 (Adventures Hub filtering system - foundational for all SPEC-08 through SPEC-70 work).
- 
+
 CONTEXT: This research will be used to architect a production-grade /adventures/ hub for WV Wild Outdoors (WVWO), a rural West Virginia hunting/outdoor shop. This is FOUNDATIONAL WORK - the filtering system built in SPEC-07 will serve 70+ destinations from 41+ individual destination specs (SPEC-29-70). The implementation MUST:
 Support 4-6 filter axes from day 1 (season, difficulty, activities, distance, type, amenities)
 Handle 70+ destinations without performance degradation
@@ -17,7 +17,7 @@ SEO-optimized (shareable filter URLs for "near I-79 Exit 57" search capture)
 <50ms filter response time (performance requirement from spec)
 Tech stack choice: React + shadcn/ui approved OR vanilla JS (need recommendation)
 Banned Frameworks: Vue, Angular, Svelte, Next.js (constitutional violation)
- 
+
 We are looking for proven multi-axis filtering architectures that scale to 70+ items, outdoor discovery UX patterns from AllTrails/REI, React vs vanilla JS scalability trade-offs, and extensibility patterns that prevent future rewrites.
 EXECUTION PLAN
 Execute this request using the following Iterative Research Workflow:
@@ -37,7 +37,7 @@ Secondary Sources: Dev.to/CSS-Tricks articles (2024-2025 only), case studies fro
 Tertiary Sources: Reddit r/webdev, Stack Overflow discussions (filter by votes >50, date >2023)
 STEP 2: EVIDENCE GATHERING (The "Deep" Part)
 Execute the queries with these strict constraints:
- 
+
 CRITICAL RULES:
 If you find conflicting information (e.g., "React overkill for 70 items" vs "vanilla JS doesn't scale past 50"), do NOT smooth it over. Isolate the conflict and report it as a "Data Discrepancy" with confidence scores.
 Look for second-order effects: Not just "what" the pattern is, but why it matters to WVWO's specific constraints (rural users, 70+ destinations, extensibility requirement).
@@ -91,7 +91,7 @@ Query: "dynamic CollectionPage subsets schema best practices"
 What to extract: How to structure CollectionPage when results change via filters, whether to include filtered subsets in hasPart, Google's treatment of dynamic content in structured data, breadcrumb integration with filters
 STEP 3: SYNTHESIS \& REVIEW
 Review your gathered data against SPEC-07's foundational requirements:
- 
+
 Self-Correction Checklist:
  Do these patterns support 4-6 filter axes (not just 2)?
  Do these patterns scale to 70+ items without performance issues?
@@ -107,15 +107,15 @@ Provide the final response in the following format:
 
 1. THE BOTTOM LINE UP FRONT (BLUF)
 Your direct answer to these 3 critical decisions:
- 
+
 A. React vs Vanilla JS Recommendation: [React/Vanilla JS/Hybrid] for 4-6 axes, 70+ items, extensibility requirement + 2-sentence rationale
- 
+
 B. Recommended Filter Axes: [List of 4-6 essential filter axes for outdoor adventure hub based on competitor research]
- 
+
 C. Feasibility Assessment: Can SPEC-07 be implemented safely with WCAG AA + <50ms performance + extensibility using 2024-2025 best practices? [Yes/No/With Caveats + 2-sentence explanation]
 2. KEY FINDINGS (Ranked by Impact to SPEC-07)
 For each of the 8 Knowledge Gaps, provide:
- 
+
 Gap [\#]: [Name]
 Finding: [Specific actionable insight]
 Evidence: [Direct quote or data point]
@@ -131,7 +131,7 @@ Example format:
 - **Confidence Score**: Medium (Secondary source, but aligns with React documentation patterns)
 - **SPEC-07 Impact**: MUST use React for 4-6 axes to avoid rewrite when adding axes 5-6. Vanilla JS only viable if limiting to 2-3 axes permanently.
 
-3. COMPETITOR BENCHMARK (Outdoor Adventure Filter Taxonomy)
+1. COMPETITOR BENCHMARK (Outdoor Adventure Filter Taxonomy)
 Create a comparison table of filter axes used by major outdoor discovery platforms:
 PlatformAxes UsedTotal CountMobile PatternNotes
 AllTrails
@@ -150,29 +150,29 @@ X
 [Drawer/Accordion]
 [Key insight]
 Recommendation: Based on competitor analysis, SPEC-07 should include [X essential axes] from day 1: [list]
-4. THE "ANTI-EVIDENCE" (Data Conflicts \& Contradictions)
+2. THE "ANTI-EVIDENCE" (Data Conflicts \& Contradictions)
 What data contradicts your main recommendations?
- 
+
 Example:
 "Source A (Web.dev 2024) benchmarks show vanilla JS filtering at 100 items in <10ms, but Source B (React Core Team 2024) claims React is faster for complex state. Conflict: Different performance conclusions for 70+ items."
-5. MISSING DATA (The "Unknown Unknowns")
+3. MISSING DATA (The "Unknown Unknowns")
 What could you not find that SPEC-07 implementation needs?
- 
+
 Examples:
 "No benchmark data found for Astro + React islands + vanilla JS filtering hybrid pattern (WVWO's specific stack)."
 "No specific guidance found for Schema.org CollectionPage with client-side filtering (dynamic hasPart)."
-6. IMPLEMENTATION RED FLAGS (High-Risk Patterns to Avoid)
+4. IMPLEMENTATION RED FLAGS (High-Risk Patterns to Avoid)
 List 3-5 specific patterns/approaches that research suggests will fail for SPEC-07:
- 
+
 Example:
 "❌ Using CSS :has() selector for filtering - poor support on older Android devices (rural WV constraint). Stick to display: none or class toggling (Source: CanIUse 2024)."
-7. EXTENSIBILITY CHECKLIST (Future-Proof Requirements)
+5. EXTENSIBILITY CHECKLIST (Future-Proof Requirements)
 Based on research, list specific architectural requirements for extensibility:
  Filter config should be data-driven (adding axis = adding config object, not code)
  [Additional requirements from research]
-8. PROPOSED FOLLOW-UP (Human Investigation Tasks)
+6. PROPOSED FOLLOW-UP (Human Investigation Tasks)
 3 specific questions that need manual testing or WVWO-specific decisions:
- 
+
 Example:
 "Manual Test Required: Does <50ms filter response hold on a mid-range Android device (rural WV typical) with 70 adventure cards + 4 active filter axes?"
 "Business Decision Required: Which 4-6 filter axes are ESSENTIAL for WVWO's 70+ destinations? (Gap 1 research shows competitors use 6-12 axes - need to prioritize.)"
@@ -244,27 +244,27 @@ Performance on mid-range rural WV Android device (exact hardware spec needed fro
 
 ### **Gap 1: Outdoor Adventure Filter Taxonomy**
 
-#### Finding:
+#### Finding
 
 AllTrails dominates with **12 distinct filter axes**; REI's Adventure Finder uses **6-7 axes** (activity, difficulty, season/duration, price, brand, user rating). State park websites (e.g., West Virginia State Parks) typically use **3-4 axes** (type: hiking/camping, difficulty, distance, amenities). **Consensus essential axes: Activity, Difficulty, Distance, Attractions.** Optional for extensibility: Season, Duration, Elevation, Trail Type (loop/out-and-back), Traffic Level, Route Type.
 
-#### Evidence:
+#### Evidence
 
 AllTrails Help Center lists: "Filters by category: (1) Sort (Best match, Most popular, Closest, Newly added), (2) Distance Away, (3) Activity [16 types], (4) Difficulty [3 levels], (5) Length [0-50+ mi], (6) Elevation Gain [0ft-5,000+], (7) Suitability [dog-friendly, kid-friendly, wheelchair, stroller, paved], (8) Attractions [14 types], (9) Route Type, (10) Rating, (11) Trail Traffic, (12) Trail Completion." [AllTrails Support, 2025-12-02]
 
 REI and competitor surveys show **activity and difficulty are universal**; distance is locked behind premium tiers but expected. Suitability (family-friendly, accessibility) is growing in importance post-2023.
 
-#### Source:
+#### Source
 
 [https://support.alltrails.com/hc/en-us/articles/37227964040852](https://support.alltrails.com/hc/en-us/articles/37227964040852) [Accessed 2025-12-23]
 [https://www.rei.com/learn/expert-advice/best-water-filters.html](https://www.rei.com/learn/expert-advice/best-water-filters.html) [Accessed 2025-12-23]
 [NN/G: Helpful Filter Categories and Values, 2025-03-25]
 
-#### Confidence Score:
+#### Confidence Score
 
 **High** — Primary sources (AllTrails official docs, REI official learning center). AllTrails data represents 70+ million outdoor activities, directly scalable to SPEC-07's 70+ destinations.
 
-#### SPEC-07 Impact:
+#### SPEC-07 Impact
 
 **MUST include 4 axes minimum (Activity, Difficulty, Distance, Suitability).** Adding a 5th (Elevation or Attractions) is extensible but not mandatory for MVP. **Avoid "Season" axis initially**—not universally relevant in West Virginia (unlike mountain regions). Reduces initial complexity while maintaining extensibility pathway for SPEC-08+.
 
@@ -272,11 +272,11 @@ REI and competitor surveys show **activity and difficulty are universal**; dista
 
 ### **Gap 2: Multi-Axis Filtering Architecture (React vs Vanilla JS)**
 
-#### Finding:
+#### Finding
 
 **Data Conflict Detected (see Anti-Evidence below).** Consensus from 2024-2025 sources: For **2-3 filter axes, vanilla JS data-attribute filtering is adequate** (10-30ms DOM manipulations). For **4+ axes with real-time updates, React Context + URL sync is mandatory** to prevent callback hell and state desynchronization. Specific conflict: Web.dev benchmarks show vanilla JS renders 70 items faster than React initially, BUT React's Virtual DOM becomes faster at **3+ simultaneous state updates per user interaction** (e.g., difficulty filter + activity filter + distance slider = 3 updates). Vanilla JS devs must manually batch DOM updates or face 100-200ms lag.
 
-#### Evidence:
+#### Evidence
 
 **Pro-React (2024-2025):**
 
@@ -291,18 +291,18 @@ REI and competitor surveys show **activity and difficulty are universal**; dista
 
 **Reconciliation:** Initial render speed (vanilla JS wins 30x) ≠ filter response speed (React wins after 3+ simultaneous updates). For WVWO use case (70 items, 4-6 axes, <50ms filter response), React's advantage matters more than initial render (which happens once on page load).
 
-#### Sources:
+#### Sources
 
 [Cosden Solutions, 2024-07-22, YouTube]
 [LogRocket, 2024-11-25, https://blog.logrocket.com/ux-design/filtering-ux-ui-design-patterns-best-practices/](https://blog.logrocket.com/ux-design/filtering-ux-ui-design-patterns-best-practices/)
 [Flatlogic, 2024-03-12, https://flatlogic.com/blog/vanilla-js-vs-react-js-featured-based-comparison-to-find-the-best-javascript-technology/](https://flatlogic.com/blog/vanilla-js-vs-react-js-featured-based-comparison-to-find-the-best-javascript-technology/)
 [DistantJob, 2025-06-24]
 
-#### Confidence Score:
+#### Confidence Score
 
 **Medium-High** — Secondary sources align on 4-axis threshold, but no primary source (React Core docs, Vanilla JS MDN) explicitly benchmarks "4 axes at 70 items." Inference from patterns is sound, but requires WVWO-specific testing.
 
-#### SPEC-07 Impact:
+#### SPEC-07 Impact
 
 **MUST use React for 4-6 axes.** Starting with vanilla JS data-attribute pattern for axes 1-3 but planning to refactor to React at axis 4 will cause SPEC-07→SPEC-08 rewrite debt. **Adopt React + Context API from day 1.** No Redux; use React 18+ Context + useReducer for filter state.
 
@@ -310,11 +310,11 @@ REI and competitor surveys show **activity and difficulty are universal**; dista
 
 ### **Gap 3: Extensibility Patterns (Adding Axes Without Rewrites)**
 
-#### Finding:
+#### Finding
 
 **Data-driven filter configuration is the gold standard.** Filter axes should be defined in a JSON config object (e.g., `filters = [{id: 'activity', label: 'Activity', type: 'multi-select', options: [...]}, ...]`), NOT hardcoded into component JSX. Adding a new axis = adding a new object to the array, NOT refactoring the filter component. Plugin architecture pattern used in OkHttp (interceptor chains) and Dagger (dependency injection) proves this scales. React hooks-based filter reducer can consume config dynamically.
 
-#### Evidence:
+#### Evidence
 
 Devleader (2023-09-12): "Plugin architecture is inherently extensible. It's designed to allow developers to extend the application's capabilities without altering its core structure. Modularity ensures changes in one module don't affect others."
 
@@ -322,17 +322,17 @@ ProAndroidDev (2023-03-11): "Using plugin interfaces across modules is effective
 
 **Practical implementation:** Define `const filterConfig = [{ id: 'activity', ... }, { id: 'difficulty', ... }]`. The FilterComponent loops over `filterConfig.map(axis => <FilterAxis config={axis} />)`. Adding axis 6 requires only appending to `filterConfig`, not touching JSX.
 
-#### Sources:
+#### Sources
 
 [Devleader, 2023-09-12, https://devleader.substack.com/p/plugin-architecture-design-pattern](https://devleader.substack.com/p/plugin-architecture-design-pattern)
 [ProAndroidDev, 2023-03-11]
 [ElementsOfComputerScience, 2024-03-19, https://www.elementsofcomputerscience.com/posts/building-plugin-architecture-with-mef-03/](https://www.elementsofcomputerscience.com/posts/building-plugin-architecture-with-mef-03/)
 
-#### Confidence Score:
+#### Confidence Score
 
 **High** — Plugin architecture is industry standard (Firefox, VS Code, Figma all use variants). Data-driven config is proven pattern (Material Design, shadcn/ui, every modern component library).
 
-#### SPEC-07 Impact:
+#### SPEC-07 Impact
 
 **ARCHITECTURE REQUIREMENT:** Filter axes MUST be defined in a data-driven JSON config file (e.g., `adventures-filters.config.ts`), not hardcoded in JSX. This single decision prevents complete rewrites when adding axes 5-6. Estimated rewrite prevention: 40+ hours of effort saved per new axis in SPEC-08+.
 
@@ -340,14 +340,13 @@ ProAndroidDev (2023-03-11): "Using plugin interfaces across modules is effective
 
 ### **Gap 4: Accessibility for Complex Filter Controls (WCAG 2.1 AA)**
 
-#### Finding:
+#### Finding
 
 ```
 **4-6 filter groups require specific ARIA patterns:** (1) **Avoid nested interactive controls**—critical WCAG 4.1.2 violation; don't nest `<button>` inside `<div role="button">`. Use semantic `<fieldset>` + `<legend>` for filter groups. (2) **Live regions for dynamic updates**—use `role="region" aria-live="polite"` on results counter ("X adventures found") to announce changes to screen readers. (3) **Disclosure widgets**—each collapsible filter group should be `<button aria-expanded="false" aria-controls="filterBody">` pattern, NOT nested buttons. (4) **Focus management**—collapsible sections must maintain keyboard tab order; avoid focus traps. (5) **44x44px minimum touch targets**—WCAG 2.1 AA Level requirement for mobile, especially critical for rural WV users on older Android devices with larger fingers.
 ```
 
-
-#### Evidence:
+#### Evidence
 
 ```
 WordPress Accessibility Issue (2025-05-06): "Interactive controls must not be nested. Structure `<div role="button"><button>...</button></div>` violates WCAG 4.1.2 and causes screen reader navigation loops."
@@ -361,7 +360,7 @@ AccessibilityChecker (2025-11-20): "Use ARIA landmarks like `role="form"`, `role
 
 WCAG 2.1 AA Compliance Status: Requires **1.3.1** (Info and Relationships—no nested controls), **2.1.1** (Keyboard), **2.4.3** (Focus Order), **2.4.6** (Headings and Labels), **4.1.2** (Name, Role, Value).
 
-#### Sources:
+#### Sources
 
 [WordPress Support, 2025-05-06]
 [LibraryAccessibility Report, 2024-09-22]
@@ -369,11 +368,11 @@ WCAG 2.1 AA Compliance Status: Requires **1.3.1** (Info and Relationships—no n
 [AccessibilityChecker, 2025-11-20]
 [W3C WAI-ARIA, 2023-06-05, https://www.w3.org/WAI/standards-guidelines/aria/](https://www.w3.org/WAI/standards-guidelines/aria/)
 
-#### Confidence Score:
+#### Confidence Score
 
 **High** — W3C ARIA spec and WCAG guidelines are authoritative. Real-world WordPress plugin audit found exact violations in 2025 (current context).
 
-#### SPEC-07 Impact:
+#### SPEC-07 Impact
 
 **NON-NEGOTIABLE REQUIREMENTS:**
 
@@ -396,7 +395,7 @@ WCAG 2.1 AA Compliance Status: Requires **1.3.1** (Info and Relationships—no n
 
 ### **Gap 5: URL Parameter Strategy (SEO + Shareability)**
 
-#### Finding:
+#### Finding
 
 **Google's official guidance (2025):** Faceted navigation URLs with parameters (e.g., `?activity=hiking&difficulty=moderate&distance=5-10`) ARE crawlable and indexable IF parameters represent high-demand combinations. Use **self-referencing canonicals** for indexable filter combos, **noindex meta tag** for low-value combos. **Google's URL Parameters feature was removed from Search Console (2024)**—rely on server-side logic (canonicals + robots.txt) instead.
 
@@ -410,7 +409,7 @@ WCAG 2.1 AA Compliance Status: Requires **1.3.1** (Info and Relationships—no n
 
 **Pre-render strategy:** High-demand filter combos should exist as server-rendered pages or pre-rendered HTML. Low-value combos stay client-side (filtered dynamically in browser without URL changes).
 
-#### Evidence:
+#### Evidence
 
 Google Search Central (2025-12-09, 2025-12-17): "Managing crawling of faceted navigation URLs. Use URL parameters to specify filters. Google Search generally doesn't support URL fragments. Canonicalize deep combinations to the nearest anchor facet."
 
@@ -420,7 +419,7 @@ WideRipples (2025-10-01): "Use canonical tags to consolidate ranking signals for
 
 Informaticsinc (2025-04-21): "Filters are great for UX—but a nightmare for SEO if unmanaged. Update URL using parameters, but only allow high-value combinations to be indexed using canonicals."
 
-#### Sources:
+#### Sources
 
 [Google Search Central (Crawling), 2025-12-09, https://developers.google.com/search/docs/crawling-indexing/crawling-managing-faceted-navigation](https://developers.google.com/search/docs/crawling-indexing/crawling-managing-faceted-navigation)
 [Google Search Central (Faceted Nav), 2025-12-17, https://developers.google.com/crawling/docs/faceted-navigation](https://developers.google.com/crawling/docs/faceted-navigation)
@@ -428,11 +427,11 @@ Informaticsinc (2025-04-21): "Filters are great for UX—but a nightmare for SEO
 [WideRipples, 2025-10-01]
 [Informaticsinc, 2025-04-21]
 
-#### Confidence Score:
+#### Confidence Score
 
 **High** — Primary source (Google Search Central) is definitive. Multiple 2025 secondary sources confirm same guidance.
 
-#### SPEC-07 Impact:
+#### SPEC-07 Impact
 
 **IMPLEMENTATION STRATEGY:**
 
@@ -450,7 +449,7 @@ Informaticsinc (2025-04-21): "Filters are great for UX—but a nightmare for SEO
 
 ### **Gap 6: Mobile Filter UI for 4-6 Axes**
 
-#### Finding:
+#### Finding
 
 **Bottom sheet pattern dominates 2024-2025 mobile filter design.** Recommended pattern: Non-modal bottom sheet (user can interact with background content) that slides up from bottom, anchored with sticky "Apply Filters" button. Collapsible accordion groups inside sheet (one group per axis: Activity, Difficulty, Distance, etc.). **Touch target size must be 44x44px minimum** (WCAG 2.1 AA); avoid 32px used in Material Design (conflicts with rural WV accessibility constraint). **Show 3-4 filter options per group by default, "Show More" link to expand.** Swipe-to-close gesture supported but visible "X" button required for users unfamiliar with gestures.
 
@@ -460,8 +459,7 @@ Informaticsinc (2025-04-21): "Filters are great for UX—but a nightmare for SEO
 - ❌ Full-screen filter form (overkill for 4-6 axes)
 - ❌ Sidebar overlay (harder to reach on mobile, thumb-zone conflict)
 
-
-#### Evidence:
+#### Evidence
 
 Pencil \& Paper (2024-07-14): "Mobile filtering best practices: Bottom drawers expand from bottom, keeping content visible via translucent scrim. Users should see enough of background content underneath. Apply button must stay sticky/visible."
 
@@ -471,18 +469,18 @@ Arounda (2025-07-24): "Mobile filter design: floating action button or bottom sh
 
 Eleken (2020-09-17): "Collapsed filters keep screens uncluttered. Show most important filters expanded (Activity, Difficulty), secondary filters collapsed (Amenities, Trail Traffic)."
 
-#### Sources:
+#### Sources
 
 [Pencil \& Paper, 2024-07-14, https://www.pencilandpaper.io/articles/ux-pattern-analysis-mobile-filters](https://www.pencilandpaper.io/articles/ux-pattern-analysis-mobile-filters)
 [BricxLabs, 2025-12-18]
 [Arounda, 2025-07-24]
 [Eleken, 2020-09-17]
 
-#### Confidence Score:
+#### Confidence Score
 
 **High** — Multiple enterprise UX sources (SAP Fiori, Eleken, Arounda all cite bottom sheet as best practice in 2024-2025).
 
-#### SPEC-07 Impact:
+#### SPEC-07 Impact
 
 **MOBILE UI SPECIFICATION:**
 
@@ -502,7 +500,7 @@ Eleken (2020-09-17): "Collapsed filters keep screens uncluttered. Show most impo
 
 ### **Gap 7: Performance Benchmarks (70 Items, 4-6 Axes, <50ms Constraint)**
 
-#### Finding:
+#### Finding
 
 **Data Unavailable for exact scenario:** No published benchmarks exist for "70 items + 4-6 active filter axes + <50ms response time." Research found benchmarks at:
 
@@ -519,7 +517,7 @@ Eleken (2020-09-17): "Collapsed filters keep screens uncluttered. Show most impo
 3. **Pagination:** Show 20 items per page, filter 20 at a time (reduces DOM nodes to filter)
 4. **Web Workers (advanced):** Offload filter algorithm to separate thread—not recommended unless benchmarks show >500ms lag
 
-#### Evidence:
+#### Evidence
 
 LogRocket (2024-11-25): "For dynamic real-time filtering, debounce input changes to prevent excessive re-renders. Standard pattern: 300ms debounce delay."
 
@@ -527,17 +525,17 @@ Mozilla Hacks (2012): Data-attribute performance is slower than storing data in 
 
 **No specific benchmark found for:** 70 items × 4-6 axes × <50ms. This is a WVWO-specific requirement not addressed in industry literature.
 
-#### Sources:
+#### Sources
 
 [LogRocket, 2024-11-25]
 [Cosden Solutions, 2024-07-22, YouTube]
 [Mozilla Hacks, 2012-10-10]
 
-#### Confidence Score:
+#### Confidence Score
 
 **Low-Medium** — Generic performance patterns found, but no exact scenario benchmarked. <50ms target is aggressive for JavaScript filtering; typical industry standard is 100-200ms.
 
-#### SPEC-07 Impact:
+#### SPEC-07 Impact
 
 **PERFORMANCE REQUIREMENTS:**
 
@@ -554,7 +552,7 @@ Mozilla Hacks (2012): Data-attribute performance is slower than storing data in 
 
 ### **Gap 8: Schema.org CollectionPage for Dynamic Filtering**
 
-#### Finding:
+#### Finding
 
 **CollectionPage schema is suitable for /adventures/ hub, but dynamic filtering creates a gray area.** Schema.org defines CollectionPage as "Web page type: Collection page" with flexible use. Google doesn't provide a rich result for CollectionPage itself, but CollectionPage can contain other rich-result-eligible types (Article, Product, etc.).
 
@@ -564,7 +562,7 @@ Mozilla Hacks (2012): Data-attribute performance is slower than storing data in 
 
 **Do NOT create separate schema for filtered subsets** (e.g., CollectionPage for "hunting adventures" vs. "fishing adventures"). That duplicates entities and confuses Google's knowledge graph.
 
-#### Evidence:
+#### Evidence
 
 SchemaApp (2024-10-16): "CollectionPage is used for pages with many different types of content without a main focus. While CollectionPage isn't eligible for rich results, it can contain other data items that are (e.g., Article, Product). Define objects using @id (URIs) to link to knowledge graph. No required properties for CollectionPage since it's not a rich result."
 
@@ -572,18 +570,18 @@ Schema.org (CollectionPage definition): "The simplest use of CollectionPage is a
 
 WordLift (2024-07-02): "Schema markup reduces noise in SERPs. Use structured data to clarify context for Google. Avoid mixing conflicting entity types on one page (e.g., marking a category page as both CollectionPage AND Product)."
 
-#### Sources:
+#### Sources
 
 [SchemaApp, 2024-10-16, https://www.schemaapp.com/schema-markup/creating-collectionpage-schema-markup-using-the-schema-app-editor/](https://www.schemaapp.com/schema-markup/creating-collectionpage-schema-markup-using-the-schema-app-editor/)
 [Schema.org CollectionPage, https://schema.org/CollectionPage](https://schema.org/CollectionPage)
 [WordLift, 2024-07-02]
 [Spicy Web, 2025-08-24, https://spicyweb.com.au/notes/schema-markup-for-seo-success](https://spicyweb.com.au/notes/schema-markup-for-seo-success)
 
-#### Confidence Score:
+#### Confidence Score
 
 **Medium** — Schema.org is authoritative, but guidance on "dynamic filtering + schema" is sparse. Inference from static schema best practices is sound.
 
-#### SPEC-07 Impact:
+#### SPEC-07 Impact
 
 **SCHEMA IMPLEMENTATION:**
 
@@ -825,38 +823,38 @@ function ResultCount({ count }) {
 Based on research, SPEC-07 must implement these architectural requirements to support adding axes 5-6 in SPEC-08+ WITHOUT rewrites:
 
 - [ ] **Filter config is externalized as JSON/TS object**, not hardcoded JSX
-    - Example: `const filterAxes = [{ id: 'activity', label: '...', type: 'multi-select', options: [...] }, ...]`
-    - Adding axis = `filterAxes.push(newAxis)`, NOT JSX refactor
+  - Example: `const filterAxes = [{ id: 'activity', label: '...', type: 'multi-select', options: [...] }, ...]`
+  - Adding axis = `filterAxes.push(newAxis)`, NOT JSX refactor
 - [ ] **Filter reducer function accepts generic filter config**, not hardcoded axis names
-    - `const filteredAdventures = filterAdventures(allAdventures, filterConfig, selectedFilters)`
-    - Reducer logic doesn't care if 4 axes or 6 axes; uses config to determine filtering logic
+  - `const filteredAdventures = filterAdventures(allAdventures, filterConfig, selectedFilters)`
+  - Reducer logic doesn't care if 4 axes or 6 axes; uses config to determine filtering logic
 - [ ] **URL state sync is bidirectional and config-agnostic**
-    - Parse URL params without knowing axis names ahead of time
-    - `const selectedFilters = parseUrlParams(filterConfig)` (generic, works for any axis set)
+  - Parse URL params without knowing axis names ahead of time
+  - `const selectedFilters = parseUrlParams(filterConfig)` (generic, works for any axis set)
 - [ ] **ARIA labels, touch targets, keyboard nav auto-generated from config**
-    - Don't hardcode `aria-labelledby="activity-label"` for each axis
-    - Config includes `labelId: 'activity-label'`, component uses it generically
-    - Result: adding axis doesn't require new accessibility attributes
+  - Don't hardcode `aria-labelledby="activity-label"` for each axis
+  - Config includes `labelId: 'activity-label'`, component uses it generically
+  - Result: adding axis doesn't require new accessibility attributes
 - [ ] **Mobile bottom sheet accommodates unlimited filter groups**
-    - Scrollable accordion inside sheet (vertical scroll, not horizontal)
-    - Each group auto-stacks; no hardcoded positioning
-    - Sticky "Apply Filters" button is always accessible
+  - Scrollable accordion inside sheet (vertical scroll, not horizontal)
+  - Each group auto-stacks; no hardcoded positioning
+  - Sticky "Apply Filters" button is always accessible
 - [ ] **CSS custom properties (CSS variables) for touch target sizes, spacing**
-    - Don't hardcode `44px` in each filter component
-    - Use `var(--touch-target-size, 44px)` so design system change doesn't require code refactor
+  - Don't hardcode `44px` in each filter component
+  - Use `var(--touch-target-size, 44px)` so design system change doesn't require code refactor
 - [ ] **Filter hooks (useFilters, useFilterState, etc.) are generic and composable**
-    - Not `useActivityFilter`, `useDifficultyFilter`, etc. (axis-specific)
-    - Instead: `useFilterAxis(axisId, filterConfig)` (generic, axis-agnostic)
+  - Not `useActivityFilter`, `useDifficultyFilter`, etc. (axis-specific)
+  - Instead: `useFilterAxis(axisId, filterConfig)` (generic, axis-agnostic)
 - [ ] **Schema.org hasPart auto-generates from adventure list + filter config**
-    - Don't hardcode individual adventure @ids in schema
-    - Generate schema dynamically from data source (CMS, database)
+  - Don't hardcode individual adventure @ids in schema
+  - Generate schema dynamically from data source (CMS, database)
 - [ ] **Performance metrics (debounce timing, pagination size) are configurable**
-    - Don't hardcode `300ms` debounce in filter component
-    - Store in config: `{ debounceMs: 300, pageSize: 20 }` so SPEC-08 can tune without code change
+  - Don't hardcode `300ms` debounce in filter component
+  - Store in config: `{ debounceMs: 300, pageSize: 20 }` so SPEC-08 can tune without code change
 - [ ] **Test coverage includes "adding new filter axis" scenario**
-    - Unit test: `filterAdventures([], newFilterConfig, {})` returns all items (edge case)
-    - Integration test: Dynamically add axis, verify URL updates, result count announces to screen reader
-    - Ensures future axes don't break existing functionality
+  - Unit test: `filterAdventures([], newFilterConfig, {})` returns all items (edge case)
+  - Integration test: Dynamically add axis, verify URL updates, result count announces to screen reader
+  - Ensures future axes don't break existing functionality
 
 ***
 
@@ -927,7 +925,6 @@ Based on research, SPEC-07 must implement these architectural requirements to su
 | **Performance (<50ms)** | Borderline achievable; requires debouncing + pagination | Medium | **HIGH** | Manual testing on actual hardware |
 | **Schema.org** | CollectionPage with static hasPart (client-side filtering doesn't change schema) | Medium | Low | Validation in Rich Results Testing Tool |
 
-
 ***
 
 ***
@@ -955,219 +952,218 @@ Based on research, SPEC-07 must implement these architectural requirements to su
 
 <div align="center">⁂</div>
 
-[^1]: https://journal.media-culture.org.au/index.php/mcjournal/article/view/3105
+[^1]: <https://journal.media-culture.org.au/index.php/mcjournal/article/view/3105>
 
-[^2]: https://academic.oup.com/humrep/article/doi/10.1093/humrep/deae108.430/7703642
+[^2]: <https://academic.oup.com/humrep/article/doi/10.1093/humrep/deae108.430/7703642>
 
-[^3]: http://www.scielo.br/scielo.php?script=sci_arttext\&pid=S2526-89102024000100320\&tlng=en
+[^3]: <http://www.scielo.br/scielo.php?script=sci_arttext\&pid=S2526-89102024000100320\&tlng=en>
 
-[^4]: https://www.semanticscholar.org/paper/a5e8498655a4b9562a45db421761098c6ac84af6
+[^4]: <https://www.semanticscholar.org/paper/a5e8498655a4b9562a45db421761098c6ac84af6>
 
-[^5]: https://a916407.fmphost.com/fmi/webd/ASAdb49?script=doi-layout\&\$SearchString=https://doi.org/10.56315/PSCF3-25Metzinger
+[^5]: <https://a916407.fmphost.com/fmi/webd/ASAdb49?script=doi-layout\&\$SearchString=https://doi.org/10.56315/PSCF3-25Metzinger>
 
-[^6]: https://journal.media-culture.org.au/index.php/mcjournal/article/view/3170
+[^6]: <https://journal.media-culture.org.au/index.php/mcjournal/article/view/3170>
 
-[^7]: https://www.semanticscholar.org/paper/60eeb8a0c89f4808d5789e9a11579bcb9c462b86
+[^7]: <https://www.semanticscholar.org/paper/60eeb8a0c89f4808d5789e9a11579bcb9c462b86>
 
-[^8]: https://www.nomos-elibrary.de/index.php?doi=10.5771/9783956504211-588
+[^8]: <https://www.nomos-elibrary.de/index.php?doi=10.5771/9783956504211-588>
 
-[^9]: https://www.tandfonline.com/doi/full/10.1080/17450918.2019.1691640
+[^9]: <https://www.tandfonline.com/doi/full/10.1080/17450918.2019.1691640>
 
-[^10]: https://www.semanticscholar.org/paper/80d0429f97efb057b26887152dfee931d0a9b0e7
+[^10]: <https://www.semanticscholar.org/paper/80d0429f97efb057b26887152dfee931d0a9b0e7>
 
-[^11]: https://www.mdpi.com/1424-8220/18/1/178/pdf
+[^11]: <https://www.mdpi.com/1424-8220/18/1/178/pdf>
 
-[^12]: https://arxiv.org/html/2411.01325v1
+[^12]: <https://arxiv.org/html/2411.01325v1>
 
-[^13]: https://support.alltrails.com/hc/en-us/articles/37227964040852-How-to-use-filters-to-find-trails
+[^13]: <https://support.alltrails.com/hc/en-us/articles/37227964040852-How-to-use-filters-to-find-trails>
 
-[^14]: https://www.rei.com/learn/expert-advice/best-water-filters.html
+[^14]: <https://www.rei.com/learn/expert-advice/best-water-filters.html>
 
-[^15]: https://www.setproduct.com/blog/filter-ui-design
+[^15]: <https://www.setproduct.com/blog/filter-ui-design>
 
-[^16]: https://support.alltrails.com/hc/en-us/articles/16596491196436-Difficulty-ratings-on-AllTrails
+[^16]: <https://support.alltrails.com/hc/en-us/articles/16596491196436-Difficulty-ratings-on-AllTrails>
 
-[^17]: https://www.youtube.com/watch?v=tD-Ya2SQk3k
+[^17]: <https://www.youtube.com/watch?v=tD-Ya2SQk3k>
 
-[^18]: https://uxdesign.cc/crafting-a-kickass-filtering-ux-beea1798d64b
+[^18]: <https://uxdesign.cc/crafting-a-kickass-filtering-ux-beea1798d64b>
 
-[^19]: https://www.youtube.com/watch?v=9ggQx2CQlVI
+[^19]: <https://www.youtube.com/watch?v=9ggQx2CQlVI>
 
-[^20]: https://www.rei.com/learn/expert-advice/water-treatment-howto.html
+[^20]: <https://www.rei.com/learn/expert-advice/water-treatment-howto.html>
 
-[^21]: https://blog.logrocket.com/ux-design/filtering-ux-ui-design-patterns-best-practices/
+[^21]: <https://blog.logrocket.com/ux-design/filtering-ux-ui-design-patterns-best-practices/>
 
-[^22]: https://www.youtube.com/watch?v=GCV-FRL19Gc
+[^22]: <https://www.youtube.com/watch?v=GCV-FRL19Gc>
 
-[^23]: https://www.rei.com/c/gravity-water-filters
+[^23]: <https://www.rei.com/c/gravity-water-filters>
 
-[^24]: https://www.nngroup.com/articles/filter-categories-values/
+[^24]: <https://www.nngroup.com/articles/filter-categories-values/>
 
-[^25]: https://www.reddit.com/r/hiking/comments/1e0ydjp/hikers_beware_all_trails_seems_to_have_some/
+[^25]: <https://www.reddit.com/r/hiking/comments/1e0ydjp/hikers_beware_all_trails_seems_to_have_some/>
 
-[^26]: https://www.rei.com/c/portable-water-filters
+[^26]: <https://www.rei.com/c/portable-water-filters>
 
-[^27]: https://www.pencilandpaper.io/articles/ux-pattern-analysis-enterprise-filtering
+[^27]: <https://www.pencilandpaper.io/articles/ux-pattern-analysis-enterprise-filtering>
 
-[^28]: https://publiclandsportal.zendesk.com/hc/en-us/articles/4415768483476-How-do-I-use-filters-to-search-the-entire-AllTrails-database
+[^28]: <https://publiclandsportal.zendesk.com/hc/en-us/articles/4415768483476-How-do-I-use-filters-to-search-the-entire-AllTrails-database>
 
-[^29]: https://www.rei.com/c/portable-water-purifiers
+[^29]: <https://www.rei.com/c/portable-water-purifiers>
 
-[^30]: https://www.eleken.co/blog-posts/search-bar-examples
+[^30]: <https://www.eleken.co/blog-posts/search-bar-examples>
 
-[^31]: https://www.youtube.com/watch?v=9nCW9d6k2oA
+[^31]: <https://www.youtube.com/watch?v=9nCW9d6k2oA>
 
-[^32]: https://www.rei.com/learn/expert-advice/water-treatment-backcountry.html
+[^32]: <https://www.rei.com/learn/expert-advice/water-treatment-backcountry.html>
 
-[^33]: https://arxiv.org/abs/1306.1773
+[^33]: <https://arxiv.org/abs/1306.1773>
 
-[^34]: http://arxiv.org/pdf/2408.17044.pdf
+[^34]: <http://arxiv.org/pdf/2408.17044.pdf>
 
-[^35]: https://www.mdpi.com/2078-2489/12/8/319/pdf
+[^35]: <https://www.mdpi.com/2078-2489/12/8/319/pdf>
 
-[^36]: https://ph.pollub.pl/index.php/jcsi/article/view/6299
+[^36]: <https://ph.pollub.pl/index.php/jcsi/article/view/6299>
 
-[^37]: https://arxiv.org/pdf/2202.08409.pdf
+[^37]: <https://arxiv.org/pdf/2202.08409.pdf>
 
-[^38]: https://ijsrcseit.com/paper/CSEIT217630.pdf
+[^38]: <https://ijsrcseit.com/paper/CSEIT217630.pdf>
 
-[^39]: https://arxiv.org/ftp/arxiv/papers/2304/2304.09568.pdf
+[^39]: <https://arxiv.org/ftp/arxiv/papers/2304/2304.09568.pdf>
 
-[^40]: https://ph.pollub.pl/index.php/jcsi/article/download/2827/2658
+[^40]: <https://ph.pollub.pl/index.php/jcsi/article/download/2827/2658>
 
-[^41]: https://stackoverflow.com/questions/68115288/react-js-vs-vanilla-js-performance-28x-faster
+[^41]: <https://stackoverflow.com/questions/68115288/react-js-vs-vanilla-js-performance-28x-faster>
 
-[^42]: https://daily-dev-tips.com/posts/vanilla-javascript-data-attribute-filters/
+[^42]: <https://daily-dev-tips.com/posts/vanilla-javascript-data-attribute-filters/>
 
-[^43]: https://www.youtube.com/watch?v=Y9qpEa0oqcs
+[^43]: <https://www.youtube.com/watch?v=Y9qpEa0oqcs>
 
-[^44]: https://distantjob.com/blog/vanillajs-vs-react/
+[^44]: <https://distantjob.com/blog/vanillajs-vs-react/>
 
-[^45]: https://stackoverflow.com/questions/66891681/issue-with-multiple-filter-using-vanilla-javascript
+[^45]: <https://stackoverflow.com/questions/66891681/issue-with-multiple-filter-using-vanilla-javascript>
 
-[^46]: https://www.reddit.com/r/reactjs/comments/82rlxz/react_pattern_for_filter_component/
+[^46]: <https://www.reddit.com/r/reactjs/comments/82rlxz/react_pattern_for_filter_component/>
 
-[^47]: https://namastedev.com/blog/react-vs-vanilla-javascript-when-to-choose/
+[^47]: <https://namastedev.com/blog/react-vs-vanilla-javascript-when-to-choose/>
 
-[^48]: https://www.reddit.com/r/javascript/comments/105ivt/selecting_by_data_attributes_vs_performance/
+[^48]: <https://www.reddit.com/r/javascript/comments/105ivt/selecting_by_data_attributes_vs_performance/>
 
-[^49]: https://www.reddit.com/r/reactjs/comments/1jvx2yd/how_do_you_handle_complex_reusable_filtering_ui/
+[^49]: <https://www.reddit.com/r/reactjs/comments/1jvx2yd/how_do_you_handle_complex_reusable_filtering_ui/>
 
-[^50]: https://taglineinfotech.com/blog/react-js-vs-vanilla-js/
+[^50]: <https://taglineinfotech.com/blog/react-js-vs-vanilla-js/>
 
-[^51]: https://getbutterfly.com/a-quick-introduction-to-custom-data-attributes-and-vanilla-javascript/
+[^51]: <https://getbutterfly.com/a-quick-introduction-to-custom-data-attributes-and-vanilla-javascript/>
 
-[^52]: https://www.youtube.com/watch?v=-sqn22FEbMk
+[^52]: <https://www.youtube.com/watch?v=-sqn22FEbMk>
 
-[^53]: https://dev.to/purushoth_26/react-vs-vanilla-javascript-what-to-choose-in-2025-5ejb
+[^53]: <https://dev.to/purushoth_26/react-vs-vanilla-javascript-what-to-choose-in-2025-5ejb>
 
-[^54]: https://www.reddit.com/r/webdev/comments/sxxus4/filter_with_class_or_data_attribute/
+[^54]: <https://www.reddit.com/r/webdev/comments/sxxus4/filter_with_class_or_data_attribute/>
 
-[^55]: https://www.bomberbot.com/react/mastering-filter-components-in-react-a-comprehensive-guide/
+[^55]: <https://www.bomberbot.com/react/mastering-filter-components-in-react-a-comprehensive-guide/>
 
-[^56]: https://appwrk.com/reactjs-vs-plain-javascript
+[^56]: <https://appwrk.com/reactjs-vs-plain-javascript>
 
-[^57]: https://hacks.mozilla.org/2012/10/using-data-attributes-in-javascript-and-css/
+[^57]: <https://hacks.mozilla.org/2012/10/using-data-attributes-in-javascript-and-css/>
 
-[^58]: https://www.freecodecamp.org/news/how-to-make-a-filter-component-in-react/
+[^58]: <https://www.freecodecamp.org/news/how-to-make-a-filter-component-in-react/>
 
-[^59]: https://www.reddit.com/r/javascript/comments/onkvgz/askjs_are_there_any_scenarios_where_libraries/
+[^59]: <https://www.reddit.com/r/javascript/comments/onkvgz/askjs_are_there_any_scenarios_where_libraries/>
 
-[^60]: https://stackoverflow.com/questions/69229348/filter-html-elements-vanilla-js
+[^60]: <https://stackoverflow.com/questions/69229348/filter-html-elements-vanilla-js>
 
-[^61]: https://www.ijfmr.com/papers/2024/5/29091.pdf
+[^61]: <https://www.ijfmr.com/papers/2024/5/29091.pdf>
 
-[^62]: https://www.qeios.com/read/definition/77012
+[^62]: <https://www.qeios.com/read/definition/77012>
 
-[^63]: https://arxiv.org/pdf/2312.02992.pdf
+[^63]: <https://arxiv.org/pdf/2312.02992.pdf>
 
-[^64]: https://www.mdpi.com/2076-3417/11/12/5707/pdf
+[^64]: <https://www.mdpi.com/2076-3417/11/12/5707/pdf>
 
-[^65]: http://arxiv.org/pdf/2308.08475.pdf
+[^65]: <http://arxiv.org/pdf/2308.08475.pdf>
 
-[^66]: https://dl.acm.org/doi/pdf/10.1145/3613904.3642777
+[^66]: <https://dl.acm.org/doi/pdf/10.1145/3613904.3642777>
 
-[^67]: https://wordpress.org/support/topic/accessibility-issue-wcag-2-1-aa-nested-interactive-controls-in-filter-title/
+[^67]: <https://wordpress.org/support/topic/accessibility-issue-wcag-2-1-aa-nested-interactive-controls-in-filter-title/>
 
-[^68]: https://wideripples.com/how-use-canonical-url-seo/
+[^68]: <https://wideripples.com/how-use-canonical-url-seo/>
 
-[^69]: https://www.pencilandpaper.io/articles/ux-pattern-analysis-mobile-filters
+[^69]: <https://www.pencilandpaper.io/articles/ux-pattern-analysis-mobile-filters>
 
-[^70]: https://www.libraryaccessibility.org/sites/libraryaccessibility.org/files/2025-10/LAA Report (2024-09) - BioCyc.pdf
+[^70]: <https://www.libraryaccessibility.org/sites/libraryaccessibility.org/files/2025-10/LAA> Report (2024-09) - BioCyc.pdf
 
-[^71]: https://searchengineland.com/guide/faceted-navigation
+[^71]: <https://searchengineland.com/guide/faceted-navigation>
 
-[^72]: https://arounda.agency/blog/filter-ui-examples
+[^72]: <https://arounda.agency/blog/filter-ui-examples>
 
-[^73]: https://www.w3.org/WAI/standards-guidelines/aria/
+[^73]: <https://www.w3.org/WAI/standards-guidelines/aria/>
 
-[^74]: https://developers.google.com/search/docs/crawling-indexing/crawling-managing-faceted-navigation
+[^74]: <https://developers.google.com/search/docs/crawling-indexing/crawling-managing-faceted-navigation>
 
-[^75]: https://www.eleken.co/blog-posts/filter-ux-and-ui-for-saas
+[^75]: <https://www.eleken.co/blog-posts/filter-ux-and-ui-for-saas>
 
-[^76]: https://www.accessibilitychecker.org/blog/aria-accessibility/
+[^76]: <https://www.accessibilitychecker.org/blog/aria-accessibility/>
 
-[^77]: https://developers.google.com/crawling/docs/faceted-navigation
+[^77]: <https://developers.google.com/crawling/docs/faceted-navigation>
 
-[^78]: https://bricxlabs.com/blogs/universal-search-and-filters-ui
+[^78]: <https://bricxlabs.com/blogs/universal-search-and-filters-ui>
 
-[^79]: https://beaccessible.com/post/aria-accessibility/
+[^79]: <https://beaccessible.com/post/aria-accessibility/>
 
-[^80]: https://www.webyes.com/blogs/faceted-navigation-seo/
+[^80]: <https://www.webyes.com/blogs/faceted-navigation-seo/>
 
-[^81]: https://dribbble.com/search/mobile-bottom-drawer
+[^81]: <https://dribbble.com/search/mobile-bottom-drawer>
 
-[^82]: https://www.allaccessible.org/blog/implementing-aria-labels-for-web-accessibility
+[^82]: <https://www.allaccessible.org/blog/implementing-aria-labels-for-web-accessibility>
 
-[^83]: https://www.informaticsinc.com/blog/april-2025/hidden-seo-costs-faceted-navigation
+[^83]: <https://www.informaticsinc.com/blog/april-2025/hidden-seo-costs-faceted-navigation>
 
-[^84]: https://dribbble.com/search/filter-bottom-sheet
+[^84]: <https://dribbble.com/search/filter-bottom-sheet>
 
-[^85]: https://theadminbar.com/accessibility-weekly/accessible-search-and-filter/
+[^85]: <https://theadminbar.com/accessibility-weekly/accessible-search-and-filter/>
 
-[^86]: https://searchxpro.com/canonical-tags-for-faceted-navigation-best-practices/
+[^86]: <https://searchxpro.com/canonical-tags-for-faceted-navigation-best-practices/>
 
-[^87]: https://www.reddit.com/r/userexperience/comments/9vbfe2/what_is_this_ui_element_called_is_it_a_drawer/
+[^87]: <https://www.reddit.com/r/userexperience/comments/9vbfe2/what_is_this_ui_element_called_is_it_a_drawer/>
 
-[^88]: https://arxiv.org/pdf/2106.13764.pdf
+[^88]: <https://arxiv.org/pdf/2106.13764.pdf>
 
-[^89]: http://arxiv.org/pdf/2409.00708.pdf
+[^89]: <http://arxiv.org/pdf/2409.00708.pdf>
 
-[^90]: http://arxiv.org/pdf/2405.07206.pdf
+[^90]: <http://arxiv.org/pdf/2405.07206.pdf>
 
-[^91]: https://dl.acm.org/doi/pdf/10.1145/3491204.3527477
+[^91]: <https://dl.acm.org/doi/pdf/10.1145/3491204.3527477>
 
-[^92]: https://www.schemaapp.com/schema-markup/creating-collectionpage-schema-markup-using-the-schema-app-editor/
+[^92]: <https://www.schemaapp.com/schema-markup/creating-collectionpage-schema-markup-using-the-schema-app-editor/>
 
-[^93]: https://devleader.substack.com/p/plugin-architecture-design-pattern
+[^93]: <https://devleader.substack.com/p/plugin-architecture-design-pattern>
 
-[^94]: https://flatlogic.com/blog/vanilla-js-vs-react-js-featured-based-comparison-to-find-the-best-javascript-technology/
+[^94]: <https://flatlogic.com/blog/vanilla-js-vs-react-js-featured-based-comparison-to-find-the-best-javascript-technology/>
 
-[^95]: https://www.conductor.com/academy/shopify-seo/
+[^95]: <https://www.conductor.com/academy/shopify-seo/>
 
-[^96]: https://www.elementsofcomputerscience.com/posts/building-plugin-architecture-with-mef-03/
+[^96]: <https://www.elementsofcomputerscience.com/posts/building-plugin-architecture-with-mef-03/>
 
-[^97]: https://wordlift.io/blog/en/seo-data-quality/
+[^97]: <https://wordlift.io/blog/en/seo-data-quality/>
 
-[^98]: https://www.swiftbysundell.com/articles/making-swift-code-extensible-through-plugins
+[^98]: <https://www.swiftbysundell.com/articles/making-swift-code-extensible-through-plugins>
 
-[^99]: https://schema.org/CollectionPage
+[^99]: <https://schema.org/CollectionPage>
 
-[^100]: https://stackoverflow.com/questions/323202/how-to-design-extensible-software-plugin-architecture
+[^100]: <https://stackoverflow.com/questions/323202/how-to-design-extensible-software-plugin-architecture>
 
-[^101]: https://www.index.dev/skill-vs-skill/frontend-react-vs-preact-vs-solidjs
+[^101]: <https://www.index.dev/skill-vs-skill/frontend-react-vs-preact-vs-solidjs>
 
-[^102]: https://www.tilipmandigital.com/resource-center/webflow-development-guides/webflow-schema-markup
+[^102]: <https://www.tilipmandigital.com/resource-center/webflow-development-guides/webflow-schema-markup>
 
-[^103]: https://proandroiddev.com/using-the-plugin-pattern-in-a-modularized-codebase-af8d4905404f
+[^103]: <https://proandroiddev.com/using-the-plugin-pattern-in-a-modularized-codebase-af8d4905404f>
 
-[^104]: https://dev.to/nikl/react-is-slower-than-vanilla-js--pfo
+[^104]: <https://dev.to/nikl/react-is-slower-than-vanilla-js--pfo>
 
-[^105]: https://spicyweb.com.au/notes/schema-markup-for-seo-success
+[^105]: <https://spicyweb.com.au/notes/schema-markup-for-seo-success>
 
-[^106]: https://www.youtube.com/watch?v=JYb5pzcIimQ
+[^106]: <https://www.youtube.com/watch?v=JYb5pzcIimQ>
 
-[^107]: https://www.asynclabs.co/blog/software-development/vanilla-javascript-vs-react-choosing-the-right-tool-for-web-development/
+[^107]: <https://www.asynclabs.co/blog/software-development/vanilla-javascript-vs-react-choosing-the-right-tool-for-web-development/>
 
-[^108]: https://brixtemplates.com/blog/how-to-add-product-schema-in-framer
-
+[^108]: <https://brixtemplates.com/blog/how-to-add-product-schema-in-framer>

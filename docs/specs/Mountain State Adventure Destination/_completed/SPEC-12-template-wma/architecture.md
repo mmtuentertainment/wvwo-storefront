@@ -12,6 +12,7 @@
 This document defines the complete system architecture for SPEC-12 WMA Template components. The design achieves **73% code reduction** (463→150 lines per page) through a modular component system that composes 4 new generic components + 2 semantic wrappers with 4 existing SPEC-10/11 components.
 
 **Key Architecture Decisions**:
+
 - **Wrapper Pattern**: AdventureFeatureSection as generic base, thin wrappers for semantic variants
 - **Content Collections Extension**: Zero breaking changes via optional fields
 - **Static-First Approach**: Zero runtime JavaScript, progressive enhancement path
@@ -277,6 +278,7 @@ FORBIDDEN: ←  (inward dependency)
 ```
 
 **Example Violation**:
+
 ```typescript
 // ❌ BAD: Component imports page-specific content
 import { getEntry } from 'astro:content';
@@ -340,6 +342,7 @@ Component Reuse:
 | **New variant style** | Component `variant` prop | Add to discriminated union type |
 
 **Backward Compatibility Guarantee**:
+
 - All new fields MUST be optional
 - All new components MUST NOT break existing pages
 - All type changes MUST be additive (no removals)
@@ -410,6 +413,7 @@ Phase 3 (Future): Advanced Features
 ### 5.2 Type System Integration
 
 **Existing Types** (`adventure.ts` from SPEC-10/11):
+
 ```typescript
 // Already defined in src/types/adventure.ts
 export type StatIcon = 'distance' | 'time' | 'calendar' | 'check' | 'info' | 'location' | 'area' | 'circle' | 'none';
@@ -419,6 +423,7 @@ export type RelatedCategory = { name: string; description?: string; href: string
 ```
 
 **NEW Types** (SPEC-12 extends `adventure.ts`):
+
 ```typescript
 // NEW: Feature item for AdventureFeatureSection
 export const FeatureItemSchema = z.object({
@@ -442,6 +447,7 @@ export type FacilityItem = z.infer<typeof FacilityItemSchema>;
 ```
 
 **Integration Pattern**: All new types follow existing conventions:
+
 - Zod schema as source of truth
 - TypeScript type inferred from schema
 - Optional fields for backward compatibility
@@ -450,6 +456,7 @@ export type FacilityItem = z.infer<typeof FacilityItemSchema>;
 ### 5.3 Shared Utilities & Constants
 
 **Reused from SPEC-10/11**:
+
 ```typescript
 // src/types/adventure.ts
 import { STAT_ICON_PATHS } from '../../types/adventure';
@@ -460,6 +467,7 @@ const iconPath = STAT_ICON_PATHS['location']; // ✓ location pin
 ```
 
 **NEW Constants** (SPEC-12 adds):
+
 ```typescript
 // Accent colors for AdventureFeatureSection borders
 export const ACCENT_COLORS = {
@@ -573,6 +581,7 @@ const quickStats = [
 ```
 
 **Line Count Breakdown**:
+
 - Imports: ~25 lines
 - Data fetching + transforms: ~15 lines
 - Layout wrapper: ~5 lines
@@ -700,6 +709,7 @@ export const validFacility = {
 ```
 
 **Performance Benefits**:
+
 - No hydration delay (Astro islands unused in Phase 1)
 - No JavaScript bundle download
 - Instant time-to-interactive (TTI)
@@ -915,6 +925,7 @@ const ENABLE_SPEC12_COMPONENTS = import.meta.env.PUBLIC_ENABLE_SPEC12 === 'true'
 ```
 
 **Rollback Process**:
+
 1. Detect production issue
 2. Set `PUBLIC_ENABLE_SPEC12=false` in environment
 3. Trigger rebuild (30s build time)
@@ -981,11 +992,13 @@ describe('Content Collections Migration', () => {
 **Decision**: Use thin wrappers (AdventureWhatToHunt) around generic base (AdventureFeatureSection).
 
 **Rationale**:
+
 - DRY principle: Change once affects all variants
 - Developer ergonomics: Clear semantic intent
 - Maintenance: 50 fewer lines of duplicated code
 
 **Alternatives Considered**:
+
 - Standalone components (rejected: code duplication)
 - Single component with mode prop (rejected: less semantic clarity)
 
@@ -998,12 +1011,14 @@ describe('Content Collections Migration', () => {
 **Decision**: Use Mapbox Static API for maps, defer Leaflet.js to Phase 2.
 
 **Rationale**:
+
 - <1s load on 3G (vs 3-5s interactive)
 - Works offline + print
 - 50-70% battery savings
 - Free tier: 50k requests/month (sufficient)
 
 **Alternatives Considered**:
+
 - Leaflet.js from day 1 (rejected: poor rural performance)
 - No maps (rejected: critical for WMA navigation)
 
@@ -1016,12 +1031,14 @@ describe('Content Collections Migration', () => {
 **Decision**: Add `type: 'wma' | 'adventure'` field to Content Collections.
 
 **Rationale**:
+
 - Self-documenting (clear intent)
 - Future-proof (can add 'trail', 'campground')
 - Excellent type safety (discriminated unions)
 - Enables type-specific validation
 
 **Alternatives Considered**:
+
 - Infer from fields (rejected: fragile)
 - Separate collections (rejected: breaking change)
 
@@ -1061,6 +1078,7 @@ The SPEC-12 architecture achieves its core goals through:
 6. **Extensibility**: Clear hooks for future adventure types
 
 **Next Steps**:
+
 1. User approval of architecture
 2. Implementation (6 components + schema)
 3. Testing (43 unit + 35 E2E + accessibility)

@@ -12,7 +12,7 @@
 
 This document specifies the complete TypeScript/Zod type system for the State Park Template (SPEC-18), addressing 63 identified gaps including 12 facility types, 9 activity types, 8 ADA features, and 8 SEO requirements. The type system follows SPEC-17 Backcountry Template patterns while expanding to accommodate state park-specific commercial operations, family-friendly amenities, and comprehensive accessibility features.
 
-**Key Architecture Decisions:**
+### Key Architecture Decisions:
 
 1. **Three-File Structure**: Domain types, SEO types, and template props separated for maintainability
 2. **Zod-First Validation**: All schemas use Zod with TypeScript inference for runtime safety
@@ -20,7 +20,8 @@ This document specifies the complete TypeScript/Zod type system for the State Pa
 4. **WVWO Brand Integration**: Non-safety colors use approved brand palette
 5. **Reusability Pattern**: Extends existing schemas from Backcountry, Ski, and Adventure templates
 
-**Estimated File Sizes:**
+### Estimated File Sizes:
+
 - `state-park-types.ts`: ~1,300 lines (12 facility types + amenities + activities)
 - `state-park-seo-types.ts`: ~400 lines (8 SEO schema types)
 - `state-park-template-types.ts`: ~600 lines (complete template props composition)
@@ -44,17 +45,20 @@ This document specifies the complete TypeScript/Zod type system for the State Pa
 
 ### Design Principles
 
-**1. Separation of Concerns**
+### 1. Separation of Concerns
+
 - **Domain Types** (`state-park-types.ts`): Business logic types (facilities, amenities, activities)
 - **SEO Types** (`state-park-seo-types.ts`): Schema.org and meta tag types
 - **Template Props** (`state-park-template-types.ts`): Component interface composition
 
-**2. Type Safety Levels**
+### 2. Type Safety Levels
+
 - **Runtime Validation**: All inputs validated with Zod schemas
 - **Compile-Time Safety**: TypeScript types inferred from Zod
 - **Default Values**: Sensible defaults for optional fields
 
-**3. Reusability Strategy**
+### 3. Reusability Strategy
+
 ```typescript
 // Import and extend existing patterns
 import { DifficultySchema, DIFFICULTY_COLORS } from './adventure';
@@ -67,16 +71,17 @@ export const StateParkLodgingSchema = LodgingSchema.extend({
   bedrooms: z.number().int().positive().optional(),
   // ...state park cabin fields
 });
-```
+```text
 
-**4. Industry Standards Compliance**
+### 4. Industry Standards Compliance
+
 - Trail difficulty colors follow NSAA/international hiking standards
 - ADA accessibility features align with federal requirements
 - SEO schemas match Schema.org specifications
 
 ### File Dependencies
 
-```
+```text
 adventure.ts (base types)
     ↓
 backcountry-template-types.ts (regulations, agency)
@@ -295,7 +300,7 @@ export const AMENITY_TYPE_COLORS: Record<AmenityType, string> = {
   laser_tag: 'bg-brand-orange text-white',
   axe_throwing: 'bg-brand-orange text-white',
 };
-```
+```typescript
 
 ### 1.3 Program Type Enums
 
@@ -403,7 +408,7 @@ export const ACTIVITY_TYPE_COLORS: Record<ActivityType, string> = {
   picnicking: 'bg-brand-cream text-brand-brown border border-brand-brown',
   playground: 'bg-brand-orange text-white',
 };
-```
+```typescript
 
 ### 1.5 Accessibility Feature Types
 
@@ -595,7 +600,7 @@ export const ParkOperatingHoursSchema = z.object({
 });
 
 export type ParkOperatingHours = z.infer<typeof ParkOperatingHoursSchema>;
-```
+```typescript
 
 ### 1.7 Regulations Schema
 
@@ -730,7 +735,7 @@ export const CabinSchema = z.object({
 });
 
 export type Cabin = z.infer<typeof CabinSchema>;
-```
+```typescript
 
 #### Pool Facility Schema
 
@@ -826,7 +831,7 @@ export const BoatLaunchSchema = z.object({
 });
 
 export type BoatLaunch = z.infer<typeof BoatLaunchSchema>;
-```
+```typescript
 
 #### Visitor Center Schema
 
@@ -916,7 +921,7 @@ export const GroupFacilitySchema = z.object({
 });
 
 export type GroupFacility = z.infer<typeof GroupFacilitySchema>;
-```
+```typescript
 
 #### Equipment Rental Schema
 
@@ -1075,7 +1080,7 @@ export function formatOperatingHours(hours: DailyHours): string {
 
   return `${formatTime(hours.open)} - ${formatTime(hours.close)}`;
 }
-```
+```typescript
 
 ---
 
@@ -1166,7 +1171,7 @@ export const FAQPageSchema = z.object({
 });
 
 export type FAQPage = z.infer<typeof FAQPageSchema>;
-```
+```typescript
 
 ### 2.3 Event Schema
 
@@ -1271,7 +1276,7 @@ export const EventSeriesSchema = z.object({
 });
 
 export type EventSeries = z.infer<typeof EventSeriesSchema>;
-```
+```typescript
 
 ### 2.5 Amenity Feature Schema
 
@@ -1328,7 +1333,7 @@ export const ReserveActionSchema = z.object({
 });
 
 export type ReserveAction = z.infer<typeof ReserveActionSchema>;
-```
+```typescript
 
 ### 2.7 Image Gallery Schema
 
@@ -1420,7 +1425,7 @@ export const ReviewSchema = z.object({
 });
 
 export type Review = z.infer<typeof ReviewSchema>;
-```
+```typescript
 
 ### 2.9 Helper Functions
 
@@ -1518,7 +1523,7 @@ export const StateParkHeroSchema = z.object({
 });
 
 export type StateParkHero = z.infer<typeof StateParkHeroSchema>;
-```
+```typescript
 
 ### 3.2 Park Overview Schema
 
@@ -1614,7 +1619,7 @@ export const FacilitiesSectionSchema = z.object({
 });
 
 export type FacilitiesSection = z.infer<typeof FacilitiesSectionSchema>;
-```
+```typescript
 
 ### 3.4 Activities & Programs Schema
 
@@ -1693,7 +1698,7 @@ export const TrailSystemSchema = z.object({
 });
 
 export type TrailSystem = z.infer<typeof TrailSystemSchema>;
-```
+```typescript
 
 ### 3.6 Scenic Overlooks Schema
 
@@ -1768,7 +1773,7 @@ export const AccessibilitySectionSchema = z.object({
 });
 
 export type AccessibilitySection = z.infer<typeof AccessibilitySectionSchema>;
-```
+```typescript
 
 ### 3.8 Reservations Section Schema
 
@@ -1900,7 +1905,7 @@ export const StateParkTemplatePropsSchema = z.object({
 });
 
 export type StateParkTemplateProps = z.infer<typeof StateParkTemplatePropsSchema>;
-```
+```typescript
 
 ---
 
@@ -1961,7 +1966,7 @@ export const INDUSTRY_SAFETY_COLORS = {
   // Poison Control (Industry Standard Exception)
   poisonPurple: '#7B1FA2',    // Poison control only
 } as const;
-```
+```typescript
 
 ### Tailwind Color Classes
 
@@ -1992,14 +1997,16 @@ export const WVWO_TAILWIND_CLASSES = {
 
 ### Color Usage Guidelines
 
-**DO:**
+### DO:
+
 - Use `bg-brand-brown` for lodging, cabins, group facilities
 - Use `bg-sign-green` for nature/outdoor facilities, playgrounds
 - Use `bg-brand-orange` sparingly (<5% screen) for CTAs only
 - Use `bg-blue-700` for water features, intermediate trails, accessibility
 - Use trail difficulty colors (green/blue/red/black) for trail markers
 
-**DON'T:**
+### DON'T:
+
 - Use purple (except poison control)
 - Use pink/neon colors
 - Use brand orange for backgrounds
@@ -2043,7 +2050,7 @@ export function hasLodging(park: StateParkTemplateProps): boolean {
     park.facilities?.lodging?.lodges !== undefined
   );
 }
-```
+```typescript
 
 ### Data Transformation
 
@@ -2110,7 +2117,7 @@ export function validateOperatingHours(hours: DailyHours): boolean {
 
   return closeTime > openTime;
 }
-```
+```typescript
 
 ---
 
@@ -2118,7 +2125,7 @@ export function validateOperatingHours(hours: DailyHours): boolean {
 
 ### Unit Tests
 
-**File: `__tests__/state-park-types.test.ts`**
+### File: `__tests__/state-park-types.test.ts`
 
 ```typescript
 describe('FacilityTypeSchema', () => {
@@ -2188,7 +2195,7 @@ describe('Color System', () => {
 
 ### Integration Tests
 
-**File: `__tests__/state-park-template-types.test.ts`**
+### File: `__tests__/state-park-template-types.test.ts`
 
 ```typescript
 describe('StateParkTemplatePropsSchema', () => {
@@ -2229,7 +2236,7 @@ describe('StateParkTemplatePropsSchema', () => {
     expect(() => StateParkTemplatePropsSchema.parse(park)).not.toThrow();
   });
 });
-```
+```typescript
 
 ---
 
@@ -2276,7 +2283,7 @@ const { park } = Astro.props;
   {park.trails && <TrailSystem {...park.trails} />}
   {park.accessibility && <AccessibilitySection {...park.accessibility} />}
 </article>
-```
+```typescript
 
 ### Schema.org Generation
 
@@ -2314,16 +2321,20 @@ const schemaOrg = {
 **Status:** Proposed
 **Date:** 2026-01-02
 
-**Context:**
+### Context:
+
 State park types are complex with 63+ identified gaps. Need maintainable structure.
 
-**Decision:**
+### Decision:
+
 Split into three files:
+
 1. Domain types (facilities, amenities)
 2. SEO types (Schema.org)
 3. Template composition
 
-**Consequences:**
+### Consequences:
+
 - ✅ Easier to maintain and test
 - ✅ Clear separation of concerns
 - ✅ Reusable SEO types across templates
@@ -2335,17 +2346,21 @@ Split into three files:
 **Status:** Approved (per CLAUDE.md)
 **Date:** 2026-01-02
 
-**Context:**
+### Context:
+
 Trail difficulty and safety information require industry-standard colors that conflict with WVWO brand palette.
 
-**Decision:**
+### Decision:
+
 Industry safety colors OVERRIDE brand palette for:
+
 - Trail difficulty (green/blue/red/black)
 - Water features (blue)
 - Accessibility (blue)
 - Danger levels (green/yellow/orange/red/black)
 
-**Consequences:**
+### Consequences:
+
 - ✅ Follows user expectations
 - ✅ Enhances safety communication
 - ✅ Aligns with international standards
@@ -2356,13 +2371,16 @@ Industry safety colors OVERRIDE brand palette for:
 **Status:** Approved
 **Date:** 2026-01-02
 
-**Context:**
+### Context:
+
 Need runtime validation for content collection data and type safety.
 
-**Decision:**
+### Decision:
+
 All schemas defined with Zod first, TypeScript types inferred.
 
-**Consequences:**
+### Consequences:
+
 - ✅ Runtime validation
 - ✅ Single source of truth
 - ✅ Automatic type inference
@@ -2375,25 +2393,29 @@ All schemas defined with Zod first, TypeScript types inferred.
 
 ### Implementation Priority
 
-**Phase 1: Core Types (Week 1)**
+### Phase 1: Core Types (Week 1)
+
 1. Create `state-park-types.ts` with P0 facility types
 2. Implement accessibility feature types
 3. Add operating hours schemas
 4. Write unit tests
 
-**Phase 2: SEO Types (Week 1)**
+### Phase 2: SEO Types (Week 1)
+
 1. Create `state-park-seo-types.ts`
 2. Implement FAQPage schema
 3. Add Event schemas
 4. Write SEO helper functions
 
-**Phase 3: Template Composition (Week 2)**
+### Phase 3: Template Composition (Week 2)
+
 1. Create `state-park-template-types.ts`
 2. Implement all section schemas
 3. Write integration tests
 4. Update content collection config
 
-**Phase 4: Component Integration (Week 2)**
+### Phase 4: Component Integration (Week 2)
+
 1. Create Astro components using new types
 2. Implement Schema.org generation
 3. Build example state park data file
@@ -2411,14 +2433,16 @@ All schemas defined with Zod first, TypeScript types inferred.
 
 ---
 
-**Document Metadata:**
+### Document Metadata:
+
 - Lines of Code: ~2,400 (across 3 files)
 - Schemas Defined: 45+
 - Helper Functions: 25+
 - Test Cases Required: 60+
 - Estimated Implementation: 2 weeks
 
-**Related Documents:**
+### Related Documents:
+
 - SPEC-18-FINAL.md
 - state-park-facility-gaps.md
 - state-park-seo-research.md

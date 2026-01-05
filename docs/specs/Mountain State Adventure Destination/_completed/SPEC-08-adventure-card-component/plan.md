@@ -48,11 +48,13 @@ wv-wild-web/src/
 4. Update existing adventure content file with drive_time
 
 **Files Changed**:
+
 - `src/content.config.ts` (+8 LOC)
 - `src/lib/adventures/filters.config.ts` (+4 LOC)
 - `src/content/adventures/spring-gobbler-burnsville.md` (+2 LOC)
 
 **Schema Addition**:
+
 ```typescript
 // content.config.ts - Add to adventures schema
 drive_time: z.string().optional(),      // e.g., "25 min"
@@ -63,19 +65,21 @@ kim_hook: z.string().optional(),         // Kim's personal note (future use)
 
 ### Phase 2: Drive Time Display (~30 LOC)
 
-
 **Goal**: Display proximity badge on card to reinforce shop as home base.
 
 **Tasks**:
+
 1. Add drive time badge to AdventureCard.tsx (top of content zone)
 2. Style with sign-green background matching WVWO aesthetic
 3. Include car icon from Lucide
 4. Handle missing drive_time gracefully (hide badge)
 
 **Files Changed**:
+
 - `src/components/adventures/AdventureCard.tsx` (+20 LOC)
 
 **UI Addition**:
+
 ```tsx
 {adventure.data.drive_time && (
   <span className="inline-flex items-center gap-1 bg-sign-green text-white text-xs font-bold px-2 py-1 rounded-sm mb-2 mr-2">
@@ -89,16 +93,17 @@ kim_hook: z.string().optional(),         // Kim's personal note (future use)
 
 ### Phase 3: Stagger Animation (~40 LOC)
 
-
 **Goal**: Cards fade in with 60ms stagger delay for polished grid reveal.
 
 **Tasks**:
+
 1. Accept `index` prop in AdventureCard (already in spec)
 2. Add CSS keyframes for `gentle-reveal` animation
 3. Apply inline style with calculated animation delay
 4. Wrap in motion-safe media query
 
 **Files Changed**:
+
 - `src/components/adventures/AdventureCard.tsx` (+15 LOC)
 - `src/components/adventures/FilteredGrid.tsx` (+5 LOC) - Pass index to card
 
@@ -153,10 +158,10 @@ const staggerDelay = index !== undefined ? `${index * 60}ms` : '0ms';
 
 ### Phase 4: Integration & Testing (~20 LOC)
 
-
 **Goal**: Wire up changes and verify functionality.
 
 **Tasks**:
+
 1. Update FilteredGrid.tsx to pass index prop to AdventureCard
 2. Test grid renders with stagger animation
 3. Verify drive time displays correctly
@@ -164,6 +169,7 @@ const staggerDelay = index !== undefined ? `${index * 60}ms` : '0ms';
 5. Build and verify no TypeScript errors
 
 **Files Changed**:
+
 - `src/components/adventures/FilteredGrid.tsx` (+5 LOC)
 
 **Test Checklist**:
@@ -179,7 +185,6 @@ const staggerDelay = index !== undefined ? `${index * 60}ms` : '0ms';
 
 ## Technical Decisions
 
-
 | Decision | Choice | Rationale |
 |----------|--------|-----------|
 | Drive time storage | String in frontmatter | Simple, human-readable ("25 min"), no runtime calculation needed |
@@ -192,9 +197,11 @@ const staggerDelay = index !== undefined ? `${index * 60}ms` : '0ms';
 ## Dependencies
 
 ### External
+
 - Lucide React (already installed) - Car icon for drive time badge
 
 ### Internal
+
 - `filters.config.ts` - Adventure type must be updated first
 - `FilteredGrid.tsx` - Must pass index to cards
 
@@ -219,6 +226,7 @@ const staggerDelay = index !== undefined ? `${index * 60}ms` : '0ms';
 Since total is ~150 LOC, a single PR is appropriate:
 
 **PR #1: SPEC-08 Adventure Card Enhancements**
+
 - Schema updates (drive_time, kim_hook fields)
 - Type updates (Adventure interface)
 - UI: Drive time badge display
@@ -226,6 +234,7 @@ Since total is ~150 LOC, a single PR is appropriate:
 - Content: Update sample adventure with drive_time
 
 **Checkpoint triggers:**
+
 - ✅ Under 300 LOC - no warning
 - ✅ Single logical change - no split needed
 
@@ -234,15 +243,18 @@ Since total is ~150 LOC, a single PR is appropriate:
 ## Testing Strategy
 
 ### Unit Tests
+
 - N/A (component is simple, tested via integration)
 
 ### Integration Tests
+
 - Load `/adventures/` page, verify grid renders
 - Check animation runs with stagger
 - Check motion-reduce disabled animation
 - Verify drive time badge visible
 
 ### Manual Testing Checklist
+
 - [ ] Desktop: Grid loads with stagger (60ms visible)
 - [ ] Mobile (320px): Cards fit, no overflow
 - [ ] Motion-reduce: Cards appear instantly
@@ -261,11 +273,13 @@ Since total is ~150 LOC, a single PR is appropriate:
 **Low Risk**: All changes are additive and optional.
 
 If issues arise:
+
 1. Schema fields are optional - existing content unaffected
 2. Animation is CSS-only - remove class to disable
 3. Drive time badge has null check - won't break if field missing
 
 **Rollback Steps**:
+
 ```bash
 # Revert single PR
 git revert <commit-hash>

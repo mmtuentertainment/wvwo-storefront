@@ -26,6 +26,7 @@ This spec covers processor selection, integration approach, and compliance requi
 **Source:** Each processor's Acceptable Use Policy (2024-2025)
 
 **Risk:** Using prohibited processors leads to:
+
 - Frozen funds
 - Account termination without warning
 - Held reserves (up to 6 months)
@@ -50,6 +51,7 @@ This spec covers processor selection, integration approach, and compliance requi
 | **NMI** | Popular with high-risk merchants, integrates with many processors. |
 
 **Important:** Authorize.net alone is NOT gun-friendly. Must be paired with FFL-friendly merchant account from providers like:
+
 - Payment Cloud
 - Durango Merchant Services
 - Host Merchant Services
@@ -61,6 +63,7 @@ This spec covers processor selection, integration approach, and compliance requi
 Based on research, **Tactical Payments** is recommended for WVWO:
 
 ### Why Tactical Payments?
+
 1. **18+ years** serving FFL dealers exclusively
 2. **5,000+ firearms businesses** - proven track record
 3. **GunBroker integration** - important for future growth

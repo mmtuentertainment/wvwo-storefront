@@ -45,12 +45,15 @@ wv-wild-web/
 **Goal**: Make Adventures Hub discoverable via header link (P1 user story)
 
 **Tasks**:
+
 1. Open `wv-wild-web/src/components/Header.astro`
 2. Locate desktop nav section (line 27)
 3. Add Adventures link between Guides and Hunt Near Us:
+
    ```astro
    <a href="/adventures" class="text-brand-cream font-medium hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange rounded px-1 transition-colors">Adventures</a>
    ```
+
 4. Locate mobile nav section (after line 50)
 5. Add Adventures link in mobile menu (same classes)
 6. Test: `npm run dev` → verify link appears and navigates
@@ -70,6 +73,7 @@ wv-wild-web/
 **File**: `wv-wild-web/src/components/GuideBanner.tsx` (NEW)
 
 **Implementation**:
+
 ```typescript
 // TypeScript interface
 interface GuideBannerProps {
@@ -94,6 +98,7 @@ export function GuideBanner({ season, activity }: GuideBannerProps) {
 ```
 
 **WVWO Compliance Checklist**:
+
 - [ ] Colors: `bg-brand-brown/10`, `border-l-brand-orange`, `text-sign-green`
 - [ ] Typography: `font-body` (Noto Sans), `font-bold` for links
 - [ ] Corners: `rounded-sm` (NOT rounded-md/lg)
@@ -104,6 +109,7 @@ export function GuideBanner({ season, activity }: GuideBannerProps) {
 **File**: `wv-wild-web/src/pages/adventures/index.astro`
 
 **Current Structure** (from SPEC-07):
+
 ```astro
 ---
 // Adventures Hub page imports AdventuresHub.tsx
@@ -117,6 +123,7 @@ import AdventuresHub from '../components/adventures/AdventuresHub';
 **Integration Options**:
 
 **Option A**: Pass URL params from Astro → React (Recommended)
+
 ```astro
 ---
 import GuideBanner from '../components/GuideBanner';
@@ -133,6 +140,7 @@ const activity = url.searchParams.getAll('activity');
 ```
 
 **Option B**: Integrate inside AdventuresHub.tsx (if filter state managed there)
+
 ```tsx
 // Inside AdventuresHub.tsx after filter controls
 import { GuideBanner } from '../GuideBanner';
@@ -140,6 +148,7 @@ import { GuideBanner } from '../GuideBanner';
 ```
 
 **Decision**: Use **Option A** (Astro-level integration)
+
 - **Rationale**: Simpler - Astro extracts URL params, React component renders conditionally. No need to drill props through AdventuresHub.
 
 **Deliverable**: Banner appears on `/adventures?season=fall&activity=hunting`
@@ -157,8 +166,10 @@ import { GuideBanner } from '../GuideBanner';
 **File**: `wv-wild-web/src/pages/guides/buck-season.astro`
 
 **Tasks**:
+
 1. Open file, scroll to before `<EmailCapture>` component
 2. Add CTA section:
+
    ```astro
    <section class="bg-sign-green text-white py-12 md:py-16">
      <div class="container mx-auto px-4 text-center max-w-3xl">
@@ -175,6 +186,7 @@ import { GuideBanner } from '../GuideBanner';
      </div>
    </section>
    ```
+
 3. Test: Visit `/guides/buck-season` → scroll → verify CTA appears
 
 #### Phase 3B: Turkey Season Guide (20 min, ~30 LOC)
@@ -182,6 +194,7 @@ import { GuideBanner } from '../GuideBanner';
 **File**: `wv-wild-web/src/pages/guides/turkey-season.astro`
 
 **Same structure, different copy**:
+
 - Heading: "Find Your Spot"
 - Subtext: "Explore WV's best turkey hunting locations."
 - Link: `/adventures?season=spring&activity=hunting`
@@ -200,8 +213,10 @@ import { GuideBanner } from '../GuideBanner';
 **File**: `wv-wild-web/src/pages/guides/index.astro`
 
 **Tasks**:
+
 1. Open file, locate position after hero (before guide cards)
 2. Add intro section:
+
    ```astro
    <section class="container mx-auto px-4 py-8">
      <div class="bg-white border-l-4 border-l-sign-green p-6 rounded-sm max-w-3xl mx-auto">
@@ -237,9 +252,11 @@ import { GuideBanner } from '../GuideBanner';
 ## Dependencies
 
 ### External
+
 **None** - Zero new external dependencies
 
 ### Internal
+
 - ✅ SPEC-07 Complete (Adventures Hub with filtering exists)
 - ✅ Header.astro exists (modify, not create)
 - ✅ Guide pages exist (modify, not create)
@@ -264,23 +281,29 @@ import { GuideBanner } from '../GuideBanner';
 **Recommended PR Breakdown**:
 
 ### Option 1: Single PR (Recommended) ✅
+
 **PR #1**: `feat(SPEC-07B): Navigation Consolidation` (~150 LOC)
+
 - All phases together (1-4)
 - Ship as single logical change
 - **Rationale**: Feature is cohesive, small enough for one PR
 
 ### Option 2: Two PRs (If needed)
+
 **PR #1**: `feat(SPEC-07B): Add Adventures navigation` (~70 LOC)
+
 - Phase 1: Header link
 - Phase 2: GuideBanner component + integration
 - **Deliverable**: Adventures discoverable, banners work
 
 **PR #2**: `feat(SPEC-07B): Add guide CTAs` (~80 LOC)
+
 - Phase 3: Buck/Turkey CTAs
 - Phase 4: Guides index explanation
 - **Deliverable**: Bidirectional linking complete
 
 **Checkpoint Triggers**:
+
 - ⚠️ Warn at 300 LOC (not applicable - only 150 LOC)
 - 🛑 Split required at 500 LOC (not applicable)
 
@@ -291,6 +314,7 @@ import { GuideBanner } from '../GuideBanner';
 ### Manual Testing (No automated tests for this spec)
 
 **Desktop Browser** (Chrome/Edge):
+
 - [ ] Header shows Adventures link between Guides and Hunt Near Us
 - [ ] Adventures link navigates to `/adventures`
 - [ ] Filter `/adventures?season=fall&activity=hunting` → Buck banner appears
@@ -304,6 +328,7 @@ import { GuideBanner } from '../GuideBanner';
 - [ ] Guides index shows explanation with Adventures link
 
 **Mobile Device** (real device or dev tools):
+
 - [ ] Adventures visible in mobile nav
 - [ ] Adventures tap target ≥44x44px
 - [ ] Banners readable on mobile (no text truncation)
@@ -311,6 +336,7 @@ import { GuideBanner } from '../GuideBanner';
 - [ ] All links functional on touch
 
 **Cross-Browser** (Safari, Firefox):
+
 - [ ] Links work
 - [ ] Styles render correctly
 - [ ] No JavaScript errors
@@ -327,10 +353,12 @@ import { GuideBanner } from '../GuideBanner';
 Read all copy aloud - does it sound like Kim or a marketing agency?
 
 **Pass Examples**:
+
 - ✅ "Preparing for buck season? Read our Buck Season Prep Guide"
 - ✅ "Ready to Hunt? Browse Fall Hunting Destinations"
 
 **Fail Examples**:
+
 - ❌ "Optimize your hunting experience with our premium guide"
 - ❌ "Unlock the best destinations for your next adventure"
 
@@ -339,6 +367,7 @@ Read all copy aloud - does it sound like Kim or a marketing agency?
 ### If Issues Discovered Post-Merge
 
 **Option 1: Full Revert** (Safest)
+
 ```bash
 git revert <commit-hash>
 git push
@@ -349,18 +378,21 @@ git push
 Comment out sections in each file:
 
 **Header.astro**:
+
 ```astro
 <!-- Temporarily disabled: Adventures link -->
 <!-- <a href="/adventures">Adventures</a> -->
 ```
 
 **adventures/index.astro**:
+
 ```astro
 <!-- Temporarily disabled: GuideBanner -->
 {/* <GuideBanner season={season} activity={activity} client:visible /> */}
 ```
 
 **Guide pages**:
+
 ```astro
 <!-- Temporarily disabled: CTA section
 <section class="bg-sign-green ...">
@@ -374,18 +406,21 @@ Comment out sections in each file:
 ## Performance Impact
 
 ### Bundle Size
+
 - Header: +0KB (static HTML)
 - GuideBanner: +~0.8KB gzipped (small React component)
 - CTAs: +0KB (static HTML)
 - **Total**: <1KB JavaScript added
 
 ### Page Load Time
+
 - Header: 0ms impact (static)
 - GuideBanner: Hydrates only when in viewport (`client:visible`)
 - CTAs: 0ms impact (static)
 - **Total**: <100ms impact (meets SC-007)
 
 ### SEO Impact
+
 - **Positive**: Internal linking improved (guides ↔ adventures)
 - **Positive**: Crawl depth reduced (Adventures accessible from header)
 - **No Negative**: Zero URL changes, zero content removed
@@ -393,24 +428,28 @@ Comment out sections in each file:
 ## Constitutional Compliance
 
 ### WVWO Stack ✅
+
 - ✅ Astro 5.x components (Header, guide pages)
 - ✅ React/shadcn (GuideBanner.tsx)
 - ✅ Tailwind CSS 4.x (all styling)
 - ❌ NO Vue, Angular, Svelte
 
 ### WVWO Aesthetics ✅
+
 - ✅ Colors: brand-brown, sign-green, brand-cream, brand-orange
 - ✅ Typography: Bitter (display), Noto Sans (body)
 - ✅ Corners: rounded-sm (NEVER rounded-md/lg)
 - ✅ Orange usage: <5% (only CTA highlights)
 
 ### WVWO Voice ✅
+
 - ✅ "Preparing for buck season?" (authentic)
 - ✅ "Ready to Hunt?" (conversational)
 - ❌ NO "Optimize your experience" (corporate)
 - ❌ NO "Unlock premium features" (marketing speak)
 
 ### Simplicity ✅
+
 - ✅ No paid services required
 - ✅ No complex state management
 - ✅ No external dependencies

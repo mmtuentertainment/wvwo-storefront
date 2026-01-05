@@ -13,6 +13,7 @@
 This document defines the complete TypeScript type system for SPEC-12 WMA components, establishing type safety boundaries, inference patterns, discriminated unions, and utility types. The type system ensures compile-time safety while maintaining flexibility for both WMA-specific pages and generic adventure pages.
 
 **Key Objectives**:
+
 1. Type guards to distinguish WMA adventures from regular adventures
 2. Zod schema inference for automatic TypeScript types
 3. Component prop interfaces with proper inheritance hierarchy
@@ -1096,12 +1097,14 @@ wv-wild-web/src/types/
 **Decision**: Use Zod schemas as single source of truth for types, deriving TypeScript types via `z.infer<>`.
 
 **Rationale**:
+
 - Runtime validation matches compile-time types
 - Single definition prevents schema/type drift
 - Astro Content Collections use Zod natively
 - Automatic type inference reduces maintenance
 
 **Alternatives Considered**:
+
 - Manual TypeScript interfaces (rejected: duplication risk)
 - JSON Schema (rejected: not TypeScript-native)
 
@@ -1110,12 +1113,14 @@ wv-wild-web/src/types/
 **Decision**: All WMA schema fields use `.optional()` modifier.
 
 **Rationale**:
+
 - Existing adventures remain valid without migration
 - Zero breaking changes during schema extension
 - Incremental adoption of WMA features
 - Template can conditionally render sections
 
 **Alternatives Considered**:
+
 - Required fields (rejected: forces immediate migration)
 - Separate WMA collection (rejected: fragments content)
 
@@ -1124,12 +1129,14 @@ wv-wild-web/src/types/
 **Decision**: Use TypeScript type guards (`is` predicates) for WMA detection.
 
 **Rationale**:
+
 - Type-safe narrowing in template logic
 - Explicit intent at call sites
 - Better IDE autocomplete
 - Compile-time verification
 
 **Alternatives Considered**:
+
 - Boolean checks (rejected: no type narrowing)
 - Duck typing (rejected: unsafe)
 
@@ -1138,12 +1145,14 @@ wv-wild-web/src/types/
 **Decision**: Use string literal unions for component variants.
 
 **Rationale**:
+
 - Exhaustive switch checks
 - Autocomplete suggestions
 - Type-safe mapping to CSS classes
 - Prevents invalid variant strings
 
 **Alternatives Considered**:
+
 - Enums (rejected: runtime overhead)
 - String constants (rejected: no union narrowing)
 
@@ -1152,6 +1161,7 @@ wv-wild-web/src/types/
 ## Summary
 
 **Type System Components**:
+
 1. **Layer 1**: Zod schemas for runtime validation
 2. **Layer 2**: Inferred TypeScript types via `z.infer<>`
 3. **Layer 3**: Component prop interfaces
@@ -1159,6 +1169,7 @@ wv-wild-web/src/types/
 5. **Layer 5**: Utility types and helpers
 
 **Key Benefits**:
+
 - Compile-time error detection
 - Exhaustive variant handling
 - Optional field safety
@@ -1166,6 +1177,7 @@ wv-wild-web/src/types/
 - Schema-type consistency
 
 **Files Created**:
+
 - `wv-wild-web/src/types/wma.schemas.ts` (Zod schemas)
 - `wv-wild-web/src/types/wma.types.ts` (Inferred types)
 - `wv-wild-web/src/types/wma.props.ts` (Component props)
@@ -1173,6 +1185,7 @@ wv-wild-web/src/types/
 - `wv-wild-web/src/types/wma.utils.ts` (Utility types)
 
 **Testing**:
+
 - Type-level tests via Vitest `expectTypeOf`
 - Runtime validation tests for Zod schemas
 - Integration tests in component usage

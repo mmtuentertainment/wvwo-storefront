@@ -79,6 +79,7 @@
 - [X] [S] Run tests: `npm test filter-utils` (all pass)
 
 **Output:**
+
 - `src/lib/adventures/filter-utils.ts` (~120 LOC)
 - `src/lib/adventures/filter-reducer.ts` (~60 LOC)
 - `tests/adventures/filter-utils.test.ts` (~150 LOC)
@@ -426,6 +427,7 @@
   - [ ] Handle registration errors
 
 **Output:**
+
 - `src/service-worker.js` (~200 LOC)
 - `src/layouts/Layout.astro` (+10 LOC)
 
@@ -607,6 +609,7 @@
     - [ ] 'react-vendor': ['react', 'react-dom']
 
 **Output:**
+
 - `public/_headers` (~30 LOC)
 - `astro.config.mjs` (+20 LOC)
 
@@ -640,7 +643,7 @@
   - [ ] Navigate: Traffic → Argo
   - [ ] Enable Argo Smart Routing ($5/month)
 - [X] [S] Verify deployment:
-  - [ ] Visit: https://wvwildoutdoors.pages.dev/adventures/
+  - [ ] Visit: <https://wvwildoutdoors.pages.dev/adventures/>
   - [ ] Verify page loads
   - [ ] Verify React island hydrates
   - [ ] Verify filters work
@@ -732,6 +735,7 @@
   - [ ] Use browser inspector to verify
 
 **Checklist:**
+
 - [X] 0 axe violations (Critical/Serious)
 - [X] Keyboard navigation works
 - [X] Screen reader announces changes
@@ -794,6 +798,7 @@
   - [ ] Argo: $5/month (acceptable)
 
 **Enforcement Checklist:**
+
 - [X] Zero SaaS marketing language
 - [X] Zero trendy fonts (using Bitter, Permanent Marker, Noto Sans)
 - [X] Zero purple/pink/neon colors
@@ -805,6 +810,7 @@
 - [X] Orange <5% of screen (verified)
 
 **shadcn Override Verification:**
+
 - [X] All rounded-md → rounded-sm
 - [X] All default rings → ring-sign-green
 - [X] All 32px targets → 44px
@@ -831,6 +837,7 @@
 **See:** `docs/specs/Mountain State Adventure Destination/SPEC-71-monitoring-analytics-setup/PROMPT.md`
 
 **Includes:**
+
 - GA4 custom event tracking (8 events)
 - Cloudflare Analytics baseline
 - Performance monitoring dashboard
@@ -916,6 +923,7 @@
 ```
 
 **Parallelization Opportunities:**
+
 - PR #2 + PR #3 + PR #5 can be developed in parallel (after PR #1)
 - PR #4 depends on PR #2 (reuses filter components)
 - All must complete before PR #6 (integration)
@@ -936,6 +944,7 @@ Total Critical Path: 66-94 hours (~1.5-2 weeks if no parallelization)
 ```
 
 **With Parallelization:**
+
 - PR #1 (Foundation) → 12-16 hrs
 - PR #2, #3, #5 in parallel → 14-18 hrs (slowest is PR #2)
 - PR #4 (Mobile) → 8-10 hrs
@@ -952,6 +961,7 @@ Total Critical Path: 66-94 hours (~1.5-2 weeks if no parallelization)
 ### Blockers & Prerequisites
 
 **COMPLETED ✅:**
+
 - SPEC-06 schema updated (elevation_gain + suitability)
 - Backfill script created (backfill-elevation.js)
 - Test data backfilled (spring-gobbler-burnsville.md)
@@ -964,15 +974,18 @@ Total Critical Path: 66-94 hours (~1.5-2 weeks if no parallelization)
 ### Special Considerations
 
 **React Library Installation:**
+
 - [X] Install `react-slider` for dual-thumb elevation slider (PR #2)
 - [X] Verify `react` and `react-dom` already in package.json (should exist)
 
 **WVWO Aesthetic:**
+
 - Every PR must verify rounded-sm (not rounded-md/lg)
 - Every PR with copy must use Kim's voice
 - Every PR with colors must use brand palette
 
 **Testing Strategy:**
+
 - Unit tests in PR #1 (pure functions)
 - Integration tests in PR #2-6 (components)
 - E2E tests in PR #8 (full workflows)
@@ -982,16 +995,19 @@ Total Critical Path: 66-94 hours (~1.5-2 weeks if no parallelization)
 ### Task Execution Tips
 
 **For Parallelizable Tasks [P]:**
+
 - Can be done in same work session
 - Can spawn multiple agents concurrently
 - CLAUDE.md rule: Use single message with multiple Task tool calls for parallel agent execution
 
 **For Sequential Tasks [S]:**
+
 - Must wait for previous task completion
 - Often depend on files created in prior task
 - Verify previous task's output before starting
 
 **PR Checkpoint Strategy:**
+
 - Create PR when checkpoint reached
 - Don't batch multiple checkpoints (increases review time)
 - ~250-300 LOC per PR is optimal (research-validated)

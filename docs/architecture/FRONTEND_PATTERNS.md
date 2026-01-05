@@ -17,9 +17,11 @@ This document defines professional-grade frontend patterns to elevate WV Wild Ou
 ## 1. Hero Section Pattern: "Cinematic Storefront"
 
 ### Design Goal
+
 First impression that says "We're as professional as the big retailers, but we're your neighbors."
 
 ### Anatomy
+
 ```
 ┌─────────────────────────────────────────────────┐
 │  [Background: High-res shop photo with overlay] │
@@ -36,6 +38,7 @@ First impression that says "We're as professional as the big retailers, but we'r
 ```
 
 ### CSS Implementation
+
 ```css
 /* Hero Container */
 .hero-cinematic {
@@ -213,6 +216,7 @@ First impression that says "We're as professional as the big retailers, but we'r
 ```
 
 ### Professional Touches
+
 1. **High-resolution imagery** - 1920x1080+ background, compressed with Sharp
 2. **Layered depth** - Background → Texture → Gradient → Content (4 layers)
 3. **Precise typography scale** - 48px → 96px with clamp(), optimal readability
@@ -220,6 +224,7 @@ First impression that says "We're as professional as the big retailers, but we'r
 5. **Responsive CTAs** - Fluid sizing with clamp(), touch-friendly 44px min height
 
 ### WVWO-Specific Constraints
+
 - NO parallax scrolling (too trendy, violates aesthetic)
 - NO center alignment (asymmetric left-aligned per WVWO style)
 - Orange accent <5% of screen (used only for FFL CTA)
@@ -231,9 +236,11 @@ First impression that says "We're as professional as the big retailers, but we'r
 ## 2. Category Grid Pattern: "Organized Arsenal"
 
 ### Design Goal
+
 12 inventory sections that feel shoppable, scannable, and professional like Bass Pro Shops' department layout.
 
 ### Anatomy
+
 ```
 ┌──────────────────────────────────────────────────┐
 │  What You'll Find In the Shop                    │
@@ -250,6 +257,7 @@ First impression that says "We're as professional as the big retailers, but we'r
 ```
 
 ### CSS Implementation
+
 ```css
 /* Category Grid Container */
 .category-grid {
@@ -387,6 +395,7 @@ First impression that says "We're as professional as the big retailers, but we'r
 ```
 
 ### Professional Touches
+
 1. **Consistent grid** - Auto-fit with minmax() for responsive perfection
 2. **Subtle hover states** - 2px lift + green border, not dramatic shadows
 3. **Icon → Color transition** - Professional retail department feel
@@ -394,6 +403,7 @@ First impression that says "We're as professional as the big retailers, but we'r
 5. **Progressive disclosure** - CTA appears on hover (progressive enhancement)
 
 ### WVWO-Specific Constraints
+
 - Left accent border (signature WVWO element, not floating shadows)
 - Brand-cream background for icons (ties to overall palette)
 - Sharp corners (rounded-sm) not rounded-lg/xl
@@ -405,9 +415,11 @@ First impression that says "We're as professional as the big retailers, but we'r
 ## 3. Product Card Pattern: "Premium But Approachable"
 
 ### Design Goal
+
 Product cards that feel as polished as Bass Pro Shops but maintain "small shop" warmth.
 
 ### Anatomy
+
 ```
 ┌─────────────────────────┐
 │                         │ ← Aspect ratio 1:1
@@ -426,6 +438,7 @@ Product cards that feel as polished as Bass Pro Shops but maintain "small shop" 
 ```
 
 ### CSS Implementation
+
 ```css
 /* Product Card Container */
 .product-card {
@@ -612,6 +625,7 @@ Product cards that feel as polished as Bass Pro Shops but maintain "small shop" 
 ```
 
 ### Professional Touches
+
 1. **Pure white backgrounds** - Product photography standard (not cream/gray)
 2. **object-fit: contain** - Shows full product, not cropped (crucial for firearms)
 3. **Consistent aspect ratio** - 1:1 for uniform grid (Bass Pro Shops uses this)
@@ -620,6 +634,7 @@ Product cards that feel as polished as Bass Pro Shops but maintain "small shop" 
 6. **Flex-grow layout** - CTA always at bottom regardless of content length
 
 ### WVWO-Specific Constraints
+
 - Orange reserved for brand label only (not CTA)
 - Sharp corners (rounded-sm) not rounded-lg
 - NO floating shadows (only subtle hover lift)
@@ -631,9 +646,11 @@ Product cards that feel as polished as Bass Pro Shops but maintain "small shop" 
 ## 4. Navigation Pattern: "Smart Hierarchy"
 
 ### Design Goal
+
 Handle 12+ categories without overwhelming users. Bass Pro Shops uses mega-menus; WVWO needs simpler but equally organized.
 
 ### Anatomy (Desktop)
+
 ```
 [Logo] [Shop ▼] [About] [Guides] [Contact] [Cart] [Phone]
         │
@@ -650,6 +667,7 @@ Handle 12+ categories without overwhelming users. Bass Pro Shops uses mega-menus
 ```
 
 ### CSS Implementation
+
 ```css
 /* Primary Navigation Bar */
 .primary-nav {
@@ -895,6 +913,7 @@ Handle 12+ categories without overwhelming users. Bass Pro Shops uses mega-menus
 ```
 
 ### Professional Touches
+
 1. **Sticky navigation** - Always accessible (standard for e-commerce)
 2. **Mega menu organization** - 4-column grid, category grouping
 3. **Pen-on-paper underline** - Animated from left (WVWO signature)
@@ -902,6 +921,7 @@ Handle 12+ categories without overwhelming users. Bass Pro Shops uses mega-menus
 5. **Cart badge** - Orange circle with count (standard e-commerce pattern)
 
 ### WVWO-Specific Constraints
+
 - Orange only for category title underline + cart badge (<5% rule)
 - Sharp corners (rounded-sm) for buttons, not rounded-full
 - NO hamburger animation effects (simple slide-in)
@@ -913,9 +933,11 @@ Handle 12+ categories without overwhelming users. Bass Pro Shops uses mega-menus
 ## 5. Trust/Credibility Section: "Professional Credentials"
 
 ### Design Goal
+
 Communicate FFL dealer, DNR agent, since 2008 without looking like "trust badges from 2015 startups."
 
 ### Anatomy
+
 ```
 ┌────────────────────────────────────────────────┐
 │              Why Shop With Us?                 │
@@ -933,6 +955,7 @@ Communicate FFL dealer, DNR agent, since 2008 without looking like "trust badges
 ```
 
 ### CSS Implementation
+
 ```css
 /* Trust Section Container */
 .trust-section {
@@ -1030,6 +1053,7 @@ Communicate FFL dealer, DNR agent, since 2008 without looking like "trust badges
 ```
 
 ### Professional Touches
+
 1. **Icon-first design** - Visual hierarchy (standard for credibility sections)
 2. **White background icons** - Creates depth against cream section
 3. **Border transitions** - Brown → Green on hover (professional retail feel)
@@ -1037,6 +1061,7 @@ Communicate FFL dealer, DNR agent, since 2008 without looking like "trust badges
 5. **Optimal line-length** - 48ch for readability (66ch is standard, 48ch for emphasis)
 
 ### WVWO-Specific Constraints
+
 - Sharp square icons (not circles - matches FFL/DNR official aesthetics)
 - Brand-cream background (not white - ties to overall palette)
 - NO generic "trusted by" language (use Kim's actual voice)
@@ -1048,11 +1073,13 @@ Communicate FFL dealer, DNR agent, since 2008 without looking like "trust badges
 ## 6. Photography Guidelines: "Professional Product Standards"
 
 ### Design Goal
+
 Make products look as professional as Bass Pro Shops catalog photography without studio equipment.
 
 ### Requirements
 
 #### 6.1 Product Photography Standards
+
 ```
 MANDATORY SPECS:
 - Resolution: 2000x2000px minimum (allows zoom)
@@ -1064,6 +1091,7 @@ MANDATORY SPECS:
 ```
 
 #### 6.2 CSS for Image Optimization
+
 ```css
 /* Product Image Component (Sharp-optimized) */
 .product-image-optimized {
@@ -1105,6 +1133,7 @@ MANDATORY SPECS:
 ```
 
 #### 6.3 Astro Image Component Pattern
+
 ```astro
 ---
 import { Image } from 'astro:assets';
@@ -1133,6 +1162,7 @@ const { src, alt, width, height } = Astro.props;
 ```
 
 ### Professional Touches
+
 1. **Sharp integration** - Automatic WebP conversion + responsive sizes
 2. **Blur-up placeholder** - Shimmer effect during lazy load
 3. **Zoom capability** - 1.5x scale on hover for PDP (product detail page)
@@ -1140,6 +1170,7 @@ const { src, alt, width, height } = Astro.props;
 5. **Quality threshold** - 85% quality balance (filesize vs. detail)
 
 ### WVWO-Specific Constraints
+
 - NO lifestyle photography on product cards (lifestyle reserved for homepage/guides)
 - NO models holding products (authenticity - Kim/Bryan OK, stock models NO)
 - Phone-quality acceptable for shop interior shots (authenticity over polish)
@@ -1151,9 +1182,11 @@ const { src, alt, width, height } = Astro.props;
 ## 7. Micro-interactions: "Tactile Digital Experience"
 
 ### Design Goal
+
 Subtle animations that add polish without being flashy. Think "quality hardware" not "tech startup."
 
 ### 7.1 Button Interactions
+
 ```css
 /* Primary Button (Green CTA) */
 .btn-primary {
@@ -1226,6 +1259,7 @@ Subtle animations that add polish without being flashy. Think "quality hardware"
 ```
 
 ### 7.2 Card Hover States
+
 ```css
 /* Product Card Lift */
 .card-lift {
@@ -1254,6 +1288,7 @@ Subtle animations that add polish without being flashy. Think "quality hardware"
 ```
 
 ### 7.3 Loading States
+
 ```css
 /* Skeleton Loader (Better than spinners) */
 .skeleton {
@@ -1302,6 +1337,7 @@ Subtle animations that add polish without being flashy. Think "quality hardware"
 ```
 
 ### 7.4 Input Focus States
+
 ```css
 /* Form Input (Professional focus) */
 .form-input {
@@ -1344,6 +1380,7 @@ Subtle animations that add polish without being flashy. Think "quality hardware"
 ```
 
 ### Professional Touches
+
 1. **Shine effect** - Subtle light sweep on button hover (premium feel)
 2. **Tactile press** - 98% scale on click (physical feedback)
 3. **Skeleton loaders** - Better UX than spinners (shows content structure)
@@ -1351,6 +1388,7 @@ Subtle animations that add polish without being flashy. Think "quality hardware"
 5. **Custom checkboxes** - Branded green, not browser default (consistency)
 
 ### WVWO-Specific Constraints
+
 - NO bouncy animations (violates "tactile hardware" principle)
 - NO parallax scrolling (too trendy)
 - NO confetti or celebration effects (inappropriate for firearms/hunting)
@@ -1362,6 +1400,7 @@ Subtle animations that add polish without being flashy. Think "quality hardware"
 ## 8. Design Token System
 
 ### 8.1 Spacing Scale (Consistent rhythm)
+
 ```css
 :root {
   --space-1: 0.25rem;  /* 4px  - Tight spacing */
@@ -1377,6 +1416,7 @@ Subtle animations that add polish without being flashy. Think "quality hardware"
 ```
 
 ### 8.2 Typography Scale (Modular scale 1.25)
+
 ```css
 :root {
   --text-xs: 0.75rem;     /* 12px */
@@ -1394,6 +1434,7 @@ Subtle animations that add polish without being flashy. Think "quality hardware"
 ```
 
 ### 8.3 Shadow System (Depth hierarchy)
+
 ```css
 :root {
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
@@ -1409,6 +1450,7 @@ Subtle animations that add polish without being flashy. Think "quality hardware"
 ```
 
 ### 8.4 Transition System (Consistent timing)
+
 ```css
 :root {
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -1422,6 +1464,7 @@ Subtle animations that add polish without being flashy. Think "quality hardware"
 ```
 
 ### 8.5 Border Radius (WVWO sharp aesthetic)
+
 ```css
 :root {
   --radius-sm: 0.125rem;  /* 2px  - Default WVWO */
@@ -1437,6 +1480,7 @@ Subtle animations that add polish without being flashy. Think "quality hardware"
 ## 9. Accessibility Requirements
 
 ### 9.1 Color Contrast (WCAG AA minimum)
+
 ```
 REQUIRED RATIOS:
 - Normal text (16px): 4.5:1
@@ -1452,6 +1496,7 @@ WVWO PALETTE COMPLIANCE:
 ```
 
 ### 9.2 Keyboard Navigation
+
 ```css
 /* Focus visible styles */
 *:focus-visible {
@@ -1478,6 +1523,7 @@ WVWO PALETTE COMPLIANCE:
 ```
 
 ### 9.3 Screen Reader Support
+
 ```html
 <!-- Product Card ARIA Example -->
 <article aria-labelledby="product-123-name">
@@ -1496,6 +1542,7 @@ WVWO PALETTE COMPLIANCE:
 ```
 
 ### 9.4 Motion Preferences
+
 ```css
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -1513,6 +1560,7 @@ WVWO PALETTE COMPLIANCE:
 ## 10. Performance Requirements
 
 ### 10.1 Core Web Vitals Targets
+
 ```
 LCP (Largest Contentful Paint): < 2.5s
 FID (First Input Delay): < 100ms
@@ -1520,6 +1568,7 @@ CLS (Cumulative Layout Shift): < 0.1
 ```
 
 ### 10.2 Image Optimization Strategy
+
 ```javascript
 // Astro Image Component with Sharp
 import { Image } from 'astro:assets';
@@ -1550,6 +1599,7 @@ import { Image } from 'astro:assets';
 ```
 
 ### 10.3 CSS Optimization
+
 ```css
 /* Critical CSS (Inline in <head>) */
 - Hero section styles
@@ -1564,6 +1614,7 @@ import { Image } from 'astro:assets';
 ```
 
 ### 10.4 Font Loading Strategy
+
 ```html
 <!-- Preload critical fonts -->
 <link rel="preload" href="/fonts/Bitter-Bold.woff2" as="font" type="font/woff2" crossorigin>
@@ -1585,6 +1636,7 @@ import { Image } from 'astro:assets';
 ## 11. Implementation Priority
 
 ### Phase 1: Foundation (Week 1)
+
 - [x] Design token system setup
 - [ ] Typography scale implementation
 - [ ] Color palette refinement
@@ -1592,24 +1644,28 @@ import { Image } from 'astro:assets';
 - [ ] Border radius standardization
 
 ### Phase 2: Hero & Navigation (Week 2)
+
 - [ ] Hero section redesign (Cinematic Storefront)
 - [ ] Navigation mega-menu implementation
 - [ ] Mobile navigation refinement
 - [ ] Trust/credibility section
 
 ### Phase 3: Product Display (Week 3)
+
 - [ ] Product card redesign (Premium But Approachable)
 - [ ] Category grid implementation (Organized Arsenal)
 - [ ] Image optimization with Sharp
 - [ ] Lazy loading + blur-up placeholders
 
 ### Phase 4: Micro-interactions (Week 4)
+
 - [ ] Button interactions (Shine + Ripple)
 - [ ] Card hover states
 - [ ] Loading states (Skeleton loaders)
 - [ ] Form input states
 
 ### Phase 5: Polish & Testing (Week 5)
+
 - [ ] Accessibility audit (WCAG AA compliance)
 - [ ] Performance optimization (Core Web Vitals)
 - [ ] Cross-browser testing
@@ -1620,12 +1676,14 @@ import { Image } from 'astro:assets';
 ## 12. Success Metrics
 
 ### Qualitative Goals
+
 - [ ] "Looks as professional as Bass Pro Shops" (user feedback)
 - [ ] "Feels like a real store, not a website" (authenticity check)
 - [ ] "Easy to find what I need" (navigation clarity)
 - [ ] "Trustworthy for firearms purchase" (credibility perception)
 
 ### Quantitative Goals
+
 - [ ] Lighthouse Performance: 90+
 - [ ] Lighthouse Accessibility: 100
 - [ ] WCAG AA compliance: 100%
@@ -1637,6 +1695,7 @@ import { Image } from 'astro:assets';
 ## Appendix A: Anti-Patterns (What NOT to Do)
 
 ### ❌ Silicon Valley Patterns (Wrong for WVWO)
+
 ```css
 /* WRONG: Glassmorphism */
 .card-wrong {
@@ -1661,6 +1720,7 @@ import { Image } from 'astro:assets';
 ```
 
 ### ✅ WVWO Patterns (Correct)
+
 ```css
 /* CORRECT: Solid colors with texture */
 .card-correct {
@@ -1689,6 +1749,7 @@ import { Image } from 'astro:assets';
 ## Appendix B: Component Library Roadmap
 
 Future React + shadcn/ui components to build:
+
 - [ ] `<ProductCard />` - Reusable product display
 - [ ] `<CategoryGrid />` - Smart category navigation
 - [ ] `<MegaMenu />` - Dropdown navigation

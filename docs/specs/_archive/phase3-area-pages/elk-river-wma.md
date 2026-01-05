@@ -23,12 +23,14 @@ Elk River WMA is massive (18,396 acres) and only 15 minutes from the shop. It's 
 ## Content Sections
 
 ### Hero
+
 - "15 min from shop" badge
 - "18,396 Acres" badge
 - WMA name and intro
 - "Hardwood ridges and creek bottoms"
 
 ### Quick Info Bar
+
 - Acres: 18,396
 - Drive time: 15 min
 - County: Braxton
@@ -37,40 +39,49 @@ Elk River WMA is massive (18,396 acres) and only 15 minutes from the shop. It's 
 ### What to Hunt
 
 **White-tailed Deer**
+
 - Excellent population
 - Buck firearms season Nov/Dec
 - Archery starts late September
 - Best areas: Ridge tops, oak flats, creek bottoms during rut
 
 **Wild Turkey**
+
 - Outstanding spring gobbler hunting
 - Birds roost in mature timber
 - Best areas: Field edges, old logging roads
 
 **Black Bear**
+
 - Present in the area
 - Check WV DNR for bear season dates and zones
 
 **Small Game**
+
 - Ruffed Grouse in younger timber
 - Squirrel in hickory/oak stands
 - Rabbit in brush edges
 
 ### What to Fish
+
 - Trout (stocked streams - verify)
 - Smallmouth Bass (Elk River sections)
 
 ### Getting There
+
 Directions from shop (121 WV-82):
+
 1. Head north on I-79
 2. Take Exit 67 (Burnsville/Flatwoods area)
 3. Access roads are marked
 4. ~15 minutes total
 
 ### What to Bring
+
 Split into hunting vs fishing checklists:
 
 **Hunting Checklist:**
+
 - Rifle/shotgun + appropriate ammo
 - Blaze orange (500 sq in for deer)
 - WV hunting license + appropriate stamps
@@ -78,17 +89,20 @@ Split into hunting vs fishing checklists:
 - Map of WMA (download from DNR)
 
 **Fishing Checklist:**
+
 - Rod/reel + tackle
 - WV fishing license
 - Trout stamp if targeting stocked streams
 - Waders for creek fishing
 
 ### Local Tips
+
 - User mentioned working at Bulltown - opportunity for authentic local knowledge
 - Ridge-top hunting strategies
 - Early season vs late season differences
 
 ### CTA Sections
+
 - Shop CTA: "We've got licenses, ammo, and local knowledge"
 - Directions CTA: Google Maps link
 - Newsletter: EmailCapture component

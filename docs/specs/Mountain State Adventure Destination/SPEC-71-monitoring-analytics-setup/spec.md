@@ -48,6 +48,7 @@ const GA4_ID = import.meta.env.PUBLIC_GA4_ID;
 ```
 
 **Environment variable (.env):**
+
 ```
 PUBLIC_GA4_ID=G-XXXXXXXXXX
 ```
@@ -80,6 +81,7 @@ export {};
 Add event tracking to 6 components:
 
 **3A: Adventure Card Clicks**
+
 ```typescript
 // In AdventureCard.tsx or similar
 const handleCardClick = (slug: string, title: string) => {
@@ -93,6 +95,7 @@ const handleCardClick = (slug: string, title: string) => {
 ```
 
 **3B: Filter Changes**
+
 ```typescript
 // In FilterContext.tsx
 useEffect(() => {
@@ -109,6 +112,7 @@ useEffect(() => {
 ```
 
 **3C: Empty State**
+
 ```typescript
 // In EmptyState.tsx
 useEffect(() => {
@@ -121,6 +125,7 @@ useEffect(() => {
 ```
 
 **3D: Guide Banner Clicks**
+
 ```typescript
 // In GuideBanner.tsx
 const handleClick = (dest: string) => {
@@ -135,6 +140,7 @@ const handleClick = (dest: string) => {
 ```
 
 **3E: Guide CTA Clicks**
+
 ```astro
 <!-- In guides/buck-season.astro -->
 <a
@@ -146,6 +152,7 @@ const handleClick = (dest: string) => {
 ```
 
 **3F: Phone Clicks**
+
 ```astro
 <!-- In any tel: link -->
 <a
@@ -174,6 +181,7 @@ const handleClick = (dest: string) => {
 **File:** `docs/monitoring/ANALYTICS-DASHBOARD.md` (new)
 
 Document:
+
 - GA4 dashboard URLs (Core Web Vitals, Funnel)
 - Cloudflare Analytics URL
 - Alert thresholds (TTFB >600ms, LCP >2.5s, etc.)
@@ -211,6 +219,7 @@ Document:
 ## Files Modified/Created
 
 **Modified:**
+
 1. `wv-wild-web/src/layouts/Layout.astro` - GA4 script
 2. `wv-wild-web/src/components/adventures/AdventureCard.tsx` - adventure_view event
 3. `wv-wild-web/src/lib/adventures/FilterContext.tsx` - filter_applied event
@@ -220,10 +229,12 @@ Document:
 7. `wv-wild-web/src/pages/guides/turkey-season.astro` - guide_cta_click event
 
 **Created:**
+
 1. `wv-wild-web/src/types/gtag.d.ts` - TypeScript declarations
 2. `docs/monitoring/ANALYTICS-DASHBOARD.md` - Monitoring checklist
 
 **Environment:**
+
 1. `.env` - Add PUBLIC_GA4_ID
 
 ---
@@ -260,8 +271,8 @@ Document:
 ## References
 
 - **Original SPEC-07 Phase 9:** See SPEC-07 tasks.md (moved from here)
-- **GA4 Event Guide:** https://developers.google.com/analytics/devguides/collection/ga4/events
-- **Cloudflare Analytics:** https://developers.cloudflare.com/analytics/
+- **GA4 Event Guide:** <https://developers.google.com/analytics/devguides/collection/ga4/events>
+- **Cloudflare Analytics:** <https://developers.cloudflare.com/analytics/>
 
 ---
 

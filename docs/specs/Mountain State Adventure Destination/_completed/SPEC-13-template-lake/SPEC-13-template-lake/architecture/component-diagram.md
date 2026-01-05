@@ -467,16 +467,19 @@ TOTAL                          ~600     Mixed       70%+ reuse
 ## Legend
 
 ### Symbols
+
 - ✅ = Existing component (SPEC-11)
 - CUSTOM = New implementation required
 - N/A = Line count not applicable (existing component)
 
 ### Border Colors
+
 - 🟢 `border-l-sign-green` = Positive, recreational
 - 🟤 `border-l-brand-brown` = Earthy, structural
 - 🟠 `border-l-brand-orange` = Warning, safety
 
 ### Section Variants
+
 - `variant="white"` = White background
 - `variant="cream"` = Cream background (brand-cream)
 - Alternating pattern for visual rhythm

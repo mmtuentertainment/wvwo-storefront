@@ -28,11 +28,13 @@ interface FeatureItem {
 ### Component Behavior
 
 **Wrapper Architecture**:
+
 - AdventureWhatToFish delegates ALL rendering to AdventureFeatureSection
 - Provides fishing-specific defaults (green accent, 2 columns)
 - Renders kimNote in `font-hand` (Permanent Marker) if present
 
 **Rendering**:
+
 - 2-column responsive grid (1-col mobile, 2-col tablet/desktop)
 - Green border-left accent on species cards
 - Kim's tips in cursive font with border-top separator
@@ -44,6 +46,7 @@ interface FeatureItem {
 ### Lake Props → FeatureItem[] Mapping
 
 **Source Data** (from LakeTemplateProps):
+
 ```typescript
 fishSpecies: Array<{
   title: string;           // "Smallmouth Bass"
@@ -53,6 +56,7 @@ fishSpecies: Array<{
 ```
 
 **Transformation Function** (in LakeTemplate.astro frontmatter):
+
 ```typescript
 function transformFishSpecies(
   species: LakeTemplateProps['fishSpecies']
@@ -66,6 +70,7 @@ function transformFishSpecies(
 ```
 
 **Example Input**:
+
 ```typescript
 fishSpecies: [
   {
@@ -82,6 +87,7 @@ fishSpecies: [
 ```
 
 **Example Output**:
+
 ```typescript
 const fishFeatures: FeatureItem[] = [
   {
@@ -116,6 +122,7 @@ const fishFeatures: FeatureItem[] = [
 ### Recommended Props
 
 **For Lakes**:
+
 ```astro
 <AdventureWhatToFish
   features={fishFeatures}
@@ -131,6 +138,7 @@ const fishFeatures: FeatureItem[] = [
 **Order**: PRIMARY CONTENT - fishing appears first on lake pages
 
 **Context**:
+
 ```astro
 <!-- Quick Stats -->
 <AdventureQuickStats ... />
@@ -170,6 +178,7 @@ const fishFeatures: FeatureItem[] = [
 ### Array Size Limits (NFR-009)
 
 **Performance Constraint**:
+
 - `fishSpecies` max: **20 items**
 - Lighthouse performance score must remain 90+ within limit
 - Typical WV lake: 6-12 species (well within limit)
@@ -177,6 +186,7 @@ const fishFeatures: FeatureItem[] = [
 ### Edge Cases
 
 **No Kim's Tips** (kimNote undefined):
+
 ```typescript
 {
   name: 'Muskie',
@@ -184,9 +194,11 @@ const fishFeatures: FeatureItem[] = [
   kimNote: undefined  // Optional - no tip section renders
 }
 ```
+
 Component gracefully hides Kim's tips section if `kimNote` is undefined.
 
 **Long Species Names**:
+
 ```typescript
 {
   name: 'Chain Pickerel (Southern Subspecies)',  // Long name wraps naturally
@@ -194,12 +206,15 @@ Component gracefully hides Kim's tips section if `kimNote` is undefined.
   kimNote: '...'
 }
 ```
+
 Component handles text wrapping with proper line-height.
 
 **Empty fishSpecies Array**:
+
 ```typescript
 fishSpecies: []  // ❌ BUILD WILL FAIL
 ```
+
 **Zod validation requires ≥1 fish species** - template cannot render without fishing content.
 
 ---
@@ -209,6 +224,7 @@ fishSpecies: []  // ❌ BUILD WILL FAIL
 ### Rendering Pattern
 
 **If kimNote Present**:
+
 ```astro
 <!-- AdventureFeatureSection renders kimNote in special style -->
 {feature.kimNote && (
@@ -219,6 +235,7 @@ fishSpecies: []  // ❌ BUILD WILL FAIL
 ```
 
 **Visual Treatment**:
+
 - `font-hand` (Permanent Marker): Cursive font for personal touch
 - `text-sign-green`: Green text color (matches fishing theme)
 - `italic`: Italicized for emphasis
@@ -228,16 +245,19 @@ fishSpecies: []  // ❌ BUILD WILL FAIL
 ### Kim's Voice Characteristics
 
 **Good Kim's Tips** (specific, practical):
+
 ```
 "The water's gin-clear, so downsize your line to 6-8 lb test and go with natural colors. Tube jigs and drop shot rigs with soft plastics work well. Target rocky points and ledges — the smallmouth stack up on structure."
 ```
 
 **Avoid Generic Tips**:
+
 ```
 "Fish are active in spring."  // Too vague, not Kim's voice
 ```
 
 **Voice Patterns**:
+
 - ✅ Direct, practical advice
 - ✅ Local terminology ("gin-clear", "stack up on structure")
 - ✅ Specific techniques (gear, bait, depth recommendations)
@@ -308,6 +328,7 @@ it('hides Kim\'s tips section when notes undefined', async () => {
 ### Expected Rendering
 
 **Desktop (1920px) - 2 Column Grid**:
+
 ```
 ┌──────────────────────────────┬──────────────────────────────┐
 │ │ Smallmouth Bass            │ │ Walleye                    │
@@ -316,9 +337,11 @@ it('hides Kim\'s tips section when notes undefined', async () => {
 │ │ "Use tube jigs..." (italic)│ │ "Vertical jig near..." (italic)
 └──────────────────────────────┴──────────────────────────────┘
 ```
+
 Green border-left (4px) on each card
 
 **Mobile (375px) - 1 Column Stacked**:
+
 ```
 ┌──────────────────────────────┐
 │ │ Smallmouth Bass            │
@@ -331,6 +354,7 @@ Green border-left (4px) on each card
 │ │ "Vertical jig near..." (italic)
 └──────────────────────────────┘
 ```
+
 Full-width cards, stacked vertically
 
 ---
@@ -349,9 +373,11 @@ import type { FeatureItem } from '../../types/adventure';
 ### Type Dependencies
 
 **From `types/adventure.ts`**:
+
 - `FeatureItem` interface (existing SPEC-11 type)
 
 **SPEC-11 Components**:
+
 - AdventureWhatToFish.astro (wrapper)
 - AdventureFeatureSection.astro (base component, handles rendering)
 
@@ -383,6 +409,7 @@ import type { FeatureItem } from '../../types/adventure';
 ## Change Log
 
 **v1.0.0** (2025-12-29):
+
 - Initial contract specification
 - fishSpecies → FeatureItem[] transformation
 - Kim's voice integration (kimNote → font-hand)

@@ -16,6 +16,7 @@
 This task breakdown provides 96 granular, executable tasks for SPEC-14 River Template Component System. Based on the 5-phase plan (Type System, Component, Collections, SEO, Examples) plus comprehensive testing and migration strategies, this document serves as the definitive implementation guide for the Refinement phase.
 
 **Key Features:**
+
 - **Exact file paths** and line numbers for every task
 - **Code snippets** for complex implementations
 - **Dependencies** (blockers) clearly marked
@@ -28,30 +29,37 @@ This task breakdown provides 96 granular, executable tasks for SPEC-14 River Tem
 ## Task Index
 
 ### Phase 1: Type System Foundation (2h)
+
 - **T-001 to T-007**: Zod schema creation (7 schemas)
 - **T-008**: RiverTemplateProps interface
 - **T-009**: Type guard function
 - **T-010 to T-015**: Type compilation and validation
 
 ### Phase 2: Component Implementation (4h)
+
 - **T-016 to T-018**: Scaffolding and hero section
 - **T-019 to T-023**: Core sections (rapids, fishing, outfitters, safety)
 - **T-024 to T-027**: New sections (seasonal flow, access points, nearby attractions)
 - **T-028 to T-031**: Shared components and styling
 
 ### Phase 3: Collections Integration (1h)
+
 - **T-032 to T-036**: Content Collections extension
 
 ### Phase 4: SEO Component (2h)
+
 - **T-037 to T-044**: SchemaRiverTemplate.astro with @graph
 
 ### Phase 5: Example Data (1h)
+
 - **T-045 to T-050**: Reference data files
 
 ### Phase 6: Testing (2h)
+
 - **T-051 to T-065**: Unit tests, integration tests, validation
 
 ### Phase 7: Migration (Content Population - Future Phase)
+
 - **T-066 to T-096**: 31 migration tasks for 4 existing rivers
 
 ---
@@ -64,6 +72,7 @@ This task breakdown provides 96 granular, executable tasks for SPEC-14 River Tem
 **Output:** +150 lines
 
 ### T-001: Create RapidSchema
+
 **Priority:** P0 (Critical Path)
 **Effort:** 30 minutes
 **Dependencies:** None
@@ -71,6 +80,7 @@ This task breakdown provides 96 granular, executable tasks for SPEC-14 River Tem
 **Line:** 433
 
 **Implementation:**
+
 ```typescript
 /**
  * Individual rapid with classification.
@@ -94,6 +104,7 @@ export type Rapid = z.infer<typeof RapidSchema>;
 ```
 
 **Validation:**
+
 - [ ] Schema compiles without errors
 - [ ] Enum values exact (I, II, III, IV, V)
 - [ ] `displayName` separate from `class.base`
@@ -102,6 +113,7 @@ export type Rapid = z.infer<typeof RapidSchema>;
 - [ ] Test: Invalid class rejects with clear error
 
 **Test Command:**
+
 ```bash
 npm run typecheck
 ```
@@ -109,6 +121,7 @@ npm run typecheck
 ---
 
 ### T-002: Create SeasonalFlowSchema
+
 **Priority:** P1
 **Effort:** 20 minutes
 **Dependencies:** None
@@ -116,6 +129,7 @@ npm run typecheck
 **Line:** After T-001 (line 452)
 
 **Implementation:**
+
 ```typescript
 /**
  * Seasonal water flow pattern.
@@ -137,6 +151,7 @@ export type SeasonalFlow = z.infer<typeof SeasonalFlowSchema>;
 ```
 
 **Validation:**
+
 - [ ] Level enum matches color logic (Low/Medium/High exactly)
 - [ ] `cfsRange` optional
 - [ ] `bestFor` validates 1-10 items
@@ -146,6 +161,7 @@ export type SeasonalFlow = z.infer<typeof SeasonalFlowSchema>;
 ---
 
 ### T-003: Create RiverAccessPointSchema
+
 **Priority:** P1
 **Effort:** 25 minutes
 **Dependencies:** None
@@ -153,6 +169,7 @@ export type SeasonalFlow = z.infer<typeof SeasonalFlowSchema>;
 **Line:** After T-002 (line 469)
 
 **Implementation:**
+
 ```typescript
 /**
  * River access point (put-in, take-out, both).
@@ -177,6 +194,7 @@ export type RiverAccessPoint = z.infer<typeof RiverAccessPointSchema>;
 ```
 
 **Validation:**
+
 - [ ] Type enum matches badge logic
 - [ ] `coords` regex validates format
 - [ ] `typeNotes` optional for edge cases
@@ -186,6 +204,7 @@ export type RiverAccessPoint = z.infer<typeof RiverAccessPointSchema>;
 ---
 
 ### T-004: Create RiverFishingSchema
+
 **Priority:** P1
 **Effort:** 20 minutes
 **Dependencies:** None
@@ -193,6 +212,7 @@ export type RiverAccessPoint = z.infer<typeof RiverAccessPointSchema>;
 **Line:** After T-003 (line 489)
 
 **Implementation:**
+
 ```typescript
 /**
  * River fishing (flow-dependent).
@@ -218,6 +238,7 @@ export type RiverFishing = z.infer<typeof RiverFishingSchema>;
 ```
 
 **Validation:**
+
 - [ ] `species` max 15
 - [ ] Nested `accessPoints` schema validates
 - [ ] `kimsTip` optional
@@ -227,6 +248,7 @@ export type RiverFishing = z.infer<typeof RiverFishingSchema>;
 ---
 
 ### T-005: Create OutfitterSchema with Contact Validation
+
 **Priority:** P1
 **Effort:** 30 minutes
 **Dependencies:** None
@@ -234,6 +256,7 @@ export type RiverFishing = z.infer<typeof RiverFishingSchema>;
 **Line:** After T-004 (line 512)
 
 **Implementation:**
+
 ```typescript
 /**
  * Outfitter / guide service.
@@ -260,6 +283,7 @@ export type Outfitter = z.infer<typeof OutfitterSchema>;
 ```
 
 **Validation:**
+
 - [ ] `refine()` validates at least one contact
 - [ ] Error message clear
 - [ ] URL validation for website
@@ -269,6 +293,7 @@ export type Outfitter = z.infer<typeof OutfitterSchema>;
 ---
 
 ### T-006: Create RiverSafetySchema
+
 **Priority:** P1
 **Effort:** 15 minutes
 **Dependencies:** None
@@ -276,6 +301,7 @@ export type Outfitter = z.infer<typeof OutfitterSchema>;
 **Line:** After T-005 (line 536)
 
 **Implementation:**
+
 ```typescript
 /**
  * Safety category checklist.
@@ -293,6 +319,7 @@ export type RiverSafety = z.infer<typeof RiverSafetySchema>;
 ```
 
 **Validation:**
+
 - [ ] `important` defaults to false
 - [ ] Items array validates 1-20 entries
 - [ ] Test: Valid safety data parses
@@ -300,6 +327,7 @@ export type RiverSafety = z.infer<typeof RiverSafetySchema>;
 ---
 
 ### T-007: Create NearbyAttractionSchema
+
 **Priority:** P1
 **Effort:** 15 minutes
 **Dependencies:** None
@@ -307,6 +335,7 @@ export type RiverSafety = z.infer<typeof RiverSafetySchema>;
 **Line:** After T-006 (line 550)
 
 **Implementation:**
+
 ```typescript
 /**
  * Nearby point of interest.
@@ -324,6 +353,7 @@ export type NearbyAttraction = z.infer<typeof NearbyAttractionSchema>;
 ```
 
 **Validation:**
+
 - [ ] `type` free-form (not enum)
 - [ ] JSDoc documents standard types
 - [ ] Test: Custom type parses correctly
@@ -331,6 +361,7 @@ export type NearbyAttraction = z.infer<typeof NearbyAttractionSchema>;
 ---
 
 ### T-008: Create RiverTemplateProps Interface
+
 **Priority:** P0 (Critical Path)
 **Effort:** 30 minutes
 **Dependencies:** T-001, T-002, T-003, T-004, T-005, T-006, T-007
@@ -338,6 +369,7 @@ export type NearbyAttraction = z.infer<typeof NearbyAttractionSchema>;
 **Line:** After T-007 (line 563)
 
 **Implementation:**
+
 ```typescript
 /**
  * River template props interface.
@@ -380,6 +412,7 @@ export interface RiverTemplateProps {
 ```
 
 **Validation:**
+
 - [ ] All nested types imported
 - [ ] Reuses existing types (GearItem, RelatedCategory, etc.)
 - [ ] JSDoc comments complete
@@ -389,6 +422,7 @@ export interface RiverTemplateProps {
 ---
 
 ### T-009: Create isRiverAdventure Type Guard
+
 **Priority:** P1
 **Effort:** 15 minutes
 **Dependencies:** T-008
@@ -396,6 +430,7 @@ export interface RiverTemplateProps {
 **Line:** After T-008 (line 600)
 
 **Implementation:**
+
 ```typescript
 /**
  * Type guard to check if an adventure is a river.
@@ -409,6 +444,7 @@ export function isRiverAdventure(adventure: any): adventure is { data: { type: '
 ```
 
 **Validation:**
+
 - [ ] Function compiles
 - [ ] Test: River adventure returns true
 - [ ] Test: Lake adventure returns false
@@ -416,6 +452,7 @@ export function isRiverAdventure(adventure: any): adventure is { data: { type: '
 ---
 
 ### T-010: Add JSDoc Documentation to All Schemas
+
 **Priority:** P2
 **Effort:** 30 minutes
 **Dependencies:** T-001 through T-009
@@ -424,6 +461,7 @@ export function isRiverAdventure(adventure: any): adventure is { data: { type: '
 
 **Task:**
 Add comprehensive JSDoc comments to all 7 schemas and interface:
+
 - Usage examples
 - Field descriptions
 - Validation rules
@@ -431,6 +469,7 @@ Add comprehensive JSDoc comments to all 7 schemas and interface:
 - WVWO compliance notes
 
 **Validation:**
+
 - [ ] All schemas have JSDoc
 - [ ] Examples are accurate
 - [ ] IDE tooltips display correctly
@@ -438,12 +477,14 @@ Add comprehensive JSDoc comments to all 7 schemas and interface:
 ---
 
 ### T-011: Create Type System Unit Tests
+
 **Priority:** P1
 **Effort:** 45 minutes
 **Dependencies:** T-001 through T-009
 **File:** `wv-wild-web/src/types/__tests__/river-adventure.test.ts` (NEW)
 
 **Implementation:**
+
 ```typescript
 import { describe, test, expect } from 'vitest';
 import {
@@ -512,6 +553,7 @@ describe('isRiverAdventure', () => {
 ```
 
 **Validation:**
+
 - [ ] All 7 schemas have tests
 - [ ] `npm run test` passes
 - [ ] Coverage ≥ 85%
@@ -519,6 +561,7 @@ describe('isRiverAdventure', () => {
 ---
 
 ### T-012: Validate RapidSchema with Real Data
+
 **Priority:** P2
 **Effort:** 15 minutes
 **Dependencies:** T-001, T-011
@@ -526,6 +569,7 @@ describe('isRiverAdventure', () => {
 
 **Task:**
 Test RapidSchema with 10+ real Gauley River rapids from spec:
+
 - Pillow Rock (V+)
 - Lost Paddle (V)
 - Sweet's Falls (V)
@@ -533,6 +577,7 @@ Test RapidSchema with 10+ real Gauley River rapids from spec:
 - Pure Screaming Hell (IV)
 
 **Validation:**
+
 - [ ] All real rapids parse correctly
 - [ ] Hazards arrays validate
 - [ ] Displayname handles modifiers
@@ -540,6 +585,7 @@ Test RapidSchema with 10+ real Gauley River rapids from spec:
 ---
 
 ### T-013: Validate OutfitterSchema with Real Data
+
 **Priority:** P2
 **Effort:** 15 minutes
 **Dependencies:** T-005, T-011
@@ -547,11 +593,13 @@ Test RapidSchema with 10+ real Gauley River rapids from spec:
 
 **Task:**
 Test OutfitterSchema with real WV outfitters:
+
 - ACE Adventure Resort (phone + website)
 - Adventures on the Gorge (website only)
 - New River Gorge Guided Trips (phone only)
 
 **Validation:**
+
 - [ ] All contact variations validate
 - [ ] Refine logic works correctly
 - [ ] Error messages clear
@@ -559,12 +607,14 @@ Test OutfitterSchema with real WV outfitters:
 ---
 
 ### T-014: Run Full Type System Validation
+
 **Priority:** P0 (Critical Path)
 **Effort:** 15 minutes
 **Dependencies:** T-001 through T-013
 **File:** All type files
 
 **Task:**
+
 ```bash
 npm run typecheck
 npm run test src/types/__tests__
@@ -572,6 +622,7 @@ npm run lint src/types/adventure.ts
 ```
 
 **Validation:**
+
 - [ ] Zero TypeScript errors
 - [ ] All tests pass
 - [ ] Zero linting errors
@@ -580,12 +631,14 @@ npm run lint src/types/adventure.ts
 ---
 
 ### T-015: Phase 1 Completion Checkpoint
+
 **Priority:** P0 (Critical Path)
 **Effort:** 15 minutes
 **Dependencies:** T-001 through T-014
 **File:** N/A
 
 **Checklist:**
+
 - [ ] All 7 Zod schemas created
 - [ ] RiverTemplateProps interface complete
 - [ ] Type guard function works
@@ -606,12 +659,14 @@ npm run lint src/types/adventure.ts
 **Output:** 660 lines
 
 ### T-016: Create Component File and Scaffolding
+
 **Priority:** P0 (Critical Path)
 **Effort:** 30 minutes
 **Dependencies:** T-015 (Phase 1 complete)
 **File:** `wv-wild-web/src/components/templates/RiverTemplate.astro` (NEW)
 
 **Implementation:**
+
 ```astro
 ---
 import type { RiverTemplateProps } from '../../types/adventure';
@@ -652,6 +707,7 @@ const {
 ```
 
 **Validation:**
+
 - [ ] File created
 - [ ] Props interface extends RiverTemplateProps
 - [ ] All props destructured
@@ -662,6 +718,7 @@ const {
 ---
 
 ### T-017: Implement Hero Section
+
 **Priority:** P0 (Critical Path)
 **Effort:** 45 minutes
 **Dependencies:** T-016
@@ -669,6 +726,7 @@ const {
 **Line:** Inside .river-template div
 
 **Implementation:**
+
 ```astro
   <!-- Hero Section -->
   <section
@@ -740,6 +798,7 @@ const {
 ```
 
 **Validation:**
+
 - [ ] Hero height correct (`h-[70vh] min-h-[500px]`)
 - [ ] Overlay color `bg-brand-brown/50`
 - [ ] Stats grid responsive (2-col mobile, 4-col desktop)
@@ -751,6 +810,7 @@ const {
 ---
 
 ### T-018: Implement Description Prose Section
+
 **Priority:** P1
 **Effort:** 15 minutes
 **Dependencies:** T-017
@@ -760,6 +820,7 @@ const {
 **Task:** Already included in T-017 implementation.
 
 **Validation:**
+
 - [ ] Section bg-brand-cream
 - [ ] Text centered, max-width constrained
 - [ ] Font-body used
@@ -770,7 +831,8 @@ const {
 
 **Note:** Due to length constraints, I'll provide the complete structure with key representative tasks. The full tasks.md would continue with:
 
-### Remaining Phase 2 Tasks:
+### Remaining Phase 2 Tasks
+
 - T-019: Rapids Guide Section (60 min)
 - T-020: Fishing Section (45 min)
 - T-021: Outfitters Section (45 min)
@@ -783,6 +845,7 @@ const {
 - T-028-T-031: Component validation and testing
 
 ### Phase 3: Collections (T-032 to T-036)
+
 - T-032: Update type discriminator
 - T-033: Import river schemas
 - T-034: Add river fields
@@ -790,6 +853,7 @@ const {
 - T-036: Phase 3 checkpoint
 
 ### Phase 4: SEO Component (T-037 to T-044)
+
 - T-037: Component scaffolding
 - T-038: TouristAttraction schema
 - T-039: Article schema
@@ -800,6 +864,7 @@ const {
 - T-044: Phase 4 checkpoint
 
 ### Phase 5: Example Data (T-045 to T-050)
+
 - T-045: Create rivers/ directory
 - T-046: Create README.md
 - T-047: Create _example.ts
@@ -808,6 +873,7 @@ const {
 - T-050: Phase 5 checkpoint
 
 ### Phase 6: Testing (T-051 to T-065)
+
 - T-051-T-055: Component unit tests
 - T-056-T-060: Integration tests
 - T-061-T-063: Accessibility tests
@@ -815,6 +881,7 @@ const {
 - T-065: Phase 6 checkpoint
 
 ### Phase 7: Migration (T-066 to T-096)
+
 - T-066-T-073: Elk River migration (8 tasks)
 - T-074-T-081: Holly River migration (8 tasks)
 - T-082-T-088: Gauley River population (7 tasks)
@@ -880,6 +947,7 @@ T-065 ─→ T-066-T-096 (Migration tasks - parallel) ─→ T-096 ✓
 ## Validation Checklists
 
 ### Phase 1: Type System ✓
+
 - [ ] All 7 Zod schemas compile
 - [ ] RiverTemplateProps interface complete
 - [ ] Type guard function works
@@ -889,6 +957,7 @@ T-065 ─→ T-066-T-096 (Migration tasks - parallel) ─→ T-096 ✓
 - [ ] Zero breaking changes
 
 ### Phase 2: Component ✓
+
 - [ ] Component ~660 lines
 - [ ] All 8 sections implemented
 - [ ] Conditional rendering works
@@ -899,6 +968,7 @@ T-065 ─→ T-066-T-096 (Migration tasks - parallel) ─→ T-096 ✓
 - [ ] `npm run build` succeeds
 
 ### Phase 3: Collections ✓
+
 - [ ] Type discriminator updated
 - [ ] All schemas imported
 - [ ] River fields added (optional)
@@ -907,6 +977,7 @@ T-065 ─→ T-066-T-096 (Migration tasks - parallel) ─→ T-096 ✓
 - [ ] Type guard filters correctly
 
 ### Phase 4: SEO ✓
+
 - [ ] SchemaRiverTemplate.astro created
 - [ ] All 4 entities implemented
 - [ ] Rich Results Test passes
@@ -914,6 +985,7 @@ T-065 ─→ T-066-T-096 (Migration tasks - parallel) ─→ T-096 ✓
 - [ ] JSON-LD validates
 
 ### Phase 5: Examples ✓
+
 - [ ] rivers/ directory exists
 - [ ] README.md clear
 - [ ] _example.ts complete
@@ -922,6 +994,7 @@ T-065 ─→ T-066-T-096 (Migration tasks - parallel) ─→ T-096 ✓
 - [ ] Import paths resolve
 
 ### Phase 6: Testing ✓
+
 - [ ] Unit tests pass
 - [ ] Integration tests pass
 - [ ] Accessibility tests pass
@@ -929,6 +1002,7 @@ T-065 ─→ T-066-T-096 (Migration tasks - parallel) ─→ T-096 ✓
 - [ ] Coverage ≥ 85%
 
 ### Phase 7: Migration ✓
+
 - [ ] Elk River migrated
 - [ ] Holly River migrated
 - [ ] Gauley River populated
@@ -941,6 +1015,7 @@ T-065 ─→ T-066-T-096 (Migration tasks - parallel) ─→ T-096 ✓
 ## WVWO Compliance Verification
 
 **Per-Task Checklist:**
+
 - [ ] Fonts: font-display (headings), font-hand (Kim's tips ONLY), font-body (text)
 - [ ] Colors: brand-brown, sign-green, brand-cream, brand-orange (<5% screen)
 - [ ] Border-radius: rounded-sm ONLY (no md/lg/xl)
@@ -949,6 +1024,7 @@ T-065 ─→ T-066-T-096 (Migration tasks - parallel) ─→ T-096 ✓
 - [ ] Voice: Authentic Kim voice, no corporate buzzwords
 
 **Orange Usage Budget:**
+
 - Safety section borders: ~4% screen
 - Primary CTAs: ~2% screen
 - Total: 6% ✓ (under 5% guideline with slight tolerance)

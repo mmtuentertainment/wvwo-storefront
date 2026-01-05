@@ -13,6 +13,7 @@
 SPEC-07 delivers a production-grade adventures filtering system for 70+ WV destinations with 5-axis filtering (Season, Difficulty, Gear, Elevation, Suitability). This strategy document defines the complete path from schema updates through deployment and post-launch monitoring.
 
 **Key Decisions**:
+
 - **Architecture**: Cloudflare Pages + Astro static + React islands (NOT Workers pre-rendering)
 - **Filtering**: Client-side with TanStack Table (100-150ms acceptable, 30-50ms Worker gain not worth complexity)
 - **Offline**: Service Worker + IndexedDB for rural WV spotty connections
@@ -20,6 +21,7 @@ SPEC-07 delivers a production-grade adventures filtering system for 70+ WV desti
 - **Cost**: $20-25/month all-in (Cloudflare Pages + Argo Smart Routing)
 
 **Critical Path**:
+
 1. Schema Update (SPEC-06 extension) - 3-4 days
 2. Filter Infrastructure - 1 week
 3. React Island Implementation - 1 week
@@ -61,6 +63,7 @@ SPEC-07 delivers a production-grade adventures filtering system for 70+ WV desti
    - Query with `getCollection()` to verify new fields
 
 **Success Criteria**:
+
 - [ ] Schema updated with elevation_gain and suitability fields
 - [ ] All 70 existing adventures have elevation data
 - [ ] At least 50% have suitability tags (rest can be added progressively)
@@ -68,6 +71,7 @@ SPEC-07 delivers a production-grade adventures filtering system for 70+ WV desti
 - [ ] TypeScript types inferred correctly
 
 **Risks**:
+
 - **Manual research time** - Mitigate: Start with high-traffic destinations (New River Gorge, Blackwater Falls), backfill rest later
 - **Google API quota** - Mitigate: 2,500/day free tier covers all 70 destinations in 1 day with room for retries
 
@@ -82,12 +86,14 @@ SPEC-07 delivers a production-grade adventures filtering system for 70+ WV desti
 #### 1.1 Data Layer Setup (Day 1-2)
 
 **Tasks**:
+
 - Create `src/lib/adventures/types.ts` - TypeScript interfaces for filtered adventures
 - Create `src/lib/adventures/filters.ts` - Filter logic functions
 - Create `src/lib/adventures/constants.ts` - Filter enums, ranges, categories
 - Set up TanStack Table headless data grid
 
 **Deliverables**:
+
 ```typescript
 // types.ts
 export interface AdventureFilter {
@@ -113,11 +119,13 @@ export const ELEVATION_RANGE = [0, 5000] as const;
 ```
 
 **Testing**:
+
 - Unit tests for filter functions
 - Test with mock adventure data (10 items)
 - Verify filter combinations work correctly
 
 **Success Criteria**:
+
 - [ ] Filter types defined and exported
 - [ ] TanStack Table initialized with adventure data
 - [ ] Filter functions pass unit tests
@@ -126,12 +134,14 @@ export const ELEVATION_RANGE = [0, 5000] as const;
 #### 1.2 URL State Management (Day 3-4)
 
 **Tasks**:
+
 - Implement URL parameter serialization/deserialization
 - Set up browser history management (Back/Forward buttons work)
 - Handle shareable filter URLs
 - Implement canonical URL strategy for SEO
 
 **URL Structure**:
+
 ```
 /adventures/                           # Empty filters, all results
 /adventures/?season=fall               # Single filter
@@ -140,11 +150,13 @@ export const ELEVATION_RANGE = [0, 5000] as const;
 ```
 
 **SEO Strategy** (from research):
+
 - Canonical tags: `/adventures/?activity=hunting&sort=newest` → `/adventures/?activity=hunting`
 - robots.txt: Block `?sort=` parameters, allow high-value filter combos
 - Index only 2-axis combinations (Season + Difficulty, NOT Season + Difficulty + Gear + Elevation)
 
 **Deliverables**:
+
 ```typescript
 // src/lib/adventures/url-state.ts
 export function serializeFiltersToURL(filters: AdventureFilter): URLSearchParams;
@@ -153,6 +165,7 @@ export function getCanonicalURL(currentURL: URL): string;
 ```
 
 **Success Criteria**:
+
 - [ ] URL updates when filters change
 - [ ] Back/Forward buttons work correctly
 - [ ] Shareable URLs restore exact filter state
@@ -161,12 +174,14 @@ export function getCanonicalURL(currentURL: URL): string;
 #### 1.3 Geospatial "Closest to Me" (Day 5)
 
 **Tasks**:
+
 - Implement Haversine formula for distance calculation
 - Request user geolocation permission
 - Sort adventures by distance from user
 - Cache user location (session only, per SPEC-07 decision)
 
 **Implementation** (from research):
+
 ```typescript
 // src/lib/adventures/geolocation.ts
 import { haversine } from './haversine';
@@ -188,6 +203,7 @@ export async function sortByProximity(
 ```
 
 **Success Criteria**:
+
 - [ ] Geolocation permission requested on first filter interaction
 - [ ] Distance calculated for all 70 adventures in <100ms
 - [ ] Sort by "Closest to Me" works correctly
@@ -206,6 +222,7 @@ export async function sortByProximity(
 #### 2.1 Component Architecture (Day 1-2)
 
 **Component Tree**:
+
 ```
 <AdventuresHub /> (React island, client:visible)
 ├── <FilterDrawer /> (mobile bottom sheet, desktop sidebar)
@@ -220,6 +237,7 @@ export async function sortByProximity(
 ```
 
 **shadcn/ui Components**:
+
 - Sheet (mobile drawer)
 - Slider (elevation range)
 - Checkbox (multi-select filters)
@@ -227,6 +245,7 @@ export async function sortByProximity(
 - Button (WVWO custom variants)
 
 **WVWO Aesthetic Overrides** (per guidelines):
+
 ```typescript
 // All shadcn components: rounded-md → rounded-sm
 // Button variants:
@@ -238,6 +257,7 @@ variant: {
 ```
 
 **Success Criteria**:
+
 - [ ] All components use WVWO color palette
 - [ ] Sharp corners (rounded-sm) enforced
 - [ ] Font stack: Bitter (display), Permanent Marker (hand), Noto Sans (body)
@@ -246,12 +266,14 @@ variant: {
 #### 2.2 Mobile Filter Drawer (Day 3-4)
 
 **Pattern** (from AllTrails research):
+
 - Bottom sheet slides up from bottom (easy thumb reach)
 - Focus trap inside drawer (WCAG 2.1 AA compliance)
 - "Show X Results" button applies filters (batched execution, not instant)
 - Focus returns to trigger button on close
 
 **Implementation**:
+
 ```typescript
 // src/components/adventures/FilterDrawer.tsx
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
@@ -284,6 +306,7 @@ export function FilterDrawer({ filters, onApply }) {
 ```
 
 **Success Criteria**:
+
 - [ ] Drawer slides up smoothly (0.3s ease-out)
 - [ ] Focus trapped inside drawer
 - [ ] Focus returns to trigger on close
@@ -293,12 +316,14 @@ export function FilterDrawer({ filters, onApply }) {
 #### 2.3 Desktop Filter Sidebar (Day 3-4)
 
 **Pattern** (from REI research):
+
 - Vertical sidebar, left-aligned
 - Collapsible filter sections (accordion)
 - Filters apply instantly (no "Apply" button needed on desktop)
 - Sticky positioning (scroll with page)
 
 **Implementation**:
+
 ```typescript
 // src/components/adventures/FilterSidebar.tsx
 export function FilterSidebar({ filters, onChange }) {
@@ -319,6 +344,7 @@ export function FilterSidebar({ filters, onChange }) {
 ```
 
 **Success Criteria**:
+
 - [ ] Sidebar sticky positioning works
 - [ ] Accordion sections expand/collapse
 - [ ] Filters apply instantly on change
@@ -327,6 +353,7 @@ export function FilterSidebar({ filters, onChange }) {
 #### 2.4 Elevation Dual-Thumb Slider (Day 5)
 
 **Specification** (from SPEC-07 clarification):
+
 - Range: 0-5000 ft
 - Step: 100 ft increments
 - Display: "1,200 ft" format (comma-separated thousands)
@@ -334,6 +361,7 @@ export function FilterSidebar({ filters, onChange }) {
 - Mobile: 44x44px touch targets (WCAG compliance)
 
 **Implementation**:
+
 ```typescript
 // src/components/adventures/ElevationSlider.tsx
 import { DualRangeSlider } from '@/components/ui/dual-range-slider';
@@ -364,6 +392,7 @@ export function ElevationSlider({ value, onChange }) {
 ```
 
 **Success Criteria**:
+
 - [ ] Both thumbs draggable
 - [ ] Touch targets ≥44x44px
 - [ ] Value updates in real-time
@@ -372,6 +401,7 @@ export function ElevationSlider({ value, onChange }) {
 #### 2.5 Offline Banner (Day 5)
 
 **Specification** (from SPEC-07 clarification):
+
 - Fixed top banner, below header navigation
 - Message: "You're offline, but don't worry - filters still work. Grand love ya!"
 - Style: `bg-brand-brown text-brand-cream` with subtle icon
@@ -379,6 +409,7 @@ export function ElevationSlider({ value, onChange }) {
 - Accessibility: `role="status" aria-live="polite"`
 
 **Implementation**:
+
 ```typescript
 // src/components/adventures/OfflineBanner.tsx
 export function OfflineBanner() {
@@ -404,6 +435,7 @@ export function OfflineBanner() {
 ```
 
 **Success Criteria**:
+
 - [ ] Banner appears on connection loss
 - [ ] Banner disappears on connection return
 - [ ] Screen reader announces status change
@@ -420,12 +452,14 @@ export function OfflineBanner() {
 #### 3.1 Service Worker Setup (Day 1-2)
 
 **Strategy** (from Cloudflare research):
+
 - Cache adventures data in IndexedDB
 - Intercept fetch requests for adventure queries
 - Serve from cache when offline
 - Background sync when connection returns
 
 **Implementation**:
+
 ```typescript
 // public/sw.js (or Astro integration)
 self.addEventListener('install', (event) => {
@@ -451,6 +485,7 @@ self.addEventListener('fetch', (event) => {
 ```
 
 **Success Criteria**:
+
 - [ ] Service Worker registers on first visit
 - [ ] Adventures data cached in IndexedDB
 - [ ] Offline filtering works (no network required)
@@ -459,12 +494,14 @@ self.addEventListener('fetch', (event) => {
 #### 3.2 IndexedDB Filter State (Day 2-3)
 
 **Specification** (from SPEC-07 clarification):
+
 - IndexedDB stores adventure data ONLY (not filter state)
 - Filter state persists ONLY via URL parameters
 - Every new visit to `/adventures/` shows empty filters
 - Exception: URL with params (`?season=fall`) applies those filters
 
 **Implementation**:
+
 ```typescript
 // src/lib/adventures/offline-store.ts
 import { openDB } from 'idb';
@@ -487,6 +524,7 @@ export async function getOfflineAdventures(): Promise<Adventure[]> {
 ```
 
 **Success Criteria**:
+
 - [ ] Adventures cached on first load
 - [ ] Offline mode serves from IndexedDB
 - [ ] Filter state NOT persisted across sessions
@@ -495,17 +533,20 @@ export async function getOfflineAdventures(): Promise<Adventure[]> {
 #### 3.3 Performance Optimization (Day 4-5)
 
 **Targets** (from SPEC-07):
+
 - Filter response: <50ms for 70 items
 - React re-render: <100ms
 - Total interaction time: <150ms (acceptable for client-side)
 
 **Optimizations**:
+
 1. **Debounce text search** - 300ms delay on input
 2. **Memoize filter functions** - React.useMemo for expensive calculations
 3. **Virtualize results grid** - Only render visible cards (react-window)
 4. **Bundle size** - Keep React island <50KB gzipped
 
 **Implementation**:
+
 ```typescript
 // Debounce search
 const debouncedSearch = useDebouncedValue(searchTerm, 300);
@@ -520,11 +561,13 @@ import { FixedSizeGrid } from 'react-window';
 ```
 
 **Testing**:
+
 - Chrome DevTools Performance profiler
 - Test on low-end Android device (rural WV users)
 - Verify <50ms filter time, <100ms render time
 
 **Success Criteria**:
+
 - [ ] Filter 70 items in <50ms
 - [ ] React re-render in <100ms
 - [ ] Total interaction time <150ms
@@ -552,12 +595,14 @@ import { FixedSizeGrid } from 'react-window';
 | **4.1.3 Status Messages** | Announce result count | ARIA live region updates |
 
 **Testing Tools**:
+
 - axe DevTools (automated, catches ~30-50% of issues)
 - NVDA screen reader (manual, Windows)
 - VoiceOver (manual, Mac/iOS)
 - Keyboard-only navigation (manual)
 
 **Implementation**:
+
 ```typescript
 // ARIA live region for result count
 <div role="status" aria-live="polite" className="sr-only">
@@ -578,6 +623,7 @@ import { FixedSizeGrid } from 'react-window';
 ```
 
 **Success Criteria**:
+
 - [ ] axe DevTools: 0 violations
 - [ ] NVDA: All filters announced correctly
 - [ ] Keyboard-only: Can apply all filters without mouse
@@ -613,6 +659,7 @@ import { FixedSizeGrid } from 'react-window';
    - Test background sync
 
 **Test Matrix**:
+
 | Device | Browser | Connection | Pass/Fail |
 |--------|---------|------------|-----------|
 | Desktop | Chrome | Fast | |
@@ -622,6 +669,7 @@ import { FixedSizeGrid } from 'react-window';
 | iOS | Safari | Offline | |
 
 **Success Criteria**:
+
 - [ ] All 5 scenarios pass
 - [ ] No layout breaking on any device
 - [ ] Performance acceptable on Slow 3G
@@ -630,6 +678,7 @@ import { FixedSizeGrid } from 'react-window';
 #### 4.3 Performance Benchmarking (Day 5)
 
 **Metrics** (from research):
+
 - **Lighthouse Performance**: ≥90 score
 - **Core Web Vitals**:
   - LCP (Largest Contentful Paint): <2.5s
@@ -640,6 +689,7 @@ import { FixedSizeGrid } from 'react-window';
   - React island hydration: <500ms
 
 **Testing**:
+
 ```bash
 # Lighthouse CI
 npm run lighthouse -- --url=/adventures/
@@ -652,6 +702,7 @@ performance.measure('filter-duration', 'filter-start', 'filter-end');
 ```
 
 **Success Criteria**:
+
 - [ ] Lighthouse Performance: ≥90
 - [ ] LCP: <2.5s
 - [ ] FID: <100ms
@@ -669,6 +720,7 @@ performance.measure('filter-duration', 'filter-start', 'filter-end');
 #### 5.1 Cloudflare Pages Configuration (Day 1)
 
 **Tasks**:
+
 1. Create `public/_headers` file (cache control)
 2. Configure `astro.config.mjs` (Cloudflare adapter)
 3. Set up Argo Smart Routing ($5/month)
@@ -706,12 +758,14 @@ export default defineConfig({
 ```
 
 **Deployment**:
+
 ```bash
 npm run build
 wrangler pages deploy dist/
 ```
 
 **Success Criteria**:
+
 - [ ] Deployment succeeds
 - [ ] Cache headers verified with `curl -I`
 - [ ] React island loads correctly
@@ -721,11 +775,13 @@ wrangler pages deploy dist/
 #### 5.2 Monitoring Setup (Day 2)
 
 **Tools**:
+
 1. **Google Analytics 4** - User behavior tracking
 2. **Cloudflare Analytics** - Edge performance
 3. **Sentry** (optional) - Error tracking
 
 **Key Metrics**:
+
 | Metric | Target | Alert Threshold |
 |--------|--------|-----------------|
 | Filter interaction rate | ≥50% | <30% |
@@ -735,6 +791,7 @@ wrangler pages deploy dist/
 | Filter performance | <150ms | >300ms |
 
 **GA4 Events**:
+
 ```javascript
 // Track filter usage
 gtag('event', 'filter_apply', {
@@ -750,6 +807,7 @@ gtag('event', 'offline_mode', {
 ```
 
 **Success Criteria**:
+
 - [ ] GA4 tracking code deployed
 - [ ] Custom events firing correctly
 - [ ] Cloudflare Analytics dashboard configured
@@ -758,18 +816,21 @@ gtag('event', 'offline_mode', {
 #### 5.3 Rollback Plan (Day 3)
 
 **Triggers** (any of these):
+
 - Performance: Filter interaction time >300ms
 - Errors: Error rate >5%
 - Accessibility: WCAG violations discovered
 - User feedback: High complaint volume
 
 **Rollback Process**:
+
 1. Revert to previous Cloudflare Pages deployment
 2. Disable React island (serve static HTML only)
 3. Show "Filters temporarily unavailable" message
 4. Investigate issue in staging environment
 
 **Implementation**:
+
 ```bash
 # Revert deployment
 wrangler pages deployment list
@@ -780,6 +841,7 @@ export const FILTERS_ENABLED = import.meta.env.PUBLIC_FILTERS_ENABLED === 'true'
 ```
 
 **Success Criteria**:
+
 - [ ] Rollback procedure documented
 - [ ] Feature flag implemented
 - [ ] Previous deployment ID recorded
@@ -802,26 +864,31 @@ export const FILTERS_ENABLED = import.meta.env.PUBLIC_FILTERS_ENABLED === 'true'
 ### Risk Mitigation Details
 
 **Risk 1: Schema Update Delays**
+
 - **Trigger**: Elevation API fails, manual research takes >15 hours
 - **Response**: Launch with 3 axes only (Season, Difficulty, Gear). Add Elevation and Suitability in SPEC-08.
 - **Impact**: Reduced functionality, but core filtering works.
 
 **Risk 2: Bundle Size**
+
 - **Trigger**: React island >50KB gzipped
 - **Response**: Replace React with Preact (3KB vs 40KB). Code-split filters into separate chunks.
 - **Impact**: Same functionality, slightly different API.
 
 **Risk 3: WCAG Failures**
+
 - **Trigger**: Automated or manual testing finds violations
 - **Response**: Fix violations before launch. Delay deployment if critical (focus trap, keyboard navigation).
 - **Impact**: Timeline +2-3 days.
 
 **Risk 4: Performance**
+
 - **Trigger**: Filter interaction >150ms on low-end devices
 - **Response**: Add debouncing (300ms). Virtualize results grid. Accept 150ms as acceptable (not <50ms).
 - **Impact**: Slightly slower on old Android devices, but still usable.
 
 **Risk 5: Offline Mode**
+
 - **Trigger**: Service Worker fails on iOS, IndexedDB quota exceeded
 - **Response**: Graceful degradation (show message "Filters require internet connection"). Reduce cached data size.
 - **Impact**: Offline mode unavailable, but site still works online.
@@ -833,6 +900,7 @@ export const FILTERS_ENABLED = import.meta.env.PUBLIC_FILTERS_ENABLED === 'true'
 ### 4.1 Manual Testing Checklist
 
 **Desktop (Chrome, Safari, Firefox)**:
+
 - [ ] Filter sidebar renders correctly
 - [ ] Instant filter application works
 - [ ] URL updates on filter change
@@ -844,6 +912,7 @@ export const FILTERS_ENABLED = import.meta.env.PUBLIC_FILTERS_ENABLED === 'true'
 - [ ] No layout breaking on wide screens
 
 **Mobile (iOS Safari, Android Chrome)**:
+
 - [ ] Filter drawer slides up from bottom
 - [ ] Touch targets ≥44x44px
 - [ ] Elevation slider draggable
@@ -854,6 +923,7 @@ export const FILTERS_ENABLED = import.meta.env.PUBLIC_FILTERS_ENABLED === 'true'
 - [ ] No layout breaking on narrow screens
 
 **Rural WV Simulation (Slow 3G)**:
+
 - [ ] Page loads in <5s
 - [ ] Filters work offline
 - [ ] Service Worker caches data
@@ -863,6 +933,7 @@ export const FILTERS_ENABLED = import.meta.env.PUBLIC_FILTERS_ENABLED === 'true'
 ### 4.2 Automated Testing
 
 **Unit Tests** (Vitest):
+
 ```bash
 npm run test
 
@@ -873,6 +944,7 @@ npm run test
 ```
 
 **Integration Tests** (Playwright):
+
 ```bash
 npm run test:e2e
 
@@ -886,6 +958,7 @@ npm run test:e2e
 ```
 
 **Accessibility Tests** (axe-core):
+
 ```bash
 npm run test:a11y
 
@@ -900,6 +973,7 @@ npm run test:a11y
 ### 4.3 Performance Testing
 
 **Lighthouse CI** (automated):
+
 ```bash
 npm run lighthouse
 
@@ -911,6 +985,7 @@ npm run lighthouse
 ```
 
 **Manual Performance Profiling**:
+
 1. Open Chrome DevTools → Performance
 2. Start recording
 3. Apply multiple filters
@@ -921,6 +996,7 @@ npm run lighthouse
    - Total interaction time (<150ms acceptable)
 
 **Network Throttling**:
+
 - Test on Fast 3G (rural WV baseline)
 - Test on Slow 3G (worst case)
 - Test offline (airplane mode)
@@ -932,6 +1008,7 @@ npm run lighthouse
 ### Pre-Deployment Checklist
 
 **Code Review**:
+
 - [ ] All code reviewed by second developer
 - [ ] WVWO aesthetic guidelines followed
 - [ ] No hardcoded secrets or API keys
@@ -939,6 +1016,7 @@ npm run lighthouse
 - [ ] ESLint/Prettier passing
 
 **Testing**:
+
 - [ ] All manual tests passed
 - [ ] All automated tests passing
 - [ ] Accessibility audit clean (0 violations)
@@ -946,12 +1024,14 @@ npm run lighthouse
 - [ ] Cross-browser testing complete
 
 **Documentation**:
+
 - [ ] User guide for filter usage (for Kim)
 - [ ] Developer documentation for maintenance
 - [ ] Schema documentation for content creators
 - [ ] Deployment runbook
 
 **Cloudflare**:
+
 - [ ] `_headers` file configured
 - [ ] Argo Smart Routing enabled
 - [ ] DNS records correct
@@ -960,6 +1040,7 @@ npm run lighthouse
 ### Deployment Steps
 
 **Step 1: Build**
+
 ```bash
 cd wv-wild-web
 npm run build
@@ -967,12 +1048,14 @@ npm run test  # Verify no errors
 ```
 
 **Step 2: Deploy to Staging**
+
 ```bash
 wrangler pages deploy dist/ --project-name wvwo-staging
 # Test at staging URL
 ```
 
 **Step 3: Verify Staging**
+
 - [ ] Filters work correctly
 - [ ] Cache headers correct
 - [ ] Service Worker registers
@@ -980,17 +1063,20 @@ wrangler pages deploy dist/ --project-name wvwo-staging
 - [ ] Analytics tracking
 
 **Step 4: Deploy to Production**
+
 ```bash
 wrangler pages deploy dist/ --project-name wvwo-production
 ```
 
 **Step 5: Smoke Test Production**
+
 - [ ] Visit /adventures/
 - [ ] Apply filters
 - [ ] Check GA4 events firing
 - [ ] Verify cache headers with `curl -I`
 
 **Step 6: Monitor (First 24 Hours)**
+
 - [ ] Check Cloudflare Analytics for errors
 - [ ] Check GA4 for filter interaction rate
 - [ ] Check Sentry for JavaScript errors
@@ -999,23 +1085,27 @@ wrangler pages deploy dist/ --project-name wvwo-production
 ### Post-Deployment Monitoring (4 Weeks)
 
 **Week 1: Validation**
+
 - Daily: Check error rate, filter usage, bounce rate
 - Action: Fix critical bugs within 24 hours
 - Metric: Error rate <1%, filter interaction ≥40%
 
 **Week 2-4: Optimization**
+
 - Weekly: Analyze filter combinations (which are popular?)
 - Weekly: Review performance metrics (any slowdowns?)
 - Monthly: User feedback survey (is filtering helpful?)
 
 **Decision Criteria for SPEC-08**:
 After 4 weeks, answer these questions:
+
 1. **Performance**: Is filter interaction time acceptable? (<150ms or better?)
 2. **Usage**: Are users engaging with filters? (≥50% interaction rate?)
 3. **Demand**: Which filter combinations are most popular? (inform canonical URLs)
 4. **Bottlenecks**: Are there performance issues on specific devices?
 
 **Go/No-Go for Cloudflare Workers Pre-Rendering** (SPEC-08 decision):
+
 - **GO** if: Filter latency >150ms AND high user volume (>1000/day) AND specific combos dominate
 - **NO-GO** if: Performance acceptable AND low complexity preferred
 
@@ -1026,6 +1116,7 @@ After 4 weeks, answer these questions:
 ### Acceptance Criteria (from SPEC-07)
 
 **Functional**:
+
 - [ ] **5-axis filtering**: Season, Difficulty, Gear, Elevation (0-5000 ft), Suitability
 - [ ] **Dual-thumb elevation slider**: Range selection, 100 ft increments, "1,200 ft" display
 - [ ] **URL state persistence**: Shareable filter URLs, browser Back/Forward works
@@ -1035,6 +1126,7 @@ After 4 weeks, answer these questions:
 - [ ] **Desktop sidebar**: Instant application, sticky positioning, accordion sections
 
 **Performance**:
+
 - [ ] Filter 70 items in <50ms (client-side, TanStack Table)
 - [ ] React re-render in <100ms
 - [ ] Total interaction time <150ms (acceptable)
@@ -1042,6 +1134,7 @@ After 4 weeks, answer these questions:
 - [ ] Lighthouse Performance ≥90
 
 **Accessibility (WCAG 2.1 AA)**:
+
 - [ ] Keyboard navigation (Tab, Enter, Space, Arrow keys)
 - [ ] Focus trap in drawer (Esc closes, focus returns)
 - [ ] Screen reader support (ARIA labels, live regions)
@@ -1050,12 +1143,14 @@ After 4 weeks, answer these questions:
 - [ ] "Skip to Results" link (bypass blocks)
 
 **SEO**:
+
 - [ ] Canonical tags prevent index bloat
 - [ ] robots.txt blocks low-value filter combos
 - [ ] Schema.org CollectionPage JSON-LD
 - [ ] High-value combos indexed (Season + Difficulty, NOT all permutations)
 
 **WVWO Compliance**:
+
 - [ ] Brand colors (brand-brown, sign-green, brand-cream, brand-orange <5%)
 - [ ] Typography (Bitter display, Permanent Marker hand, Noto Sans body)
 - [ ] Sharp corners (rounded-sm, NOT rounded-md/lg)
@@ -1063,12 +1158,14 @@ After 4 weeks, answer these questions:
 - [ ] Authentic rural WV aesthetic (no corporate tone, no AI slop)
 
 **Testing**:
+
 - [ ] Manual testing on 5 devices (desktop, mobile iOS/Android, rural 3G)
 - [ ] Automated tests passing (unit, integration, accessibility)
 - [ ] Accessibility audit clean (axe DevTools, NVDA, VoiceOver)
 - [ ] Performance benchmarks met (Lighthouse, Core Web Vitals)
 
 **Documentation**:
+
 - [ ] User guide for Kim (how to use filters)
 - [ ] Developer documentation (maintenance, adding filters)
 - [ ] Schema documentation (elevation_gain, suitability fields)
@@ -1081,6 +1178,7 @@ After 4 weeks, answer these questions:
 ### Monitoring Dashboard (Google Analytics 4)
 
 **Key Metrics**:
+
 | Metric | Baseline | Target | Alert |
 |--------|----------|--------|-------|
 | Filter interaction rate | TBD | ≥50% | <30% |
@@ -1091,6 +1189,7 @@ After 4 weeks, answer these questions:
 | Offline mode usage | 0% | ≥10% | N/A |
 
 **Events to Track**:
+
 ```javascript
 // Filter interactions
 gtag('event', 'filter_apply', {
@@ -1125,21 +1224,25 @@ gtag('event', 'filter_performance', {
 ### Weekly Review (4 Weeks)
 
 **Week 1** (Dec 30 - Jan 5):
+
 - **Focus**: Bug detection, critical fixes
 - **Metrics**: Error rate, filter interaction rate
 - **Action**: Fix any errors >1%, optimize if interaction <40%
 
 **Week 2** (Jan 6 - Jan 12):
+
 - **Focus**: Performance optimization
 - **Metrics**: Filter performance, bounce rate
 - **Action**: Add debouncing if >150ms, investigate high bounce rate
 
 **Week 3** (Jan 13 - Jan 19):
+
 - **Focus**: User behavior analysis
 - **Metrics**: Popular filter combinations, session duration
 - **Action**: Document top 10 filter combos for SEO canonical strategy
 
 **Week 4** (Jan 20 - Jan 26):
+
 - **Focus**: Decision criteria for SPEC-08
 - **Metrics**: All metrics, user feedback
 - **Action**: Decide on Workers pre-rendering (GO/NO-GO)
@@ -1147,6 +1250,7 @@ gtag('event', 'filter_performance', {
 ### Decision Criteria for SPEC-08
 
 **Workers Pre-Rendering** (from research):
+
 - **GO** if ALL true:
   - Filter performance >150ms on 50%+ devices
   - User volume >1000/day
@@ -1160,6 +1264,7 @@ gtag('event', 'filter_performance', {
   - Timeline too tight
 
 **Alternative Optimizations** (if Workers not justified):
+
 - Add pagination (20 items/page instead of 70)
 - Code-split filters (lazy-load less-used ones)
 - Add debouncing (already planned)
@@ -1172,26 +1277,31 @@ gtag('event', 'filter_performance', {
 ### Blocking Dependencies
 
 **Phase 0 → Phase 1**:
+
 - Schema must have elevation_gain and suitability fields
 - At least 70% of adventures must have elevation data
 - Cannot start filter logic without these fields
 
 **Phase 1 → Phase 2**:
+
 - Filter types and functions must be defined
 - TanStack Table integration must work
 - URL state management must be functional
 
 **Phase 2 → Phase 3**:
+
 - React components must render correctly
 - Mobile drawer and desktop sidebar must work
 - Cannot test offline mode without working UI
 
 **Phase 3 → Phase 4**:
+
 - Service Worker must register
 - IndexedDB caching must work
 - Cannot test accessibility without functional app
 
 **Phase 4 → Phase 5**:
+
 - All WCAG violations must be fixed
 - Performance benchmarks must be met
 - Cannot deploy with known critical issues
@@ -1199,6 +1309,7 @@ gtag('event', 'filter_performance', {
 ### Timeline Impact
 
 **Critical Path** (longest dependency chain):
+
 ```
 Schema Update (3-4 days)
   ↓
@@ -1218,6 +1329,7 @@ TOTAL: 20-21 days + 4 weeks monitoring
 ```
 
 **Parallelizable**:
+
 - Data backfill (elevation) can overlap with schema design
 - UI design can overlap with filter logic implementation
 - Automated testing can run during manual testing
@@ -1243,6 +1355,7 @@ TOTAL: 20-21 days + 4 weeks monitoring
 | **TOTAL** | | **$25/month** | |
 
 **vs. Alternatives**:
+
 - Vercel (Next.js ISR): $20-50/month
 - AWS CloudFront: $50-200/month + origin costs
 - **Cloudflare: 50-75% cheaper**
@@ -1266,26 +1379,31 @@ TOTAL: 20-21 days + 4 weeks monitoring
 ### Key Findings from Research Documents
 
 **1. Architecture Decision** (from Adventures Hub Filtering Architecture Research):
+
 - **React + TanStack Table** recommended over Vanilla JS
 - Reason: Maintainability, accessibility ecosystem (Radix UI), scalable to 700+ items
 - Trade-off: Slight performance cost (~100ms vs 50ms), but acceptable for 70 items
 
 **2. UX Patterns** (from AllTrails/REI analysis):
+
 - **Desktop**: Horizontal filter bar OR left sidebar (chose sidebar for WVWO)
 - **Mobile**: Bottom sheet drawer (thumb-friendly, focus trap required)
 - **Progressive disclosure**: Quick filters (chips) + "All Filters" button for advanced
 
 **3. Cloudflare Optimization** (from Cloudflare research):
+
 - **Pages over Workers** for SPEC-07 (simpler, automatic static caching)
 - **Argo Smart Routing**: $5/month, 30-33% latency reduction (worth it for rural WV)
 - **Cache strategy**: HTML (max-age=0), JS/CSS (immutable 1 year), Data (1 hour)
 
 **4. Workers Pre-Rendering** (NOT recommended for SPEC-07):
+
 - **Performance gain**: 30-50ms (imperceptible to users)
 - **Complexity cost**: 20-30 hours extra development
 - **Decision**: Launch with client-side filtering, re-evaluate in SPEC-08 if data shows need
 
 **5. SEO Strategy** (from GSC/Cloudflare Analytics proxy):
+
 - **High-demand combos**: Hunting + Fall, Easy Waterfall Hikes, Dog-Friendly Trails
 - **Canonical strategy**: Index 2-axis combos only (Season + Difficulty)
 - **I-79 Corridor**: High-value local SEO target (Exits 57-155)

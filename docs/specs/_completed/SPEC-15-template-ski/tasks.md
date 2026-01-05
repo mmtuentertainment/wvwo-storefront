@@ -17,12 +17,14 @@
 ## Phase 1: Research & Planning
 
 ### T-001: Research
+
 - [X] [P] T-001a: Analyze Snowshoe Mountain content patterns
 - [X] [P] T-001b: Analyze Canaan Valley positioning (state park, family focus)
 - [X] [P] T-001c: Research ski website UX best practices (trail difficulty, pricing)
 - [X] [P] T-001d: Analyze existing RiverTemplate/LakeTemplate patterns for reuse
 
 ### T-002: Clarifications (5 Questions Resolved)
+
 - [X] [S] T-002a: Resolve blue color exception for trail difficulty (bg-blue-700 approved)
 - [X] [S] T-002b: Resolve snow widget approach (embed OnTheSnow/MountainNews iframe)
 - [X] [S] T-002c: Resolve seasonal content switching (conditional sections pattern)
@@ -36,6 +38,7 @@
 ## Phase 2: Architecture & Types
 
 ### T-003: Type Definitions
+
 - [X] [S] T-003a: Create `src/types/ski-types.ts` with Zod schemas
 - [X] [P] T-003b: Define ElevationSchema (base, summit, vertical)
 - [X] [P] T-003c: Define SkiSeasonSchema (open, close)
@@ -55,6 +58,7 @@
 - [X] [P] T-003q: Define KimTipSchema (content, type: tip|warning|insider)
 
 ### T-004: Trail Difficulty Helpers
+
 - [X] [S] T-004a: Create TRAIL_DIFFICULTY_COLORS constant (green, blue-700 exception, brown, red)
 - [X] [S] T-004b: Create TRAIL_DIFFICULTY_SHAPES constant (●, ■, ◆, ◆◆)
 - [X] [S] T-004c: Create getTrailDifficultyColor() helper function
@@ -62,6 +66,7 @@
 - [X] [S] T-004e: Create getTrailDifficultyLabel() helper function
 
 ### T-005: Content Collection Integration
+
 - [X] [S] T-005a: Update `src/content.config.ts` with ski type enum
 - [X] [S] T-005b: Import ski-types schemas into content.config.ts
 - [X] [S] T-005c: Add all ski-specific optional fields to adventures schema
@@ -73,12 +78,14 @@
 ## Phase 3: Template Implementation
 
 ### T-006: SkiTemplate Core Structure
+
 - [X] [S] T-006a: Create `src/components/templates/SkiTemplate.astro`
 - [X] [S] T-006b: Add imports for Layout and adventure components
 - [X] [S] T-006c: Define Props interface extending SkiTemplateProps
 - [X] [S] T-006d: Destructure all props in frontmatter
 
 ### T-007: Core Requirement #1 - Hero Section
+
 - [X] [S] T-007a: Implement hero with full-bleed image + overlay
 - [X] [P] T-007b: Add resort name with font-display text-5xl
 - [X] [P] T-007c: Add tagline with font-body
@@ -88,6 +95,7 @@
 - [X] [P] T-007g: Add trail map button (bg-brand-orange, prominent)
 
 ### T-008: Core Requirement #2 - Trail Breakdown
+
 - [X] [S] T-008a: Create trails section with bg-white
 - [X] [P] T-008b: Display total trail count prominently
 - [X] [P] T-008c: Display beginner count with green circle shape
@@ -98,12 +106,14 @@
 - [X] [P] T-008h: Display longestRun if provided
 
 ### T-009: Core Requirement #3 - Lift System
+
 - [X] [S] T-009a: Create lifts section within bg-brand-cream
 - [X] [P] T-009b: Display total lift count
 - [X] [P] T-009c: Display lift types breakdown (Quad, Triple, Double, Surface)
 - [X] [P] T-009d: Display capacity stat if provided
 
 ### T-010: Core Requirement #4 - Snow Conditions
+
 - [X] [S] T-010a: Create snow conditions subsection
 - [X] [P] T-010b: Display averageSnowfall stat
 - [X] [P] T-010c: Display snowmaking coverage stat
@@ -111,6 +121,7 @@
 - [X] [P] T-010e: Add widgetEmbed iframe support with set:html
 
 ### T-011: Core Requirement #5 - Pricing Section
+
 - [X] [S] T-011a: Create pricing section with bg-white
 - [X] [S] T-011b: Add isDynamic conditional note ("Prices vary by date")
 - [X] [P] T-011c: Display lastUpdated freshness indicator
@@ -120,11 +131,13 @@
 - [X] [P] T-011g: Add pricing URL link to resort page
 
 ### T-012: Core Requirement #6 - Terrain Parks (Optional)
+
 - [X] [S] T-012a: Create conditional terrainParks section (bg-brand-cream)
 - [X] [P] T-012b: Display park name and difficulty badge
 - [X] [P] T-012c: Display features list for each park
 
 ### T-013: Core Requirement #7 - Lodging Grid
+
 - [X] [S] T-013a: Create lodging section with bg-white
 - [X] [P] T-013b: Display lodging cards with name/type/distance
 - [X] [P] T-013c: Display amenities list per lodging
@@ -132,16 +145,19 @@
 - [X] [P] T-013e: Add "Book Now" button with bookingUrl (target="_blank")
 
 ### T-014: Core Requirement #8 - Dining & Amenities
+
 - [X] [S] T-014a: Create conditional dining section (bg-brand-cream)
 - [X] [P] T-014b: Display dining options with name/type/location/notes
 - [X] [S] T-014c: Create amenities section
 - [X] [P] T-014d: Display amenities by category with services list
 
 ### T-015: Core Requirement #9 - Summer Activities (Optional)
+
 - [X] [S] T-015a: Create conditional summerActivities section (bg-white)
 - [X] [P] T-015b: Display activity cards with name/description/season
 
 ### T-016: Core Requirement #10 - Kim's Tips (Optional)
+
 - [X] [S] T-016a: Add KimTipSchema to ski-types.ts
 - [X] [S] T-016b: Add kimTips prop to SkiTemplatePropsSchema
 - [X] [S] T-016c: Add kimTips to SkiTemplateProps interface
@@ -151,6 +167,7 @@
 - [X] [P] T-016g: Add border-l-4 accent (brand-brown/orange/green by type)
 
 ### T-017: Shared Components Integration
+
 - [X] [S] T-017a: Import AdventureGearChecklist component
 - [X] [S] T-017b: Import AdventureRelatedShop component
 - [X] [S] T-017c: Import AdventureCTA component
@@ -159,6 +176,7 @@
 - [X] [S] T-017f: Add CTA section (bg-sign-green) with correct prop mapping
 
 ### T-018: Edge Case Sections (Optional)
+
 - [X] [P] T-018a: Add conditional Nordic Skiing section
 - [X] [P] T-018b: Add conditional Park Affiliation display
 - [X] [P] T-018c: Add Pass Affiliations display in Description area
@@ -171,6 +189,7 @@
 ## Phase 4: Content Population
 
 ### T-019: Snowshoe Mountain Content
+
 - [X] [S] T-019a: Create `src/content/adventures/snowshoe-mountain.md`
 - [X] [P] T-019b: Add hero content (title, tagline, description, image)
 - [X] [P] T-019c: Add elevation data (base: 4150, summit: 4848, vertical: 1500)
@@ -189,6 +208,7 @@
 - [X] [P] T-019p: Add Kim's Tips content (3 tips: tip, insider, warning)
 
 ### T-020: Canaan Valley Content
+
 - [X] [S] T-020a: Create `src/content/adventures/canaan-valley.md`
 - [X] [P] T-020b: Add hero content (family-friendly positioning)
 - [X] [P] T-020c: Add elevation data (base: 3800, summit: 4280, vertical: 850)
@@ -212,6 +232,7 @@
 ## Phase 5: Page Routes & Integration
 
 ### T-021: Page Routes
+
 - [X] [S] T-021a: Create `src/pages/near/snowshoe-mountain.astro`
 - [X] [P] T-021b: Import getEntry from astro:content
 - [X] [P] T-021c: Import SkiTemplate component
@@ -222,6 +243,7 @@
 - [X] [P] T-021h: Include kimTips in prop mapping
 
 ### T-022: Build Verification
+
 - [X] [S] T-022a: Run `npm run build` and verify 62+ pages
 - [X] [S] T-022b: Fix any prop mapping errors (AdventureCTA props fixed)
 - [X] [S] T-022c: Verify no TypeScript errors
@@ -233,6 +255,7 @@
 ## Phase 6: Accessibility & Polish
 
 ### T-023: Accessibility Compliance
+
 - [X] [S] T-023a: Add motion-safe: prefix to trail map button transition
 - [X] [S] T-023b: Add motion-safe: prefix to snow conditions link transition
 - [X] [S] T-023c: Add motion-safe: prefix to lodging booking button transition
@@ -241,6 +264,7 @@
 - [X] [P] T-023f: Verify trail difficulty uses color + shape + text
 
 ### T-024: WVWO Aesthetic Verification
+
 - [X] [P] T-024a: Verify zero rounded-md/lg/xl (only rounded-sm)
 - [X] [P] T-024b: Verify zero forbidden fonts (Inter, Poppins, etc.)
 - [X] [P] T-024c: Verify zero purple/pink/neon colors
@@ -254,6 +278,7 @@
 ## Phase 7: Testing & Documentation
 
 ### T-025: Visual Testing (Pending)
+
 - [ ] [P] T-025a: Test mobile responsive (320px - 768px)
 - [ ] [P] T-025b: Test tablet layout (768px - 1024px)
 - [ ] [P] T-025c: Test desktop layout (1024px+)
@@ -261,6 +286,7 @@
 - [ ] [P] T-025e: Verify Kim's Tips styling (font-hand visible)
 
 ### T-026: Documentation Updates
+
 - [X] [S] T-026a: Update spec.md acceptance criteria checkboxes
 - [X] [S] T-026b: Document accepted deviation (770 lines vs 550-600 target)
 - [X] [S] T-026c: Document blue color exception in spec

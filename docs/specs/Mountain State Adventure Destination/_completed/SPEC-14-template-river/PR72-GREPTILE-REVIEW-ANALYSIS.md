@@ -38,7 +38,7 @@ Greptile identified **55 issues** across 45 changed files in PR #72. Issues rang
 **Fix Effort**: 15 minutes (bulk find/replace)
 **Risk if Unfixed**: CI failures, broken developer experience on non-Windows systems
 
-#### Files & Fixes:
+#### Files & Fixes
 
 1. **`docs/specs/.../plan.md`** (5 instances)
    - Line 189-190: `c:\Users\matth\Desktop\wvwo-storefront\CLAUDE.md` → `CLAUDE.md`
@@ -60,6 +60,7 @@ Greptile identified **55 issues** across 45 changed files in PR #72. Issues rang
    - Line 290: Non-existent SPEC-14 file reference → Update or remove
 
 **Bulk Fix Command**:
+
 ```bash
 # Find all Windows paths in docs/
 grep -rl "c:\\\\Users\\\\matth\\\\Desktop\\\\wvwo-storefront\\\\" docs/ scripts/
@@ -77,9 +78,9 @@ grep -rl "c:\\\\Users\\\\matth\\\\Desktop\\\\wvwo-storefront\\\\" docs/ scripts/
 **Fix Effort**: 10 minutes
 **Risk if Unfixed**: Tests pass when they should fail, WVWO violations slip through
 
-#### Files & Fixes:
+#### Files & Fixes
 
-5. **`scripts/checkpoint-1-validation.sh`** (4 issues)
+1. **`scripts/checkpoint-1-validation.sh`** (4 issues)
    - Line 25: `src/types/river.ts` → `wv-wild-web/src/types/river-types.ts`
    - Line 39: Wrong test path → `wv-wild-web/src/types/__tests__/river-types.test.ts`
    - Line 45: Wrong file path → `wv-wild-web/src/types/river-types.ts`
@@ -94,12 +95,14 @@ grep -rl "c:\\\\Users\\\\matth\\\\Desktop\\\\wvwo-storefront\\\\" docs/ scripts/
 **Fix Effort**: 5 minutes
 **Risk if Unfixed**: Aesthetic compliance breach, fails brand identity
 
-6. **`wv-wild-web/src/components/templates/RiverTemplate.astro`** (2 issues)
+1. **`wv-wild-web/src/components/templates/RiverTemplate.astro`** (2 issues)
    - **Line 160**: `backdrop-blur-sm` → Remove glassmorphism effect
+
      ```diff
      - <div class="bg-white/90 backdrop-blur-sm p-4 rounded-sm">
      + <div class="bg-white/90 p-4 rounded-sm">
      ```
+
    - **Line 324**: Extra closing `</section>` tag → Delete (invalid HTML)
 
 **Context**: CLAUDE.md explicitly forbids glassmorphism/backdrop-blur effects as "SaaS startup" aesthetic
@@ -113,8 +116,9 @@ grep -rl "c:\\\\Users\\\\matth\\\\Desktop\\\\wvwo-storefront\\\\" docs/ scripts/
 **Fix Effort**: 2 minutes
 **Risk if Unfixed**: Documentation examples don't work
 
-7. **`docs/MIGRATION-STRATEGY-SPEC-45.md`** (1 issue)
+1. **`docs/MIGRATION-STRATEGY-SPEC-45.md`** (1 issue)
    - Line 61: `@/types/river-template` → `@/types/river-types`
+
    ```diff
    - import type { RiverTemplateProps } from '@/types/river-template';
    + import type { RiverTemplateProps } from '@/types/river-types';
@@ -131,23 +135,24 @@ grep -rl "c:\\\\Users\\\\matth\\\\Desktop\\\\wvwo-storefront\\\\" docs/ scripts/
 **Fix Effort**: 10 minutes
 **Risk if Unfixed**: Orange usage >5% could slip through automated checks
 
-8. **`scripts/checkpoint-2-validation.sh`** (1 issue)
+1. **`scripts/checkpoint-2-validation.sh`** (1 issue)
    - Line 61-62: Threshold >20% → Change to >5%
+
    ```bash
    if [ $ORANGE_PERCENT -gt 5 ]; then
      echo "⚠️  WARNING: Orange usage >5% (should be <5% for CTAs only)"
    ```
 
-9. **`docs/CHECKPOINT-CHECKLIST.md`** (1 issue)
+2. **`docs/CHECKPOINT-CHECKLIST.md`** (1 issue)
    - Line 56: "Orange usage <20%" → "Orange usage <5%"
 
-10. **`docs/CHECKPOINT-GUIDE.md`** (1 issue)
+3. **`docs/CHECKPOINT-GUIDE.md`** (1 issue)
     - Line 62: Inconsistent threshold documentation
 
-11. **`scripts/README.md`** (1 issue)
+4. **`scripts/README.md`** (1 issue)
     - Line 47: States <20% → Should be <5%
 
-12. **`docs/specs/.../tasks.md`** (1 issue)
+5. **`docs/specs/.../tasks.md`** (1 issue)
     - Line 952-954: Orange calculation shows 6% → Exceeds 5% guideline
 
 **Recommendation**: Update all thresholds to 5% for consistency with WVWO Constitution
@@ -161,7 +166,7 @@ grep -rl "c:\\\\Users\\\\matth\\\\Desktop\\\\wvwo-storefront\\\\" docs/ scripts/
 **Fix Effort**: 30 minutes (refactor) OR defer to separate PR
 **Risk if Unfixed**: Technical debt, harder to maintain
 
-13. **`wv-wild-web/src/components/templates/RiverTemplate.astro`** (1 issue)
+1. **`wv-wild-web/src/components/templates/RiverTemplate.astro`** (1 issue)
     - Line 611: 619 lines → Exceeds 500-line guideline by 119 lines
     - **Suggestion**: Split into sub-components:
       - `RiverHero.astro` (lines 1-150)
@@ -180,9 +185,10 @@ grep -rl "c:\\\\Users\\\\matth\\\\Desktop\\\\wvwo-storefront\\\\" docs/ scripts/
 **Fix Effort**: 5 minutes
 **Risk if Unfixed**: Glassmorphism effects not caught by regex
 
-14. **`scripts/checkpoint-2-validation.sh`** (1 issue)
+1. **`scripts/checkpoint-2-validation.sh`** (1 issue)
     - Line 74-75: Forbidden effects regex may miss `backdrop-blur-sm`
     - **Fix**: Update regex to include all blur variants:
+
     ```bash
     if grep -rn "backdrop-blur" wv-wild-web/src/components/ 2>/dev/null | grep -v ".test."; then
       echo "   ❌ FAIL: Forbidden glassmorphism effect detected"
@@ -199,7 +205,7 @@ grep -rl "c:\\\\Users\\\\matth\\\\Desktop\\\\wvwo-storefront\\\\" docs/ scripts/
 **Fix Effort**: 2 minutes
 **Risk if Unfixed**: Confusion between WVGO vs WVWO
 
-15. **`docs/specs/.../TASK-DEPENDENCY-GRAPH.md`** (3 instances)
+1. **`docs/specs/.../TASK-DEPENDENCY-GRAPH.md`** (3 instances)
     - Line 876: "WVGO Compliance" → "WVWO Compliance"
     - Line 919: "WVGO compliance reviewer" → "WVWO compliance reviewer"
     - Line 925: "Second Priority: WVGO" → "Second Priority: WVWO"
@@ -215,7 +221,7 @@ grep -rl "c:\\\\Users\\\\matth\\\\Desktop\\\\wvwo-storefront\\\\" docs/ scripts/
 **Fix Effort**: 10 minutes
 **Risk if Unfixed**: Flaky CI tests
 
-16. **`tests/integration/RiverTemplate.test.ts`** (3 issues)
+1. **`tests/integration/RiverTemplate.test.ts`** (3 issues)
     - Line 15-26: Test depends on pre-built HTML file → Add build step or mock
     - Line 70-72: Logic assumes `rapidsSection` exists → Add null check
     - Line 226-234: Duplicate file read → Extract to `beforeAll`
@@ -229,11 +235,11 @@ grep -rl "c:\\\\Users\\\\matth\\\\Desktop\\\\wvwo-storefront\\\\" docs/ scripts/
 **Fix Effort**: 5 minutes
 **Risk if Unfixed**: Staging/dev environments show incorrect URLs
 
-17. **`docs/specs/.../architecture/MASTER-ARCHITECTURE.md`** (1 issue)
+1. **`docs/specs/.../architecture/MASTER-ARCHITECTURE.md`** (1 issue)
     - Line 1339-1340: Hardcoded `baseUrl: 'https://wvwildoutdoors.pages.dev'`
     - **Fix**: Use environment variable
 
-18. **`docs/specs/.../plan.md`** (1 issue)
+2. **`docs/specs/.../plan.md`** (1 issue)
     - Same hardcoded baseUrl issue
 
 ---
@@ -259,12 +265,14 @@ grep -rl "c:\\\\Users\\\\matth\\\\Desktop\\\\wvwo-storefront\\\\" docs/ scripts/
 ## Recommended Fix Order
 
 ### Phase 1: Critical Blockers (30 min - BEFORE MERGE)
+
 1. Fix all hardcoded Windows paths (bulk find/replace)
 2. Fix validation script path errors
 3. Remove glassmorphism effects from RiverTemplate.astro
 4. Fix import path in MIGRATION-STRATEGY-SPEC-45.md
 
 ### Phase 2: High Priority (45 min - BEFORE OR IMMEDIATELY AFTER MERGE)
+
 1. Update orange threshold to 5% across all files
 2. Fix WVGO → WVWO typos
 3. Update validation regex to catch all backdrop-blur variants
@@ -279,12 +287,14 @@ grep -rl "c:\\\\Users\\\\matth\\\\Desktop\\\\wvwo-storefront\\\\" docs/ scripts/
 The PR implements a comprehensive River Template system with excellent architecture and testing infrastructure. However, it contains **critical cross-platform issues** (Windows paths) and **WVWO compliance violations** (glassmorphism) that must be fixed before merge.
 
 **Key Strengths**:
+
 - Comprehensive type system with Zod validation
 - Strong WVWO compliance framework
 - Excellent documentation and architecture
 - Well-designed color mapping and accessibility
 
 **Key Weaknesses**:
+
 - Hardcoded Windows paths throughout documentation
 - Validation scripts reference wrong file paths
 - Component exceeds size guideline (deferrable)

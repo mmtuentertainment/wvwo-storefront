@@ -26,7 +26,9 @@
 **Est. Time**: 4 hours | **Est. LOC**: 130 lines
 
 ### T-001: Schema Extension
+
 - [ ] [S] Create feature branch `feature/spec-12-wma-template`
+
   ```bash
   git checkout -b feature/spec-12-wma-template
   ```
@@ -55,6 +57,7 @@
   - `SeasonHighlightSchema` - {season, target, tips}
 
 ### T-002: TypeScript Type System
+
 - [ ] [P] Extend `wv-wild-web/src/types/adventure.ts` with new schemas
   - Add `CampingFacilitySchema` export
   - Add `FeatureItemSchema` export (for AdventureFeatureSection)
@@ -62,6 +65,7 @@
   - Location: Append after line 223
 
 - [ ] [P] Add type guard function
+
   ```typescript
   export function isWMAAdventure(adventure: CollectionEntry<'adventures'>): boolean {
     return adventure.data.type === 'wma';
@@ -69,23 +73,27 @@
   ```
 
 - [ ] [P] Export inferred TypeScript types
+
   ```typescript
   export type CampingFacility = z.infer<typeof CampingFacilitySchema>;
   export type FeatureItem = z.infer<typeof FeatureItemSchema>;
   ```
 
 ### T-003: Backward Compatibility Validation
+
 - [ ] [S] Update `wv-wild-web/src/content/adventures/elk-river.md`
   - Add `type: "wma"` field to frontmatter (line 8, after coordinates)
   - Verify existing fields remain unchanged
 
 - [ ] [S] Run build validation
+
   ```bash
   npm run typecheck   # TypeScript compiles
   npm run build       # Zod validation passes
   ```
 
 ### T-004: Unit Tests - Schema Validation
+
 - [ ] [P] Create `wv-wild-web/src/types/__tests__/wma-schemas.test.ts`
   - Test 1: Valid WMA frontmatter passes all fields
   - Test 2: Missing required fields fail (title, description)
@@ -104,11 +112,13 @@
   - Test 15: Backward compatibility (elk-river.md still builds)
 
 - [ ] [S] Run unit tests
+
   ```bash
   npm run test:unit -- wma-schemas.test.ts
   ```
 
 **Checkpoint Validation**:
+
 - ✅ TypeScript compiles without errors
 - ✅ Build succeeds with new schema
 - ✅ 15 unit tests passing
@@ -124,6 +134,7 @@
 **Est. Time**: 8 hours | **Est. LOC**: 250 lines
 
 ### T-005: AdventureFeatureSection Base Component
+
 - [ ] [S] Create `wv-wild-web/src/components/adventure/AdventureFeatureSection.astro`
   - Add JSDoc header with SPEC-12 reference, accessibility notes, example
   - Define Props interface (9 props: title, features, columns, variant, accentColor, animate, intro, ariaLabel)
@@ -147,6 +158,7 @@
   - Border-left accent color system
 
 - [ ] [S] Add responsive grid logic
+
   ```typescript
   const columnClasses: Record<2 | 3, string> = {
     2: 'grid-cols-1 md:grid-cols-2',
@@ -155,6 +167,7 @@
   ```
 
 - [ ] [S] Add accent color mapping
+
   ```typescript
   const accentColors: Record<AccentColor, string> = {
     green: 'border-l-sign-green',
@@ -176,12 +189,14 @@
   - Hide metadata if not provided
 
 - [ ] [S] Add footer and default slots
+
   ```astro
   {Astro.slots.has('footer') && <slot name="footer" />}
   <slot />
   ```
 
 ### T-006: Wrapper Components
+
 - [ ] [P] Create `wv-wild-web/src/components/adventure/AdventureWhatToHunt.astro`
   - JSDoc header with hunting-specific example
   - Props interface (features, title?, intro?, columns?, variant?, animate?)
@@ -199,6 +214,7 @@
   - Conditional rendering
 
 ### T-007: Base Component Testing
+
 - [ ] [P] Create test page `wv-wild-web/src/pages/__test-feature-section.astro`
   - Import AdventureFeatureSection
   - Test 2-column grid with sample features
@@ -223,6 +239,7 @@
   - Test 7: Applies cream background for variant="cream"
 
 ### T-008: E2E Tests - Base Component
+
 - [ ] [P] Create `wv-wild-web/tests/e2e/feature-section.spec.ts`
   - Test 1: Component renders in DOM
   - Test 2: Heading displays correct title
@@ -236,6 +253,7 @@
   - Test 10: Animation respects prefers-reduced-motion
 
 **Checkpoint Validation**:
+
 - ✅ AdventureFeatureSection renders correctly (all props work)
 - ✅ Wrappers delegate correctly to base
 - ✅ 7 unit tests + 10 E2E tests passing
@@ -251,6 +269,7 @@
 **Est. Time**: 10 hours | **Est. LOC**: 300 lines
 
 ### T-009: AdventureCampingList Component
+
 - [ ] [P] Create `wv-wild-web/src/components/adventure/AdventureCampingList.astro`
   - JSDoc header with facility example
   - Props interface (title?, intro?, facilities, columns?, variant?, animate?)
@@ -258,6 +277,7 @@
   - Section wrapper with aria-labelledby
 
 - [ ] [S] Implement 3-column responsive grid
+
   ```typescript
   const columnClasses = {
     2: 'grid-cols-1 md:grid-cols-2',
@@ -274,11 +294,13 @@
   - Accessibility info with icon
 
 - [ ] [S] Add phone number formatting
+
   ```typescript
   href={`tel:${facility.contact.replace(/\D/g, '')}`}
   ```
 
 - [ ] [S] Add external link security
+
   ```astro
   <a href={facility.link} target="_blank" rel="noopener noreferrer">
     Reserve Online
@@ -287,6 +309,7 @@
   ```
 
 - [ ] [S] Add count badge rendering
+
   ```astro
   {facility.count && (
     <span class="ml-2 text-sm font-normal text-brand-mud">
@@ -299,12 +322,14 @@
 - [ ] [S] Add empty state handling (hide if facilities.length === 0)
 
 ### T-010: AdventureAmenitiesGrid Component
+
 - [ ] [P] Create `wv-wild-web/src/components/adventure/AdventureAmenitiesGrid.astro`
   - JSDoc header with amenities example
   - Props interface (title?, intro?, amenities, columns?, variant?, animate?)
   - Import STAT_ICON_PATHS for checkmark icon
 
 - [ ] [S] Implement configurable grid
+
   ```typescript
   const columnClasses: Record<2 | 3 | 4, string> = {
     2: 'grid-cols-2 md:grid-cols-2',
@@ -323,6 +348,7 @@
 - [ ] [S] Add empty state handling
 
 ### T-011: Facility Components Testing
+
 - [ ] [P] Unit tests for AdventureCampingList
   - Test 1: Renders facilities with count badges
   - Test 2: Formats phone numbers as tel: links (strips formatting)
@@ -349,6 +375,7 @@
   - Test 7: Empty arrays hide sections
 
 **Checkpoint Validation**:
+
 - ✅ Both components render correctly
 - ✅ Phone/external link handling works
 - ✅ 12 unit tests + 7 E2E tests passing
@@ -365,11 +392,13 @@
 **Est. Time**: 6 hours | **Est. LOC**: 140 lines
 
 ### T-012: AdventureCTA Component
+
 - [ ] [S] Create `wv-wild-web/src/components/adventure/AdventureCTA.astro`
   - JSDoc header with dual-button example
   - Props interface (heading, description?, primaryText/Href, secondaryText/Href?, variant?, icons, external flags)
 
 - [ ] [S] Implement variant system
+
   ```typescript
   const variantClasses = {
     'sign-green': 'bg-sign-green text-white',
@@ -390,11 +419,13 @@
   - Hover: bg-white/20 or bg-cream/20
 
 - [ ] [S] Add external link auto-detection
+
   ```typescript
   const isPrimaryExternal = primaryExternal || primaryHref.startsWith('http');
   ```
 
 - [ ] [S] Add sr-only text for external links
+
   ```astro
   {isPrimaryExternal && <span class="sr-only"> (opens in new tab)</span>}
   ```
@@ -404,6 +435,7 @@
 - [ ] [S] Add default slot for custom content
 
 ### T-013: CTA Component Testing
+
 - [ ] [P] Unit tests for AdventureCTA
   - Test 1: Renders both buttons when secondaryText provided
   - Test 2: Hides secondary button when secondaryText undefined
@@ -423,6 +455,7 @@
   - Test 7: Animation respects prefers-reduced-motion
 
 **Checkpoint Validation**:
+
 - ✅ Component renders both variants
 - ✅ Buttons navigate correctly
 - ✅ 7 unit tests + 7 E2E tests passing
@@ -437,7 +470,9 @@
 **Est. Time**: 6 hours | **Est. LOC**: -313 lines (net reduction)
 
 ### T-014: Import New Components
+
 - [ ] [S] Add imports to `wv-wild-web/src/pages/near/elk-river.astro` (after line 6)
+
   ```astro
   import AdventureFeatureSection from '../../components/adventure/AdventureFeatureSection.astro';
   import AdventureWhatToHunt from '../../components/adventure/AdventureWhatToHunt.astro';
@@ -448,7 +483,9 @@
   ```
 
 ### T-015: Replace What to Hunt Section
+
 - [ ] [S] Extract species data to features array (in frontmatter around line 40)
+
   ```astro
   const huntingFeatures: FeatureItem[] = [
     {
@@ -462,12 +499,15 @@
   ```
 
 - [ ] [S] Replace lines 103-172 (70 lines) with component
+
   ```astro
   <AdventureWhatToHunt features={huntingFeatures} />
   ```
 
 ### T-016: Replace Fishing Waters Section
+
 - [ ] [S] Extract fishing data to features array
+
   ```astro
   const fishingFeatures: FeatureItem[] = [
     {
@@ -481,12 +521,15 @@
   ```
 
 - [ ] [S] Replace lines 174-209 (36 lines) with component
+
   ```astro
   <AdventureWhatToFish features={fishingFeatures} />
   ```
 
 ### T-017: Replace Facilities Section
+
 - [ ] [S] Extract facility data to facilities array
+
   ```astro
   const facilities: CampingFacility[] = [
     {
@@ -504,6 +547,7 @@
   ```
 
 - [ ] [S] Replace lines 247-327 (81 lines) with component
+
   ```astro
   <AdventureCampingList
     title="Camping & Facilities"
@@ -514,7 +558,9 @@
   ```
 
 ### T-018: Replace CTA Section
+
 - [ ] [S] Replace lines 414-445 (32 lines) with component
+
   ```astro
   <AdventureCTA
     heading="Stop By Before You Head Out"
@@ -530,6 +576,7 @@
   ```
 
 ### T-019: Visual Regression Testing
+
 - [ ] [S] Capture baseline screenshots of original elk-river.astro
   - Mobile (375px)
   - Tablet (768px)
@@ -549,6 +596,7 @@
   - Verify no regression (target: same or better)
 
 **Checkpoint Validation**:
+
 - ✅ elk-river.astro reduced from 463 → ~150 lines
 - ✅ Visual regression test passes (identical rendering)
 - ✅ Performance unchanged or improved
@@ -564,6 +612,7 @@
 **Est. Time**: 20 hours (5h per WMA) | **Est. LOC**: 1,000 lines
 
 ### T-020: Burnsville Lake WMA (5 hours, 250 LOC)
+
 - [ ] [P] Research content (parallel with other WMAs)
   - WV DNR page: acreage, GPS, species, regulations
   - Google Maps: driving directions from shop
@@ -594,12 +643,14 @@
   - Write descriptive alt text (125 chars)
 
 - [ ] [S] Build validation
+
   ```bash
   npm run build         # Zod schema validation
   npm run dev           # Visual QA at /near/burnsville-lake
   ```
 
 ### T-021: Summersville Lake WMA (5 hours, 250 LOC)
+
 - [ ] [P] Research content (WV DNR + Google Maps + Kim's knowledge)
 - [ ] [S] Create `wv-wild-web/src/content/adventures/summersville-lake.md`
   - Full frontmatter (15+ fields)
@@ -611,6 +662,7 @@
 - [ ] [S] Build validation and visual QA
 
 ### T-022: Holly River WMA (5 hours, 250 LOC)
+
 - [ ] [P] Research content
 - [ ] [S] Create `wv-wild-web/src/content/adventures/holly-river.md`
   - Full frontmatter (15+ fields)
@@ -621,6 +673,7 @@
 - [ ] [S] Build validation and visual QA
 
 ### T-023: Cranberry WMA (5 hours, 250 LOC)
+
 - [ ] [P] Research content
 - [ ] [S] Create `wv-wild-web/src/content/adventures/cranberry.md`
   - Full frontmatter (15+ fields)
@@ -632,6 +685,7 @@
 - [ ] [S] Build validation and visual QA
 
 ### T-024: Content Review & Polish
+
 - [ ] [S] Kim's voice audit
   - Review all tips for authenticity
   - Check for marketing buzzwords ("seamless", "unlock", etc.)
@@ -651,6 +705,7 @@
 
 - [ ] [P] **AgentDB + ReasoningBank Learning - Store Phase 1 Patterns**
   - **AgentDB Pattern Storage**: Store Kim's tips from 5 Phase 1 WMAs
+
   ```bash
   npx agentdb@latest reflexion store "wvwo-wma-tips" "elk-river-deer-tip" 1.0 true "Bucks here run 100-150 inches. Creek bottoms at dawn."
   npx agentdb@latest reflexion store "wvwo-wma-tips" "elk-river-turkey-tip" 1.0 true "Ridge tops for gobbler calls. Wind swirls in hollows."
@@ -658,6 +713,7 @@
   ```
 
   - **ReasoningBank Trajectory Tracking**: Track content creation outcomes
+
   ```bash
   # Track successful content (Kim approved on first review)
   npx agentdb@latest reflexion store "wvwo-content-trajectory" "burnsville-species-tips-success" 1.0 true "WMA: Burnsville, Approach: Specific measurements + terrain tactics, Outcome: Kim approved immediately, Metrics: 5/5 tips accepted"
@@ -667,6 +723,7 @@
   ```
 
   - **Verdict Judgment**: Before suggesting Phase 2 tips, query ReasoningBank
+
   ```bash
   # Retrieve similar successful patterns
   npx agentdb@latest reflexion retrieve "deer hunting tips mountainous terrain" --k 10
@@ -680,6 +737,7 @@
     4. Store outcome (approved/rejected) for continuous learning
 
 **Checkpoint Validation**:
+
 - ✅ 4 new WMAs published (Burnsville, Summersville, Holly River, Cranberry)
 - ✅ All frontmatter validates (Zod schema passes)
 - ✅ Kim's voice authentic (passes neighbor litmus test)
@@ -697,6 +755,7 @@
 **Est. Time**: 12 hours | **Est. LOC**: 500 lines (test code)
 
 ### T-025: Unit Test Suite Completion
+
 - [ ] [P] Create `wv-wild-web/src/types/__tests__/type-guards.test.ts`
   - Test 1: isWMAAdventure() returns true for type="wma"
   - Test 2: isWMAAdventure() returns false for type="adventure"
@@ -717,13 +776,16 @@
   - Test 4: Component props match schema types
 
 - [ ] [S] Run full unit test suite
+
   ```bash
   npm run test:unit
   ```
+
   - Target: 43+ tests passing
   - Coverage target: ≥85% line coverage
 
 ### T-026: E2E Test Suite
+
 - [ ] [P] Create `wv-wild-web/tests/e2e/wma-components.spec.ts`
   - **FeatureSection Tests** (5 tests):
     - Test 1: Renders 2-column grid on desktop
@@ -765,12 +827,15 @@
   - Test 7: Conditional sections hide when data missing
 
 - [ ] [S] Run E2E suite
+
   ```bash
   npm run test:e2e
   ```
+
   - Target: 35+ scenarios passing
 
 ### T-027: Accessibility Testing
+
 - [ ] [P] Create `wv-wild-web/tests/e2e/wma-accessibility.spec.ts`
   - **Color Contrast** (5 tests):
     - Test 1: Brown on cream ≥4.5:1
@@ -797,14 +862,17 @@
     - Test 5: Skip to content link works
 
 - [ ] [S] Install axe-core Playwright
+
   ```bash
   npm install --save-dev @axe-core/playwright
   ```
 
 - [ ] [S] Run automated accessibility tests
+
   ```bash
   npm run test:a11y    # Custom script: playwright test wma-accessibility
   ```
+
   - Target: Zero violations on all 5 WMA pages
 
 - [ ] [P] Manual screen reader testing
@@ -815,6 +883,7 @@
   - Verify external link notifications
 
 ### T-028: Visual Regression Testing
+
 - [ ] [P] Create `wv-wild-web/tests/visual/wma-snapshots.spec.ts`
   - **Full Pages** (mobile + desktop):
     - elk-river.astro (2 snapshots)
@@ -837,12 +906,15 @@
     - Empty states (no facilities, no fishing)
 
 - [ ] [S] Generate baseline snapshots
+
   ```bash
   npm run test:visual -- --update-snapshots
   ```
+
   - Total: 20 snapshot baselines
 
 **Checkpoint Validation**:
+
 - ✅ 43+ unit tests passing
 - ✅ 35+ E2E tests passing
 - ✅ Zero axe-core violations (WCAG 2.1 AA)
@@ -860,11 +932,14 @@
 **Est. Time**: 8 hours | **Est. LOC**: 0 lines (optimization only)
 
 ### T-029: Image Optimization
+
 - [ ] [P] Convert all hero images to WebP
+
   ```bash
   # For each WMA hero image
   cwebp -q 85 input.jpg -o output.webp
   ```
+
   - elk-river-hero.webp
   - burnsville-lake-hero.webp
   - summersville-lake-hero.webp
@@ -884,12 +959,14 @@
   - Above-fold (hero): `loading="eager"`
 
 ### T-030: CSS Optimization
+
 - [ ] [S] Extract critical CSS
   - Identify above-fold styles
   - Inline in `<head>` tag (target: <14KB)
   - Async load non-critical CSS
 
 - [ ] [S] Verify Tailwind tree-shaking
+
   ```bash
   npm run build
   # Check output CSS size (should be ~15KB, not 3MB)
@@ -900,6 +977,7 @@
   - Verify custom WVWO styles preserved
 
 ### T-031: Font Optimization
+
 - [ ] [P] Subset WVWO fonts
   - Bitter (display headings) - Remove unused glyphs
   - Noto Sans (body text) - Latin subset only
@@ -907,17 +985,21 @@
   - Target: 150KB → 75KB total
 
 - [ ] [P] Add font preloading
+
   ```html
   <link rel="preload" href="/fonts/bitter-subset.woff2" as="font" type="font/woff2" crossorigin>
   ```
 
 ### T-032: Performance Testing
+
 - [ ] [S] Lighthouse CI setup
+
   ```bash
   npm install --save-dev @lhci/cli
   ```
 
 - [ ] [S] Run Lighthouse audits on all 5 WMA pages
+
   ```bash
   npm run lighthouse -- --url=/near/elk-river
   npm run lighthouse -- --url=/near/burnsville-lake
@@ -925,6 +1007,7 @@
   npm run lighthouse -- --url=/near/holly-river
   npm run lighthouse -- --url=/near/cranberry
   ```
+
   - Performance: ≥95/100
   - Accessibility: 100/100
   - Best Practices: 100/100
@@ -940,10 +1023,13 @@
   - Android budget phone (Pixel 5 or similar)
 
 ### T-033: Bundle Analysis
+
 - [ ] [S] Analyze component bundle sizes
+
   ```bash
   npm run build -- --analyze
   ```
+
   - Verify each component <20KB
   - Check total page weight <500KB
 
@@ -953,6 +1039,7 @@
   - Large dependencies
 
 **Checkpoint Validation**:
+
 - ✅ Lighthouse Performance ≥95/100 on all 5 WMAs
 - ✅ Page load <2s on 3G
 - ✅ Total page weight <500KB
@@ -968,13 +1055,16 @@
 **Est. Time**: 4 hours | **Est. LOC**: 0 lines (audit only)
 
 ### T-034: Visual Compliance Audit
+
 - [ ] [P] Automated pattern detection
+
   ```bash
   # Check for forbidden patterns
   grep -r "rounded-md\|rounded-lg\|rounded-xl" wv-wild-web/src/components/adventure/
   grep -r "backdrop-blur\|bg-gradient" wv-wild-web/src/components/adventure/
   grep -r "text-purple\|bg-purple\|text-pink" wv-wild-web/src/components/adventure/
   ```
+
   - Target: Zero matches
 
 - [ ] [P] Color palette audit
@@ -994,6 +1084,7 @@
   - Verify py-12 md:py-16 section padding
 
 ### T-035: Animation Compliance
+
 - [ ] [S] Animation audit
   - Verify only gentle-reveal animation used
   - Check no bouncy/parallax effects
@@ -1005,6 +1096,7 @@
   - Verify animations disabled
 
 ### T-036: Voice & Content Audit
+
 - [ ] [P] Content voice review (per WMA)
   - Burnsville Lake: Check all Kim's tips
   - Summersville Lake: Check all Kim's tips
@@ -1020,6 +1112,7 @@
   - Make edits if needed
 
 **Checkpoint Validation**:
+
 - ✅ Zero forbidden patterns detected
 - ✅ 100% brand palette compliance
 - ✅ Orange <5% of screen
@@ -1035,6 +1128,7 @@
 **Est. Time**: 6 hours | **Est. LOC**: 0 lines (documentation)
 
 ### T-037: Component API Documentation
+
 - [ ] [P] Update component JSDoc (ensure all examples present)
   - AdventureFeatureSection.astro - Usage example with 2 features
   - AdventureWhatToHunt.astro - Hunting features example
@@ -1050,6 +1144,7 @@
   - Document type guard pattern: `isWMAAdventure()`
 
 ### T-038: Migration Guide
+
 - [ ] [S] Create migration guide for future WMAs
   - Template frontmatter (copy-paste ready)
   - Required vs optional fields list
@@ -1062,6 +1157,7 @@
   - Component prop mapping
 
 ### T-039: Changelog
+
 - [ ] [S] Create `docs/specs/Mountain State Adventure Destination/SPEC-12-template-wma/CHANGELOG.md`
   - **Added**: 6 new components, 8 schema fields, 4 WMAs
   - **Changed**: elk-river.astro refactored (463 → 150 lines)
@@ -1069,6 +1165,7 @@
   - **Breaking Changes**: None (all WMA fields optional)
 
 ### T-040: PR Preparation
+
 - [ ] [S] Create PR description
   - Summary: "feat(SPEC-12): WMA Template Component System"
   - **Components**: List 6 new components with line counts
@@ -1096,7 +1193,9 @@
   - [ ] Documentation complete
 
 ### T-041: Greptile Custom Context
+
 - [ ] [S] Add pattern to `.greptile/config.yml` (or via web UI)
+
   ```yaml
   patterns:
     - name: "WMA Missing Type Field"
@@ -1111,7 +1210,9 @@
   ```
 
 ### T-042: Final Pre-PR Checklist
+
 - [ ] [S] Run full test suite
+
   ```bash
   npm run test        # All tests
   npm run typecheck   # TypeScript
@@ -1125,6 +1226,7 @@
   - Wide (1920px) - Desktop monitor
 
 - [ ] [S] Commit all changes
+
   ```bash
   git add .
   git commit -m "feat(SPEC-12): WMA Template Component System
@@ -1140,12 +1242,14 @@
   ```
 
 - [ ] [S] Push branch and create PR
+
   ```bash
   git push -u origin feature/spec-12-wma-template
   gh pr create --title "feat(SPEC-12): WMA Template Component System" --body "$(cat pr-description.md)"
   ```
 
 **Checkpoint Validation**:
+
 - ✅ All tests passing
 - ✅ Documentation complete
 - ✅ PR created with comprehensive description
@@ -1181,6 +1285,7 @@
 | `[P]` | 21 tasks | Parallelizable (can run concurrently) |
 
 **Parallelization Opportunities**:
+
 - **Week 1 Day 5**: T-009 + T-010 (CampingList + AmenitiesGrid) - 2-agent swarm
 - **Week 3**: T-020 + T-021 + T-022 + T-023 (4 WMAs) - 4-agent swarm
 - **Week 4 Days 1-2**: T-025 + T-026 + T-027 + T-028 (all testing) - 4-agent swarm
@@ -1205,6 +1310,7 @@
 **Recommended**: Single PR with all milestones (matches SPEC-11 precedent: 1,800 LOC → 94/100 review score)
 
 **Rationale**:
+
 - Components tightly coupled (wrappers depend on base)
 - Schema required for all components to function
 - Testing validates entire system, not individual pieces
@@ -1257,12 +1363,15 @@ Schema → Types → FeatureSection → Wrappers → elk-river Refactor → Cont
 ## Detailed Task Breakdown
 
 ### T-001: Schema Extension (2 hours, 80 LOC)
+
 **Dependencies**: None
 **Deliverables**:
+
 - `wv-wild-web/src/content.config.ts` modified
 - 1 type field + 8 WMA fields + 5 nested schemas
 
 **Subtasks**:
+
 1. Create feature branch
 2. Add type enum field
 3. Add 8 WMA optional fields
@@ -1274,12 +1383,15 @@ Schema → Types → FeatureSection → Wrappers → elk-river Refactor → Cont
 ---
 
 ### T-002: TypeScript Type System (1 hour, 50 LOC)
+
 **Dependencies**: None (parallel with T-001)
 **Deliverables**:
+
 - `wv-wild-web/src/types/adventure.ts` extended
 - 3 new exports + type guard function
 
 **Subtasks**:
+
 1. Add CampingFacilitySchema
 2. Add FeatureItemSchema
 3. Add AccentColor type
@@ -1291,11 +1403,14 @@ Schema → Types → FeatureSection → Wrappers → elk-river Refactor → Cont
 ---
 
 ### T-003: Backward Compatibility (15 min, 1 LOC)
+
 **Dependencies**: T-001 complete
 **Deliverables**:
+
 - `elk-river.md` updated with type field
 
 **Subtasks**:
+
 1. Add `type: "wma"` to elk-river.md frontmatter
 2. Verify build succeeds
 
@@ -1304,8 +1419,10 @@ Schema → Types → FeatureSection → Wrappers → elk-river Refactor → Cont
 ---
 
 ### T-004: Schema Unit Tests (1 hour, 150 LOC test code)
+
 **Dependencies**: T-001, T-002 complete
 **Deliverables**:
+
 - 15 passing unit tests for schema validation
 
 **Validation**: `npm run test:unit -- wma-schemas.test.ts`
@@ -1313,11 +1430,14 @@ Schema → Types → FeatureSection → Wrappers → elk-river Refactor → Cont
 ---
 
 ### T-005: AdventureFeatureSection Component (4 hours, 150 LOC)
+
 **Dependencies**: T-002 complete (needs FeatureItem type)
 **Deliverables**:
+
 - Generic base component with 9 configurable props
 
 **Subtasks**:
+
 1. Create file with JSDoc header
 2. Define Props interface
 3. Build section wrapper (aria-labelledby)
@@ -1334,11 +1454,14 @@ Schema → Types → FeatureSection → Wrappers → elk-river Refactor → Cont
 ---
 
 ### T-006: Wrapper Components (1 hour, 100 LOC)
+
 **Dependencies**: T-005 complete (needs AdventureFeatureSection)
 **Deliverables**:
+
 - 2 semantic wrappers (50 lines each)
 
 **Subtasks**:
+
 1. Create AdventureWhatToHunt.astro
    - Set defaults: title, variant, accentColor
    - Delegate to base component
@@ -1355,6 +1478,7 @@ Schema → Types → FeatureSection → Wrappers → elk-river Refactor → Cont
 ### T-007 through T-042: [Abbreviated for length - see above sections]
 
 Each task includes:
+
 - Time estimate (15 min to 5 hours)
 - LOC estimate
 - Dependencies
@@ -1366,24 +1490,29 @@ Each task includes:
 ## Execution Recommendations
 
 ### Week 1: Sequential Foundation
+
 - **Days 1-2**: Execute T-001 → T-004 sequentially (schema stability)
 - **Days 3-4**: Execute T-005 → T-008 sequentially (base component)
 - **Days 5-7**: **Parallel execution** - Spawn 3-agent swarm for T-009, T-010, T-012 (CampingList, AmenitiesGrid, CTA)
 
 ### Week 2: Validation
+
 - **Days 1-2**: Complete T-012, T-013 (CTA component + tests)
 - **Days 3-4**: Execute T-014 → T-019 sequentially (elk-river refactoring + visual regression)
 
 ### Week 3: Content Swarm
+
 - **All week**: **Parallel execution** - Spawn 4-agent swarm for T-020, T-021, T-022, T-023 (one agent per WMA)
   - Each agent researches content, creates markdown + page, sources images
   - Week end: T-024 content review and polish
 
 ### Week 4: Testing Swarm
+
 - **Days 1-3**: **Parallel execution** - Spawn 4-agent swarm for T-025, T-026, T-027, T-028 (unit, E2E, a11y, visual tests)
 - **Days 4-5**: Execute T-029 → T-033 (performance optimization)
 
 ### Week 5: Final QA
+
 - **Days 1-2**: Execute T-034 → T-036 (aesthetic audit)
 - **Days 3-5**: Execute T-037 → T-042 (documentation + PR)
 
@@ -1392,16 +1521,19 @@ Each task includes:
 ## Notes
 
 ### Special Considerations
+
 - **Greptile AI**: Add custom pattern to catch missing type field (T-041)
 - **Kim's Review**: Schedule time for T-024 and T-036 (voice approval)
 - **Real Device Testing**: If possible, test on rural WV cellular (T-032)
 
 ### Blockers & Prerequisites
+
 - **None**: All dependencies internal to feature
 - **External Data**: WV DNR sources for species/seasons (publicly available)
 - **Images**: May need to create/source hero images (stock photos acceptable)
 
 ### Risk Mitigation
+
 - **Daily builds**: Run `npm run build` after each milestone
 - **Incremental testing**: Run tests after each phase (catch issues early)
 - **Visual regression**: Baseline elk-river.astro before refactoring (T-019)

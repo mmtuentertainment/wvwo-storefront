@@ -23,11 +23,13 @@ Stonewall Jackson Lake has BOTH a large WMA (18,289 acres) AND a lake (2,650 acr
 ## Content Sections
 
 ### Hero
+
 - "40 min from shop" badge
 - Dual badges: "18,289 Acre WMA" + "2,650 Acre Lake"
 - "Hunt and Fish in One Trip"
 
 ### Quick Info Bar
+
 - WMA: 18,289 acres
 - Lake: 2,650 acres
 - Drive time: 40 min
@@ -36,19 +38,23 @@ Stonewall Jackson Lake has BOTH a large WMA (18,289 acres) AND a lake (2,650 acr
 ### What to Hunt (WMA)
 
 **White-tailed Deer**
+
 - Rolling hills terrain
 - Good deer population
 - Mix of hardwoods and fields
 
 **Wild Turkey**
+
 - Spring gobbler season
 - Field edges productive
 
 **Waterfowl**
+
 - Lake proximity creates opportunity
 - Check waterfowl zones/regulations
 
 **Small Game**
+
 - Squirrel
 - Rabbit
 - Grouse in appropriate habitat
@@ -56,6 +62,7 @@ Stonewall Jackson Lake has BOTH a large WMA (18,289 acres) AND a lake (2,650 acr
 ### What to Fish (Lake)
 
 **Primary Species**
+
 - Largemouth Bass
 - Musky (trophy potential)
 - Catfish (Channel, Flathead)
@@ -65,6 +72,7 @@ Stonewall Jackson Lake has BOTH a large WMA (18,289 acres) AND a lake (2,650 acr
 ### Facilities
 
 **Lake Side**
+
 - Boat ramps
 - Marina
 - Campgrounds
@@ -72,12 +80,15 @@ Stonewall Jackson Lake has BOTH a large WMA (18,289 acres) AND a lake (2,650 acr
 - Stonewall Jackson Lake State Park
 
 **WMA Side**
+
 - Multiple access points
 - Parking areas
 - Hiking trails
 
 ### Getting There
+
 Directions from shop (121 WV-82):
+
 1. Head north on I-79
 2. Take Exit 91 or 96 (Weston area)
 3. Follow signs to Stonewall Jackson Lake
@@ -86,18 +97,21 @@ Directions from shop (121 WV-82):
 ### What to Bring
 
 **For Hunting:**
+
 - Rifle/shotgun + ammo
 - Blaze orange (deer season)
 - WV license + stamps
 - Camo for turkey/waterfowl
 
 **For Fishing:**
+
 - Rod/reel + tackle
 - WV fishing license
 - Boat or kayak
 - Musky gear if targeting trophy fish
 
 ### CTA Sections
+
 - Shop CTA: "Planning a hunt-and-fish trip? We'll help you gear up"
 - Directions CTA: Google Maps link
 - Newsletter: EmailCapture component

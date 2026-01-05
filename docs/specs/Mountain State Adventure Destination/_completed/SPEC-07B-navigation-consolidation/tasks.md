@@ -177,6 +177,7 @@
 **Estimated Time**: 2-3 hours
 
 ### By Phase
+
 - Phase 1 (Header): 7 tasks, 15 min
 - Phase 2A (Component): 6 tasks, 30 min
 - Phase 2B (Integration): 8 tasks, 15 min
@@ -195,12 +196,15 @@
 These phases can run in parallel (different files, no conflicts):
 
 **Parallel Set 1** (after Phase 1 complete):
+
 - Phase 2A + Phase 3A + Phase 3B + Phase 4
 
 **Parallel Set 2** (after all code complete):
+
 - Phase 5A + Phase 5B (test desktop and mobile simultaneously)
 
 **Serial Requirements**:
+
 - Phase 1 → MUST complete first (nav link needed for other features)
 - Phase 2B → Depends on Phase 2A (component must exist)
 - Phase 5 → Depends on ALL code phases (can't test what doesn't exist)

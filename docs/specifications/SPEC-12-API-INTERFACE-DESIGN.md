@@ -76,6 +76,7 @@ interface WMAHeroProps {
 ```
 
 **Visual Design**:
+
 - Background: `bg-brand-brown` with camo pattern overlay at 5% opacity
 - Typography: `font-display text-4xl md:text-6xl font-black` (h1)
 - Badges: Inline badges for acreage, drive time, access using `bg-sign-green` and `bg-brand-orange`
@@ -183,6 +184,7 @@ interface SpeciesItem {
 ```
 
 **Layout Pattern**:
+
 - 2-column grid on desktop (768px+)
 - Single column on mobile
 - Cards use `bg-white` with left border accent based on category
@@ -255,6 +257,7 @@ interface FacilityItem {
 ```
 
 **Icon System Integration**:
+
 - Reuses `STAT_ICON_PATHS` from `src/types/adventure.ts`
 - Supports custom SVG paths via `customIconPath` prop
 - Icons displayed with `text-sign-green` color at 24px size
@@ -326,6 +329,7 @@ interface FishingWaterItem {
 ```
 
 **Water Type Icons**:
+
 - `river`: Wavy horizontal lines
 - `lake`: Circular water droplet
 - `pond`: Small circle
@@ -385,6 +389,7 @@ interface WMARegulationsProps {
 ```
 
 **Safety-First Design**:
+
 - Uses `border-l-brand-orange` to draw attention (blaze orange = hunting safety)
 - Restrictions presented as clear bulleted list
 - Optional zone badge for DNR zone identification
@@ -455,6 +460,7 @@ const wmaData = {
 Each component supports slots for flexible content injection:
 
 #### WMAHero Slots
+
 ```astro
 <WMAHero {...props}>
   <!-- Default slot: Additional content below description -->
@@ -470,6 +476,7 @@ Each component supports slots for flexible content injection:
 ```
 
 #### WMAFacilitiesGrid Slots
+
 ```astro
 <WMAFacilitiesGrid facilities={facilities}>
   <!-- footer slot: Accessibility notes -->
@@ -482,6 +489,7 @@ Each component supports slots for flexible content injection:
 ```
 
 #### WMARegulations Slots
+
 ```astro
 <WMARegulations restrictions={restrictions}>
   <!-- footer slot: External regulation links -->
@@ -507,6 +515,7 @@ const bgClass = variant === 'white' ? 'bg-white' : 'bg-brand-cream';
 ```
 
 **Recommended Page Flow** (prevents visual monotony):
+
 1. WMAHero - `bg-brand-brown` (hero always dark)
 2. WMAQuickStats - `variant="white"`
 3. WMASpeciesGrid - `variant="cream"`
@@ -536,6 +545,7 @@ const facilityColumnClasses: Record<2 | 3 | 4, string> = {
 ```
 
 **Breakpoints**:
+
 - Mobile: `< 768px` (single column)
 - Tablet: `768px - 1024px` (2 columns)
 - Desktop: `> 1024px` (3-4 columns for facilities)
@@ -563,6 +573,7 @@ export const STAT_ICON_PATHS: Record<StatIcon, string> = {
 ```
 
 **Custom Icon Support**:
+
 - All components accept `customIconPath` prop for non-standard icons
 - Falls back to predefined paths via icon identifier
 - Supports `icon="none"` to omit icon entirely
@@ -610,6 +621,7 @@ const invalidSpecies: SpeciesItem = {
 ## Summary
 
 **Key Design Principles**:
+
 1. **Content-only pages**: WMA pages become pure data configuration (150 lines vs 533)
 2. **Reusable structure**: All 8 WMAs share identical component architecture
 3. **Type safety**: TypeScript interfaces catch missing or invalid props at build time
@@ -620,6 +632,7 @@ const invalidSpecies: SpeciesItem = {
 8. **Accessibility**: WCAG 2.1 AA compliance enforced at component level
 
 **Line Count Reduction**:
+
 - Before: 533 lines per WMA page (8 pages = 4,264 total)
 - After: 150 lines per WMA page (8 pages = 1,200 total)
 - **Savings**: 3,064 lines (73% reduction)

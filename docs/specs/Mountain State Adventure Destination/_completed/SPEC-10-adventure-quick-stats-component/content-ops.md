@@ -11,6 +11,7 @@
 ### **Phase 1: Analyze Existing Stats Pattern** (1 hour)
 
 **Scout Mission:**
+
 ```bash
 # Read Summersville Lake stats section
 Read wv-wild-web/src/pages/near/summersville-lake.astro (lines 95-116)
@@ -20,6 +21,7 @@ Read wv-wild-web/src/pages/near/sutton-lake.astro (stats section)
 ```
 
 **Extract:**
+
 - 4-column grid (grid-cols-2 md:grid-cols-4)
 - Icon + value + label structure
 - Center-aligned text
@@ -48,6 +50,7 @@ interface Props {
 ```
 
 **Example Usage:**
+
 ```astro
 <AdventureQuickStats
   stats={[
@@ -60,6 +63,7 @@ interface Props {
 ```
 
 **WVWO Compliance:**
+
 - Responsive grid (2-col mobile, 4-col desktop)
 - Typography: font-display font-bold for values, text-brand-mud/60 for labels
 - Icons: sign-green color, simple inline SVG
@@ -83,6 +87,7 @@ Write wv-wild-web/src/components/adventures/AdventureQuickStats.astro
 ```
 
 **Code Structure:**
+
 ```astro
 ---
 const { stats } = Astro.props;
@@ -114,6 +119,7 @@ const { stats } = Astro.props;
 ### **Phase 4: Test & Verify** (1.5 hours)
 
 **Test Scenarios:**
+
 ```bash
 # Test with 2 stats (mobile scenario)
 <AdventureQuickStats stats={[
@@ -129,6 +135,7 @@ const { stats } = Astro.props;
 ```
 
 **Verify:**
+
 - [ ] Grid responsive (2-col → 4-col)
 - [ ] Values large and bold
 - [ ] Labels small and muted
@@ -143,11 +150,13 @@ const { stats } = Astro.props;
 **NONE** - This is a data display component (no design decisions needed)
 
 **Why:**
+
 - Stats are factual (distance, elevation, difficulty)
 - Layout follows established WVWO grid pattern
 - No Kim's voice content (just numbers/facts)
 
 **IF Kim volunteers feedback:**
+
 - Accept it graciously
 - Adjust if reasonable
 - But don't actively request review (saves Kim's time)
@@ -157,17 +166,20 @@ const { stats } = Astro.props;
 ## Deliverables
 
 **Code:**
+
 - [ ] `AdventureQuickStats.astro` (~80 LOC)
 - [ ] Flexible stats array API
 - [ ] Responsive grid (2-col → 4-col)
 - [ ] Optional icon support
 
 **Testing:**
+
 - [ ] Works with 2-6 stats
 - [ ] Mobile + desktop verified
 - [ ] Typography hierarchy correct
 
 **Quality Gates:**
+
 - [ ] TypeScript compiles
 - [ ] Build passes
 - [ ] WVWO aesthetic compliant
@@ -178,6 +190,7 @@ const { stats } = Astro.props;
 ## Success Criteria
 
 **Component is DONE when:**
+
 - ✅ Accepts any stats array (2-6 items)
 - ✅ Responsive grid works
 - ✅ Typography matches WVWO design system

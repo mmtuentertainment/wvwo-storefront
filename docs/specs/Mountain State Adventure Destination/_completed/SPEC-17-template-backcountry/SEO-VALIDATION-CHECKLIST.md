@@ -8,7 +8,7 @@
 
 ## T-250: Google Rich Results Test
 
-**URL:** https://search.google.com/test/rich-results
+**URL:** <https://search.google.com/test/rich-results>
 
 ### Steps
 
@@ -20,18 +20,21 @@
 ### Expected Results
 
 **✓ Valid Results:**
+
 - TouristAttraction entity detected
 - NaturalFeature type recognized
 - BreadcrumbList validated (Home > Backcountry > {name})
 - Article schema detected
 
 **✓ AMD Warning (P0 Safety):**
+
 - SpecialAnnouncement entity appears ONLY for pages with do-not-use water sources
 - Category shows environmental hazard (Wikidata Q12047938)
 - spatialCoverage maps contaminated water sources
 - datePosted and expires fields present
 
 **✗ Common Errors:**
+
 - Missing required fields (name, url, @type)
 - Invalid @id format
 - Broken entity references
@@ -45,7 +48,7 @@ Save validation screenshots to: `docs/specs/SPEC-17/screenshots/rich-results-{pa
 
 ## T-251: Schema.org Validator
 
-**URL:** https://validator.schema.org/
+**URL:** <https://validator.schema.org/>
 
 ### Steps
 
@@ -59,12 +62,14 @@ Save validation screenshots to: `docs/specs/SPEC-17/screenshots/rich-results-{pa
 ### Expected Results
 
 **✓ Valid Schema:**
+
 - Zero errors
 - Zero warnings (or only minor suggestions)
 - All @type values recognized
 - All @id references resolve
 
 **✓ Entity Structure:**
+
 ```json
 {
   "@context": "https://schema.org",
@@ -79,6 +84,7 @@ Save validation screenshots to: `docs/specs/SPEC-17/screenshots/rich-results-{pa
 ```
 
 **✗ Common Issues:**
+
 - Invalid property names (typos)
 - Wrong value types (string vs number)
 - Missing required properties
@@ -88,7 +94,7 @@ Save validation screenshots to: `docs/specs/SPEC-17/screenshots/rich-results-{pa
 
 ## T-252: Search Console Verification (P0)
 
-**URL:** https://search.google.com/search-console
+**URL:** <https://search.google.com/search-console>
 
 ### Prerequisites
 
@@ -106,6 +112,7 @@ Save validation screenshots to: `docs/specs/SPEC-17/screenshots/rich-results-{pa
 ### P0 Validation: AMD SpecialAnnouncement
 
 **Critical Check:**
+
 - SpecialAnnouncement entity indexed for pages with AMD concerns
 - Category = environmental hazard
 - Spatial coverage includes contaminated sources
@@ -124,6 +131,7 @@ Some water sources contain toxic Acid Mine Drainage...
 ```
 
 **If missing:**
+
 1. Check SpecialAnnouncement only renders when hasDoNotUseSources=true
 2. Verify category Wikidata URL is correct
 3. Confirm datePosted and expires are valid ISO 8601
@@ -145,22 +153,26 @@ Some water sources contain toxic Acid Mine Drainage...
 ### Required Passing Audits
 
 **✓ Metadata (100%):**
+
 - Document has valid title (50-60 chars)
 - Document has meta description (150-160 chars)
 - Page has valid canonical URL
 - Links are crawlable (no javascript: hrefs)
 
 **✓ Mobile (100%):**
+
 - Viewport meta tag present
 - Font sizes legible (>= 12px)
 - Tap targets sized appropriately (48x48px minimum)
 
 **✓ Content (100%):**
+
 - Document has valid hreflang
 - Structured data is valid
 - Images have alt text
 
 **✓ Crawl (100%):**
+
 - robots.txt is valid
 - Page is not blocked from indexing
 - HTTP status is 200
@@ -168,18 +180,22 @@ Some water sources contain toxic Acid Mine Drainage...
 ### Common SEO Issues
 
 **❌ Title Too Long:**
+
 - Fix: Shorten to 50-60 chars max
 - Example: "Dolly Sods Guide | WV Wild" (30 chars)
 
 **❌ Description Missing:**
+
 - Fix: Add meta description tag
 - Length: 150-160 chars
 
 **❌ Image Missing Alt Text:**
+
 - Fix: Ensure all `<img>` tags have alt attribute
 - Required for accessibility and SEO
 
 **❌ Links Not Crawlable:**
+
 - Fix: Use href with valid URLs, not javascript:
 - Bad: `<a href="javascript:void(0)">`
 - Good: `<a href="/backcountry/dolly-sods/">`
@@ -220,12 +236,14 @@ Some water sources contain toxic Acid Mine Drainage...
 ### SpecialAnnouncement Not Appearing
 
 **Possible causes:**
+
 1. hasDoNotUseSources() returns false - Check waterSources array
 2. No water sources with status='do-not-use'
 3. SpecialAnnouncement code not executed
 4. JSON-LD syntax error preventing parse
 
 **Debug steps:**
+
 ```javascript
 // In SchemaBackcountryTemplate.astro
 console.log('waterSources:', waterSources);
@@ -235,12 +253,14 @@ console.log('hasDoNotUse:', hasDoNotUseSources(waterSources));
 ### Structured Data Not Indexed
 
 **Possible causes:**
+
 1. Page not crawled yet (wait 24-48 hours)
 2. robots.txt blocking crawlers
 3. Invalid JSON-LD syntax
 4. Page returns 404 or 500 error
 
 **Debug steps:**
+
 1. Check Search Console Coverage report
 2. Use URL Inspection Tool
 3. Request manual indexing
@@ -249,6 +269,7 @@ console.log('hasDoNotUse:', hasDoNotUseSources(waterSources));
 ### Low Lighthouse Score
 
 **Possible causes:**
+
 1. Missing meta description
 2. Title too long or too short
 3. Images missing alt text
@@ -256,6 +277,7 @@ console.log('hasDoNotUse:', hasDoNotUseSources(waterSources));
 5. Mobile viewport not set
 
 **Fix priority:**
+
 1. Add missing meta tags (immediate fix)
 2. Optimize images with alt text
 3. Ensure proper heading hierarchy (H1 → H2 → H3)
