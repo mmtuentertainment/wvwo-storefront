@@ -54,7 +54,7 @@
 
 ### Commit 1: Documentation Cleanup
 
-```
+```text
 chore(SPEC-12): clean up archived documentation after PR #70 merge
 ```
 
@@ -81,7 +81,7 @@ chore(SPEC-12): clean up archived documentation after PR #70 merge
 
 ### Commit 2: Compliance Testing Infrastructure
 
-```
+```text
 feat(WVWO): add automated compliance testing infrastructure
 ```
 
@@ -107,7 +107,7 @@ feat(WVWO): add automated compliance testing infrastructure
 
 ### Commit 3: Compliance Documentation
 
-```
+```text
 docs(WVWO): add compliance quick reference and PR checklist
 ```
 
@@ -124,7 +124,7 @@ docs(WVWO): add compliance quick reference and PR checklist
 
 ### Commit 4: Dependency Updates
 
-```
+```text
 chore(deps): update package.json dependencies
 ```
 
@@ -144,18 +144,18 @@ chore(deps): update package.json dependencies
 
 1. **Pre-commit cleanup**:
 
-   ```bash
+```bash
    # Move post-merge summary to proper location
    git mv SPEC-12-POST-MERGE-COMPLETE.md docs/specs/_completed/SPEC-12-wma-template/
 
    # Update .gitignore
    echo "docs/swarm-memory/" >> .gitignore
    # Verify playwright-report/ already in .gitignore
-   ```
+```
 
 2. **Commit 1** - SPEC-12 cleanup:
 
-   ```bash
+```bash
    git add docs/specs/_completed/SPEC-12-wma-template/
    git commit -m "chore(SPEC-12): clean up archived documentation after PR #70 merge
 
@@ -168,11 +168,11 @@ chore(deps): update package.json dependencies
 
    🤖 Generated with Claude Code
    Co-Authored-By: Claude Sonnet 4.5 (1M context) <noreply@anthropic.com>"
-   ```
+```
 
 3. **Commit 2** - Compliance infrastructure:
 
-   ```bash
+```bash
    git add .github/workflows/wvwo-compliance.yml
    git add tests/compliance/
    git add config/eslint-local-rules.js
@@ -187,11 +187,11 @@ chore(deps): update package.json dependencies
 
    🤖 Generated with Claude Code
    Co-Authored-By: Claude Sonnet 4.5 (1M context) <noreply@anthropic.com>"
-   ```
+```
 
 4. **Commit 3** - Compliance docs:
 
-   ```bash
+```bash
    git add docs/WVWO-COMPLIANCE-QUICK-REFERENCE.md
    git add docs/WVWO-PR-CHECKLIST.md
    git commit -m "docs(WVWO): add compliance quick reference and PR checklist
@@ -204,11 +204,11 @@ chore(deps): update package.json dependencies
 
    🤖 Generated with Claude Code
    Co-Authored-By: Claude Sonnet 4.5 (1M context) <noreply@anthropic.com>"
-   ```
+```
 
 5. **Commit 4** - Dependencies (conditional):
 
-   ```bash
+```bash
    # Only if git diff shows actual changes
    git add wv-wild-web/package.json
    git commit -m "chore(deps): update package.json dependencies
@@ -217,11 +217,11 @@ chore(deps): update package.json dependencies
 
    🤖 Generated with Claude Code
    Co-Authored-By: Claude Sonnet 4.5 (1M context) <noreply@anthropic.com>"
-   ```
+```
 
 6. **Post-commit verification**:
 
-   ```bash
+```bash
    git status  # Should show only SPEC-13 and swarm-memory as untracked
    git log --oneline -4  # Verify commit messages
    ```

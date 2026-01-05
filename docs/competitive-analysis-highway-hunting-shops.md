@@ -344,15 +344,19 @@ Successful highway corridor hunting shops combine **geographic positioning**, **
 ### Hashtag Strategy
 
 **General Hunting**:
+
 # huntinglife, #whitetaildeer, #bowhunting, #rifleseason, #turkeyhunting, #bearhunting
 
 **Regional**:
+
 # wvhunting, #appalachianhunting, #westvirginia, #birchriverwv, #mountainstate
 
 **Niche/Species**:
+
 # duckhunting, #deerhunter, #buckseason, #PublicLandHunting
 
 **Local/Shop**:
+
 # wvwildoutdoors, #shoplocal, #familyowned, #fflfirearms, #huntingshop
 
 **Best Practice**: 5-15 relevant hashtags per post (Instagram/TikTok), fewer on Facebook

@@ -65,20 +65,20 @@ This document provides a prioritized fix plan with specific code changes, testin
 
 ### Phase 2: Core Reliability
 
-6. **SW-2**: Fix activate error propagation
+1. **SW-2**: Fix activate error propagation
 2. **IDB-2**: Add typed result for getCachedAdventures
 3. **IDB-3**: Add typed result for clearExpiredCache
 4. **CACHE-2**: Add retry logic with exponential backoff
 
 ### Phase 3: User Experience
 
-10. **SW-4**: Add retry logic to install/refresh
+1. **SW-4**: Add retry logic to install/refresh
 2. **SW-5**: Add client notification system (postMessage + toasts)
 3. **CACHE-1**: Implement stale-while-revalidate
 
 ### Phase 4: Enhancements (Post-Merge OK)
 
-13. **IDB-6**: Transaction error propagation patterns
+1. **IDB-6**: Transaction error propagation patterns
 2. **CACHE-3**: Cache failure tracking metrics
 3. **SW-8**: Fix `location.origin` → `self.location.origin` consistency
 

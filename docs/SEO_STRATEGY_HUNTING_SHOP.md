@@ -957,7 +957,7 @@ shop offers FFL dealer services in Braxton County, WV and surrounding areas."
 
 **Generic Content**:
 
-```
+```text
 ❌ "We offer quality products and excellent customer service. Visit us today!"
 ```
 

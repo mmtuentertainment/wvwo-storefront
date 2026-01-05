@@ -80,7 +80,7 @@ wv-wild-web/
 
 **Priority:** P0 - Blocks all subsequent work
 
-### Tasks:
+### Tasks
 
 1. Create `state-park-types.ts` with 10 facility type schemas (~4h)
    - LodgingFacilitySchema (bedrooms, bathrooms, kitchen, fireplace, petFriendly, seasonalAvail, priceRange)
@@ -100,7 +100,7 @@ wv-wild-web/
    - Composition of all facility, activity, accessibility schemas
    - Optional vs required field definitions
 
-### Deliverables:
+### Deliverables
 
 - 3 type files (~2,300 lines total)
 - 100% type coverage (0 `any` types)
@@ -114,7 +114,7 @@ wv-wild-web/
 
 **Priority:** P0/P1 - Core user experience
 
-### Tasks:
+### Tasks
 
 1. Build `FacilitiesSection.astro` (~4h)
    - Lodging cards with 3-column grid (desktop), stacked (mobile)
@@ -144,7 +144,7 @@ wv-wild-web/
    - Managing agency info
    - Park alerts/closures (ARIA live regions)
 
-### Deliverables:
+### Deliverables
 
 - 4 new section components (~900 lines)
 - WVWO brand compliant (rounded-sm, brand colors)
@@ -158,7 +158,7 @@ wv-wild-web/
 
 **Priority:** P0 - Integration of all pieces
 
-### Tasks:
+### Tasks
 
 1. Build `StateParkTemplate.astro` (~5h)
    - 8-section architecture implementation
@@ -194,7 +194,7 @@ wv-wild-web/
    - Schema component integration
    - Canonical URL logic
 
-### Deliverables:
+### Deliverables
 
 - StateParkTemplate.astro (~1,000 lines)
 - 4 SEO schema components (~770 lines)
@@ -209,7 +209,7 @@ wv-wild-web/
 
 **Priority:** P1 - Content population
 
-### Tasks:
+### Tasks
 
 1. Research Holly River State Park (~2h)
    - Verify facilities, hours, fees at wvstateparks.com
@@ -237,7 +237,7 @@ wv-wild-web/
    - Full programming schedule
    - Image sourcing with attribution
 
-### Deliverables:
+### Deliverables
 
 - 2 complete data files (~1,150 lines)
 - Validated against Zod schemas
@@ -252,7 +252,7 @@ wv-wild-web/
 
 **Priority:** P0 - Quality assurance
 
-### Tasks:
+### Tasks
 
 1. Unit tests for type system (~3h)
    - state-park-types.test.ts (~600 lines)
@@ -285,7 +285,7 @@ wv-wild-web/
    - Meta tag completeness
    - FAQ schema format (40-50 words)
 
-### Deliverables:
+### Deliverables
 
 - ~1,680 lines of tests
 - 85%+ code coverage
@@ -300,7 +300,7 @@ wv-wild-web/
 
 **Priority:** P1 - Knowledge transfer
 
-### Tasks:
+### Tasks
 
 1. JSDoc comments for all public APIs (~1h)
 2. Update CLAUDE.md with State Park patterns (~0.5h)
@@ -328,7 +328,7 @@ wv-wild-web/
    - Zero forbidden borders (rounded-md/lg/xl)
    - Kim's voice throughout
 
-### Deliverables:
+### Deliverables
 
 - Updated CLAUDE.md
 - Quarterly review process documented
@@ -433,7 +433,7 @@ wv-wild-web/
 
 **Estimated Total LOC:** ~6,500 lines (new code + tests)
 
-### Checkpoint Triggers:
+### Checkpoint Triggers
 
 - ⚠️ Warn at 300 LOC per PR
 - 🚨 Split required at 500 LOC per PR
@@ -508,7 +508,7 @@ wv-wild-web/
 
 **Files:** state-park-types.test.ts, state-park-seo-types.test.ts, state-park-template-types.test.ts
 
-### Test Cases:
+### Test Cases
 
 - Schema validation for all 10 facility types
 - Zod parse success/failure scenarios
@@ -522,7 +522,7 @@ wv-wild-web/
 
 **Framework:** Vitest + Testing Library
 
-### Components:
+### Components
 
 - FacilitiesSection: Renders lodging cards, campground grids, conditional rendering for missing data
 - ActivitiesSection: Ranger program cards, Junior Ranger highlight, registration indicators
@@ -530,7 +530,7 @@ wv-wild-web/
 - ParkOverviewSection: Operating hours, contact info, managing agency
 - StateParkTemplate: Full integration, all sections render when data provided
 
-### Focus:
+### Focus
 
 - Rendering correctness
 - WVWO styling applied (bg-brand-cream, border-l-4 border-l-sign-green, rounded-sm)
@@ -541,7 +541,7 @@ wv-wild-web/
 
 **Files:** state-park-template.spec.ts
 
-### Scenarios:
+### Scenarios
 
 - Dynamic route [slug].astro generates pages correctly
 - Meta tags populated from data (title 50-60 chars, description 150-160 chars)
@@ -554,7 +554,7 @@ wv-wild-web/
 
 **Framework:** Playwright
 
-### Scenarios:
+### Scenarios
 
 - Hero section (desktop/tablet/mobile)
 - Facilities grid responsive layout
@@ -567,7 +567,7 @@ wv-wild-web/
 
 **Tools:** Google Rich Results Test API (if available), Schema.org validator
 
-### Checks:
+### Checks
 
 - Schema.org markup validates
 - @graph structure correct
@@ -581,7 +581,7 @@ wv-wild-web/
 
 **Tools:** axe-core, Pa11y
 
-### Validations:
+### Validations
 
 - WCAG 2.1 Level AA compliance (0 violations)
 - Keyboard navigation 100% functional (tab order correct)
@@ -594,7 +594,7 @@ wv-wild-web/
 
 **Tools:** Lighthouse CI
 
-### Metrics:
+### Metrics
 
 - Lighthouse Performance ≥90
 - Lighthouse SEO = 100
@@ -617,13 +617,13 @@ wv-wild-web/
 
 ### Low-Risk Rollback (Types/Components Only)
 
-### If issues in PR #1 (Type System):
+### If issues in PR #1 (Type System)
 
 1. Revert commit
 2. No runtime impact (types not used yet)
 3. Fix issues, re-submit
 
-### If issues in PR #2 (Section Components):
+### If issues in PR #2 (Section Components)
 
 1. Revert commit
 2. Components not integrated into templates yet
@@ -631,14 +631,14 @@ wv-wild-web/
 
 ### Medium-Risk Rollback (Template Integration)
 
-### If issues in PR #3 (StateParkTemplate + SEO):
+### If issues in PR #3 (StateParkTemplate + SEO)
 
 1. Revert PR #3 commits
 2. Keep PR #1 and PR #2 (types and components)
 3. Fix template integration issues
 4. Re-submit with additional tests
 
-### Critical Paths:
+### Critical Paths
 
 - Schema.org validation failures → Fix @graph structure, re-validate
 - WVWO aesthetic violations → Audit borders/colors/fonts, fix styling
@@ -646,14 +646,14 @@ wv-wild-web/
 
 ### High-Risk Rollback (Data Integration)
 
-### If issues in PR #4 (Data Files):
+### If issues in PR #4 (Data Files)
 
 1. Revert specific park data files
 2. Template and types remain intact
 3. Fix data validation issues
 4. Re-submit corrected data
 
-### Data Validation:
+### Data Validation
 
 - All fields validate against Zod schemas
 - No TypeScript errors in strict mode
@@ -661,7 +661,7 @@ wv-wild-web/
 
 ### Test Rollback
 
-### If issues in PR #5 (Testing):
+### If issues in PR #5 (Testing)
 
 1. Tests don't affect production
 2. Fix failing tests
@@ -670,7 +670,7 @@ wv-wild-web/
 
 ### Emergency Full Rollback
 
-### If critical production issues:
+### If critical production issues
 
 1. Revert all SPEC-18 commits (Git: `git revert <commit-range>`)
 2. Create hotfix branch
@@ -678,7 +678,7 @@ wv-wild-web/
 4. Fix in isolation
 5. Re-implement with fixes
 
-### Rollback Validation:
+### Rollback Validation
 
 - All existing tests still pass
 - No breaking changes to other templates
@@ -802,4 +802,4 @@ wv-wild-web/
 
 ---
 
-### Implementation plan ready. Estimated: 50 hours across 6 PRs with 15 hours review time.
+### Implementation plan ready. Estimated: 50 hours across 6 PRs with 15 hours review time

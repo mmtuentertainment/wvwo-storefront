@@ -404,12 +404,12 @@ echo "✅ Orange threshold references updated to align with <5% standard"
 
 ### Short-Term Actions
 
-4. ⚠️ **Refactor RiverTemplate** to reduce orange from 10 to 7 elements
+1. ⚠️ **Refactor RiverTemplate** to reduce orange from 10 to 7 elements
 2. ⚠️ **Create visual coverage calculator** for automated validation
 
 ### Long-Term Actions
 
-6. 📋 **Establish two-tier standard:**
+1. 📋 **Establish two-tier standard:**
    - Standard templates: <5% visual
    - Safety templates: <7% visual (with justification)
 

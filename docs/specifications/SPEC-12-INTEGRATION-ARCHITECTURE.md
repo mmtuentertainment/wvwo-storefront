@@ -261,23 +261,23 @@ const sections = [
 
 ### 3.2 Visual Rhythm Goals
 
-**1. Prevent Monotony**
+### 1. Prevent Monotony
 
 - Without alternation: All-cream or all-white creates visual fatigue
 - With alternation: Eye naturally segments content into digestible chunks
 
-**2. Section Delineation**
+### 2. Section Delineation
 
 - Background change acts as visual separator (reduces need for heavy borders)
 - Improves scanability: "Where does hunting info end and fishing begin?"
 
-**3. WVWO Aesthetic Compliance**
+### 3. WVWO Aesthetic Compliance
 
 - Cream (`#FFF8E1`): Warm, aged paper, deer hide texture
 - White (`#FFFFFF`): Clean, utilitarian, hardware store shelving
 - Alternation creates "rustic modern" balance per CLAUDE.md
 
-**4. Accessibility Enhancement**
+### 4. Accessibility Enhancement
 
 - High contrast maintained: Text is `brand-brown` (#3E2723) on both backgrounds
 - WCAG AA compliant: 4.5:1+ contrast ratio on cream and white
@@ -302,7 +302,7 @@ const sections = [
 ))}
 ```
 
-**Case 2: Custom Section Injection**
+### Case 2: Custom Section Injection
 
 ```astro
 <!-- Kim adds custom "Special Events" section -->
@@ -311,7 +311,7 @@ const sections = [
 <WMAFishingWaters variant="cream" />            <!-- Continues alternation -->
 ```
 
-**Case 3: Mobile Stacking Considerations**
+### Case 3: Mobile Stacking Considerations
 
 - All sections stack vertically on mobile (<768px)
 - Background alternation MORE important on mobile (helps scanning)
@@ -637,7 +637,7 @@ interface SlotDefinition {
 
 ### 5.3 Slot Composition Patterns
 
-**Pattern 1: Progressive Disclosure**
+### Pattern 1: Progressive Disclosure
 
 ```astro
 <!-- Base content ALWAYS visible -->
@@ -656,7 +656,7 @@ interface SlotDefinition {
 </WMASpeciesGrid>
 ```
 
-**Pattern 2: Conditional Slot Content**
+### Pattern 2: Conditional Slot Content
 
 ```astro
 <!-- Show slot content ONLY during specific seasons -->
@@ -670,7 +670,7 @@ interface SlotDefinition {
 )}
 ```
 
-**Pattern 3: Nested Component Slots**
+### Pattern 3: Nested Component Slots
 
 ```astro
 <!-- Use slot to inject another component -->

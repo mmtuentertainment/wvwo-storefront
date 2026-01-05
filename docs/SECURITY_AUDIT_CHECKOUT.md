@@ -170,7 +170,7 @@ export function generateOrderId(): string {
 
 **Location**: `_headers:7`
 
-```
+```text
 Content-Security-Policy: script-src 'self' 'unsafe-inline' https://pay.tacticalpay.com
 ```
 
@@ -191,7 +191,7 @@ Content-Security-Policy: script-src 'self' 'unsafe-inline' https://pay.tacticalp
 
 **Recommendation** (post-MVP):
 
-```
+```text
 # Generate nonces for inline scripts
 script-src 'self' 'nonce-{RANDOM}' https://pay.tacticalpay.com
 

@@ -32,7 +32,7 @@ Good photos help customers find you and trust you. Here's what to add:
 
 ### Inside the Shop (4-5 photos)
 
-5. **Main counter area** — Where customers check out
+1. **Main counter area** — Where customers check out
 2. **Gun wall/display** — Show your firearm selection
 3. **Ammo shelves** — Customers want to know you're stocked
 4. **Archery section** — Bows, arrows, accessories
@@ -40,13 +40,13 @@ Good photos help customers find you and trust you. Here's what to add:
 
 ### Products & Services (2-3 photos)
 
-10. **Clothing/boots area** — Camo, work boots, outdoor wear
+1. **Clothing/boots area** — Camo, work boots, outdoor wear
 2. **Feed/supplies** — Show the variety
 3. **Seasonal display** — Whatever's hot right now (deer season prep, etc.)
 
 ### Team (optional but great)
 
-13. **You and Bryan** — Customers love seeing the owners
+1. **You and Bryan** — Customers love seeing the owners
 2. **Behind the counter** — Shows the friendly, family atmosphere
 
 **Tips:**

@@ -106,7 +106,7 @@ Features observed in data:
 **Current State:** Generic LodgingSchema.type = "Cabin"
 **Gap:** No detailed cabin specifications
 
-### Needed Fields:
+### Needed Fields
 
 - `cabinNumber`: string (e.g., "Cabin 1-9", "Cabin 10")
 - `bedrooms`: number (1-4 typical)
@@ -120,7 +120,7 @@ Features observed in data:
 - `hasPorch`: boolean
 - `hasGrill`: boolean
 
-### Evidence:
+### Evidence
 
 - Holly River: "10 furnished cabins with stone fireplaces. Cabins 1-9 available April-November; Cabin 10 year-round"
 - Canaan Valley: "Full kitchen, Fireplace, Deck, Privacy"
@@ -130,7 +130,7 @@ Features observed in data:
 **Current State:** Listed generically in amenities[]
 **Gap:** No structured pool schema
 
-### Needed Schema:
+### Needed Schema
 
 ```typescript
 PoolFacilitySchema {
@@ -173,7 +173,7 @@ PlaygroundSchema {
 **Current State:** MarinaSchema exists but lacks state park specifics
 **Gap:** Boat launch details for free/low-cost park launches
 
-### Extension Needed:
+### Extension Needed
 
 ```typescript
 BoatLaunchSchema extends MarinaSchema {
@@ -211,7 +211,7 @@ VisitorCenterSchema {
 }
 ```
 
-### Evidence:
+### Evidence
 
 - Blackwater Falls Lodge: "Nature center"
 
@@ -220,7 +220,7 @@ VisitorCenterSchema {
 **Current State:** Basic DiningSchema
 **Gap:** State park-specific restaurant details
 
-### Enhancement Needed:
+### Enhancement Needed
 
 ```typescript
 DiningSchema {
@@ -265,7 +265,7 @@ GiftShopSchema {
 **Current State:** Partially in CampingFacilitySchema
 **Gap:** Detailed group camping and event spaces
 
-### Needed Schema:
+### Needed Schema
 
 ```typescript
 GroupFacilitySchema {
@@ -306,7 +306,7 @@ RecreationRentalSchema {
 **Current State:** Not represented
 **Gap:** Meeting and event facilities
 
-### Needed Schema:
+### Needed Schema
 
 ```typescript
 ConferenceSpaceSchema {
@@ -421,7 +421,7 @@ Should import and extend:
 
 ## DISCOVERY METRICS
 
-### Files Analyzed:
+### Files Analyzed
 
 - ✅ wv-wild-web/src/types/ski-types.ts (lines 290-350)
 - ✅ wv-wild-web/src/types/adventure.ts (lines 234-253)
@@ -441,14 +441,14 @@ Should import and extend:
 
 **Risk Level:** ✅ LOW
 
-### Assessment:
+### Assessment
 
 - Missing types are **additive**, not breaking changes
 - All proposed schemas extend existing patterns
 - No architectural conflicts detected
 - Type safety maintained throughout
 
-### Opportunities Identified:
+### Opportunities Identified
 
 1. State Park template can become MASTER facility composition reference
 2. Most comprehensive facility coverage in codebase

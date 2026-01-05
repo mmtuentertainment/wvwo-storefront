@@ -12,7 +12,7 @@
 
 This document specifies the complete TypeScript/Zod type system for the State Park Template (SPEC-18), addressing 63 identified gaps including 12 facility types, 9 activity types, 8 ADA features, and 8 SEO requirements. The type system follows SPEC-17 Backcountry Template patterns while expanding to accommodate state park-specific commercial operations, family-friendly amenities, and comprehensive accessibility features.
 
-### Key Architecture Decisions:
+### Key Architecture Decisions
 
 1. **Three-File Structure**: Domain types, SEO types, and template props separated for maintainability
 2. **Zod-First Validation**: All schemas use Zod with TypeScript inference for runtime safety
@@ -20,7 +20,7 @@ This document specifies the complete TypeScript/Zod type system for the State Pa
 4. **WVWO Brand Integration**: Non-safety colors use approved brand palette
 5. **Reusability Pattern**: Extends existing schemas from Backcountry, Ski, and Adventure templates
 
-### Estimated File Sizes:
+### Estimated File Sizes
 
 - `state-park-types.ts`: ~1,300 lines (12 facility types + amenities + activities)
 - `state-park-seo-types.ts`: ~400 lines (8 SEO schema types)
@@ -1997,7 +1997,7 @@ export const WVWO_TAILWIND_CLASSES = {
 
 ### Color Usage Guidelines
 
-### DO:
+### DO
 
 - Use `bg-brand-brown` for lodging, cabins, group facilities
 - Use `bg-sign-green` for nature/outdoor facilities, playgrounds
@@ -2005,7 +2005,7 @@ export const WVWO_TAILWIND_CLASSES = {
 - Use `bg-blue-700` for water features, intermediate trails, accessibility
 - Use trail difficulty colors (green/blue/red/black) for trail markers
 
-### DON'T:
+### DON'T
 
 - Use purple (except poison control)
 - Use pink/neon colors
@@ -2321,11 +2321,11 @@ const schemaOrg = {
 **Status:** Proposed
 **Date:** 2026-01-02
 
-### Context:
+### Context
 
 State park types are complex with 63+ identified gaps. Need maintainable structure.
 
-### Decision:
+### Decision
 
 Split into three files:
 
@@ -2333,7 +2333,7 @@ Split into three files:
 2. SEO types (Schema.org)
 3. Template composition
 
-### Consequences:
+### Consequences
 
 - ✅ Easier to maintain and test
 - ✅ Clear separation of concerns
@@ -2346,11 +2346,11 @@ Split into three files:
 **Status:** Approved (per CLAUDE.md)
 **Date:** 2026-01-02
 
-### Context:
+### Context
 
 Trail difficulty and safety information require industry-standard colors that conflict with WVWO brand palette.
 
-### Decision:
+### Decision
 
 Industry safety colors OVERRIDE brand palette for:
 
@@ -2359,7 +2359,7 @@ Industry safety colors OVERRIDE brand palette for:
 - Accessibility (blue)
 - Danger levels (green/yellow/orange/red/black)
 
-### Consequences:
+### Consequences
 
 - ✅ Follows user expectations
 - ✅ Enhances safety communication
@@ -2371,15 +2371,15 @@ Industry safety colors OVERRIDE brand palette for:
 **Status:** Approved
 **Date:** 2026-01-02
 
-### Context:
+### Context
 
 Need runtime validation for content collection data and type safety.
 
-### Decision:
+### Decision
 
 All schemas defined with Zod first, TypeScript types inferred.
 
-### Consequences:
+### Consequences
 
 - ✅ Runtime validation
 - ✅ Single source of truth
@@ -2433,7 +2433,7 @@ All schemas defined with Zod first, TypeScript types inferred.
 
 ---
 
-### Document Metadata:
+### Document Metadata
 
 - Lines of Code: ~2,400 (across 3 files)
 - Schemas Defined: 45+
@@ -2441,7 +2441,7 @@ All schemas defined with Zod first, TypeScript types inferred.
 - Test Cases Required: 60+
 - Estimated Implementation: 2 weeks
 
-### Related Documents:
+### Related Documents
 
 - SPEC-18-FINAL.md
 - state-park-facility-gaps.md

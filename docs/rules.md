@@ -165,7 +165,7 @@ Kim and Bryan are devout Christians. Faith should be present but NOT preachy:
 
 ### Visual Metaphor
 
-**"Walking up to the store on a crisp fall morning"**
+### Visual Metaphor: "Walking up to the store on a crisp fall morning"
 
 - Wood, metal, nature
 - Worn but well-maintained

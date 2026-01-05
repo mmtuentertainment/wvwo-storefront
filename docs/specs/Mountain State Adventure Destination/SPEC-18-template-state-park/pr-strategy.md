@@ -634,7 +634,7 @@ git push origin spec-18/pr-6-docs
 
 ### Merge Order (CRITICAL)
 
-### MUST merge in this order:
+### MUST merge in this order
 
 1. PR #1 (types) → main
 2. PR #2 (components) → main (after updating base)

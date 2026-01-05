@@ -141,7 +141,7 @@ Full JSON: See `docs/reviews/GREPTILE-CUSTOM-CONTEXTS.json`
 
 ### Post-Fix (10 minutes)
 
-4. Post response on PR #70 (template in `GREPTILE-PR70-ANALYSIS.md`)
+1. Post response on PR #70 (template in `GREPTILE-PR70-ANALYSIS.md`)
 2. Add custom contexts to Greptile dashboard
 3. Request re-review: `@greptileai review`
 

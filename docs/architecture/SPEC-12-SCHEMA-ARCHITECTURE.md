@@ -451,14 +451,14 @@ const adventures = defineCollection({
 
 **Bad Error (Generic)**:
 
-```
+```text
 Validation error in elk-river.md:
 - Expected number, received string at wma_acreage
 ```
 
 **Good Error (Descriptive)**:
 
-```
+```text
 Validation error in elk-river.md:
 - wma_acreage: WMA acreage must be whole number (got "19,646" - remove commas)
 - wma_species[0].season: Season format: 'Nov 13 - Dec 31' or 'Sep 1 - Jan 31' (got "November 13-31")
@@ -875,7 +875,7 @@ const adventures = defineCollection({
 ### 8.1 Architecture Decisions
 
 | Decision | Rationale |
-|----------|-----------|
+| -------- | --------- |
 | **All WMA fields optional** | Zero breaking changes - gradual migration |
 | **Nested Zod schemas** | Reusability, focused errors, TypeScript inference |
 | **`type` field discriminant** | Future-proof for trail/campground extensions |

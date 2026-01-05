@@ -432,14 +432,14 @@ SPEC-14 represents the **most comprehensive SPARC implementation** in the WVWO S
 
 #### Phase 3-4: Implementation (Hierarchical Topology)
 
-5. **Astro Component Developer**: RiverTemplate.astro (612 lines)
+1. **Astro Component Developer**: RiverTemplate.astro (612 lines)
 2. **Collections Engineer**: content.config.ts river integration
 3. **SEO Specialist**: SchemaRiverTemplate.astro (266 lines)
 4. **Test Engineer**: 26 integration tests
 
 #### Phase 5-6: Validation (Hierarchical + Review Swarms)
 
-9. **Technical Writer**: Example data, README (33 KB)
+1. **Technical Writer**: Example data, README (33 KB)
 2. **QA Analyst**: Test coverage analysis (615 lines)
 3. **WVWO Compliance Validator**: Automated compliance testing
 4. **Greptile Code Review Bot**: 55 issues identified across 2 PRs

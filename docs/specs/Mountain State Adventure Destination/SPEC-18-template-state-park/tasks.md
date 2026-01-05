@@ -502,7 +502,7 @@ Phase 6: Documentation + Polish
 
 **Total Parallelizable:** 118 of 160 tasks (74%)
 
-### Optimal Execution:
+### Optimal Execution
 
 - Use concurrent agent spawning (Claude Code Task tool)
 - Batch file operations in single messages
@@ -512,20 +512,20 @@ Phase 6: Documentation + Polish
 
 ## Notes
 
-### Blockers:
+### Blockers
 
 - Phase 2 blocked until Phase 1 complete (needs schemas)
 - Phase 3 blocked until Phase 2 complete (needs components)
 - Phase 4 can start after Phase 1 (only needs schemas for validation)
 - Phase 5 blocked until Phases 3 + 4 complete (needs template + data)
 
-### Critical Paths:
+### Critical Paths
 
 1. Type System (Phase 1) → Everything depends on this
 2. Main Template (Phase 3) → Testing depends on this
 3. Data Files (Phase 4) → Integration testing depends on this
 
-### Quality Gates:
+### Quality Gates
 
 - After Phase 1: All types validate, 0 TypeScript errors
 - After Phase 3: Template renders, WVWO compliance passes

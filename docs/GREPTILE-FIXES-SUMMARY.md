@@ -152,7 +152,7 @@ urls: |
 
 ### Documentation Files (2)
 
-9. `docs/architecture/SPEC-12-accessibility-architecture.md` - Fixed duplicate numbering
+1. `docs/architecture/SPEC-12-accessibility-architecture.md` - Fixed duplicate numbering
 2. `docs/specifications/SPEC-12-PERFORMANCE-ARCHITECTURE.md` - Corrected deployment domain
 
 ---

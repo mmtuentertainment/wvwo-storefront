@@ -12,7 +12,7 @@ A comprehensive, reusable Astro template for West Virginia State Parks that hand
 
 **Who has this problem:** WVWO content team and site visitors seeking state park information.
 
-### The problem:
+### The problem
 
 - No template exists for family-oriented, facility-rich state parks (vs wilderness backcountry)
 - Current adventure templates don't support complex facility types (lodges, cabins, campgrounds, pools, visitor centers)
@@ -21,7 +21,7 @@ A comprehensive, reusable Astro template for West Virginia State Parks that hand
 - No integration with WV State Parks reservation system
 - SEO gaps prevent capturing high-volume keywords like "Blackwater Falls cabins" or "Pipestem camping"
 
-### Impact:
+### Impact
 
 - Cannot publish content for 50+ WV state parks, losing significant organic traffic
 - Legal liability for accessibility non-compliance after April 2026
@@ -30,11 +30,11 @@ A comprehensive, reusable Astro template for West Virginia State Parks that hand
 
 ## Goals
 
-### Primary Goal:
+### Primary Goal
 
 - Create a production-ready State Park template that addresses all 63 identified gaps with 85%+ test coverage and Lighthouse 100 score
 
-### Secondary Goals:
+### Secondary Goals
 
 - Achieve WCAG 2.1 Level AA compliance (federal requirement by April 2026)
 - Capture featured snippet opportunities with FAQ schema (19% of searches)
@@ -44,7 +44,7 @@ A comprehensive, reusable Astro template for West Virginia State Parks that hand
 
 ## Non-Goals (Out of Scope)
 
-### What this feature will NOT do:
+### What this feature will NOT do
 
 - Real-time reservation API integration (WV State Parks system is third-party, no API access)
 - Interactive facility map components (future SPEC)
@@ -461,7 +461,7 @@ import SchemaStateParkTemplate from '@/components/seo/SchemaStateParkTemplate.as
 
 ---
 
-### Next Steps:
+### Next Steps
 
 1. ✅ Review spec.md for completeness
 2. ⏭️ `/speckit.clarify` - If spec has ambiguities (recommend reviewing Open Questions)

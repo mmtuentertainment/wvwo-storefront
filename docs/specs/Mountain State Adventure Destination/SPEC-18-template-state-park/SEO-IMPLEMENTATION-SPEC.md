@@ -499,7 +499,7 @@ interface StatePark {
 
 ### 1.3 Validation Procedures
 
-### Automated Testing:
+### Automated Testing
 
 ```typescript
 // wv-wild-web/tests/schema/state-park-schema.test.ts
@@ -610,7 +610,7 @@ const schema = {
 
 ### 2.2 FAQ Content Guidelines
 
-### Optimal Question Formats:
+### Optimal Question Formats
 
 ### Priority 1: Direct "is" questions (paragraph snippets)
 
@@ -631,13 +631,13 @@ const schema = {
 - "What trails are best for beginners at {Park Name}?"
 - "What amenities does {Park Name} offer?"
 
-### Answer Structure (40-50 words):
+### Answer Structure (40-50 words)
 
 ```json
 {Opening "is" statement}. {Supporting detail 1}. {Supporting detail 2}. {Supporting detail 3 or CTA}.
 ```
 
-### Example:
+### Example
 
 ```typescript
 const exampleAnswer = `
@@ -665,7 +665,7 @@ const mountainParkFAQs: FAQItem[] = [
 ];
 ```
 
-### Lake Parks (Tygart Lake, Stonewall Jackson):
+### Lake Parks (Tygart Lake, Stonewall Jackson)
 
 ```typescript
 const lakeParkFAQs: FAQItem[] = [

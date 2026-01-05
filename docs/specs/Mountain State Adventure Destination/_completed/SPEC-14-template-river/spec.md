@@ -49,7 +49,7 @@ This spec incorporates findings from deep research of real WV whitewater outfitt
 
 ### Secondary Goals
 
-6. **Real-Time Data Integration**: USGS water gauge API integration for current flow conditions (CFS)
+1. **Real-Time Data Integration**: USGS water gauge API integration for current flow conditions (CFS)
 2. **Reusability**: Extend pattern to 40+ river destinations (New River, Cheat River, Elk River, etc.)
 3. **WVWO Compliance**: 100% adherence to brand aesthetics (rounded-sm ONLY, font-display/hand/body, authentic voice)
 
@@ -774,7 +774,7 @@ interface Props {
 
 ### Outstanding (Phase 4+ Decisions)
 
-5. ❓ **Q**: Should we create a dedicated `/rivers/` top-level route or keep `/near/{river-name}/`?
+1. ❓ **Q**: Should we create a dedicated `/rivers/` top-level route or keep `/near/{river-name}/`?
    **A**: Defer to Phase 4 content population (affects breadcrumb schema)
 
 2. ❓ **Q**: Do we need outfitter booking integration or keep phone-first?
