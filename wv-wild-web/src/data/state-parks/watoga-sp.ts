@@ -19,6 +19,11 @@
  */
 
 import type { StateParkTemplateProps } from '../../types/state-park-template-types';
+import {
+  WV_STATE_PARKS_RESERVATION_URL,
+  WV_STATE_PARKS_PHONE,
+  WV_STATE_PARKS_MANAGING_AGENCY,
+} from './shared-constants';
 
 export const watogaStatePark: StateParkTemplateProps = {
   // ============================================================================
@@ -161,14 +166,7 @@ export const watogaStatePark: StateParkTemplateProps = {
       address: 'HC 82, Box 252, Marlinton, WV 24954',
     },
 
-    managingAgency: {
-      name: 'West Virginia Division of Natural Resources - State Parks',
-      jurisdiction: 'State of West Virginia',
-      phone: '1-833-982-7275 (1-833-WV-PARKS)',
-      email: 'parks@wv.gov',
-      website: 'https://wvstateparks.com',
-      address: '324 4th Avenue, South Charleston, WV 25303',
-    },
+    managingAgency: WV_STATE_PARKS_MANAGING_AGENCY,
 
     county: 'Pocahontas County',
     region: 'Mountain Lakes',
@@ -296,7 +294,7 @@ export const watogaStatePark: StateParkTemplateProps = {
           hasRestaurant: true,
           hasConferenceFacilities: true,
           description: 'Historic Watoga Lake Lodge offers comfortable rooms with modern amenities and stunning lake views. On-site restaurant serves breakfast, lunch, and dinner.',
-          bookingUrl: 'https://wvstateparks.com/reservations',
+          bookingUrl: WV_STATE_PARKS_RESERVATION_URL,
           priceRange: '$95-$150/night',
           seasonalOperation: 'Year-round',
         },
@@ -325,7 +323,7 @@ export const watogaStatePark: StateParkTemplateProps = {
           hasPorch: true,
           hasGrill: true,
           priceRange: '$110-$165/night',
-          bookingUrl: 'https://wvstateparks.com/reservations',
+          bookingUrl: WV_STATE_PARKS_RESERVATION_URL,
         },
         {
           cabinNumber: 'Deluxe Cabin 21-28',
@@ -353,7 +351,7 @@ export const watogaStatePark: StateParkTemplateProps = {
           hasPorch: true,
           hasGrill: true,
           priceRange: '$135-$195/night',
-          bookingUrl: 'https://wvstateparks.com/reservations',
+          bookingUrl: WV_STATE_PARKS_RESERVATION_URL,
         },
         {
           cabinNumber: 'Pet-Friendly Cabin 29-31',
@@ -377,7 +375,7 @@ export const watogaStatePark: StateParkTemplateProps = {
           hasPorch: true,
           hasGrill: true,
           priceRange: '$120-$175/night (plus $25 pet fee)',
-          bookingUrl: 'https://wvstateparks.com/reservations',
+          bookingUrl: WV_STATE_PARKS_RESERVATION_URL,
           description: 'Limited pet-friendly cabins available. Maximum 2 pets, additional fee applies. Pets must be leashed.',
         },
         {
@@ -403,7 +401,7 @@ export const watogaStatePark: StateParkTemplateProps = {
           hasPorch: true,
           hasGrill: true,
           priceRange: '$110-$165/night',
-          bookingUrl: 'https://wvstateparks.com/reservations',
+          bookingUrl: WV_STATE_PARKS_RESERVATION_URL,
         },
       ],
     },
@@ -431,7 +429,7 @@ export const watogaStatePark: StateParkTemplateProps = {
           accessible: true,
           accessibleSiteCount: 6,
           fees: '$28-$38/night (full hookup), $25/night (electric only)',
-          bookingUrl: 'https://wvstateparks.com/reservations',
+          bookingUrl: WV_STATE_PARKS_RESERVATION_URL,
         },
       ],
     },
@@ -502,7 +500,7 @@ export const watogaStatePark: StateParkTemplateProps = {
           'Beach access',
         ],
         accessible: true,
-        reservationUrl: 'https://wvstateparks.com/reservations',
+        reservationUrl: WV_STATE_PARKS_RESERVATION_URL,
         rentalFee: '$75/day',
         nearParking: true,
       },
@@ -904,7 +902,7 @@ export const watogaStatePark: StateParkTemplateProps = {
   // ============================================================================
   reservations: {
     cabins: {
-      bookingUrl: 'https://wvstateparks.com/reservations',
+      bookingUrl: WV_STATE_PARKS_RESERVATION_URL,
       bookingWindow: 'Up to 12 months in advance',
       cancellationPolicy: 'Full refund 14+ days before arrival. 50% refund 7-13 days. No refund within 7 days.',
       fees: [
@@ -936,7 +934,7 @@ export const watogaStatePark: StateParkTemplateProps = {
       ],
     },
     camping: {
-      bookingUrl: 'https://wvstateparks.com/reservations',
+      bookingUrl: WV_STATE_PARKS_RESERVATION_URL,
       bookingWindow: 'Up to 6 months in advance',
       cancellationPolicy: 'Full refund 7+ days before arrival. No refund within 7 days.',
       fees: [
@@ -971,8 +969,8 @@ export const watogaStatePark: StateParkTemplateProps = {
       ],
     },
     generalContact: {
-      phone: '1-833-982-7275',
-      url: 'https://wvstateparks.com',
+      phone: WV_STATE_PARKS_PHONE,
+      url: WV_STATE_PARKS_RESERVATION_URL,
     },
   },
 
