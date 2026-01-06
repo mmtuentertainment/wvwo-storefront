@@ -431,7 +431,8 @@ tailwind.config.mjs                              (Extend with 11 heritage colors
 | **PR #6** | Content guidelines + validation + samples | ~200 | ✅ Safe |
 
 ### Cascade-Forward Strategy (Learned from SPEC-18)
-```
+
+```text
 main → pr1-foundation → pr2-hero-context → pr3-structures-tours → pr4-museum-education → pr5-polish → pr6-content-prep
 ```
 
@@ -571,7 +572,7 @@ git push --force origin main  # WARN USER FIRST
 
 **Branch Strategy (SPEC-18 Zero-Conflict Pattern):**
 
-```
+```text
 main
  └─ pr1-foundation (Tailwind, types, CSS)
      └─ pr2-hero-context (Hero, Historical Context, skeletons)

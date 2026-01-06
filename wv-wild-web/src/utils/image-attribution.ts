@@ -9,14 +9,21 @@
  * Format attribution credit string for display
  * @param source - Archive source (e.g., "Library of Congress", "National Archives")
  * @param catalogNumber - Catalog/reference number
- * @returns Formatted attribution string
+ * @returns Formatted attribution string, or empty string if inputs are invalid
  *
  * @example
  * formatAttributionCredit("Library of Congress", "LC-DIG-highsm-12345")
  * // Returns: "Photo: Library of Congress, LC-DIG-highsm-12345"
  */
 export function formatAttributionCredit(source: string, catalogNumber: string): string {
-  return `Photo: ${source}, ${catalogNumber}`;
+  const trimmedSource = source?.trim() ?? '';
+  const trimmedCatalog = catalogNumber?.trim() ?? '';
+
+  if (!trimmedSource || !trimmedCatalog) {
+    return '';
+  }
+
+  return `Photo: ${trimmedSource}, ${trimmedCatalog}`;
 }
 
 /**
@@ -39,10 +46,16 @@ export function getAttributionPlacement(
 /**
  * Generate accessible ARIA label for attribution text
  * @param credit - Full attribution credit string
- * @returns ARIA label text
+ * @returns ARIA label text, or empty string if credit is invalid
  */
 export function generateAttributionAria(credit: string): string {
-  return `Image credit: ${credit}`;
+  const trimmedCredit = credit?.trim() ?? '';
+
+  if (!trimmedCredit) {
+    return '';
+  }
+
+  return `Image credit: ${trimmedCredit}`;
 }
 
 /**
@@ -55,8 +68,14 @@ export function generateAttributionAria(credit: string): string {
  * validateAttributionFormat("Random text") // false
  */
 export function validateAttributionFormat(credit: string): boolean {
+  if (!credit || typeof credit !== 'string') {
+    return false;
+  }
+
   // Expected format: "Photo: {source}, {catalogNumber}"
-  const pattern = /^Photo:\s+[^,]+,\s+[A-Za-z0-9\-]+$/;
+  // Source: Letters, spaces, ampersand, period, hyphen (e.g., "Library of Congress", "WV State Archives")
+  // Catalog: Letters, digits, hyphen (e.g., "LC-DIG-highsm-12345", "NARA-123456")
+  const pattern = /^Photo:\s+[\w\s.&-]+,\s+[A-Za-z0-9-]+$/;
   return pattern.test(credit);
 }
 
