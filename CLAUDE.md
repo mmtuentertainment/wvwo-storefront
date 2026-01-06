@@ -164,6 +164,29 @@ A skier knows blue = intermediate. A backcountry traveler knows black = extreme 
 Using WVWO brand colors for safety-critical info would confuse users and CREATE SAFETY HAZARDS.
 Brand aesthetics NEVER override safety communication standards.
 
+**Color Exceptions (Historic Authenticity):**
+**APPROVED FOR SPEC-19+ HISTORIC SITES ONLY** - Appalachian heritage colors that tell the story of coal barons, moonshining, and mountain defiance:
+
+```
+HISTORIC HERITAGE PALETTE (SPEC-19+):
+- Heritage Burgundy: #93282c, #c02032 (museum sections, blood of labor strikes)
+- Aged Gold: #d18a00, #ffc655 (metallic accents, brass fixtures, large text only - WCAG)
+- Coal-Gray: #424242 (timeline markers, company town control → defiance)
+- Stone-Gray: #757575, #616161 (carved monuments, CCC-era markers)
+- Heritage Green: #0a5861, #234b43 (layered with sign-green for aged copper depth)
+- Heritage Cream: #fff8e9, #efebe2 (aged paper, museum exhibit backgrounds)
+```
+
+**Narrative Arc Philosophy (C→B→D→A):**
+Colors evolve meaning through sections to tell power-struggle story:
+1. **Balanced Truth (C)**: Coal-gray as oppression, burgundy as museum respect
+2. **Raw Reality (B)**: Burgundy becomes blood metaphor (Paint Creek Strike), coal-gray shows control
+3. **Defiant Spirit (D)**: Coal-gray transforms to STRENGTH ("built from barons' scraps, built to last")
+4. **Reverent Honor (A)**: Heritage colors celebrate survival, grit that endures
+
+**Why historic colors matter:**
+"Coal barons controlled wages, but not souls." Design elements (riveted borders, lumber asymmetry, coal-gray timelines) visually tell the story of Appalachian resilience. These aren't decorative - they're narrative tools for authentic mountain heritage storytelling.
+
 **Styles - NEVER USE:**
 ```
 - Glassmorphism / backdrop-blur
