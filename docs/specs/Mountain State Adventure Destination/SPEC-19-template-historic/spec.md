@@ -33,12 +33,14 @@ Historic sites tell the story of Appalachian grit, divided families during the C
 ## Goals
 
 ### Primary Goal
+
 Build a reusable Astro template that captures authentic Appalachian heritage aesthetics through:
 - **Moonshining heritage visual language**: Aged copper patina (matches WVWO sign-green #2E7D32), hand-hammered textures, riveted borders
 - **Coal mining town architecture**: Utilitarian simplicity, asymmetric layouts, imperfect spacing, coal-gray #424242 for timeline markers
 - **CCC Park Rustic philosophy**: "Accessories to nature, not competitors" - native materials, no ornamentation, stone-carved text effects
 
 ### Secondary Goals
+
 - 8 complete sections: Hero, Historical Context (timeline), Preserved Structures, Tours, Exhibits, Educational Programs, Visitor Info, Nearby History
 - Educational storytelling emphasis (not just facts - interpretive depth)
 - WCAG 2.1 AA compliance with heritage color palette extensions
@@ -59,18 +61,22 @@ Build a reusable Astro template that captures authentic Appalachian heritage aes
 ## User Stories
 
 ### As a history enthusiast visiting Carnifex Ferry Battlefield page
+
 - I want to see a respectful, gravitas-filled presentation with aged photo treatments
 - So that I feel the weight of "244 casualties in a single afternoon" and understand this is sacred ground
 
 ### As Kim (site owner)
+
 - I want the historic site pages to feel like authentic Appalachian heritage (not Pinterest rustic farmhouse)
 - So that my neighbors recognize this as "their history" online, not some outsider's interpretation
 
 ### As a teacher planning a field trip
+
 - I want clear educational program information with booking details
 - So that I can easily arrange living history experiences for my students
 
 ### As a mobile user on-site at Bulltown Historic Area
+
 - I want tour information and preserved structure details to load quickly on my phone
 - So that I can self-guide through the site using my device as a companion
 
@@ -81,6 +87,7 @@ Build a reusable Astro template that captures authentic Appalachian heritage aes
 ### Core Requirements
 
 #### 1. Hero Section
+
 - **Visual Identity:**
   - Grayscale + sepia filter (`sepia(0.3) grayscale(0.2) contrast(1.1) brightness(0.95)`)
   - Darkened overlay: 14% opacity (`bg-black/[0.14]`) - Daniel Lady Farm research pattern
@@ -93,6 +100,7 @@ Build a reusable Astro template that captures authentic Appalachian heritage aes
   - Significance statement (2-3 sentences)
 
 #### 2. Historical Context Section
+
 - **Research-Informed Design:**
   - Timeline with coal-gray (#424242) vertical borders (mining heritage)
   - Event cards with heritage burgundy (#93282c) borders (museum aesthetic)
@@ -104,6 +112,7 @@ Build a reusable Astro template that captures authentic Appalachian heritage aes
   - Broader significance statement (aged paper cream background)
 
 #### 3. Preserved Structures Section
+
 - **Appalachian Soul Features:**
   - Riveted pseudo-element corners (hand-hammered copper still aesthetic)
   - Building type labels in Oswald font (hand-painted trail signage)
@@ -114,6 +123,7 @@ Build a reusable Astro template that captures authentic Appalachian heritage aes
   - Optional site map download link
 
 #### 4. Tours & Interpretation Section
+
 - **Visual Pattern:**
   - Hand-painted trail marker aesthetic (Oswald font, painted-wood shadow)
   - Tour type badges with sign-green backgrounds
@@ -126,6 +136,7 @@ Build a reusable Astro template that captures authentic Appalachian heritage aes
   - No embedded booking forms (keeps implementation simple, delegates to specialized platforms)
 
 #### 5. Exhibits Section
+
 - **Museum Card Styling:**
   - Aged paper cream backgrounds (#efebe2)
   - Lumber border treatment (asymmetric: 3px 2px 4px 3px)
@@ -136,6 +147,7 @@ Build a reusable Astro template that captures authentic Appalachian heritage aes
   - Interactive exhibit badges
 
 #### 6. Educational Programs Section
+
 - **Heritage Palette:**
   - Heritage burgundy borders (#93282c)
   - Gold accent badges (#d18a00) for program types
@@ -144,6 +156,7 @@ Build a reusable Astro template that captures authentic Appalachian heritage aes
   - Duration, cost, booking contact
 
 #### 7. Visitor Information Section
+
 - **Coal Town Utilitarian Aesthetic:**
   - Coal-gray borders, factual mining-town style
   - No decorative elements - function over form
@@ -152,6 +165,7 @@ Build a reusable Astro template that captures authentic Appalachian heritage aes
   - 4-column grid on desktop, 2x2 on mobile
 
 #### 8. Nearby History Section
+
 - **Trail Blaze Markers:**
   - Oswald font for site types
   - Sign-green borders connecting related sites
@@ -161,17 +175,20 @@ Build a reusable Astro template that captures authentic Appalachian heritage aes
 ### Edge Cases
 
 #### Image Handling
+
 - **Missing hero image:** Use solid coal-gray background with era badge prominent
 - **Missing structure photos:** Display building name/type only, no placeholder images
 - **Texture performance:** Disable aged section backgrounds on mobile (<768px) for performance
 - **Image attribution:** All images display source credit (e.g., "Photo: Library of Congress, LC-DIG-cwpb-12345") in small text overlay (bottom-right corner) or caption below
 
 #### Empty Sections
+
 - **No timeline data:** Hide timeline subsection, show events only
 - **No exhibits:** Hide entire Exhibits section (don't show "No exhibits available")
 - **No educational programs:** Display "Programs available upon request" with contact info
 
 #### Loading States
+
 - **Initial page load:** Progressive loading with skeleton screens - each section renders as data becomes available
 - **Skeleton appearance:** Coal-gray animated shimmer placeholders matching section layouts (timeline bars, event cards, structure cards)
 - **Image loading:** Blur-up technique - low-res placeholder (LQIP) → full image fade-in
@@ -179,6 +196,7 @@ Build a reusable Astro template that captures authentic Appalachian heritage aes
 - **Build-time generation:** For static site generation (SSG), no loading states needed - all data available at build time
 
 #### Accessibility Edge Cases
+
 - **Heritage gold text:** ONLY use on large text (≥18px or ≥14px bold) - WCAG 3.8:1 ratio
 - **Textured backgrounds:** Icons get white background boxes (95% opacity) for contrast
 - **High contrast mode:** Burgundy borders become black, gold text becomes black
@@ -188,6 +206,7 @@ Build a reusable Astro template that captures authentic Appalachian heritage aes
 ## Non-Functional Requirements
 
 ### Performance
+
 - **Lighthouse Score:** ≥90 Performance, 100 Accessibility, 100 SEO
 - **Texture Optimization:** Aged section backgrounds desktop-only (mobile: solid colors)
 - **Font Loading:** Preconnect to Google Fonts, swap strategy for custom fonts (Roboto Slab, Oswald)
@@ -196,6 +215,7 @@ Build a reusable Astro template that captures authentic Appalachian heritage aes
 - **Skeleton Screen Duration:** Max 800ms before timeout/error state
 
 ### Accessibility (WCAG 2.1 AA)
+
 - **Color Contrast Requirements:**
   - Brand-brown on brand-cream: 8.2:1 (✅ AAA)
   - White on heritage-burgundy: 5.8:1 (✅ AA)
@@ -206,17 +226,20 @@ Build a reusable Astro template that captures authentic Appalachian heritage aes
 - **Screen Readers:** All icons have `aria-label`, decorative dividers have `aria-hidden="true"`
 
 ### Security
+
 - **External Links:** All tour booking/external site links use `rel="noopener noreferrer"`
 - **Image Sources:** Validate image URLs, fallback to placeholder for invalid paths
 - **XSS Prevention:** Sanitize all user-provided content (if CMS integration added later)
 
 ### Image Rights & Attribution
+
 - **Allowed Sources:** Public domain images only (Library of Congress, National Archives, WV State Archives)
 - **Required Attribution:** All images must include source credit line, even if public domain (example: "Photo: Library of Congress, LC-DIG-cwpb-12345")
 - **Attribution Display:** Small text overlay on image bottom-right corner, or caption below image
 - **Future User Submissions:** Not in scope for Phase 3; requires legal review for rights transfer forms
 
 ### Browser Support
+
 - **Modern Browsers:** Chrome/Edge 90+, Firefox 88+, Safari 14+
 - **Mobile:** iOS Safari 14+, Chrome Android 90+
 - **Progressive Enhancement:** Core content accessible without CSS (text-only fallback)
@@ -345,7 +368,7 @@ const carnifexFerry: HistoricTemplateProps = {
 
 ### Section Components (Modular)
 
-```
+```text
 src/components/historic/
 ├── HistoricHero.astro
 ├── HistoricalContextSection.astro
@@ -362,11 +385,13 @@ src/components/historic/
 ## Dependencies
 
 ### External Dependencies
+
 - **Fonts:** Google Fonts API (Roboto Slab 700/900, Oswald 600/700) - preconnect required
 - **Icons:** Unicode emoji (♿ for ADA, 📍 for distance) - no icon library needed
 - **None:** No external APIs, no CMS integration (static data for Phase 3)
 
 ### Internal Dependencies
+
 - **WVWO Tailwind Config:** Extends with heritage color palette (11 new colors)
 - **SPEC-17 Patterns:** Industry safety colors (trail difficulty if applicable)
 - **SPEC-18 Patterns:** Geographic proximity (Haversine formula for nearby sites)
@@ -406,6 +431,7 @@ theme: {
 ## Acceptance Criteria
 
 ### Visual Authenticity
+
 - [ ] Zero forbidden fonts (Inter, Poppins, system-ui) - only WVWO fonts + Roboto Slab/Oswald
 - [ ] Zero purple/pink/neon colors - only WVWO brand + heritage palette
 - [ ] Zero glassmorphic effects or backdrop-blur
@@ -414,6 +440,7 @@ theme: {
 - [ ] Asymmetric grids feel hand-built (2fr 3fr, not 1fr 1fr)
 
 ### Appalachian Soul
+
 - [ ] Riveted border treatment visible on Preserved Structures cards
 - [ ] Lumber border (asymmetric 3px 2px 4px 3px) on event cards
 - [ ] Metal seam dividers between major sections
@@ -423,6 +450,7 @@ theme: {
 - [ ] Aged gold era badge with Roboto Slab font
 
 ### Technical Excellence
+
 - [ ] Lighthouse Performance ≥90, Accessibility 100
 - [ ] All heritage colors pass WCAG 2.1 AA contrast (large gold text only)
 - [ ] Mobile responsive 320px-1920px viewport widths
@@ -431,12 +459,14 @@ theme: {
 - [ ] All icons have proper aria-labels
 
 ### Content Completeness
+
 - [ ] All 8 sections implemented (Hero through Nearby History)
 - [ ] Props interface matches architecture spec (64-137 fields)
 - [ ] Optional sections hide gracefully (no "No data" messages)
 - [ ] Empty timeline hides subsection, shows events only
 
 ### Kim's Voice Test
+
 - [ ] **The Litmus Test:** "Would Kim's neighbors recognize this as 'their heritage' online?"
 - [ ] Voice examples: "This battlefield saw 244 casualties in a single afternoon" (respectful)
 - [ ] Voice examples: "The Civil War divided West Virginia families - neighbor against neighbor" (educational)
@@ -447,6 +477,7 @@ theme: {
 ## Clarifications
 
 ### Session 2026-01-05
+
 - **Q:** Tour booking integration approach - external systems vs simple contact links?
 - **A:** External booking system links (Option A). Use `reservationUrl` prop field to link to Eventbrite, WV State Parks reservations, or future affiliate booking platforms. Display "Reserve Tour →" CTA button. No embedded forms - delegate to specialized platforms.
 
@@ -467,6 +498,7 @@ theme: {
 ## References
 
 ### Research Documentation
+
 - **Appalachian Aesthetic Research:** `docs/spec-19-appalachian-aesthetic-research.md`
   - Moonshining heritage visual language (copper patina, rivets)
   - Coal mining town architecture (utilitarian, asymmetric)
@@ -484,14 +516,16 @@ theme: {
   - Responsive strategy, accessibility compliance
 
 ### Related Specs
+
 - **SPEC-17 (Backcountry):** Trail difficulty color standards, industry safety colors
 - **SPEC-18 (State Parks):** Geographic proximity patterns, quarterly review process, hybrid image strategy
 
 ### External Resources
-- Museum of Appalachia: https://www.museumofappalachia.org/
-- National Coal Heritage Area: https://coalheritage.wv.gov/
-- CCC Legacy Projects: https://www.ccclegacy.org/
-- Appalachian Trail Conservancy: https://appalachiantrail.org/
+
+- [Museum of Appalachia](https://www.museumofappalachia.org/)
+- [National Coal Heritage Area](https://coalheritage.wv.gov/)
+- [CCC Legacy Projects](https://www.ccclegacy.org/)
+- [Appalachian Trail Conservancy](https://appalachiantrail.org/)
 
 ---
 
