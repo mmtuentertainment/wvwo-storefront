@@ -144,18 +144,8 @@ const {
     z-index: 10;
   }
 
-  /* Stone-Carved Text Effect */
-  .stone-text-shadow {
-    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.6);
-  }
-
-  /* Lumber Border: Asymmetric Thickness */
-  .lumber-border {
-    border-style: solid;
-    border-color: #3E2723; /* brand-brown */
-    border-width: 3px 2px 4px 3px;
-    box-shadow: 2px 3px 0 rgba(62, 39, 35, 0.3);
-  }
+  /* Stone-Carved Text Effect - DEFINED IN global.css */
+  /* Lumber Border - DEFINED IN global.css */
 
   /* Metal Seam Divider */
   .metal-seam {
@@ -239,28 +229,8 @@ const {
 
   /* ======================================================================
      Progressive Loading: Skeleton Screens
+     DEFINED IN global.css - .skeleton-shimmer and @keyframes shimmer
      ====================================================================== */
-
-  /* Base skeleton shimmer animation */
-  @keyframes shimmer {
-    0% {
-      background-position: -1000px 0;
-    }
-    100% {
-      background-position: 1000px 0;
-    }
-  }
-
-  .skeleton-shimmer {
-    background: linear-gradient(
-      90deg,
-      rgba(66, 66, 66, 0.1) 0%,
-      rgba(66, 66, 66, 0.2) 50%,
-      rgba(66, 66, 66, 0.1) 100%
-    );
-    background-size: 2000px 100%;
-    animation: shimmer 2s linear infinite;
-  }
 
   /* Blur-up image loading */
   .blur-up {

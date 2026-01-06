@@ -1,0 +1,95 @@
+---
+/**
+ * SPEC-19: Preserved Structures Section
+ * D Arc (Defiant Spirit) - Riveted borders, "built to outlast"
+ */
+import type { HistoricTemplateProps } from '../../types/templates/historic';
+
+interface Props {
+  structures: HistoricTemplateProps['structures'];
+  siteMapUrl?: string;
+}
+
+const { structures, siteMapUrl } = Astro.props;
+---
+
+<section class="py-16 bg-white relative z-20 -mt-12" id="preserved-structures">
+  <div class="container mx-auto px-4">
+    <h2 class="font-display text-4xl md:text-5xl font-black text-brand-brown mb-12 text-center">
+      Preserved Structures
+    </h2>
+
+    <!-- Asymmetric 3-column grid -->
+    <div class="grid grid-cols-1 md:grid-cols-[3fr_2fr_4fr] gap-x-6 gap-y-8">
+      {structures.map((structure) => (
+        <div class="riveted-border bg-brand-cream p-6 rounded-sm">
+          <!-- Building Image with Copper Patina Accent and Attribution -->
+          {structure.image && (
+            <div class="relative mb-4">
+              <img src={structure.image} alt={structure.name} class="w-full rounded-sm" loading="lazy" />
+
+              <!-- Type Badge -->
+              <div class="absolute top-2 right-2 bg-sign-green px-3 py-1 rounded-sm">
+                <span class="font-trail text-xs font-bold text-white uppercase tracking-wide">
+                  {structure.type}
+                </span>
+              </div>
+
+              <!-- Image Attribution Caption -->
+              {structure.imageCredit && (
+                <p class="text-xs text-brand-mud/60 mt-2 italic">
+                  {structure.imageCredit}
+                </p>
+              )}
+            </div>
+          )}
+
+          <!-- Building Details -->
+          <h3 class="font-display text-xl font-bold text-brand-brown mb-2">
+            {structure.name}
+          </h3>
+          {structure.year && (
+            <p class="font-marker text-sm font-black text-stone-gray stone-text-shadow mb-3">
+              BUILT {structure.year}
+            </p>
+          )}
+          <p class="font-body text-sm text-brand-mud leading-relaxed">
+            {structure.description}
+          </p>
+
+          <!-- Condition Badge -->
+          {structure.condition && (
+            <div class="mt-4 inline-block bg-heritage-gold px-3 py-1 rounded-sm">
+              <span class="font-body text-xs font-bold text-white">
+                {structure.condition}
+              </span>
+            </div>
+          )}
+
+          <!-- Accessibility Indicator -->
+          {structure.accessible && (
+            <div class="mt-2 inline-flex items-center gap-1 text-xs text-sign-green">
+              <span aria-label="Wheelchair accessible">♿</span>
+              <span>Accessible</span>
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+
+    <!-- Site Map Download CTA (conditional) -->
+    {siteMapUrl && (
+      <div class="mt-12 text-center">
+        <a
+          href={siteMapUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 bg-brand-brown text-white font-display font-bold px-6 py-3 rounded-sm hover:bg-brand-brown/90 transition-colors"
+        >
+          <span>Download Site Map</span>
+          <span aria-hidden="true">📥</span>
+        </a>
+      </div>
+    )}
+  </div>
+</section>

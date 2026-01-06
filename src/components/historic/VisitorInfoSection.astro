@@ -1,0 +1,103 @@
+---
+/**
+ * SPEC-19: Visitor Info Section
+ * Coal-gray utilitarian aesthetic - function over form
+ */
+import type { HistoricTemplateProps } from '../../types/templates/historic';
+
+interface Props {
+  visitorInfo: HistoricTemplateProps['visitorInfo'];
+}
+
+const { visitorInfo } = Astro.props;
+const { hours, fees, facilities, accessibility, contact } = visitorInfo;
+---
+
+<section class="py-16 bg-coal-gray/5" id="visitor-info">
+  <div class="container mx-auto px-4">
+    <h2 class="font-display text-4xl md:text-5xl font-black text-brand-brown mb-12 text-center">
+      Visitor Information
+    </h2>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+      <!-- Hours -->
+      <div class="bg-white border-2 border-coal-gray p-6 rounded-sm">
+        <h3 class="font-body text-lg font-bold text-brand-brown mb-3 uppercase tracking-wide">
+          Hours
+        </h3>
+        <div class="space-y-2">
+          {hours.map((schedule) => (
+            <div>
+              <p class="font-body text-xs text-brand-mud font-semibold">{schedule.season}</p>
+              <p class="font-body text-sm text-brand-mud">{schedule.times}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Admission -->
+      <div class="bg-white border-2 border-coal-gray p-6 rounded-sm">
+        <h3 class="font-body text-lg font-bold text-brand-brown mb-3 uppercase tracking-wide">
+          Admission
+        </h3>
+        <div class="space-y-1">
+          {fees.map((fee) => (
+            <div class="flex justify-between items-center">
+              <span class="font-body text-sm text-brand-mud">{fee.type}:</span>
+              <span class="font-body text-sm font-bold text-brand-brown">{fee.amount}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Facilities -->
+      <div class="bg-white border-2 border-coal-gray p-6 rounded-sm">
+        <h3 class="font-body text-lg font-bold text-brand-brown mb-3 uppercase tracking-wide">
+          Facilities
+        </h3>
+        <ul class="space-y-1">
+          {facilities.map((facility) => (
+            <li class="font-body text-sm text-brand-mud flex items-start gap-2">
+              <span class="text-sign-green" aria-hidden="true">✓</span>
+              <span>{facility}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Accessibility -->
+      <div class="bg-white border-2 border-coal-gray p-6 rounded-sm">
+        <h3 class="font-body text-lg font-bold text-brand-brown mb-3 uppercase tracking-wide">
+          Accessibility
+        </h3>
+        <ul class="space-y-1">
+          {accessibility.map((feature) => (
+            <li class="font-body text-sm text-brand-mud flex items-start gap-2">
+              <span class="text-sign-green" aria-hidden="true">♿</span>
+              <span>{feature}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <!-- Contact Info Footer -->
+    <div class="mt-8 text-center">
+      <p class="font-body text-sm text-brand-mud">
+        <span class="font-bold">Contact:</span>
+        {' '}
+        <a href={`tel:${contact.phone}`} class="text-sign-green hover:text-sign-green/80">
+          {contact.phone}
+        </a>
+        {contact.email && (
+          <>
+            {' | '}
+            <a href={`mailto:${contact.email}`} class="text-sign-green hover:text-sign-green/80">
+              {contact.email}
+            </a>
+          </>
+        )}
+      </p>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,26 @@
+---
+/**
+ * SPEC-19: Event Cards Skeleton Screen
+ * Heritage burgundy border previews with lumber border class
+ */
+---
+
+<div class="grid md:grid-cols-2 gap-8" role="status" aria-label="Loading events">
+  {[1, 2, 3, 4].map(() => (
+    <div class="bg-heritage-cream-alt border-l-4 border-heritage-burgundy/20 p-8 rounded-sm lumber-border">
+      <!-- Event name -->
+      <div class="h-7 bg-coal-gray/20 w-1/2 rounded-sm mb-3 skeleton-shimmer"></div>
+
+      <!-- Event dates -->
+      <div class="h-4 bg-coal-gray/15 w-32 rounded-sm mb-4 skeleton-shimmer"></div>
+
+      <!-- Description (4 lines) -->
+      <div class="space-y-2 mb-4">
+        <div class="h-4 bg-coal-gray/10 w-full rounded-sm skeleton-shimmer"></div>
+        <div class="h-4 bg-coal-gray/10 w-full rounded-sm skeleton-shimmer"></div>
+        <div class="h-4 bg-coal-gray/10 w-full rounded-sm skeleton-shimmer"></div>
+        <div class="h-4 bg-coal-gray/10 w-3/4 rounded-sm skeleton-shimmer"></div>
+      </div>
+    </div>
+  ))}
+</div>

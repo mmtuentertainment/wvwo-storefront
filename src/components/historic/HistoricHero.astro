@@ -1,0 +1,81 @@
+---
+/**
+ * SPEC-19: Historic Hero Section
+ * C Arc (Balanced Truth) - Aged photo filter, era badge, quick highlights
+ */
+import type { HistoricTemplateProps } from '../../types/templates/historic';
+
+interface Props {
+  name: string;
+  era: string;
+  significance: string;
+  nationalRegister: boolean;
+  quickHighlights: string[];
+  heroImage: string;
+  heroImageAlt: string;
+  heroImageCredit?: string;
+}
+
+const { name, era, significance, nationalRegister, quickHighlights, heroImage, heroImageAlt, heroImageCredit } = Astro.props;
+---
+
+<section class="relative h-[70vh] min-h-[500px] overflow-hidden">
+  <!-- Background Image with Attribution -->
+  <div class="absolute inset-0">
+    <img src={heroImage} alt={heroImageAlt} class="w-full h-full object-cover hero-aged-photo" />
+
+    <!-- Image Attribution Overlay (if credit provided) -->
+    {heroImageCredit && (
+      <div class="hero-image-credit" role="contentinfo" aria-label="Image credit">
+        {heroImageCredit}
+      </div>
+    )}
+  </div>
+
+  <!-- Darkened Overlay -->
+  <div class="absolute inset-0 bg-black/[0.14]"></div>
+
+  <!-- Content Container -->
+  <div class="relative h-full container mx-auto px-4">
+    <div class="h-full flex flex-col justify-end pb-16">
+      <!-- Site Name -->
+      <h1 class="font-display text-5xl md:text-6xl font-black text-white mb-4">
+        {name}
+      </h1>
+
+      <!-- Era Badge -->
+      <div class="inline-flex items-center gap-2 bg-heritage-gold px-4 py-2 rounded-sm mb-6 self-start">
+        <span class="font-marker text-lg font-black text-brand-cream tracking-widest stone-text-shadow">
+          {era}
+        </span>
+      </div>
+
+      <!-- National Register Badge (conditional) -->
+      {nationalRegister && (
+        <div class="inline-flex items-center gap-2 bg-heritage-burgundy px-3 py-1 rounded-sm mb-6 self-start">
+          <span class="font-body text-sm font-bold text-white">
+            National Register of Historic Places
+          </span>
+        </div>
+      )}
+
+      <!-- Quick Highlights (3-5 key facts) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl">
+        {quickHighlights.slice(0, 5).map((highlight) => (
+          <div class="bg-white/95 p-4 rounded-sm shadow-md">
+            <p class="font-body text-sm text-brand-brown">{highlight}</p>
+          </div>
+        ))}
+      </div>
+
+      <!-- Significance Statement -->
+      {significance && (
+        <div class="mt-6 max-w-2xl bg-heritage-cream/90 p-4 rounded-sm">
+          <p class="font-body text-sm text-brand-brown leading-relaxed">
+            {significance}
+          </p>
+        </div>
+      )}
+    </div>
+  </div>
+</section>

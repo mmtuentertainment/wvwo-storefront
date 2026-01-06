@@ -1,0 +1,78 @@
+---
+/**
+ * SPEC-19: Tours Section
+ * Trail marker aesthetic with hand-painted signage feel
+ */
+import type { HistoricTemplateProps } from '../../types/templates/historic';
+
+interface Props {
+  tours: HistoricTemplateProps['tours'];
+}
+
+const { tours } = Astro.props;
+---
+
+<section class="py-16 bg-heritage-cream" id="tours">
+  <div class="container mx-auto px-4">
+    <h2 class="font-display text-4xl md:text-5xl font-black text-brand-brown mb-12 text-center">
+      Guided Tours
+    </h2>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {tours.map((tour) => (
+        <div class="bg-brand-cream border-2 border-brand-brown p-6 rounded-sm shadow-painted-wood">
+          <!-- Tour Type Badge (Trail Marker Style) -->
+          <div class="inline-block mb-4 px-4 py-2 bg-sign-green rounded-sm shadow-painted-wood">
+            <span class="font-trail text-sm font-bold text-white uppercase tracking-wider">
+              {tour.type}
+            </span>
+          </div>
+
+          <!-- Tour Name -->
+          <h3 class="font-display text-2xl font-bold text-brand-brown mb-3">
+            {tour.name}
+          </h3>
+
+          <!-- Tour Details -->
+          <div class="space-y-2 mb-4">
+            {tour.duration && (
+              <p class="font-body text-sm text-brand-mud flex items-center gap-2">
+                <span aria-hidden="true">⏱</span>
+                <span>{tour.duration}</span>
+              </p>
+            )}
+            {tour.schedule && (
+              <p class="font-body text-sm text-brand-mud flex items-center gap-2">
+                <span aria-hidden="true">📅</span>
+                <span>{tour.schedule}</span>
+              </p>
+            )}
+            {tour.cost && (
+              <p class="font-body text-sm font-bold text-brand-brown flex items-center gap-2">
+                <span aria-hidden="true">💵</span>
+                <span>{tour.cost}</span>
+              </p>
+            )}
+          </div>
+
+          <!-- Description -->
+          <p class="font-body text-sm text-brand-mud mb-4 leading-relaxed">
+            {tour.description}
+          </p>
+
+          <!-- Reserve Tour CTA Button (External Booking) -->
+          {tour.reservationUrl && (
+            <a
+              href={tour.reservationUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-block bg-brand-orange text-white font-display font-bold px-4 py-2 rounded-sm hover:bg-brand-orange/90 transition-colors"
+            >
+              Reserve Tour →
+            </a>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

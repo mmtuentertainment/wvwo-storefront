@@ -1,0 +1,106 @@
+---
+/**
+ * SPEC-19: Educational Programs Section
+ * A Arc (Reverent Honor) - Heritage burgundy borders, gold badges
+ */
+import type { HistoricTemplateProps } from '../../types/templates/historic';
+
+interface Props {
+  education: HistoricTemplateProps['education'];
+}
+
+const { education } = Astro.props;
+const { programs, resources } = education;
+---
+
+<section class="py-16 bg-white" id="educational-programs">
+  <div class="container mx-auto px-4">
+    <h2 class="font-display text-4xl md:text-5xl font-black text-brand-brown mb-12 text-center">
+      Educational Programs
+    </h2>
+
+    <div class="grid md:grid-cols-3 gap-6 mb-12">
+      {programs.map((program) => (
+        <div class="bg-white border-l-4 border-heritage-burgundy p-6 rounded-sm shadow-md">
+          <!-- Program Type Badge -->
+          {program.type && (
+            <div class="inline-block mb-3 px-3 py-1 bg-heritage-gold rounded-sm">
+              <span class="font-body text-xs font-bold text-white uppercase tracking-wide">
+                {program.type}
+              </span>
+            </div>
+          )}
+
+          <!-- Program Name -->
+          <h3 class="font-body text-lg font-bold text-brand-brown mb-2">
+            {program.name}
+          </h3>
+
+          <!-- Target Audience -->
+          {program.audience && (
+            <p class="font-body text-sm text-brand-mud mb-3">
+              For: {program.audience}
+            </p>
+          )}
+
+          <!-- Description -->
+          <p class="font-body text-sm text-brand-mud mb-4 leading-relaxed">
+            {program.description}
+          </p>
+
+          <!-- Duration & Cost -->
+          <div class="flex items-center justify-between text-xs text-brand-mud mb-3">
+            {program.duration && <span>{program.duration}</span>}
+            {program.cost && <span class="font-bold text-brand-brown">{program.cost}</span>}
+          </div>
+
+          <!-- Contact Link -->
+          {program.contactEmail && (
+            <a
+              href={`mailto:${program.contactEmail}`}
+              class="inline-block text-sign-green hover:text-sign-green/80 font-body text-sm font-medium"
+            >
+              Inquire →
+            </a>
+          )}
+          {program.booking && !program.contactEmail && (
+            <p class="font-body text-xs text-brand-mud">
+              {program.booking}
+            </p>
+          )}
+        </div>
+      ))}
+    </div>
+
+    <!-- Educational Resources Subsection (conditional) -->
+    {resources && resources.length > 0 && (
+      <div>
+        <h3 class="font-display text-3xl font-bold text-brand-brown mb-6">
+          Educational Resources
+        </h3>
+        <div class="grid md:grid-cols-3 gap-4">
+          {resources.map((resource) => (
+            <div class="bg-brand-cream border-l-4 border-brand-brown p-4 rounded-sm">
+              <p class="font-body text-xs text-sign-green font-semibold mb-1 uppercase">
+                {resource.type}
+              </p>
+              <h4 class="font-body text-sm font-bold text-brand-brown mb-2">
+                {resource.title}
+              </h4>
+              {resource.url && (
+                <a
+                  href={resource.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-block text-sign-green hover:text-sign-green/80 font-body text-xs font-medium"
+                >
+                  Download →
+                </a>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+  </div>
+</section>
