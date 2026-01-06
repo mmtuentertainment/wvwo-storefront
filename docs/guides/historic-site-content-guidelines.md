@@ -33,7 +33,7 @@
 
 **A (Reverent Honor) - Education & Programs:**
 
-- **Purpose:** Honor survival, inspire next generation
+- **Purpose:** Honor survival, inspire next-generation
 - **Tone:** Hopeful, forward-looking, heritage-proud
 - **Colors:** Full heritage palette celebrating endurance
 - **Example:** "Where fourth-generation guides teach their kids the stories barons tried to bury."
@@ -76,7 +76,7 @@
 
 **Euphemisms:**
 
-- ❌ "Company towns provided housing" → ✅ "Company owned homes, evicted striking families"
+- ❌ "Company towns provided housing" → ✅ "Company-owned homes, evicted striking families"
 - ❌ "Labor disputes" → ✅ "Company guards shot striking miners"
 - ❌ "Economic hardship" → ✅ "Deliberate wage theft through scrip and company stores"
 
