@@ -1,0 +1,94 @@
+---
+/**
+ * SPEC-19 Phase 2: Hero Section Component
+ * C Arc (Balanced Truth): Museum respect, balanced presentation
+ * Era badge with stone-carved shadow, aged photo filter, quick highlights
+ */
+
+import type { HistoricTemplateProps } from '@/types/templates/historic';
+
+// Use Pick to derive props from main interface (DRY principle - CodeRabbit feedback)
+type Props = Pick<HistoricTemplateProps,
+  'name' | 'location' | 'era' | 'significance' | 'nationalRegister' |
+  'quickHighlights' | 'heroImage' | 'heroImageAlt' | 'heroImageCredit'
+>;
+
+const {
+  name,
+  location,
+  era,
+  significance,
+  nationalRegister,
+  quickHighlights,
+  heroImage,
+  heroImageAlt,
+  heroImageCredit,
+} = Astro.props;
+---
+
+<section class="relative h-[70vh] min-h-[500px] overflow-hidden">
+  <!-- Background Image with Aged Photo Filter -->
+  <div class="absolute inset-0">
+    <img
+      src={heroImage}
+      alt={heroImageAlt}
+      class="w-full h-full object-cover hero-aged-photo"
+      loading="eager"
+    />
+
+    <!-- Image Attribution Overlay (conditional) -->
+    {heroImageCredit && (
+      <div class="hero-image-credit" aria-label="Image credit">
+        {heroImageCredit}
+      </div>
+    )}
+  </div>
+
+  <!-- Darkened Overlay: 14% opacity (C arc: Balanced Truth) -->
+  <div class="absolute inset-0 bg-black/[0.14]"></div>
+
+  <!-- Content Container -->
+  <div class="relative h-full container mx-auto px-4">
+    <div class="h-full flex flex-col justify-end pb-16">
+      <!-- Site Name: Bitter 900, dramatic scale -->
+      <h1 class="font-display text-5xl md:text-6xl font-black text-white mb-4">
+        {name}
+      </h1>
+
+      <!-- Location -->
+      <p class="font-body text-lg text-brand-cream mb-4">{location}</p>
+
+      <!-- Era Badge: Heritage Gold, font-marker (Permanent Marker), Stone-Carved Shadow -->
+      <div class="inline-flex items-center gap-2 bg-heritage-gold-light px-4 py-2 rounded-sm mb-6 max-w-fit">
+        <span class="font-marker text-lg font-black text-brand-cream tracking-widest stone-text-shadow uppercase">
+          {era}
+        </span>
+      </div>
+
+      <!-- National Register Badge (conditional) -->
+      {nationalRegister && (
+        <div class="inline-flex items-center gap-2 bg-sign-green px-4 py-2 rounded-sm mb-6 max-w-fit">
+          <span class="font-body text-sm font-bold text-white uppercase tracking-wide">
+            National Register of Historic Places
+          </span>
+        </div>
+      )}
+
+      <!-- Quick Highlights Grid (3-5 key facts, max 5 displayed) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-3xl">
+        {quickHighlights.slice(0, 5).map((highlight) => (
+          <div class="bg-white/95 p-4 rounded-sm">
+            <p class="font-body text-sm text-brand-brown">{highlight}</p>
+          </div>
+        ))}
+      </div>
+
+      <!-- Significance Statement -->
+      <div class="mt-6 max-w-3xl">
+        <p class="font-body text-base text-brand-cream leading-relaxed">
+          {significance}
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

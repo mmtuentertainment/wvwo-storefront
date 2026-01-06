@@ -1,0 +1,65 @@
+---
+/**
+ * SPEC-19: Nearby History Section
+ * Trail blaze markers connecting related sites
+ */
+import type { HistoricTemplateProps } from '../../types/templates/historic';
+
+interface Props {
+  nearbyHistory?: HistoricTemplateProps['nearbyHistory'];
+}
+
+const { nearbyHistory } = Astro.props;
+
+// Don't render section if no nearby sites
+if (!nearbyHistory || nearbyHistory.length === 0) return null;
+---
+
+<section class="py-16 bg-brand-cream" id="nearby-history">
+  <div class="container mx-auto px-4">
+    <h2 class="font-display text-4xl md:text-5xl font-black text-brand-brown mb-12 text-center">
+      Nearby Historic Sites
+    </h2>
+
+    <div class="grid md:grid-cols-3 gap-6">
+      {nearbyHistory.map((site) => (
+        <a
+          href={site.url || '#'}
+          class="block bg-white border-l-4 border-sign-green p-6 rounded-sm hover:shadow-lg transition-shadow"
+        >
+          <!-- Site Type Badge (Trail Blaze Style) -->
+          {site.type && (
+            <div class="inline-flex items-center gap-2 mb-3 px-3 py-1 bg-sign-green rounded-sm">
+              <span class="font-trail text-xs font-bold text-white uppercase tracking-wide">
+                {site.type}
+              </span>
+            </div>
+          )}
+
+          <!-- Site Name -->
+          <h3 class="font-display text-xl font-bold text-brand-brown mb-2">
+            {site.name}
+          </h3>
+
+          <!-- Distance & Direction -->
+          <p class="font-body text-sm text-brand-mud mb-3 flex items-center gap-2">
+            <span aria-hidden="true">📍</span>
+            <span>{site.distance}{site.direction && ` • ${site.direction}`}</span>
+          </p>
+
+          <!-- Relation Description -->
+          <p class="font-body text-sm text-brand-mud mb-3 italic">
+            {site.relation}
+          </p>
+
+          <!-- Brief Description (conditional) -->
+          {site.briefDescription && (
+            <p class="font-body text-sm text-brand-mud">
+              {site.briefDescription}
+            </p>
+          )}
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

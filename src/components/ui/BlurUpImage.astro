@@ -1,0 +1,44 @@
+---
+/**
+ * SPEC-19: Blur-Up Image Component
+ * Progressive image loading with LQIP (Low-Quality Image Placeholder)
+ */
+
+interface Props {
+  src: string;
+  lqip?: string; // Optional low-res placeholder (base64 or URL)
+  alt: string;
+  credit?: string;
+  class?: string;
+}
+
+const { src, lqip, alt, credit, class: className = '' } = Astro.props;
+---
+
+<div class="image-container relative">
+  <!-- LQIP (Low-Quality Image Placeholder) -->
+  {lqip && (
+    <img
+      src={lqip}
+      alt=""
+      class="absolute inset-0 w-full h-full object-cover blur-sm"
+      aria-hidden="true"
+    />
+  )}
+
+  <!-- Full-resolution image with blur-up -->
+  <img
+    src={src}
+    alt={alt}
+    class={`relative w-full h-full object-cover blur-up ${className}`}
+    loading="lazy"
+    onload="this.classList.add('loaded')"
+  />
+
+  <!-- Attribution overlay or caption -->
+  {credit && (
+    <div class="hero-image-credit" role="contentinfo" aria-label={`Image credit: ${credit}`}>
+      {credit}
+    </div>
+  )}
+</div>

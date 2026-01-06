@@ -1,0 +1,92 @@
+---
+/**
+ * SPEC-19: Historical Context Section
+ * B Arc (Raw Reality) - Timeline, events, key figures
+ */
+import type { HistoricTemplateProps } from '../../types/templates/historic';
+
+interface Props {
+  historicalContext: HistoricTemplateProps['historicalContext'];
+}
+
+const { historicalContext } = Astro.props;
+const { timeline, events, keyFigures, significance } = historicalContext;
+---
+
+<section class="py-16 bg-heritage-cream" id="historical-context">
+  <div class="container mx-auto px-4">
+    <h2 class="font-display text-4xl md:text-5xl font-black text-brand-brown mb-12 text-center">
+      Historical Timeline
+    </h2>
+
+    <!-- Asymmetric Grid: Timeline (narrow) + Events (wide) -->
+    <div class="grid grid-cols-1 md:grid-cols-[2fr_5fr] gap-6 mb-12">
+      <!-- Timeline Column (optional, conditional rendering) -->
+      {timeline && timeline.length > 0 && (
+        <div class="space-y-8">
+          {timeline.map((event) => (
+            <div class="border-l-4 border-coal-gray pl-4">
+              <p class="font-marker text-xl font-black text-stone-gray stone-text-shadow">
+                {event.year}
+              </p>
+              <p class="font-body text-sm text-brand-mud mt-1">
+                {event.event}
+              </p>
+            </div>
+          ))}
+        </div>
+      )}
+
+      <!-- Event Cards Column -->
+      <div class="space-y-6">
+        {events.map((event) => (
+          <div class="bg-heritage-cream-alt border-l-4 border-heritage-burgundy p-6 rounded-sm lumber-border">
+            <p class="font-marker text-sm font-bold text-sign-green mb-2 uppercase tracking-wide">
+              {event.date}
+            </p>
+            <h3 class="font-display text-2xl font-bold text-brand-brown mb-2">
+              {event.title}
+            </h3>
+            <p class="font-body text-brand-mud leading-relaxed">
+              {event.description}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Key Figures Subsection (conditional) -->
+    {keyFigures && keyFigures.length > 0 && (
+      <div class="mb-12">
+        <h3 class="font-display text-3xl font-bold text-brand-brown mb-6">
+          Key Figures
+        </h3>
+        <div class="grid md:grid-cols-2 gap-6">
+          {keyFigures.map((figure) => (
+            <div class="bg-brand-cream border-l-4 border-brand-brown p-6 rounded-sm">
+              <h4 class="font-display text-xl font-bold text-brand-brown mb-1">
+                {figure.name}
+              </h4>
+              <p class="font-body text-sm text-sign-green font-semibold mb-2">
+                {figure.role}
+              </p>
+              <p class="font-body text-sm text-brand-mud">
+                {figure.bio}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+
+    <!-- Broader Significance Card -->
+    <div class="bg-heritage-cream border-l-4 border-brand-orange p-8 rounded-sm">
+      <h3 class="font-display text-2xl font-bold text-brand-brown mb-3">
+        Broader Significance
+      </h3>
+      <p class="font-body text-brand-mud leading-relaxed">
+        {significance}
+      </p>
+    </div>
+  </div>
+</section>

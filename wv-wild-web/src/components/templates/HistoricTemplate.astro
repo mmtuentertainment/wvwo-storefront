@@ -1,0 +1,263 @@
+---
+/**
+ * SPEC-19: Historic Site Template with Appalachian Soul
+ * Main orchestrator component for WV historic sites and battlefields
+ * Phase 4: Complete C→B→D→A narrative arc with all 8 sections
+ */
+
+import type { HistoricTemplateProps } from '@/types/templates/historic';
+import HistoricHero from '@/components/historic/HistoricHero.astro';
+import HistoricalContextSection from '@/components/historic/HistoricalContextSection.astro';
+import PreservedStructuresSection from '@/components/historic/PreservedStructuresSection.astro';
+import ToursSection from '@/components/historic/ToursSection.astro';
+import ExhibitsSection from '@/components/historic/ExhibitsSection.astro';
+import EducationalProgramsSection from '@/components/historic/EducationalProgramsSection.astro';
+import VisitorInfoSection from '@/components/historic/VisitorInfoSection.astro';
+import NearbyHistorySection from '@/components/historic/NearbyHistorySection.astro';
+// Skeleton components for progressive loading (SSG doesn't need these, but available for dynamic content)
+// import TimelineSkeleton from '@/components/skeletons/TimelineSkeleton.astro';
+// import EventCardsSkeleton from '@/components/skeletons/EventCardsSkeleton.astro';
+// import StructureCardsSkeleton from '@/components/skeletons/StructureCardsSkeleton.astro';
+// import TourCardsSkeleton from '@/components/skeletons/TourCardsSkeleton.astro';
+
+type Props = HistoricTemplateProps;
+
+const props = Astro.props;
+
+// Destructure props for all sections
+const {
+  name,
+  location,
+  era,
+  significance,
+  nationalRegister,
+  quickHighlights,
+  heroImage,
+  heroImageAlt,
+  heroImageCredit,
+  historicalContext,
+  structures,
+  siteMapUrl,
+  tours,
+  exhibits,
+  education,
+  visitorInfo,
+  nearbyHistory,
+} = props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{name} | WV Wild Outdoors</title>
+
+
+</head>
+<body>
+  <!-- Phase 2-4: Complete C→B→D→A narrative arc with all 8 sections -->
+  <main>
+    <!-- Hero Section: C Arc (Balanced Truth) -->
+    <HistoricHero
+      name={name}
+      location={location}
+      era={era}
+      significance={significance}
+      nationalRegister={nationalRegister}
+      quickHighlights={quickHighlights}
+      heroImage={heroImage}
+      heroImageAlt={heroImageAlt}
+      heroImageCredit={heroImageCredit}
+    />
+
+    <!-- Metal Seam Divider (Section Separator) -->
+    <div class="metal-seam" aria-hidden="true"></div>
+
+    <!-- Historical Context Section: B Arc (Raw Reality) -->
+    <HistoricalContextSection historicalContext={historicalContext} />
+
+    <!-- Metal Seam Divider (Section Separator) -->
+    <div class="metal-seam" aria-hidden="true"></div>
+
+    <!-- Preserved Structures Section: D Arc (Defiant Spirit) -->
+    <PreservedStructuresSection
+      structures={structures}
+      siteMapUrl={siteMapUrl}
+    />
+
+    <!-- Metal Seam Divider (Section Separator) -->
+    <div class="metal-seam" aria-hidden="true"></div>
+
+    <!-- Tours Section -->
+    <ToursSection tours={tours} />
+
+    <!-- Metal Seam Divider (Section Separator) -->
+    <div class="metal-seam" aria-hidden="true"></div>
+
+    <!-- Exhibits Section: A Arc (Reverent Honor) - Museum Heritage -->
+    <ExhibitsSection exhibits={exhibits} />
+
+    <!-- Educational Programs Section: A Arc (Reverent Honor) - Learning Celebration -->
+    <EducationalProgramsSection education={education} />
+
+    <!-- Metal Seam Divider (Section Separator) -->
+    <div class="metal-seam" aria-hidden="true"></div>
+
+    <!-- Visitor Information Section: A Arc (Reverent Honor) - Practical Access -->
+    <VisitorInfoSection visitorInfo={visitorInfo} />
+
+    <!-- Metal Seam Divider (Section Separator) -->
+    <div class="metal-seam" aria-hidden="true"></div>
+
+    <!-- Nearby Historic Sites Section: A Arc (Reverent Honor) - Heritage Network -->
+    <NearbyHistorySection nearbyHistory={nearbyHistory} />
+  </main>
+</body>
+</html>
+
+<style>
+  /* ======================================================================
+     SPEC-19 Custom Styles: Appalachian Heritage Treatments
+     Phase 1: Complete CSS foundation (~150 lines)
+     ====================================================================== */
+
+  /* Hero Image: Aged Photo Effect */
+  .hero-aged-photo {
+    filter: sepia(0.3) contrast(1.1) brightness(0.95) grayscale(0.2);
+  }
+
+  /* Hero Image Attribution Overlay */
+  .hero-image-credit {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    background: rgba(66, 66, 66, 0.8); /* coal-gray with 80% opacity */
+    color: #ffffff;
+    font-size: 10px;
+    padding: 4px 8px;
+    border-radius: 2px; /* rounded-sm */
+    font-family: 'Noto Sans', sans-serif;
+    z-index: 10;
+  }
+
+  /* Stone-Carved Text Effect - DEFINED IN global.css */
+  /* Lumber Border - DEFINED IN global.css */
+
+  /* Metal Seam Divider */
+  .metal-seam {
+    border-top: 2px solid #424242; /* coal-gray */
+    border-bottom: 1px solid #616161; /* creek-stone */
+    height: 8px;
+    background: repeating-linear-gradient(
+      90deg,
+      #424242 0px,
+      #616161 2px,
+      #424242 4px
+    );
+    margin: 3rem 0;
+  }
+
+
+
+
+
+
+
+  /* ======================================================================
+     Progressive Loading: Skeleton Screens
+     DEFINED IN global.css - .skeleton-shimmer and @keyframes shimmer
+     ====================================================================== */
+
+  /* Blur-up image loading */
+  .blur-up {
+    opacity: 0;
+    transition: opacity 0.3s ease-in;
+  }
+
+  .blur-up.loaded {
+    opacity: 1;
+  }
+
+  /* Reduced Motion Preferences */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation: none !important;
+      transition: none !important;
+    }
+
+
+  }
+
+  /* Focus States (WCAG 2.1 AA) */
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid #FF6F00; /* brand-orange */
+    outline-offset: 2px;
+  }
+
+  /* ======================================================================
+     HIGH CONTRAST MODE SUPPORT (WCAG 2.1 AA)
+     Agent 4: High Contrast Mode Specialist
+     ====================================================================== */
+
+  @media (prefers-contrast: high) {
+    /* Override heritage colors for 7:1 contrast ratio */
+    .border-heritage-burgundy {
+      border-color: #000000 !important;
+    }
+
+    .text-heritage-gold,
+    .bg-heritage-gold {
+      color: #000000 !important;
+      background-color: #ffffff !important;
+    }
+
+    .text-coal-gray,
+    .bg-coal-gray {
+      color: #000000 !important;
+      background-color: #ffffff !important;
+    }
+
+    .border-coal-gray {
+      border-color: #000000 !important;
+    }
+
+    /* Ensure all text meets 7:1 contrast */
+    .text-brand-mud {
+      color: #000000 !important;
+    }
+
+    .text-stone-gray {
+      color: #000000 !important;
+    }
+  }
+
+  /* ======================================================================
+     RESPONSIVE BREAKPOINTS (Mobile-First)
+     Agent 1: Responsive Testing Specialist
+     ====================================================================== */
+
+  /* Mobile: Disable textures and asymmetry */
+  @media (max-width: 767px) {
+
+
+    /* Force single column stacking */
+    .grid.md\\:grid-cols-\\[2fr_5fr\\],
+    .grid.md\\:grid-cols-\\[3fr_2fr_4fr\\] {
+      grid-template-columns: 1fr !important;
+    }
+  }
+
+  /* Tablet: Enable 2-column grids */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .grid.md\\:grid-cols-2 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* Desktop: Full asymmetric grids and textures */
+  @media (min-width: 1024px) {
+
+  }
+</style>

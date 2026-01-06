@@ -1,0 +1,38 @@
+---
+/**
+ * SPEC-19 Phase 2: Timeline Skeleton Component
+ * Progressive loading placeholder matching Historical Context layout
+ * Coal-gray shimmer animation, lumber-border aesthetic
+ */
+---
+
+<div role="status" aria-label="Loading historical timeline">
+  <!-- Asymmetric Grid: Timeline Markers (2fr) + Event Cards (5fr) -->
+  <div class="grid grid-cols-1 md:grid-cols-[2fr_5fr] gap-6">
+    <!-- Left: Timeline Year Markers Column -->
+    <div class="space-y-8">
+      {[1, 2, 3, 4].map(() => (
+        <div class="border-l-4 border-coal-gray/20 pl-4">
+          <div class="h-6 bg-coal-gray/20 w-20 rounded-sm skeleton-shimmer"></div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Right: Event Cards Column -->
+    <div class="space-y-6">
+      {[1, 2, 3, 4].map(() => (
+        <div class="bg-heritage-cream border-l-4 border-heritage-burgundy/20 p-6 rounded-sm lumber-border">
+          <!-- Event Title Skeleton -->
+          <div class="h-6 bg-coal-gray/20 w-3/4 rounded-sm mb-3 skeleton-shimmer"></div>
+
+          <!-- Event Description Skeleton (3 lines) -->
+          <div class="space-y-2">
+            <div class="h-4 bg-coal-gray/10 w-full rounded-sm skeleton-shimmer"></div>
+            <div class="h-4 bg-coal-gray/10 w-full rounded-sm skeleton-shimmer"></div>
+            <div class="h-4 bg-coal-gray/10 w-2/3 rounded-sm skeleton-shimmer"></div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+---
+/**
+ * SPEC-19: Timeline Skeleton Screen
+ * Coal-gray shimmer matching HistoricalContextSection layout
+ */
+---
+
+<div class="animate-pulse" role="status" aria-label="Loading historical timeline">
+  <!-- Timeline Markers Column -->
+  <div class="grid grid-cols-1 md:grid-cols-[2fr_5fr] gap-6">
+    <!-- Left: Year markers -->
+    <div class="space-y-8">
+      {[1, 2, 3, 4].map(() => (
+        <div class="border-l-4 border-coal-gray/20 pl-4">
+          <div class="h-6 bg-coal-gray/20 w-20 rounded-sm skeleton-shimmer"></div>
+          <div class="h-4 bg-coal-gray/10 w-32 rounded-sm mt-2 skeleton-shimmer"></div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Right: Event cards -->
+    <div class="space-y-6">
+      {[1, 2, 3, 4].map(() => (
+        <div class="bg-heritage-cream-alt border-l-4 border-heritage-burgundy/20 p-6 rounded-sm">
+          <!-- Date skeleton -->
+          <div class="h-4 bg-coal-gray/15 w-32 rounded-sm mb-2 skeleton-shimmer"></div>
+          <!-- Title skeleton -->
+          <div class="h-6 bg-coal-gray/20 w-3/4 rounded-sm mb-3 skeleton-shimmer"></div>
+          <!-- Description skeleton (3 lines) -->
+          <div class="space-y-2">
+            <div class="h-4 bg-coal-gray/10 w-full rounded-sm skeleton-shimmer"></div>
+            <div class="h-4 bg-coal-gray/10 w-full rounded-sm skeleton-shimmer"></div>
+            <div class="h-4 bg-coal-gray/10 w-2/3 rounded-sm skeleton-shimmer"></div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>

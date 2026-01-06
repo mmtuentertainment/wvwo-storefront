@@ -18,10 +18,24 @@
   --color-sign-green-muted: #558B2F;   /* Olive vintage */
   --color-brand-orange-muted: #E65100; /* Rust-toned */
 
+  /* SPEC-19: Heritage Color Palette (Historic Sites & Museums) */
+  --color-heritage-burgundy: #93282c;
+  --color-heritage-burgundy-light: #c02032;
+  --color-heritage-gold: #d18a00;
+  --color-heritage-gold-light: #ffc655;
+  --color-coal-gray: #424242;
+  --color-stone-gray: #757575;
+  --color-creek-stone: #616161;
+  --color-heritage-green: #0a5861;
+  --color-heritage-green-alt: #234b43;
+  --color-heritage-cream: #fff8e9;
+  --color-heritage-cream-alt: #efebe2;
+
   /* Typography - Hivemind Recommended Stack */
   --font-display: 'Bitter', serif;           /* General store signage */
   --font-hand: 'Permanent Marker', cursive;  /* Kim's Sharpie energy */
   --font-body: 'Noto Sans', sans-serif;      /* Warm, conversational */
+  --font-marker: 'Permanent Marker', cursive; /* SPEC-19: Historical markers - hand-carved */
 }
 
 @layer utilities {
@@ -33,6 +47,90 @@
     background-image: url('/patterns/camo-subtle.svg');
     background-size: 200px 200px;
     background-repeat: repeat;
+  }
+
+  /* SPEC-19: Stone-Carved Text Effect (Historic Sites) */
+  .stone-text-shadow {
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.6);
+  }
+
+  /* SPEC-19: Lumber Border - Asymmetric Thickness (Historic Sites) */
+  .lumber-border {
+    border-style: solid;
+    border-color: var(--color-brand-brown, #3E2723);
+    border-width: 3px 2px 4px 3px;
+    box-shadow: 2px 3px 0 rgba(62, 39, 35, 0.3);
+  }
+
+  /* SPEC-19: Skeleton Shimmer Animation (Progressive Loading) */
+  @keyframes shimmer {
+    0% {
+      background-position: -1000px 0;
+    }
+    100% {
+      background-position: 1000px 0;
+    }
+  }
+
+  .skeleton-shimmer {
+    background: linear-gradient(
+      90deg,
+      rgba(66, 66, 66, 0.1) 0%,
+      rgba(66, 66, 66, 0.2) 50%,
+      rgba(66, 66, 66, 0.1) 100%
+    );
+    background-size: 2000px 100%;
+    animation: shimmer 2s linear infinite;
+  }
+
+  /* SPEC-19: Painted Wood Shadow (Tours Section) */
+  .shadow-painted-wood {
+    box-shadow:
+      inset 0 0 20px rgba(62, 39, 35, 0.1),
+      3px 3px 0 rgba(0, 0, 0, 0.2);
+  }
+
+  /* SPEC-19: Riveted Border Treatment (Structures Section) */
+  .riveted-border {
+    position: relative;
+    border: 2px solid var(--color-brand-brown, #3E2723);
+  }
+
+  .riveted-border::before,
+  .riveted-border::after {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: var(--color-brand-brown, #3E2723);
+    border-radius: 50%;
+  }
+
+  .riveted-border::before {
+    top: -4px;
+    left: -4px;
+  }
+
+  .riveted-border::after {
+    top: -4px;
+    right: -4px;
+  }
+
+  /* SPEC-19: Aged Section Background (Subtle Texture) */
+  .aged-section {
+    background-color: #efebe2;
+    background-image:
+      linear-gradient(rgba(255,248,233,0.8), rgba(255,248,233,0.8)),
+      url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9Ii43NSIgc3RpdGNoVGlsZXM9InN0aXRjaCIgdHlwZT0iZnJhY3RhbE5vaXNlIi8+PGZlQ29sb3JNYXRyaXh0eXBlPSJzYXR1cmF0ZSIgdmFsdWVzPSIwIi8+PC9maWx0ZXI+PHBhdGggZD0iTTAgMGgzMDB2MzAwSDB6IiBmaWx0ZXI9InVybCgjYSkiIG9wYWNpdHk9Ii4wNSIvPjwvc3ZnPg==');
+    background-blend-mode: overlay;
+  }
+
+  /* Reduced Motion: Disable skeleton shimmer */
+  @media (prefers-reduced-motion: reduce) {
+    .skeleton-shimmer {
+      animation: none;
+      background: rgba(66, 66, 66, 0.1);
+    }
   }
 
   /* Category Showcase Animation */

@@ -1,0 +1,35 @@
+---
+/**
+ * SPEC-19: Tour Cards Skeleton Screen
+ * Trail marker badge shimmer with CTA button placeholder
+ */
+---
+
+<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" role="status" aria-label="Loading tours">
+  {[1, 2, 3].map(() => (
+    <div class="bg-brand-cream border-2 border-brand-brown/20 p-6 rounded-sm">
+      <!-- Tour type badge -->
+      <div class="inline-block mb-4 h-8 w-32 bg-coal-gray/15 rounded-sm skeleton-shimmer"></div>
+
+      <!-- Tour name -->
+      <div class="h-7 bg-coal-gray/20 w-5/6 rounded-sm mb-3 skeleton-shimmer"></div>
+
+      <!-- Tour details (duration, schedule, cost) -->
+      <div class="space-y-2 mb-4">
+        <div class="h-4 bg-coal-gray/10 w-28 rounded-sm skeleton-shimmer"></div>
+        <div class="h-4 bg-coal-gray/10 w-36 rounded-sm skeleton-shimmer"></div>
+        <div class="h-4 bg-coal-gray/10 w-20 rounded-sm skeleton-shimmer"></div>
+      </div>
+
+      <!-- Description (3 lines) -->
+      <div class="space-y-2 mb-4">
+        <div class="h-3 bg-coal-gray/10 w-full rounded-sm skeleton-shimmer"></div>
+        <div class="h-3 bg-coal-gray/10 w-full rounded-sm skeleton-shimmer"></div>
+        <div class="h-3 bg-coal-gray/10 w-3/4 rounded-sm skeleton-shimmer"></div>
+      </div>
+
+      <!-- CTA button -->
+      <div class="h-10 bg-coal-gray/15 w-32 rounded-sm skeleton-shimmer"></div>
+    </div>
+  ))}
+</div>
