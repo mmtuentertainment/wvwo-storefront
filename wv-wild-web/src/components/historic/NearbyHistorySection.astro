@@ -1,0 +1,49 @@
+---
+import type { HistoricTemplateProps } from '../../types/templates/historic';
+
+interface Props {
+  nearbyHistory?: HistoricTemplateProps['nearbyHistory'];
+}
+
+const { nearbyHistory } = Astro.props;
+
+// Hide section if no nearby sites
+if (!nearbyHistory || nearbyHistory.length === 0) {
+  return null;
+}
+---
+
+<section class="py-16 bg-brand-cream">
+  <div class="container mx-auto px-4">
+    <h2 class="text-4xl md:text-5xl font-display font-black text-center mb-12 text-brand-brown">
+      Nearby Historic Sites
+    </h2>
+
+    <div class="grid md:grid-cols-3 gap-6">
+      {nearbyHistory.map((site) => (
+        <a
+          href={site.url}
+          class="block bg-white border-l-4 border-sign-green p-6 hover:shadow-lg transition-shadow"
+        >
+          <span class="inline-block bg-sign-green text-white text-xs font-oswald font-bold px-3 py-1 rounded-sm uppercase tracking-wide mb-3">
+            {site.type}
+          </span>
+
+          <h3 class="text-xl font-display font-bold mb-2 text-brand-brown">
+            {site.name}
+          </h3>
+
+          {site.distance && (
+            <div class="text-sm text-brand-mud mb-3">
+              <span aria-hidden="true" role="img" aria-label="Distance">📍</span> {site.distance}{site.direction ? ` ${site.direction}` : ''}
+            </div>
+          )}
+
+          <p class="text-sm text-brand-mud">
+            {site.relation}
+          </p>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
