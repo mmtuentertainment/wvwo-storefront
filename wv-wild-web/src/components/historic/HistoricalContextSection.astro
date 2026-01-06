@@ -1,0 +1,105 @@
+---
+/**
+ * SPEC-19 Phase 2: Historical Context Section Component
+ * B Arc (Raw Reality): Blood metaphor, raw historical truth
+ * Asymmetric grid, coal-gray timeline markers, heritage burgundy event borders
+ */
+
+import type { HistoricTemplateProps } from '@/types/templates/historic';
+
+interface Props {
+  historicalContext: HistoricTemplateProps['historicalContext'];
+}
+
+const { historicalContext } = Astro.props;
+const { timeline, events, keyFigures, significance } = historicalContext;
+---
+
+<section class="py-16 bg-heritage-cream" id="historical-context">
+  <div class="container mx-auto px-4">
+    <!-- Section Heading: Bitter 900, Centered -->
+    <h2 class="font-display text-4xl md:text-5xl font-black text-brand-brown mb-12 text-center">
+      Historical Timeline
+    </h2>
+
+    <!-- Asymmetric Grid: Timeline (2fr) + Events (5fr) -->
+    <div class="grid grid-cols-1 md:grid-cols-[2fr_5fr] gap-6">
+      <!-- Timeline Column (conditional if timeline provided) -->
+      {timeline && timeline.length > 0 && (
+        <div class="space-y-8">
+          {timeline.map((item) => (
+            <div class="border-l-4 border-coal-gray pl-4">
+              <p class="font-marker text-xl font-black text-sign-green stone-text-shadow">
+                {item.year}
+              </p>
+              <p class="font-body text-sm text-brand-mud mt-1">{item.event}</p>
+            </div>
+          ))}
+        </div>
+      )}
+
+      <!-- Events Column: Heritage Burgundy Borders (B arc: Raw Reality) -->
+      <div class="space-y-6" class:list={{ 'col-span-full': !timeline || timeline.length === 0 }}>
+        {events.map((event) => (
+          <div class="bg-heritage-cream border-l-4 border-heritage-burgundy p-6 rounded-sm lumber-border">
+            <!-- Event Date: Roboto Slab, Sign Green -->
+            <p class="font-marker text-sm font-bold text-sign-green uppercase tracking-wide mb-2">
+              {event.date}
+            </p>
+
+            <!-- Event Title: Bitter 700 -->
+            <h3 class="font-display text-2xl font-bold text-brand-brown mb-3">
+              {event.title}
+            </h3>
+
+            <!-- Event Description: Noto Sans 400 -->
+            <p class="font-body text-base text-brand-mud leading-relaxed">
+              {event.description}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Key Figures Subsection (conditional) -->
+    {keyFigures && keyFigures.length > 0 && (
+      <div class="mt-16">
+        <h3 class="font-display text-3xl font-black text-brand-brown mb-8 text-center">
+          Key Historical Figures
+        </h3>
+
+        <!-- 2-Column Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {keyFigures.map((figure) => (
+            <div class="bg-brand-cream border-l-4 border-brand-brown p-6 rounded-sm">
+              <!-- Figure Name -->
+              <h4 class="font-display text-xl font-bold text-brand-brown mb-1">
+                {figure.name}
+              </h4>
+
+              <!-- Figure Role -->
+              <p class="font-marker text-sm text-sign-green uppercase tracking-wide mb-3">
+                {figure.role}
+              </p>
+
+              <!-- Figure Bio -->
+              <p class="font-body text-sm text-brand-mud leading-relaxed">
+                {figure.bio}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+
+    <!-- Broader Significance Card: Brand Orange Border (CTA emphasis) -->
+    <div class="mt-16 bg-brand-cream border-l-4 border-brand-orange p-8 rounded-sm lumber-border max-w-4xl mx-auto">
+      <h3 class="font-display text-2xl font-black text-brand-brown mb-4 text-center">
+        Broader Historical Significance
+      </h3>
+      <p class="font-body text-base text-brand-mud leading-relaxed">
+        {significance}
+      </p>
+    </div>
+  </div>
+</section>
