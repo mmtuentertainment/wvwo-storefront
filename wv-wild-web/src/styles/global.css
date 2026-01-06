@@ -18,10 +18,25 @@
   --color-sign-green-muted: #558B2F;   /* Olive vintage */
   --color-brand-orange-muted: #E65100; /* Rust-toned */
 
+  /* SPEC-19: Heritage Color Palette (Historic Sites & Museums) */
+  --color-heritage-burgundy: #93282c;
+  --color-heritage-burgundy-light: #c02032;
+  --color-heritage-gold: #d18a00;
+  --color-heritage-gold-light: #ffc655;
+  --color-coal-gray: #424242;
+  --color-stone-gray: #757575;
+  --color-creek-stone: #616161;
+  --color-heritage-green: #0a5861;
+  --color-heritage-green-alt: #234b43;
+  --color-heritage-cream: #fff8e9;
+  --color-heritage-cream-alt: #efebe2;
+
   /* Typography - Hivemind Recommended Stack */
   --font-display: 'Bitter', serif;           /* General store signage */
   --font-hand: 'Permanent Marker', cursive;  /* Kim's Sharpie energy */
   --font-body: 'Noto Sans', sans-serif;      /* Warm, conversational */
+  --font-marker: 'Roboto Slab', serif;       /* Historical markers */
+  --font-trail: 'Oswald', sans-serif;        /* Trail signage */
 }
 
 @layer utilities {
@@ -33,6 +48,40 @@
     background-image: url('/patterns/camo-subtle.svg');
     background-size: 200px 200px;
     background-repeat: repeat;
+  }
+
+  /* SPEC-19: Stone-Carved Text Effect (Historic Sites) */
+  .stone-text-shadow {
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.6);
+  }
+
+  /* SPEC-19: Lumber Border - Asymmetric Thickness (Historic Sites) */
+  .lumber-border {
+    border-style: solid;
+    border-color: var(--color-brand-brown, #3E2723);
+    border-width: 3px 2px 4px 3px;
+    box-shadow: 2px 3px 0 rgba(62, 39, 35, 0.3);
+  }
+
+  /* SPEC-19: Skeleton Shimmer Animation (Progressive Loading) */
+  @keyframes shimmer {
+    0% {
+      background-position: -1000px 0;
+    }
+    100% {
+      background-position: 1000px 0;
+    }
+  }
+
+  .skeleton-shimmer {
+    background: linear-gradient(
+      90deg,
+      rgba(66, 66, 66, 0.1) 0%,
+      rgba(66, 66, 66, 0.2) 50%,
+      rgba(66, 66, 66, 0.1) 100%
+    );
+    background-size: 2000px 100%;
+    animation: shimmer 2s linear infinite;
   }
 
   /* Category Showcase Animation */
