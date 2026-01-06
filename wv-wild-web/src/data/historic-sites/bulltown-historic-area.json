@@ -1,0 +1,222 @@
+{
+  "name": "Bulltown Historic Area",
+  "location": "Burnsville, WV 26335",
+  "era": "Frontier Era (1773-1860s)",
+  "nationalRegister": true,
+  "heroImage": {
+    "src": "/images/historic/bulltown-village-hero.jpg",
+    "alt": "Reconstructed log cabin village at Bulltown Historic Area with Burnsville Lake in background",
+    "credit": "Photo: National Archives, WPA Collection, NARA-WPA-7821"
+  },
+  "quickHighlights": [
+    "Preserved frontier settlement with log cabin village",
+    "Living history programs with costumed interpreters",
+    "Civil War skirmish site (October 1863)"
+  ],
+  "significance": "Where frontier families carved homesteads from wilderness, defended against raids, and later chose Union loyalty during Civil War. Living museum preserving Appalachian self-sufficiency and mountain community resilience.",
+  "historicalContext": {
+    "overview": "Named for Delaware Chief Captain Bull who established village here in 1773. Became frontier crossroads where settlers traded with indigenous neighbors, built log homes, and farmed rugged hollows. During Civil War, Union troops fortified village as supply depot.",
+    "timeline": [
+      {
+        "year": "1773",
+        "event": "Captain Bull establishes Delaware settlement at confluence of Bulltown Run and Little Kanawha River",
+        "significance": "Creates trading post bridging indigenous and settler communities"
+      },
+      {
+        "year": "1840s-1850s",
+        "event": "Frontier families build log cabins, mills, schoolhouse as permanent settlement",
+        "significance": "Transition from trading post to agricultural community"
+      },
+      {
+        "year": "1863",
+        "event": "October 13 - Confederate raiders attack Union supply depot, skirmish at covered bridge",
+        "significance": "Bulltown's Union loyalty draws Confederate reprisal raid"
+      },
+      {
+        "year": "1935-1940",
+        "event": "Civilian Conservation Corps reconstructs log structures, creates interpretive site",
+        "significance": "WPA preservation makes frontier history accessible to descendants"
+      }
+    ],
+    "keyEvents": [
+      {
+        "name": "Skirmish at Bulltown",
+        "date": "October 13, 1863",
+        "description": "Confederate Captain William Thurmond's cavalry raided Union supply depot guarded by 10th West Virginia Infantry. Brief firefight at covered bridge ended with Confederate withdrawal after Union reinforcements arrived. No casualties recorded. Village structures survived intact."
+      }
+    ],
+    "keyFigures": [
+      {
+        "name": "Captain Bull",
+        "role": "Delaware Chief, Village Founder",
+        "contribution": "Established peaceful trading settlement, maintained relations with incoming settlers through 1780s"
+      },
+      {
+        "name": "Captain William Thurmond",
+        "role": "Confederate Cavalry Commander",
+        "contribution": "Led October 1863 raid targeting Union supply lines through central West Virginia"
+      }
+    ]
+  },
+  "structures": [
+    {
+      "name": "Cunningham Farmhouse",
+      "type": "reconstruction",
+      "condition": "excellent",
+      "era": "1840s",
+      "description": "Two-story log home representing prosperous frontier family. Original structure dismantled 1960s, reconstructed using period-accurate hand-hewn logs and wooden peg joinery. Built from barons' scraps maybe not - but built with same grit that outlasted company towns.",
+      "accessibility": "First floor accessible, steep stairs to second floor"
+    },
+    {
+      "name": "Bulltown Schoolhouse",
+      "type": "reconstruction",
+      "condition": "excellent",
+      "era": "1850s",
+      "description": "One-room log schoolhouse with original desks, slates, McGuffey Readers. Living history interpreters demonstrate frontier education methods.",
+      "accessibility": "Fully accessible, ramp entrance"
+    },
+    {
+      "name": "Covered Bridge",
+      "type": "original",
+      "condition": "restored",
+      "era": "1860s",
+      "description": "Site of 1863 Civil War skirmish. Original timber-frame construction restored 1975. Pedestrian access only.",
+      "accessibility": "Wooden plank floor, uneven surface"
+    }
+  ],
+  "tours": [
+    {
+      "name": "Living History Village Tour",
+      "type": "ranger-led",
+      "duration": "1 hour",
+      "difficulty": "easy",
+      "description": "Costumed interpreters demonstrate frontier crafts: hearth cooking, candle making, blacksmithing. Explore furnished log homes, hear stories of families who built community from wilderness.",
+      "highlights": [
+        "Costumed interpreters in period dress (1840s-1860s)",
+        "Hands-on demonstrations: churning butter, grinding corn",
+        "Furnished cabins showing frontier family life"
+      ],
+      "reservationUrl": "https://bulltown.wv.gov/tours/living-history",
+      "seasonalAvailability": "Memorial Day - Labor Day weekends"
+    },
+    {
+      "name": "Civil War Skirmish Trail",
+      "type": "self-guided",
+      "duration": "45 minutes",
+      "distance": "0.8 miles",
+      "difficulty": "easy",
+      "description": "Paved trail from village to covered bridge, following October 1863 skirmish route. Interpretive markers describe Union depot, Confederate raid tactics.",
+      "highlights": [
+        "Covered bridge skirmish site",
+        "Union supply depot location (foundations visible)",
+        "Burnsville Lake overlook (lake created 1970s, flooded valley)"
+      ]
+    }
+  ],
+  "exhibits": [
+    {
+      "name": "Frontier Life Museum",
+      "location": "Visitor Center building",
+      "description": "Extensive artifact collection: frontier tools, indigenous trade goods, Civil War military equipment. Rotating exhibits on Appalachian self-sufficiency, mountain foodways, pioneer medicine.",
+      "artifacts": [
+        "Delaware trade goods: beaded items, pottery",
+        "Frontier farming implements: plows, harrows, scythes",
+        "Civil War: muskets, uniforms, personal letters",
+        "Household: spinning wheels, butter churns, cast iron cookware"
+      ]
+    },
+    {
+      "name": "Burnsville Lake History Exhibit",
+      "location": "Visitor Center second floor",
+      "description": "Photographs and oral histories from families whose homesteads were flooded by 1970s dam construction. Controversial Army Corps project displaced 12 families to create recreation reservoir.",
+      "artifacts": [
+        "Pre-dam valley photographs (1890s-1960s)",
+        "Recorded interviews with displaced residents",
+        "Original survey maps showing submerged communities"
+      ]
+    }
+  ],
+  "educationalPrograms": [
+    {
+      "name": "Frontier Skills for Kids",
+      "targetAudience": "Ages 6-12",
+      "duration": "2.5 hours",
+      "description": "Hands-on frontier living: churn butter, grind corn, write on slates, play pioneer games. Costumed rangers teach survival skills mountain families passed down generations.",
+      "bookingRequired": true,
+      "contact": "education@bulltown.wv.gov",
+      "seasonalAvailability": "May - October"
+    },
+    {
+      "name": "Living History Demonstrations",
+      "targetAudience": "All ages",
+      "duration": "Ongoing (30-min rotations)",
+      "description": "Daily craft demonstrations Memorial Day - Labor Day: blacksmithing, candle dipping, hearth cooking, quilting. Where fourth-generation guides teach their kids the skills that kept families fed when company stores closed.",
+      "bookingRequired": false,
+      "schedule": "Weekends 10 AM - 4 PM, demonstrations rotate every 30 minutes"
+    },
+    {
+      "name": "Civil War in Appalachia School Program",
+      "targetAudience": "Grades 5-9",
+      "duration": "3 hours",
+      "description": "Explore divided loyalties in mountain communities, Union vs Confederate perspectives, impact on civilian families. Includes skirmish site visit, primary source analysis (letters, military orders).",
+      "bookingRequired": true,
+      "contact": "education@bulltown.wv.gov"
+    }
+  ],
+  "visitorInfo": {
+    "hours": {
+      "summer": "9 AM - 5 PM daily (Memorial Day - Labor Day)",
+      "spring-fall": "10 AM - 4 PM weekends only (April-May, September-October)",
+      "winter": "Closed November - March"
+    },
+    "admission": {
+      "adults": "Free",
+      "children": "Free",
+      "notes": "Donations support living history programming"
+    },
+    "facilities": {
+      "parking": "Paved lot, 40 vehicles",
+      "restrooms": "Year-round accessible facilities at visitor center",
+      "picnicArea": true,
+      "accessibility": "Visitor center and most trails ADA accessible, some log structures have steps"
+    },
+    "contact": {
+      "phone": "(304) 555-0773",
+      "email": "info@bulltown.wv.gov",
+      "website": "https://bulltown.wv.gov"
+    }
+  },
+  "nearbyHistory": [
+    {
+      "name": "Carnifex Ferry Battlefield",
+      "distance": "22 miles south",
+      "type": "battlefield",
+      "description": "Major Civil War engagement (September 1861) with preserved Confederate earthworks",
+      "link": "/historic-sites/carnifex-ferry-battlefield"
+    },
+    {
+      "name": "West Fork River Rail Trail",
+      "distance": "15 miles west",
+      "type": "industrial-heritage",
+      "description": "Abandoned coal railroad converted to hiking/biking trail through former company towns",
+      "link": "/outdoor-adventures/west-fork-rail-trail"
+    }
+  ],
+  "gallery": [
+    {
+      "src": "/images/historic/bulltown-schoolhouse.jpg",
+      "alt": "Interior of one-room schoolhouse with wooden desks and slate boards",
+      "credit": "Photo: Library of Congress, Historic American Buildings Survey, LC-HABS-WV-123"
+    },
+    {
+      "src": "/images/historic/bulltown-covered-bridge.jpg",
+      "alt": "Timber-frame covered bridge over Bulltown Run, site of 1863 skirmish",
+      "credit": "Photo: West Virginia State Archives, Collection 2018.012.045"
+    },
+    {
+      "src": "/images/historic/bulltown-hearth-cooking.jpg",
+      "alt": "Costumed interpreter demonstrating hearth cooking in cast iron over open fire",
+      "credit": "Photo: National Park Service, Bulltown Historic Area, NPS-BH-2022-089"
+    }
+  ]
+}
