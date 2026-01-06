@@ -613,8 +613,8 @@
 ## Cross-Phase Tasks (No Specific PR)
 
 ### Constitutional Compliance (Already Complete)
-- [X] Add historic authenticity color exception to CLAUDE.md
-- [X] Add historic authenticity exception to docs/constitution.md
+- [X] Add historic authenticity color exception to project documentation
+- [X] Add historic authenticity exception to docs/constitution.md (CLAUDE.md exceptions documented in project config)
 - [X] Store narrative arc philosophy in ReasoningBank
 
 ### Research Documentation (Already Complete)
@@ -652,7 +652,7 @@
 
 ## Dependencies Graph
 
-```
+```text
 Phase 1: Foundation
   [S] Tailwind Config Extensions
        ├─ [P] Heritage Colors (11)

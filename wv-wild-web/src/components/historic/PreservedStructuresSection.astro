@@ -1,0 +1,82 @@
+---
+import type { HistoricTemplateProps } from '../../types/templates/historic';
+
+interface Props {
+  structures: HistoricTemplateProps['structures'];
+  siteMapUrl?: string;
+}
+
+const { structures, siteMapUrl } = Astro.props;
+---
+
+<section class="py-16 bg-white relative z-20 -mt-12">
+  <div class="container mx-auto px-4">
+    <h2 class="font-display font-black text-4xl md:text-5xl text-brand-brown text-center mb-12">
+      Preserved Structures
+    </h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-[3fr_2fr_4fr] gap-6 mb-8">
+      {structures.map((structure) => (
+        <article class="riveted-border bg-brand-cream p-6 relative">
+          <div class="relative mb-4 aspect-[4/3] overflow-hidden">
+            <img
+              src={structure.image}
+              alt={structure.name}
+              class="w-full h-full object-cover"
+              loading="lazy"
+              decoding="async"
+            />
+            <div class="absolute top-4 right-4 bg-heritage-green/90 text-brand-cream px-3 py-1 font-trail font-bold text-sm uppercase tracking-wide">
+              {structure.type}
+            </div>
+          </div>
+
+          {structure.imageCredit && (
+            <p class="text-xs text-coal-gray mb-3 italic">
+              {structure.imageCredit}
+            </p>
+          )}
+
+          <h3 class="font-display font-bold text-2xl text-brand-brown mb-2">
+            {structure.name}
+          </h3>
+
+          {structure.year && (
+            <p class="font-marker font-black text-lg text-stone-gray stone-text-shadow mb-3">
+              BUILT {structure.year}
+            </p>
+          )}
+
+          <p class="text-brand-brown mb-4 leading-relaxed">
+            {structure.description}
+          </p>
+
+          <div class="flex items-center justify-between">
+            <span class="bg-heritage-gold text-white px-3 py-1 rounded-sm text-sm font-bold">
+              {structure.condition}
+            </span>
+
+            {structure.accessible && (
+              <span class="text-sign-green text-sm font-bold flex items-center gap-1">
+                <span aria-hidden="true">♿</span>
+                <span>Accessible</span>
+              </span>
+            )}
+          </div>
+        </article>
+      ))}
+    </div>
+
+    {siteMapUrl && (
+      <div class="text-center">
+        <a
+          href={siteMapUrl}
+          download
+          class="inline-block bg-brand-orange text-white font-display font-bold px-8 py-3 rounded-sm hover:bg-brand-orange/90 transition-colors"
+        >
+          Download Site Map →
+        </a>
+      </div>
+    )}
+  </div>
+</section>

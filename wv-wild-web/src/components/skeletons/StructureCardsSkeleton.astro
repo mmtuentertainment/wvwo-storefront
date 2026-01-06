@@ -1,0 +1,35 @@
+---
+// Skeleton loader for Preserved Structures section
+// Maintains riveted border aesthetic during load
+---
+
+<section class="py-16 bg-white relative z-20 -mt-12" role="status" aria-label="Loading preserved structures">
+  <div class="container mx-auto px-4">
+    <div class="h-12 bg-coal-gray/20 rounded-sm w-64 mx-auto mb-12 skeleton-shimmer"></div>
+
+    <div class="grid grid-cols-1 md:grid-cols-[3fr_2fr_4fr] gap-6">
+      {[1, 2, 3, 4, 5, 6].map(() => (
+        <article class="riveted-border bg-brand-cream p-6">
+          <div class="aspect-[4/3] bg-coal-gray/20 rounded-sm mb-4 skeleton-shimmer"></div>
+
+          <div class="h-4 bg-coal-gray/20 rounded-sm w-3/4 mb-2 skeleton-shimmer"></div>
+
+          <div class="h-8 bg-coal-gray/20 rounded-sm w-full mb-2 skeleton-shimmer"></div>
+
+          <div class="h-6 bg-coal-gray/20 rounded-sm w-32 mb-3 skeleton-shimmer"></div>
+
+          <div class="space-y-2 mb-4">
+            <div class="h-4 bg-coal-gray/20 rounded-sm w-full skeleton-shimmer"></div>
+            <div class="h-4 bg-coal-gray/20 rounded-sm w-full skeleton-shimmer"></div>
+            <div class="h-4 bg-coal-gray/20 rounded-sm w-2/3 skeleton-shimmer"></div>
+          </div>
+
+          <div class="flex items-center justify-between">
+            <div class="h-6 bg-coal-gray/20 rounded-sm w-24 skeleton-shimmer"></div>
+            <div class="h-6 bg-coal-gray/20 rounded-sm w-20 skeleton-shimmer"></div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

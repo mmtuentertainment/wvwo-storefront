@@ -1,0 +1,71 @@
+---
+import type { HistoricTemplateProps } from '../../types/templates/historic';
+
+interface Props {
+  tours: HistoricTemplateProps['tours'];
+}
+
+const { tours } = Astro.props;
+---
+
+<section class="py-16 bg-heritage-cream">
+  <div class="container mx-auto px-4">
+    <h2 class="font-display font-black text-4xl md:text-5xl text-brand-brown text-center mb-12">
+      Guided Tours
+    </h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {tours.map((tour) => (
+        <article class="bg-brand-cream border-2 border-brand-brown p-6 shadow-painted-wood">
+          <div class="mb-4">
+            <span class="bg-sign-green text-white px-3 py-1 rounded-sm font-trail font-bold text-sm uppercase tracking-wide inline-block">
+              {tour.type}
+            </span>
+          </div>
+
+          <h3 class="font-display font-bold text-2xl text-brand-brown mb-4">
+            {tour.name}
+          </h3>
+
+          <div class="space-y-2 mb-4 text-brand-brown">
+            {tour.duration && (
+              <p class="flex items-center gap-2">
+                <span aria-hidden="true">⏱</span>
+                <span class="font-bold">Duration:</span> {tour.duration}
+              </p>
+            )}
+
+            {tour.schedule && (
+              <p class="flex items-center gap-2">
+                <span aria-hidden="true">📅</span>
+                <span class="font-bold">Schedule:</span> {tour.schedule}
+              </p>
+            )}
+
+            {tour.cost && (
+              <p class="flex items-center gap-2">
+                <span aria-hidden="true">💵</span>
+                <span class="font-bold">Cost:</span> {tour.cost}
+              </p>
+            )}
+          </div>
+
+          <p class="text-brand-brown mb-6 leading-relaxed">
+            {tour.description}
+          </p>
+
+          {tour.reservationUrl && (
+            <a
+              href={tour.reservationUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="block w-full bg-brand-orange text-white font-display font-bold text-center px-6 py-3 rounded-sm hover:bg-brand-orange/90 transition-colors"
+            >
+              Reserve Tour →
+            </a>
+          )}
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
