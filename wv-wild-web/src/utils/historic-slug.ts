@@ -9,5 +9,6 @@
  * to match data file naming (e.g., "carnifex-ferry-battlefield" → "carnifex-ferry").
  */
 export function toDataSlug(contentSlug: string): string {
-  return contentSlug.replace(/-battlefield$/, '');
+  const newSlug = contentSlug.replace(/-battlefield$/, '');
+  return newSlug || contentSlug;
 }

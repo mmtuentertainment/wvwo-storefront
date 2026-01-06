@@ -196,12 +196,14 @@ export const education: HistoricTemplateProps['education'] = {
     {
       title: 'Battle of Carnifex Ferry Teacher Guide',
       type: 'Lesson Plan',
-      downloadUrl: '/resources/carnifex-ferry-teacher-guide.pdf',
+      // TODO: Add downloadUrl when asset available at /resources/carnifex-ferry-teacher-guide.pdf
+      downloadUrl: undefined,
     },
     {
       title: 'Civil War in West Virginia Timeline',
       type: 'Brochure',
-      downloadUrl: '/resources/wv-civil-war-timeline.pdf',
+      // TODO: Add downloadUrl when asset available at /resources/wv-civil-war-timeline.pdf
+      downloadUrl: undefined,
     },
   ],
 };
