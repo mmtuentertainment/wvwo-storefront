@@ -14,11 +14,16 @@ import ExhibitsSection from '@/components/historic/ExhibitsSection.astro';
 import EducationalProgramsSection from '@/components/historic/EducationalProgramsSection.astro';
 import VisitorInfoSection from '@/components/historic/VisitorInfoSection.astro';
 import NearbyHistorySection from '@/components/historic/NearbyHistorySection.astro';
-// Skeleton components for progressive loading (SSG doesn't need these, but available for dynamic content)
-// import TimelineSkeleton from '@/components/skeletons/TimelineSkeleton.astro';
-// import EventCardsSkeleton from '@/components/skeletons/EventCardsSkeleton.astro';
-// import StructureCardsSkeleton from '@/components/skeletons/StructureCardsSkeleton.astro';
-// import TourCardsSkeleton from '@/components/skeletons/TourCardsSkeleton.astro';
+/**
+ * Skeleton components for progressive loading
+ * Currently unused in SSG mode - preserved for future dynamic/CSR implementations.
+ * Corresponding .skeleton-shimmer CSS is defined in global.css for reuse.
+ *
+ * import TimelineSkeleton from '@/components/skeletons/TimelineSkeleton.astro';
+ * import EventCardsSkeleton from '@/components/skeletons/EventCardsSkeleton.astro';
+ * import StructureCardsSkeleton from '@/components/skeletons/StructureCardsSkeleton.astro';
+ * import TourCardsSkeleton from '@/components/skeletons/TourCardsSkeleton.astro';
+ */
 
 type Props = HistoricTemplateProps;
 

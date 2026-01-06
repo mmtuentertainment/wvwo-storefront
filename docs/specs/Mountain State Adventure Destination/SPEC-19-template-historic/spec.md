@@ -432,7 +432,7 @@ theme: {
 
 ### Visual Authenticity
 
-- [ ] Zero forbidden fonts (Inter, Poppins, system-ui) - only WVWO fonts + Roboto Slab/Oswald
+- [ ] Zero forbidden fonts (Inter, Poppins, system-ui, Roboto Slab, Oswald) - only WVWO fonts (Bitter, Permanent Marker, Noto Sans)
 - [ ] Zero purple/pink/neon colors - only WVWO brand + heritage palette
 - [ ] Zero glassmorphic effects or backdrop-blur
 - [ ] Zero rounded-md/lg/xl corners - only rounded-sm (2px)
@@ -447,7 +447,7 @@ theme: {
 - [ ] Stone-carved text-shadow on historical dates
 - [ ] Coal-gray timeline markers (not corporate colors)
 - [ ] Heritage burgundy borders on museum sections
-- [ ] Aged gold era badge with Roboto Slab font
+- [ ] Aged gold era badge with font-display (Bitter) font
 
 ### Technical Excellence
 
