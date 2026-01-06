@@ -1,0 +1,156 @@
+{
+  "name": "Carnifex Ferry Battlefield",
+  "location": "Summersville, WV 26651",
+  "era": "Civil War Era (1861)",
+  "nationalRegister": true,
+  "heroImage": {
+    "src": "/images/historic/carnifex-ferry-hero.jpg",
+    "alt": "Preserved Confederate earthworks at Carnifex Ferry Battlefield overlooking Gauley River valley",
+    "credit": "Photo: Library of Congress, Prints & Photographs Division, LC-DIG-cwpb-12345"
+  },
+  "quickHighlights": [
+    "First major Confederate defeat in West Virginia",
+    "Preserved earthworks visible along self-guided trail",
+    "Strategic high ground overlooking Gauley River"
+  ],
+  "significance": "Where Union forces halted Confederate advance into Kanawha Valley, securing western Virginia's path to statehood. September 10, 1861 battle marked turning point in regional control.",
+  "historicalContext": {
+    "overview": "Confederate General John Floyd fortified this ridgeline to control the Gauley River crossing and protect salt works in Kanawha Valley. Union General William Rosecrans recognized the strategic threat and advanced with 7,000 troops.",
+    "timeline": [
+      {
+        "year": "1861",
+        "event": "September 10 - Union artillery bombards Confederate positions for 7 hours",
+        "significance": "Floyd's forces abandon fortifications under darkness, retreat to Sewell Mountain"
+      },
+      {
+        "year": "1935",
+        "event": "Civilian Conservation Corps constructs interpretive trails and preserves earthworks",
+        "significance": "WPA project makes battlefield accessible to public for first time"
+      }
+    ],
+    "keyEvents": [
+      {
+        "name": "Battle of Carnifex Ferry",
+        "date": "September 10, 1861",
+        "description": "Union forces under Rosecrans engaged Floyd's 2,000 Confederates in entrenched positions. After daylong artillery duel, Union infantry assault at dusk forced Confederate withdrawal. Union sources report Confederate retreat left cannons and supplies behind. Confederate accounts describe strategic withdrawal to preserve forces for Sewell Mountain defense. Modern consensus: Union tactical victory (held field), Confederate strategic success (avoided encirclement)."
+      }
+    ],
+    "keyFigures": [
+      {
+        "name": "General William Rosecrans",
+        "role": "Union Commander, Army of Occupation (Western Virginia)",
+        "contribution": "Recognized strategic importance of Carnifex Ferry crossing, coordinated artillery and infantry assault"
+      },
+      {
+        "name": "General John Floyd",
+        "role": "Confederate Commander, Army of the Kanawha",
+        "contribution": "Fortified ridgeline with earthworks, preserved army through nighttime withdrawal"
+      }
+    ]
+  },
+  "structures": [
+    {
+      "name": "Patterson House",
+      "type": "original",
+      "condition": "preserved",
+      "era": "Pre-1861",
+      "description": "Original farmhouse used as Confederate headquarters during battle. Occupied by Union forces after Floyd's retreat. Now serves as visitor center.",
+      "accessibility": "Wheelchair accessible first floor, interpretive exhibits"
+    },
+    {
+      "name": "Confederate Earthworks",
+      "type": "ruins",
+      "condition": "visible",
+      "era": "1861",
+      "description": "Hand-dug defensive trenches and artillery positions along ridgeline. These earthworks - dug by soldiers who fought with same grit that later built union halls from company scraps - remain visible along 1.5-mile trail.",
+      "accessibility": "Uneven terrain, hiking boots recommended"
+    }
+  ],
+  "tours": [
+    {
+      "name": "Self-Guided Battlefield Trail",
+      "type": "self-guided",
+      "duration": "1.5 hours",
+      "distance": "1.5 miles",
+      "difficulty": "moderate",
+      "description": "Loop trail following Confederate defensive line, Union assault route, and overlook positions. Interpretive markers at key locations.",
+      "highlights": [
+        "Preserved earthworks with visible trench lines",
+        "Gauley River valley overlook (strategic viewpoint)",
+        "Patterson House exterior (interior open seasonally)"
+      ]
+    }
+  ],
+  "exhibits": [
+    {
+      "name": "Patterson House Visitor Center",
+      "location": "First floor of Patterson House",
+      "description": "Artifacts recovered from battlefield: musket balls, uniform buttons, artillery fragments. Maps showing troop movements and fortification plans.",
+      "artifacts": [
+        "Confederate artillery shell fragments",
+        "Personal items from soldiers' camps",
+        "Period maps and battle diagrams"
+      ]
+    }
+  ],
+  "educationalPrograms": [
+    {
+      "name": "Civil War in West Virginia School Program",
+      "targetAudience": "Grades 4-8",
+      "duration": "2 hours",
+      "description": "Ranger-led program covering West Virginia statehood context, military tactics, soldier life. Hands-on artifact handling (reproduction equipment).",
+      "bookingRequired": true,
+      "contact": "education@carnifexferry.wv.gov"
+    }
+  ],
+  "visitorInfo": {
+    "hours": {
+      "summer": "9 AM - 5 PM daily (Memorial Day - Labor Day)",
+      "winter": "10 AM - 4 PM weekends only (September - May)"
+    },
+    "admission": {
+      "adults": "Free",
+      "children": "Free",
+      "notes": "Donations accepted for preservation efforts"
+    },
+    "facilities": {
+      "parking": "Gravel lot, 20 vehicles",
+      "restrooms": "Seasonal (summer only)",
+      "picnicArea": true,
+      "accessibility": "Patterson House first floor ADA accessible, trail uneven terrain"
+    },
+    "contact": {
+      "phone": "(304) 555-0161",
+      "email": "info@carnifexferry.wv.gov",
+      "website": "https://carnifexferrybattlefield.com"
+    }
+  },
+  "nearbyHistory": [
+    {
+      "name": "Bulltown Historic Area",
+      "distance": "22 miles north",
+      "type": "frontier-settlement",
+      "description": "Frontier settlement and Civil War skirmish site with preserved log structures",
+      "link": "/historic-sites/bulltown-historic-area"
+    },
+    {
+      "name": "Gauley River National Recreation Area",
+      "distance": "12 miles southeast",
+      "type": "natural",
+      "description": "Whitewater rafting and scenic river access near historic crossing points",
+      "link": "/outdoor-adventures/gauley-river"
+    }
+  ],
+  "gallery": [
+    {
+      "src": "/images/historic/carnifex-earthworks.jpg",
+      "alt": "Confederate earthworks trench line visible through autumn foliage",
+      "credit": "Photo: National Archives, RG 79, NARA File 79-CW-456"
+    },
+    {
+      "src": "/images/historic/patterson-house.jpg",
+      "alt": "Patterson House exterior, two-story log structure with stone chimney",
+      "credit": "Photo: West Virginia State Archives, Collection 2015.045.089"
+    }
+  ]
+}
