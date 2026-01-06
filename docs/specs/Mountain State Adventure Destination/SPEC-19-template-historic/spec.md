@@ -432,7 +432,7 @@ theme: {
 
 ### Visual Authenticity
 
-- [ ] Zero forbidden fonts (Inter, Poppins, system-ui) - only WVWO fonts + Roboto Slab/Oswald
+- [ ] Zero forbidden fonts (Inter, Poppins, system-ui, Roboto Slab, Oswald) - only WVWO fonts (Bitter, Permanent Marker, Noto Sans)
 - [ ] Zero purple/pink/neon colors - only WVWO brand + heritage palette
 - [ ] Zero glassmorphic effects or backdrop-blur
 - [ ] Zero rounded-md/lg/xl corners - only rounded-sm (2px)

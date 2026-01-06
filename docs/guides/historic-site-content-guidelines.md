@@ -123,7 +123,7 @@
 
 **Format for Disputed Events:**
 
-```
+```text
 Union sources report [specific claim with evidence].
 Confederate/Company accounts describe [alternative view with evidence].
 Modern historians [consensus interpretation if available].
@@ -131,7 +131,7 @@ Modern historians [consensus interpretation if available].
 
 **Carnifex Ferry Example:**
 
-```
+```text
 Union reports: "Confederate forces retreated after 7-hour artillery bombardment, abandoning fortified positions."
 Confederate accounts: "General Floyd executed strategic withdrawal to preserve forces for Sewell Mountain defense."
 Modern consensus: Union tactical victory (held field), Confederate strategic success (avoided encirclement).
@@ -196,7 +196,7 @@ Modern consensus: Union tactical victory (held field), Confederate strategic suc
 
 **Standard Citation:**
 
-```
+```text
 Photo: Library of Congress, Prints & Photographs Division, LC-DIG-hec-12345
 ```
 
@@ -209,7 +209,7 @@ Photo: Library of Congress, Prints & Photographs Division, LC-DIG-hec-12345
 
 **Standard Citation:**
 
-```
+```text
 Photo: National Archives, RG 69, Series 245, NARA File 12345
 ```
 
@@ -222,7 +222,7 @@ Photo: National Archives, RG 69, Series 245, NARA File 12345
 
 **Standard Citation:**
 
-```
+```text
 Photo: West Virginia State Archives, Collection 2010.001.234
 ```
 
