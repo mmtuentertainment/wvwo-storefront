@@ -44,7 +44,17 @@ const {
 
 // Page metadata
 const pageTitle = `${name} | WV Wild Outdoors`;
-const pageDescription = significance.slice(0, 155) + '...';
+
+// Word-boundary-aware truncation for meta description
+const MAX_DESC_LENGTH = 155;
+let pageDescription: string;
+if (significance.length <= MAX_DESC_LENGTH) {
+  pageDescription = significance;
+} else {
+  const truncated = significance.slice(0, MAX_DESC_LENGTH);
+  const lastSpace = truncated.lastIndexOf(' ');
+  pageDescription = (lastSpace > 0 ? truncated.slice(0, lastSpace) : truncated) + '...'
+}
 ---
 
 <Layout title={pageTitle} description={pageDescription}>
