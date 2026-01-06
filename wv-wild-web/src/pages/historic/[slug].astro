@@ -17,6 +17,7 @@ import Layout from '../../layouts/Layout.astro';
 import HistoricTemplate from '../../components/templates/HistoricTemplate.astro';
 import SchemaHistoricTemplate from '../../components/seo/SchemaHistoricTemplate.astro';
 import type { HistoricTemplateProps } from '../../types/templates/historic';
+import { toDataSlug } from '../../utils/historic-slug';
 
 // Type for data map (slug -> module exports)
 type HistoricDataMap = Record<string, Record<string, unknown>>;
@@ -56,9 +57,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   // Filter to entries that have matching data files (auto-discovered)
   const historicEntries = adventures.filter((entry) => {
     const contentSlug = entry.data.slug || entry.id.replace(/\.md$/, '');
-    // Convert content slug to data slug (handle "-battlefield" suffix)
-    const dataSlug = contentSlug.replace(/-battlefield$/, '');
-    return availableDataSlugs.includes(dataSlug);
+    return availableDataSlugs.includes(toDataSlug(contentSlug));
   });
 
   return historicEntries.map((entry) => {
@@ -76,7 +75,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 const { entry, dataMap } = Astro.props as Props;
 const contentSlug = entry.data.slug || entry.id.replace(/\.md$/, '');
-const dataSlug = contentSlug.replace(/-battlefield$/, '');
+const dataSlug = toDataSlug(contentSlug);
 
 const historicData = dataMap[dataSlug];
 if (!historicData) {
