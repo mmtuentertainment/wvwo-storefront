@@ -1,0 +1,34 @@
+---
+// Skeleton loader for Tours section
+// Maintains trail marker aesthetic during load
+---
+
+<section class="py-16 bg-heritage-cream" role="status" aria-label="Loading tours">
+  <div class="container mx-auto px-4">
+    <div class="h-12 bg-coal-gray/20 rounded-sm w-48 mx-auto mb-12 animate-pulse"></div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {[1, 2, 3].map(() => (
+        <article class="bg-brand-cream border-2 border-brand-brown p-6 shadow-painted-wood">
+          <div class="h-6 bg-coal-gray/20 rounded-sm w-32 mb-4 animate-pulse"></div>
+
+          <div class="h-8 bg-coal-gray/20 rounded-sm w-full mb-4 animate-pulse"></div>
+
+          <div class="space-y-2 mb-4">
+            <div class="h-5 bg-coal-gray/20 rounded-sm w-full animate-pulse"></div>
+            <div class="h-5 bg-coal-gray/20 rounded-sm w-full animate-pulse"></div>
+            <div class="h-5 bg-coal-gray/20 rounded-sm w-3/4 animate-pulse"></div>
+          </div>
+
+          <div class="space-y-2 mb-6">
+            <div class="h-4 bg-coal-gray/20 rounded-sm w-full animate-pulse"></div>
+            <div class="h-4 bg-coal-gray/20 rounded-sm w-full animate-pulse"></div>
+            <div class="h-4 bg-coal-gray/20 rounded-sm w-2/3 animate-pulse"></div>
+          </div>
+
+          <div class="h-12 bg-brand-orange/30 rounded-sm w-full animate-pulse"></div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
