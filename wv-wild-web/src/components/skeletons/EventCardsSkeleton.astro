@@ -1,0 +1,33 @@
+---
+/**
+ * SPEC-19 Phase 2: Event Cards Skeleton Component
+ * Progressive loading placeholder for exhibits/museum sections
+ * Maintains lumber-border aesthetic during loading
+ */
+---
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8" role="status" aria-label="Loading events">
+  {[1, 2, 3, 4].map(() => (
+    <div class="bg-heritage-cream border-l-4 border-heritage-burgundy/20 p-8 rounded-sm lumber-border">
+      <!-- Event Name Skeleton -->
+      <div class="h-7 bg-coal-gray/20 w-1/2 rounded-sm mb-3 skeleton-shimmer"></div>
+
+      <!-- Event Dates Skeleton -->
+      <div class="h-4 bg-coal-gray/15 w-32 rounded-sm mb-4 skeleton-shimmer"></div>
+
+      <!-- Event Description Skeleton (4 lines) -->
+      <div class="space-y-2 mb-4">
+        <div class="h-4 bg-coal-gray/10 w-full rounded-sm skeleton-shimmer"></div>
+        <div class="h-4 bg-coal-gray/10 w-full rounded-sm skeleton-shimmer"></div>
+        <div class="h-4 bg-coal-gray/10 w-full rounded-sm skeleton-shimmer"></div>
+        <div class="h-4 bg-coal-gray/10 w-3/4 rounded-sm skeleton-shimmer"></div>
+      </div>
+
+      <!-- Artifact Tags Skeleton -->
+      <div class="flex gap-2">
+        <div class="h-6 bg-coal-gray/15 w-24 rounded-sm skeleton-shimmer"></div>
+        <div class="h-6 bg-coal-gray/15 w-32 rounded-sm skeleton-shimmer"></div>
+      </div>
+    </div>
+  ))}
+</div>
