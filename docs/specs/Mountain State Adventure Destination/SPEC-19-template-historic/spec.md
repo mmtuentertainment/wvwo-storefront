@@ -447,7 +447,7 @@ theme: {
 - [ ] Stone-carved text-shadow on historical dates
 - [ ] Coal-gray timeline markers (not corporate colors)
 - [ ] Heritage burgundy borders on museum sections
-- [ ] Aged gold era badge with Roboto Slab font
+- [ ] Aged gold era badge with font-display (Bitter) font
 
 ### Technical Excellence
 

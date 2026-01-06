@@ -113,10 +113,10 @@
   - Darkened overlay: `bg-black/[0.14]`
   - Content container: flexbox bottom-aligned
   - Site name: Bitter 900, `text-5xl md:text-6xl`, white
-  - Era badge: `bg-heritage-gold`, Roboto Slab font, `.stone-text-shadow`
+  - Era badge: `bg-heritage-gold`, font-display (Bitter), `.stone-text-shadow`
   - Quick highlights grid: `grid-cols-1 md:grid-cols-2 lg:grid-cols-3`, max 5 items
   - National Register badge (conditional rendering)
-  - Font preconnect in `<head>`: Roboto Slab, Oswald
+  - Font preconnect in `<head>`: Bitter, Permanent Marker, Noto Sans
   - **Est:** ~80 lines
 
 ### 2.2 Historical Context Section Component
@@ -127,11 +127,11 @@
   - Asymmetric grid: `grid-cols-[2fr_5fr]` on desktop, full-width mobile
   - **Timeline column (left):**
     - Conditional rendering (if `timeline` provided)
-    - Coal-gray `border-l-4`, year markers with Roboto Slab `.stone-text-shadow`
+    - Coal-gray `border-l-4`, year markers with font-marker (Permanent Marker) `.stone-text-shadow`
   - **Events column (right):**
     - Event cards with `border-l-4 border-heritage-burgundy`
     - Lumber border treatment (`.lumber-border` class)
-    - Event date (Roboto Slab, sign-green)
+    - Event date (font-marker/Permanent Marker, sign-green)
     - Event title (Bitter 700, brand-brown)
     - Event description (Noto Sans 400, brand-mud)
   - **Key Figures subsection:**
@@ -209,10 +209,10 @@
     - `.riveted-border` class (4 corner rivets with pseudo-elements)
     - `bg-brand-cream`, rounded-sm padding
     - Conditional image rendering
-    - Type badge (absolute top-right): `bg-sign-green`, Oswald font, uppercase
+    - Type badge (absolute top-right): `bg-sign-green`, font-display (Bitter), uppercase
     - Image attribution caption (below image, italic, brand-mud/60)
     - Building name (Bitter 700, brand-brown)
-    - Year built (Roboto Slab 900, stone-gray, `.stone-text-shadow`, "BUILT {year}")
+    - Year built (font-marker/Permanent Marker 900, stone-gray, `.stone-text-shadow`, "BUILT {year}")
     - Description (Noto Sans 400, brand-mud)
     - Condition badge (heritage-gold background, white text)
     - ADA accessibility indicator (conditional, sign-green, ♿ emoji)
@@ -227,7 +227,7 @@
   - Grid: `md:grid-cols-2 lg:grid-cols-3`
   - **Tour cards:**
     - `bg-brand-cream border-2 border-brand-brown`, rounded-sm, `.shadow-painted-wood`
-    - Tour type badge: `bg-sign-green`, Oswald font, uppercase
+    - Tour type badge: `bg-sign-green`, font-display (Bitter), uppercase
     - Tour name: Bitter 700, brand-brown
     - Tour details: duration, schedule, cost (conditional, with emoji icons ⏱📅💵)
     - Description: Noto Sans 400
@@ -370,7 +370,7 @@
     - Entire card wrapped in `<a>` tag
     - `bg-white border-l-4 border-sign-green` (trail blaze marker aesthetic)
     - Hover: `hover:shadow-lg transition-shadow`
-    - Site type badge: `bg-sign-green`, Oswald font, uppercase
+    - Site type badge: `bg-sign-green`, font-display (Bitter), uppercase
     - Site name: Bitter 700, brand-brown
     - Distance + direction: Noto Sans, brand-mud, 📍 emoji
     - Relation description: Noto Sans, small text
@@ -957,8 +957,9 @@ git revert <pr6-merge-commit> -m 1
    - Fallback: solid borders if `::before`/`::after` unsupported
 
 4. **Font Loading Performance**
-   - Roboto Slab + Oswald add ~150KB download
+   - Bitter + Permanent Marker + Noto Sans add ~120KB download
    - Preconnect reduces latency by ~200ms
+   - Using display=swap for FOUT-preferred loading
    - Monitor Lighthouse "Reduce render-blocking resources" warning
 
 5. **External Booking Integration Testing**

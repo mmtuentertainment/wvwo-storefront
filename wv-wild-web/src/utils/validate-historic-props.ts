@@ -59,11 +59,11 @@ function validateRequiredFields(props: HistoricTemplateProps): ValidationMessage
     });
   }
 
-  if (!props.heroImage || !props.heroImage.src) {
+  if (!props.heroImage || typeof props.heroImage !== 'string' || props.heroImage.trim().length === 0) {
     errors.push({
       level: 'error',
       field: 'heroImage',
-      message: 'Hero image is required'
+      message: 'Hero image URL is required'
     });
   }
 
@@ -78,23 +78,23 @@ function validateImageCredits(props: HistoricTemplateProps): ValidationMessage[]
   const warnings: ValidationMessage[] = [];
   const creditRegex = /^Photo:\s+.+,\s+.+$/;
 
-  // Validate hero image credit
-  if (props.heroImage?.credit && !creditRegex.test(props.heroImage.credit)) {
+  // Validate hero image credit (top-level heroImageCredit field)
+  if (props.heroImageCredit && !creditRegex.test(props.heroImageCredit)) {
     warnings.push({
       level: 'warning',
-      field: 'heroImage.credit',
+      field: 'heroImageCredit',
       message: 'Image credit should follow format: "Photo: [Source], [Catalog Number]"'
     });
   }
 
-  // Validate gallery image credits
-  if (props.gallery) {
-    props.gallery.forEach((image, index) => {
-      if (image.credit && !creditRegex.test(image.credit)) {
+  // Validate structure image credits
+  if (props.structures) {
+    props.structures.forEach((structure, index) => {
+      if (structure.imageCredit && !creditRegex.test(structure.imageCredit)) {
         warnings.push({
           level: 'warning',
-          field: `gallery[${index}].credit`,
-          message: `Gallery image ${index + 1} credit should follow format: "Photo: [Source], [Catalog Number]"`
+          field: `structures[${index}].imageCredit`,
+          message: `Structure "${structure.name}" image credit should follow format: "Photo: [Source], [Catalog Number]"`
         });
       }
     });
@@ -161,8 +161,8 @@ function validateHeritageColorUsage(props: HistoricTemplateProps): ValidationMes
   // Warn if content suggests using heritage-gold backgrounds
   const sections = [
     props.significance,
-    props.historicalContext?.overview,
-    ...(props.historicalContext?.keyEvents?.map(e => e.description) || [])
+    props.historicalContext?.significance,
+    ...(props.historicalContext?.events?.map(e => e.description) || [])
   ].filter(Boolean);
 
   sections.forEach((content, index) => {
