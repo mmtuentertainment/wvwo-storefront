@@ -92,7 +92,7 @@ const { visitorInfo } = Astro.props;
         class="text-sign-green hover:underline font-bold mr-6"
         aria-label={`Call ${visitorInfo.phone}`}
       >
-        <span aria-hidden="true" role="img" aria-label="Phone">📞</span> {visitorInfo.phone}
+        <span aria-hidden="true">📞</span> {visitorInfo.phone}
       </a>
       {visitorInfo.email && (
         <a
@@ -100,7 +100,7 @@ const { visitorInfo } = Astro.props;
           class="text-sign-green hover:underline"
           aria-label={`Email ${visitorInfo.email}`}
         >
-          <span aria-hidden="true" role="img" aria-label="Email">✉️</span> {visitorInfo.email}
+          <span aria-hidden="true">✉️</span> {visitorInfo.email}
         </a>
       )}
     </div>

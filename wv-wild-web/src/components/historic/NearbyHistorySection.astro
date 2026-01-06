@@ -25,9 +25,11 @@ if (!nearbyHistory || nearbyHistory.length === 0) {
           href={site.url}
           class="block bg-white border-l-4 border-sign-green p-6 hover:shadow-lg transition-shadow"
         >
-          <span class="inline-block bg-sign-green text-white text-xs font-oswald font-bold px-3 py-1 rounded-sm uppercase tracking-wide mb-3">
-            {site.type}
-          </span>
+          {site.type && (
+            <span class="inline-block bg-sign-green text-white text-xs font-trail font-bold px-3 py-1 rounded-sm uppercase tracking-wide mb-3">
+              {site.type}
+            </span>
+          )}
 
           <h3 class="text-xl font-display font-bold mb-2 text-brand-brown">
             {site.name}
@@ -35,7 +37,7 @@ if (!nearbyHistory || nearbyHistory.length === 0) {
 
           {site.distance && (
             <div class="text-sm text-brand-mud mb-3">
-              <span aria-hidden="true" role="img" aria-label="Distance">📍</span> {site.distance}{site.direction ? ` ${site.direction}` : ''}
+              <span aria-hidden="true">📍</span> {site.distance}{site.direction ? ` ${site.direction}` : ''}
             </div>
           )}
 

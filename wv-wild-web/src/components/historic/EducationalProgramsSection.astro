@@ -19,7 +19,7 @@ const { education } = Astro.props;
         {education.programs.map((program) => (
           <div class="bg-white border-l-4 border-heritage-burgundy p-6 shadow-md">
             {program.type && (
-              <span class="inline-block bg-heritage-gold text-brand-brown text-xs font-bold px-3 py-1 rounded-sm uppercase tracking-wide mb-3">
+              <span class="inline-block bg-heritage-cream border border-heritage-gold text-brand-brown text-xs font-bold px-3 py-1 rounded-sm uppercase tracking-wide mb-3">
                 {program.type}
               </span>
             )}
@@ -40,7 +40,7 @@ const { education } = Astro.props;
 
             <div class="flex items-center justify-between text-sm text-brand-mud mt-4 pt-4 border-t border-coal-gray/20">
               {program.duration && (
-                <span><span aria-hidden="true" role="img" aria-label="Duration">⏱️</span> {program.duration}</span>
+                <span><span aria-hidden="true">⏱️</span> {program.duration}</span>
               )}
               {program.cost && (
                 <span class="font-bold">{program.cost}</span>

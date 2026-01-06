@@ -26,13 +26,15 @@ if (!exhibits || exhibits.length === 0) {
             {exhibit.title}
           </h3>
 
-          <div class="text-sm font-roboto-slab font-black text-stone-gray stone-text-shadow uppercase tracking-wide mb-2">
-            {exhibit.dates}
-          </div>
+          {exhibit.dates && (
+            <div class="text-sm font-marker font-black text-stone-gray stone-text-shadow uppercase tracking-wide mb-2">
+              {exhibit.dates}
+            </div>
+          )}
 
           {exhibit.location && (
             <div class="text-sm text-sign-green mb-4">
-              <span aria-hidden="true" role="img" aria-label="Location">📍</span> {exhibit.location}
+              <span aria-hidden="true">📍</span> {exhibit.location}
             </div>
           )}
 

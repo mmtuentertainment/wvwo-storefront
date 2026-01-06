@@ -146,6 +146,12 @@ export interface HistoricTemplateProps {
 
     /** Is exhibit interactive? Shows "Interactive" badge */
     interactive?: boolean;
+
+    /** Exhibit dates (e.g., "May 2024 - August 2024") */
+    dates?: string;
+
+    /** Featured artifacts in this exhibit */
+    featuredArtifacts?: string[];
   }[];
 
   // ======================================================================
@@ -226,5 +232,11 @@ export interface HistoricTemplateProps {
 
     /** Link to nearby site page (optional) */
     url?: string;
+
+    /** Site type (e.g., "Battlefield", "Museum") */
+    type?: string;
+
+    /** Direction (e.g., "north", "south") */
+    direction?: string;
   }[];
 }
