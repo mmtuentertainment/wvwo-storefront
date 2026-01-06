@@ -1,0 +1,70 @@
+---
+import type { HistoricTemplateProps } from '../../types/templates/historic';
+
+interface Props {
+  exhibits?: HistoricTemplateProps['exhibits'];
+}
+
+const { exhibits } = Astro.props;
+
+// Hide section if no exhibits
+if (!exhibits || exhibits.length === 0) {
+  return null;
+}
+---
+
+<section class="py-16 aged-section">
+  <div class="container mx-auto px-4">
+    <h2 class="text-4xl md:text-5xl font-display font-black text-center mb-12 text-brand-brown">
+      Current Exhibits
+    </h2>
+
+    <div class="grid md:grid-cols-2 gap-8">
+      {exhibits.map((exhibit) => (
+        <div class="bg-heritage-cream border-l-4 border-heritage-burgundy lumber-border p-6">
+          <h3 class="text-2xl font-display font-bold mb-3 text-brand-brown">
+            {exhibit.title}
+          </h3>
+
+          {exhibit.dates && (
+            <div class="text-sm font-marker font-black text-stone-gray stone-text-shadow uppercase tracking-wide mb-2">
+              {exhibit.dates}
+            </div>
+          )}
+
+          {exhibit.location && (
+            <div class="text-sm text-sign-green mb-4">
+              <span aria-hidden="true">📍</span> {exhibit.location}
+            </div>
+          )}
+
+          <p class="text-brand-mud mb-4">
+            {exhibit.description}
+          </p>
+
+          {exhibit.interactive && (
+            <span class="inline-block bg-brand-orange text-white text-xs font-bold px-3 py-1 rounded-sm uppercase tracking-wide mb-4">
+              Interactive
+            </span>
+          )}
+
+          {exhibit.featuredArtifacts && exhibit.featuredArtifacts.length > 0 && (
+            <div class="mt-4">
+              <h4 class="text-sm font-bold uppercase tracking-wide text-brand-brown mb-2">
+                Featured Artifacts:
+              </h4>
+              <ul class="space-y-1">
+                {exhibit.featuredArtifacts.map((artifact) => (
+                  <li class="text-sm text-brand-mud flex items-start">
+                    <span class="text-heritage-burgundy mr-2">•</span>
+                    <span>{artifact}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

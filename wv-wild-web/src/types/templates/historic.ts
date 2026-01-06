@@ -146,6 +146,12 @@ export interface HistoricTemplateProps {
 
     /** Is exhibit interactive? Shows "Interactive" badge */
     interactive?: boolean;
+
+    /** Exhibit dates (e.g., "May 2024 - August 2024") */
+    dates?: string;
+
+    /** Featured artifacts in this exhibit */
+    featuredArtifacts?: string[];
   }[];
 
   // ======================================================================
@@ -157,14 +163,23 @@ export interface HistoricTemplateProps {
       /** Program name */
       name: string;
 
+      /** Program type (e.g., "Workshop", "Tour", "Living History") */
+      type?: string;
+
       /** Target audience (e.g., "School Groups", "Adults", "Families") */
       audience: string;
 
       /** Program description */
       description: string;
 
-      /** Booking contact info (optional) */
-      booking?: string;
+      /** Duration (e.g., "2 hours") */
+      duration?: string;
+
+      /** Cost (e.g., "Free", "$10 per person") */
+      cost?: string;
+
+      /** Contact email for inquiries */
+      contactForInquiry?: string;
     }[];
 
     /** Optional educational resources */
@@ -175,8 +190,8 @@ export interface HistoricTemplateProps {
       /** Type (e.g., "Brochure", "Lesson Plan", "Video") */
       type: string;
 
-      /** Download/view URL (optional) */
-      url?: string;
+      /** Download URL (optional) */
+      downloadUrl?: string;
     }[];
   };
 
@@ -188,7 +203,8 @@ export interface HistoricTemplateProps {
     /** Operating hours by season */
     hours: {
       season: string;
-      times: string;
+      /** Hours of operation (e.g., "9am - 5pm") */
+      hours: string;
     }[];
 
     /** Admission fees */
@@ -197,17 +213,20 @@ export interface HistoricTemplateProps {
       amount: string;
     }[];
 
-    /** Available facilities (e.g., ["Restrooms", "Parking", "Picnic Area"]) */
-    facilities: string[];
+    /** Parking information */
+    parking?: string;
+
+    /** Available facilities (e.g., ["Restrooms", "Picnic Area"]) */
+    facilities?: string[];
 
     /** Accessibility features (e.g., ["Wheelchair accessible paths", "Audio guides available"]) */
     accessibility: string[];
 
-    /** Contact information */
-    contact: {
-      phone: string;
-      email?: string;
-    };
+    /** Phone number (direct, not nested) */
+    phone: string;
+
+    /** Email address (optional, direct) */
+    email?: string;
   };
 
   // ======================================================================
@@ -226,5 +245,11 @@ export interface HistoricTemplateProps {
 
     /** Link to nearby site page (optional) */
     url?: string;
+
+    /** Site type (e.g., "Battlefield", "Museum") */
+    type?: string;
+
+    /** Direction (e.g., "north", "south") */
+    direction?: string;
   }[];
 }

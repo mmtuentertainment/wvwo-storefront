@@ -1,0 +1,108 @@
+---
+import type { HistoricTemplateProps } from '../../types/templates/historic';
+
+interface Props {
+  visitorInfo: HistoricTemplateProps['visitorInfo'];
+}
+
+const { visitorInfo } = Astro.props;
+---
+
+<section class="py-16 bg-coal-gray/5">
+  <div class="container mx-auto px-4">
+    <h2 class="text-4xl md:text-5xl font-display font-black text-center mb-12 text-brand-brown">
+      Visitor Information
+    </h2>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <!-- Hours -->
+      <div class="bg-white border-2 border-coal-gray p-6">
+        <h3 class="text-sm font-bold uppercase tracking-wide mb-4 text-brand-brown">
+          Hours
+        </h3>
+        <div class="space-y-2">
+          {visitorInfo.hours.map((schedule) => (
+            <div class="text-sm">
+              <div class="font-bold text-brand-brown">{schedule.season}</div>
+              <div class="text-brand-mud">{schedule.hours}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Admission -->
+      <div class="bg-white border-2 border-coal-gray p-6">
+        <h3 class="text-sm font-bold uppercase tracking-wide mb-4 text-brand-brown">
+          Admission
+        </h3>
+        <div class="space-y-2">
+          {visitorInfo.fees.map((fee) => (
+            <div class="text-sm flex justify-between">
+              <span class="text-brand-mud">{fee.type}</span>
+              <span class="font-bold text-brand-brown">{fee.amount}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Parking & Facilities -->
+      <div class="bg-white border-2 border-coal-gray p-6">
+        <h3 class="text-sm font-bold uppercase tracking-wide mb-4 text-brand-brown">
+          Parking
+        </h3>
+        <p class="text-sm text-brand-mud mb-4">{visitorInfo.parking}</p>
+
+        {visitorInfo.facilities && visitorInfo.facilities.length > 0 && (
+          <div class="mt-4">
+            <h4 class="text-xs font-bold uppercase tracking-wide mb-2 text-brand-brown">
+              Facilities:
+            </h4>
+            <ul class="space-y-1">
+              {visitorInfo.facilities.map((facility) => (
+                <li class="text-sm text-brand-mud flex items-start">
+                  <span class="text-sign-green mr-2">•</span>
+                  <span>{facility}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+
+      <!-- Accessibility -->
+      <div class="bg-white border-2 border-coal-gray p-6">
+        <h3 class="text-sm font-bold uppercase tracking-wide mb-4 text-brand-brown">
+          Accessibility
+        </h3>
+        <ul class="space-y-2">
+          {visitorInfo.accessibility.map((feature) => (
+            <li class="text-sm text-brand-mud flex items-start">
+              <span class="text-sign-green mr-2">✓</span>
+              <span>{feature}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <!-- Contact Footer -->
+    <div class="text-center mt-8">
+      <a
+        href={`tel:${visitorInfo.phone}`}
+        class="text-sign-green hover:underline font-bold mr-6"
+        aria-label={`Call ${visitorInfo.phone}`}
+      >
+        <span aria-hidden="true">📞</span> {visitorInfo.phone}
+      </a>
+      {visitorInfo.email && (
+        <a
+          href={`mailto:${visitorInfo.email}`}
+          class="text-sign-green hover:underline"
+          aria-label={`Email ${visitorInfo.email}`}
+        >
+          <span aria-hidden="true">✉️</span> {visitorInfo.email}
+        </a>
+      )}
+    </div>
+  </div>
+</section>
