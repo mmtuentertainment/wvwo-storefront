@@ -1,0 +1,142 @@
+---
+/**
+ * Historic Site Page - Dynamic Route
+ * SPEC-19: Dynamic route for historic site content
+ *
+ * Renders HistoricTemplate with data merged from:
+ * 1. Content collection frontmatter (title, description, coordinates, etc.)
+ * 2. Data file at /src/data/historic/{slug}.ts (structures, tours, exhibits, etc.)
+ *
+ * Pattern matches SPEC-17 (Backcountry) for consistency.
+ */
+
+import { getCollection } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+import Layout from '../../layouts/Layout.astro';
+import HistoricTemplate from '../../components/templates/HistoricTemplate.astro';
+import SchemaHistoricTemplate from '../../components/seo/SchemaHistoricTemplate.astro';
+import type { HistoricTemplateProps } from '../../types/templates/historic';
+
+// Static imports for data files (Vite requires static imports)
+import * as carnifexFerryData from '../../data/historic/carnifex-ferry';
+
+// ============================================================================
+// STATIC PATH GENERATION
+// ============================================================================
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  // Get all adventure content
+  const adventures = await getCollection('adventures');
+
+  // Known historic slugs (entries with data files in /src/data/historic/)
+  const historicSlugs = ['carnifex-ferry-battlefield'];
+
+  // Filter for entries with matching slugs
+  const historicEntries = adventures.filter((entry) => {
+    const slug = entry.data.slug || entry.id.replace(/\.md$/, '');
+    return historicSlugs.includes(slug);
+  });
+
+  return historicEntries.map((entry) => {
+    const slug = entry.data.slug || entry.id.replace(/\.md$/, '');
+    return {
+      params: { slug },
+      props: { entry },
+    };
+  });
+};
+
+// ============================================================================
+// PAGE PROPS
+// ============================================================================
+
+const { entry } = Astro.props;
+const slug = entry.data.slug || entry.id.replace(/\.md$/, '');
+
+// Map slug to data file (static imports required for Vite)
+const dataMap: Record<string, typeof carnifexFerryData> = {
+  'carnifex-ferry-battlefield': carnifexFerryData,
+};
+
+const historicData = dataMap[slug];
+if (!historicData) {
+  throw new Error(`No historic data file found for slug: ${slug}`);
+}
+
+// Merge frontmatter + data file for complete props
+const templateProps: HistoricTemplateProps = {
+  // From content collection frontmatter
+  name: entry.data.title,
+  location: entry.data.location,
+  era: entry.data.tagline || 'Historic Site',
+  significance: entry.data.description,
+  nationalRegister: true, // Default, can be overridden by frontmatter
+  quickHighlights: entry.data.quickStats || [],
+  heroImage: entry.data.heroImage || entry.data.image || '/images/placeholder-historic.jpg',
+  heroImageAlt: entry.data.imageAlt || `${entry.data.title} historic site`,
+
+  // From data file (structured historic data)
+  historicalContext: historicData.historicalContext,
+  structures: historicData.structures,
+  siteMapUrl: historicData.siteMapUrl,
+  tours: historicData.tours,
+  exhibits: historicData.exhibits,
+  education: historicData.education,
+  visitorInfo: historicData.visitorInfo,
+  nearbyHistory: historicData.nearbyHistory,
+};
+
+// Schema props for SEO
+const schemaProps = {
+  name: entry.data.title,
+  slug,
+  description: entry.data.description,
+  location: entry.data.location,
+  era: entry.data.tagline || 'Historic Site',
+  coordinates: entry.data.coordinates || historicData.coordinates,
+  nationalRegister: true,
+  imageUrl: entry.data.heroImage
+    ? `${Astro.site?.href || 'https://wvwildoutdoors.pages.dev'}${entry.data.heroImage}`
+    : undefined,
+  managingAgency: historicData.managingAgency,
+  structureCount: historicData.structures?.length,
+  tourCount: historicData.tours?.length,
+  publishedDate: new Date().toISOString(),
+  updatedDate: new Date().toISOString(),
+};
+
+// Meta tags
+const pageTitle = `${entry.data.title} | Historic Sites | WV Wild Outdoors`;
+const metaDescription = `${entry.data.description.slice(0, 150)}...`;
+const baseUrl = Astro.site?.href.replace(/\/$/, '') || 'https://wvwildoutdoors.pages.dev';
+const canonicalUrl = `${baseUrl}/historic/${slug}/`;
+const ogImage = entry.data.heroImage
+  ? `${baseUrl}${entry.data.heroImage}`
+  : `${baseUrl}/og-wvwo-storefront.png`;
+---
+
+<Layout title={pageTitle} description={metaDescription}>
+  <!-- JSON-LD Structured Data -->
+  <SchemaHistoricTemplate {...schemaProps} slot="head" />
+
+  <!-- Geo Meta Tags -->
+  {entry.data.coordinates && (
+    <Fragment slot="head">
+      <meta name="geo.position" content={`${entry.data.coordinates.lat};${entry.data.coordinates.lng}`} />
+      <meta name="geo.placename" content={entry.data.title} />
+      <meta name="geo.region" content="US-WV" />
+    </Fragment>
+  )}
+
+  <!-- Historic Site Classification Meta -->
+  <Fragment slot="head">
+    <meta name="wvwo:template" content="historic" />
+    <meta name="wvwo:era" content={templateProps.era} />
+    {templateProps.nationalRegister && (
+      <meta name="wvwo:national-register" content="true" />
+    )}
+  </Fragment>
+
+  <!-- Render HistoricTemplate -->
+  <HistoricTemplate {...templateProps} />
+</Layout>
