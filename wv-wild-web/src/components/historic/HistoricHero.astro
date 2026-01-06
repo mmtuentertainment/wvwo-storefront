@@ -7,17 +7,11 @@
 
 import type { HistoricTemplateProps } from '@/types/templates/historic';
 
-interface Props {
-  name: string;
-  location: string;
-  era: string;
-  significance: string;
-  nationalRegister: boolean;
-  quickHighlights: string[];
-  heroImage: string;
-  heroImageAlt: string;
-  heroImageCredit?: string;
-}
+// Use Pick to derive props from main interface (DRY principle - CodeRabbit feedback)
+type Props = Pick<HistoricTemplateProps,
+  'name' | 'location' | 'era' | 'significance' | 'nationalRegister' |
+  'quickHighlights' | 'heroImage' | 'heroImageAlt' | 'heroImageCredit'
+>;
 
 const {
   name,
@@ -44,7 +38,7 @@ const {
 
     <!-- Image Attribution Overlay (conditional) -->
     {heroImageCredit && (
-      <div class="hero-image-credit" role="contentinfo" aria-label="Image credit">
+      <div class="hero-image-credit" aria-label="Image credit">
         {heroImageCredit}
       </div>
     )}

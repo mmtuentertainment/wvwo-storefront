@@ -12,7 +12,13 @@ interface Props {
 }
 
 const { historicalContext } = Astro.props;
-const { timeline, events, keyFigures, significance } = historicalContext;
+
+// Add null guards (CodeRabbit feedback - prevent undefined errors)
+if (!historicalContext) {
+  return null;
+}
+
+const { timeline, events = [], keyFigures, significance } = historicalContext;
 ---
 
 <section class="py-16 bg-heritage-cream" id="historical-context">
