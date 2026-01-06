@@ -121,14 +121,14 @@ const templateProps: HistoricTemplateProps = {
 };
 
 // Schema props for SEO
-// Use frontmatter dates if available, fallback to current date
-// (Future: Add publishedDate/updatedDate to adventures schema for accurate article dates)
+// Use explicit dates from frontmatter, or null to indicate missing
+// (Avoids SEO issues from constantly "updated" dates on each build)
 const frontmatterData = entry.data as Record<string, unknown>;
 const publishedDate = frontmatterData.publishedDate
   ? new Date(frontmatterData.publishedDate as string).toISOString()
   : frontmatterData.date
     ? new Date(frontmatterData.date as string).toISOString()
-    : new Date().toISOString();
+    : null;
 const updatedDate = frontmatterData.updatedDate
   ? new Date(frontmatterData.updatedDate as string).toISOString()
   : publishedDate;
