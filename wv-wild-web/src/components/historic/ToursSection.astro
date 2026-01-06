@@ -18,7 +18,7 @@ const { tours } = Astro.props;
       {tours.map((tour) => (
         <article class="bg-brand-cream border-2 border-brand-brown p-6 shadow-painted-wood">
           <div class="mb-4">
-            <span class="bg-sign-green text-white px-3 py-1 rounded-sm font-[Oswald] font-bold text-sm uppercase tracking-wide inline-block">
+            <span class="bg-sign-green text-white px-3 py-1 rounded-sm font-trail font-bold text-sm uppercase tracking-wide inline-block">
               {tour.type}
             </span>
           </div>
@@ -30,21 +30,21 @@ const { tours } = Astro.props;
           <div class="space-y-2 mb-4 text-brand-brown">
             {tour.duration && (
               <p class="flex items-center gap-2">
-                <span aria-hidden="true" role="img" aria-label="Clock">⏱</span>
+                <span aria-hidden="true">⏱</span>
                 <span class="font-bold">Duration:</span> {tour.duration}
               </p>
             )}
 
             {tour.schedule && (
               <p class="flex items-center gap-2">
-                <span aria-hidden="true" role="img" aria-label="Calendar">📅</span>
+                <span aria-hidden="true">📅</span>
                 <span class="font-bold">Schedule:</span> {tour.schedule}
               </p>
             )}
 
             {tour.cost && (
               <p class="flex items-center gap-2">
-                <span aria-hidden="true" role="img" aria-label="Money">💵</span>
+                <span aria-hidden="true">💵</span>
                 <span class="font-bold">Cost:</span> {tour.cost}
               </p>
             )}
