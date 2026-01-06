@@ -424,7 +424,7 @@ theme: {
 
 ### Technical Excellence
 - [ ] Lighthouse Performance ≥90, Accessibility 100
-- [ ] All heritage colors pass WCAG 2.1 AA contrast (gold large text only)
+- [ ] All heritage colors pass WCAG 2.1 AA contrast (large gold text only)
 - [ ] Mobile responsive 320px-1920px viewport widths
 - [ ] Reduced motion preferences honored (no textures/transitions)
 - [ ] Focus states visible (2px orange outline)
