@@ -95,16 +95,23 @@ const typedData = historicData as {
   nearbyHistory?: HistoricTemplateProps['nearbyHistory'];
   coordinates?: { lat: number; lng: number };
   managingAgency?: string;
+  nationalRegister?: boolean;
 };
 
+// Cast entry.data for accessing optional properties not in schema
+const frontmatterData = entry.data as Record<string, unknown>;
+
 // Merge frontmatter + data file for complete props
+// Derive nationalRegister from data file or frontmatter, default to false
+const nationalRegister = typedData.nationalRegister ?? (frontmatterData.nationalRegister as boolean | undefined) ?? false;
+
 const templateProps: HistoricTemplateProps = {
   // From content collection frontmatter
   name: entry.data.title,
   location: entry.data.location,
   era: entry.data.tagline || 'Historic Site',
   significance: entry.data.description,
-  nationalRegister: true,
+  nationalRegister,
   quickHighlights: entry.data.quickStats || [],
   heroImage: entry.data.heroImage || entry.data.image || '/images/placeholder-historic.jpg',
   heroImageAlt: entry.data.imageAlt || `${entry.data.title} historic site`,
@@ -123,7 +130,6 @@ const templateProps: HistoricTemplateProps = {
 // Schema props for SEO
 // Use explicit dates from frontmatter, or null to indicate missing
 // (Avoids SEO issues from constantly "updated" dates on each build)
-const frontmatterData = entry.data as Record<string, unknown>;
 const publishedDate = frontmatterData.publishedDate
   ? new Date(frontmatterData.publishedDate as string).toISOString()
   : frontmatterData.date
@@ -140,20 +146,39 @@ const schemaProps = {
   location: entry.data.location,
   era: entry.data.tagline || 'Historic Site',
   coordinates: entry.data.coordinates || typedData.coordinates,
-  nationalRegister: true,
+  nationalRegister,
   imageUrl: entry.data.heroImage
     ? `${Astro.site?.href || 'https://wvwildoutdoors.pages.dev'}${entry.data.heroImage}`
     : undefined,
   managingAgency: typedData.managingAgency,
   structureCount: typedData.structures?.length,
   tourCount: typedData.tours?.length,
-  publishedDate,
-  updatedDate,
+  // Convert null to undefined for optional Props interface compatibility
+  publishedDate: publishedDate ?? undefined,
+  updatedDate: updatedDate ?? undefined,
 };
 
 // Meta tags
 const pageTitle = `${entry.data.title} | Historic Sites | WV Wild Outdoors`;
-const metaDescription = `${entry.data.description.slice(0, 150)}...`;
+
+// Word-boundary-aware truncation for meta description
+const MAX_META_LENGTH = 150;
+const rawDescription = entry.data.description;
+let metaDescription: string;
+if (rawDescription.length <= MAX_META_LENGTH) {
+  metaDescription = rawDescription;
+} else {
+  const truncated = rawDescription.slice(0, MAX_META_LENGTH);
+  const lastSpace = truncated.lastIndexOf(' ');
+  const lastPunctuation = Math.max(
+    truncated.lastIndexOf('.'),
+    truncated.lastIndexOf(','),
+    truncated.lastIndexOf('!'),
+    truncated.lastIndexOf('?')
+  );
+  const breakPoint = Math.max(lastSpace, lastPunctuation);
+  metaDescription = (breakPoint > 0 ? truncated.slice(0, breakPoint) : truncated).trim() + '...';
+}
 ---
 
 <Layout title={pageTitle} description={metaDescription}>

@@ -260,7 +260,8 @@ let validatedSchema: object;
 try {
   validatedSchema = JSON.parse(JSON.stringify(schema));
 } catch (e) {
-  console.error('SchemaHistoricTemplate: Invalid JSON structure', e);
+  const siteIdentifier = name || slug || 'unknown site';
+  console.error(`SchemaHistoricTemplate: Invalid JSON structure for "${siteIdentifier}"`, e);
   validatedSchema = {
     '@context': 'https://schema.org',
     '@graph': [],

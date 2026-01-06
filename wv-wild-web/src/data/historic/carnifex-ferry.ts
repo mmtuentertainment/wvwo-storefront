@@ -66,8 +66,7 @@ export const structures: HistoricTemplateProps['structures'] = [
     description: 'The two-story log house served as Confederate General Floyd\'s headquarters during the battle. One of the few surviving structures from the original farm.',
     condition: 'Restored',
     accessible: true,
-    image: '/images/historic/carnifex-ferry/patterson-house.jpg',
-    imageCredit: 'WV State Parks',
+    // TODO: Add image when asset available at /images/historic/carnifex-ferry/patterson-house.jpg
   },
   {
     name: 'Civil War Museum',
@@ -95,7 +94,8 @@ export const structures: HistoricTemplateProps['structures'] = [
   },
 ];
 
-export const siteMapUrl = '/maps/carnifex-ferry-battlefield-map.pdf';
+// TODO: Add site map when asset available at /maps/carnifex-ferry-battlefield-map.pdf
+export const siteMapUrl: string | undefined = undefined;
 
 // ============================================================================
 // TOURS
