@@ -948,7 +948,7 @@ git revert <pr6-merge-commit> -m 1
    - Ensure heritage burgundy shift (museum → blood → honor) is perceptible
 
 2. **WCAG Contrast Testing**
-   - Use WebAIM Contrast Checker: https://webaim.org/resources/contrastchecker/
+   - Use [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/)
    - Heritage-gold (#d18a00) on white: 3.8:1 (AA large text only)
    - Automated in validation utils (PR #6)
 
@@ -962,7 +962,7 @@ git revert <pr6-merge-commit> -m 1
    - Monitor Lighthouse "Reduce render-blocking resources" warning
 
 5. **External Booking Integration Testing**
-   - Use placeholder URLs in development (https://example.com/reserve)
+   - Use placeholder URLs in development ([example](https://example.com/reserve))
    - Real URLs added by content team in Phase 4
    - Validate `reservationUrl` is optional (tours can have no booking)
 

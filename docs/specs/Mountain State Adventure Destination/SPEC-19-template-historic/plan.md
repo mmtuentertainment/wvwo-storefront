@@ -19,7 +19,7 @@ SPEC-19 implements a reusable Astro template for WV historic sites and battlefie
 
 ## Component Structure
 
-```
+```text
 src/
 ├── components/
 │   ├── templates/
@@ -66,6 +66,7 @@ tailwind.config.mjs                              (Extend with 11 heritage colors
 **Goal:** Set up color palette, typography, and custom CSS infrastructure.
 
 #### Tasks:
+
 1. **Extend Tailwind Config** (tailwind.config.mjs)
    - Add 11 heritage colors to `theme.extend.colors`
    - Add 2 font families (`marker`, `trail`)
