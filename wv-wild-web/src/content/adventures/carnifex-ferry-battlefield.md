@@ -12,7 +12,7 @@ county: "Nicholas"
 coordinates:
   lat: 38.2056
   lng: -80.9442
-drive_time: "1 hour"
+drive_time: "1 hour from US 19 / I-79 Exit 57 (Birch River)"
 slug: carnifex-ferry-battlefield
 image: /images/historic/carnifex-ferry/hero.jpg
 imageAlt: "Patterson House at Carnifex Ferry Battlefield with Civil War era cannons in the foreground"

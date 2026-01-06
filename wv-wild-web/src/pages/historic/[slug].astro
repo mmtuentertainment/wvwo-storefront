@@ -12,7 +12,7 @@
  */
 
 import { getCollection, type CollectionEntry } from 'astro:content';
-import type { GetStaticPaths, InferGetStaticPropsType } from 'astro';
+import type { GetStaticPaths } from 'astro';
 import Layout from '../../layouts/Layout.astro';
 import HistoricTemplate from '../../components/templates/HistoricTemplate.astro';
 import SchemaHistoricTemplate from '../../components/seo/SchemaHistoricTemplate.astro';
@@ -21,8 +21,11 @@ import type { HistoricTemplateProps } from '../../types/templates/historic';
 // Type for data map (slug -> module exports)
 type HistoricDataMap = Record<string, Record<string, unknown>>;
 
-// Props type inferred from getStaticPaths
-type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+// Explicit props interface for better type inference
+interface Props {
+  entry: CollectionEntry<'adventures'>;
+  dataMap: HistoricDataMap;
+}
 
 // ============================================================================
 // STATIC PATH GENERATION WITH AUTO-DISCOVERY
@@ -71,7 +74,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 // PAGE PROPS
 // ============================================================================
 
-const { entry, dataMap } = Astro.props;
+const { entry, dataMap } = Astro.props as Props;
 const contentSlug = entry.data.slug || entry.id.replace(/\.md$/, '');
 const dataSlug = contentSlug.replace(/-battlefield$/, '');
 
@@ -119,6 +122,18 @@ const templateProps: HistoricTemplateProps = {
 };
 
 // Schema props for SEO
+// Use frontmatter dates if available, fallback to current date
+// (Future: Add publishedDate/updatedDate to adventures schema for accurate article dates)
+const frontmatterData = entry.data as Record<string, unknown>;
+const publishedDate = frontmatterData.publishedDate
+  ? new Date(frontmatterData.publishedDate as string).toISOString()
+  : frontmatterData.date
+    ? new Date(frontmatterData.date as string).toISOString()
+    : new Date().toISOString();
+const updatedDate = frontmatterData.updatedDate
+  ? new Date(frontmatterData.updatedDate as string).toISOString()
+  : publishedDate;
+
 const schemaProps = {
   name: entry.data.title,
   slug: contentSlug,
@@ -133,18 +148,13 @@ const schemaProps = {
   managingAgency: typedData.managingAgency,
   structureCount: typedData.structures?.length,
   tourCount: typedData.tours?.length,
-  publishedDate: new Date().toISOString(),
-  updatedDate: new Date().toISOString(),
+  publishedDate,
+  updatedDate,
 };
 
 // Meta tags
 const pageTitle = `${entry.data.title} | Historic Sites | WV Wild Outdoors`;
 const metaDescription = `${entry.data.description.slice(0, 150)}...`;
-const baseUrl = Astro.site?.href.replace(/\/$/, '') || 'https://wvwildoutdoors.pages.dev';
-const canonicalUrl = `${baseUrl}/historic/${contentSlug}/`;
-const ogImage = entry.data.heroImage
-  ? `${baseUrl}${entry.data.heroImage}`
-  : `${baseUrl}/og-wvwo-storefront.png`;
 ---
 
 <Layout title={pageTitle} description={metaDescription}>

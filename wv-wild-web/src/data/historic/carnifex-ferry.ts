@@ -248,7 +248,7 @@ export const nearbyHistory: HistoricTemplateProps['nearbyHistory'] = [
     direction: 'north',
     relation: 'Site of Union victory one week before Carnifex Ferry (July 11, 1861)',
     type: 'Battlefield',
-    url: '/historic/rich-mountain-battlefield',
+    // URL: Future SPEC - /historic/rich-mountain-battlefield
   },
   {
     name: 'Droop Mountain Battlefield',
@@ -256,7 +256,7 @@ export const nearbyHistory: HistoricTemplateProps['nearbyHistory'] = [
     direction: 'south',
     relation: 'Largest Civil War battle fought in West Virginia (November 6, 1863)',
     type: 'Battlefield',
-    url: '/historic/droop-mountain-battlefield',
+    // URL: Future SPEC - /historic/droop-mountain-battlefield
   },
   {
     name: 'Summersville Lake',
@@ -264,7 +264,7 @@ export const nearbyHistory: HistoricTemplateProps['nearbyHistory'] = [
     direction: 'south',
     relation: 'Modern recreation on land near historic battleground',
     type: 'Recreation',
-    url: '/lakes/summersville-lake',
+    url: '/near/summersville-lake',
   },
 ];
 

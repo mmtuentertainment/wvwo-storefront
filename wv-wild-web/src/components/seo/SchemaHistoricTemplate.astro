@@ -119,10 +119,13 @@ if (coordinates) {
   };
 }
 
-// Address
+// Address - parse locality from "City, County, WV" format
+const parsedLocality = location.includes(',')
+  ? location.split(',')[0].trim()
+  : location;
 touristAttraction.address = {
   '@type': 'PostalAddress',
-  'addressLocality': location,
+  'addressLocality': parsedLocality || location,
   'addressRegion': 'WV',
   'addressCountry': 'US',
 };
