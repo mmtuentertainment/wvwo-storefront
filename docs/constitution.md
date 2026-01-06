@@ -16,7 +16,7 @@
 - **Voice**: Use Kim's authentic rural WV voice. Direct, personal, and knowledgeable about local hunting/fishing culture.
 - **Cultural Accuracy**: Accurate terminology (e.g., "Buck Season", not "Deer Season"; "WMA", not "Conservation Area").
 - **Anti-Corporate**: No SaaS-style marketing copy, no purple/neon gradients, no "AI slop" (Inter font, glassmorphism).
-- **Historic Authenticity Exception**: SPEC-19+ historic sites may use extended Appalachian heritage color palette (heritage burgundy #93282c, aged gold #d18a00, coal-gray #424242, stone-gray #757575, heritage cream #fff8e9) to authentically tell stories of coal barons, labor struggles, moonshining heritage, and mountain defiance. These colors carry narrative meaning and evolve through sections (C→B→D→A arc: balanced truth → raw reality → defiant spirit → reverent honor).
+- **Historic Authenticity Exception**: SPEC-19+ historic sites may use extended Appalachian heritage color palette (heritage burgundy #93282c, aged gold #d18a00, coal-gray #424242, stone-gray #757575, heritage cream #fff8e9) AND extended typography (Roboto Slab 700/900 for stone-carved historical markers, Oswald 600/700 for hand-painted trail signage) to authentically tell stories of coal barons, labor struggles, moonshining heritage, and mountain defiance. These colors and fonts carry narrative meaning and evolve through sections (C→B→D→A arc: balanced truth → raw reality → defiant spirit → reverent honor). Tailwind utilities: `font-marker` (Roboto Slab), `font-trail` (Oswald).
 
 ### 2. Owner-First Simplicity
 
