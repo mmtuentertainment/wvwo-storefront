@@ -1,0 +1,272 @@
+---
+/**
+ * SchemaHistoricTemplate.astro
+ * SPEC-19: JSON-LD Structured Data for Historic Site Pages
+ *
+ * Generates @graph with multiple connected entities:
+ * - TouristAttraction + LandmarksOrHistoricalBuildings (dual type)
+ * - GeoCoordinates for historic site
+ * - Article schema with headline, datePublished
+ * - BreadcrumbList (Home > Historic > {name})
+ * - Organization for publisher/author
+ * - PropertyValue extensions (era, nationalRegister)
+ *
+ * @see https://schema.org/TouristAttraction
+ * @see https://schema.org/LandmarksOrHistoricalBuildings
+ * @see https://schema.org/Article
+ */
+
+interface Props {
+  /** Historic site name */
+  name: string;
+  /** URL-safe slug */
+  slug: string;
+  /** Site description */
+  description: string;
+  /** Geographic location */
+  location: string;
+  /** Era/time period */
+  era: string;
+  /** GPS coordinates (decimal format) */
+  coordinates?: {
+    lat: number;
+    lng: number;
+  };
+  /** Listed on National Register? */
+  nationalRegister?: boolean;
+  /** ISO 8601 publish date */
+  publishedDate?: string;
+  /** ISO 8601 update date */
+  updatedDate?: string;
+  /** Hero image absolute URL */
+  imageUrl?: string;
+  /** Managing agency/organization */
+  managingAgency?: string;
+  /** Structure count */
+  structureCount?: number;
+  /** Tour count */
+  tourCount?: number;
+}
+
+const {
+  name,
+  slug,
+  description,
+  location,
+  era,
+  coordinates,
+  nationalRegister,
+  publishedDate,
+  updatedDate,
+  imageUrl,
+  managingAgency,
+  structureCount,
+  tourCount,
+} = Astro.props;
+
+// Base URL for absolute URLs
+const BASE_URL = Astro.site?.href.replace(/\/$/, '') || 'https://wvwildoutdoors.pages.dev';
+const pageUrl = `${BASE_URL}/historic/${slug}/`;
+
+// Build the @graph array
+const graphEntities: object[] = [];
+
+// ============================================================================
+// 1. WV Wild Outdoors Organization
+// ============================================================================
+const organizationId = `${BASE_URL}#organization`;
+const organization = {
+  '@type': 'Organization',
+  '@id': organizationId,
+  'name': 'WV Wild Outdoors',
+  'url': BASE_URL,
+  'logo': {
+    '@type': 'ImageObject',
+    'url': `${BASE_URL}/og-wvwo-storefront.png`,
+  },
+};
+
+graphEntities.push(organization);
+
+// ============================================================================
+// 2. TouristAttraction + LandmarksOrHistoricalBuildings (dual @type)
+// ============================================================================
+const attractionId = `${pageUrl}#attraction`;
+const touristAttraction: Record<string, unknown> = {
+  '@type': ['TouristAttraction', 'LandmarksOrHistoricalBuildings'],
+  '@id': attractionId,
+  'name': name,
+  'description': description,
+  'url': pageUrl,
+  'additionalType': 'https://schema.org/HistoricSite',
+  'isAccessibleForFree': true,
+  'publicAccess': true,
+  'touristType': [
+    'History Enthusiast',
+    'Student',
+    'Family',
+    'Educator',
+  ],
+};
+
+// GPS coordinates
+if (coordinates) {
+  touristAttraction.geo = {
+    '@type': 'GeoCoordinates',
+    '@id': `${pageUrl}#geocoordinates`,
+    'latitude': coordinates.lat,
+    'longitude': coordinates.lng,
+  };
+}
+
+// Address - parse locality from "City, County, WV" format
+const parsedLocality = location.includes(',')
+  ? location.split(',')[0].trim()
+  : location;
+touristAttraction.address = {
+  '@type': 'PostalAddress',
+  'addressLocality': parsedLocality || location,
+  'addressRegion': 'WV',
+  'addressCountry': 'US',
+};
+
+// Hero image
+if (imageUrl) {
+  touristAttraction.image = imageUrl;
+}
+
+// Additional properties
+const additionalProperties: object[] = [];
+
+// Era
+additionalProperties.push({
+  '@type': 'PropertyValue',
+  'name': 'historicalEra',
+  'value': era,
+});
+
+// National Register status
+if (nationalRegister !== undefined) {
+  additionalProperties.push({
+    '@type': 'PropertyValue',
+    'name': 'nationalRegisterOfHistoricPlaces',
+    'value': nationalRegister,
+  });
+}
+
+// Structure count
+if (structureCount) {
+  additionalProperties.push({
+    '@type': 'PropertyValue',
+    'name': 'preservedStructures',
+    'value': structureCount,
+    'unitText': 'structures',
+  });
+}
+
+// Tour count
+if (tourCount) {
+  additionalProperties.push({
+    '@type': 'PropertyValue',
+    'name': 'availableTours',
+    'value': tourCount,
+    'unitText': 'tours',
+  });
+}
+
+if (additionalProperties.length > 0) {
+  touristAttraction.additionalProperty = additionalProperties;
+}
+
+// Managing agency
+if (managingAgency) {
+  touristAttraction.containedInPlace = {
+    '@type': 'AdministrativeArea',
+    '@id': `${pageUrl}#managingagency`,
+    'name': managingAgency,
+  };
+}
+
+graphEntities.push(touristAttraction);
+
+// ============================================================================
+// 3. Article schema
+// ============================================================================
+if (publishedDate || updatedDate) {
+  const articleId = `${pageUrl}#article`;
+  const article: Record<string, unknown> = {
+    '@type': 'Article',
+    '@id': articleId,
+    'headline': `${name} - Historic Site Guide | WV Wild Outdoors`,
+    'description': description,
+    'url': pageUrl,
+    'mainEntityOfPage': { '@id': pageUrl },
+    'about': { '@id': attractionId },
+    'author': { '@id': organizationId },
+    'publisher': { '@id': organizationId },
+    'inLanguage': 'en-US',
+  };
+
+  if (publishedDate) {
+    article.datePublished = publishedDate;
+  }
+  if (updatedDate) {
+    article.dateModified = updatedDate;
+  }
+  if (imageUrl) {
+    article.image = imageUrl;
+  }
+
+  article.articleSection = 'Historic Sites';
+  article.keywords = [
+    'historic site',
+    'West Virginia history',
+    era,
+    name,
+    location,
+  ].filter(Boolean);
+
+  graphEntities.push(article);
+}
+
+// ============================================================================
+// 4. BreadcrumbList schema (Home > Historic > {name})
+// ============================================================================
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Historic Sites', url: '/historic/' },
+  { name: name, url: `/historic/${slug}/` },
+];
+
+graphEntities.push({
+  '@type': 'BreadcrumbList',
+  '@id': `${pageUrl}#breadcrumb`,
+  'itemListElement': breadcrumbs.map((item, index) => ({
+    '@type': 'ListItem',
+    'position': index + 1,
+    'name': item.name,
+    'item': item.url.startsWith('http') ? item.url : `${BASE_URL}${item.url}`,
+  })),
+});
+
+// Final schema with @graph
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': graphEntities,
+};
+
+// Validate JSON structure
+let validatedSchema: object;
+try {
+  validatedSchema = JSON.parse(JSON.stringify(schema));
+} catch (e) {
+  const siteIdentifier = name || slug || 'unknown site';
+  console.error(`SchemaHistoricTemplate: Invalid JSON structure for "${siteIdentifier}"`, e);
+  validatedSchema = {
+    '@context': 'https://schema.org',
+    '@graph': [],
+  };
+}
+---
+
+<script is:inline type="application/ld+json" set:html={JSON.stringify(validatedSchema, null, 2)} />
