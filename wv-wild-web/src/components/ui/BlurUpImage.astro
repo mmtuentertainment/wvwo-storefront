@@ -26,6 +26,9 @@ const {
 } = Astro.props;
 
 const containerStyle = aspectRatio ? `aspect-ratio: ${aspectRatio};` : '';
+
+// Generate unique ID for this instance
+const instanceId = `blur-up-${Math.random().toString(36).slice(2, 9)}`;
 ---
 
 <div class="blur-up-container relative overflow-hidden" style={containerStyle}>
@@ -37,6 +40,7 @@ const containerStyle = aspectRatio ? `aspect-ratio: ${aspectRatio};` : '';
       class="blur-up-placeholder absolute inset-0 w-full h-full object-cover"
       aria-hidden="true"
       decoding="async"
+      data-blur-placeholder={instanceId}
     />
   )}
 
@@ -47,20 +51,37 @@ const containerStyle = aspectRatio ? `aspect-ratio: ${aspectRatio};` : '';
     class:list={['blur-up-image relative w-full h-full object-cover', className]}
     loading={loading}
     decoding="async"
-    onload="this.classList.add('loaded'); this.previousElementSibling?.classList.add('hidden');"
+    data-blur-image={instanceId}
   />
 
   <!-- Attribution overlay or caption -->
   {credit && (
-    <div
-      class="hero-image-credit absolute bottom-2 right-2 bg-coal-gray/80 text-brand-cream text-xs px-2 py-1 rounded-sm"
-      role="contentinfo"
-      aria-label={`Image credit: ${credit}`}
-    >
-      {credit}
+    <div class="hero-image-credit absolute bottom-2 right-2 bg-coal-gray/80 text-brand-cream text-xs px-2 py-1 rounded-sm">
+      Photo: {credit}
     </div>
   )}
 </div>
+
+<script is:inline define:vars={{ instanceId }}>
+  // CSP-safe load handler attached via script instead of inline onload
+  const img = document.querySelector(`[data-blur-image="${instanceId}"]`);
+  if (img) {
+    const handleLoad = () => {
+      img.classList.add('loaded');
+      const placeholder = document.querySelector(`[data-blur-placeholder="${instanceId}"]`);
+      if (placeholder) {
+        placeholder.classList.add('hidden');
+      }
+    };
+
+    // If already loaded (cached), apply immediately
+    if (img.complete && img.naturalHeight !== 0) {
+      handleLoad();
+    } else {
+      img.addEventListener('load', handleLoad);
+    }
+  }
+</script>
 
 <style>
   /* Blur-up placeholder styling */
@@ -95,6 +116,15 @@ const containerStyle = aspectRatio ? `aspect-ratio: ${aspectRatio};` : '';
     .blur-up-image {
       opacity: 1;
       transition: none;
+    }
+  }
+
+  /* High contrast mode support for credit overlay */
+  @media (prefers-contrast: more) {
+    .hero-image-credit {
+      background-color: #000000;
+      color: #ffffff;
+      border: 1px solid #ffffff;
     }
   }
 </style>
