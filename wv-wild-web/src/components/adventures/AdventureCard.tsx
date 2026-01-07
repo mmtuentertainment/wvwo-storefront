@@ -15,6 +15,45 @@ interface AdventureCardProps {
 }
 
 /**
+ * Generate the correct URL for an adventure based on its type.
+ * SPEC-21: Routes to new /near/ dynamic routes instead of legacy /adventures/ paths.
+ *
+ * @param id - The adventure ID (content collection filename without extension)
+ * @param type - The adventure type (wma, lake, ski, park, etc.)
+ * @returns The correct URL path for the adventure detail page
+ */
+function getAdventureUrl(id: string, type?: string): string {
+  // Map content collection IDs to new route slugs
+  // Handle hyphenated names like "burnsville-lake-wma" -> "burnsville"
+  const slugMap: Record<string, string> = {
+    'burnsville-lake-wma': 'burnsville',
+    'summersville-lake': 'summersville',
+    'holly-river': 'holly-river',
+    'cranberry': 'cranberry',
+  };
+
+  const slug = slugMap[id] || id;
+
+  switch (type) {
+    case 'wma':
+      return `/near/wma/${slug}/`;
+    case 'lake':
+      return `/near/lake/${slug}/`;
+    case 'ski':
+      return `/near/ski/${slug}/`;
+    case 'park':
+      return `/near/park/${slug}/`;
+    case 'backcountry':
+      return `/near/backcountry/${slug}/`;
+    case 'resort':
+      return `/near/resort/${slug}/`;
+    default:
+      // Fallback to legacy /adventures/ path for unmigrated content
+      return `/adventures/${id}/`;
+  }
+}
+
+/**
  * Render a clickable preview card for an adventure that links to the adventure's detail page.
  * Wrapped in React.memo to prevent unnecessary re-renders when filter state changes
  * but this card's adventure data hasn't changed.
@@ -25,12 +64,14 @@ interface AdventureCardProps {
 export const AdventureCard = React.memo(function AdventureCard({
   adventure,
 }: AdventureCardProps) {
-  const { title, description, season, difficulty, location, elevation_gain, suitability, drive_time } =
+  const { title, description, season, difficulty, location, elevation_gain, suitability, drive_time, type } =
     adventure.data;
+
+  const adventureUrl = getAdventureUrl(adventure.id, type);
 
   return (
     <a
-      href={`/adventures/${adventure.id}/`}
+      href={adventureUrl}
       aria-label={`View ${title} adventure at ${location}`}
       className="group block bg-white rounded-sm border-2 border-stone-200 border-l-4 border-l-sign-green overflow-hidden hover:border-l-brand-orange motion-safe:transition-all motion-safe:duration-300 motion-reduce:transition-none focus:outline-none focus:ring-2 focus:ring-sign-green"
     >
