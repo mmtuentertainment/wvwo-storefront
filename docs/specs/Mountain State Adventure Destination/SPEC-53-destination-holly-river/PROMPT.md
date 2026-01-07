@@ -1,155 +1,176 @@
-# SPEC-53: Holly River State Park Destination Page
+# SPEC-53: Holly River State Park Migration to Dynamic Route
 
-**Type**: State park (camping + trails)
-**Template**: State park pattern
-**Assigned Swarm**: 5-agent hierarchical coordination
-
----
-
-## Agent Selection
-
-| Agent | Role | Why Selected |
-|-------|------|--------------|
-| `hierarchical-coordinator` | **Leader** | Orchestrates state park page |
-| `researcher` | **Scout** | Researches Holly River trails, cabins, fishing creek |
-| `architect` | **Designer** | Designs content for rustic mountain park |
-| `coder` | **Builder** | Implements `/wv-wild-web/src/content/adventures/holly-river.md` |
-| `tester` | **Validator** | Reviews trail info, cabin details, fishing regulations |
-
-**Execution**: `npx claude-flow@alpha swarm hierarchical "<this prompt>"`
+**Status**: Ready for implementation - May use StateParkTemplate
+**Assigned Agent**: `coder` (simple pattern)
+**Dependencies**: SPEC-18 (StateParkTemplate if exists), SPEC-21 (getStaticPaths pattern)
 
 ---
 
-## AgentDB Context Loading
+## ⚠️ IMPORTANT: Updated Migration Pattern (SPEC-21)
+
+**This spec has been updated to use the `getStaticPaths()` dynamic route pattern.**
+
+The original approach (swarm with content collections) is **DEPRECATED**.
+
+### Template Decision
+
+**Check if StateParkTemplate exists** from SPEC-18. If yes:
+1. **Create data file**: `/src/data/parks/holly-river.ts` exporting `StateParkTemplateProps`
+2. **Dynamic route auto-discovers**: `/src/pages/near/park/[slug].astro`
+3. **Delete static page**: Remove `/src/pages/near/holly-river.astro`
+4. **Update index slug**: Change to `slug: "park/holly-river"`
+
+If StateParkTemplate doesn't exist, create it following WMATemplate/LakeTemplate patterns.
+
+### Reference Implementation
+
+See completed examples for pattern:
+- `/src/pages/near/wma/[slug].astro` - Dynamic route structure
+- `/src/pages/near/lake/[slug].astro` - Another dynamic route example
+- `/src/components/templates/WMATemplate.astro` - Template structure
+- `/src/types/wma.ts` - Type definitions with Zod schemas
+
+---
+
+## ReasoningBank Context Loading
+
+Before starting, load relevant patterns:
 
 ```bash
-npx agentdb@latest reflexion retrieve "state park mountain trails" --k 10 --synthesize-context
-npx agentdb@latest reflexion retrieve "rustic cabins camping WV" --k 10 --synthesize-context
-npx agentdb@latest skill search "state park pattern trails" 5
-npx agentdb@latest reflexion critique-summary "WVWO"
+# Load SPEC-21 dynamic route pattern
+claude-flow memory query "template-dynamic-route-pattern" --namespace wvwo-patterns --reasoningbank
 
+# Load state park template pattern (from SPEC-18)
+claude-flow memory query "state park template" --namespace wvwo-successes --reasoningbank
 ```
 
 ---
 
-## Research Focus (Researcher Agent)
+## Task Overview
 
-**Key Queries**:
+Migrate `/wv-wild-web/src/pages/near/holly-river.astro` to use the `getStaticPaths()` dynamic route pattern.
 
-- "Holly River State Park trails hiking"
-- "Holly River State Park cabins camping"
-- "Holly River State Park trout fishing creek"
-- "Holly River State Park distance from I-79"
+**Pattern**: Data file + dynamic route (using StateParkTemplate)
 
-**Data Priorities**:
-
-- Trails: 30+ miles (some steep, elevation changes)
-- Cabins: Rustic 1930s CCC-built cabins
-- Camping: Tent sites, no RV hookups (primitive)
-- Fishing: Holly River (native brook trout, stocked trout)
-- Remoteness: Mountain park, limited cell service
-- Distance: 35 miles from shop (closest major state park)
+**Type**: State park (camping + trails)
 
 ---
 
-## Content Structure (Architect Agent)
+## StateParkTemplateProps (If Creating New)
 
-**Frontmatter**:
+```typescript
+interface StateParkTemplateProps {
+  name: string;
+  image: string;
+  imageAlt: string;
+  tagline: string;
+  description: string;
+  stats: QuickStat[];
 
-```yaml
-name: "Holly River State Park"
-type: "State Park"
-slug: "holly-river"
-featured: false
-coordinates: [38.69, -80.40]
-description: "Mountain state park with 30+ miles of trails, rustic CCC cabins, and native brook trout fishing. 35 miles from the shop."
-amenities: ["Cabins", "Campground", "Restaurant", "Picnic Areas"]
-activities: ["Hiking", "Trout Fishing", "Camping", "Birdwatching"]
-difficulty: "Moderate" (hilly terrain)
-season: "Year-round"
-distanceFromShop: "35 miles"
-drivingTime: "45 minutes"
+  // Park info
+  acres: number;
+  amenities: Amenity[];
 
-```
+  // Trails
+  trails: Trail[];
+  totalTrailMiles: number;
 
-**Voice Guidelines**:
+  // Lodging
+  cabins?: CabinInfo;
+  campground?: CampgroundInfo;
 
-```
-✅ "Holly River is the closest full-service state park to the shop - 45 minutes east. Good trails and rustic cabins built by the CCC in the 1930s."
+  // Activities
+  activities: Activity[];
+  fishing?: FishingInfo;
 
-❌ "Escape to Holly River's tranquil mountain sanctuary and reconnect with nature!"
+  // Seasonal
+  seasonalGuide: SeasonalGuide[];
 
-```
+  // Access
+  accessInfo: AccessInfo;
 
----
-
-## Implementation (Coder Agent)
-
-**File Path**: `./wv-wild-web\src\content\adventures\holly-river.md`
-
-**Content Sample**:
-
-```markdown
-Holly River State Park is 35 miles from the shop - the closest full-service state park. It's a mountain park with 30+ miles of trails, rustic CCC cabins from the 1930s, and native brook trout in Holly River.
-
-## Trails
-
-**30+ miles** of hiking trails through hardwood forest. Some steep climbs - this is mountain terrain, not flat riverside walking.
-
-**Popular Trails**:
-- Potato Knob Trail (3 miles round trip, overlook)
-- Tecumseh Trail (7 miles, backcountry loop)
-- Reverie Trail (short, easy near cabins)
-
-## Cabins & Camping
-
-**Cabins**: 1930s Civilian Conservation Corps cabins (wood heat, rustic)
-**Campground**: Tent sites (no RV hookups)
-**Restaurant**: Open seasonally (check before visiting)
-
-Cabins book up fast for fall foliage season - reserve early.
-
-## Fishing
-
-Holly River has native brook trout plus stocked rainbows and browns. Small stream fishing - light tackle, dry flies work well.
-
-**Season**: Trout stocking spring (March-May)
-**Regulations**: WV fishing license + trout stamp required
-
-## Kim's Take
-
-*Holly River is our neighborhood state park - closest one with cabins and a full trail system. Good for a weekend if you don't want to drive 2+ hours to the bigger parks.*
-
-*The brook trout fishing is underrated. Small stream, but native brookies are in there if you're willing to hike upstream.*
-
-*Stop by the shop before you head out - we're right on the way. We carry trout tackle, hiking supplies, and can give you current conditions.*
-
-## Getting There from the Shop
-
-East on Route 20 through Hacker Valley. Park entrance is well-signed. About 35 miles, 45 minutes.
-
-**Closest Full-Service State Park**: Makes Holly River our default recommendation for local weekend trips.
-
-Grand love ya.
-
+  // Standard
+  gearList: GearItem[];
+  relatedShop: ShopCategory[];
+  coordinates: { lat: number; lng: number };
+}
 ```
 
 ---
 
-## Validation (Tester Agent)
+## Data Requirements (From Original SPEC)
 
-**Checklist**:
+### Geographic Data
 
-- [ ] Trail distances accurate (Potato Knob, Tecumseh)
+**Shop coordinates**: `38.5858, -80.8581` (Birch River, WV)
+**Destination coordinates**: `38.69, -80.40` (Holly River State Park)
+**Drive time**: ~45 minutes via Route 20
+**Distance**: ~35 miles (closest full-service state park)
+
+### Park Data
+
+- 30+ miles of hiking trails
+- 1930s CCC-built rustic cabins
+- Tent camping (no RV hookups)
+- Restaurant (seasonal)
+- Native brook trout + stocked trout fishing
+
+### Trail Highlights
+
+- Potato Knob Trail (3 mi round trip, overlook)
+- Tecumseh Trail (7 mi, backcountry loop)
+- Reverie Trail (short, easy, near cabins)
+
+### Fishing Info
+
+- Holly River: native brook trout + stocked rainbows/browns
+- Small stream fishing - light tackle, dry flies
+- Trout stocking: Spring (March-May)
+- WV fishing license + trout stamp required
+
+---
+
+## Kim's Voice Guidelines
+
+**Approved phrases**:
+```
+"Holly River is our neighborhood state park - closest one with cabins and a full trail system."
+"Good for a weekend if you don't want to drive 2+ hours to the bigger parks."
+"The brook trout fishing is underrated. Small stream, but native brookies are in there if you're willing to hike upstream."
+"Stop by the shop before you head out - we're right on the way."
+```
+
+**Forbidden phrases**:
+```
+NEVER: "Escape to tranquil mountain sanctuary", "Reconnect with nature", "Ultimate getaway"
+```
+
+---
+
+## Unique Selling Points
+
+1. **Closest full-service state park** to the shop (35 miles, 45 min)
+2. **1930s CCC cabins** - rustic charm, book early for fall foliage
+3. **Native brook trout** - underrated small stream fishing
+4. **Shop tie-in** - "we're right on the way"
+
+---
+
+## Validation Checklist
+
+- [ ] Data file created at `/src/data/parks/holly-river.ts`
+- [ ] StateParkTemplate exists or created
+- [ ] /src/pages/near/park/[slug].astro dynamic route exists
+- [ ] Index.astro slug updated to `park/holly-river`
+- [ ] Static page `holly-river.astro` deleted
+- [ ] Build passes with `/near/park/holly-river/` generated
 - [ ] CCC cabin history noted (1930s rustic charm)
-- [ ] Brook trout native vs stocked clarified
-- [ ] Proximity to shop emphasized (closest park)
+- [ ] Proximity to shop emphasized (closest full-service park)
 
 ---
 
-## Success Criteria
+## Store Pattern (After Completion)
 
-✅ State park page emphasizes proximity (closest full-service park)
-✅ Native brook trout fishing highlighted (unique feature)
-✅ Rustic CCC cabin appeal for fall foliage bookings
-✅ Shop tie-in natural (on the way, stop for supplies)
+```bash
+claude-flow memory store "spec-53-holly-river-complete" "Holly River State Park migrated to getStaticPaths() pattern. Data file at /src/data/parks/holly-river.ts. Emphasized proximity (closest park), native brook trout, rustic CCC cabins." --namespace wvwo-successes --reasoningbank
+```
