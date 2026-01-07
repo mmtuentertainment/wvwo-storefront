@@ -1,0 +1,248 @@
+---
+/**
+ * SPEC-20: Adventure Resort Template
+ * Action-oriented multi-activity resort with external booking links
+ * WVWO Aesthetic: Hardware store feel, rounded-sm only, brand colors
+ *
+ * Template orchestrates 8 section components for modular composition
+ *
+ * SEO Features:
+ * - Schema.org structured data (TouristAttraction + LodgingBusiness)
+ * - OpenGraph meta tags for social sharing
+ * - Twitter Card meta tags
+ * - Geo meta tags for location-based search
+ * - Canonical URL support
+ * - Breadcrumb structured data
+ */
+import type { ResortTemplateProps } from '../../types/templates/resort';
+import ResortHero from '../resort/ResortHero.astro';
+import ActivityMenuSection from '../resort/ActivityMenuSection.astro';
+import GuidedTripsSection from '../resort/GuidedTripsSection.astro';
+import LodgingSection from '../resort/LodgingSection.astro';
+import PackagesSection from '../resort/PackagesSection.astro';
+import OutfitterServicesSection from '../resort/OutfitterServicesSection.astro';
+import FacilitiesSection from '../resort/FacilitiesSection.astro';
+import BookingPoliciesSection from '../resort/BookingPoliciesSection.astro';
+import SchemaResortTemplate from '../seo/SchemaResortTemplate.astro';
+
+interface Props extends ResortTemplateProps {
+  /** Canonical URL for this page (required for SEO) */
+  canonicalUrl?: string;
+  /** Slug for URL generation */
+  slug?: string;
+  /** Geo coordinates for location-based search */
+  coordinates?: { lat: number; lng: number };
+}
+
+const props = Astro.props;
+
+// SEO Configuration
+const baseUrl = Astro.site?.href?.replace(/\/$/, '') || 'https://wvwildoutdoors.pages.dev';
+const slug = props.slug || props.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+const canonicalUrl = props.canonicalUrl || `${baseUrl}/resorts/${slug}/`;
+
+// Meta content
+const pageTitle = `${props.name} Adventure Resort | WV Wild Outdoors`;
+const metaDescription = `${props.name} in ${props.location} - ${props.signatureActivities.slice(0, 3).join(', ')} and more. ${props.quickHighlights.slice(0, 2).join('. ')}.`.slice(0, 160);
+const ogImage = props.heroImage.startsWith('http') ? props.heroImage : `${baseUrl}${props.heroImage}`;
+
+// Hero image props for Schema
+const heroImageProps = {
+  src: ogImage,
+  width: 1200,
+  height: 630,
+  alt: props.heroImageAlt,
+};
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Primary Meta Tags -->
+  <title>{pageTitle}</title>
+  <meta name="title" content={pageTitle}>
+  <meta name="description" content={metaDescription}>
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href={canonicalUrl}>
+
+  <!-- Robots -->
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content={canonicalUrl}>
+  <meta property="og:title" content={props.name}>
+  <meta property="og:description" content={metaDescription}>
+  <meta property="og:image" content={ogImage}>
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content={props.heroImageAlt}>
+  <meta property="og:site_name" content="WV Wild Outdoors">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content={canonicalUrl}>
+  <meta name="twitter:title" content={props.name}>
+  <meta name="twitter:description" content={metaDescription}>
+  <meta name="twitter:image" content={ogImage}>
+  <meta name="twitter:image:alt" content={props.heroImageAlt}>
+
+  <!-- Geo Meta Tags (for location-based search) -->
+  {props.coordinates && (
+    <>
+      <meta name="geo.position" content={`${props.coordinates.lat};${props.coordinates.lng}`}>
+      <meta name="geo.placename" content={props.name}>
+      <meta name="geo.region" content="US-WV">
+      <meta name="ICBM" content={`${props.coordinates.lat}, ${props.coordinates.lng}`}>
+    </>
+  )}
+
+  <!-- Resort-specific meta (activity keywords for search) -->
+  <meta name="keywords" content={`${props.name}, ${props.location}, ${props.signatureActivities.join(', ')}, West Virginia adventure, outdoor activities, ${props.lodging.map(l => l.type).join(', ')}`}>
+
+  <!-- WVWO Fonts: Preconnect for Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@700;900&family=Noto+Sans:wght@400;600;700&family=Permanent+Marker&display=swap" rel="stylesheet">
+
+  <!-- Schema.org Structured Data (comprehensive) -->
+  <SchemaResortTemplate
+    resort={props}
+    canonicalUrl={canonicalUrl}
+    heroImage={heroImageProps}
+  />
+</head>
+<body class="font-body bg-white text-brand-brown">
+
+  <main>
+    <!-- Hero Section: Resort overview with signature activities -->
+    <ResortHero
+      name={props.name}
+      location={props.location}
+      season={props.season}
+      signatureActivities={props.signatureActivities}
+      quickHighlights={props.quickHighlights}
+      heroImage={props.heroImage}
+      heroImageAlt={props.heroImageAlt}
+      reservationUrl={props.booking.reservationUrl}
+    />
+
+    <!-- Section Divider -->
+    <div class="section-divider" aria-hidden="true"></div>
+
+    <!-- Activity Menu: Activities organized by category -->
+    <ActivityMenuSection activityCategories={props.activityCategories} />
+
+    <!-- Section Divider -->
+    <div class="section-divider" aria-hidden="true"></div>
+
+    <!-- Guided Trips: Outfitter-led adventures -->
+    <GuidedTripsSection guidedTrips={props.guidedTrips} />
+
+    <!-- Section Divider -->
+    <div class="section-divider" aria-hidden="true"></div>
+
+    <!-- Lodging: Accommodation options -->
+    <LodgingSection lodging={props.lodging} />
+
+    <!-- Section Divider -->
+    <div class="section-divider" aria-hidden="true"></div>
+
+    <!-- Packages: Multi-day adventure packages -->
+    <PackagesSection packages={props.packages} />
+
+    <!-- Section Divider -->
+    <div class="section-divider" aria-hidden="true"></div>
+
+    <!-- Outfitter Services: Rentals, shuttles, instruction -->
+    <OutfitterServicesSection outfitterServices={props.outfitterServices} />
+
+    <!-- Section Divider -->
+    <div class="section-divider" aria-hidden="true"></div>
+
+    <!-- Facilities: Dining, retail, event spaces -->
+    <FacilitiesSection facilities={props.facilities} />
+
+    <!-- Section Divider -->
+    <div class="section-divider" aria-hidden="true"></div>
+
+    <!-- Booking & Policies: Contact info and resort policies -->
+    <BookingPoliciesSection booking={props.booking} />
+
+    <!-- Activity Map (if provided) -->
+    {props.activityMapUrl && (
+      <section class="py-16 bg-white" id="activity-map">
+        <div class="container mx-auto px-4">
+          <h2 class="font-display text-3xl md:text-4xl font-bold text-brand-brown mb-8">
+            Activity Map
+          </h2>
+          <div class="border-l-4 border-l-sign-green pl-6">
+            <img
+              src={props.activityMapUrl}
+              alt={`Activity and trail map for ${props.name}`}
+              class="w-full max-w-4xl rounded-sm border border-brand-brown/20"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </section>
+    )}
+  </main>
+
+</body>
+</html>
+
+<style>
+  /* ======================================================================
+     SPEC-20 Custom Styles: Hardware Store Aesthetic
+     ====================================================================== */
+
+  /* Section Divider - Clean horizontal line */
+  .section-divider {
+    border-top: 2px solid var(--brand-brown, #3E2723);
+    opacity: 0.2;
+    margin: 0;
+  }
+
+  /* Focus States (WCAG 2.1 AA) */
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid var(--brand-orange, #FF6F00);
+    outline-offset: 2px;
+  }
+
+  /* Reduced Motion Preferences */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation: none !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* Minimum touch target size (44px) for mobile */
+  @media (max-width: 768px) {
+    a[href],
+    button {
+      min-height: 44px;
+      min-width: 44px;
+    }
+  }
+
+  /* Print styles */
+  @media print {
+    .section-divider {
+      border-top-color: #000;
+      opacity: 0.3;
+    }
+
+    /* Hide booking CTAs in print */
+    a[target="_blank"] {
+      display: none;
+    }
+  }
+</style>

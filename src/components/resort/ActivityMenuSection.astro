@@ -1,0 +1,103 @@
+---
+/**
+ * SPEC-20: Resort Activity Menu Section
+ * Displays activities organized by category with WVWO hardware store aesthetic
+ * Border-left accent with sign-green, sharp corners (rounded-sm only)
+ */
+
+interface Props {
+  activityCategories: {
+    category: string;
+    activities: {
+      name: string;
+      difficulty: string;
+      duration: string;
+      minAge?: number;
+      description: string;
+      highlights: string[];
+      season?: string;
+      priceRange?: string;
+    }[];
+  }[];
+}
+
+const { activityCategories } = Astro.props;
+
+// Don't render if no categories
+if (!activityCategories || activityCategories.length === 0) return null;
+---
+
+<section class="py-16 bg-white" id="activities">
+  <div class="container mx-auto px-4">
+    <h2 class="font-display text-3xl md:text-4xl font-bold text-brand-brown mb-12">
+      Activities
+    </h2>
+
+    {activityCategories.map((cat) => (
+      <div class="mb-16 last:mb-0">
+        <!-- Category Header -->
+        <h3 class="font-display text-2xl md:text-3xl font-bold text-brand-brown mb-8">
+          {cat.category}
+        </h3>
+
+        <!-- Activities Grid -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {cat.activities.map((activity) => (
+            <article class="border-l-4 border-l-sign-green pl-6 py-4">
+              <!-- Activity Name -->
+              <h4 class="font-display text-xl font-bold text-brand-brown mb-2">
+                {activity.name}
+              </h4>
+
+              <!-- Badges Row -->
+              <div class="flex flex-wrap gap-2 mb-3">
+                <span class="bg-brand-cream text-brand-brown px-2 py-1 rounded-sm text-xs font-bold">
+                  {activity.difficulty}
+                </span>
+                <span class="bg-brand-cream text-brand-brown px-2 py-1 rounded-sm text-xs">
+                  {activity.duration}
+                </span>
+                {activity.minAge && (
+                  <span class="bg-brand-cream text-brand-brown px-2 py-1 rounded-sm text-xs">
+                    Age {activity.minAge}+
+                  </span>
+                )}
+              </div>
+
+              <!-- Description -->
+              <p class="font-body text-sm text-brand-mud mb-3">
+                {activity.description}
+              </p>
+
+              <!-- Highlights -->
+              {activity.highlights && activity.highlights.length > 0 && (
+                <ul class="space-y-1 mb-3">
+                  {activity.highlights.map((highlight) => (
+                    <li class="font-body text-xs text-brand-mud flex items-start gap-2">
+                      <span class="text-sign-green mt-1" aria-hidden="true">•</span>
+                      <span>{highlight}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+
+              <!-- Price Range -->
+              {activity.priceRange && (
+                <p class="font-display text-lg font-bold text-sign-green">
+                  {activity.priceRange}
+                </p>
+              )}
+
+              <!-- Season Note -->
+              {activity.season && (
+                <p class="font-body text-xs text-brand-mud/80 mt-2">
+                  {activity.season}
+                </p>
+              )}
+            </article>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+</section>

@@ -1,0 +1,74 @@
+---
+/**
+ * SPEC-20: Lodging Section
+ * WVWO aesthetic: border-l-sign-green, rounded-sm only, brand colors
+ */
+
+interface Props {
+  lodging: {
+    type: string;
+    capacity: string;
+    amenities: string[];
+    priceRange: string;
+    photos?: string[];
+    bookingUrl?: string;
+  }[];
+}
+
+const { lodging } = Astro.props;
+
+// Don't render if empty
+if (!lodging || lodging.length === 0) return null;
+---
+
+<section class="py-16 bg-white" id="lodging">
+  <div class="container mx-auto px-4">
+    <h2 class="font-display text-3xl md:text-4xl font-bold text-brand-brown mb-12">
+      Lodging
+    </h2>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {lodging.map((option) => (
+        <div class="bg-brand-cream border-l-4 border-l-sign-green p-6 rounded-sm">
+          <!-- Type & Capacity -->
+          <h3 class="font-display text-xl font-bold text-brand-brown mb-2">
+            {option.type}
+          </h3>
+          <p class="font-body text-sm text-brand-mud mb-3">{option.capacity}</p>
+
+          <!-- Price -->
+          <p class="font-display text-lg font-bold text-sign-green mb-4">
+            {option.priceRange}
+          </p>
+
+          <!-- Amenities -->
+          {option.amenities && option.amenities.length > 0 && (
+            <div class="mb-4">
+              <p class="font-body text-xs text-brand-mud/80 mb-2">Amenities:</p>
+              <ul class="space-y-1">
+                {option.amenities.map((amenity) => (
+                  <li class="font-body text-sm text-brand-mud flex items-start gap-2">
+                    <span class="text-sign-green mt-0.5" aria-hidden="true">✓</span>
+                    <span>{amenity}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          <!-- Booking CTA -->
+          {option.bookingUrl && (
+            <a
+              href={option.bookingUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-block bg-brand-orange text-white font-display font-bold px-4 py-2 rounded-sm hover:bg-brand-orange/90 transition-colors text-sm"
+            >
+              Book Now
+            </a>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

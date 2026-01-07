@@ -1,0 +1,372 @@
+---
+/**
+ * Schema.org Resort Template Component
+ * SPEC-20: Structured data for adventure resort pages
+ *
+ * @graph Structure (6 entities):
+ * 1. Organization (WV Wild Outdoors as publisher)
+ * 2. TouristAttraction + LodgingBusiness (dual @type for resort)
+ * 3. Article (page content metadata)
+ * 4. BreadcrumbList (Home > Adventure Resorts > {name})
+ * 5. ImageObject (hero with credit/license)
+ * 6. AmenityFeature array (activities, lodging, facilities)
+ *
+ * PropertyValue Extensions:
+ * - activity_count, lodging_options, guided_trips, acreage
+ *
+ * SEO Compliance:
+ * - Schema.org validation via Google Rich Results Test
+ * - OpenGraph and Twitter Card meta tags
+ * - Canonical URLs
+ */
+
+import type { ResortTemplateProps } from '../../types/templates/resort';
+
+interface Props {
+  resort: ResortTemplateProps;
+  canonicalUrl: string;
+  heroImage?: {
+    src: string;
+    width?: number;
+    height?: number;
+    alt: string;
+    credit?: string;
+    license?: string;
+  };
+}
+
+const { resort, canonicalUrl, heroImage } = Astro.props;
+
+// Build Organization schema (WV Wild Outdoors as publisher)
+const publisherOrg = {
+  '@type': 'Organization',
+  '@id': 'https://www.wvwildoutdoors.com/#organization',
+  name: 'WV Wild Outdoors',
+  url: 'https://www.wvwildoutdoors.com',
+  logo: {
+    '@type': 'ImageObject',
+    url: 'https://www.wvwildoutdoors.com/images/wvwo-logo.png',
+    width: 600,
+    height: 60,
+  },
+  sameAs: [
+    'https://www.facebook.com/wvwildoutdoors',
+  ],
+};
+
+// Build seasonal opening hours
+const buildOpeningHours = () => {
+  if (resort.season.open === 'Year-round') {
+    return [{
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+      opens: '08:00',
+      closes: '20:00',
+    }];
+  }
+
+  // Parse season dates (assumes "Month Day" format)
+  return [{
+    '@type': 'OpeningHoursSpecification',
+    validFrom: resort.season.open,
+    validThrough: resort.season.close,
+    dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+    opens: '08:00',
+    closes: '20:00',
+  }];
+};
+
+// Count total activities across all categories
+const totalActivities = resort.activityCategories.reduce(
+  (sum, cat) => sum + cat.activities.length, 0
+);
+
+// Build amenity features for resort
+const buildAmenityFeatures = () => {
+  const amenities = [];
+
+  // Activities
+  if (totalActivities > 0) {
+    amenities.push({
+      '@type': 'LocationFeatureSpecification',
+      name: 'Adventure Activities',
+      value: totalActivities,
+      unitText: 'activities',
+    });
+  }
+
+  // Activity categories
+  resort.activityCategories.forEach((cat) => {
+    amenities.push({
+      '@type': 'LocationFeatureSpecification',
+      name: cat.category,
+      value: cat.activities.length,
+      unitText: 'options',
+    });
+  });
+
+  // Guided trips
+  if (resort.guidedTrips.length > 0) {
+    amenities.push({
+      '@type': 'LocationFeatureSpecification',
+      name: 'Guided Adventures',
+      value: resort.guidedTrips.length,
+      unitText: 'trips',
+    });
+  }
+
+  // Lodging options
+  if (resort.lodging.length > 0) {
+    amenities.push({
+      '@type': 'LocationFeatureSpecification',
+      name: 'Lodging Options',
+      value: resort.lodging.length,
+      unitText: 'types',
+    });
+
+    // Add specific lodging types
+    resort.lodging.forEach((option) => {
+      amenities.push({
+        '@type': 'LocationFeatureSpecification',
+        name: option.type,
+        value: true,
+      });
+    });
+  }
+
+  // Packages
+  if (resort.packages.length > 0) {
+    amenities.push({
+      '@type': 'LocationFeatureSpecification',
+      name: 'Adventure Packages',
+      value: resort.packages.length,
+      unitText: 'packages',
+    });
+  }
+
+  // Facilities - Dining
+  if (resort.facilities.dining && resort.facilities.dining.length > 0) {
+    amenities.push({
+      '@type': 'LocationFeatureSpecification',
+      name: 'On-Site Dining',
+      value: resort.facilities.dining.length,
+      unitText: 'restaurants',
+    });
+  }
+
+  // Facilities - Retail
+  if (resort.facilities.retail && resort.facilities.retail.length > 0) {
+    amenities.push({
+      '@type': 'LocationFeatureSpecification',
+      name: 'Pro Shop / Retail',
+      value: resort.facilities.retail.length,
+      unitText: 'shops',
+    });
+  }
+
+  // Facilities - Event Spaces
+  if (resort.facilities.eventSpaces && resort.facilities.eventSpaces.length > 0) {
+    amenities.push({
+      '@type': 'LocationFeatureSpecification',
+      name: 'Event Spaces',
+      value: resort.facilities.eventSpaces.length,
+      unitText: 'venues',
+    });
+  }
+
+  // Other facilities
+  if (resort.facilities.other && resort.facilities.other.length > 0) {
+    resort.facilities.other.forEach((facility) => {
+      amenities.push({
+        '@type': 'LocationFeatureSpecification',
+        name: facility.type,
+        value: true,
+      });
+    });
+  }
+
+  // Outfitter services
+  if (resort.outfitterServices.length > 0) {
+    const totalServices = resort.outfitterServices.reduce(
+      (sum, cat) => sum + cat.services.length, 0
+    );
+    amenities.push({
+      '@type': 'LocationFeatureSpecification',
+      name: 'Outfitter Services',
+      value: totalServices,
+      unitText: 'services',
+    });
+  }
+
+  return amenities;
+};
+
+// Build PropertyValue extensions for custom metrics
+const buildAdditionalProperties = () => {
+  const properties = [];
+
+  if (resort.acreage) {
+    properties.push({
+      '@type': 'PropertyValue',
+      name: 'Total Acreage',
+      value: resort.acreage,
+      unitText: 'acres',
+    });
+  }
+
+  properties.push({
+    '@type': 'PropertyValue',
+    name: 'Activity Count',
+    value: totalActivities,
+  });
+
+  properties.push({
+    '@type': 'PropertyValue',
+    name: 'Lodging Options',
+    value: resort.lodging.length,
+  });
+
+  properties.push({
+    '@type': 'PropertyValue',
+    name: 'Guided Trips',
+    value: resort.guidedTrips.length,
+  });
+
+  properties.push({
+    '@type': 'PropertyValue',
+    name: 'Adventure Packages',
+    value: resort.packages.length,
+  });
+
+  return properties;
+};
+
+// Build offers for activities/packages (helps with rich results)
+const buildOffers = () => {
+  const offers = [];
+
+  // Add package offers
+  resort.packages.forEach((pkg) => {
+    offers.push({
+      '@type': 'Offer',
+      name: pkg.name,
+      description: `${pkg.duration} - Includes: ${pkg.includes.slice(0, 3).join(', ')}`,
+      price: pkg.price.replace(/[^0-9.]/g, ''),
+      priceCurrency: 'USD',
+      availability: 'https://schema.org/InStock',
+    });
+  });
+
+  return offers;
+};
+
+// Build main resort schema with dual @type
+const resortSchema = {
+  '@type': ['TouristAttraction', 'LodgingBusiness'],
+  '@id': `${canonicalUrl}#resort`,
+  name: resort.name,
+  description: `Adventure resort in ${resort.location} featuring ${resort.signatureActivities.slice(0, 3).join(', ')} and more.`,
+  url: canonicalUrl,
+  image: heroImage
+    ? {
+        '@type': 'ImageObject',
+        '@id': `${canonicalUrl}#heroImage`,
+        url: heroImage.src,
+        width: heroImage.width || 1200,
+        height: heroImage.height || 630,
+        caption: heroImage.alt,
+        creator: heroImage.credit,
+        license: heroImage.license,
+      }
+    : {
+        '@type': 'ImageObject',
+        url: resort.heroImage,
+        caption: resort.heroImageAlt,
+      },
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: resort.location.split(',')[0]?.trim(),
+    addressRegion: 'WV',
+    addressCountry: 'US',
+  },
+  telephone: resort.booking.phone,
+  email: resort.booking.email,
+  openingHoursSpecification: buildOpeningHours(),
+  amenityFeature: buildAmenityFeatures(),
+  additionalProperty: buildAdditionalProperties(),
+  makesOffer: buildOffers(),
+  publicAccess: true,
+  potentialAction: resort.booking.reservationUrl ? {
+    '@type': 'ReserveAction',
+    target: {
+      '@type': 'EntryPoint',
+      urlTemplate: resort.booking.reservationUrl,
+      actionPlatform: [
+        'https://schema.org/DesktopWebPlatform',
+        'https://schema.org/MobileWebPlatform',
+      ],
+    },
+    result: {
+      '@type': 'LodgingReservation',
+    },
+  } : undefined,
+};
+
+// Build Article schema for page content
+const articleSchema = {
+  '@type': 'Article',
+  '@id': `${canonicalUrl}#article`,
+  headline: `${resort.name} - Adventure Resort Guide`,
+  description: `Plan your adventure at ${resort.name} in ${resort.location}. ${resort.signatureActivities.join(', ')}, lodging, and packages.`,
+  author: {
+    '@id': 'https://www.wvwildoutdoors.com/#organization',
+  },
+  publisher: {
+    '@id': 'https://www.wvwildoutdoors.com/#organization',
+  },
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': canonicalUrl,
+  },
+  image: heroImage
+    ? { '@id': `${canonicalUrl}#heroImage` }
+    : undefined,
+  about: {
+    '@id': `${canonicalUrl}#resort`,
+  },
+};
+
+// Build BreadcrumbList schema
+const breadcrumbSchema = {
+  '@type': 'BreadcrumbList',
+  '@id': `${canonicalUrl}#breadcrumb`,
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: 'https://www.wvwildoutdoors.com',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Adventure Resorts',
+      item: 'https://www.wvwildoutdoors.com/resorts',
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: resort.name,
+      item: canonicalUrl,
+    },
+  ],
+};
+
+// Assemble complete @graph
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [publisherOrg, resortSchema, articleSchema, breadcrumbSchema],
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

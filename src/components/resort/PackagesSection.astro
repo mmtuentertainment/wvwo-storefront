@@ -1,0 +1,78 @@
+---
+/**
+ * SPEC-20: Packages Section
+ * Multi-day adventure packages with WVWO aesthetic
+ */
+
+interface Props {
+  packages: {
+    name: string;
+    duration: string;
+    includes: string[];
+    price: string;
+    audience?: string;
+    seasonalAvailability?: string;
+  }[];
+}
+
+const { packages } = Astro.props;
+
+// Don't render if empty
+if (!packages || packages.length === 0) return null;
+---
+
+<section class="py-16 bg-brand-cream" id="packages">
+  <div class="container mx-auto px-4">
+    <h2 class="font-display text-3xl md:text-4xl font-bold text-brand-brown mb-12">
+      Adventure Packages
+    </h2>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {packages.map((pkg) => (
+        <div class="bg-white border-l-4 border-l-brand-orange p-6 rounded-sm">
+          <!-- Package Name -->
+          <h3 class="font-display text-xl font-bold text-brand-brown mb-2">
+            {pkg.name}
+          </h3>
+
+          <!-- Duration & Audience -->
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span class="bg-brand-cream text-brand-brown px-3 py-1 rounded-sm text-sm font-bold">
+              {pkg.duration}
+            </span>
+            {pkg.audience && (
+              <span class="bg-brand-cream text-brand-brown px-3 py-1 rounded-sm text-sm">
+                {pkg.audience}
+              </span>
+            )}
+          </div>
+
+          <!-- Price -->
+          <p class="font-display text-2xl font-bold text-sign-green mb-4">
+            {pkg.price}
+          </p>
+
+          <!-- Includes -->
+          <div class="mb-4">
+            <p class="font-body text-sm font-bold text-brand-brown mb-2">Includes:</p>
+            <ul class="space-y-1">
+              {pkg.includes.map((item) => (
+                <li class="font-body text-sm text-brand-mud flex items-start gap-2">
+                  <span class="text-sign-green mt-0.5" aria-hidden="true">✓</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Seasonal Notes -->
+          {pkg.seasonalAvailability && (
+            <p class="font-body text-xs text-brand-mud/80 italic">
+              {pkg.seasonalAvailability}
+            </p>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
