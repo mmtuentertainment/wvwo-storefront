@@ -1,0 +1,90 @@
+---
+/**
+ * SPEC-20: Booking & Policies Section
+ * Contact info card + policy cards grid
+ * WVWO Aesthetic: rounded-sm only, brand-orange CTA, brand-brown borders
+ */
+
+interface Props {
+  booking: {
+    reservationUrl?: string;
+    phone: string;
+    email?: string;
+    policies: {
+      category: string;
+      details: string[];
+    }[];
+  };
+}
+
+const { booking } = Astro.props;
+const { reservationUrl, phone, email, policies } = booking;
+---
+
+<section class="py-16 bg-brand-cream" id="booking-policies">
+  <div class="container mx-auto px-4">
+    <h2 class="font-display text-3xl md:text-4xl font-bold text-brand-brown mb-12">
+      Reservations & Policies
+    </h2>
+
+    <!-- Contact Info Card -->
+    <div class="bg-white border-l-4 border-l-brand-orange p-8 rounded-sm mb-10 max-w-2xl mx-auto">
+      <h3 class="font-display text-2xl font-bold text-brand-brown mb-4">
+        Contact & Booking
+      </h3>
+      <div class="space-y-3">
+        <p class="font-body text-brand-mud">
+          <span class="font-semibold">Phone:</span>{" "}
+          <a
+            href={`tel:${phone}`}
+            class="text-sign-green font-display text-xl font-bold hover:text-sign-green/80"
+          >
+            {phone}
+          </a>
+        </p>
+        {email && (
+          <p class="font-body text-brand-mud">
+            <span class="font-semibold">Email:</span>{" "}
+            <a
+              href={`mailto:${email}`}
+              class="text-sign-green hover:text-sign-green/80"
+            >
+              {email}
+            </a>
+          </p>
+        )}
+        {reservationUrl && (
+          <a
+            href={reservationUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-block mt-4 bg-brand-orange text-white font-display font-bold px-6 py-3 rounded-sm hover:bg-brand-orange/90 transition-colors"
+          >
+            Book Online
+          </a>
+        )}
+      </div>
+    </div>
+
+    <!-- Policy Cards Grid -->
+    {policies && policies.length > 0 && (
+      <div class="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        {policies.map((policy) => (
+          <div class="bg-white border-l-4 border-l-brand-brown p-6 rounded-sm">
+            <h3 class="font-display text-xl font-bold text-brand-brown mb-3">
+              {policy.category}
+            </h3>
+            <ul class="space-y-2">
+              {policy.details.map((detail) => (
+                <li class="font-body text-sm text-brand-mud flex items-start gap-2">
+                  <span class="text-sign-green mt-0.5" aria-hidden="true">•</span>
+                  <span>{detail}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    )}
+  </div>
+</section>

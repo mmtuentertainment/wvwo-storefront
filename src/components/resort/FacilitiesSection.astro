@@ -1,0 +1,108 @@
+---
+/**
+ * SPEC-20: Facilities Section
+ * Dining, retail, event spaces, other amenities
+ * WVWO Aesthetic: rounded-sm, brand colors, border accents
+ */
+
+interface Props {
+  facilities: {
+    dining?: { name: string; type: string; hours: string; notes?: string }[];
+    retail?: { name: string; offerings: string[]; hours: string }[];
+    eventSpaces?: { name: string; capacity: string; use: string }[];
+    other?: { type: string; description: string }[];
+  };
+}
+
+const { facilities } = Astro.props;
+const { dining, retail, eventSpaces, other } = facilities;
+
+// Don't render if no facilities data
+const hasData = dining?.length || retail?.length || eventSpaces?.length || other?.length;
+if (!hasData) return null;
+---
+
+<section class="py-16 bg-brand-cream" id="facilities">
+  <div class="container mx-auto px-4">
+    <h2 class="font-display text-3xl md:text-4xl font-bold text-brand-brown mb-12">
+      Facilities
+    </h2>
+
+    <div class="space-y-10 max-w-4xl mx-auto">
+      {/* Dining */}
+      {dining && dining.length > 0 && (
+        <div class="border-l-4 border-l-brand-brown pl-6 py-4">
+          <h3 class="font-display text-2xl font-bold text-brand-brown mb-4">Dining</h3>
+          <div class="grid md:grid-cols-2 gap-4">
+            {dining.map((venue) => (
+              <div class="bg-white p-4 rounded-sm border border-brand-brown/20">
+                <p class="font-body font-bold text-brand-brown">{venue.name}</p>
+                <p class="font-body text-sm text-brand-mud">{venue.type}</p>
+                <p class="font-body text-xs text-sign-green mt-1">{venue.hours}</p>
+                {venue.notes && (
+                  <p class="font-body text-xs text-brand-mud/80 mt-1 italic">{venue.notes}</p>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Retail/Pro Shop */}
+      {retail && retail.length > 0 && (
+        <div class="border-l-4 border-l-brand-brown pl-6 py-4">
+          <h3 class="font-display text-2xl font-bold text-brand-brown mb-4">Retail & Pro Shop</h3>
+          <div class="grid md:grid-cols-2 gap-4">
+            {retail.map((shop) => (
+              <div class="bg-white p-4 rounded-sm border border-brand-brown/20">
+                <p class="font-body font-bold text-brand-brown">{shop.name}</p>
+                <p class="font-body text-xs text-sign-green">{shop.hours}</p>
+                <ul class="mt-2 space-y-1">
+                  {shop.offerings.map((item) => (
+                    <li class="font-body text-sm text-brand-mud flex items-start gap-2">
+                      <span class="text-sign-green" aria-hidden="true">•</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Event Spaces */}
+      {eventSpaces && eventSpaces.length > 0 && (
+        <div class="border-l-4 border-l-brand-brown pl-6 py-4">
+          <h3 class="font-display text-2xl font-bold text-brand-brown mb-4">Event Spaces</h3>
+          <div class="grid md:grid-cols-2 gap-4">
+            {eventSpaces.map((space) => (
+              <div class="bg-white p-4 rounded-sm border border-brand-brown/20">
+                <p class="font-body font-bold text-brand-brown">{space.name}</p>
+                <p class="font-body text-sm text-brand-mud">Capacity: {space.capacity}</p>
+                <p class="font-body text-xs text-sign-green mt-1">{space.use}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Other Facilities */}
+      {other && other.length > 0 && (
+        <div class="border-l-4 border-l-brand-brown pl-6 py-4">
+          <h3 class="font-display text-2xl font-bold text-brand-brown mb-4">Other Amenities</h3>
+          <ul class="space-y-2">
+            {other.map((facility) => (
+              <li class="font-body text-brand-mud flex items-start gap-2">
+                <span class="text-sign-green font-bold" aria-hidden="true">✓</span>
+                <span>
+                  <strong class="text-brand-brown">{facility.type}:</strong> {facility.description}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  </div>
+</section>

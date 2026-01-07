@@ -1,0 +1,77 @@
+---
+/**
+ * SPEC-20: Resort Hero Section
+ * Action-oriented adventure resort hero with seasonal info and booking CTA
+ */
+
+interface Props {
+  name: string;
+  location: string;
+  season: { open: string; close: string };
+  signatureActivities: string[];
+  quickHighlights: string[];
+  heroImage: string;
+  heroImageAlt?: string;
+  reservationUrl?: string;
+}
+
+const { name, location, season, signatureActivities, quickHighlights, heroImage, heroImageAlt, reservationUrl } = Astro.props;
+const altText = heroImageAlt || `${name} adventure resort`;
+---
+
+<section class="relative h-[70vh] min-h-[500px] overflow-hidden">
+  <!-- Background Image -->
+  <div class="absolute inset-0">
+    <img src={heroImage} alt={altText} class="w-full h-full object-cover" loading="eager" />
+  </div>
+
+  <!-- Darkened Overlay -->
+  <div class="absolute inset-0 bg-black/40"></div>
+
+  <!-- Content Container -->
+  <div class="relative h-full container mx-auto px-4">
+    <div class="h-full flex flex-col justify-end pb-12 md:pb-16">
+      <!-- Resort Name -->
+      <h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-2">
+        {name}
+      </h1>
+
+      <!-- Location & Season -->
+      <div class="flex flex-wrap items-center gap-3 mb-6">
+        <span class="font-body text-lg text-white/90">{location}</span>
+        <span class="text-white/60">|</span>
+        <span class="font-body text-sm text-white/80">Season: {season.open} - {season.close}</span>
+      </div>
+
+      <!-- Signature Activities (Primary CTAs - brand-orange) -->
+      <div class="flex flex-wrap gap-2 mb-4" role="list" aria-label="Signature activities">
+        {signatureActivities.slice(0, 4).map((activity) => (
+          <span class="bg-brand-orange text-white font-body text-sm font-semibold px-3 py-1.5 rounded-sm min-h-[44px] flex items-center" role="listitem">
+            {activity}
+          </span>
+        ))}
+      </div>
+
+      <!-- Quick Highlights (Secondary - sign-green) -->
+      <div class="flex flex-wrap gap-2 mb-8" role="list" aria-label="Resort highlights">
+        {quickHighlights.slice(0, 5).map((highlight) => (
+          <span class="bg-sign-green text-white font-body text-xs px-3 py-1.5 rounded-sm min-h-[44px] flex items-center" role="listitem">
+            {highlight}
+          </span>
+        ))}
+      </div>
+
+      <!-- Book CTA Button -->
+      {reservationUrl && (
+        <a
+          href={reservationUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center justify-center bg-brand-orange hover:bg-brand-orange/90 text-white font-display text-lg font-bold px-6 py-3 rounded-sm min-h-[44px] min-w-[44px] transition-colors motion-safe:transition-transform motion-safe:hover:scale-[1.02] self-start focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-brand-brown"
+        >
+          Book Your Adventure
+        </a>
+      )}
+    </div>
+  </div>
+</section>

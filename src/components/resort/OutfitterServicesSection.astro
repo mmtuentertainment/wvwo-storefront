@@ -1,0 +1,65 @@
+---
+/**
+ * SPEC-20: Outfitter Services Section
+ * Rentals, shuttles, instruction, guides
+ * WVWO Aesthetic: border-l-4 border-l-sign-green, rounded-sm only
+ */
+
+interface Props {
+  outfitterServices: {
+    category: string;
+    services: {
+      name: string;
+      description: string;
+      pricing?: string;
+      booking?: string;
+    }[];
+  }[];
+}
+
+const { outfitterServices } = Astro.props;
+
+// Don't render if empty
+if (!outfitterServices || outfitterServices.length === 0) return null;
+---
+
+<section class="py-16 bg-white" id="outfitter-services">
+  <div class="container mx-auto px-4">
+    <h2 class="font-display text-3xl md:text-4xl font-bold text-brand-brown mb-12">
+      Outfitter Services
+    </h2>
+
+    <div class="grid md:grid-cols-2 gap-8">
+      {outfitterServices.map((category) => (
+        <div>
+          <h3 class="font-display text-2xl font-bold text-brand-brown mb-6">
+            {category.category}
+          </h3>
+
+          <div class="space-y-4">
+            {category.services.map((service) => (
+              <div class="border-l-4 border-l-sign-green pl-6 py-3">
+                <h4 class="font-body text-lg font-bold text-brand-brown mb-1">
+                  {service.name}
+                </h4>
+                <p class="font-body text-sm text-brand-mud mb-2 leading-relaxed">
+                  {service.description}
+                </p>
+                {service.pricing && (
+                  <p class="text-sign-green font-display font-bold text-sm mb-1">
+                    {service.pricing}
+                  </p>
+                )}
+                {service.booking && (
+                  <p class="font-body text-xs text-brand-mud/80 italic">
+                    {service.booking}
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
