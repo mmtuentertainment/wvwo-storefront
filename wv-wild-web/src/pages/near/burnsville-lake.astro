@@ -1,32 +1,49 @@
 ---
+/**
+ * Burnsville Lake Fishing Page
+ * SPEC-21: Refactored to use LakeTemplate component
+ *
+ * Key highlights:
+ * - STATE RECORD MUSKIE: 51 lbs, 55.06" (Lucas King, March 2022)
+ * - 15-inch walleye minimum (Burnsville-specific regulation)
+ * - Excellent crappie (40-60 fish evenings)
+ * - 3 boat ramps, marina with pontoon rentals
+ * - 200+ campsites between Bulltown and Riffle Run
+ */
+
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import EmailCapture from '../../components/EmailCapture.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import SchemaBreadcrumb from '../../components/seo/SchemaBreadcrumb.astro';
-import { getEntry } from 'astro:content';
-
-const adventure = await getEntry('adventures', 'burnsville-lake');
-if (!adventure) throw new Error('Adventure content not found');
+import LakeTemplate from '../../components/templates/LakeTemplate.astro';
+import { burnsvilleLakeData } from '../../data/lakes/burnsville';
 
 // Place schema for geographic SEO
 const placeSchema = {
   "@context": "https://schema.org",
   "@type": "Place",
   "name": "Burnsville Lake",
-  "description": adventure.data.description,
+  "description": "968-acre state record muskie fishery with 15-inch walleye minimum, excellent crappie fishing, 3 boat ramps, marina rentals, and 200+ campsites. 25 minutes from WV Wild Outdoors.",
   "geo": {
     "@type": "GeoCoordinates",
-    "latitude": adventure.data.coordinates.lat,
-    "longitude": adventure.data.coordinates.lng
+    "latitude": burnsvilleLakeData.coordinates?.lat || 38.845430,
+    "longitude": burnsvilleLakeData.coordinates?.lng || -80.617343
   },
   "address": {
     "@type": "PostalAddress",
     "addressLocality": "Burnsville",
     "addressRegion": "WV",
     "addressCountry": "US"
-  }
+  },
+  "amenityFeature": [
+    { "@type": "LocationFeatureSpecification", "name": "Fishing", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Boat Ramps", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Camping", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Marina", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "ADA Access", "value": true }
+  ]
 };
 
 // Breadcrumb schema data
@@ -38,144 +55,58 @@ const breadcrumbItems = [
 ---
 
 <Layout
-  title="Burnsville Lake Fishing Guide - Muskie, Walleye, Crappie | WV Wild Outdoors"
-  description={adventure.data.description}
+  title="Burnsville Lake Fishing Guide - State Record Muskie | WV Wild Outdoors"
+  description="Complete guide to Burnsville Lake fishing. State record muskie (51 lbs), 15-inch walleye minimum, 40-60 crappie evenings. 3 boat ramps, marina rentals, 200+ campsites. 25 minutes from our shop."
   additionalSchemas={[placeSchema]}
 >
   <Header />
   <Breadcrumb items={breadcrumbItems} />
   <SchemaBreadcrumb items={breadcrumbItems} />
 
-  <main class="bg-brand-cream min-h-screen">
+  {/*
+    LakeTemplate handles all content sections:
+    - Hero with quick stats
+    - Fishing spots (What to Fish + Where to Fish)
+    - Marina & boat access
+    - Activities (muskie, crappie, walleye, trout, catfish, camping)
+    - Seasonal fishing guide
+    - Regulations & safety (15-inch walleye minimum!)
+    - Gear checklist
+    - Related shop categories
+    - CTA
+  */}
+  <LakeTemplate {...burnsvilleLakeData} />
 
-    <!-- Hero -->
-    <section class="bg-brand-brown text-white py-16 md:py-24 relative overflow-hidden">
-      <div class="absolute inset-0 bg-camo opacity-5 pointer-events-none"></div>
-
-      <div class="container mx-auto px-4 relative">
-        <div class="max-w-3xl">
-          <div class="flex flex-wrap items-center gap-3 mb-4">
-            <span class="inline-block bg-sign-green text-white px-4 py-1 rounded-sm font-bold text-sm">
-              {adventure.data.drive_time} from shop
-            </span>
-            <span class="inline-block bg-brand-orange text-white px-4 py-1 rounded-sm font-bold text-sm">
-              {adventure.data.surfaceAcres?.toLocaleString() || '968'} Surface Acres
-            </span>
-            <span class="inline-block bg-brand-brown border border-white/30 text-white px-4 py-1 rounded-sm font-bold text-sm">
-              FISHING
-            </span>
-          </div>
-          <h1 class="font-display font-black text-4xl md:text-6xl mb-4">
-            {adventure.data.title}
-          </h1>
-          <p class="text-xl md:text-2xl text-brand-cream/80 mb-6">
-            {adventure.data.description}
-          </p>
-          <p class="text-brand-cream/60">
-            Stop by the shop before you head out — we'll get you set up with licenses, tackle, and local tips.
-          </p>
-        </div>
+  {/* Cross-link to WMA hunting page */}
+  <section class="py-8 bg-white border-t border-brand-brown/15">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mx-auto text-center">
+        <p class="text-brand-brown/60 mb-3">Looking for hunting information?</p>
+        <a
+          href="/near/burnsville-lake-wma/"
+          class="inline-flex items-center gap-2 text-sign-green font-bold hover:underline"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+          </svg>
+          Burnsville Lake WMA Hunting Guide
+        </a>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Quick Info -->
-    <section class="py-8 bg-white border-b border-brand-brown/15">
-      <div class="container mx-auto px-4">
-        <div class="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-          <div>
-            <span class="block text-2xl font-bold text-brand-brown">{adventure.data.surfaceAcres?.toLocaleString() || '968'}</span>
-            <span class="text-sm text-brand-brown/60">Surface Acres</span>
-          </div>
-          <div>
-            <span class="block text-2xl font-bold text-brand-brown">{adventure.data.shorelineMiles || '30'} mi</span>
-            <span class="text-sm text-brand-brown/60">Shoreline</span>
-          </div>
-          <div>
-            <span class="block text-2xl font-bold text-brand-brown">{adventure.data.drive_time}</span>
-            <span class="text-sm text-brand-brown/60">From Shop</span>
-          </div>
-          <div>
-            <span class="block text-2xl font-bold text-brand-brown">3 Ramps</span>
-            <span class="text-sm text-brand-brown/60">Boat Access</span>
-          </div>
-        </div>
+  {/* Newsletter signup */}
+  <section class="py-12 md:py-16 bg-brand-cream">
+    <div class="container mx-auto px-4">
+      <div class="max-w-xl mx-auto">
+        <EmailCapture
+          variant="card"
+          heading="Get Local Fishing Updates"
+          subheading="Stocking reports, what's biting where, and tackle restocks delivered to your inbox."
+        />
       </div>
-    </section>
-
-    <!-- Main Content from adventure file -->
-    <section class="py-12 md:py-16">
-      <div class="container mx-auto px-4">
-        <div class="max-w-3xl mx-auto">
-          <div class="prose prose-lg prose-headings:font-display prose-headings:font-bold prose-h2:text-3xl prose-h2:text-brand-brown prose-h2:mb-6 prose-h3:text-lg prose-h3:text-brand-brown prose-h3:mb-2 prose-p:text-brand-brown/75 prose-strong:text-brand-brown prose-strong:font-bold prose-li:text-brand-brown/75" set:html={adventure.body} />
-        </div>
-      </div>
-    </section>
-
-    <!-- Related: Hunting Page -->
-    <section class="py-8 bg-white border-t border-brand-brown/15">
-      <div class="container mx-auto px-4">
-        <div class="max-w-3xl mx-auto text-center">
-          <p class="text-brand-brown/60 mb-3">Looking for hunting information?</p>
-          <a
-            href="/near/burnsville-lake-wma/"
-            class="inline-flex items-center gap-2 text-sign-green font-bold hover:underline"
-          >
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-            </svg>
-            Burnsville Lake WMA Hunting Guide
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- CTA -->
-    <section class="bg-sign-green text-white py-12">
-      <div class="container mx-auto px-4 text-center">
-        <h2 class="font-display font-bold text-2xl mb-4">
-          Stop By Before You Head Out
-        </h2>
-        <p class="text-white/80 mb-6 max-w-xl mx-auto">
-          We're on your way. Grab your license, stock up on tackle and bait, and we'll tell you
-          where the crappie have been stacking up.
-        </p>
-        <div class="flex flex-wrap justify-center gap-4">
-          <a
-            href="https://maps.app.goo.gl/gdjRGR2k2LWHjXZQ6"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 bg-white text-sign-green font-bold px-6 py-3 rounded-sm hover:bg-brand-cream motion-safe:transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
-          >
-            <svg aria-hidden="true" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-            </svg>
-            Get Directions to Shop
-          </a>
-          <a
-            href="tel:304-269-3366"
-            class="inline-flex items-center gap-2 bg-white/10 border border-white/30 text-white font-bold px-6 py-3 rounded-sm hover:bg-white/20 motion-safe:transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
-          >
-            (304) 269-3366
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- Newsletter -->
-    <section class="py-12 md:py-16">
-      <div class="container mx-auto px-4">
-        <div class="max-w-xl mx-auto">
-          <EmailCapture
-            variant="card"
-            heading="Get Local Fishing Updates"
-            subheading="Stocking reports, what's biting where, and tackle restocks delivered to your inbox."
-          />
-        </div>
-      </div>
-    </section>
-
-  </main>
+    </div>
+  </section>
 
   <Footer />
 </Layout>
