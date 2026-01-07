@@ -1,0 +1,140 @@
+---
+/**
+ * WMA Page - Dynamic Route
+ * SPEC-21: Dynamic route for WMA hunting content
+ *
+ * Renders WMATemplate with data from /src/data/wma/{slug}.ts
+ * Uses Vite's import.meta.glob() for auto-discovery of data files.
+ *
+ * To add a new WMA: just add the .ts data file in /src/data/wma/
+ */
+
+import type { GetStaticPaths } from 'astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import SchemaBreadcrumb from '../../../components/seo/SchemaBreadcrumb.astro';
+import WMATemplate from '../../../components/templates/WMATemplate.astro';
+import type { WMATemplateProps } from '../../../types/wma';
+
+// Type for data modules
+type WMADataModule = {
+  [key: string]: WMATemplateProps;
+};
+
+interface Props {
+  wmaData: WMATemplateProps;
+  slug: string;
+}
+
+// ============================================================================
+// STATIC PATH GENERATION WITH AUTO-DISCOVERY
+// ============================================================================
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  // AUTO-DISCOVER: Vite glob imports all .ts files in /src/data/wma/
+  const dataModules = import.meta.glob<WMADataModule>(
+    '../../../data/wma/*.ts',
+    { eager: true }
+  );
+
+  const paths = [];
+
+  for (const [path, module] of Object.entries(dataModules)) {
+    const filename = path.split('/').pop() ?? '';
+    // Skip example/template files
+    if (filename.startsWith('_')) continue;
+
+    const slug = filename.replace('.ts', '');
+
+    // Find the exported data (look for WMATemplateProps-shaped export)
+    const exportedData = Object.values(module).find(
+      (value): value is WMATemplateProps =>
+        typeof value === 'object' && value !== null && 'name' in value && 'species' in value
+    );
+
+    if (exportedData) {
+      paths.push({
+        params: { slug },
+        props: { wmaData: exportedData, slug },
+      });
+    }
+  }
+
+  return paths;
+};
+
+// ============================================================================
+// PAGE PROPS
+// ============================================================================
+
+const { wmaData, slug } = Astro.props;
+
+// Place schema for geographic SEO
+const placeSchema = {
+  "@context": "https://schema.org",
+  "@type": "Place",
+  "name": wmaData.name,
+  "description": wmaData.description,
+  "geo": wmaData.coordinates ? {
+    "@type": "GeoCoordinates",
+    "latitude": wmaData.coordinates.lat,
+    "longitude": wmaData.coordinates.lng,
+  } : undefined,
+  "address": {
+    "@type": "PostalAddress",
+    "addressRegion": "WV",
+    "addressCountry": "US",
+  },
+};
+
+// Breadcrumb data
+const breadcrumbItems = [
+  { name: 'Home', url: '/' },
+  { name: 'Hunt Near Us', url: '/near/' },
+  { name: wmaData.name, url: `/near/wma/${slug}/` },
+];
+
+// Meta
+const pageTitle = `${wmaData.name} Hunting Guide | WV Wild Outdoors`;
+const metaDescription = wmaData.description.slice(0, 155) + (wmaData.description.length > 155 ? '...' : '');
+---
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{pageTitle}</title>
+  <meta name="description" content={metaDescription} />
+
+  <!-- Schema.org Structured Data -->
+  <script type="application/ld+json" set:html={JSON.stringify(placeSchema)} />
+</head>
+<body>
+  <Header />
+  <Breadcrumb items={breadcrumbItems} />
+  <SchemaBreadcrumb items={breadcrumbItems} />
+
+  <WMATemplate {...wmaData} />
+
+  <!-- Related: Fishing Page Link -->
+  <section class="py-8 bg-white border-t border-brand-brown/15">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mx-auto text-center">
+        <p class="text-brand-brown/60 mb-3 font-body">Looking for fishing information?</p>
+        <a
+          href={`/near/lake/${slug}/`}
+          class="inline-flex items-center gap-2 text-sign-green font-bold hover:underline font-body"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+          </svg>
+          {wmaData.name.replace(' WMA', '')} Fishing Guide
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</body>
+</html>
