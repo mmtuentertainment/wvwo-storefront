@@ -1,0 +1,579 @@
+---
+/**
+ * WMATemplate.astro
+ * SPEC: Wildlife Management Area Template Component
+ *
+ * Comprehensive template for West Virginia WMA pages with hunting-centric content,
+ * species guides, seasonal information, facilities, and regulations.
+ *
+ * USER STORIES IMPLEMENTED:
+ * - US1: Species Information Display (What to Hunt section with seasons/limits)
+ * - US2: Hunting Areas Guide (Where to Hunt with terrain/access details)
+ * - US3: Hero Section with WMA Stats (visual impact + quick facts)
+ * - US4: Facilities & Seasonal Guide (trip planning features)
+ * - US5: Regulations & Safety Display (orange warning accents)
+ *
+ * WVWO COMPLIANCE:
+ * - Fonts: font-display (headings), font-hand (Kim's tips ONLY), font-body (content)
+ * - Colors: brand-brown, sign-green, brand-cream, brand-orange (<5% of screen)
+ * - Borders: rounded-sm ONLY (no other border-radius values allowed)
+ * - Accents: Green (species), Brown (areas/facilities), Orange (regulations)
+ *
+ * @module components/templates/WMATemplate
+ */
+
+import Layout from '../../layouts/Layout.astro';
+import AdventureGearChecklist from '../adventure/AdventureGearChecklist.astro';
+import AdventureCTA from '../adventure/AdventureCTA.astro';
+import type { WMATemplateProps, HuntingSpecies, HuntingArea, WMAFacility, SeasonalHuntingGuide, WMARegulation } from '../../types/wma';
+
+interface Props extends WMATemplateProps {}
+
+const {
+  name,
+  image,
+  imageAlt,
+  tagline,
+  description,
+  stats,
+  acreage,
+  county,
+  driveTime,
+  accessType,
+  quickHighlights,
+  species,
+  huntingAreas,
+  facilities,
+  accessPoints,
+  seasonalGuide,
+  regulations,
+  gearList,
+  relatedShop,
+  difficulty,
+  bestSeason,
+  coordinates,
+  mapUrl,
+  regulationsUrl,
+  kimsTake,
+} = Astro.props;
+
+// Build-time Zod validation would go here in production
+// Example: WMATemplatePropsSchema.parse(Astro.props);
+---
+
+<Layout title={`${name} | WV Wild Outdoors`}>
+  <!-- US3: HERO SECTION WITH WMA STATS -->
+  <section
+    class="relative h-[70vh] min-h-[500px] overflow-hidden"
+    aria-label={`${name} hero section`}
+  >
+    <!-- Hero Image -->
+    <img
+      src={image}
+      alt={imageAlt}
+      class="absolute inset-0 w-full h-full object-cover"
+      loading="eager"
+    />
+
+    <!-- Dark Overlay for Text Readability -->
+    <div class="absolute inset-0 bg-brand-brown/50"></div>
+
+    <!-- Hero Content -->
+    <div class="relative h-full container mx-auto px-4">
+      <div class="h-full flex flex-col justify-end pb-16">
+        <!-- WMA Name -->
+        <h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+          {name}
+        </h1>
+
+        <!-- Tagline -->
+        {tagline && (
+          <p class="font-body text-xl md:text-2xl text-brand-cream mb-8 max-w-2xl">
+            {tagline}
+          </p>
+        )}
+
+        <!-- Quick Stats Grid (4-column desktop, 2-column mobile) -->
+        {stats.length > 0 && (
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-brand-cream mb-6">
+            {stats.map((stat) => (
+              <div class="stat-item">
+                <div class="text-sm uppercase tracking-wide opacity-80 mb-1">
+                  {stat.label}
+                </div>
+                <div class="font-display text-2xl font-bold">
+                  {stat.value}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        <!-- Quick Highlights Badges -->
+        {quickHighlights && quickHighlights.length > 0 && (
+          <div class="flex flex-wrap gap-3" aria-label="Quick highlights">
+            {quickHighlights.map((highlight) => (
+              <span class="inline-block bg-sign-green text-white px-4 py-2 rounded-sm font-body text-sm font-medium">
+                {highlight}
+              </span>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content Area -->
+  <main class="container mx-auto px-4 py-12 space-y-16">
+
+    <!-- WMA Description Prose -->
+    {description && (
+      <div class="prose prose-lg max-w-3xl mx-auto">
+        <p class="font-body text-lg leading-relaxed text-gray-800">
+          {description}
+        </p>
+      </div>
+    )}
+
+    <!-- US1: WHAT TO HUNT SECTION -->
+    {species && species.length > 0 && (
+      <section class="what-to-hunt bg-brand-cream py-12" aria-labelledby="what-to-hunt-heading">
+        <div class="container mx-auto px-4">
+          <!-- Section Header -->
+          <h2
+            id="what-to-hunt-heading"
+            class="font-display text-3xl md:text-4xl font-bold text-brand-brown mb-8"
+          >
+            What to Hunt
+          </h2>
+
+          <!-- Species Cards - Full Width Stacking -->
+          <div class="space-y-6">
+            {species.map((spec: HuntingSpecies) => (
+              <article class="bg-white border-l-4 border-l-sign-green p-6 md:p-8 rounded-sm shadow-sm">
+                <!-- Species Name -->
+                <h3 class="font-display text-2xl font-bold text-brand-brown mb-2">
+                  {spec.name}
+                </h3>
+
+                <!-- Season Info -->
+                <p class="font-body text-sm text-sign-green font-medium mb-4">
+                  {spec.season}
+                </p>
+
+                <!-- 2-Column Grid: Notes | Bag Limit -->
+                <div class="grid md:grid-cols-3 gap-6">
+                  <!-- Left Column: Notes (2/3 width) -->
+                  <div class="md:col-span-2 space-y-2 font-body text-gray-800">
+                    <p>{spec.notes}</p>
+                  </div>
+
+                  <!-- Right Column: Bag Limit Badge -->
+                  {spec.bagLimit && (
+                    <div class="bag-limit">
+                      <p class="font-bold text-brand-brown mb-2 text-sm uppercase tracking-wide">
+                        Bag Limit:
+                      </p>
+                      <span class="inline-block bg-brand-brown text-white px-3 py-1 rounded-sm font-body text-sm font-medium">
+                        {spec.bagLimit}
+                      </span>
+                    </div>
+                  )}
+                </div>
+
+                <!-- Kim's Note (font-hand) -->
+                {spec.kimNote && (
+                  <div class="mt-4 pt-4 border-t border-gray-200">
+                    <p class="font-hand text-sm italic text-brand-brown bg-brand-cream p-3 rounded-sm">
+                      Kim's tip: {spec.kimNote}
+                    </p>
+                  </div>
+                )}
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- US2: WHERE TO HUNT SECTION (Hunting Areas) -->
+    {huntingAreas && huntingAreas.length > 0 && (
+      <section class="where-to-hunt bg-white py-12" aria-labelledby="where-to-hunt-heading">
+        <div class="container mx-auto px-4">
+          <!-- Section Header -->
+          <h2
+            id="where-to-hunt-heading"
+            class="font-display text-3xl md:text-4xl font-bold text-brand-brown mb-8"
+          >
+            Where to Hunt
+          </h2>
+
+          <!-- Hunting Area Cards -->
+          <div class="space-y-6">
+            {huntingAreas.map((area: HuntingArea) => (
+              <article class="bg-white border-l-4 border-l-brand-brown p-6 md:p-8 rounded-sm shadow-sm">
+                <!-- Area Name -->
+                <h3 class="font-display text-2xl font-bold text-brand-brown mb-4">
+                  {area.name}
+                </h3>
+
+                <!-- 2-Column Grid: Details | Target Species -->
+                <div class="grid md:grid-cols-2 gap-6">
+                  <!-- Left Column: Area Details -->
+                  <div class="space-y-2 font-body text-gray-800">
+                    <p>
+                      <span class="font-bold text-brand-brown">Access:</span> {area.access}
+                    </p>
+                    <p>
+                      <span class="font-bold text-brand-brown">Terrain:</span> {area.terrain}
+                    </p>
+                    {area.notes && (
+                      <p class="text-gray-600 italic">{area.notes}</p>
+                    )}
+                  </div>
+
+                  <!-- Right Column: Target Species Badges -->
+                  <div class="target-species">
+                    <p class="font-bold text-brand-brown mb-2 text-sm uppercase tracking-wide">
+                      Target Species:
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                      {area.targetSpecies.map((target: string) => (
+                        <span class="inline-block bg-sign-green text-white px-3 py-1 rounded-sm font-body text-sm font-medium">
+                          {target}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                <!-- GPS Coordinates Link (if available) -->
+                {area.coordinates && (
+                  <div class="mt-4 pt-4 border-t border-gray-200">
+                    <a
+                      href={`https://maps.google.com/?q=${area.coordinates.lat},${area.coordinates.lng}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="text-sign-green hover:underline font-body text-sm font-medium inline-flex items-center gap-1"
+                    >
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                      </svg>
+                      Open in Google Maps
+                    </a>
+                  </div>
+                )}
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- US4: FACILITIES SECTION -->
+    {facilities && facilities.length > 0 && (
+      <section class="facilities-section bg-brand-cream py-12" aria-labelledby="facilities-heading">
+        <div class="container mx-auto px-4">
+          <!-- Section Header -->
+          <h2
+            id="facilities-heading"
+            class="font-display text-3xl md:text-4xl font-bold text-brand-brown mb-8"
+          >
+            Facilities
+          </h2>
+
+          <!-- Facility Cards Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {facilities.map((facility: WMAFacility) => (
+              <article class="bg-white border-l-4 border-l-brand-brown p-6 rounded-sm shadow-sm">
+                <div class="flex items-start justify-between mb-3">
+                  <h3 class="font-display text-xl font-bold text-brand-brown">
+                    {facility.type}
+                  </h3>
+                  {facility.count && (
+                    <span class="bg-sign-green text-white px-2 py-1 rounded-sm font-body text-xs font-bold">
+                      {facility.count}
+                    </span>
+                  )}
+                </div>
+                <p class="font-body text-gray-700 mb-3">
+                  {facility.description}
+                </p>
+                {facility.accessibility && (
+                  <p class="font-body text-sm text-sign-green mb-2">
+                    {facility.accessibility}
+                  </p>
+                )}
+                <div class="flex flex-wrap gap-x-4 gap-y-2 text-sm">
+                  {facility.contact && (
+                    <a
+                      href={`tel:${facility.contact.replace(/\D/g, '')}`}
+                      class="text-sign-green hover:underline font-body"
+                    >
+                      {facility.contact}
+                    </a>
+                  )}
+                  {facility.link && (
+                    <a
+                      href={facility.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="text-sign-green hover:underline font-body"
+                    >
+                      Reserve Online
+                    </a>
+                  )}
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- US4: SEASONAL HUNTING GUIDE -->
+    {seasonalGuide && seasonalGuide.length > 0 && (
+      <section class="seasonal-guide bg-white py-12" aria-labelledby="seasonal-heading">
+        <div class="container mx-auto px-4">
+          <!-- Section Header -->
+          <h2
+            id="seasonal-heading"
+            class="font-display text-3xl md:text-4xl font-bold text-brand-brown mb-8"
+          >
+            Seasonal Hunting Guide
+          </h2>
+
+          <!-- Season Cards Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {seasonalGuide.map((season: SeasonalHuntingGuide) => (
+              <article class="bg-white p-6 rounded-sm shadow-sm border border-gray-100">
+                <!-- Season Name -->
+                <h3 class="font-display text-xl font-bold text-brand-brown mb-4 border-b-2 border-b-sign-green pb-2">
+                  {season.season}
+                </h3>
+
+                <!-- Target Species -->
+                <div class="mb-4">
+                  <p class="font-bold text-sm uppercase tracking-wide text-brand-brown mb-2">
+                    Target:
+                  </p>
+                  <p class="font-body text-sm text-gray-700">
+                    {season.target}
+                  </p>
+                </div>
+
+                <!-- Tips -->
+                <div class="mb-4">
+                  <p class="font-bold text-sm uppercase tracking-wide text-brand-brown mb-2">
+                    Tips:
+                  </p>
+                  <p class="font-body text-sm text-gray-700">
+                    {season.tips}
+                  </p>
+                </div>
+
+                <!-- Kim's Note (font-hand) -->
+                {season.kimNote && (
+                  <div class="mt-4 pt-4 border-t border-gray-200">
+                    <p class="font-hand text-sm italic text-brand-brown bg-brand-cream p-3 rounded-sm">
+                      {season.kimNote}
+                    </p>
+                  </div>
+                )}
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- US5: REGULATIONS & SAFETY SECTION -->
+    {regulations && regulations.length > 0 && (
+      <section class="regulations-section bg-brand-cream py-12" aria-labelledby="regulations-heading">
+        <div class="container mx-auto px-4">
+          <!-- Section Header -->
+          <h2
+            id="regulations-heading"
+            class="font-display text-3xl md:text-4xl font-bold text-brand-brown mb-8"
+          >
+            Regulations & Safety
+          </h2>
+
+          <!-- Regulation Category Cards -->
+          <div class="space-y-4">
+            {regulations.map((reg: WMARegulation) => (
+              <article class={`bg-white border-l-4 ${reg.important ? 'border-l-brand-orange' : 'border-l-brand-brown'} p-6 rounded-sm shadow-sm`}>
+                <div class="flex items-start justify-between gap-4">
+                  <div class="flex-1">
+                    <!-- Category Heading -->
+                    <h3 class="font-display text-lg font-bold text-brand-brown mb-2">
+                      {reg.category}
+                    </h3>
+
+                    <!-- Regulation Details -->
+                    <p class="font-body text-gray-800 leading-relaxed">
+                      {reg.details}
+                    </p>
+
+                    <!-- External Link (if provided) -->
+                    {reg.link && (
+                      <div class="mt-2">
+                        <a
+                          href={reg.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="text-sign-green hover:underline font-body text-sm font-medium"
+                        >
+                          View Official Regulations
+                        </a>
+                      </div>
+                    )}
+                  </div>
+
+                  <!-- Important Flag Visual Indicator -->
+                  {reg.important && (
+                    <span class="inline-block bg-brand-orange text-white px-3 py-1 rounded-sm font-body text-xs font-bold uppercase whitespace-nowrap">
+                      Required
+                    </span>
+                  )}
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <!-- Link to Full Regulations -->
+          {regulationsUrl && (
+            <div class="mt-8 text-center">
+              <a
+                href={regulationsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-2 bg-brand-brown text-white px-6 py-3 rounded-sm font-body font-bold hover:bg-brand-brown/90 transition-colors"
+              >
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                </svg>
+                View Full WV Hunting Regulations
+              </a>
+            </div>
+          )}
+        </div>
+      </section>
+    )}
+
+    <!-- KIM'S TAKE SECTION -->
+    {kimsTake && (
+      <section class="kims-take bg-white py-12" aria-labelledby="kims-take-heading">
+        <div class="container mx-auto px-4">
+          <div class="max-w-3xl mx-auto">
+            <h2
+              id="kims-take-heading"
+              class="font-display text-3xl md:text-4xl font-bold text-brand-brown mb-6"
+            >
+              Kim's Take
+            </h2>
+            <div class="bg-brand-cream p-6 md:p-8 rounded-sm border-l-4 border-l-sign-green">
+              <div class="font-hand text-lg text-brand-brown leading-relaxed whitespace-pre-line">
+                {kimsTake}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- MAP LINK SECTION -->
+    {mapUrl && (
+      <section class="map-section bg-brand-cream py-8">
+        <div class="container mx-auto px-4 text-center">
+          <a
+            href={mapUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 bg-sign-green text-white px-6 py-3 rounded-sm font-body font-bold hover:bg-sign-green/90 transition-colors"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path>
+            </svg>
+            Download WMA Map (PDF)
+          </a>
+        </div>
+      </section>
+    )}
+
+    <!-- GEAR CHECKLIST -->
+    {gearList && gearList.length > 0 && (
+      <AdventureGearChecklist
+        title="What to Bring"
+        intro="Make sure you have everything you need for a successful hunt!"
+        items={gearList}
+        columns={3}
+        variant="white"
+      />
+    )}
+
+    <!-- RELATED SHOP CATEGORIES -->
+    {relatedShop && relatedShop.length > 0 && (
+      <section class="related-shop bg-brand-cream py-12">
+        <div class="container mx-auto px-4">
+          <h2 class="font-display text-3xl md:text-4xl font-bold text-brand-brown mb-4">
+            Shop Before You Go
+          </h2>
+          <p class="font-body text-gray-700 mb-8 max-w-2xl">
+            Stop by WV Wild Outdoors for licenses, ammo, and local tips!
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {relatedShop.map((category) => (
+              <a
+                href={category.href}
+                class="bg-white p-6 rounded-sm shadow-sm hover:shadow-md transition-shadow border-l-4 border-l-sign-green"
+              >
+                <h3 class="font-display text-xl font-bold text-brand-brown mb-2">
+                  {category.name}
+                </h3>
+                {category.description && (
+                  <p class="font-body text-gray-600 text-sm">
+                    {category.description}
+                  </p>
+                )}
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- CALL TO ACTION -->
+    <AdventureCTA
+      heading="Stop By Before You Head Out"
+      description="Get your hunting license, stock up on ammo, and we'll point you to the best spots on the WMA."
+      primaryText="Get Directions to Shop"
+      primaryHref="https://maps.app.goo.gl/gdjRGR2k2LWHjXZQ6"
+      secondaryText="(304) 269-3366"
+      secondaryHref="tel:+13042693366"
+    />
+
+  </main>
+</Layout>
+
+<style>
+  /* WVWO Compliance: Only rounded-sm allowed */
+  .rounded-sm {
+    border-radius: 0.125rem;
+  }
+
+  /* WVWO Compliance: Scoped to wma-template class */
+  .wma-template .rounded-sm {
+    border-radius: 0.125rem !important;
+  }
+
+  /* Motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+</style>

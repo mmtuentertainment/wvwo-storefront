@@ -1,198 +1,83 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+/**
+ * Burnsville Lake WMA Page
+ * SPEC: WMA Template Integration
+ *
+ * Wildlife Management Area hunting guide page using the WMATemplate component.
+ * Includes Schema.org structured data for geographic SEO.
+ *
+ * @module pages/near/burnsville-lake-wma
+ */
+
+import WMATemplate from '../../components/templates/WMATemplate.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
-import EmailCapture from '../../components/EmailCapture.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import SchemaBreadcrumb from '../../components/seo/SchemaBreadcrumb.astro';
-import { getEntry } from 'astro:content';
+import { burnsvilleLakeWMAData } from '../../data/wma/burnsville';
 
-const adventure = await getEntry('adventures', 'burnsville-lake-wma');
-if (!adventure) throw new Error('Adventure content not found');
+// Breadcrumb schema data
+const breadcrumbItems = [
+  { name: 'Home', url: '/' },
+  { name: 'Hunt Near Us', url: '/near/' },
+  { name: 'Burnsville Lake WMA', url: '/near/burnsville-lake-wma/' },
+];
 
 // Place schema for geographic SEO
 const placeSchema = {
   "@context": "https://schema.org",
   "@type": "Place",
   "name": "Burnsville Lake Wildlife Management Area",
-  "description": adventure.data.description,
+  "description": burnsvilleLakeWMAData.description,
   "geo": {
     "@type": "GeoCoordinates",
-    "latitude": adventure.data.coordinates.lat,
-    "longitude": adventure.data.coordinates.lng
+    "latitude": burnsvilleLakeWMAData.coordinates?.lat,
+    "longitude": burnsvilleLakeWMAData.coordinates?.lng,
   },
   "address": {
     "@type": "PostalAddress",
     "addressLocality": "Burnsville",
     "addressRegion": "WV",
-    "addressCountry": "US"
-  }
+    "addressCountry": "US",
+  },
 };
-
-// Breadcrumb schema data
-const breadcrumbItems = [
-  { name: 'Home', url: '/' },
-  { name: 'Hunt Near Us', url: '/near/' },
-  { name: 'Burnsville Lake WMA', url: '/near/burnsville-lake-wma/' }
-];
 ---
 
-<Layout
-  title="Burnsville Lake WMA Hunting Guide - Deer, Turkey, Grouse | WV Wild Outdoors"
-  description={adventure.data.description}
-  additionalSchemas={[placeSchema]}
->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Burnsville Lake WMA Hunting Guide - Deer, Turkey, Grouse | WV Wild Outdoors</title>
+  <meta name="description" content={burnsvilleLakeWMAData.description} />
+
+  <!-- Schema.org Structured Data -->
+  <script type="application/ld+json" set:html={JSON.stringify(placeSchema)} />
+</head>
+<body>
   <Header />
   <Breadcrumb items={breadcrumbItems} />
   <SchemaBreadcrumb items={breadcrumbItems} />
 
-  <main class="bg-brand-cream min-h-screen">
+  <WMATemplate {...burnsvilleLakeWMAData} />
 
-    <!-- Hero -->
-    <section class="bg-brand-brown text-white py-16 md:py-24 relative overflow-hidden">
-      <div class="absolute inset-0 bg-camo opacity-5 pointer-events-none"></div>
-
-      <div class="container mx-auto px-4 relative">
-        <div class="max-w-3xl">
-          <div class="flex flex-wrap items-center gap-3 mb-4">
-            <span class="inline-block bg-sign-green text-white px-4 py-1 rounded-sm font-bold text-sm">
-              {adventure.data.drive_time} from shop
-            </span>
-            <span class="inline-block bg-brand-orange text-white px-4 py-1 rounded-sm font-bold text-sm">
-              {adventure.data.acreage?.toLocaleString()} Acres
-            </span>
-            <span class="inline-block bg-brand-brown border border-white/30 text-white px-4 py-1 rounded-sm font-bold text-sm">
-              HUNTING
-            </span>
-          </div>
-          <h1 class="font-display font-black text-4xl md:text-6xl mb-4">
-            {adventure.data.title}
-          </h1>
-          <p class="text-xl md:text-2xl text-brand-cream/80 mb-6">
-            {adventure.data.description}
-          </p>
-          <p class="text-brand-cream/60">
-            Stop by the shop before you head out — we'll get you set up with licenses, ammo, and local tips.
-          </p>
-        </div>
+  <!-- Related: Fishing Page Link -->
+  <section class="py-8 bg-white border-t border-brand-brown/15">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mx-auto text-center">
+        <p class="text-brand-brown/60 mb-3 font-body">Looking for fishing information?</p>
+        <a
+          href="/near/burnsville-lake/"
+          class="inline-flex items-center gap-2 text-sign-green font-bold hover:underline font-body"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+          </svg>
+          Burnsville Lake Fishing Guide
+        </a>
       </div>
-    </section>
-
-    <!-- Quick Info -->
-    <section class="py-8 bg-white border-b border-brand-brown/15">
-      <div class="container mx-auto px-4">
-        <div class="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-          <div>
-            <span class="block text-2xl font-bold text-brand-brown">{adventure.data.acreage?.toLocaleString()}</span>
-            <span class="text-sm text-brand-brown/60">Acres</span>
-          </div>
-          <div>
-            <span class="block text-2xl font-bold text-brand-brown">{adventure.data.drive_time}</span>
-            <span class="text-sm text-brand-brown/60">From Shop</span>
-          </div>
-          <div>
-            <span class="block text-2xl font-bold text-brand-brown">{adventure.data.county}</span>
-            <span class="text-sm text-brand-brown/60">Location</span>
-          </div>
-          <div>
-            <span class="block text-2xl font-bold text-brand-brown">Class Q</span>
-            <span class="text-sm text-brand-brown/60">Accessible</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Species Quick Reference -->
-    {adventure.data.species && adventure.data.species.length > 0 && (
-      <section class="py-8 bg-brand-cream border-b border-brand-brown/15">
-        <div class="container mx-auto px-4">
-          <h2 class="font-display font-bold text-xl text-brand-brown mb-4 text-center">What to Hunt</h2>
-          <div class="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-3">
-            {adventure.data.species.slice(0, 8).map((species: { name: string; season: string }) => (
-              <div class="bg-white p-3 rounded-sm border border-brand-brown/10">
-                <span class="block font-bold text-brand-brown text-sm">{species.name}</span>
-                <span class="text-xs text-brand-brown/60">{species.season.split('|')[0].trim()}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-    )}
-
-    <!-- Main Content from adventure file -->
-    <section class="py-12 md:py-16">
-      <div class="container mx-auto px-4">
-        <div class="max-w-3xl mx-auto">
-          <div class="prose prose-lg prose-headings:font-display prose-headings:font-bold prose-h2:text-3xl prose-h2:text-brand-brown prose-h2:mb-6 prose-h3:text-lg prose-h3:text-brand-brown prose-h3:mb-2 prose-p:text-brand-brown/75 prose-strong:text-brand-brown prose-strong:font-bold prose-li:text-brand-brown/75" set:html={adventure.body} />
-        </div>
-      </div>
-    </section>
-
-    <!-- Related: Fishing Page -->
-    <section class="py-8 bg-white border-t border-brand-brown/15">
-      <div class="container mx-auto px-4">
-        <div class="max-w-3xl mx-auto text-center">
-          <p class="text-brand-brown/60 mb-3">Looking for fishing information?</p>
-          <a
-            href="/near/burnsville-lake/"
-            class="inline-flex items-center gap-2 text-sign-green font-bold hover:underline"
-          >
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-            </svg>
-            Burnsville Lake Fishing Guide
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- CTA -->
-    <section class="bg-sign-green text-white py-12">
-      <div class="container mx-auto px-4 text-center">
-        <h2 class="font-display font-bold text-2xl mb-4">
-          Stop By Before You Head Out
-        </h2>
-        <p class="text-white/80 mb-6 max-w-xl mx-auto">
-          We're on your way. Grab your license, stock up on ammo, and we'll point you
-          to the best spots on the WMA.
-        </p>
-        <div class="flex flex-wrap justify-center gap-4">
-          <a
-            href="https://maps.app.goo.gl/gdjRGR2k2LWHjXZQ6"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 bg-white text-sign-green font-bold px-6 py-3 rounded-sm hover:bg-brand-cream motion-safe:transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
-          >
-            <svg aria-hidden="true" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-            </svg>
-            Get Directions to Shop
-          </a>
-          <a
-            href="tel:304-269-3366"
-            class="inline-flex items-center gap-2 bg-white/10 border border-white/30 text-white font-bold px-6 py-3 rounded-sm hover:bg-white/20 motion-safe:transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
-          >
-            (304) 269-3366
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- Newsletter -->
-    <section class="py-12 md:py-16">
-      <div class="container mx-auto px-4">
-        <div class="max-w-xl mx-auto">
-          <EmailCapture
-            variant="card"
-            heading="Get Local Hunting Updates"
-            subheading="Season reminders, what's moving where, and gear restocks delivered to your inbox."
-          />
-        </div>
-      </div>
-    </section>
-
-  </main>
+    </div>
+  </section>
 
   <Footer />
-</Layout>
+</body>
+</html>
