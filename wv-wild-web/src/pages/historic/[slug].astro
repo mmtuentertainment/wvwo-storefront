@@ -18,6 +18,7 @@ import HistoricTemplate from '../../components/templates/HistoricTemplate.astro'
 import SchemaHistoricTemplate from '../../components/seo/SchemaHistoricTemplate.astro';
 import type { HistoricTemplateProps } from '../../types/templates/historic';
 import { toDataSlug } from '../../utils/historic-slug';
+import { truncateDescription } from '../../utils/truncate-description';
 
 // Type for data map (slug -> module exports)
 type HistoricDataMap = Record<string, Record<string, unknown>>;
@@ -160,25 +161,7 @@ const schemaProps = {
 
 // Meta tags
 const pageTitle = `${entry.data.title} | Historic Sites | WV Wild Outdoors`;
-
-// Word-boundary-aware truncation for meta description
-const MAX_META_LENGTH = 150;
-const rawDescription = entry.data.description;
-let metaDescription: string;
-if (rawDescription.length <= MAX_META_LENGTH) {
-  metaDescription = rawDescription;
-} else {
-  const truncated = rawDescription.slice(0, MAX_META_LENGTH);
-  const lastSpace = truncated.lastIndexOf(' ');
-  const lastPunctuation = Math.max(
-    truncated.lastIndexOf('.'),
-    truncated.lastIndexOf(','),
-    truncated.lastIndexOf('!'),
-    truncated.lastIndexOf('?')
-  );
-  const breakPoint = Math.max(lastSpace, lastPunctuation);
-  metaDescription = (breakPoint > 0 ? truncated.slice(0, breakPoint) : truncated).trim() + '...';
-}
+const metaDescription = truncateDescription(entry.data.description, 150);
 ---
 
 <Layout title={pageTitle} description={metaDescription}>
