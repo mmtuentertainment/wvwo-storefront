@@ -23,7 +23,7 @@ export const burnsvilleLakeData: LakeTemplateProps = {
   image: '/images/lakes/burnsville-lake-hero.webp',
   imageAlt: 'Burnsville Lake with forested shoreline in Braxton County, WV',
   tagline: 'State record muskie waters. 15-inch walleye minimum. Crappie that stack up.',
-  description: "Burnsville Lake is where West Virginia's state-record muskie came from. 51 pounds, 55.06 inches. Lucas King pulled it from the tailwater in March 2022 on a 6-inch glide bait cast from shore. But Burnsville was producing long before that record. Crappie anglers have been filling coolers here for decades - 40 to 60 fish evenings around the brush piles.",
+  description: "Burnsville Lake is where West Virginia's state-record muskie came from. 51 pounds, 55.06 inches. Lucas King pulled it from the tailwater in March 2022 on a 6-inch glide bait cast from shore. But Burnsville was producing long before that record. Crappie anglers have been filling coolers here for decades - 40 to 60 fish evenings around the brush piles. Fish in the morning, explore Civil War history at Bulltown Historical Area in the afternoon, then camp overnight at one of 200+ sites.",
 
   // Quick Stats (Hero Section)
   stats: [
@@ -147,8 +147,20 @@ export const burnsvilleLakeData: LakeTemplateProps = {
     },
     {
       name: 'Camping',
-      description: 'Bulltown Campground: 200+ sites (134 full hookup, 70 electric). Riffle Run: 60 sites, first-come first-served. Swimming beach at Bulltown.',
+      description: 'Bulltown Campground: 200+ sites (134 full hookup with 30/50 amp, water, sewer; 70 electric-only). Showers, restrooms, laundry, dump station. Riffle Run: 60 sites (54 full hookup 50 amp). Reserve at Recreation.gov.',
       season: 'Mid-April through November',
+      difficulty: 'Easy - family friendly',
+    },
+    {
+      name: 'Swimming',
+      description: 'Swimming beach at Bulltown Day Use Area. No lifeguard on duty - swim at your own risk. Calm waters, sandy beach, great for kids. Near boat ramp and picnic areas.',
+      season: 'Memorial Day through Labor Day',
+      difficulty: 'Easy - family friendly',
+    },
+    {
+      name: 'Bulltown Historical Area',
+      description: 'Civil War history right on the shore. The Battle of Bulltown (October 13, 1863) was the Confederacy\'s last major offensive in West Virginia. Visitor center with exhibits, 19th century log homes, Cunningham House. Annual Battle of Bulltown reenactment in October.',
+      season: 'Year-round (visitor center seasonal)',
       difficulty: 'Easy - family friendly',
     },
   ],
