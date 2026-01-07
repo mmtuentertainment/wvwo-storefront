@@ -25,7 +25,7 @@ import type { WMATemplateProps } from '../../types/wma';
 export const burnsvilleLakeWMAData: WMATemplateProps = {
   // Basic Info
   name: 'Burnsville Lake WMA',
-  image: '/images/burnsville-wma-hero.jpg',
+  image: '/images/adventures/burnsville-lake-wma-hero.webp',
   imageAlt: 'Burnsville Lake WMA rolling hills and mixed hardwood forest in Braxton County',
   tagline: '12,579 acres of central WV hunting - deer, turkey, grouse, and small game.',
   description:
@@ -57,8 +57,8 @@ export const burnsvilleLakeWMAData: WMATemplateProps = {
       name: 'White-tailed Deer',
       season: 'Archery: Sept 27 - Dec 31 | Buck Firearms: Nov 24 - Dec 7 | Muzzleloader: Dec 15-21',
       notes:
-        'Two-buck annual limit. Old farm fields and early successional forest make prime habitat. Bucks bed in thick young growth during rifle season and move to field edges at dawn and dusk.',
-      bagLimit: '2 antlered deer per season',
+        'One antlered buck per year with minimum 14-inch outside antler spread requirement. Old farm fields and early successional forest make prime habitat. Bucks bed in thick young growth during rifle season and move to field edges at dawn and dusk.',
+      bagLimit: '1 antlered buck per year; must have minimum 14-inch outside antler spread',
       kimNote:
         "Rut peaks Nov 10-18 in Braxton County. Fog holds in the bottomlands until 8-9 AM in November - set up on ridges where it clears first. South-facing slopes warm faster.",
     },
@@ -251,7 +251,7 @@ export const burnsvilleLakeWMAData: WMATemplateProps = {
     {
       category: 'Bag Limits',
       details:
-        'Two antlered deer annual limit (all seasons combined). This is new as of 2024-2025 season.',
+        'One antlered buck per year with minimum 14-inch outside antler spread requirement. Antler spread measured from outside edge to outside edge.',
       important: true,
     },
     {
@@ -334,7 +334,7 @@ export const burnsvilleLakeWMAData: WMATemplateProps = {
 
 The terrain is gentle uplands and old farm fields grown into young forest. That is prime habitat. Deer bed in the thick stuff and feed in the fields. Turkeys roost along the Little Kanawha and work the bottomlands. Grouse numbers are better here than a lot of places if you walk slow and work the edges.
 
-The two-buck limit is doing its job. I am seeing more mature deer in the county. The rut peaks November 10-18 - that is when you want to be in a tree.
+The 14-inch antler spread rule is doing its job. I am seeing more mature deer in the county. The rut peaks November 10-18 - that is when you want to be in a tree.
 
 Cell coverage is non-existent in the interior, so plan accordingly. Download your maps before you leave, tell someone where you are going, and carry what you need to get out if something goes wrong.
 
