@@ -30,7 +30,7 @@ county: "Braxton County"
 species:
   - name: "White-tailed Deer"
     season: "Archery: Sept 27 - Dec 31 | Buck Firearms: Nov 24 - Dec 7 | Muzzleloader: Dec 15-21"
-    notes: "Two-buck annual limit. Old farm fields and early successional forest make prime habitat. Rut peaks Nov 10-18."
+    notes: "One antlered buck per year with minimum 14-inch outside antler spread. Old farm fields and early successional forest make prime habitat. Rut peaks Nov 10-18."
   - name: "Wild Turkey"
     season: "Spring: April 20 - May 24 | Fall: Oct-Nov splits"
     notes: "Little Kanawha bottomlands hold roosting birds. Ridge tops for strutting zones. Spring bag: 2 bearded."
@@ -114,7 +114,7 @@ regulations:
     - "WV hunting license required"
     - "Class BG stamp for deer/turkey/bear"
     - "Electronic game check within 24 hours via WVhunt.com or 1-844-WVCHECK"
-    - "Two antlered deer annual limit (all seasons combined)"
+    - "One antlered buck per year with minimum 14-inch outside antler spread"
     - "400+ square inches blaze orange during firearms deer season"
     - "No ATVs except where posted"
     - "Portable tree stands only - remove after each hunt"
@@ -144,7 +144,7 @@ Burnsville Lake Wildlife Management Area wraps around a 968-acre Corps of Engine
 
 ### White-Tailed Deer
 
-The two-buck annual limit has done what it was supposed to do. Bucks are getting older. The 12,579 acres give you room to spread out and hunt smart.
+The 14-inch antler spread rule has done what it was supposed to do. Bucks are getting older. The 12,579 acres give you room to spread out and hunt smart.
 
 **Where to hunt:** Old farm fields grown into early successional forest make prime habitat. Bucks bed in the thick young growth during rifle season and move to field edges at dawn and dusk. The ridge saddles between hollows are travel corridors worth sitting.
 
@@ -219,7 +219,7 @@ The gentle upland terrain and old farm field edges make this WMA more accessible
 
 ## Regulations You Need to Know
 
-- **Two antlered deer annual limit** - all seasons combined. This is new as of 2024-2025.
+- **One antlered buck per year** - must have minimum 14-inch outside antler spread (measured outside edge to outside edge).
 - **Electronic game check required** within 24 hours. Use WVhunt.com or call 1-844-WVCHECK.
 - **Blaze orange** - 400+ square inches during firearms deer season.
 - **Portable stands only** - must be non-bark penetrating and removed after each hunt.
@@ -250,7 +250,7 @@ From WV Wild Outdoors:
 
 The terrain is gentle uplands and old farm fields grown into young forest. That is prime habitat. Deer bed in the thick stuff and feed in the fields. Turkeys roost along the Little Kanawha and work the bottomlands. Grouse numbers are better here than a lot of places if you walk slow and work the edges.
 
-The two-buck limit is doing its job. I am seeing more mature deer in the county. The rut peaks November 10-18 - that is when you want to be in a tree.
+The 14-inch antler spread rule is doing its job. I am seeing more mature deer in the county. The rut peaks November 10-18 - that is when you want to be in a tree.
 
 Cell coverage is non-existent in the interior, so plan accordingly. Download your maps before you leave, tell someone where you are going, and carry what you need to get out if something goes wrong.
 

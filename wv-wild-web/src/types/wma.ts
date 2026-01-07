@@ -269,6 +269,14 @@ export interface WMATemplateProps {
  * ---
  * ```
  */
-export function isWMA(adventure: any): boolean {
-  return adventure?.data?.type === 'wma';
+export function isWMA(adventure: unknown): boolean {
+  return (
+    typeof adventure === 'object' &&
+    adventure !== null &&
+    'data' in adventure &&
+    typeof (adventure as { data: unknown }).data === 'object' &&
+    (adventure as { data: unknown }).data !== null &&
+    'type' in (adventure as { data: object }).data &&
+    (adventure as { data: { type: unknown } }).data.type === 'wma'
+  );
 }

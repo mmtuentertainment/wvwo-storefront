@@ -294,8 +294,16 @@ export type AccentColor = 'green' | 'orange' | 'brown' | 'mud';
  * ---
  * ```
  */
-export function isWMAAdventure(adventure: any): boolean {
-  return adventure.data.type === 'wma';
+export function isWMAAdventure(adventure: unknown): boolean {
+  return (
+    typeof adventure === 'object' &&
+    adventure !== null &&
+    'data' in adventure &&
+    typeof (adventure as { data: unknown }).data === 'object' &&
+    (adventure as { data: unknown }).data !== null &&
+    'type' in (adventure as { data: object }).data &&
+    (adventure as { data: { type: unknown } }).data.type === 'wma'
+  );
 }
 
 // ============================================================================
