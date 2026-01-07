@@ -172,28 +172,24 @@ export const burnsvilleLakeData: LakeTemplateProps = {
       targetSpecies: ['Crappie', 'Bass (spawn)', 'Trout (tailwater)'],
       techniques: 'Crappie move shallow (4-8 ft) around brush as water hits 58-65°F. Bass spawn late April-May in protected coves. Trout stocking peaks Feb-April in tailwater.',
       conditions: 'Water temperatures 45-70°F. Crappie concentrate. Bass aggressive pre-spawn.',
-      kimNote: 'Prime time for crappie. Jigs with minnows around brush piles. Stop by for jig colors that are working.',
     },
     {
       period: 'Summer (June-August)',
       targetSpecies: ['Bass (early/late)', 'Catfish (night)', 'Walleye (night)'],
       techniques: 'Thermocline forms 15-25 ft. Fish early morning topwater, evening, or night. Catfish feeding peaks after dark. Night trolling shallow cranks for walleye.',
       conditions: 'Water temps 70-85°F. Fish go deep midday. Night bite is best.',
-      kimNote: 'Night fishing with cut bait is hard to beat for channel cats. Walleye hit topwater after dark.',
     },
     {
       period: 'Fall (September-November)',
       targetSpecies: ['Muskellunge', 'Walleye', 'Bass'],
       techniques: 'Turnover mid-Sept to Oct. Muskie feed heavily on larger baits - 8-12 inch swimbaits and glide baits. Walleye follow baitfish to shoreline points.',
       conditions: 'Water temps 70-45°F (declining). Muskie prime time. Bass aggressive on shad.',
-      kimNote: 'Best muskie fishing of the year. The state record came on a 6-inch glide bait. Bring heavy tackle.',
     },
     {
       period: 'Winter (December-February)',
       targetSpecies: ['Walleye', 'Tailwater Trout'],
       techniques: 'Lake drawn down to winter pool (776 ft). Fish concentrate in main channel and deep holes. Trout stocking resumes February. Slow vertical jigging for walleye.',
       conditions: 'Water temps 35-45°F. Fish metabolisms slow. Work baits slowly.',
-      kimNote: 'Bundle up - it\'s cold but walleye concentrate in predictable spots. Tailwater trout stocking starts February.',
     },
   ],
 

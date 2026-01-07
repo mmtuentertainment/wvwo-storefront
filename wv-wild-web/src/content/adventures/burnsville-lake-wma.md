@@ -150,8 +150,6 @@ The 14-inch antler spread rule has done what it was supposed to do. Bucks are ge
 
 **When to hunt:** Rut peaks November 10-18 in Braxton County. Bucks cruise the mid-slope benches and ridge saddles all day during peak rut. Cold fronts in late October kick off pre-rut movement.
 
-**Kim's tip:** Those gentle uplands along the river make for good glassing. Fog holds in the bottomlands until 8-9 AM in November - set up on ridges where it clears first. South-facing slopes warm faster. Southwest to west winds prevail, so approach from the east when you can.
-
 ### Wild Turkey
 
 Spring gobblers love the bottomlands near the Little Kanawha River. They roost in the big timber along the water and fly down to feed in the old fields. Set up before daybreak and listen - they sound off good in that river valley.
@@ -159,8 +157,6 @@ Spring gobblers love the bottomlands near the Little Kanawha River. They roost i
 **Where to hunt:** Look for benched ridges 100-200 feet below the ridge crests for roosts. Turkeys prefer to roost on slopes overlooking water. The old farm fields and forest openings are feeding and strutting areas.
 
 **Calling strategy:** Ridge-to-ridge calling works here. Position on the same contour elevation and call aggressively to pull birds across the drainage. In the thick bottomland vegetation, back off to soft yelps and purrs.
-
-**Kim's tip:** April 20 opens spring season. Youth season April 18-19. Set up within 150-200 yards of a marked roost on the same contour. Owl hoot at first light to get them fired up. Don't overcall - let them come to you. Fall hunting is decent, but spring is when they really talk.
 
 ### Ruffed Grouse
 
@@ -170,15 +166,11 @@ Young forest equals grouse. This WMA has it. Population is down 30-70% across Ap
 
 **When to hunt:** January and February are historically the best months for grouse in the Apps. Hunt mid-week to avoid what little pressure there is.
 
-**Kim's tip:** Walk the logging roads slow and work those thick edges. They flush hard and fast. Keep your safety off once you hit the brush. Bring water for the dog - no reliable water sources mapped in the interior.
-
 ### Small Game
 
 **Squirrels** are in the oak-hickory ridges. Daily limit 6. Youth season September 6-7 gets kids into the woods early. October mornings on the ridge tops are as good as it gets.
 
 **Rabbits** work the field edges and briar patches. Daily limit 5. Good for training young beagles or taking kids out.
-
-**Kim's tip:** Field edges for rabbits, hardwoods for squirrels. Both are thick here. Squirrel hunting the ridge tops in October is a good warm-up for deer season.
 
 ## Access Points and Terrain
 
@@ -243,20 +235,6 @@ From WV Wild Outdoors:
 - **Food:** Kreamy Korner in Burnsville (4.9/5 rating). Elk River Hotel & Cafe in Sutton.
 - **Lodging:** Campgrounds on-site. Days Inn & Suites in Flatwoods (15 miles). Elk River Hotel in Sutton.
 - **Hospital:** Braxton County Memorial Hospital in Gassaway (18 miles). 24-hour ER: (304) 364-1058.
-
-## Kim's Take
-
-"This WMA is managed by WV DNR and the Army Corps of Engineers together. It wraps around Burnsville Lake - you get 12,579 acres of huntable land and a 968-acre lake with world-class fishing.
-
-The terrain is gentle uplands and old farm fields grown into young forest. That is prime habitat. Deer bed in the thick stuff and feed in the fields. Turkeys roost along the Little Kanawha and work the bottomlands. Grouse numbers are better here than a lot of places if you walk slow and work the edges.
-
-The 14-inch antler spread rule is doing its job. I am seeing more mature deer in the county. The rut peaks November 10-18 - that is when you want to be in a tree.
-
-Cell coverage is non-existent in the interior, so plan accordingly. Download your maps before you leave, tell someone where you are going, and carry what you need to get out if something goes wrong.
-
-The whole area is set up for disabled hunters. Class Q accommodations, wheelchair ramps at the facilities, gentle terrain you can actually hunt. That is something you do not see everywhere.
-
-You can hunt hard here and not see another soul. That is worth the 25-minute drive."
 
 ## Contact Information
 

@@ -59,8 +59,6 @@ export const burnsvilleLakeWMAData: WMATemplateProps = {
       notes:
         'One antlered buck per year with minimum 14-inch outside antler spread requirement. Old farm fields and early successional forest make prime habitat. Bucks bed in thick young growth during rifle season and move to field edges at dawn and dusk.',
       bagLimit: '1 antlered buck per year; must have minimum 14-inch outside antler spread',
-      kimNote:
-        "Rut peaks Nov 10-18 in Braxton County. Fog holds in the bottomlands until 8-9 AM in November - set up on ridges where it clears first. South-facing slopes warm faster.",
     },
     {
       name: 'Wild Turkey',
@@ -68,8 +66,6 @@ export const burnsvilleLakeWMAData: WMATemplateProps = {
       notes:
         'Little Kanawha bottomlands hold roosting birds. Ridge tops for strutting zones. Position on the same contour elevation and call aggressively to pull birds across the drainage.',
       bagLimit: 'Spring: 2 bearded',
-      kimNote:
-        "Set up within 150-200 yards of a marked roost on the same contour. Owl hoot at first light to get them fired up. Don't overcall - let them come to you.",
     },
     {
       name: 'Ruffed Grouse',
@@ -77,8 +73,6 @@ export const burnsvilleLakeWMAData: WMATemplateProps = {
       notes:
         'Young forest equals grouse. Target regenerating timber cuts 5-15 years old with dense stems. Trail edges with young growth. Population declining statewide but huntable here.',
       bagLimit: 'Daily limit: 4',
-      kimNote:
-        "Walk the logging roads slow and work those thick edges. They flush hard and fast. January and February are historically the best months. Hunt mid-week to avoid pressure.",
     },
     {
       name: 'Eastern Cottontail',
@@ -93,7 +87,6 @@ export const burnsvilleLakeWMAData: WMATemplateProps = {
       notes:
         'Oak-hickory ridges with mast production. Youth season Sept 6-7 gets kids into the woods early. October mornings on the ridge tops are prime.',
       bagLimit: 'Daily limit: 6',
-      kimNote: 'Squirrel hunting the ridge tops in October is a good warm-up for deer season.',
     },
     {
       name: 'Black Bear',
@@ -214,21 +207,16 @@ export const burnsvilleLakeWMAData: WMATemplateProps = {
       season: 'Fall',
       target: 'Deer (archery, firearms), Grouse, Squirrel',
       tips: 'Peak rut Nov 10-18. Hunt ridges overlooking old fields. Fog clears from ridges 30-60 min before valleys. SW-W winds prevail.',
-      kimNote:
-        "Cold fronts in late October kick off pre-rut movement. This is when you want to be in a tree.",
     },
     {
       season: 'Spring',
       target: 'Turkey (gobblers), Small game',
       tips: 'Set up near Little Kanawha bottomlands before dawn. Gobblers roost in big timber along water. Listen for 6:15 AM sound-off.',
-      kimNote: "April 20 opens spring season. Youth season April 18-19. Let them come to you.",
     },
     {
       season: 'Winter',
       target: 'Late deer, Small game, Rabbit',
       tips: 'Less pressure. Hunt thick cover. January-February best for grouse. Cold but productive.',
-      kimNote:
-        "You can hunt hard here and not see another soul. That's worth bundling up for.",
     },
   ],
 
@@ -329,16 +317,4 @@ export const burnsvilleLakeWMAData: WMATemplateProps = {
   mapUrl: 'https://wvdnr.gov/wmamapproj/pdf/pdf300/BurnsvilleLake11x17_300dpi.pdf',
   regulationsUrl: 'https://wvdnr.gov/hunting/hunting-regulations/',
 
-  // Kim's Personal Take
-  kimsTake: `This WMA is managed by WV DNR and the Army Corps of Engineers together. It wraps around Burnsville Lake - you get 12,579 acres of huntable land and a 968-acre lake with world-class fishing.
-
-The terrain is gentle uplands and old farm fields grown into young forest. That is prime habitat. Deer bed in the thick stuff and feed in the fields. Turkeys roost along the Little Kanawha and work the bottomlands. Grouse numbers are better here than a lot of places if you walk slow and work the edges.
-
-The 14-inch antler spread rule is doing its job. I am seeing more mature deer in the county. The rut peaks November 10-18 - that is when you want to be in a tree.
-
-Cell coverage is non-existent in the interior, so plan accordingly. Download your maps before you leave, tell someone where you are going, and carry what you need to get out if something goes wrong.
-
-The whole area is set up for disabled hunters. Class Q accommodations, wheelchair ramps at the facilities, gentle terrain you can actually hunt. That is something you do not see everywhere.
-
-You can hunt hard here and not see another soul. That is worth the 25-minute drive.`,
 };
