@@ -1,0 +1,15 @@
+---
+/**
+ * Redirect: /near/burnsville-lake/ → /near/lake/burnsville/
+ * SPEC-21: Preserve SEO and existing links after route migration
+ *
+ * The combined Burnsville Lake page was split into:
+ * - Fishing: /near/lake/burnsville/
+ * - Hunting: /near/wma/burnsville/
+ *
+ * This redirect sends visitors to the fishing page by default,
+ * with a link to the hunting page if they need that instead.
+ */
+
+return Astro.redirect('/near/lake/burnsville/', 301);
+---
