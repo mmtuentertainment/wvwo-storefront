@@ -320,3 +320,68 @@
 body, html {
   font-family: var(--font-body), 'Noto Sans', sans-serif;
 }
+
+/* SPEC-19 Phase 5: Keyboard Focus Styles for Historic Sections */
+.historic-focus-ring:focus-visible {
+  outline: 3px solid var(--color-sign-green, #2E7D32);
+  outline-offset: 2px;
+  border-radius: 0.125rem; /* rounded-sm per WVWO compliance */
+}
+
+/* Interactive cards and links in historic sections */
+section[aria-labelledby] a:focus-visible,
+section[aria-label] a:focus-visible {
+  outline: 3px solid var(--color-sign-green, #2E7D32);
+  outline-offset: 2px;
+  border-radius: 0.125rem;
+}
+
+/* Buttons in historic sections */
+section[aria-labelledby] button:focus-visible,
+section[aria-label] button:focus-visible {
+  outline: 3px solid var(--color-sign-green, #2E7D32);
+  outline-offset: 2px;
+  border-radius: 0.125rem;
+}
+
+/* SPEC-19 Phase 5: High Contrast Mode Support */
+@media (prefers-contrast: more) {
+  :root {
+    /* Heritage colors → high contrast black/white */
+    --color-heritage-burgundy: #000000;
+    --color-heritage-burgundy-light: #000000;
+    --color-heritage-gold: #000000;
+    --color-heritage-gold-light: #000000;
+    --color-coal-gray: #000000;
+    --color-stone-gray: #000000;
+    --color-creek-stone: #000000;
+    --color-heritage-green: #000000;
+    --color-heritage-green-alt: #000000;
+    --color-heritage-cream: #ffffff;
+    --color-heritage-cream-alt: #ffffff;
+  }
+
+  /* Ensure sufficient contrast on text */
+  .stone-text-shadow {
+    text-shadow: none;
+  }
+
+  /* Remove decorative backgrounds in high contrast */
+  .aged-section {
+    background-image: none;
+    background-color: #ffffff;
+  }
+
+  /* Stronger borders for visibility */
+  .lumber-border,
+  .riveted-border {
+    border-color: #000000;
+    border-width: 3px;
+  }
+
+  /* Remove decorative pseudo-elements */
+  .riveted-border::before,
+  .riveted-border::after {
+    display: none;
+  }
+}
