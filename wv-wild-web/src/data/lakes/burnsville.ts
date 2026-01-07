@@ -20,7 +20,7 @@ import type { LakeTemplateProps } from '../../types/adventure';
 export const burnsvilleLakeData: LakeTemplateProps = {
   // Basic Info
   name: 'Burnsville Lake',
-  image: '/images/burnsville-lake-hero.jpg', // TODO: Add actual image
+  image: '/images/lakes/burnsville-lake-hero.webp',
   imageAlt: 'Burnsville Lake with forested shoreline in Braxton County, WV',
   tagline: 'State record muskie waters. 15-inch walleye minimum. Crappie that stack up.',
   description: "Burnsville Lake is where West Virginia's state-record muskie came from. 51 pounds, 55.06 inches. Lucas King pulled it from the tailwater in March 2022 on a 6-inch glide bait cast from shore. But Burnsville was producing long before that record. Crappie anglers have been filling coolers here for decades - 40 to 60 fish evenings around the brush piles.",
