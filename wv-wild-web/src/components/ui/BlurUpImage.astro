@@ -1,0 +1,100 @@
+---
+/**
+ * SPEC-19 Phase 5: Blur-Up Image Component
+ * Progressive image loading with LQIP (Low-Quality Image Placeholder)
+ * Supports lazy loading, attribution, and reduced motion preferences
+ */
+
+interface Props {
+  src: string;
+  lqip?: string; // Optional low-res placeholder (base64 or URL)
+  alt: string;
+  credit?: string;
+  class?: string;
+  loading?: 'lazy' | 'eager';
+  aspectRatio?: string; // e.g., "4/3", "16/9"
+}
+
+const {
+  src,
+  lqip,
+  alt,
+  credit,
+  class: className = '',
+  loading = 'lazy',
+  aspectRatio,
+} = Astro.props;
+
+const containerStyle = aspectRatio ? `aspect-ratio: ${aspectRatio};` : '';
+---
+
+<div class="blur-up-container relative overflow-hidden" style={containerStyle}>
+  <!-- LQIP (Low-Quality Image Placeholder) -->
+  {lqip && (
+    <img
+      src={lqip}
+      alt=""
+      class="blur-up-placeholder absolute inset-0 w-full h-full object-cover"
+      aria-hidden="true"
+      decoding="async"
+    />
+  )}
+
+  <!-- Full-resolution image with blur-up transition -->
+  <img
+    src={src}
+    alt={alt}
+    class:list={['blur-up-image relative w-full h-full object-cover', className]}
+    loading={loading}
+    decoding="async"
+    onload="this.classList.add('loaded'); this.previousElementSibling?.classList.add('hidden');"
+  />
+
+  <!-- Attribution overlay or caption -->
+  {credit && (
+    <div
+      class="hero-image-credit absolute bottom-2 right-2 bg-coal-gray/80 text-brand-cream text-xs px-2 py-1 rounded-sm"
+      role="contentinfo"
+      aria-label={`Image credit: ${credit}`}
+    >
+      {credit}
+    </div>
+  )}
+</div>
+
+<style>
+  /* Blur-up placeholder styling */
+  .blur-up-placeholder {
+    filter: blur(20px);
+    transform: scale(1.1);
+    transition: opacity 0.3s ease-out;
+  }
+
+  .blur-up-placeholder.hidden {
+    opacity: 0;
+  }
+
+  /* Full image blur-up transition */
+  .blur-up-image {
+    opacity: 0;
+    transition: opacity 0.3s ease-out;
+  }
+
+  .blur-up-image.loaded {
+    opacity: 1;
+  }
+
+  /* Respect reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    .blur-up-placeholder {
+      filter: none;
+      transform: none;
+      transition: none;
+    }
+
+    .blur-up-image {
+      opacity: 1;
+      transition: none;
+    }
+  }
+</style>
