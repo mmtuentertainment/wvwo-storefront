@@ -7,14 +7,14 @@ import Breadcrumb from '../../components/Breadcrumb.astro';
 import SchemaBreadcrumb from '../../components/seo/SchemaBreadcrumb.astro';
 import { getEntry } from 'astro:content';
 
-const adventure = await getEntry('adventures', 'burnsville-lake');
+const adventure = await getEntry('adventures', 'burnsville-lake-wma');
 if (!adventure) throw new Error('Adventure content not found');
 
 // Place schema for geographic SEO
 const placeSchema = {
   "@context": "https://schema.org",
   "@type": "Place",
-  "name": "Burnsville Lake",
+  "name": "Burnsville Lake Wildlife Management Area",
   "description": adventure.data.description,
   "geo": {
     "@type": "GeoCoordinates",
@@ -33,12 +33,12 @@ const placeSchema = {
 const breadcrumbItems = [
   { name: 'Home', url: '/' },
   { name: 'Hunt Near Us', url: '/near/' },
-  { name: 'Burnsville Lake', url: '/near/burnsville-lake/' }
+  { name: 'Burnsville Lake WMA', url: '/near/burnsville-lake-wma/' }
 ];
 ---
 
 <Layout
-  title="Burnsville Lake Fishing Guide - Muskie, Walleye, Crappie | WV Wild Outdoors"
+  title="Burnsville Lake WMA Hunting Guide - Deer, Turkey, Grouse | WV Wild Outdoors"
   description={adventure.data.description}
   additionalSchemas={[placeSchema]}
 >
@@ -59,10 +59,10 @@ const breadcrumbItems = [
               {adventure.data.drive_time} from shop
             </span>
             <span class="inline-block bg-brand-orange text-white px-4 py-1 rounded-sm font-bold text-sm">
-              {adventure.data.surfaceAcres?.toLocaleString() || '968'} Surface Acres
+              {adventure.data.acreage?.toLocaleString()} Acres
             </span>
             <span class="inline-block bg-brand-brown border border-white/30 text-white px-4 py-1 rounded-sm font-bold text-sm">
-              FISHING
+              HUNTING
             </span>
           </div>
           <h1 class="font-display font-black text-4xl md:text-6xl mb-4">
@@ -72,7 +72,7 @@ const breadcrumbItems = [
             {adventure.data.description}
           </p>
           <p class="text-brand-cream/60">
-            Stop by the shop before you head out — we'll get you set up with licenses, tackle, and local tips.
+            Stop by the shop before you head out — we'll get you set up with licenses, ammo, and local tips.
           </p>
         </div>
       </div>
@@ -83,24 +83,41 @@ const breadcrumbItems = [
       <div class="container mx-auto px-4">
         <div class="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
           <div>
-            <span class="block text-2xl font-bold text-brand-brown">{adventure.data.surfaceAcres?.toLocaleString() || '968'}</span>
-            <span class="text-sm text-brand-brown/60">Surface Acres</span>
-          </div>
-          <div>
-            <span class="block text-2xl font-bold text-brand-brown">{adventure.data.shorelineMiles || '30'} mi</span>
-            <span class="text-sm text-brand-brown/60">Shoreline</span>
+            <span class="block text-2xl font-bold text-brand-brown">{adventure.data.acreage?.toLocaleString()}</span>
+            <span class="text-sm text-brand-brown/60">Acres</span>
           </div>
           <div>
             <span class="block text-2xl font-bold text-brand-brown">{adventure.data.drive_time}</span>
             <span class="text-sm text-brand-brown/60">From Shop</span>
           </div>
           <div>
-            <span class="block text-2xl font-bold text-brand-brown">3 Ramps</span>
-            <span class="text-sm text-brand-brown/60">Boat Access</span>
+            <span class="block text-2xl font-bold text-brand-brown">{adventure.data.county}</span>
+            <span class="text-sm text-brand-brown/60">Location</span>
+          </div>
+          <div>
+            <span class="block text-2xl font-bold text-brand-brown">Class Q</span>
+            <span class="text-sm text-brand-brown/60">Accessible</span>
           </div>
         </div>
       </div>
     </section>
+
+    <!-- Species Quick Reference -->
+    {adventure.data.species && adventure.data.species.length > 0 && (
+      <section class="py-8 bg-brand-cream border-b border-brand-brown/15">
+        <div class="container mx-auto px-4">
+          <h2 class="font-display font-bold text-xl text-brand-brown mb-4 text-center">What to Hunt</h2>
+          <div class="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-3">
+            {adventure.data.species.slice(0, 8).map((species: { name: string; season: string }) => (
+              <div class="bg-white p-3 rounded-sm border border-brand-brown/10">
+                <span class="block font-bold text-brand-brown text-sm">{species.name}</span>
+                <span class="text-xs text-brand-brown/60">{species.season.split('|')[0].trim()}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
 
     <!-- Main Content from adventure file -->
     <section class="py-12 md:py-16">
@@ -111,19 +128,19 @@ const breadcrumbItems = [
       </div>
     </section>
 
-    <!-- Related: Hunting Page -->
+    <!-- Related: Fishing Page -->
     <section class="py-8 bg-white border-t border-brand-brown/15">
       <div class="container mx-auto px-4">
         <div class="max-w-3xl mx-auto text-center">
-          <p class="text-brand-brown/60 mb-3">Looking for hunting information?</p>
+          <p class="text-brand-brown/60 mb-3">Looking for fishing information?</p>
           <a
-            href="/near/burnsville-lake-wma/"
+            href="/near/burnsville-lake/"
             class="inline-flex items-center gap-2 text-sign-green font-bold hover:underline"
           >
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
             </svg>
-            Burnsville Lake WMA Hunting Guide
+            Burnsville Lake Fishing Guide
           </a>
         </div>
       </div>
@@ -136,8 +153,8 @@ const breadcrumbItems = [
           Stop By Before You Head Out
         </h2>
         <p class="text-white/80 mb-6 max-w-xl mx-auto">
-          We're on your way. Grab your license, stock up on tackle and bait, and we'll tell you
-          where the crappie have been stacking up.
+          We're on your way. Grab your license, stock up on ammo, and we'll point you
+          to the best spots on the WMA.
         </p>
         <div class="flex flex-wrap justify-center gap-4">
           <a
@@ -168,8 +185,8 @@ const breadcrumbItems = [
         <div class="max-w-xl mx-auto">
           <EmailCapture
             variant="card"
-            heading="Get Local Fishing Updates"
-            subheading="Stocking reports, what's biting where, and tackle restocks delivered to your inbox."
+            heading="Get Local Hunting Updates"
+            subheading="Season reminders, what's moving where, and gear restocks delivered to your inbox."
           />
         </div>
       </div>

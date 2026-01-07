@@ -1,17 +1,17 @@
 ---
-title: "Burnsville Lake WMA"
-description: "12,579 acres of gentle uplands, old farm fields, and young forest along the Little Kanawha River. Deer, turkey, grouse, and squirrel on land. Bass, crappie, and trout in a 968-acre lake. 25 minutes from the shop."
+title: "Burnsville Lake - State Record Muskie Waters"
+description: "968 acres of state-record muskie fishing, excellent crappie, walleye with 15-inch minimum, and trout-stocked tailwaters. Three boat ramps, marina rentals, 200-site campground. 25 minutes from the shop."
 season:
   - spring
   - summer
   - fall
   - winter
 difficulty: easy
-location: "Burnsville Lake WMA, Braxton County"
+location: "Burnsville Lake, Braxton County"
 coordinates:
-  lat: 38.8251024
-  lng: -80.6069784
-elevation_gain: 100
+  lat: 38.845430
+  lng: -80.617343
+elevation_gain: 50
 drive_time: "25 min"
 suitability:
   - kid-friendly
@@ -19,237 +19,365 @@ suitability:
   - wheelchair-accessible
   - paved
 gear:
-  - WV hunting license
   - WV fishing license
-  - blaze orange (deer season)
-  - turkey calls (spring)
-  - fishing tackle
-  - boat (for lake access)
-type: wma
-acreage: 12579
+  - Trout stamp (for tailwater)
+  - Light tackle for crappie (6-8 lb test)
+  - Heavy muskie gear (80-100 lb braid, steel leader)
+  - Electronics with GPS
+  - Landing net (36+ inch for muskie)
+type: lake
+surfaceAcres: 968
+shorelineMiles: 30
+maxDepth: "30+ ft"
 county: "Braxton County"
 species:
-  - name: "White-tailed Deer"
-    season: "September - January"
-    notes: "Old farm fields and early successional forest make prime habitat"
-  - name: "Wild Turkey"
-    season: "Spring: April, Fall: October"
-    notes: "Bottomlands near Little Kanawha River are prime turkey habitat"
-  - name: "Ruffed Grouse"
-    season: "October - February"
-    notes: "Young forest regeneration holds good grouse numbers"
-  - name: "Rabbit & Squirrel"
-    season: "September - February"
-    notes: "Field edges for rabbits, hardwood ridges for squirrels"
-fishingWaters:
-  - name: "Burnsville Lake"
-    species:
-      - "Crappie (Black & White)"
-      - "Largemouth Bass"
-      - "Spotted Bass"
-      - "Smallmouth Bass"
-      - "Channel Catfish"
-      - "Flathead Catfish"
-      - "Rainbow Trout (stocked)"
+  - name: "Muskellunge"
+    season: "Year-round (Fall prime)"
+    notes: "STATE RECORD FISHERY. 51 lbs, 55.06 inches (March 2022, Lucas King). 6-inch glide bait from tailwater shore."
+    regulations: "30-inch minimum, 1 daily, catch-and-release encouraged"
+  - name: "Walleye/Saugeye"
+    season: "Year-round (Night best)"
+    notes: "15-INCH MINIMUM specific to Burnsville Lake. Quality fishery managed for trophy potential."
+    regulations: "15-inch minimum size, 8 daily"
+    regulationUrl: "https://wvdnr.gov/wp-content/uploads/2025/12/Pub_Regs_Fishing_2026_DNR_WILD_pp.pdf"
+  - name: "Black Crappie"
+    season: "Year-round (Spring/Fall peak)"
+    notes: "Excellent numbers around brush piles. 40-60 fish evenings not uncommon. 8-10 ft depth range."
+  - name: "Largemouth Bass"
+    season: "Year-round (May spawn)"
+    notes: "Strong population. Work shoreline structure and submerged stumps. 6 daily, no size limit."
+  - name: "Spotted Bass"
+    season: "Year-round"
+    notes: "Present with largemouth. Target deeper structure and rocky points."
+  - name: "Channel Catfish"
+    season: "Year-round (Night summer)"
+    notes: "Consistent action. Chicken liver, cut shad, nightcrawlers. Night fishing peak season."
+  - name: "Flathead Catfish"
+    season: "Year-round (Night summer)"
+    notes: "Trophy potential - 58-lb documented. Large live baits in deep channel bends."
+  - name: "Rainbow/Brown Trout"
+    season: "TAILWATER ONLY - Feb-May stocking"
+    notes: "Stocked twice monthly Feb-April below dam. Not in lake proper. Call (304) 558-3399 for stocking dates."
+    regulationUrl: "https://wvdnr.gov/fishing/fish-stocking/"
+  - name: "Bluegill"
+    season: "Year-round"
+    notes: "Everywhere. Good for kids. Part of 30-fish panfish aggregate limit."
+fishingSpots:
+  - name: "Riffle Run / Dam Area"
+    type: "Deep Water / Tailwater"
+    depth: "15-30+ ft"
+    targetSpecies:
+      - "Muskie (tailwater - state record location)"
       - "Walleye"
-      - "Muskie"
+      - "Trout (tailwater only)"
+      - "Catfish"
+    techniques: "Troll deep-diving cranks for walleye. Cast glide baits for muskie from shore. Cut bait for catfish at night."
+    access: "Exit 79, I-79 to Old Route 5 East. 3 miles. Concrete boat ramp, ADA pier."
+  - name: "Bulltown Area"
+    type: "Upper Lake / Timber"
+    depth: "6-20 ft"
+    targetSpecies:
+      - "Largemouth Bass"
+      - "Crappie"
       - "Bluegill"
-      - "Sauger"
-    access: "Three boat ramps: Riffle Run Day Use Area, Bulltown Campground, Bulltown Day Use Area"
-    notes: "968 acres with 30 miles of shoreline. Trout stocked February-May. Light fishing pressure."
-facilities:
-  - type: "Boat Ramp"
-    count: 3
-    description: "Concrete ramps at Riffle Run, Bulltown Campground, and Bulltown Day Use Area"
-    accessibility: "All wheelchair-accessible"
-  - type: "Campground"
-    count: 133
-    description: "Bulltown Campground with full RV hookups, showers, dump station, playgrounds, marina"
-  - type: "Restrooms"
-    description: "At all three boat ramp locations"
-    accessibility: "Wheelchair-accessible"
-  - type: "Parking"
-    description: "Paved parking at all access points"
-accessPoints:
+      - "Catfish"
+    techniques: "Jigs and minnows in brush piles for crappie. Plastics around standing timber for bass. Live bait for catfish."
+    access: "Exit 67, I-79 to Route 19 North. 13 miles. Boat ramp at campground and day-use."
+  - name: "Mid-Lake Points and Channel"
+    type: "Structure / Transition"
+    depth: "10-25 ft"
+    targetSpecies:
+      - "Walleye"
+      - "Bass"
+      - "Crappie"
+    techniques: "Vertical jig brush piles. Troll crankbaits along channel edges. Night trolling for summer walleye."
+marinas:
+  - name: "Burnsville Docks (Bulltown Marina)"
+    services:
+      - "Pontoon rentals ($350/day, $200/half-day + fuel)"
+      - "Seasonal slip rentals (April 15 - Oct 1)"
+      - "Boat storage"
+      - "Limited tackle and fuel"
+    contact: "burnsvilledock.com"
+    notes: "10% multi-day discount. $25 pet cleaning fee. Advance reservations recommended for peak weekends."
+boatRamps:
   - name: "Riffle Run Day Use Area"
+    type: "Concrete"
+    access: "Exit 79, I-79"
     features:
-      - "Concrete boat ramp"
+      - "Recently dredged (March 2023)"
+      - "ADA-accessible fishing pier"
       - "Parking"
       - "Restrooms"
-      - "Wheelchair-accessible"
+      - "Near dam and tailwater"
   - name: "Bulltown Campground"
+    type: "Concrete"
+    access: "Exit 67, I-79"
     features:
-      - "Boat ramp"
-      - "133 campsites"
-      - "Full RV hookups"
-      - "Marina"
-      - "Showers and dump station"
+      - "Full campground amenities"
+      - "Near marina"
+      - "Swimming beach nearby"
   - name: "Bulltown Day Use Area"
+    type: "Concrete"
+    access: "Exit 67, I-79"
     features:
-      - "Boat ramp"
       - "Parking"
       - "Picnic area"
+      - "Swimming beach"
+facilities:
+  - type: "Campground"
+    count: 200
+    description: "Bulltown Campground: 134 full hookup, 70 electric only. Showers, dump station, playgrounds, beach. Reservations at Recreation.gov."
+  - type: "Campground"
+    count: 60
+    description: "Riffle Run Campground: 54 full hookup, 6 primitive. First-come, first-served only. (304) 853-2583."
+  - type: "ADA Access"
+    description: "Wheelchair-accessible fishing piers at Riffle Run (near dam), Falls Mill (upper lake, off Route 19). Accessible walkway below dam."
+  - type: "Beach"
+    description: "Swimming beach at Bulltown Day Use Area. Seasonal hours Memorial Day - Labor Day."
 regulations:
-  zone: "Burnsville Lake WMA"
+  zone: "Burnsville Lake"
   restrictions:
-    - "WV hunting and fishing licenses required"
-    - "Follow WV DNR hunting seasons and bag limits"
-    - "Corps of Engineers regulations on water and shoreline"
-    - "No wake zones near ramps and swimming areas"
-    - "Camping only in designated campground areas"
-  regulationsUrl: "https://www.wvdnr.gov/"
-seasonHighlights:
+    - "WV fishing license required (trout stamp for tailwater)"
+    - "15-INCH MINIMUM for walleye/saugeye (Burnsville-specific)"
+    - "30-inch minimum for muskie, limit 1"
+    - "No horsepower restrictions"
+    - "No-wake zones near ramps and swimming areas"
+    - "Hand-fishing (noodling) allowed June 15 - Aug 31 for catfish"
+    - "Night fishing permitted"
+  regulationsUrl: "https://wvdnr.gov/wp-content/uploads/2025/12/Pub_Regs_Fishing_2026_DNR_WILD_pp.pdf"
+seasonalGuide:
   - season: "Spring"
-    target: "Turkey, Trout, Bass, Crappie"
-    tips: "Best all-around time. Turkey season, trout stocking, bass spawning, crappie active."
-  - season: "Fall"
-    target: "Deer, Grouse, Squirrel, Fall Fishing"
-    tips: "Deer rut peaks in November. Grouse season opens. Less fishing pressure."
-  - season: "Winter"
-    target: "Late Deer Season, Small Game"
-    tips: "Cold but productive. Less hunting pressure."
+    target: "Crappie, Bass spawn, Trout (tailwater)"
+    waterTemp: "45-70F"
+    tips: "Prime time. Crappie move shallow (4-8 ft) around brush as water hits 58-65F. Bass spawn late April-May in protected coves. Trout stocking peaks Feb-April in tailwater."
+    bestTechniques:
+      - "Jigs with minnows around brush piles for crappie"
+      - "Crankbaits and jigs on points for pre-spawn bass"
+      - "Spinners and PowerBait for fresh-stocked trout"
   - season: "Summer"
-    target: "Bass, Catfish, Bluegill"
-    tips: "Fishing only. Good for camping trips with kids."
-mapUrl: "https://www.wvdnr.gov/hunting/burnsville_lake_wma.shtm"
+    target: "Bass (early/late), Catfish (night), Walleye (night)"
+    waterTemp: "70-85F"
+    tips: "Thermocline forms 15-25 ft. Fish early morning topwater, evening, or night. Catfish feeding peaks after dark."
+    bestTechniques:
+      - "Topwater at dawn/dusk for bass"
+      - "Night trolling shallow cranks (6-12 ft) for walleye"
+      - "Cut bait on bottom for channel cats"
+      - "Large live baits in channel bends for flatheads"
+  - season: "Fall"
+    target: "Muskie (trophy season), Walleye, Bass feeding"
+    waterTemp: "70-45F (declining)"
+    tips: "Turnover mid-Sept to Oct. Muskie feed heavily on larger baits. Walleye follow baitfish to shoreline points. Bass aggressive on shad schools."
+    bestTechniques:
+      - "Large swimbaits and glide baits (8-12 inches) for muskie"
+      - "Jigging with 5-7 inch minnows for walleye"
+      - "Crankbaits and Alabama rigs for bass"
+  - season: "Winter"
+    target: "Walleye, Tailwater trout"
+    waterTemp: "35-45F"
+    tips: "Lake drawn down to winter pool (776 ft). Fish concentrate in main channel and deep holes. Trout stocking resumes February."
+    bestTechniques:
+      - "Slow vertical jigging for walleye in 20-30 ft"
+      - "Suspending jerkbaits for bass on warm afternoons"
+      - "Bottom rigs with cut bait for catfish in deep holes"
+waterConditions:
+  winterPool: "776 ft"
+  summerPool: "789 ft"
+  realTimeData: "lrh-wc.usace.army.mil/wm (Little Kanawha Basin)"
+  noaaGauge: "water.noaa.gov/gauges/brnw2"
+  phone: "(304) 853-2371"
+mapUrl: "https://wvdnr.gov/gis-mapping/lake-map-links/"
 ---
 
-# Burnsville Lake WMA
+# Burnsville Lake - State Record Muskie Waters
 
-Burnsville Lake Wildlife Management Area covers 12,579 acres of gentle uplands, old farm fields, and young forest along the Little Kanawha River in northern Braxton County. The 968-acre lake is surrounded by huntable land managed cooperatively by WV DNR and the U.S. Army Corps of Engineers.
+Burnsville Lake is where West Virginia's state-record muskie came from. 51 pounds, 55.06 inches. Lucas King pulled it from the tailwater in March 2022 on a 6-inch glide bait cast from shore. That fish put this 968-acre Corps of Engineers lake on the map.
 
-25 minutes from our shop and you are on water or in the woods. The terrain is accessible - gentle ridges, old logging roads, mowed field edges. Good for hunters of any age or ability level.
+But Burnsville was producing long before that record. Crappie anglers have been filling coolers here for decades - 40 to 60 fish evenings around the brush piles. Walleye run quality sizes under a special 15-inch minimum that protects younger fish. Channel and flathead catfish grow fat in the deep channel bends.
 
-## What to Hunt
+25 minutes from our shop. Three boat ramps. A marina with pontoon rentals. 200+ campsites if you want to make a weekend of it. And less fishing pressure than the lake deserves because most folks drive past to get somewhere else.
 
-### White-Tailed Deer (September - January)
+## The State Record Fishery
 
-12,579 acres means room to spread out. Old farm fields grown into early successional forest make prime deer habitat. Bucks bed in the thick young growth during rifle season and move to field edges at dawn and dusk.
+### Muskellunge
 
-**Kim's tip:** Those gentle uplands along the river make for good glassing. Old farm fields bring deer out at dawn and dusk. I like the edges where young forest meets open ground. Bucks bed in the thick stuff during rifle season.
+Burnsville Lake and its tailwater have produced three state records since 2017:
 
-### Wild Turkey (Spring: April, Fall: October)
+- **March 2022:** Lucas King - **51.00 lbs, 55.0625 inches** (Little Kanawha River tailwater). Current state records for both weight and length.
+- **April 2021:** Chase Gibson - 39.64 lbs, 54.0625 inches (Burnsville Lake proper)
+- **2017:** Previous length record at 53.5 inches
 
-Spring gobblers love the bottomlands near the Little Kanawha River. They roost in the big timber along the water and fly down to feed in the old fields. Set up before daybreak and listen - they sound off good in that river valley.
+WV DNR actively stocks muskellunge here as part of the statewide trophy musky program. These fish get big.
 
-**Kim's tip:** Spring gobblers love those bottomlands near the Little Kanawha. Set up near old fields before daybreak. Listen for roosted birds - they sound off good in that river valley. Fall hunting is decent too, but spring is when they really talk.
+**Where to fish:** The tailwater below the dam produced the state record. Rocky shoreline, current breaks, deep pools. In the lake, target deep points, channel edges, rocky shoreline, and standing timber edges where forage concentrates.
 
-### Ruffed Grouse (October - February)
+**Prime season:** Fall (September-November). Muskie feed heavily before winter on larger baitfish. Water temps below 50F push them to deeper vertical structure.
 
-Young forest equals grouse. This WMA has it. Walk the logging roads slow and work the thick edges where regeneration is heavy. Grouse flush hard and fast - keep your safety off and your head on a swivel.
+**Tackle requirements:** Heavy-duty - 7'6" to 8'6" extra-heavy rods, 80-100 lb braid, steel leader (12-18 inches, 60-100 lb). Large net (36+ inch hoop). The 2022 state record was caught on a 6-inch glide bait.
 
-**Kim's tip:** Young forest means grouse. Walk the logging roads slow and work those thick edges. They flush hard and fast. Keep your safety off once you hit the brush. Good numbers up here compared to other areas.
+**Kim's tip:** Catch-and-release is strongly encouraged. These fish take years to reach trophy size. Handle them in the water when possible, support horizontally for photos, revive thoroughly before release. One muskie in a lifetime is special - let her make more.
 
-### Small Game (Rabbit & Squirrel: September - February)
+### Walleye and Saugeye
 
-Rabbits work the field edges and briar patches. Squirrels are in the hardwoods on the ridges. Both are thick. Good for training young dogs, taking kids out, or filling the freezer.
+Burnsville Lake has a **15-inch minimum size limit** for walleye - stricter than statewide regulations. This protects younger fish and builds trophy potential.
 
-**Kim's tip:** Rabbits work the field edges, squirrels in the hardwoods. Both are thick here. Good for training young dogs or taking kids out. Squirrel hunting the ridge tops in October is as good as it gets.
+**Where to fish:** Rocky points and channel edges during day. Shallow flats (6-12 ft) at night. The walleye here follow classic reservoir patterns - deep during heat of day, shallow after dark.
 
-## What to Fish
+**Best techniques:**
+- **Daytime trolling:** Deep-diving crankbaits along channel edges at 1.5-2.0 mph
+- **Night trolling:** Shallow-running cranks over 8-12 ft flats at 1.8-2.2 mph
+- **Jigging:** 3/8 to 3/4 oz with minnows or paddle-tails around rocky points at dusk
 
-Burnsville Lake is 968 acres with 30 miles of shoreline. It does not get the fishing pressure of larger lakes, which means better fishing for those who show up.
+**Kim's tip:** Summer night fishing is when the walleye bite best here. Troll Rapala Floaters or Shallow Shad Raps over the flats after dark. Vary your speed with trolling motor bursts to trigger strikes.
 
-### Crappie (Black & White)
+## The Crappie Fishery
 
-Anglers report 40-60 fish in an evening. Fish the brush piles and standing timber. Spring and fall are best.
+This is why the locals come. Forty to sixty crappie in an evening is not uncommon for anglers who know the brush piles.
 
-**Kim's tip:** 30 miles of shoreline and it does not get hammered. Crappie fishing is real good - forty to sixty fish in an evening is not uncommon. Fish the brush and timber.
+**Where to fish:** Brush piles and standing timber. Use side-imaging sonar to mark structure in 8-20 feet. Spring pushes them shallow (4-8 ft); summer and fall they suspend 12-20 feet around deeper brush.
 
-### Bass (Largemouth, Spotted, Smallmouth)
+**Best techniques:**
+- Vertical jigging with 1/16 to 1/8 oz jigs tipped with minnows
+- Spider rigging with multiple rods at various depths
+- Cast and retrieve small jigs beyond brush pile
 
-Strong population, especially largemouth and spotted bass. Work the shoreline structure and submerged stumps.
+**Jig colors:** White, chartreuse, pink in stained water. Natural colors in clear water.
 
-**Kim's tip:** Bass population is strong, especially largemouth and spotted bass. Work the structure and stumps along the shoreline.
+**Kim's tip:** Fish the brush and timber. Spring and fall concentrate them. Use 10-12 foot light-power crappie rods with 4-8 lb mono or braid with fluoro leader. Mark your waypoints - the fish will be there next trip too.
 
-### Catfish (Channel & Flathead)
+## Bass Fishing
 
-Night fishing with cut bait or live bait. Channel cats are consistent, flatheads are in there too.
+Strong population of largemouth and spotted bass. The lake hosts bass tournaments nearly every weekend during season.
 
-### Trout
+**Where to fish:** Shoreline structure, submerged stumps, standing timber edges. Largemouth relate to wood and shallow cover. Spotted bass prefer deeper structure and rocky points.
 
-Stocked February through May. Fish fresh stockings or let them settle into deeper, cooler water.
+**Seasonal patterns:**
+- **Spring:** Pre-spawn crankbaits on points. Spawn in protected coves 2-6 ft.
+- **Summer:** Early/late topwater. Midday deep-diving cranks along timber edges.
+- **Fall:** Lipless crankbaits, Alabama rigs following shad schools.
 
-**Kim's tip:** They stock trout February through May. Fish the fresh stockings or wait for them to settle into the cooler water.
+**Kim's tip:** The water clarity varies here - downsize to natural colors when it is clear, bump up to chartreuse and white when it is stained. Work the stumps slow with plastics and you will find fish.
 
-### Other Species
+## Catfish
 
-Walleye, muskie, bluegill, and sauger are all present. Walleye and sauger bite at night. Muskie are rare but big. Bluegill are everywhere.
+Channel catfish are consistent. Flathead catfish offer trophy potential - a 58-pounder was documented here.
 
-## Boat Ramps & Facilities
+**Where to fish:** Flats near creek channels (8-20 ft) for channel cats. Deep holes in creek channel (20-30+ ft), logjams, and channel bends for flatheads.
 
-Three boat ramps, all wheelchair-accessible:
+**Best techniques:**
+- **Channel cats:** Carolina rig with chicken liver, cut shad, nightcrawlers. Night fishing best in summer.
+- **Flatheads:** Large live baits (bluegill where legal, big shiners) on slip-sinker rigs in deeper holes. These fish hunt actively after dark.
 
-1. **Riffle Run Day Use Area**: Concrete ramp, parking, restrooms.
-2. **Bulltown Campground**: Ramp with camping access, full facilities.
-3. **Bulltown Day Use Area**: Second ramp, parking, picnic area.
+**Kim's tip:** Night fishing with cut bait is hard to beat for channel cats. For flatheads, you need patience and big baits. June and July nights are prime.
+
+## Tailwater Trout
+
+**Important:** Burnsville Lake itself is NOT stocked with trout. Trout stocking occurs exclusively in the tailwater (Little Kanawha River below the dam).
+
+**Stocking schedule:** Twice monthly February through April. Check the stocking hotline at (304) 558-3399 or wvdnr.gov for specific dates.
+
+**Access:** Below dam via Riffle Run area. Handicap-accessible walkway available.
+
+**Best techniques:** Spinners (Rooster Tails, Panther Martins), small crankbaits, PowerBait on bottom rigs. Fish fresh stockings or let them settle into cooler pockets.
+
+## Boat Ramps and Access
+
+### Riffle Run Day Use Area (Lower Lake / Dam)
+- **Access:** Exit 79, I-79 to Old Route 5 East, 3 miles
+- **Features:** Concrete ramp (recently dredged March 2023), ADA-accessible fishing pier, parking, restrooms
+- **Best for:** Deep water access, walleye, muskie, tailwater trout, catfish
+
+### Bulltown Campground (Upper Lake)
+- **Access:** Exit 67, I-79 to Route 19 North, 13 miles
+- **Features:** Boat ramp with full campground amenities, near marina
+- **Best for:** Bass, crappie, bluegill, catfish, camping anglers
+
+### Bulltown Day Use Area
+- **Access:** Same as campground
+- **Features:** Boat ramp, parking, picnic area, swimming beach
+- **Best for:** Day trips, families, swimming and fishing combo
 
 All three ramps are maintained by the Corps of Engineers and stay open year-round unless ice is an issue.
 
-### Camping
+## Marina and Rentals
 
-**Bulltown Campground**: 133 campsites, full RV hookups, showers, dump station, playgrounds. Marina on-site with supplies and services.
+**Burnsville Docks (Bulltown Marina)**
+- Pontoon rentals: $350/day or $200/half-day (5 hours) plus fuel and tax
+- 10% multi-day discount
+- $25 pet cleaning fee
+- Seasonal slip rentals April 15 - October 1
+- Website: burnsvilledock.com
 
-### Accessibility
+Advance reservations recommended for peak weekends (Memorial Day through Labor Day).
 
-Wheelchair-accessible ramps, paved paths, Class Q hunter accommodations. This WMA is set up for disabled hunters and anglers.
+## Camping
 
-## Access & Regulations
+**Bulltown Campground:** 200+ sites. 134 full hookup, 70 electric only. Showers, dump station, playgrounds, swimming beach nearby. Reservations at Recreation.gov or 1-877-444-6777. Season typically mid-April through November.
 
-- **Licenses**: WV hunting and fishing licenses required. Buy them at the shop before you go.
-- **Hunting Seasons**: Follow WV DNR regulations for all species. Season dates and bag limits apply.
-- **Lake Rules**: Corps of Engineers regulations apply on the water and shoreline. No wake zones near ramps and swimming areas.
-- **Camping**: Only in designated campground. No dispersed camping on WMA lands.
+**Riffle Run Campground:** 60 sites. 54 with full hookups, 6 primitive. First-come, first-served only - no reservations. Call (304) 853-2583. More rustic experience near the dam.
 
-## Best Times to Visit
+## ADA Access
 
-- **Spring (April-May)**: Turkey season, trout stocking, bass spawning, crappie active. Best all-around time.
-- **Fall (October-November)**: Deer rut, grouse season, squirrel season, fall fishing. Second-best window.
-- **Winter (December-January)**: Late deer season, small game, less pressure. Cold but productive.
-- **Summer (June-August)**: Fishing only. Bass, catfish, bluegill. Good for camping trips with kids.
+Three wheelchair-accessible fishing locations:
+1. **Riffle Run (near dam):** Fishing pier next to boat marina. Accessible walkway below dam.
+2. **Falls Mill (upper lake):** Off US Route 19, 10 miles north of Flatwoods.
+3. **Bulltown:** Beach area with accessible restrooms.
+
+## Water Levels and Conditions
+
+The Corps of Engineers manages Burnsville Lake for flood control. Water levels fluctuate seasonally:
+
+- **Winter pool:** 776 feet (reduced surface area)
+- **Summer pool:** 789 feet (maximum recreation access)
+
+Fall drawdown (starting October) exposes shoreline structure and concentrates fish in the main channel. Spring refill coincides with spawning activity.
+
+**Real-time data:**
+- USACE Water Management: lrh-wc.usace.army.mil/wm (Little Kanawha Basin)
+- NOAA Gauge: water.noaa.gov/gauges/brnw2
+- Lake Office: (304) 853-2371
+
+## Regulations Summary
+
+| Species | Daily Limit | Minimum Size | Notes |
+|---------|-------------|--------------|-------|
+| Walleye/Saugeye | 8 | **15 inches** | Burnsville-specific regulation |
+| Muskellunge | 1 | 30 inches | State record fishery - C&R encouraged |
+| Bass (all species) | 6 | None | Aggregate limit |
+| Crappie | 30 | None | Aggregate with panfish |
+| Channel/Flathead Catfish | 30 | None | Night fishing permitted |
+| Trout (tailwater) | 6 | None | Trout stamp required |
+
+**Hand-fishing (noodling)** allowed June 15 - August 31 for catfish. Sunrise to sunset. Limit 4 total.
 
 ## Getting There
 
-From WV Wild Outdoors in Weston:
+From WV Wild Outdoors:
 
-1. Take US-19 South to Flatwoods (about 10 miles).
-2. Get on I-79 North for 2 miles.
-3. Take Exit 67 for Burnsville/Glenville.
-4. Turn left onto WV-5 West.
-5. Follow WV-5 for about 10 miles to Burnsville Lake.
-6. Multiple WMA access points are marked off WV-5 and around the lake perimeter.
+1. Head south on US-19 to Flatwoods (about 10 miles)
+2. Get on I-79
+3. For Riffle Run / Dam: Take Exit 79, Old Route 5 East, 3 miles
+4. For Bulltown / Upper Lake: Take Exit 67, Route 19 North, 13 miles
 
-**Total Drive Time**: 25 minutes from the shop.
-
-Riffle Run and Bulltown areas are well-signed. If you get turned around, stop at the marina or campground office - they will point you right.
+**Total drive time:** 25 minutes from the shop.
 
 ## Kim's Take
 
-"This WMA is managed by WV DNR and the Army Corps of Engineers together. It wraps around Burnsville Lake - 968 acres of water that does not get fished near as hard as it should.
+"This lake does not get fished near as hard as it should. Most folks drive past on I-79 to get somewhere else and they are missing out.
 
-The lake is stocked with trout February through May. Bass, crappie, catfish, even muskie and walleye. Three boat ramps and all three are wheelchair accessible. Bulltown Campground has 133 sites with full hookups if you want to make a weekend of it.
+The muskie fishery is legitimate - state records do not come from average lakes. The 15-inch walleye minimum is building something special. And the crappie fishing has always been good if you fish the brush.
 
-Hunting is good for deer, turkey, grouse, rabbit, raccoon. The terrain is gentle uplands and old farm fields grown into young forest. That is prime habitat. Deer bed in the thick stuff and feed in the fields. Turkeys roost along the Little Kanawha and work the bottomlands.
+Three boat ramps, all wheelchair accessible. Marina with pontoon rentals if you do not have a boat. 200+ campsites at Bulltown. Tailwater trout in the spring.
 
-Grouse numbers are better here than a lot of places. Walk those logging roads slow and work the edges. Rabbits and squirrels are thick - good for kids or dogs.
+The only downside is limited cell coverage. Download your maps, tell someone your plan, and enjoy the fact that nobody can bother you out there.
 
-The whole area is set up for disabled hunters and anglers. Class Q accommodations, wheelchair ramps, paved access. That is something you do not see everywhere.
+Stop by the shop and I will tell you where the crappie have been stacking up. We stock jigs, minnows, crankbaits, and everything you need for a day on the water."
 
-Little Kanawha River runs right through it. You have got 30 miles of shoreline on the lake. That is a lot of water and a lot of woods. You can hunt hard here and not see another soul."
+## Contact Information
 
-## Nearby Services
-
-- **Gas**: 5 miles in Burnsville.
-- **Food**: 8 miles to Burnsville or Glenville for groceries and restaurants.
-- **Lodging**: On-site campground or 15 miles to motels in Glenville/Flatwoods.
-- **Hospital**: 30 miles to Braxton County Memorial Hospital in Gassaway.
-
-## Why Hunt & Fish Burnsville Lake WMA
-
-25 minutes from our door to 12,579 acres of public land and a 968-acre lake. That is close enough to hunt before work or fish after. The terrain is gentle, the access is good, and the facilities are there.
-
-Deer hunting is solid. Turkey hunting is good in spring. Grouse are present. Small game is thick. The lake fishes better than it should because most folks drive past it to get somewhere else.
-
-This is not wilderness. It is managed land with mowed fields, gravel roads, and marked trails. But it is public, it is close, and it works.
-
-Come by the shop. We will get you set up with whatever you need - licenses, maps, ammo, tackle. Then go see it yourself.
+**Burnsville Lake Office:** (304) 853-2371
+**24-Hour Recorded Message:** (304) 853-2398
+**Campground Reservations:** Recreation.gov or 1-877-444-6777
+**Burnsville Docks:** burnsvilledock.com
+**Fish Stocking Hotline:** (304) 558-3399
+**WV DNR District 3:** (304) 924-6211
