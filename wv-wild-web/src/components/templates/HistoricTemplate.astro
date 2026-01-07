@@ -1,11 +1,11 @@
 ---
 /**
  * SPEC-19: Historic Site Template
- * Uses Layout.astro like all other site templates
- * Heritage styling accents on top of standard WVWO design
+ * Renders historic site content sections.
+ * Layout wrapper is provided by parent page ([slug].astro).
+ * Heritage styling accents on top of standard WVWO design.
  */
 
-import Layout from '../../layouts/Layout.astro';
 import type { HistoricTemplateProps } from '@/types/templates/historic';
 
 // Import section components
@@ -42,23 +42,9 @@ const {
   nearbyHistory,
 } = props;
 
-// Page metadata
-const pageTitle = `${name} | WV Wild Outdoors`;
-
-// Word-boundary-aware truncation for meta description
-const MAX_DESC_LENGTH = 155;
-let pageDescription: string;
-if (significance.length <= MAX_DESC_LENGTH) {
-  pageDescription = significance;
-} else {
-  const truncated = significance.slice(0, MAX_DESC_LENGTH);
-  const lastSpace = truncated.lastIndexOf(' ');
-  pageDescription = (lastSpace > 0 ? truncated.slice(0, lastSpace) : truncated) + '...'
-}
 ---
 
-<Layout title={pageTitle} description={pageDescription}>
-  <main>
+<main>
     <!-- Hero Section -->
     <HistoricHero
       name={name}
@@ -100,7 +86,6 @@ if (significance.length <= MAX_DESC_LENGTH) {
       <NearbyHistorySection nearbyHistory={nearbyHistory} />
     )}
   </main>
-</Layout>
 
 <style>
   /* Heritage accent styles - subtle additions to standard WVWO design */
