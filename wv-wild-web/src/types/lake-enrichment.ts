@@ -14,8 +14,8 @@
  * consider unifying these types or using a more flexible base interface.
  */
 
-/** Stat item icon types */
-type StatIcon = 'location' | 'distance' | 'time' | 'calendar' | 'check' | 'info' | 'area' | 'circle' | 'elevation' | 'none' | 'depth' | 'visibility';
+/** Stat item icon types - must match StatIconSchema in adventure.ts */
+type StatIcon = 'location' | 'distance' | 'time' | 'calendar' | 'check' | 'info' | 'area' | 'circle' | 'elevation' | 'none';
 
 /** Difficulty levels */
 type Difficulty = 'easy' | 'moderate' | 'difficult' | 'expert';
