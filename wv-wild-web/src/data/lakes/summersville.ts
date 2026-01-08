@@ -96,7 +96,7 @@ export const summersvilleLakeData: LakeTemplateProps = {
       bestSeason: 'Fall and Winter',
       regulations: 'SLOT LIMIT: All walleye 20-30 inches must be released immediately. Daily limit 8, only 1 over 30 inches.',
       stateRecord: '17 lbs 0.82 oz, 32 inches (Kanawha River, 2003)',
-      consumptionAdvisory: 'Limit to 1 meal per month due to mercury content',
+      consumptionAdvisory: 'Limit to 2 meals per month due to mercury content (Jan 2025 WV advisory)',
     },
     {
       name: 'Smallmouth Bass',
@@ -130,7 +130,7 @@ export const summersvilleLakeData: LakeTemplateProps = {
       name: 'Flathead Catfish',
       bestSeason: 'Summer',
       regulations: 'Daily limit 30. No minimum size.',
-      consumptionAdvisory: 'Limit to 1 meal per month due to mercury content',
+      consumptionAdvisory: 'Limit to 2 meals per month due to mercury content (Jan 2025 WV advisory)',
     },
     {
       name: 'Common Carp',
@@ -394,7 +394,7 @@ export const summersvilleLakeData: LakeTemplateProps = {
     },
     {
       category: 'Walleye Slot Limit (SPECIAL)',
-      details: 'All walleye from 20 to 30 inches long MUST be returned immediately to the water. Daily creel limit: 8 walleye, only ONE may be over 30 inches. Mercury advisory: limit consumption to 1 meal per month.',
+      details: 'All walleye from 20 to 30 inches long MUST be returned immediately to the water. Daily creel limit: 8 walleye, only ONE may be over 30 inches. Mercury advisory: limit consumption to 2 meals per month (Jan 2025 WV advisory).',
       link: 'https://www.wvdnr.gov/fishing/fishing-regulations/',
       important: true,
     },
@@ -410,7 +410,7 @@ export const summersvilleLakeData: LakeTemplateProps = {
     },
     {
       category: 'Catfish Consumption Advisory',
-      details: 'Flathead catfish: Limit to 1 meal per month due to mercury content. Check current WVDNR mercury advisory charts before keeping fish.',
+      details: 'Flathead catfish: Limit to 2 meals per month due to mercury content (Jan 2025 WV advisory). Check current WVDNR mercury advisory charts before keeping fish.',
       important: true,
     },
     {
