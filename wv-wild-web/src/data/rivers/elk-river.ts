@@ -9,13 +9,9 @@
  * @module data/rivers/elk-river
  */
 
-// NOTE: RiverTemplateProps types are out of sync with RiverTemplate.astro expectations.
-// The template expects extended fields (fishing.accessPoints, fishing.techniques as array,
-// outfitter.contact as object, seasonalFlow.level/bestFor/notes, safety.important).
-// Using loose typing until types are updated to match template.
-// TODO SPEC-22: Update RiverTemplateProps to match actual template structure.
+import type { RiverTemplateProps } from '../../types/adventure';
 
-export const elkRiverData = {
+export const elkRiverData: RiverTemplateProps = {
   // ============================================================================
   // HERO SECTION DATA
   // ============================================================================

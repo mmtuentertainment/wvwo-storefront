@@ -11,11 +11,9 @@
  * TODO: Add real-time water level gauge URL
  */
 
-// NOTE: RiverTemplateProps types are out of sync with RiverTemplate.astro expectations.
-// Using loose typing until types are updated to match template.
-// TODO: Update RiverTemplateProps to match actual template structure.
+import type { RiverTemplateProps } from '../../types/adventure';
 
-export const gauleyRiverData = {
+export const gauleyRiverData: RiverTemplateProps = {
   // ============================================================================
   // HERO SECTION DATA
   // ============================================================================
