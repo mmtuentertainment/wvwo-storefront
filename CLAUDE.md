@@ -126,6 +126,31 @@ Content collection entries in `src/content/adventures/` feed the `/adventures/` 
 - Include `gear` array for activity filtering (camping gear, fishing rod, etc.)
 - Link to the dedicated template page via `getAdventureUrl()`
 
+### 🚨 NEW DESTINATION TYPE MIGRATION CHECKLIST (CRITICAL)
+
+When migrating content to dynamic routes OR adding a new destination type, you MUST update **ALL** of these locations to avoid 404 errors:
+
+| Step | File | What to Update |
+|------|------|----------------|
+| 1 | `src/content.config.ts` | Add type to `z.enum(['adventure', 'wma', 'lake', 'river', 'ski', 'campground', 'historic', ...])` |
+| 2 | `src/components/adventures/AdventureCard.tsx` | Add `case '{type}':` to `getAdventureUrl()` switch statement |
+| 3 | `src/pages/near/{type}/[slug].astro` | Create dynamic route if it doesn't exist |
+| 4 | `src/data/{type}/{slug}.ts` | Create data file with correct `{Type}TemplateProps` |
+| 5 | `src/content/adventures/{slug}.md` | Set correct `type:` field in frontmatter |
+| 6 | `src/pages/near/index.astro` | Update slug to `{type}/{slug}` format (e.g., `wma/elk-river`) |
+
+**Current `getAdventureUrl()` supported types:**
+```typescript
+case 'wma':       return `/near/wma/${slug}/`;
+case 'lake':      return `/near/lake/${slug}/`;
+case 'campground': return `/near/campground/${slug}/`;
+case 'river':     return `/near/river/${slug}/`;
+case 'historic':  return `/historic/${slug}/`;
+// default falls back to /adventures/{id}/ (causes 404s!)
+```
+
+**Root cause of 404s:** The Adventures hub (`/adventures/`) uses `AdventureCard.tsx` which reads the content collection's `type` field. If the type isn't in the switch statement, it falls back to `/adventures/{id}/` which doesn't exist.
+
 ### Common Mistakes to Avoid
 
 ❌ **DON'T** create a lake page that only talks about fishing
