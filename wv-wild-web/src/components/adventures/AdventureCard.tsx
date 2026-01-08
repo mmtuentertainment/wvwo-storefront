@@ -15,13 +15,14 @@ interface AdventureCardProps {
 }
 
 /**
- * Generate the correct URL for an adventure based on its type.
- * SPEC-21: Routes to new /near/ dynamic routes instead of legacy /adventures/ paths.
- * SPEC-21-A: Extended to support campground type routes.
+ * Compute the detail-page URL for an adventure.
  *
- * @param id - The adventure ID (content collection filename without extension)
- * @param type - The adventure type (wma, lake, campground)
- * @returns The correct URL path for the adventure detail page
+ * Derives a slug from the provided `id` (handles `-lake`, `-wma`, and `-campground` suffixes)
+ * and maps the `type` to the appropriate route.
+ *
+ * @param id - The adventure identifier (content filename without extension)
+ * @param type - Optional adventure type: `wma`, `lake`, or `campground`
+ * @returns The URL path to the adventure detail page. For migrated items this will be `/near/{type}/{slug}/`; for other items it falls back to `/adventures/{id}/`
  */
 function getAdventureUrl(id: string, type?: string): string {
   // Derive slug from id:

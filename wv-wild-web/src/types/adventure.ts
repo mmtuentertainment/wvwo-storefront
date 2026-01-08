@@ -871,11 +871,10 @@ export interface CampgroundTemplateProps {
 }
 
 /**
- * Type guard to check if an adventure is a Campground.
- * Enables conditional rendering of Campground-specific components.
+ * Determines whether an adventure object represents a campground.
  *
- * @param adventure - CollectionEntry from Astro Content Collections
- * @returns true if adventure.data.type === 'campground'
+ * @param adventure - The value to test; expected to be an object with a `data.type` field.
+ * @returns `true` if `adventure.data.type` is `'campground'`, `false` otherwise.
  */
 export function isCampgroundAdventure(adventure: unknown): boolean {
   return (
