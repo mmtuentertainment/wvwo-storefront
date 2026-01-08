@@ -1,93 +1,65 @@
-# SPEC-23: Summersville Lake Content Migration
+# SPEC-23: Summersville Lake Migration to Dynamic Route
 
-**Status**: Ready for implementation
-**Assigned Agent**: `coder` (simple 2-agent pattern)
-**Dependencies**: SPEC-01 (content collections schema)
-
----
-
-## AgentDB Context Loading
-
-Before starting, load relevant patterns:
-
-```bash
-# Parallel context loading
-npx agentdb@latest reflexion retrieve "content migration" --k 10 --synthesize-context
-npx agentdb@latest reflexion retrieve "frontmatter transformation" --k 10 --synthesize-context
-npx agentdb@latest reflexion retrieve "WVWO" --k 15 --only-successes --min-reward 0.8
-
-```
+**Status**: PARTIALLY COMPLETE - Data file exists, needs cleanup
+**Assigned Agent**: `coder` (simple pattern)
+**Dependencies**: SPEC-13 (LakeTemplate), SPEC-21 (getStaticPaths pattern)
 
 ---
 
-## Task Overview
+## ⚠️ IMPORTANT: Updated Migration Pattern (SPEC-21)
 
-Migrate `/wv-wild-web/src/pages/near/summersville-lake.astro` to content collection format at `/wv-wild-web/src/content/adventures/summersville-lake.md`.
+**This spec has been updated to use the `getStaticPaths()` dynamic route pattern.**
 
-**Pattern**: Simple (code-explorer + coder)
+### Current State
+
+- ✅ Data file EXISTS: `/src/data/lakes/summersville.ts`
+- ✅ Dynamic route EXISTS: `/src/pages/near/lake/[slug].astro`
+- ❌ Static page still exists: `/src/pages/near/summersville-lake.astro` (DELETE)
+- ❌ Index slug needs update: Change to `lake/summersville`
+
+### Remaining Work
+
+1. **Delete static page**: Remove `/src/pages/near/summersville-lake.astro`
+2. **Update index slug**: Change `slug: "summersville-lake"` to `slug: "lake/summersville"`
+3. **Verify build**: Confirm `/near/lake/summersville/` generates correctly
+
+---
+
+## Reference Implementation
+
+See completed examples:
+- `/src/pages/near/lake/[slug].astro` - Dynamic route with getStaticPaths()
+- `/src/data/lakes/summersville.ts` - Data file (already exists!)
+- `/src/data/lakes/burnsville.ts` - Another lake data file example
 
 ---
 
 ## Agent Instructions
 
-### 1. Code Explorer Agent
+### Coder Agent
 
-**Read source file completely**:
-
-```bash
-Read ./wv-wild-web\src\pages\near\summersville-lake.astro
-
-```
-
-**Extract placeSchema data**:
-
-- `name`, `type`, `coordinates`, `address`, `description`
-- `amenities[]`, `activities[]`, `seasons[]`
-- `safety`, `regulations`, `website`, `phoneNumber`
-
-**Report findings** to coder agent via coordination hooks:
+**1. Delete static page**:
 
 ```bash
-npx claude-flow@alpha hooks post-edit --file "summersville-lake.astro" --memory-key "swarm/explorer/summersville-schema"
-
+rm ./wv-wild-web/src/pages/near/summersville-lake.astro
 ```
 
----
+**2. Update index.astro slug**:
 
-### 2. Coder Agent
+Change in `/src/pages/near/index.astro`:
+```javascript
+// FROM:
+{ name: "Summersville Lake", slug: "summersville-lake", ... }
 
-**Transform to .md file**:
-
-**Frontmatter (YAML)**:
-
-- All placeSchema fields from explorer's report
-- Schema-compliant structure (see SPEC-01)
-- Add `slug: "summersville-lake"`
-- Add `featured: false` (default)
-
-**Body content (Markdown)**:
-
-- Kim's voice: authentic, faith-forward, humble
-- Structure:
-  1. Opening hook (what makes this special)
-  2. Key features/activities (bullets)
-  3. Kim's personal take (handwritten energy)
-  4. Practical details (hours, fees, regulations)
-- NO marketing speak ("unlock", "experience", "next-level")
-- YES rural WV authentic ("holler", "Grand love ya")
-
-**Output path**:
-
-```
-./wv-wild-web\src\content\adventures\summersville-lake.md
-
+// TO:
+{ name: "Summersville Lake", slug: "lake/summersville", ... }
 ```
 
-**Coordinate via hooks**:
+**3. Verify build**:
 
 ```bash
-npx claude-flow@alpha hooks post-task --task-id "spec-23-migration"
-
+cd wv-wild-web && npm run build
+# Should see /near/lake/summersville/ in output
 ```
 
 ---
@@ -96,33 +68,25 @@ npx claude-flow@alpha hooks post-task --task-id "spec-23-migration"
 
 Before marking complete:
 
-- [ ] Source file read completely (no truncation)
-- [ ] All placeSchema fields extracted
-- [ ] Frontmatter validates against schema (SPEC-01)
-- [ ] Body content uses Kim's voice
-- [ ] NO SaaS marketing language
-- [ ] File saved to correct path
-- [ ] Coordination hooks executed
+- [ ] Data file exists at `/src/data/lakes/summersville.ts` ✅ (already done)
+- [ ] Static page `summersville-lake.astro` deleted
+- [ ] Index.astro slug updated to `lake/summersville`
+- [ ] Build passes with `/near/lake/summersville/` generated
+- [ ] Page renders correctly with LakeTemplate
 
 ---
 
 ## Success Criteria
 
-1. Valid `.md` file at `/content/adventures/summersville-lake.md`
-2. Frontmatter passes schema validation
-3. Body content maintains WVWO voice
-4. All data from source preserved
-5. Pattern logged to AgentDB for future migrations
+1. `/near/lake/summersville/` route works via dynamic routing
+2. LakeTemplate renders all content correctly
+3. Old static page removed
+4. Build generates correct number of pages
 
 ---
 
 ## Store Pattern (After Completion)
 
 ```bash
-# If successful
-npx agentdb@latest reflexion store "wvwo-migration" "spec-23-summersville-lake" 1.0 true "2-agent pattern: explorer extracts schema, coder transforms to .md with Kim's voice"
-
-# If failed
-npx agentdb@latest reflexion store "wvwo-migration" "spec-23-summersville-lake" 0.0 false "<what_went_wrong>"
-
+claude-flow memory store "spec-23-summersville-complete" "Summersville Lake migrated to getStaticPaths() pattern. Data file was already at /src/data/lakes/summersville.ts. Deleted static page, updated index slug to lake/summersville." --namespace wvwo-successes --reasoningbank
 ```

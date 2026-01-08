@@ -1,0 +1,199 @@
+---
+/**
+ * Lake Page - Dynamic Route
+ * SPEC-21: Dynamic route for lake fishing content
+ *
+ * Renders LakeTemplate with data from /src/data/lakes/{slug}.ts
+ * Uses Vite's import.meta.glob() for auto-discovery of data files.
+ *
+ * To add a new lake: just add the .ts data file in /src/data/lakes/
+ */
+
+import type { GetStaticPaths } from 'astro';
+import Layout from '../../../layouts/Layout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import EmailCapture from '../../../components/EmailCapture.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import SchemaBreadcrumb from '../../../components/seo/SchemaBreadcrumb.astro';
+import LakeTemplate from '../../../components/templates/LakeTemplate.astro';
+import type { LakeTemplateProps } from '../../../types/adventure';
+
+// Type for data modules
+type LakeDataModule = {
+  [key: string]: LakeTemplateProps;
+};
+
+interface Props {
+  lakeData: LakeTemplateProps;
+  slug: string;
+  hasRelatedWMA: boolean;
+}
+
+// ============================================================================
+// STATIC PATH GENERATION WITH AUTO-DISCOVERY
+// ============================================================================
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  // AUTO-DISCOVER: Vite glob imports all .ts files in /src/data/lakes/
+  const dataModules = import.meta.glob<LakeDataModule>(
+    '../../../data/lakes/*.ts',
+    { eager: true }
+  );
+
+  // Also discover WMA data to check for related WMAs
+  const wmaModules = import.meta.glob(
+    '../../../data/wma/*.ts',
+    { eager: true }
+  );
+  const wmaSlugSet = new Set(
+    Object.keys(wmaModules).map(path => {
+      const filename = path.split('/').pop() ?? '';
+      return filename.replace('.ts', '');
+    }).filter(slug => !slug.startsWith('_'))
+  );
+
+  const paths = [];
+
+  for (const [path, module] of Object.entries(dataModules)) {
+    const filename = path.split('/').pop() ?? '';
+    // Skip example/template files
+    if (filename.startsWith('_')) continue;
+
+    const slug = filename.replace('.ts', '');
+
+    // Find the exported data (look for *LakeData or *Data export)
+    const exportedData = Object.values(module).find(
+      (value): value is LakeTemplateProps =>
+        typeof value === 'object' && value !== null && 'name' in value && 'fishingSpots' in value
+    );
+
+    if (exportedData) {
+      // Build-time validation: log warnings for missing required fields
+      const requiredFields = ['name', 'image', 'imageAlt', 'tagline', 'description', 'stats', 'fishingSpots', 'marinas', 'activities', 'seasonalGuide', 'regulations', 'gearList', 'relatedShop'] as const;
+      const missingFields = requiredFields.filter(field => !(field in exportedData) || exportedData[field] === undefined);
+      if (missingFields.length > 0) {
+        console.warn(`[Lake ${slug}] Missing required fields: ${missingFields.join(', ')}`);
+      }
+
+      paths.push({
+        params: { slug },
+        props: {
+          lakeData: exportedData,
+          slug,
+          hasRelatedWMA: wmaSlugSet.has(slug),
+        },
+      });
+    } else {
+      console.warn(`[Lake ${slug}] No valid LakeTemplateProps export found in ${path}`);
+    }
+  }
+
+  return paths;
+};
+
+// ============================================================================
+// PAGE PROPS
+// ============================================================================
+
+const { lakeData, slug, hasRelatedWMA } = Astro.props;
+
+// Derive amenity features from lake data (conditional based on what's available)
+const amenityFeatures: Array<{ "@type": string; name: string; value: boolean }> = [];
+
+// Always true for lake pages (required content)
+if (lakeData.fishingSpots?.length > 0) {
+  amenityFeatures.push({ "@type": "LocationFeatureSpecification", name: "Fishing", value: true });
+}
+if (lakeData.marinas?.length > 0) {
+  amenityFeatures.push({ "@type": "LocationFeatureSpecification", name: "Boat Ramps", value: true });
+}
+// Check activities array for specific activity types
+const activityNames = lakeData.activities?.map(a => a.name.toLowerCase()) ?? [];
+if (activityNames.some(name => name.includes('camping'))) {
+  amenityFeatures.push({ "@type": "LocationFeatureSpecification", name: "Camping", value: true });
+}
+if (activityNames.some(name => name.includes('swimming'))) {
+  amenityFeatures.push({ "@type": "LocationFeatureSpecification", name: "Swimming", value: true });
+}
+if (activityNames.some(name => name.includes('kayak') || name.includes('canoe') || name.includes('paddl'))) {
+  amenityFeatures.push({ "@type": "LocationFeatureSpecification", name: "Paddling", value: true });
+}
+
+// Place schema for geographic SEO
+const placeSchema = {
+  "@context": "https://schema.org",
+  "@type": "Place",
+  "name": lakeData.name,
+  "description": lakeData.description,
+  "geo": lakeData.coordinates ? {
+    "@type": "GeoCoordinates",
+    "latitude": lakeData.coordinates.lat,
+    "longitude": lakeData.coordinates.lng,
+  } : undefined,
+  "address": {
+    "@type": "PostalAddress",
+    "addressRegion": "WV",
+    "addressCountry": "US",
+  },
+  "amenityFeature": amenityFeatures.length > 0 ? amenityFeatures : undefined,
+};
+
+// Breadcrumb data
+const breadcrumbItems = [
+  { name: 'Home', url: '/' },
+  { name: 'Near Us', url: '/near/' },
+  { name: lakeData.name, url: `/near/lake/${slug}/` },
+];
+
+// Meta
+const pageTitle = `${lakeData.name} Fishing Guide | WV Wild Outdoors`;
+const metaDescription = lakeData.description.slice(0, 155) + (lakeData.description.length > 155 ? '...' : '');
+---
+
+<Layout
+  title={pageTitle}
+  description={metaDescription}
+  additionalSchemas={[placeSchema]}
+>
+  <Header />
+  <Breadcrumb items={breadcrumbItems} />
+  <SchemaBreadcrumb items={breadcrumbItems} />
+
+  <LakeTemplate {...lakeData} />
+
+  {/* Cross-link to WMA hunting page if exists */}
+  {hasRelatedWMA && (
+    <section class="py-8 bg-white border-t border-brand-brown/15">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto text-center">
+          <p class="text-brand-brown/60 mb-3 font-body">Looking for hunting information?</p>
+          <a
+            href={`/near/wma/${slug}/`}
+            class="inline-flex items-center gap-2 text-sign-green font-bold hover:underline font-body"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+            </svg>
+            {lakeData.name} WMA Hunting Guide
+          </a>
+        </div>
+      </div>
+    </section>
+  )}
+
+  {/* Newsletter signup */}
+  <section class="py-12 md:py-16 bg-brand-cream">
+    <div class="container mx-auto px-4">
+      <div class="max-w-xl mx-auto">
+        <EmailCapture
+          variant="card"
+          heading="Get Local Fishing Updates"
+          subheading="Stocking reports, what's biting where, and tackle restocks delivered to your inbox."
+        />
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>

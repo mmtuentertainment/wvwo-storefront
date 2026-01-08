@@ -1,128 +1,112 @@
-# SPEC-26: Monongahela National Forest Content Migration
+# SPEC-26: Monongahela National Forest Migration to Dynamic Route
 
-**Status**: Ready for implementation
-**Assigned Agent**: `coder` (simple 2-agent pattern)
-**Dependencies**: SPEC-01 (content collections schema)
+**Status**: Ready for implementation - NEEDS NEW TEMPLATE
+**Assigned Agent**: `coder` + `architect` (new template required)
+**Dependencies**: SPEC-21 (getStaticPaths pattern)
 
 ---
 
-## AgentDB Context Loading
+## ⚠️ IMPORTANT: Updated Migration Pattern (SPEC-21)
+
+**This spec has been updated to use the `getStaticPaths()` dynamic route pattern.**
+
+The original approach (migrating to `.md` content collections) is **DEPRECATED**.
+
+### Special Case: National Forest Template
+
+**No NationalForestTemplate exists yet.** This SPEC requires:
+
+1. **Create new template**: `/src/components/templates/NationalForestTemplate.astro`
+2. **Create type definitions**: `/src/types/national-forest.ts` with `NationalForestTemplateProps`
+3. **Create dynamic route**: `/src/pages/near/forest/[slug].astro`
+4. **Create data file**: `/src/data/forests/monongahela.ts`
+5. **Delete static page**: Remove `/src/pages/near/monongahela.astro`
+6. **Update index slug**: Change to `slug: "forest/monongahela"`
+
+### Reference Implementation
+
+See completed examples for pattern:
+- `/src/pages/near/wma/[slug].astro` - Dynamic route structure
+- `/src/components/templates/WMATemplate.astro` - Template structure
+- `/src/types/wma.ts` - Type definitions with Zod schemas
+
+---
+
+## ReasoningBank Context Loading
 
 Before starting, load relevant patterns:
 
 ```bash
-# Parallel context loading
-npx agentdb@latest reflexion retrieve "content migration" --k 10 --synthesize-context
-npx agentdb@latest reflexion retrieve "frontmatter transformation" --k 10 --synthesize-context
-npx agentdb@latest reflexion retrieve "WVWO" --k 15 --only-successes --min-reward 0.8
+# Load SPEC-21 dynamic route pattern
+claude-flow memory query "template-dynamic-route-pattern" --namespace wvwo-patterns --reasoningbank
 
+# Load template creation patterns
+claude-flow memory query "template creation" --namespace wvwo-successes --reasoningbank
 ```
 
 ---
 
 ## Task Overview
 
-Migrate `/wv-wild-web/src/pages/near/monongahela.astro` to content collection format at `/wv-wild-web/src/content/adventures/monongahela-national-forest.md`.
+1. **Create NationalForestTemplate** following existing template patterns
+2. Migrate `/wv-wild-web/src/pages/near/monongahela.astro` to dynamic route
 
-**Pattern**: Simple (code-explorer + coder)
-
----
-
-## Agent Instructions
-
-### 1. Code Explorer Agent
-
-**Read source file completely**:
-
-```bash
-Read ./wv-wild-web\src\pages\near\monongahela.astro
-
-```
-
-**Extract placeSchema data**:
-
-- `name`, `type`, `coordinates`, `address`, `description`
-- `amenities[]`, `activities[]`, `seasons[]`
-- `safety`, `regulations`, `website`, `phoneNumber`
-
-**Report findings** to coder agent via coordination hooks:
-
-```bash
-npx claude-flow@alpha hooks post-edit --file "monongahela.astro" --memory-key "swarm/explorer/monongahela-schema"
-
-```
+**Pattern**: New template + data file + dynamic route
 
 ---
 
-### 2. Coder Agent
+## NationalForestTemplateProps (Suggested Structure)
 
-**Transform to .md file**:
+```typescript
+interface NationalForestTemplateProps {
+  name: string;
+  image: string;
+  imageAlt: string;
+  tagline: string;
+  description: string;
+  stats: QuickStat[];
 
-**Frontmatter (YAML)**:
+  // Forest-specific
+  totalAcres: number;
+  rangerDistricts: RangerDistrict[];
+  wildernesses: Wilderness[];
 
-- All placeSchema fields from explorer's report
-- Schema-compliant structure (see SPEC-01)
-- Add `slug: "monongahela-national-forest"`
-- Add `featured: false` (default)
+  // Activities
+  huntingInfo: HuntingInfo;
+  fishingInfo: FishingInfo;
+  hikingTrails: Trail[];
+  campgrounds: Campground[];
 
-**Body content (Markdown)**:
+  // Seasonal
+  seasonalGuide: SeasonalGuide[];
 
-- Kim's voice: authentic, faith-forward, humble
-- Structure:
-  1. Opening hook (what makes this special)
-  2. Key features/activities (bullets)
-  3. Kim's personal take (handwritten energy)
-  4. Practical details (hours, fees, regulations)
-- NO marketing speak ("unlock", "experience", "next-level")
-- YES rural WV authentic ("holler", "Grand love ya")
+  // Access
+  accessPoints: AccessPoint[];
+  regulations: Regulation[];
 
-**Output path**:
-
-```
-./wv-wild-web\src\content\adventures\monongahela-national-forest.md
-
-```
-
-**Coordinate via hooks**:
-
-```bash
-npx claude-flow@alpha hooks post-task --task-id "spec-26-migration"
-
+  // Standard
+  gearList: GearItem[];
+  relatedShop: ShopCategory[];
+  coordinates: { lat: number; lng: number };
+}
 ```
 
 ---
 
 ## Validation Checklist
 
-Before marking complete:
-
-- [ ] Source file read completely (no truncation)
-- [ ] All placeSchema fields extracted
-- [ ] Frontmatter validates against schema (SPEC-01)
-- [ ] Body content uses Kim's voice
-- [ ] NO SaaS marketing language
-- [ ] File saved to correct path
-- [ ] Coordination hooks executed
-
----
-
-## Success Criteria
-
-1. Valid `.md` file at `/content/adventures/monongahela-national-forest.md`
-2. Frontmatter passes schema validation
-3. Body content maintains WVWO voice
-4. All data from source preserved
-5. Pattern logged to AgentDB for future migrations
+- [ ] NationalForestTemplate.astro created
+- [ ] national-forest.ts types created with Zod schemas
+- [ ] /src/pages/near/forest/[slug].astro dynamic route created
+- [ ] /src/data/forests/monongahela.ts data file created
+- [ ] Index.astro slug updated to `forest/monongahela`
+- [ ] Static page `monongahela.astro` deleted
+- [ ] Build passes with `/near/forest/monongahela/` generated
 
 ---
 
 ## Store Pattern (After Completion)
 
 ```bash
-# If successful
-npx agentdb@latest reflexion store "wvwo-migration" "spec-26-monongahela" 1.0 true "2-agent pattern: explorer extracts schema, coder transforms to .md with Kim's voice"
-
-# If failed
-npx agentdb@latest reflexion store "wvwo-migration" "spec-26-monongahela" 0.0 false "<what_went_wrong>"
-
+claude-flow memory store "spec-26-monongahela-complete" "Monongahela National Forest migrated to getStaticPaths() pattern. Created new NationalForestTemplate with ranger districts, wildernesses, hunting/fishing/hiking info. Data file at /src/data/forests/monongahela.ts." --namespace wvwo-successes --reasoningbank
 ```

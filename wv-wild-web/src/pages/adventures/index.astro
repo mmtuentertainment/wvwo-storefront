@@ -52,6 +52,7 @@ const adventuresRaw = await getCollection('adventures');
 // Transform to match Adventure type expected by filter components
 // Note: We serialize only the data we need to avoid passing render functions
 // Removed: coordinates (unused), slug (duplicates id)
+// SPEC-21: Added type field for dynamic route URL generation
 const adventures = adventuresRaw.map((adventure) => ({
   id: adventure.id,
   data: {
@@ -64,6 +65,7 @@ const adventures = adventuresRaw.map((adventure) => ({
     elevation_gain: adventure.data.elevation_gain,
     suitability: adventure.data.suitability,
     images: adventure.data.images,
+    type: adventure.data.type,  // SPEC-21: Route type for URL generation
   },
 }));
 

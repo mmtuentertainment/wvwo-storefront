@@ -15,6 +15,32 @@ interface AdventureCardProps {
 }
 
 /**
+ * Generate the correct URL for an adventure based on its type.
+ * SPEC-21: Routes to new /near/ dynamic routes instead of legacy /adventures/ paths.
+ *
+ * @param id - The adventure ID (content collection filename without extension)
+ * @param type - The adventure type (wma, lake)
+ * @returns The correct URL path for the adventure detail page
+ */
+function getAdventureUrl(id: string, type?: string): string {
+  // Derive slug from id: "burnsville-lake-wma" -> "burnsville", "summersville-lake" -> "summersville"
+  // For compound names like "holly-river", keep as-is
+  const slug = id.includes('-lake') || id.includes('-wma')
+    ? id.split('-')[0]
+    : id;
+
+  switch (type) {
+    case 'wma':
+      return `/near/wma/${slug}/`;
+    case 'lake':
+      return `/near/lake/${slug}/`;
+    default:
+      // Fallback to legacy /adventures/ path for unmigrated content
+      return `/adventures/${id}/`;
+  }
+}
+
+/**
  * Render a clickable preview card for an adventure that links to the adventure's detail page.
  * Wrapped in React.memo to prevent unnecessary re-renders when filter state changes
  * but this card's adventure data hasn't changed.
@@ -25,18 +51,20 @@ interface AdventureCardProps {
 export const AdventureCard = React.memo(function AdventureCard({
   adventure,
 }: AdventureCardProps) {
-  const { title, description, season, difficulty, location, elevation_gain, suitability, drive_time } =
+  const { title, description, season, difficulty, location, elevation_gain, suitability, drive_time, type } =
     adventure.data;
+
+  const adventureUrl = getAdventureUrl(adventure.id, type);
 
   return (
     <a
-      href={`/adventures/${adventure.id}/`}
+      href={adventureUrl}
       aria-label={`View ${title} adventure at ${location}`}
       className="group block bg-white rounded-sm border-2 border-stone-200 border-l-4 border-l-sign-green overflow-hidden hover:border-l-brand-orange motion-safe:transition-all motion-safe:duration-300 motion-reduce:transition-none focus:outline-none focus:ring-2 focus:ring-sign-green"
     >
       {/* Image */}
       {adventure.data.images?.[0] && (
-        <div className="aspect-[4/3] overflow-hidden bg-brand-mud/10">
+        <div className="aspect-4/3 overflow-hidden bg-brand-mud/10">
           <img
             src={adventure.data.images[0].src}
             alt={adventure.data.images[0].alt}

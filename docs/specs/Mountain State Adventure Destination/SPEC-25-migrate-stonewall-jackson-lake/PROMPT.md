@@ -1,30 +1,38 @@
-# SPEC-25: Stonewall Jackson Lake Content Migration
+# SPEC-25: Stonewall Jackson Lake Migration to Dynamic Route
 
 **Status**: Ready for implementation
 **Assigned Agent**: `coder` (simple 2-agent pattern)
-**Dependencies**: SPEC-01 (content collections schema)
+**Dependencies**: SPEC-13 (LakeTemplate), SPEC-21 (getStaticPaths pattern)
 
 ---
 
-## AgentDB Context Loading
+## ⚠️ IMPORTANT: Updated Migration Pattern (SPEC-21)
 
-Before starting, load relevant patterns:
+**This spec has been updated to use the `getStaticPaths()` dynamic route pattern.**
 
-```bash
-# Parallel context loading
-npx agentdb@latest reflexion retrieve "content migration" --k 10 --synthesize-context
-npx agentdb@latest reflexion retrieve "frontmatter transformation" --k 10 --synthesize-context
-npx agentdb@latest reflexion retrieve "WVWO" --k 15 --only-successes --min-reward 0.8
+The original approach (migrating to `.md` content collections) is **DEPRECATED**.
 
-```
+### New Pattern (Required)
+
+1. **Create data file**: `/src/data/lakes/stonewall-jackson.ts` exporting `LakeTemplateProps`
+2. **Dynamic route auto-discovers**: `/src/pages/near/lake/[slug].astro` uses `import.meta.glob()`
+3. **Delete static page**: Remove `/src/pages/near/stonewall-jackson-lake.astro` after migration
+4. **Update index slug**: Change `slug: "stonewall-jackson-lake"` to `slug: "lake/stonewall-jackson"` in index.astro
+
+### Reference Implementation
+
+See completed examples:
+- `/src/pages/near/lake/[slug].astro` - Dynamic route with getStaticPaths()
+- `/src/data/lakes/burnsville.ts` - Data file structure (LakeTemplateProps)
+- `/src/data/lakes/summersville.ts` - Another lake data file example
 
 ---
 
 ## Task Overview
 
-Migrate `/wv-wild-web/src/pages/near/stonewall-jackson-lake.astro` to content collection format at `/wv-wild-web/src/content/adventures/stonewall-jackson-lake.md`.
+Migrate `/wv-wild-web/src/pages/near/stonewall-jackson-lake.astro` to use the `getStaticPaths()` dynamic route pattern.
 
-**Pattern**: Simple (code-explorer + coder)
+**Pattern**: Data file + dynamic route (not content collection)
 
 ---
 
@@ -35,94 +43,52 @@ Migrate `/wv-wild-web/src/pages/near/stonewall-jackson-lake.astro` to content co
 **Read source file completely**:
 
 ```bash
-Read ./wv-wild-web\src\pages\near\stonewall-jackson-lake.astro
-
+Read ./wv-wild-web/src/pages/near/stonewall-jackson-lake.astro
 ```
 
-**Extract placeSchema data**:
-
-- `name`, `type`, `coordinates`, `address`, `description`
-- `amenities[]`, `activities[]`, `seasons[]`
-- `safety`, `regulations`, `website`, `phoneNumber`
-
-**Report findings** to coder agent via coordination hooks:
-
-```bash
-npx claude-flow@alpha hooks post-edit --file "stonewall-jackson-lake.astro" --memory-key "swarm/explorer/stonewall-schema"
-
-```
+**Extract all data for LakeTemplateProps** (see SPEC-24 for full list).
 
 ---
 
 ### 2. Coder Agent
 
-**Transform to .md file**:
+**Create data file at `/src/data/lakes/stonewall-jackson.ts`**:
 
-**Frontmatter (YAML)**:
+```typescript
+import type { LakeTemplateProps } from '../../types/adventure';
 
-- All placeSchema fields from explorer's report
-- Schema-compliant structure (see SPEC-01)
-- Add `slug: "stonewall-jackson-lake"`
-- Add `featured: false` (default)
-
-**Body content (Markdown)**:
-
-- Kim's voice: authentic, faith-forward, humble
-- Structure:
-  1. Opening hook (what makes this special)
-  2. Key features/activities (bullets)
-  3. Kim's personal take (handwritten energy)
-  4. Practical details (hours, fees, regulations)
-- NO marketing speak ("unlock", "experience", "next-level")
-- YES rural WV authentic ("holler", "Grand love ya")
-
-**Output path**:
-
-```
-./wv-wild-web\src\content\adventures\stonewall-jackson-lake.md
-
+export const stonewallJacksonLakeData: LakeTemplateProps = {
+  name: 'Stonewall Jackson Lake',
+  // ... all extracted data
+};
 ```
 
-**Coordinate via hooks**:
+**Update index.astro slug**:
 
-```bash
-npx claude-flow@alpha hooks post-task --task-id "spec-25-migration"
+```javascript
+// FROM:
+{ name: "Stonewall Jackson Lake", slug: "stonewall-jackson-lake", ... }
 
+// TO:
+{ name: "Stonewall Jackson Lake", slug: "lake/stonewall-jackson", ... }
 ```
+
+**Delete static page and verify build**.
 
 ---
 
 ## Validation Checklist
 
-Before marking complete:
-
-- [ ] Source file read completely (no truncation)
-- [ ] All placeSchema fields extracted
-- [ ] Frontmatter validates against schema (SPEC-01)
-- [ ] Body content uses Kim's voice
-- [ ] NO SaaS marketing language
-- [ ] File saved to correct path
-- [ ] Coordination hooks executed
-
----
-
-## Success Criteria
-
-1. Valid `.md` file at `/content/adventures/stonewall-jackson-lake.md`
-2. Frontmatter passes schema validation
-3. Body content maintains WVWO voice
-4. All data from source preserved
-5. Pattern logged to AgentDB for future migrations
+- [ ] Data file created at `/src/data/lakes/stonewall-jackson.ts`
+- [ ] Index.astro slug updated to `lake/stonewall-jackson`
+- [ ] Static page deleted
+- [ ] Build passes with `/near/lake/stonewall-jackson/` generated
+- [ ] Page renders correctly with LakeTemplate
 
 ---
 
 ## Store Pattern (After Completion)
 
 ```bash
-# If successful
-npx agentdb@latest reflexion store "wvwo-migration" "spec-25-stonewall-jackson" 1.0 true "2-agent pattern: explorer extracts schema, coder transforms to .md with Kim's voice"
-
-# If failed
-npx agentdb@latest reflexion store "wvwo-migration" "spec-25-stonewall-jackson" 0.0 false "<what_went_wrong>"
-
+claude-flow memory store "spec-25-stonewall-complete" "Stonewall Jackson Lake migrated to getStaticPaths() pattern. Data file at /src/data/lakes/stonewall-jackson.ts." --namespace wvwo-successes --reasoningbank
 ```
