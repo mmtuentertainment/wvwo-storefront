@@ -34,7 +34,7 @@ species:
     notes: "Can run 40+ inches, apex predators requiring heavy tackle"
   - name: "Walleye"
     season: "Year-round"
-    notes: "Special regulations: all fish 20-30 inches must be returned immediately. Mercury advisory: limit to 2 meals per month (Jan 2025 WV advisory)."
+    notes: "Special regulations: all fish 20-30 inches must be returned immediately. Mercury advisory: limit to 1 meal per month (WV DHHR 2025 advisory)."
     regulationUrl: "https://www.wvdnr.gov/fishing/"
   - name: "Largemouth Bass"
     season: "Year-round"
@@ -59,11 +59,13 @@ fishingWaters:
       - "Bluegill"
       - "Catfish"
     access: "Multiple boat ramps throughout the lake, Battle Run Beach for swimming"
-    notes: "2,790 acres with exceptional water clarity. Visibility 20-45 feet. Premier freshwater diving destination."
+    notes: "2,790 acres with exceptional water clarity. Visibility typically 20-40 feet; conditions vary by rainfall, temperature, and location. Check current conditions with Sarge's Dive Shop before diving."
 facilities:
   - type: "Campground"
     count: 117
-    description: "Battle Run Campground on peninsula: 110 electric hookup sites plus 7 walk-in tent sites. PETS PROHIBITED."
+    description: "Battle Run Campground on peninsula: 110 electric hookup sites plus 7 walk-in tent sites."
+    restrictions:
+      - "PETS PROHIBITED"
   - type: "Marina"
     description: "Summersville Lake Marina offers kayak and pontoon rentals (473 slips)"
   - type: "Dive Shop"
