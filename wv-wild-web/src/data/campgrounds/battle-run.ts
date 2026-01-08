@@ -46,7 +46,6 @@ IMPORTANT: Pets are strictly prohibited at Battle Run - no dogs, no exceptions. 
   recreationGovId: '233388',
   county: 'Nicholas County',
   nearbyLake: 'summersville',
-  nearbyWMA: 'summersville',
   quickHighlights: [
     '1,000-ft Swimming Beach',
     '30 Amp Electric Sites',
@@ -159,13 +158,11 @@ IMPORTANT: Pets are strictly prohibited at Battle Run - no dogs, no exceptions. 
       name: 'New River Gorge National Park',
       distance: 'Approximately 20 miles',
       description: 'America\'s newest national park. World-class rock climbing, whitewater rafting, hiking, and scenic beauty.',
-      link: '/near/national-park/new-river-gorge/',
     },
     {
       name: 'Gauley River',
       distance: 'Accessible via Salmon Run',
       description: 'Class IV-V whitewater during fall Gauley Season (September-October). Guided trips required for most sections.',
-      link: '/near/river/gauley/',
     },
     {
       name: 'Rock Climbing',
@@ -330,5 +327,4 @@ IMPORTANT: Pets are strictly prohibited at Battle Run - no dogs, no exceptions. 
   directions: 'From Summersville on US-19: Take WV-129 West (Summersville Lake Road) for approximately 3 miles. Campground entrance on right. Follow signs to Battle Run Campground.',
   cellService: 'Limited cellular coverage. AT&T and Verizon have moderate signal in some areas. Download offline maps before arrival.',
   maxRvLength: '50 feet maximum',
-  dayUseFee: '$5/vehicle',
 };

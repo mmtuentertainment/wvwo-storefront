@@ -11,7 +11,7 @@ coordinates:
   lat: 38.21912
   lng: -80.89541
 elevation_gain: 200
-drive_time: "30 min"
+drive_time: "55 min"
 suitability:
   - kid-friendly
   - wheelchair-accessible
