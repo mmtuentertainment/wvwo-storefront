@@ -49,6 +49,97 @@
 
 This project uses SPARC (Specification, Pseudocode, Architecture, Refinement, Completion) methodology with Claude-Flow orchestration for systematic Test-Driven Development.
 
+## 🏔️ Adventure Hub Architecture (CRITICAL)
+
+**THIS IS NOT JUST A HUNTING/FISHING SITE.** WVWO is pivoting to a comprehensive **Adventure Hub Database** - a network of interconnected outdoor destinations across West Virginia. Think of it as a partnership database where each destination type has dedicated pages but cross-links to related content.
+
+### Destination Types (Each Gets Dedicated Pages)
+
+| Type | Template | Route | Data Location | Primary Focus |
+|------|----------|-------|---------------|---------------|
+| **WMA** | WMATemplate | `/near/wma/[slug]/` | `src/data/wma/` | Hunting (deer, turkey, grouse, bear) |
+| **Lake** | LakeTemplate | `/near/lake/[slug]/` | `src/data/lakes/` | Fishing (bass, walleye, trout, catfish) |
+| **Campground** | CampgroundTemplate | `/near/campground/[slug]/` | `src/data/campgrounds/` | Camping (RV, tent, facilities) |
+| **State Park** | StateParkTemplate | `/near/state-park/[slug]/` | `src/data/state-parks/` | Recreation (trails, nature, programs) |
+| **River** | RiverTemplate | `/near/river/[slug]/` | `src/data/rivers/` | Paddling (kayak, canoe, whitewater, lazy) |
+| **Ski Resort** | SkiTemplate | `/near/ski/[slug]/` | `src/data/ski/` | Winter sports (skiing, snowboarding) |
+| **Historic Site** | HistoricTemplate | `/near/historic/[slug]/` | `src/data/historic/` | Heritage (Civil War, coal history) |
+| **Backcountry** | BackcountryTemplate | `/backcountry/[slug]/` | `src/data/backcountry/` | Wilderness (hiking, backpacking) |
+| **Cave** | CaveTemplate | `/near/cave/[slug]/` | `src/data/caves/` | Spelunking (tours, geology) |
+| **Trail** | TrailTemplate | `/near/trail/[slug]/` | `src/data/trails/` | Hiking/Biking (day hikes, MTB) |
+| **Rock Climbing** | ClimbingTemplate | `/near/climbing/[slug]/` | `src/data/climbing/` | Climbing (sport, trad, bouldering) |
+| **National Park** | NationalParkTemplate | `/near/national-park/[slug]/` | `src/data/national-parks/` | NPS sites (New River Gorge, etc.) |
+| **Adventure Resort** | AdventureResortTemplate | `/near/resort/[slug]/` | `src/data/resorts/` | Multi-activity destinations |
+
+### Cross-Linking Philosophy (CRITICAL)
+
+**Every destination should link to related destinations.** Users don't think in silos - a camper at Bulltown wants to know about:
+- The lake they're camping on (Burnsville Lake fishing)
+- The WMA surrounding it (Burnsville WMA hunting)
+- Historic sites nearby (Bulltown Historic Area)
+- Trails accessible from camp
+
+**Implementation Pattern:**
+```typescript
+// In each [slug].astro dynamic route:
+// 1. Discover related content via import.meta.glob()
+// 2. Match by geographic proximity (nearbyLake, nearbyWMA, etc.)
+// 3. Pass relatedX arrays to page props
+// 4. Render cross-link section at bottom of page
+
+// Example from campground data:
+nearbyLake: 'Burnsville Lake',  // Auto-links to /near/lake/burnsville/
+nearbyWMA: 'Burnsville',        // Auto-links to /near/wma/burnsville/
+nearbyHistoric: ['bulltown-historic-area']  // Links to historic pages
+```
+
+### What Each Destination Page Should Cover
+
+**DON'T just focus on hunting/fishing for every destination.** Cover what's RELEVANT:
+
+- **Campground**: Sites, amenities, fees, policies, nearby activities (ALL types)
+- **Lake**: Fishing spots, boat ramps, marinas, swimming, paddling, camping
+- **WMA**: Species, seasons, access points, regulations, camping, trails
+- **State Park**: Trails, facilities, programs, camping, fishing, swimming
+- **River**: Rapids, put-ins, take-outs, fishing, outfitters, water levels
+- **Ski Resort**: Trails, lifts, snow conditions, pricing, lodging, summer activities
+- **Historic Site**: History, tours, events, accessibility, related sites
+- **Trail**: Distance, difficulty, trailhead, features, seasonal conditions
+
+### Auto-Discovery Pattern
+
+All dynamic routes use the same pattern:
+```typescript
+// getStaticPaths discovers data files automatically
+const dataModules = import.meta.glob('../../../data/{type}/*.ts', { eager: true });
+
+// Cross-link discovery
+const relatedModules = import.meta.glob('../../../data/{otherType}/*.ts', { eager: true });
+```
+
+**To add a new destination:** Just create the data file. No route changes needed.
+
+### Adventures Hub Integration
+
+Content collection entries in `src/content/adventures/` feed the `/adventures/` hub with filtering. Each entry should:
+- Have correct `type` field (wma, lake, campground, etc.)
+- Include `gear` array for activity filtering (camping gear, fishing rod, etc.)
+- Link to the dedicated template page via `getAdventureUrl()`
+
+### Common Mistakes to Avoid
+
+❌ **DON'T** create a lake page that only talks about fishing
+❌ **DON'T** create a campground page without linking to nearby activities
+❌ **DON'T** assume every visitor is a hunter - cover ALL audiences
+❌ **DON'T** duplicate content - cross-link instead
+❌ **DON'T** forget families, kayakers, history buffs, RV travelers
+
+✅ **DO** cover the full range of activities for each destination
+✅ **DO** cross-link to related destinations automatically
+✅ **DO** use verified data from official sources (USACE, NPS, WV DNR, etc.)
+✅ **DO** include practical info (fees, hours, contact, directions)
+✅ **DO** think about the complete visitor experience
+
 ## SPARC Commands
 
 ### Core Commands
