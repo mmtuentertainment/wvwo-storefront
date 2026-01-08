@@ -29,6 +29,7 @@ import Layout from '../../layouts/Layout.astro';
 import AdventureGearChecklist from '../adventure/AdventureGearChecklist.astro';
 import AdventureRelatedShop from '../adventure/AdventureRelatedShop.astro';
 import AdventureCTA from '../adventure/AdventureCTA.astro';
+import { SITE_CONTACT } from '../../config/siteContact';
 import type {
   RiverTemplateProps,
   Rapid,
@@ -574,7 +575,7 @@ function getAttractionIcon(type: string): string {
         <h2 class="font-display text-3xl md:text-4xl font-bold text-brand-brown mb-8 text-center">
           Recommended Gear
         </h2>
-        <AdventureGearChecklist gearList={gearList} columns={2} />
+        <AdventureGearChecklist items={gearList} columns={2} />
       </div>
     </section>
   )}
@@ -589,7 +590,15 @@ function getAttractionIcon(type: string): string {
   )}
 
   <!-- CALL TO ACTION -->
-  <AdventureCTA />
+  <AdventureCTA
+    heading={`Ready to Explore ${name}?`}
+    description="Stop by the shop for gear, licenses, and local tips from folks who fish and paddle these waters."
+    primaryText="Get Directions"
+    primaryHref={mapUrl || `https://maps.google.com/?q=${encodeURIComponent(name + ', WV')}`}
+    secondaryText="Call the Shop"
+    secondaryHref={SITE_CONTACT.phoneHref}
+    variant="sign-green"
+  />
 </Layout>
 
 <style>

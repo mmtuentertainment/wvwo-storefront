@@ -42,7 +42,7 @@ describe('validateRiverTemplate', () => {
     ],
     fishing: {
       species: ['Smallmouth Bass', 'Rock Bass'],
-      techniques: 'Fly fishing, spinning',
+      techniques: ['Fly fishing', 'Spinning'],
       seasons: 'Spring and Fall',
       regulations: 'WV fishing license required',
     },
@@ -50,16 +50,19 @@ describe('validateRiverTemplate', () => {
       {
         name: 'Gauley River Expeditions',
         services: ['Full-day trips', 'Equipment rental'],
-        contact: '304-555-0100',
-        website: 'https://example.com',
+        contact: {
+          phone: '304-555-0100',
+          website: 'https://example.com',
+        },
       },
     ],
     seasonalFlow: [
       {
         season: 'Fall (Sept-Oct)',
-        flowRate: '2,800 CFS',
-        conditions: 'Peak whitewater season',
-        accessibility: 'Expert paddlers only',
+        level: 'High',
+        cfsRange: '2,800 CFS',
+        bestFor: ['Expert paddlers', 'Whitewater rafting'],
+        notes: 'Peak whitewater season - dam-controlled releases',
       },
     ],
     accessPoints: [
@@ -74,7 +77,7 @@ describe('validateRiverTemplate', () => {
       {
         category: 'Required Equipment',
         items: ['PFD', 'Helmet', 'Wetsuit', 'Throw rope'],
-        importance: 'critical',
+        important: true,
       },
     ],
     nearbyAttractions: [

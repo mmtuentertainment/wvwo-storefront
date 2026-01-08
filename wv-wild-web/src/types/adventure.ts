@@ -351,23 +351,60 @@ export const RapidSchema = z.object({
 export type Rapid = z.infer<typeof RapidSchema>;
 
 /**
+ * Fishing access point for river fishing.
+ * Represents locations where anglers can access the water.
+ */
+export const FishingAccessPointSchema = z.object({
+  /** Access point name (e.g., "Sutton Dam Tailwater") */
+  name: z.string().min(1),
+  /** Description of access and fishing conditions */
+  description: z.string().min(1),
+});
+
+export type FishingAccessPoint = z.infer<typeof FishingAccessPointSchema>;
+
+/**
  * River fishing information.
  * Covers species, techniques, seasons, and regulations.
  */
 export const RiverFishingSchema = z.object({
   /** Target species available (max 15 for reasonable UI) */
   species: z.array(z.string().min(1)).min(1).max(15),
-  /** Fishing techniques (e.g., "Fly fishing, spinning") */
-  techniques: z.string().min(1),
+  /** Fishing techniques as array (e.g., ["Fly fishing with nymphs", "Spin cast with spinners"]) */
+  techniques: z.array(z.string().min(1)).min(1).max(20),
+  /** Fishing access points with descriptions */
+  accessPoints: z.array(FishingAccessPointSchema).min(0).max(20).optional(),
   /** Best seasons for fishing */
   seasons: z.string().min(1),
   /** Fishing regulations and license requirements */
   regulations: z.string().min(1),
   /** Optional catch and release guidelines */
   catchAndRelease: z.string().optional(),
+  /** Optional Kim's personal tip for fishing this river */
+  kimsTip: z.string().optional(),
 });
 
 export type RiverFishing = z.infer<typeof RiverFishingSchema>;
+
+/**
+ * Contact information for outfitter.
+ * Object structure with phone, website, and email fields.
+ * At least one contact method is required.
+ */
+export const OutfitterContactSchema = z
+  .object({
+    /** Phone number (optional) */
+    phone: z.string().optional(),
+    /** Website URL (optional) */
+    website: z.string().url().optional(),
+    /** Email address (optional) */
+    email: z.string().email().optional(),
+  })
+  .refine((data) => data.phone || data.website || data.email, {
+    message: 'At least one contact method (phone, website, or email) is required',
+  });
+
+export type OutfitterContact = z.infer<typeof OutfitterContactSchema>;
 
 /**
  * Outfitter or guide service for river trips.
@@ -378,12 +415,12 @@ export const OutfitterSchema = z.object({
   name: z.string().min(1),
   /** Services offered (e.g., "Guided trips", "Equipment rental") */
   services: z.array(z.string().min(1)).min(1).max(20),
-  /** Contact phone number (optional) */
-  contact: z.string().optional(),
-  /** Website URL (optional) */
-  website: z.string().url().optional(),
-  /** Pricing information (optional) */
-  pricing: z.string().optional(),
+  /** Contact information as object with phone/website/email */
+  contact: OutfitterContactSchema.optional(),
+  /** Price range (e.g., "$75-$150 per person") */
+  priceRange: z.string().optional(),
+  /** Seasonal notes about availability */
+  seasonalNotes: z.string().optional(),
 });
 
 export type Outfitter = z.infer<typeof OutfitterSchema>;
@@ -393,14 +430,19 @@ export type Outfitter = z.infer<typeof OutfitterSchema>;
  * Provides guidance on water conditions throughout the year.
  */
 export const SeasonalFlowSchema = z.object({
-  /** Season or time period (e.g., "Spring", "Fall (Sept-Oct)") */
+  /** Season or time period (e.g., "Spring (February-May)", "Fall (Sept-Oct)") */
   season: z.string().min(1),
-  /** Typical flow rate (e.g., "2,800 CFS", "Low flow") */
-  flowRate: z.string(),
-  /** Water conditions description */
-  conditions: z.string().min(1),
-  /** Accessibility for different skill levels */
-  accessibility: z.string(),
+  /** Water level indicator (e.g., "High", "Medium", "Low") */
+  level: z.string().min(1),
+  /**
+   * CFS = Cubic Feet per Second (water flow measurement).
+   * Range or description (e.g., "2000-3000 CFS", "Varies with dam releases")
+   */
+  cfsRange: z.string().min(1),
+  /** Activities this flow level is best for */
+  bestFor: z.array(z.string().min(1)).min(1).max(10),
+  /** Additional notes about conditions, hazards, or recommendations */
+  notes: z.string().min(1),
 });
 
 export type SeasonalFlow = z.infer<typeof SeasonalFlowSchema>;
@@ -426,15 +468,15 @@ export type RiverAccessPoint = z.infer<typeof RiverAccessPointSchema>;
 
 /**
  * Safety category for river hazards and equipment.
- * Groups safety items by category with importance levels.
+ * Groups safety items by category with importance flag.
  */
 export const RiverSafetySchema = z.object({
-  /** Safety category (e.g., "Required Equipment", "Hazards") */
+  /** Safety category (e.g., "Required Equipment", "Hazards", "Emergency Contacts") */
   category: z.string().min(1),
   /** List of safety items or considerations */
   items: z.array(z.string().min(1)).min(1).max(30),
-  /** Importance level */
-  importance: z.enum(['critical', 'high', 'medium']),
+  /** Whether this category contains critical safety information (renders with emphasis) */
+  important: z.boolean().default(false),
 });
 
 export type RiverSafety = z.infer<typeof RiverSafetySchema>;
