@@ -1,0 +1,564 @@
+---
+/**
+ * CampgroundTemplate.astro
+ * SPEC-21-A: Campground Template Component
+ *
+ * Comprehensive template for campground pages with site inventory,
+ * amenities, nearby activities, reservation policies, and contact info.
+ *
+ * USER STORIES IMPLEMENTED:
+ * - US1: Campsite Inventory Display (site categories with counts and fees)
+ * - US2: Amenities & Facilities (trip planning features)
+ * - US3: Hero Section with Quick Stats (visual impact + quick facts)
+ * - US4: Nearby Activities (things to do from campground)
+ * - US5: Reservation Policies & Rules (important info highlighted)
+ * - US6: Contact Information (phone, booking URLs)
+ *
+ * WVWO COMPLIANCE:
+ * - Fonts: font-display (headings), font-hand (Kim's tips ONLY), font-body (content)
+ * - Colors: brand-brown, sign-green, brand-cream, brand-orange (<5% of screen)
+ * - Borders: rounded-sm ONLY (no other border-radius values allowed)
+ * - Accents: Green (amenities), Brown (sites), Orange (policies)
+ *
+ * @module components/templates/CampgroundTemplate
+ */
+
+import AdventureGearChecklist from '../adventure/AdventureGearChecklist.astro';
+import AdventureRelatedShop from '../adventure/AdventureRelatedShop.astro';
+import AdventureCTA from '../adventure/AdventureCTA.astro';
+import type {
+  CampgroundTemplateProps,
+  CampsiteCategory,
+  CampgroundAmenity,
+  NearbyActivity,
+  ReservationPolicy,
+  CampgroundContact,
+  SeasonalDates,
+} from '../../types/adventure';
+
+interface Props extends CampgroundTemplateProps {}
+
+const {
+  name,
+  image,
+  imageAlt,
+  tagline,
+  description,
+  stats,
+  totalSites,
+  managingAgency,
+  recreationGovId,
+  county,
+  nearbyLake,
+  quickHighlights,
+  campsites,
+  amenities,
+  nearbyActivities,
+  policies,
+  contacts,
+  seasonalDates,
+  gearList,
+  relatedShop,
+  difficulty,
+  bestSeason,
+  coordinates,
+  directions,
+  cellService,
+  maxRvLength,
+} = Astro.props;
+
+// Separate important policies for highlight box
+const importantPolicies = policies.filter((p) => p.important);
+const standardPolicies = policies.filter((p) => !p.important);
+
+// Recreation.gov booking URL
+const bookingUrl = `https://www.recreation.gov/camping/campgrounds/${recreationGovId}`;
+---
+
+<!-- US3: HERO SECTION WITH CAMPGROUND STATS -->
+<section
+  class="relative h-[70vh] min-h-[500px] overflow-hidden"
+  aria-label={`${name} hero section`}
+>
+  <!-- Hero Image -->
+  <img
+    src={image}
+    alt={imageAlt}
+    class="absolute inset-0 w-full h-full object-cover"
+    loading="eager"
+  />
+
+  <!-- Dark Overlay for Text Readability -->
+  <div class="absolute inset-0 bg-brand-brown/50"></div>
+
+  <!-- Hero Content -->
+  <div class="relative h-full container mx-auto px-4">
+    <div class="h-full flex flex-col justify-end pb-16">
+      <!-- Campground Name -->
+      <h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+        {name}
+      </h1>
+
+      <!-- Tagline -->
+      {tagline && (
+        <p class="font-body text-xl md:text-2xl text-brand-cream mb-8 max-w-2xl">
+          {tagline}
+        </p>
+      )}
+
+      <!-- Quick Stats Grid (4-column desktop, 2-column mobile) -->
+      {stats.length > 0 && (
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-brand-cream mb-6">
+          {stats.map((stat) => (
+            <div class="stat-item">
+              <div class="text-sm uppercase tracking-wide opacity-80 mb-1">
+                {stat.label}
+              </div>
+              <div class="font-display text-2xl font-bold">
+                {stat.value}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      <!-- Quick Highlights Badges -->
+      {quickHighlights && quickHighlights.length > 0 && (
+        <div class="flex flex-wrap gap-3" aria-label="Quick highlights">
+          {quickHighlights.map((highlight) => (
+            <span class="inline-block bg-sign-green text-white px-4 py-2 rounded-sm font-body text-sm font-medium">
+              {highlight}
+            </span>
+          ))}
+        </div>
+      )}
+    </div>
+  </div>
+</section>
+
+<!-- Main Content Area -->
+<main class="container mx-auto px-4 py-12 space-y-16">
+
+  <!-- Campground Description Prose -->
+  {description && (
+    <div class="prose prose-lg max-w-3xl mx-auto">
+      <p class="font-body text-lg leading-relaxed text-gray-800 whitespace-pre-line">
+        {description}
+      </p>
+    </div>
+  )}
+
+  <!-- Managing Agency & Lake Link -->
+  <div class="max-w-3xl mx-auto text-center">
+    <p class="font-body text-gray-600 mb-4">
+      Managed by <span class="font-bold text-brand-brown">{managingAgency}</span>
+    </p>
+    <div class="flex flex-wrap justify-center gap-4">
+      <a
+        href={bookingUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 bg-brand-orange text-white px-6 py-3 rounded-sm font-body font-bold hover:bg-brand-orange/90 transition-colors"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+        Book on Recreation.gov
+      </a>
+      <a
+        href={`/near/lake/${nearbyLake.toLowerCase().replace(/\s+/g, '-').replace('-lake', '')}/`}
+        class="inline-flex items-center gap-2 border-2 border-sign-green text-sign-green px-6 py-3 rounded-sm font-body font-bold hover:bg-sign-green hover:text-white transition-colors"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+        </svg>
+        {nearbyLake} Fishing Guide
+      </a>
+    </div>
+  </div>
+
+  <!-- US1: CAMPSITE INVENTORY SECTION -->
+  {campsites && campsites.length > 0 && (
+    <section class="campsite-inventory bg-brand-cream py-12 -mx-4 px-4" aria-labelledby="campsites-heading">
+      <div class="container mx-auto">
+        <!-- Section Header -->
+        <h2
+          id="campsites-heading"
+          class="font-display text-3xl md:text-4xl font-bold text-brand-brown mb-8"
+        >
+          Campsites ({totalSites} Total)
+        </h2>
+
+        <!-- Campsite Category Cards -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {campsites.map((category: CampsiteCategory) => (
+            <article class="bg-white border-l-4 border-l-brand-brown p-6 rounded-sm shadow-sm">
+              <!-- Category Name with Count Badge -->
+              <div class="flex items-start justify-between mb-4">
+                <h3 class="font-display text-xl font-bold text-brand-brown">
+                  {category.name}
+                </h3>
+                <span class="bg-sign-green text-white px-3 py-1 rounded-sm font-body text-sm font-bold">
+                  {category.count} sites
+                </span>
+              </div>
+
+              <!-- Amenities -->
+              <p class="font-body text-gray-700 mb-4">
+                {category.amenities}
+              </p>
+
+              <!-- Fee -->
+              {category.fee && (
+                <p class="font-body text-lg font-bold text-brand-brown">
+                  {category.fee}
+                </p>
+              )}
+            </article>
+          ))}
+        </div>
+
+        <!-- Max RV Length Note -->
+        {maxRvLength && (
+          <p class="font-body text-gray-600 mt-6 text-center">
+            <span class="font-bold">Maximum RV Length:</span> {maxRvLength}
+          </p>
+        )}
+      </div>
+    </section>
+  )}
+
+  <!-- US2: AMENITIES SECTION -->
+  {amenities && amenities.length > 0 && (
+    <section class="amenities-section bg-white py-12" aria-labelledby="amenities-heading">
+      <div class="container mx-auto px-4">
+        <!-- Section Header -->
+        <h2
+          id="amenities-heading"
+          class="font-display text-3xl md:text-4xl font-bold text-brand-brown mb-8"
+        >
+          Amenities & Facilities
+        </h2>
+
+        <!-- Amenities Grid -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {amenities.map((amenity: CampgroundAmenity) => (
+            <div
+              class={`p-4 rounded-sm border ${
+                amenity.available
+                  ? 'border-sign-green/30 bg-sign-green/5'
+                  : 'border-gray-300 bg-gray-100'
+              }`}
+            >
+              <div class="flex items-start gap-3">
+                <!-- Availability Icon -->
+                <span class={`text-xl ${amenity.available ? 'text-sign-green' : 'text-gray-400'}`}>
+                  {amenity.available ? '✓' : '✗'}
+                </span>
+                <div>
+                  <h3 class={`font-body font-bold ${amenity.available ? 'text-brand-brown' : 'text-gray-500'}`}>
+                    {amenity.name}
+                  </h3>
+                  <p class={`font-body text-sm ${amenity.available ? 'text-gray-700' : 'text-gray-500'}`}>
+                    {amenity.description}
+                  </p>
+                  {amenity.accessibility && (
+                    <p class="font-body text-xs text-sign-green mt-1">
+                      ♿ {amenity.accessibility}
+                    </p>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <!-- Cell Service Warning -->
+        {cellService && (
+          <div class="mt-8 p-4 bg-brand-orange/10 border-l-4 border-l-brand-orange rounded-sm">
+            <p class="font-body text-gray-800">
+              <span class="font-bold text-brand-orange">Cell Service:</span> {cellService}
+            </p>
+          </div>
+        )}
+      </div>
+    </section>
+  )}
+
+  <!-- SEASONAL DATES SECTION -->
+  {seasonalDates && seasonalDates.length > 0 && (
+    <section class="seasonal-dates bg-brand-cream py-12 -mx-4 px-4" aria-labelledby="season-heading">
+      <div class="container mx-auto">
+        <!-- Section Header -->
+        <h2
+          id="season-heading"
+          class="font-display text-3xl md:text-4xl font-bold text-brand-brown mb-8"
+        >
+          Operating Season
+        </h2>
+
+        <!-- Season Cards -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {seasonalDates.map((season: SeasonalDates) => (
+            <div
+              class={`p-4 rounded-sm border ${
+                season.bookingStatus === 'CLOSED'
+                  ? 'border-gray-300 bg-gray-100'
+                  : 'border-sign-green/30 bg-white'
+              }`}
+            >
+              <h3 class="font-display text-lg font-bold text-brand-brown mb-2">
+                {season.period}
+              </h3>
+              <p class="font-body text-gray-700 mb-2">
+                {season.dates}
+              </p>
+              <p class={`font-body text-sm font-bold ${
+                season.bookingStatus === 'CLOSED' ? 'text-gray-500' : 'text-sign-green'
+              }`}>
+                {season.bookingStatus}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- US5: IMPORTANT POLICIES (Orange Highlight Box) -->
+  {importantPolicies && importantPolicies.length > 0 && (
+    <section class="important-policies bg-brand-orange/10 py-12 -mx-4 px-4" aria-labelledby="important-rules-heading">
+      <div class="container mx-auto">
+        <!-- Section Header -->
+        <h2
+          id="important-rules-heading"
+          class="font-display text-3xl md:text-4xl font-bold text-brand-brown mb-8 flex items-center gap-3"
+        >
+          <span class="text-brand-orange">⚠</span> Important Rules
+        </h2>
+
+        <!-- Important Policies List -->
+        <div class="space-y-4">
+          {importantPolicies.map((policy: ReservationPolicy) => (
+            <div class="bg-white border-l-4 border-l-brand-orange p-4 rounded-sm">
+              <h3 class="font-body font-bold text-brand-brown mb-1">
+                {policy.category}
+              </h3>
+              <p class="font-body text-gray-700">
+                {policy.details}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- US4: NEARBY ACTIVITIES SECTION -->
+  {nearbyActivities && nearbyActivities.length > 0 && (
+    <section class="nearby-activities bg-white py-12" aria-labelledby="activities-heading">
+      <div class="container mx-auto px-4">
+        <!-- Section Header -->
+        <h2
+          id="activities-heading"
+          class="font-display text-3xl md:text-4xl font-bold text-brand-brown mb-8"
+        >
+          Things to Do Nearby
+        </h2>
+
+        <!-- Activities Grid -->
+        <div class="grid md:grid-cols-2 gap-6">
+          {nearbyActivities.map((activity: NearbyActivity) => (
+            <article class="bg-brand-cream p-6 rounded-sm">
+              <!-- Activity Name -->
+              <div class="flex items-start justify-between mb-3">
+                <h3 class="font-display text-xl font-bold text-brand-brown">
+                  {activity.name}
+                </h3>
+                <span class="font-body text-sm text-gray-600 bg-white px-2 py-1 rounded-sm">
+                  {activity.distance}
+                </span>
+              </div>
+
+              <!-- Description -->
+              <p class="font-body text-gray-700 mb-3">
+                {activity.description}
+              </p>
+
+              <!-- Season/Hours -->
+              {activity.season && (
+                <p class="font-body text-sm text-gray-600 mb-3">
+                  <span class="font-bold">Season:</span> {activity.season}
+                </p>
+              )}
+
+              <!-- Link -->
+              {activity.link && activity.link.length > 0 && (
+                <a
+                  href={activity.link}
+                  target={activity.link.startsWith('http') ? '_blank' : undefined}
+                  rel={activity.link.startsWith('http') ? 'noopener noreferrer' : undefined}
+                  class="inline-flex items-center gap-1 font-body text-sign-green font-bold hover:underline"
+                >
+                  {activity.link.startsWith('http') ? 'Visit Website' : 'View Guide'}
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
+                </a>
+              )}
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- STANDARD POLICIES SECTION -->
+  {standardPolicies && standardPolicies.length > 0 && (
+    <section class="policies-section bg-brand-cream py-12 -mx-4 px-4" aria-labelledby="policies-heading">
+      <div class="container mx-auto">
+        <!-- Section Header -->
+        <h2
+          id="policies-heading"
+          class="font-display text-3xl md:text-4xl font-bold text-brand-brown mb-8"
+        >
+          Campground Policies
+        </h2>
+
+        <!-- Policies Grid -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {standardPolicies.map((policy: ReservationPolicy) => (
+            <div class="bg-white p-4 rounded-sm border border-gray-200">
+              <h3 class="font-body font-bold text-brand-brown mb-1">
+                {policy.category}
+              </h3>
+              <p class="font-body text-sm text-gray-700">
+                {policy.details}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- DIRECTIONS SECTION -->
+  {directions && (
+    <section class="directions-section bg-white py-12" aria-labelledby="directions-heading">
+      <div class="container mx-auto px-4">
+        <!-- Section Header -->
+        <h2
+          id="directions-heading"
+          class="font-display text-3xl md:text-4xl font-bold text-brand-brown mb-8"
+        >
+          Directions
+        </h2>
+
+        <div class="max-w-3xl mx-auto">
+          <p class="font-body text-lg text-gray-700 mb-6">
+            {directions}
+          </p>
+
+          {coordinates && (
+            <p class="font-body text-gray-600">
+              <span class="font-bold">GPS Coordinates:</span>{' '}
+              <a
+                href={`https://www.google.com/maps?q=${coordinates.lat},${coordinates.lng}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-sign-green hover:underline"
+              >
+                {coordinates.lat}, {coordinates.lng}
+              </a>
+            </p>
+          )}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- US6: CONTACT INFORMATION -->
+  {contacts && contacts.length > 0 && (
+    <section class="contacts-section bg-brand-cream py-12 -mx-4 px-4" aria-labelledby="contacts-heading">
+      <div class="container mx-auto">
+        <!-- Section Header -->
+        <h2
+          id="contacts-heading"
+          class="font-display text-3xl md:text-4xl font-bold text-brand-brown mb-8"
+        >
+          Contact Information
+        </h2>
+
+        <!-- Contacts Grid -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {contacts.map((contact: CampgroundContact) => (
+            <div class="bg-white p-4 rounded-sm border border-gray-200">
+              <h3 class="font-body font-bold text-brand-brown mb-2">
+                {contact.type}
+              </h3>
+
+              {contact.phone && (
+                <p class="font-body text-gray-700 mb-1">
+                  <a
+                    href={`tel:${contact.phone.replace(/\D/g, '')}`}
+                    class="text-sign-green hover:underline"
+                  >
+                    {contact.phone}
+                  </a>
+                </p>
+              )}
+
+              {contact.address && (
+                <p class="font-body text-sm text-gray-600 mb-1">
+                  {contact.address}
+                </p>
+              )}
+
+              {contact.url && (
+                <a
+                  href={contact.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center gap-1 font-body text-sm text-sign-green font-bold hover:underline"
+                >
+                  Visit Website
+                  <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                </a>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- GEAR CHECKLIST -->
+  {gearList && gearList.length > 0 && (
+    <AdventureGearChecklist
+      title="What to Bring"
+      items={gearList}
+      columns={2}
+    />
+  )}
+
+  <!-- RELATED SHOP -->
+  {relatedShop && relatedShop.length > 0 && (
+    <AdventureRelatedShop
+      title="Get Your Gear at WV Wild Outdoors"
+      categories={relatedShop}
+    />
+  )}
+
+  <!-- CTA Section -->
+  <AdventureCTA
+    heading="Questions About Camping?"
+    description="Stop by the shop before you head out. We can help you plan your trip, get licenses, and load up on supplies."
+    primaryText="Get Directions to Shop"
+    primaryHref="/contact"
+    secondaryText="Call the Shop"
+    secondaryHref="tel:+13047657669"
+    variant="sign-green"
+  />
+</main>
