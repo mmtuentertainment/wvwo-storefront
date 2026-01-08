@@ -28,7 +28,7 @@ export const summersvilleLakeWMAData: WMATemplateProps = {
   name: 'Summersville Lake Wildlife Management Area',
   image: '/images/adventures/summersville-lake-wma-hero.webp',
   imageAlt: 'Summersville Lake Wildlife Management Area with oak-hickory forests and dramatic rock cliffs in Nicholas County',
-  tagline: '5,982 acres surrounding West Virginia\'s largest lake - deer, turkey, grouse, waterfowl, and small game.',
+  tagline: "5,982 acres surrounding West Virginia's largest lake - deer, turkey, grouse, waterfowl, and small game.",
   description:
     "Summersville Lake Wildlife Management Area encompasses nearly 6,000 acres of public hunting land surrounding West Virginia's largest lake. The terrain ranges from forested rolling hills to dramatic vertical rock cliffs, dominated by oak-hickory forests with mixed hardwood coverage. Located just three miles south of Summersville on U.S. Route 19. Owned by the U.S. Army Corps of Engineers and leased to WV DNR for wildlife management. About 30 minutes from WV Wild Outdoors.",
 

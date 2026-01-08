@@ -165,13 +165,16 @@ Grouse in regenerating timber and edge habitat. Squirrel in oak-hickory forests 
 ## Access Points
 
 ### Battle Run Area (Primary)
+
 From US-19 south of Summersville, take Battle Run Road. Primary access with large parking, boat ramp, and nearby campground. Best for waterfowl staging.
 
 ### Salmon Run Area
+
 More rugged terrain with less hunting pressure. Steep access requires good physical condition.
 
 ### Archery Trail Area (Reopened July 2024)
-Walk-in only for archery hunting. Excellent early season deer. Limited parking.
+
+Walk-in only for archery hunting. Excellent early-season deer. Limited parking.
 
 ## Regulations
 
