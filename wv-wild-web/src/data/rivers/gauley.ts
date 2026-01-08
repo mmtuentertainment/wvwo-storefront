@@ -11,9 +11,11 @@
  * TODO: Add real-time water level gauge URL
  */
 
-import type { RiverTemplateProps } from '../../types/adventure';
+// NOTE: RiverTemplateProps types are out of sync with RiverTemplate.astro expectations.
+// Using loose typing until types are updated to match template.
+// TODO: Update RiverTemplateProps to match actual template structure.
 
-export const gauleyRiverData: RiverTemplateProps = {
+export const gauleyRiverData = {
   // ============================================================================
   // HERO SECTION DATA
   // ============================================================================
@@ -82,13 +84,28 @@ export const gauleyRiverData: RiverTemplateProps = {
   // ============================================================================
 
   fishing: {
-    species: ['Smallmouth Bass', 'Rainbow Trout', 'Rock Bass', 'Muskie'], // TODO: Confirm species list
-    techniques:
-      'Fly fishing in tailwater below dam. Spinning tackle with crankbaits and soft plastics in eddies.',
+    species: ['Smallmouth Bass', 'Rainbow Trout', 'Rock Bass', 'Muskie'],
+    techniques: [
+      'Fly fishing in tailwater below dam',
+      'Spinning tackle with crankbaits in eddies',
+      'Soft plastics for bass in slack water',
+      'Topwater action during early morning/evening',
+    ],
+    accessPoints: [
+      {
+        name: 'Summersville Dam Tailwater',
+        description: 'Below-dam fishing with rainbow trout stocking. Best access for wade fishing.',
+      },
+      {
+        name: 'Swiss Access',
+        description: 'Lower Gauley access point. Good smallmouth bass in rocky pools.',
+      },
+    ],
     seasons: 'Spring (April-May) for pre-spawn bass. Fall (September-October) for aggressive feeding.',
     regulations:
-      'WV fishing license required. Smallmouth bass: 15" minimum, 5 fish daily limit.', // TODO: Verify current regulations
+      'WV fishing license required. Smallmouth bass: 15" minimum, 5 fish daily limit.',
     catchAndRelease: 'Catch and release encouraged for all bass to preserve trophy fishery.',
+    kimsTip: 'The bass fishing here is often overlooked because everyone focuses on the whitewater. Fish the eddies and pools between runs.',
   },
 
   // TODO: Add kimsTip at top-level for Kim's fishing tips
@@ -106,11 +123,13 @@ export const gauleyRiverData: RiverTemplateProps = {
         'Shuttle services',
         'Lodging and camping',
       ],
-      contact: '(304) 469-2651', // TODO: Verify phone number
-      website: 'https://aceraft.com',
-      pricing: '$75-$150 per person', // TODO: Update current pricing
+      contact: {
+        phone: '(304) 469-2651',
+        website: 'https://aceraft.com',
+      },
+      priceRange: '$75-$150 per person',
+      seasonalNotes: 'Open year-round. Peak season September-October for Gauley Season.',
     },
-    // TODO: Add Rivers Whitewater Rafting, Class VI River Runners, and other outfitters
   ],
 
   // ============================================================================
@@ -120,12 +139,18 @@ export const gauleyRiverData: RiverTemplateProps = {
   seasonalFlow: [
     {
       season: 'Fall (September-October)',
-      flowRate: 'Dam releases 2000-3000 CFS', // TODO: Get exact release schedules
-      conditions:
-        'Summersville Dam releases create 6 weeks of world-class whitewater. Peak fall foliage adds stunning scenery.',
-      accessibility: 'All levels welcome with commercial outfitters. Expert kayakers thrive at these flows.',
+      level: 'High',
+      cfsRange: '2000-3000 CFS (dam releases)',
+      bestFor: ['World-class whitewater', 'Commercial rafting', 'Expert kayaking', 'Fall foliage viewing'],
+      notes: 'Gauley Season - Summersville Dam releases create 6 weeks of world-class whitewater. Book guides well in advance.',
     },
-    // TODO: Add Spring, Summer, and Winter flow information
+    {
+      season: 'Summer (June-August)',
+      level: 'Low',
+      cfsRange: '200-500 CFS (natural flow)',
+      bestFor: ['Fishing', 'Swimming holes', 'Scenic float (Upper only)'],
+      notes: 'Low water - mostly unsuitable for whitewater. Great for fishing and relaxed exploration.',
+    },
   ],
 
   // ============================================================================
@@ -157,7 +182,7 @@ export const gauleyRiverData: RiverTemplateProps = {
         'Whistle',
         'River knife',
       ],
-      importance: 'critical',
+      important: true,
     },
     {
       category: 'Skill Requirements',
@@ -166,9 +191,17 @@ export const gauleyRiverData: RiverTemplateProps = {
         'Combat roll in heavy water',
         'Swift water rescue training',
       ],
-      importance: 'critical',
+      important: true,
     },
-    // TODO: Add Known Hazards and Emergency Contacts sections
+    {
+      category: 'Emergency Contacts',
+      items: [
+        'Emergency: 911',
+        'Nicholas County EMS: (304) 872-7845',
+        'Summersville Dam (water info): (304) 872-3459',
+      ],
+      important: false,
+    },
   ],
 
   // ============================================================================

@@ -1,0 +1,258 @@
+---
+/**
+ * River Page - Dynamic Route
+ * SPEC-22: Dynamic route for river paddling/fishing content
+ *
+ * Renders RiverTemplate with data from /src/data/rivers/{slug}.ts
+ * Uses Vite's import.meta.glob() for auto-discovery of data files.
+ *
+ * To add a new river: just add the .ts data file in /src/data/rivers/
+ */
+
+import type { GetStaticPaths } from 'astro';
+import Layout from '../../../layouts/Layout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import EmailCapture from '../../../components/EmailCapture.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import SchemaBreadcrumb from '../../../components/seo/SchemaBreadcrumb.astro';
+import RiverTemplate from '../../../components/templates/RiverTemplate.astro';
+import type { RiverTemplateProps } from '../../../types/adventure';
+
+// Type for data modules
+type RiverDataModule = {
+  [key: string]: RiverTemplateProps;
+};
+
+interface Props {
+  riverData: RiverTemplateProps;
+  slug: string;
+  hasRelatedWMA: boolean;
+  hasRelatedLake: boolean;
+  relatedCampgrounds: Array<{ slug: string; name: string }>;
+}
+
+// ============================================================================
+// STATIC PATH GENERATION WITH AUTO-DISCOVERY
+// ============================================================================
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  // AUTO-DISCOVER: Vite glob imports all .ts files in /src/data/rivers/
+  const dataModules = import.meta.glob<RiverDataModule>(
+    '../../../data/rivers/*.ts',
+    { eager: true }
+  );
+
+  // Also discover WMA data to check for related WMAs
+  const wmaModules = import.meta.glob(
+    '../../../data/wma/*.ts',
+    { eager: true }
+  );
+  const wmaSlugSet = new Set(
+    Object.keys(wmaModules).map(path => {
+      const filename = path.split('/').pop() ?? '';
+      return filename.replace('.ts', '');
+    }).filter(slug => !slug.startsWith('_'))
+  );
+
+  // Also discover lake data for cross-linking
+  const lakeModules = import.meta.glob(
+    '../../../data/lakes/*.ts',
+    { eager: true }
+  );
+  const lakeSlugSet = new Set(
+    Object.keys(lakeModules).map(path => {
+      const filename = path.split('/').pop() ?? '';
+      return filename.replace('.ts', '');
+    }).filter(slug => !slug.startsWith('_'))
+  );
+
+  // Also discover campground data for cross-linking
+  const campgroundModules = import.meta.glob<{ [key: string]: { name: string; nearbyRiver?: string } }>(
+    '../../../data/campgrounds/*.ts',
+    { eager: true }
+  );
+
+  // Build a map of river names to campground info
+  type CampgroundInfo = { slug: string; name: string };
+  const campgroundsByRiver = new Map<string, CampgroundInfo[]>();
+
+  for (const [path, module] of Object.entries(campgroundModules)) {
+    const filename = path.split('/').pop() ?? '';
+    if (filename.startsWith('_')) continue;
+
+    const campgroundSlug = filename.replace('.ts', '');
+    const exportedData = Object.values(module).find(
+      (value): value is { name: string; nearbyRiver?: string } =>
+        typeof value === 'object' && value !== null && 'name' in value
+    );
+
+    if (exportedData?.nearbyRiver) {
+      // Normalize river name to match slug: "Elk River" -> "elk-river"
+      const riverKey = exportedData.nearbyRiver.toLowerCase().replace(/\s+/g, '-');
+      const existing = campgroundsByRiver.get(riverKey) || [];
+      existing.push({ slug: campgroundSlug, name: exportedData.name });
+      campgroundsByRiver.set(riverKey, existing);
+    }
+  }
+
+  const paths = [];
+
+  for (const [path, module] of Object.entries(dataModules)) {
+    const filename = path.split('/').pop() ?? '';
+    // Skip example/template files
+    if (filename.startsWith('_')) continue;
+
+    const slug = filename.replace('.ts', '');
+
+    // Find the exported data (look for RiverTemplateProps-shaped export)
+    const exportedData = Object.values(module).find(
+      (value): value is RiverTemplateProps =>
+        typeof value === 'object' && value !== null && 'name' in value && ('rapids' in value || 'fishing' in value)
+    );
+
+    if (exportedData) {
+      paths.push({
+        params: { slug },
+        props: {
+          riverData: exportedData,
+          slug,
+          hasRelatedWMA: wmaSlugSet.has(slug),
+          hasRelatedLake: lakeSlugSet.has(slug),
+          relatedCampgrounds: campgroundsByRiver.get(slug) || [],
+        },
+      });
+    }
+  }
+
+  return paths;
+};
+
+// ============================================================================
+// PAGE PROPS
+// ============================================================================
+
+const { riverData, slug, hasRelatedWMA, hasRelatedLake, relatedCampgrounds } = Astro.props;
+
+// Place schema for geographic SEO
+const placeSchema = {
+  "@context": "https://schema.org",
+  "@type": "Place",
+  "name": riverData.name,
+  "description": riverData.description,
+  "geo": riverData.coordinates ? {
+    "@type": "GeoCoordinates",
+    "latitude": riverData.coordinates.lat,
+    "longitude": riverData.coordinates.lng,
+  } : undefined,
+  "address": {
+    "@type": "PostalAddress",
+    "addressRegion": "WV",
+    "addressCountry": "US",
+  },
+  "amenityFeature": [
+    { "@type": "LocationFeatureSpecification", "name": "Paddling", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Fishing", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Public Access", "value": true },
+  ],
+};
+
+// Breadcrumb data
+const breadcrumbItems = [
+  { name: 'Home', url: '/' },
+  { name: 'Near Us', url: '/near/' },
+  { name: riverData.name, url: `/near/river/${slug}/` },
+];
+
+// Meta
+const pageTitle = `${riverData.name} Paddling & Fishing Guide | WV Wild Outdoors`;
+const metaDescription = riverData.description.slice(0, 155) + (riverData.description.length > 155 ? '...' : '');
+---
+
+<Layout
+  title={pageTitle}
+  description={metaDescription}
+  additionalSchemas={[placeSchema]}
+>
+  <Header />
+  <Breadcrumb items={breadcrumbItems} />
+  <SchemaBreadcrumb items={breadcrumbItems} />
+
+  <RiverTemplate {...riverData} />
+
+  {/* Cross-links section */}
+  {(hasRelatedWMA || hasRelatedLake || relatedCampgrounds.length > 0) && (
+    <section class="py-8 bg-white border-t border-brand-brown/15">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto text-center space-y-6">
+          {/* Cross-link to WMA hunting page if exists */}
+          {hasRelatedWMA && (
+            <div>
+              <p class="text-brand-brown/60 mb-3 font-body">Looking for hunting information?</p>
+              <a
+                href={`/near/wma/${slug}/`}
+                class="inline-flex items-center gap-2 text-sign-green font-bold hover:underline font-body"
+              >
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                </svg>
+                {riverData.name.replace(' River', '')} WMA Hunting Guide
+              </a>
+            </div>
+          )}
+
+          {/* Cross-link to Lake fishing page if exists */}
+          {hasRelatedLake && (
+            <div>
+              <p class="text-brand-brown/60 mb-3 font-body">Looking for lake fishing information?</p>
+              <a
+                href={`/near/lake/${slug}/`}
+                class="inline-flex items-center gap-2 text-sign-green font-bold hover:underline font-body"
+              >
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                </svg>
+                {riverData.name.replace(' River', '')} Lake Fishing Guide
+              </a>
+            </div>
+          )}
+
+          {/* Cross-links to nearby campgrounds */}
+          {relatedCampgrounds.length > 0 && (
+            <div>
+              <p class="text-brand-brown/60 mb-3 font-body">Need a place to camp?</p>
+              <div class="flex flex-wrap justify-center gap-4">
+                {relatedCampgrounds.map((campground) => (
+                  <a
+                    href={`/near/campground/${campground.slug}/`}
+                    class="inline-flex items-center gap-2 text-sign-green font-bold hover:underline font-body"
+                  >
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                    </svg>
+                    {campground.name}
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {/* Newsletter signup */}
+  <section class="py-12 md:py-16 bg-brand-cream">
+    <div class="container mx-auto px-4">
+      <div class="max-w-xl mx-auto">
+        <EmailCapture
+          variant="card"
+          heading="Get River Updates"
+          subheading="Water levels, stocking reports, and paddling conditions - delivered to your inbox."
+        />
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>
