@@ -62,7 +62,7 @@ export const burnsvilleLakeWMAData: WMATemplateProps = {
     },
     {
       name: 'Wild Turkey',
-      season: 'Spring: April 20 - May 24 | Fall: Oct-Nov splits',
+      season: 'Spring: April 20 - May 24 | Fall: Oct 11-19 statewide; additional segments in selected counties',
       notes:
         'Little Kanawha bottomlands hold roosting birds. Ridge tops for strutting zones. Position on the same contour elevation and call aggressively to pull birds across the drainage.',
       bagLimit: 'Spring: 2 bearded',
@@ -76,14 +76,14 @@ export const burnsvilleLakeWMAData: WMATemplateProps = {
     },
     {
       name: 'Eastern Cottontail',
-      season: 'November 1 - February 28',
+      season: 'November 2 - February 28',
       notes:
         'Field edges and briar patches. Good for training young dogs. Thick cover throughout the WMA.',
       bagLimit: 'Daily limit: 5',
     },
     {
       name: 'Gray Squirrel',
-      season: 'September 13 - February 28',
+      season: 'September 10 - February 28',
       notes:
         'Oak-hickory ridges with mast production. Youth season Sept 6-7 gets kids into the woods early. October mornings on the ridge tops are prime.',
       bagLimit: 'Daily limit: 6',
@@ -96,7 +96,7 @@ export const burnsvilleLakeWMAData: WMATemplateProps = {
     },
     {
       name: 'Raccoon',
-      season: 'October 18 - February 28',
+      season: 'October 15 - February 28',
       notes:
         'Night hunting with hounds popular in forested terrain. Forested ridges and bottomlands.',
       bagLimit: 'Daily limit: 4',

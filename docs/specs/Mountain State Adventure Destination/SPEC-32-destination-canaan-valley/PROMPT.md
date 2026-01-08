@@ -135,7 +135,8 @@ interface ResortTemplateProps {
 ## Kim's Voice Guidelines
 
 **Approved phrases**:
-```
+
+```plaintext
 "Canaan Valley is our go-to for families. Smaller than Snowshoe, way less crowded, easier on the wallet."
 "The valley's a birding hotspot. 200+ species, rare wetland plants. Bring binoculars."
 "Winter skiing's solid - not extreme, but perfect for learning or cruising with the kids."
@@ -143,7 +144,8 @@ interface ResortTemplateProps {
 ```
 
 **Forbidden phrases**:
-```
+
+```plaintext
 NEVER: "Premier destination", "Luxury resort", "World-class slopes", "Ultimate escape"
 ```
 

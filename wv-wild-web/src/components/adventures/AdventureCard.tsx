@@ -19,34 +19,21 @@ interface AdventureCardProps {
  * SPEC-21: Routes to new /near/ dynamic routes instead of legacy /adventures/ paths.
  *
  * @param id - The adventure ID (content collection filename without extension)
- * @param type - The adventure type (wma, lake, ski, park, etc.)
+ * @param type - The adventure type (wma, lake)
  * @returns The correct URL path for the adventure detail page
  */
 function getAdventureUrl(id: string, type?: string): string {
-  // Map content collection IDs to new route slugs
-  // Handle hyphenated names like "burnsville-lake-wma" -> "burnsville"
-  const slugMap: Record<string, string> = {
-    'burnsville-lake-wma': 'burnsville',
-    'summersville-lake': 'summersville',
-    'holly-river': 'holly-river',
-    'cranberry': 'cranberry',
-  };
-
-  const slug = slugMap[id] || id;
+  // Derive slug from id: "burnsville-lake-wma" -> "burnsville", "summersville-lake" -> "summersville"
+  // For compound names like "holly-river", keep as-is
+  const slug = id.includes('-lake') || id.includes('-wma')
+    ? id.split('-')[0]
+    : id;
 
   switch (type) {
     case 'wma':
       return `/near/wma/${slug}/`;
     case 'lake':
       return `/near/lake/${slug}/`;
-    case 'ski':
-      return `/near/ski/${slug}/`;
-    case 'park':
-      return `/near/park/${slug}/`;
-    case 'backcountry':
-      return `/near/backcountry/${slug}/`;
-    case 'resort':
-      return `/near/resort/${slug}/`;
     default:
       // Fallback to legacy /adventures/ path for unmigrated content
       return `/adventures/${id}/`;
@@ -77,7 +64,7 @@ export const AdventureCard = React.memo(function AdventureCard({
     >
       {/* Image */}
       {adventure.data.images?.[0] && (
-        <div className="aspect-[4/3] overflow-hidden bg-brand-mud/10">
+        <div className="aspect-4/3 overflow-hidden bg-brand-mud/10">
           <img
             src={adventure.data.images[0].src}
             alt={adventure.data.images[0].alt}

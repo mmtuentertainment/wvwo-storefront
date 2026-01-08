@@ -69,6 +69,13 @@ export const getStaticPaths: GetStaticPaths = async () => {
     );
 
     if (exportedData) {
+      // Build-time validation: log warnings for missing required fields
+      const requiredFields = ['name', 'image', 'imageAlt', 'tagline', 'description', 'stats', 'fishingSpots', 'marinas', 'activities', 'seasonalGuide', 'regulations', 'gearList', 'relatedShop'] as const;
+      const missingFields = requiredFields.filter(field => !(field in exportedData) || exportedData[field] === undefined);
+      if (missingFields.length > 0) {
+        console.warn(`[Lake ${slug}] Missing required fields: ${missingFields.join(', ')}`);
+      }
+
       paths.push({
         params: { slug },
         props: {
@@ -77,6 +84,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
           hasRelatedWMA: wmaSlugSet.has(slug),
         },
       });
+    } else {
+      console.warn(`[Lake ${slug}] No valid LakeTemplateProps export found in ${path}`);
     }
   }
 
@@ -88,6 +97,28 @@ export const getStaticPaths: GetStaticPaths = async () => {
 // ============================================================================
 
 const { lakeData, slug, hasRelatedWMA } = Astro.props;
+
+// Derive amenity features from lake data (conditional based on what's available)
+const amenityFeatures: Array<{ "@type": string; name: string; value: boolean }> = [];
+
+// Always true for lake pages (required content)
+if (lakeData.fishingSpots?.length > 0) {
+  amenityFeatures.push({ "@type": "LocationFeatureSpecification", name: "Fishing", value: true });
+}
+if (lakeData.marinas?.length > 0) {
+  amenityFeatures.push({ "@type": "LocationFeatureSpecification", name: "Boat Ramps", value: true });
+}
+// Check activities array for specific activity types
+const activityNames = lakeData.activities?.map(a => a.name.toLowerCase()) ?? [];
+if (activityNames.some(name => name.includes('camping'))) {
+  amenityFeatures.push({ "@type": "LocationFeatureSpecification", name: "Camping", value: true });
+}
+if (activityNames.some(name => name.includes('swimming'))) {
+  amenityFeatures.push({ "@type": "LocationFeatureSpecification", name: "Swimming", value: true });
+}
+if (activityNames.some(name => name.includes('kayak') || name.includes('canoe') || name.includes('paddl'))) {
+  amenityFeatures.push({ "@type": "LocationFeatureSpecification", name: "Paddling", value: true });
+}
 
 // Place schema for geographic SEO
 const placeSchema = {
@@ -105,11 +136,7 @@ const placeSchema = {
     "addressRegion": "WV",
     "addressCountry": "US",
   },
-  "amenityFeature": [
-    { "@type": "LocationFeatureSpecification", "name": "Fishing", "value": true },
-    { "@type": "LocationFeatureSpecification", "name": "Boat Ramps", "value": true },
-    { "@type": "LocationFeatureSpecification", "name": "Camping", "value": true },
-  ],
+  "amenityFeature": amenityFeatures.length > 0 ? amenityFeatures : undefined,
 };
 
 // Breadcrumb data

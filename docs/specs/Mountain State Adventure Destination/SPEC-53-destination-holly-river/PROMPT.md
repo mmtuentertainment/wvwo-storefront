@@ -133,7 +133,8 @@ interface StateParkTemplateProps {
 ## Kim's Voice Guidelines
 
 **Approved phrases**:
-```
+
+```text
 "Holly River is our neighborhood state park - closest one with cabins and a full trail system."
 "Good for a weekend if you don't want to drive 2+ hours to the bigger parks."
 "The brook trout fishing is underrated. Small stream, but native brookies are in there if you're willing to hike upstream."
@@ -141,7 +142,8 @@ interface StateParkTemplateProps {
 ```
 
 **Forbidden phrases**:
-```
+
+```text
 NEVER: "Escape to tranquil mountain sanctuary", "Reconnect with nature", "Ultimate getaway"
 ```
 

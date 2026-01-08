@@ -81,7 +81,7 @@ export interface Adventure {
     kim_hook?: string;      // SPEC-08: Kim's personal teaser for card display
     suitability?: ('dog-friendly' | 'kid-friendly' | 'wheelchair-accessible' | 'paved')[];
     images?: { src: string; alt: string; caption?: string }[];  // Added caption field
-    type?: 'wma' | 'lake' | 'ski' | 'adventure' | 'park' | 'backcountry' | 'resort';  // SPEC-21: Route type for URL generation
+    type?: 'wma' | 'lake';  // SPEC-21: Route type for URL generation (only implemented types)
   };
 }
 

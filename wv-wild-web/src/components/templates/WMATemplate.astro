@@ -56,9 +56,6 @@ const {
   regulationsUrl,
   kimsTake,
 } = Astro.props;
-
-// Build-time Zod validation would go here in production
-// Example: WMATemplatePropsSchema.parse(Astro.props);
 ---
 
 <Layout title={`${name} | WV Wild Outdoors`}>
@@ -558,11 +555,6 @@ const {
 </Layout>
 
 <style>
-  /* WVWO Compliance: Only rounded-sm allowed */
-  .rounded-sm {
-    border-radius: 0.125rem;
-  }
-
   /* Motion preferences */
   @media (prefers-reduced-motion: reduce) {
     * {

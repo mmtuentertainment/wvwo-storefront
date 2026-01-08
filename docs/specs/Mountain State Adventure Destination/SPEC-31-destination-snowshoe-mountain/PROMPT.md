@@ -133,7 +133,8 @@ interface SkiTemplateProps {
 ## Kim's Voice Guidelines
 
 **Approved phrases**:
-```
+
+```plaintext
 "Snowshoe's a haul from the shop (90 minutes), but it's worth it. Highest skiing in the Mid-Atlantic."
 "Cupp Run is legit - 1.5 miles of thigh-burning intermediate terrain. Don't skip leg day."
 "If you're learning to ski, Snowshoe's beginner area is forgiving. Wide slopes, patient instructors."
@@ -141,7 +142,8 @@ interface SkiTemplateProps {
 ```
 
 **Forbidden phrases**:
-```
+
+```plaintext
 NEVER: "Premier destination", "World-class slopes", "Luxury mountain experience", "Ultimate winter getaway"
 ```
 

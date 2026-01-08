@@ -184,72 +184,15 @@ export const WMATemplatePropsSchema = z.object({
 });
 
 // ============================================================================
-// WMA TEMPLATE PROPS INTERFACE
+// WMA TEMPLATE PROPS TYPE (DERIVED FROM SCHEMA)
 // ============================================================================
 
 /**
- * WMA template props interface.
- * Complete type definition for WMATemplate component used for WMA adventure pages.
+ * WMA template props type.
+ * Derived from WMATemplatePropsSchema to ensure type-schema consistency.
+ * Used by WMATemplate component for WMA adventure pages.
  */
-export interface WMATemplateProps {
-  // Hero section (required)
-  /** WMA name (e.g., "Burnsville Lake WMA") */
-  name: string;
-  /** Hero image src */
-  image: string;
-  /** Hero image alt text */
-  imageAlt: string;
-  /** Brief tagline or subtitle */
-  tagline: string;
-  /** Full WMA description (rendered as prose) */
-  description: string;
-  /** Quick stats for hero section */
-  stats: StatItem[];
-
-  // WMA metadata
-  /** Total acreage (e.g., 12579) */
-  acreage: number;
-  /** County name (e.g., "Braxton County") */
-  county: string;
-  /** Drive time from shop (e.g., "25 min") */
-  driveTime: string;
-  /** Access type (e.g., "Year-Round", "Class Q") */
-  accessType: string;
-  /** Quick highlight badges for hero */
-  quickHighlights: string[];
-
-  // Content sections
-  /** Game species with seasons and notes */
-  species: HuntingSpecies[];
-  /** Named hunting areas with terrain and access */
-  huntingAreas: HuntingArea[];
-  /** Campgrounds, parking, restrooms, Class Q access */
-  facilities: WMAFacility[];
-  /** GPS access points with features */
-  accessPoints: WMAAccessPoint[];
-  /** Seasonal hunting guide */
-  seasonalGuide: SeasonalHuntingGuide[];
-  /** Regulations and requirements */
-  regulations: WMARegulation[];
-  /** Recommended gear checklist */
-  gearList: GearItem[];
-  /** Related shop categories */
-  relatedShop: RelatedCategory[];
-
-  // Optional metadata
-  /** Optional difficulty level */
-  difficulty?: Difficulty;
-  /** Optional best season to visit */
-  bestSeason?: Season;
-  /** Optional geographic coordinates */
-  coordinates?: Coordinates;
-  /** Optional PDF map URL */
-  mapUrl?: string;
-  /** Optional regulations URL */
-  regulationsUrl?: string;
-  /** Kim's personal take on the WMA */
-  kimsTake?: string;
-}
+export type WMATemplateProps = z.infer<typeof WMATemplatePropsSchema>;
 
 /**
  * Type guard to check if an adventure is a WMA.
@@ -270,13 +213,7 @@ export interface WMATemplateProps {
  * ```
  */
 export function isWMA(adventure: unknown): boolean {
-  return (
-    typeof adventure === 'object' &&
-    adventure !== null &&
-    'data' in adventure &&
-    typeof (adventure as { data: unknown }).data === 'object' &&
-    (adventure as { data: unknown }).data !== null &&
-    'type' in (adventure as { data: object }).data &&
-    (adventure as { data: { type: unknown } }).data.type === 'wma'
-  );
+  if (adventure === null || typeof adventure !== 'object') return false;
+  const data = (adventure as { data?: { type?: unknown } }).data;
+  return typeof data === 'object' && data !== null && data.type === 'wma';
 }
