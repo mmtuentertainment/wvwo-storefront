@@ -18,13 +18,14 @@
  * - Cross-links to related destinations
  */
 
-import type { LakeTemplateProps } from '../../types/adventure';
+import type { LakeTemplatePropsEnriched } from '../../types/lake-enrichment';
 
 /**
  * Complete lake data for Summersville Lake
- * Ready to spread into LakeTemplate component
+ * Uses LakeTemplatePropsEnriched for SPEC-23 enrichment fields.
+ * Ready to spread into LakeTemplate component.
  */
-export const summersvilleLakeData: LakeTemplateProps = {
+export const summersvilleLakeData: LakeTemplatePropsEnriched = {
   // Basic Info
   name: 'Summersville Lake',
   slug: 'summersville',
