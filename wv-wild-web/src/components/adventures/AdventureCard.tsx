@@ -53,6 +53,8 @@ function getAdventureUrl(id: string, type?: string): string {
       return `/near/lake/${slug}/`;
     case 'campground':
       return `/near/campground/${slug}/`;
+    case 'river':
+      return `/near/river/${slug}/`;
     case 'historic':
       return `/historic/${slug}/`;
     default:
