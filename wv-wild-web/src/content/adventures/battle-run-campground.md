@@ -10,7 +10,6 @@ location: "Battle Run Campground, Nicholas County"
 coordinates:
   lat: 38.21912
   lng: -80.89541
-elevation_gain: 200
 drive_time: "55 min"
 suitability:
   - kid-friendly
