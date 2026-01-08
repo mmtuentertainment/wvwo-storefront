@@ -100,6 +100,7 @@ const RegulationsSchema = z.object({
     zone: z.string().optional(),
     restrictions: z.array(z.string().min(1)),
     regulationsUrl: z.string().url().optional(),
+    usaceRegulationsUrl: z.string().url().optional(), // USACE federal regulations (cliff jumping, water safety)
 });
 
 const SeasonHighlightSchema = z.object({

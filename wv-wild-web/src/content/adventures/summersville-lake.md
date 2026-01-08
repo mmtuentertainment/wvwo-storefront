@@ -105,8 +105,9 @@ regulations:
     - "Walleye special regulation: all fish 20-30 inches must be returned immediately"
     - "Mercury advisory: Walleye and Flathead Catfish - limit to 2 meals per month (Jan 2025)"
     - "Corps of Engineers regulations on water and shoreline"
-    - "Cliff jumping prohibited since 2007"
+    - "Cliff jumping prohibited since 2007 (Title 36 CFR, USACE regulation)"
   regulationsUrl: "https://www.wvdnr.gov/"
+  usaceRegulationsUrl: "https://www.lrh.usace.army.mil/Missions/Civil-Works/Recreation/Lakes/Summersville-Lake/"
 seasonHighlights:
   - season: "Spring"
     target: "Smallmouth Bass spawning"
