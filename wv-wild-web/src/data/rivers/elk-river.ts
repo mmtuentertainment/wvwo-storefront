@@ -158,7 +158,7 @@ export const elkRiverData: RiverTemplateProps = {
         'Lake conditions info',
       ],
       contact: {
-        phone: '(304) 765-2120',
+        phone: '(304) 765-7756 or (304) 765-2816',
       },
       seasonalNotes: 'Open April through November. Call for current hours and boat availability.',
     },
@@ -169,12 +169,13 @@ export const elkRiverData: RiverTemplateProps = {
         'Dam release schedules',
         'Recreation information',
         'Accessibility assistance',
+        'Recorded water level/release info: (304) 765-2705',
       ],
       contact: {
-        phone: '(304) 765-2816',
+        phone: '(304) 765-2267',
         website: 'https://www.lrh.usace.army.mil/Missions/Civil-Works/Recreation/Lakes/Sutton-Lake/',
       },
-      seasonalNotes: 'USACE office hours. Call for dam release schedules affecting tailwater fishing.',
+      seasonalNotes: 'USACE office hours. Call (304) 765-2705 for 24-hour recorded lake conditions.',
     },
   ],
 
@@ -298,8 +299,8 @@ export const elkRiverData: RiverTemplateProps = {
       items: [
         'Emergency: 911',
         'Braxton County Medical Center: ~20-30 min from remote areas',
-        'Lake Conditions: (304) 765-2705',
-        'Sutton Lake Resource Manager: (304) 765-2816',
+        'Lake Conditions (recorded): (304) 765-2705',
+        'Sutton Lake Project Office: (304) 765-2267',
         'WVDNR District 3: (304) 924-6211',
       ],
       important: false,
