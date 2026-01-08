@@ -27,6 +27,7 @@ type WMADataModule = {
 interface Props {
   wmaData: WMATemplateProps;
   slug: string;
+  hasRelatedLake: boolean;
 }
 
 // ============================================================================
@@ -38,6 +39,18 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const dataModules = import.meta.glob<WMADataModule>(
     '../../../data/wma/*.ts',
     { eager: true }
+  );
+
+  // Also discover lake data to check for related lakes
+  const lakeModules = import.meta.glob(
+    '../../../data/lakes/*.ts',
+    { eager: true }
+  );
+  const lakeSlugSet = new Set(
+    Object.keys(lakeModules).map(path => {
+      const filename = path.split('/').pop() ?? '';
+      return filename.replace('.ts', '');
+    }).filter(slug => !slug.startsWith('_'))
   );
 
   const paths = [];
@@ -58,7 +71,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
     if (exportedData) {
       paths.push({
         params: { slug },
-        props: { wmaData: exportedData, slug },
+        props: {
+          wmaData: exportedData,
+          slug,
+          hasRelatedLake: lakeSlugSet.has(slug),
+        },
       });
     }
   }
@@ -70,7 +87,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 // PAGE PROPS
 // ============================================================================
 
-const { wmaData, slug } = Astro.props;
+const { wmaData, slug, hasRelatedLake } = Astro.props;
 
 // Place schema for geographic SEO
 const placeSchema = {
@@ -98,7 +115,7 @@ const placeSchema = {
 // Breadcrumb data
 const breadcrumbItems = [
   { name: 'Home', url: '/' },
-  { name: 'Hunt Near Us', url: '/near/' },
+  { name: 'Near Us', url: '/near/' },
   { name: wmaData.name, url: `/near/wma/${slug}/` },
 ];
 
@@ -119,22 +136,24 @@ const metaDescription = wmaData.description.slice(0, 155) + (wmaData.description
   <WMATemplate {...wmaData} />
 
   {/* Cross-link to Lake fishing page if exists */}
-  <section class="py-8 bg-white border-t border-brand-brown/15">
-    <div class="container mx-auto px-4">
-      <div class="max-w-3xl mx-auto text-center">
-        <p class="text-brand-brown/60 mb-3 font-body">Looking for fishing information?</p>
-        <a
-          href={`/near/lake/${slug}/`}
-          class="inline-flex items-center gap-2 text-sign-green font-bold hover:underline font-body"
-        >
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-          </svg>
-          {wmaData.name.replace(' WMA', '')} Fishing Guide
-        </a>
+  {hasRelatedLake && (
+    <section class="py-8 bg-white border-t border-brand-brown/15">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto text-center">
+          <p class="text-brand-brown/60 mb-3 font-body">Looking for fishing information?</p>
+          <a
+            href={`/near/lake/${slug}/`}
+            class="inline-flex items-center gap-2 text-sign-green font-bold hover:underline font-body"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+            </svg>
+            {wmaData.name.replace(' WMA', '')} Fishing Guide
+          </a>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  )}
 
   {/* Newsletter signup */}
   <section class="py-12 md:py-16 bg-brand-cream">

@@ -30,7 +30,7 @@ export const burnsvilleLakeData: LakeTemplateProps = {
     { value: '968', label: 'Surface Acres', icon: 'area' as const },
     { value: '25 min', label: 'From Shop', icon: 'time' as const },
     { value: 'Braxton Co.', label: 'Location', icon: 'location' as const },
-    { value: '3 Ramps', label: 'Boat Access', icon: 'calendar' as const },
+    { value: '3 Ramps', label: 'Boat Access', icon: 'boat' as const },
   ],
 
   // Fishing Spots (Where to Fish Section)
@@ -159,7 +159,7 @@ export const burnsvilleLakeData: LakeTemplateProps = {
     },
     {
       name: 'Bulltown Historical Area',
-      description: 'Civil War history right on the shore. The Battle of Bulltown (October 13, 1863) was the Confederacy\'s last major offensive in West Virginia. Visitor center with exhibits, 19th century log homes, Cunningham House. Annual Battle of Bulltown reenactment in October.',
+      description: "Civil War history right on the shore. The Battle of Bulltown (October 13, 1863) was the Confederacy's last major offensive in West Virginia. Visitor center with exhibits, 19th century log homes, Cunningham House. Annual Battle of Bulltown reenactment in October.",
       season: 'Year-round (visitor center seasonal)',
       difficulty: 'Easy - family friendly',
     },
