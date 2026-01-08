@@ -52,9 +52,13 @@ export const burnsvilleLakeWMAData: WMATemplateProps = {
   ],
 
   // Hunting Species (What to Hunt)
+  // ⚠️ SEASON DATES: Based on 2024-2025 WVDNR hunting regulations.
+  // Update annually from https://wvdnr.gov/hunting/hunting-regulations/
+  // TODO: Verify dates each July when new regulation booklet is published.
   species: [
     {
       name: 'White-tailed Deer',
+      // 2024-2025 season dates - update annually from WVDNR regs
       season: 'Archery: Sept 27 - Dec 31 | Buck Firearms: Nov 24 - Dec 7 | Muzzleloader: Dec 15-21',
       notes:
         'One antlered buck per year with minimum 14-inch outside antler spread requirement. Old farm fields and early successional forest make prime habitat. Bucks bed in thick young growth during rifle season and move to field edges at dawn and dusk.',

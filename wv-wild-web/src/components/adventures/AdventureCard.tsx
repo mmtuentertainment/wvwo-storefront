@@ -23,11 +23,20 @@ interface AdventureCardProps {
  * @returns The correct URL path for the adventure detail page
  */
 function getAdventureUrl(id: string, type?: string): string {
-  // Derive slug from id: "burnsville-lake-wma" -> "burnsville", "summersville-lake" -> "summersville"
-  // For compound names like "holly-river", keep as-is
-  const slug = id.includes('-lake') || id.includes('-wma')
-    ? id.split('-')[0]
-    : id;
+  // Derive slug from id by stripping known suffixes:
+  // - "burnsville-lake-wma" -> "burnsville" (for WMA/lake)
+  // - "summersville-lake" -> "summersville" (for lake)
+  // - Compound names like "holly-river-lake" -> "holly-river" (preserves compound prefix)
+  let slug = id;
+
+  // Strip known suffixes from the end (order matters: check compound suffixes first)
+  if (id.endsWith('-lake-wma')) {
+    slug = id.slice(0, -'-lake-wma'.length);
+  } else if (id.endsWith('-wma')) {
+    slug = id.slice(0, -'-wma'.length);
+  } else if (id.endsWith('-lake')) {
+    slug = id.slice(0, -'-lake'.length);
+  }
 
   switch (type) {
     case 'wma':

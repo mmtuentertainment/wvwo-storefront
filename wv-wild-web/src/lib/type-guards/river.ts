@@ -23,8 +23,16 @@ import type { Rapid, RiverFishing, Outfitter, RiverTemplateProps } from '@/types
  * const rivers = adventures.filter(isRiverAdventure);
  * ```
  */
-export function isRiverAdventure(adventure: any): boolean {
-  return adventure?.data?.type === 'river';
+export function isRiverAdventure(adventure: unknown): boolean {
+  return (
+    typeof adventure === 'object' &&
+    adventure !== null &&
+    'data' in adventure &&
+    typeof (adventure as { data: unknown }).data === 'object' &&
+    (adventure as { data: unknown }).data !== null &&
+    'type' in (adventure as { data: object }).data &&
+    (adventure as { data: { type: unknown } }).data.type === 'river'
+  );
 }
 
 /**
