@@ -59,7 +59,7 @@ fishingWaters:
       - "Bluegill"
       - "Catfish"
     access: "Multiple boat ramps throughout the lake, Battle Run Beach for swimming"
-    notes: "2,790 acres, cleanest clearest freshwater lake east of Mississippi per Skin Diver Magazine. Visibility 20-45 feet."
+    notes: "2,790 acres with exceptional water clarity. Visibility 20-45 feet. Premier freshwater diving destination."
 facilities:
   - type: "Campground"
     count: 117
@@ -126,7 +126,7 @@ mapUrl: "https://water.usace.army.mil/overview/lrh/locations/summersville"
 
 # Summersville Lake - The Little Bahamas of the East
 
-They call it the Little Bahamas of the East for good reason. At 2,790 acres, Summersville is West Virginia's largest lake, and Skin Diver Magazine called it the cleanest, clearest freshwater lake east of the Mississippi. On a good day, you can see 20-45 feet down.
+They call it the Little Bahamas of the East for good reason. At 2,790 acres, Summersville is West Virginia's largest lake with exceptional water clarity — visibility regularly reaches 20-45 feet. The oligotrophic (low-nutrient) water stays remarkably clear year-round.
 
 The crystal-clear water comes from the sandstone geology of the flooded Gauley River gorge - the same geology that creates dramatic underwater cliffs for scuba diving.
 
@@ -152,7 +152,7 @@ Walleye, largemouth bass, crappie, bluegill, and catfish round out the options. 
 
 ## Crystal Clear Waters
 
-Skin Diver Magazine called it the cleanest, clearest freshwater lake east of the Mississippi. Visibility can reach 20-45 feet. Long Point is the signature dive site — dramatic sandstone walls descend approximately 100 feet underwater.
+The lake's exceptional clarity — visibility regularly reaches 20-45 feet — makes it a premier freshwater diving destination in the eastern United States. Long Point is the signature dive site, where dramatic sandstone walls descend approximately 100 feet underwater.
 
 ### Scuba Diving
 
