@@ -1,7 +1,7 @@
 ---
 title: "Bulltown Historic Area"
 description: "Walk the land where Shawnee hunters stalked elk, where Civil War divided neighbors, and where industrial logging stripped the forests bare. Today, second-growth timber stands witness to Appalachian resilience - and the elk are coming back to the river that bears their name."
-type: adventure
+type: historic
 season:
   - spring
   - summer
