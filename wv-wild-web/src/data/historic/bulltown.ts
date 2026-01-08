@@ -392,9 +392,11 @@ export const managingAgency = 'U.S. Army Corps of Engineers / WVDNR';
 
 // ============================================================================
 // NATIONAL REGISTER STATUS
+// TODO: Research National Register status - see tracking issue
+// https://github.com/wvwild/wvwo-storefront/issues/TBD
 // ============================================================================
 
-export const nationalRegister = false; // Verify with official sources
+export const nationalRegister = false; // Unverified - needs research
 
 // ============================================================================
 // DEFAULT EXPORT - Combined Data for Historic Template

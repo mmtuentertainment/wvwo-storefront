@@ -389,15 +389,20 @@ export type RiverFishing = z.infer<typeof RiverFishingSchema>;
 /**
  * Contact information for outfitter.
  * Object structure with phone, website, and email fields.
+ * At least one contact method is required.
  */
-export const OutfitterContactSchema = z.object({
-  /** Phone number (optional) */
-  phone: z.string().optional(),
-  /** Website URL (optional) */
-  website: z.string().url().optional(),
-  /** Email address (optional) */
-  email: z.string().email().optional(),
-});
+export const OutfitterContactSchema = z
+  .object({
+    /** Phone number (optional) */
+    phone: z.string().optional(),
+    /** Website URL (optional) */
+    website: z.string().url().optional(),
+    /** Email address (optional) */
+    email: z.string().email().optional(),
+  })
+  .refine((data) => data.phone || data.website || data.email, {
+    message: 'At least one contact method (phone, website, or email) is required',
+  });
 
 export type OutfitterContact = z.infer<typeof OutfitterContactSchema>;
 
@@ -429,7 +434,10 @@ export const SeasonalFlowSchema = z.object({
   season: z.string().min(1),
   /** Water level indicator (e.g., "High", "Medium", "Low") */
   level: z.string().min(1),
-  /** CFS range or flow description (e.g., "2000-3000 CFS", "Varies with dam releases") */
+  /**
+   * CFS = Cubic Feet per Second (water flow measurement).
+   * Range or description (e.g., "2000-3000 CFS", "Varies with dam releases")
+   */
   cfsRange: z.string().min(1),
   /** Activities this flow level is best for */
   bestFor: z.array(z.string().min(1)).min(1).max(10),

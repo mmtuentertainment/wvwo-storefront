@@ -308,6 +308,7 @@ export const elkRiverData: RiverTemplateProps = {
 
   // ============================================================================
   // NEARBY ATTRACTIONS
+  // Note: Sutton Lake page will be created in SPEC-24
   // ============================================================================
 
   nearbyAttractions: [
@@ -315,7 +316,7 @@ export const elkRiverData: RiverTemplateProps = {
       name: 'Sutton Lake',
       distance: 'Within watershed',
       description: '1,440-acre lake with 5 boat ramps, camping, swimming beaches, and excellent fishing.',
-      link: '/near/lake/sutton/',
+      // TODO(SPEC-24): Link to /near/lake/sutton/ when lake data module is created
     },
     {
       name: 'Elk River Wildlife Management Area',

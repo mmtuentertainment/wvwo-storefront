@@ -29,6 +29,7 @@ import Layout from '../../layouts/Layout.astro';
 import AdventureGearChecklist from '../adventure/AdventureGearChecklist.astro';
 import AdventureRelatedShop from '../adventure/AdventureRelatedShop.astro';
 import AdventureCTA from '../adventure/AdventureCTA.astro';
+import { SITE_CONTACT } from '../../config/siteContact';
 import type {
   RiverTemplateProps,
   Rapid,
@@ -595,7 +596,7 @@ function getAttractionIcon(type: string): string {
     primaryText="Get Directions"
     primaryHref={mapUrl || `https://maps.google.com/?q=${encodeURIComponent(name + ', WV')}`}
     secondaryText="Call the Shop"
-    secondaryHref="tel:+13045551234"
+    secondaryHref={SITE_CONTACT.phoneHref}
     variant="sign-green"
   />
 </Layout>
