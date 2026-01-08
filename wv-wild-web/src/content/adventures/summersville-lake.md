@@ -23,7 +23,7 @@ gear:
   - drop shot rigs
   - hunting license (for hunting)
   - blaze orange (deer season)
-type: wma
+type: lake
 acreage: 5974
 county: "Nicholas County"
 species:

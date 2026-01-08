@@ -53,12 +53,34 @@ const outdoorAreas = [
   },
   {
     name: "Summersville Lake",
-    slug: "summersville-lake",
+    slug: "lake/summersville",
     type: "Lake",
     driveTime: "30 min",
     description: "The 'Little Bahamas of the East' - 2,790 acres of crystal clear water. Great bass fishing and scuba diving.",
     hunting: [],
     fishing: ["Smallmouth Bass", "Largemouth Bass", "Walleye", "Catfish"],
+    camping: true,
+    hasDetailPage: true
+  },
+  // Summersville Destination Hub - Additional Pages (SPEC-23)
+  {
+    name: "Summersville Lake WMA",
+    slug: "wma/summersville",
+    type: "WMA",
+    driveTime: "30 min",
+    description: "5,982-acre WMA surrounding Summersville Lake. Deer, turkey, grouse, small game. No bear hunting 2025 (removed from Nicholas County).",
+    hunting: ["Deer", "Turkey", "Grouse", "Squirrel", "Rabbit"],
+    fishing: [],
+    hasDetailPage: true
+  },
+  {
+    name: "Battle Run Campground",
+    slug: "campground/battle-run",
+    type: "Campground",
+    driveTime: "30 min",
+    description: "117 campsites on Summersville Lake peninsula. Electric hookups, beach access, boat ramp. PETS PROHIBITED.",
+    hunting: [],
+    fishing: [],
     camping: true,
     hasDetailPage: true
   },
