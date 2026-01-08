@@ -80,12 +80,15 @@ During major maintenance drawdowns - roughly every 10 years - the lake drops 55+
 ## Exploring the Ghost Town
 
 ### Scuba Diving (Primary Access)
+
 Certified divers can explore Gad year-round through charter services from Sarge's Dive Shop at Long Point Marina. Summer visibility averages 20-45 feet - exceptional for freshwater diving anywhere in the eastern United States.
 
 ### Drawdown Events (Rare)
+
 When USACE conducts major drawdowns, the ghost town becomes accessible by foot. These events happen approximately once per decade. Check USACE Huntington District announcements.
 
 ### Surface Viewing
+
 On calm, sunny days, the exceptional water clarity allows viewing features 20-30+ feet down from kayaks, paddleboards, or boats.
 
 ## Planning Your Visit

@@ -334,9 +334,9 @@ export const education: HistoricTemplateProps['education'] = {
       downloadUrl: 'https://www.sarges.net/about-summersville-lake.html',
     },
     {
-      title: 'USACE Summersville Lake Information',
+      title: 'USACE Summersville Lake Water Data',
       type: 'Website',
-      downloadUrl: 'https://www.lrd.usace.army.mil/Missions/Recreation/Lakes/Summersville-Lake/',
+      downloadUrl: 'https://water.usace.army.mil/overview/lrh/locations/summersville',
     },
     {
       title: 'WV Encyclopedia - Summersville Lake',
@@ -344,9 +344,9 @@ export const education: HistoricTemplateProps['education'] = {
       downloadUrl: 'https://www.wvencyclopedia.org/entries/598',
     },
     {
-      title: 'Lake Level & Conditions (Real-Time)',
+      title: 'USGS Lake Level Monitoring (Real-Time)',
       type: 'Website',
-      downloadUrl: 'https://www.lrh-wc.usace.army.mil/wm/?basin/kan/sug',
+      downloadUrl: 'https://waterdata.usgs.gov/monitoring-location/USGS-03189590/',
     },
   ],
 };
