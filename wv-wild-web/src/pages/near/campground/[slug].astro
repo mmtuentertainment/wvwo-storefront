@@ -1,0 +1,234 @@
+---
+/**
+ * Campground Page - Dynamic Route
+ * SPEC-21-A: Dynamic route for campground content
+ *
+ * Renders CampgroundTemplate with data from /src/data/campgrounds/{slug}.ts
+ * Uses Vite's import.meta.glob() for auto-discovery of data files.
+ *
+ * To add a new campground: just add the .ts data file in /src/data/campgrounds/
+ */
+
+import type { GetStaticPaths } from 'astro';
+import Layout from '../../../layouts/Layout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import EmailCapture from '../../../components/EmailCapture.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import SchemaBreadcrumb from '../../../components/seo/SchemaBreadcrumb.astro';
+import CampgroundTemplate from '../../../components/templates/CampgroundTemplate.astro';
+import type { CampgroundTemplateProps } from '../../../types/adventure';
+
+// Type for data modules
+type CampgroundDataModule = {
+  [key: string]: CampgroundTemplateProps;
+};
+
+interface Props {
+  campgroundData: CampgroundTemplateProps;
+  slug: string;
+  hasRelatedLake: boolean;
+  hasRelatedWMA: boolean;
+}
+
+// ============================================================================
+// STATIC PATH GENERATION WITH AUTO-DISCOVERY
+// ============================================================================
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  // AUTO-DISCOVER: Vite glob imports all .ts files in /src/data/campgrounds/
+  const dataModules = import.meta.glob<CampgroundDataModule>(
+    '../../../data/campgrounds/*.ts',
+    { eager: true }
+  );
+
+  // Also discover lake and WMA data to check for related content
+  const lakeModules = import.meta.glob(
+    '../../../data/lakes/*.ts',
+    { eager: true }
+  );
+  const lakeSlugSet = new Set(
+    Object.keys(lakeModules).map(path => {
+      const filename = path.split('/').pop() ?? '';
+      return filename.replace('.ts', '');
+    }).filter(slug => !slug.startsWith('_'))
+  );
+
+  const wmaModules = import.meta.glob(
+    '../../../data/wma/*.ts',
+    { eager: true }
+  );
+  const wmaSlugSet = new Set(
+    Object.keys(wmaModules).map(path => {
+      const filename = path.split('/').pop() ?? '';
+      return filename.replace('.ts', '');
+    }).filter(slug => !slug.startsWith('_'))
+  );
+
+  const paths = [];
+
+  for (const [path, module] of Object.entries(dataModules)) {
+    const filename = path.split('/').pop() ?? '';
+    // Skip example/template files
+    if (filename.startsWith('_')) continue;
+
+    const slug = filename.replace('.ts', '');
+
+    // Find the exported data (look for *CampgroundData or *Data export)
+    const exportedData = Object.values(module).find(
+      (value): value is CampgroundTemplateProps =>
+        typeof value === 'object' && value !== null && 'name' in value && 'campsites' in value
+    );
+
+    if (exportedData) {
+      // Build-time validation: log warnings for missing required fields
+      const requiredFields = ['name', 'image', 'imageAlt', 'tagline', 'description', 'stats', 'campsites', 'amenities', 'policies', 'contacts', 'gearList', 'relatedShop'] as const;
+      const missingFields = requiredFields.filter(field => !(field in exportedData) || exportedData[field] === undefined);
+      if (missingFields.length > 0) {
+        console.warn(`[Campground ${slug}] Missing required fields: ${missingFields.join(', ')}`);
+      }
+
+      // Derive lake slug from nearbyLake field (e.g., "Burnsville Lake" -> "burnsville")
+      const lakeSlug = exportedData.nearbyLake?.toLowerCase().replace(/\s+/g, '-').replace('-lake', '') ?? '';
+
+      paths.push({
+        params: { slug },
+        props: {
+          campgroundData: exportedData,
+          slug,
+          hasRelatedLake: lakeSlugSet.has(lakeSlug),
+          hasRelatedWMA: wmaSlugSet.has(lakeSlug),
+        },
+      });
+    } else {
+      console.warn(`[Campground ${slug}] No valid CampgroundTemplateProps export found in ${path}`);
+    }
+  }
+
+  return paths;
+};
+
+// ============================================================================
+// PAGE PROPS
+// ============================================================================
+
+const { campgroundData, slug, hasRelatedLake, hasRelatedWMA } = Astro.props;
+
+// Derive lake slug for cross-linking
+const lakeSlug = campgroundData.nearbyLake?.toLowerCase().replace(/\s+/g, '-').replace('-lake', '') ?? '';
+
+// Derive amenity features from campground data
+const amenityFeatures: Array<{ "@type": string; name: string; value: boolean }> = [
+  { "@type": "LocationFeatureSpecification", name: "Camping", value: true },
+];
+
+// Check amenities for specific features
+const amenityNames = campgroundData.amenities?.map(a => a.name.toLowerCase()) ?? [];
+if (amenityNames.some(name => name.includes('shower'))) {
+  amenityFeatures.push({ "@type": "LocationFeatureSpecification", name: "Showers", value: true });
+}
+if (amenityNames.some(name => name.includes('boat') || name.includes('ramp'))) {
+  amenityFeatures.push({ "@type": "LocationFeatureSpecification", name: "Boat Access", value: true });
+}
+if (amenityNames.some(name => name.includes('playground'))) {
+  amenityFeatures.push({ "@type": "LocationFeatureSpecification", name: "Playground", value: true });
+}
+
+// Place schema for geographic SEO
+const placeSchema = {
+  "@context": "https://schema.org",
+  "@type": "Campground",
+  "name": campgroundData.name,
+  "description": campgroundData.description,
+  "geo": campgroundData.coordinates ? {
+    "@type": "GeoCoordinates",
+    "latitude": campgroundData.coordinates.lat,
+    "longitude": campgroundData.coordinates.lng,
+  } : undefined,
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": campgroundData.county?.replace(' County', ''),
+    "addressRegion": "WV",
+    "addressCountry": "US",
+  },
+  "amenityFeature": amenityFeatures.length > 0 ? amenityFeatures : undefined,
+  "numberOfRooms": campgroundData.totalSites,
+  "url": `https://www.recreation.gov/camping/campgrounds/${campgroundData.recreationGovId}`,
+};
+
+// Breadcrumb data
+const breadcrumbItems = [
+  { name: 'Home', url: '/' },
+  { name: 'Near Us', url: '/near/' },
+  { name: campgroundData.name, url: `/near/campground/${slug}/` },
+];
+
+// Meta
+const pageTitle = `${campgroundData.name} | WV Wild Outdoors`;
+const metaDescription = campgroundData.description.slice(0, 155) + (campgroundData.description.length > 155 ? '...' : '');
+---
+
+<Layout
+  title={pageTitle}
+  description={metaDescription}
+  additionalSchemas={[placeSchema]}
+>
+  <Header />
+  <Breadcrumb items={breadcrumbItems} />
+  <SchemaBreadcrumb items={breadcrumbItems} />
+
+  <CampgroundTemplate {...campgroundData} />
+
+  {/* Cross-links to related content */}
+  {(hasRelatedLake || hasRelatedWMA) && (
+    <section class="py-8 bg-white border-t border-brand-brown/15">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto text-center space-y-4">
+          {hasRelatedLake && (
+            <div>
+              <p class="text-brand-brown/60 mb-2 font-body">Looking for fishing information?</p>
+              <a
+                href={`/near/lake/${lakeSlug}/`}
+                class="inline-flex items-center gap-2 text-sign-green font-bold hover:underline font-body"
+              >
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                </svg>
+                {campgroundData.nearbyLake} Fishing Guide
+              </a>
+            </div>
+          )}
+          {hasRelatedWMA && (
+            <div>
+              <p class="text-brand-brown/60 mb-2 font-body">Looking for hunting information?</p>
+              <a
+                href={`/near/wma/${lakeSlug}/`}
+                class="inline-flex items-center gap-2 text-sign-green font-bold hover:underline font-body"
+              >
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                </svg>
+                {campgroundData.nearbyLake} WMA Hunting Guide
+              </a>
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {/* Newsletter signup */}
+  <section class="py-12 md:py-16 bg-brand-cream">
+    <div class="container mx-auto px-4">
+      <div class="max-w-xl mx-auto">
+        <EmailCapture
+          variant="card"
+          heading="Get Camping Updates"
+          subheading="Campground availability, local events, and gear restocks delivered to your inbox."
+        />
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>

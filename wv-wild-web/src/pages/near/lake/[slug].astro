@@ -28,6 +28,7 @@ interface Props {
   lakeData: LakeTemplateProps;
   slug: string;
   hasRelatedWMA: boolean;
+  relatedCampgrounds: Array<{ slug: string; name: string }>;
 }
 
 // ============================================================================
@@ -52,6 +53,35 @@ export const getStaticPaths: GetStaticPaths = async () => {
       return filename.replace('.ts', '');
     }).filter(slug => !slug.startsWith('_'))
   );
+
+  // Also discover campground data for cross-linking
+  const campgroundModules = import.meta.glob<{ [key: string]: { name: string; nearbyLake?: string } }>(
+    '../../../data/campgrounds/*.ts',
+    { eager: true }
+  );
+
+  // Build a map of lake names to campground info
+  type CampgroundInfo = { slug: string; name: string };
+  const campgroundsByLake = new Map<string, CampgroundInfo[]>();
+
+  for (const [path, module] of Object.entries(campgroundModules)) {
+    const filename = path.split('/').pop() ?? '';
+    if (filename.startsWith('_')) continue;
+
+    const campgroundSlug = filename.replace('.ts', '');
+    const exportedData = Object.values(module).find(
+      (value): value is { name: string; nearbyLake?: string } =>
+        typeof value === 'object' && value !== null && 'name' in value
+    );
+
+    if (exportedData?.nearbyLake) {
+      // Normalize lake name to match Lake slug: "Burnsville Lake" -> "burnsville"
+      const lakeKey = exportedData.nearbyLake.toLowerCase().replace(/\s+lake$/i, '');
+      const existing = campgroundsByLake.get(lakeKey) || [];
+      existing.push({ slug: campgroundSlug, name: exportedData.name });
+      campgroundsByLake.set(lakeKey, existing);
+    }
+  }
 
   const paths = [];
 
@@ -82,6 +112,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
           lakeData: exportedData,
           slug,
           hasRelatedWMA: wmaSlugSet.has(slug),
+          relatedCampgrounds: campgroundsByLake.get(slug) || [],
         },
       });
     } else {
@@ -96,7 +127,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 // PAGE PROPS
 // ============================================================================
 
-const { lakeData, slug, hasRelatedWMA } = Astro.props;
+const { lakeData, slug, hasRelatedWMA, relatedCampgrounds } = Astro.props;
 
 // Derive amenity features from lake data (conditional based on what's available)
 const amenityFeatures: Array<{ "@type": string; name: string; value: boolean }> = [];
@@ -162,21 +193,46 @@ const metaDescription = lakeData.description.slice(0, 155) + (lakeData.descripti
 
   <LakeTemplate {...lakeData} />
 
-  {/* Cross-link to WMA hunting page if exists */}
-  {hasRelatedWMA && (
+  {/* Cross-links section */}
+  {(hasRelatedWMA || relatedCampgrounds.length > 0) && (
     <section class="py-8 bg-white border-t border-brand-brown/15">
       <div class="container mx-auto px-4">
-        <div class="max-w-3xl mx-auto text-center">
-          <p class="text-brand-brown/60 mb-3 font-body">Looking for hunting information?</p>
-          <a
-            href={`/near/wma/${slug}/`}
-            class="inline-flex items-center gap-2 text-sign-green font-bold hover:underline font-body"
-          >
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-            </svg>
-            {lakeData.name} WMA Hunting Guide
-          </a>
+        <div class="max-w-3xl mx-auto text-center space-y-6">
+          {/* Cross-link to WMA hunting page if exists */}
+          {hasRelatedWMA && (
+            <div>
+              <p class="text-brand-brown/60 mb-3 font-body">Looking for hunting information?</p>
+              <a
+                href={`/near/wma/${slug}/`}
+                class="inline-flex items-center gap-2 text-sign-green font-bold hover:underline font-body"
+              >
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                </svg>
+                {lakeData.name} WMA Hunting Guide
+              </a>
+            </div>
+          )}
+
+          {/* Cross-links to nearby campgrounds */}
+          {relatedCampgrounds.length > 0 && (
+            <div>
+              <p class="text-brand-brown/60 mb-3 font-body">Need a place to camp?</p>
+              <div class="flex flex-wrap justify-center gap-4">
+                {relatedCampgrounds.map((campground) => (
+                  <a
+                    href={`/near/campground/${campground.slug}/`}
+                    class="inline-flex items-center gap-2 text-sign-green font-bold hover:underline font-body"
+                  >
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                    </svg>
+                    {campground.name}
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </section>

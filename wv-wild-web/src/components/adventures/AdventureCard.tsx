@@ -17,15 +17,17 @@ interface AdventureCardProps {
 /**
  * Generate the correct URL for an adventure based on its type.
  * SPEC-21: Routes to new /near/ dynamic routes instead of legacy /adventures/ paths.
+ * SPEC-21-A: Extended to support campground type routes.
  *
  * @param id - The adventure ID (content collection filename without extension)
- * @param type - The adventure type (wma, lake)
+ * @param type - The adventure type (wma, lake, campground)
  * @returns The correct URL path for the adventure detail page
  */
 function getAdventureUrl(id: string, type?: string): string {
   // Derive slug from id by stripping known suffixes:
   // - "burnsville-lake-wma" -> "burnsville" (for WMA/lake)
   // - "summersville-lake" -> "summersville" (for lake)
+  // - "bulltown-campground" -> "bulltown" (for campground)
   // - Compound names like "holly-river-lake" -> "holly-river" (preserves compound prefix)
   let slug = id;
 
@@ -36,6 +38,8 @@ function getAdventureUrl(id: string, type?: string): string {
     slug = id.slice(0, -'-wma'.length);
   } else if (id.endsWith('-lake')) {
     slug = id.slice(0, -'-lake'.length);
+  } else if (id.endsWith('-campground')) {
+    slug = id.slice(0, -'-campground'.length);
   }
 
   switch (type) {
@@ -43,6 +47,8 @@ function getAdventureUrl(id: string, type?: string): string {
       return `/near/wma/${slug}/`;
     case 'lake':
       return `/near/lake/${slug}/`;
+    case 'campground':
+      return `/near/campground/${slug}/`;
     default:
       // Fallback to legacy /adventures/ path for unmigrated content
       return `/adventures/${id}/`;

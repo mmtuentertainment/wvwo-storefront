@@ -151,11 +151,19 @@ export const burnsvilleLakeWMAData: WMATemplateProps = {
   // Facilities
   facilities: [
     {
-      type: 'Campground',
-      count: 2,
+      type: 'Bulltown Campground',
+      count: 204,
       description:
-        'Riffle Run (60 sites, 54 full hookup) and Bulltown (133+ sites). Reservations via Recreation.gov. Bulltown has WiFi for electronic game check.',
-      link: 'https://www.recreation.gov',
+        '204 sites (134 full hookup with water/electric/sewer, 70 electric-only). 30/50 amp service. Showers, dump station, boat ramp, playground. Waterfront sites have boat mooring posts. Adjacent to Bulltown Historic Area (Civil War battlefield). Season: April-November. Fees: $20-40/night.',
+      link: 'https://www.recreation.gov/camping/campgrounds/233443',
+      contact: '1-877-444-6777',
+    },
+    {
+      type: 'Riffle Run Campground',
+      count: 60,
+      description:
+        '60 sites (54 full hookup, 6 primitive tent sites). Near dam side of lake. Restrooms, dump station, boat ramp nearby. ADA-accessible fishing pier. Lower prices than Bulltown. Season: April-November. Fees: $12-28/night (primitive $12, full hookup $28).',
+      link: 'https://www.recreation.gov/camping/campgrounds/10234906',
       contact: '1-877-444-6777',
     },
     {
@@ -182,21 +190,24 @@ export const burnsvilleLakeWMAData: WMATemplateProps = {
       name: 'Bulltown Campground',
       coordinates: { lat: 38.84543, lng: -80.61734 },
       features: [
-        '133+ campsites with full hookups',
-        'Boat ramp',
-        'Showers and dump station',
-        'Adjacent to historic area',
-        'WiFi available',
+        '204 campsites (134 full hookup, 70 electric)',
+        '30/50 amp service available',
+        'Boat ramp with mooring posts',
+        'Showers, restrooms, dump station',
+        'Playground in each loop',
+        'Adjacent to Bulltown Historic Area',
+        'Swimming beach 1 mile away',
       ],
     },
     {
       name: 'Riffle Run Campground',
       coordinates: { lat: 38.8373, lng: -80.6175 },
       features: [
-        '60 sites (54 full hookup)',
-        'Boat ramp',
-        'Near dam',
-        'First-come, first-served',
+        '60 sites (54 full hookup, 6 primitive)',
+        'Lower fees ($12-28/night)',
+        'Boat ramp nearby',
+        'ADA-accessible fishing pier',
+        'Near dam and tailwater access',
       ],
     },
     {
