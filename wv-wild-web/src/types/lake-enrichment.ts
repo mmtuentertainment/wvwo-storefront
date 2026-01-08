@@ -5,13 +5,20 @@
  * This file provides a flexible type for comprehensive lake data
  * like Summersville Lake that goes beyond the base LakeTemplateProps.
  *
- * NOTE: This is a standalone type, not extending LakeTemplateProps,
- * because enriched data includes additional fields on nested objects
- * (tips on fishingSpots, address on marinas, etc.) that would cause
- * type conflicts with the stricter base interface.
+ * DESIGN DECISION: This is a standalone type, not extending LakeTemplateProps.
  *
- * TODO: When LakeTemplate component is updated to consume enrichment fields,
- * consider unifying these types or using a more flexible base interface.
+ * Why standalone instead of extension:
+ * - Enriched data includes additional fields on nested objects (tips on
+ *   FishingSpot, address on Marina, provider/fees on Activity, etc.)
+ * - TypeScript interface extension doesn't allow widening nested object types
+ * - Attempting to extend would require intersection types that produce
+ *   type conflicts when nested objects have incompatible shapes
+ * - Standalone type provides clean separation between base template props
+ *   (consumed by LakeTemplate component) and enriched data files
+ *
+ * Data files using this type (e.g., summersville.ts) can be spread into
+ * LakeTemplate props - TypeScript will enforce that all required base
+ * fields are present while allowing the enrichment fields to pass through.
  */
 
 /** Stat item icon types - must match StatIconSchema in adventure.ts */

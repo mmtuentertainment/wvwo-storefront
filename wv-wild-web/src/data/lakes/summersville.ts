@@ -51,7 +51,7 @@ export const summersvilleLakeData: LakeTemplatePropsEnriched = {
     { value: '2,790', label: 'Lake Acres', icon: 'area' as const },
     { value: '327 ft', label: 'Max Depth', icon: 'elevation' as const },
     { value: '60 mi', label: 'Shoreline', icon: 'distance' as const },
-    { value: '20-45 ft', label: 'Visibility', icon: 'info' as const },
+    { value: '20-45 ft', label: 'Visibility', icon: 'none' as const },
   ],
 
   // Fishing Spots (Where to Fish Section)
