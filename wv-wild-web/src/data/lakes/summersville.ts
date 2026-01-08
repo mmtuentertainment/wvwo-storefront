@@ -5,7 +5,6 @@
  * Sources:
  * - U.S. Army Corps of Engineers Huntington District
  * - West Virginia Division of Natural Resources (WVDNR)
- * - Skin Diver Magazine ("Little Bahamas of the East")
  * - Official marina and campground documentation
  *
  * Data includes:
@@ -31,7 +30,7 @@ export const summersvilleLakeData: LakeTemplatePropsEnriched = {
   slug: 'summersville',
   image: '/images/summersville-lake-hero.jpg',
   imageAlt: 'Summersville Lake crystal clear turquoise waters with sandstone cliffs rising from the shoreline',
-  tagline: 'The Little Bahamas of the East - Skin Diver Magazine',
+  tagline: 'The Little Bahamas of the East',
   description: 'West Virginia\'s largest lake with 2,790 acres of crystal-clear water reaching 327 feet deep. Famous for 20-45 foot visibility, world-class scuba diving, exceptional smallmouth bass fishing, and dramatic sandstone cliffs. 30 minutes from WV Wild Outdoors.',
 
   // Lake Specifications
@@ -224,7 +223,7 @@ export const summersvilleLakeData: LakeTemplatePropsEnriched = {
 
   // Scuba Diving Section (NEW)
   scubaDiving: {
-    overview: 'Summersville Lake is a premier inland scuba diving destination in the eastern United States, nicknamed "the cleanest, clearest freshwater lake east of the Mississippi" by Skin Diver Magazine.',
+    overview: 'Summersville Lake is a premier inland scuba diving destination in the eastern United States, renowned for exceptional water clarity with visibility regularly reaching 20-45 feet.',
     visibility: '20-45 feet average, up to 70 feet under optimal conditions',
     waterTemperature: '78-85°F June through September',
     bestMonths: 'June through September',
