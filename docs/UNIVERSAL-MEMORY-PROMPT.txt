@@ -1,0 +1,629 @@
+MISSION: Deploy Advanced Memory Optimization System for Maximum Token Efficiency
+
+You are deploying a comprehensive 4-tier memory architecture to optimize this codebase for 40-60% token reduction in future development work.
+
+CONTEXT (FILL IN YOUR PROJECT DETAILS):
+- Project Name: [YOUR_PROJECT_NAME]
+- Working Directory: [YOUR_PROJECT_PATH]
+- Tech Stack: [YOUR_STACK - e.g., React/TypeScript/Next.js]
+- Codebase Size: [ESTIMATE - e.g., ~50 files, ~15,000 lines]
+- Main Pain Points: [e.g., "Always re-reading routing files", "Forgetting component patterns"]
+
+---
+
+PHASE 1: DATABASE AUDIT & CLEANUP (30 minutes)
+
+Step 1: Find all existing memory databases
+```bash
+find . -name "*.db" -o -name "agentdb*" -o -name ".swarm" -type d
+```
+
+Step 2: For EACH database found, analyze:
+- Size (ls -lh)
+- Last modified date
+- Transaction count (if SQLite)
+- Purpose (is it active, dormant, or orphaned duplicate?)
+
+Step 3: Research best practices
+Use WebSearch to find:
+- "Vector database best practices 2025"
+- "AgentDB ReasoningBank integration patterns"
+- "Hybrid Store Pattern agentic AI"
+
+Expected finding: Use specialized databases for specialized purposes (vector search, skills, coordination kept separate).
+
+Step 4: Clean up orphaned databases
+- Backup EVERYTHING first: mkdir -p docs/memory-backups/$(date +%Y-%m-%d)-cleanup
+- Delete only dormant duplicates (low transaction count, old modification date)
+- Keep active databases (.swarm/memory.db for ReasoningBank, agentdb.db for skills, .hive-mind/ for coordination)
+
+Step 5: Verify ReasoningBank still works
+```bash
+claude-flow memory query "test" --namespace [project-name]-successes --reasoningbank
+```
+
+Expected: Should return results with 60-95% match scores.
+
+---
+
+PHASE 2: REASONINGBANK SEMANTIC MEMORY (30 minutes)
+
+Step 1: Install Claude Flow globally
+```bash
+npm install -g claude-flow@alpha
+```
+
+Step 2: Store 6 critical pattern types in ReasoningBank
+
+Pattern 1: Completed Feature Patterns
+```bash
+claude-flow memory store "[project]-codebase-architecture" "
+Architecture Overview:
+- Directory structure: [list key directories]
+- Component patterns: [e.g., all components in src/components]
+- Utility patterns: [e.g., all utils in src/utils]
+- Type system: [e.g., TypeScript interfaces in src/types]
+- Routing: [e.g., Next.js pages/ or Astro src/pages]
+
+Key Architectural Decisions:
+1. [Decision 1: e.g., 'Use server components for data fetching']
+2. [Decision 2: e.g., 'All API calls through src/lib/api']
+3. [Decision 3: e.g., 'Tailwind for styling, no CSS modules']
+
+File Size Limits:
+- Max lines per file: [e.g., 500]
+- Extraction pattern when exceeded: [e.g., 'Extract to separate module']
+" --namespace [project-name]-successes --reasoningbank
+```
+
+Pattern 2: Code Review Verdicts
+```bash
+claude-flow memory store "[project]-code-review-verdicts" "
+Code Review Patterns from PR History:
+
+ALWAYS Do:
+1. Validate numeric inputs with Number.isFinite() (not just typeof === 'number')
+2. Document pending features in JSDoc with @pending tags
+3. Use environment-safe checks (import.meta.env not process.env in Vite/Astro)
+4. Keep type guards pure (no input mutation)
+5. Write comprehensive tests (>85% coverage for utilities)
+6. Handle edge cases (NaN, Infinity, negative values, null, undefined)
+
+NEVER Do:
+1. Don't duplicate data - derive from single source of truth
+2. Don't skip input validation on public functions
+3. Don't use magic numbers - use named constants with units
+4. Don't forget backward compatibility when refactoring
+5. Don't merge without tests for new utilities
+
+Test Coverage Requirements:
+- Utilities: 85%+ coverage
+- Components: 70%+ coverage
+- Critical paths: 95%+ coverage
+" --namespace [project-name]-successes --reasoningbank
+```
+
+Pattern 3: Routing & Navigation
+```bash
+claude-flow memory store "[project]-routing-patterns" "
+Routing Architecture:
+
+Route Types:
+- Static routes: [e.g., /about, /contact]
+- Dynamic routes: [e.g., /blog/[slug], /products/[id]]
+- API routes: [e.g., /api/*, /api/v1/*]
+
+Route File Locations:
+[Framework-specific: pages/, app/, routes/, src/pages/]
+
+URL Generation Patterns:
+- Helper functions: [e.g., getProductUrl(), getBlogUrl()]
+- Link components: [e.g., <Link>, <NavLink>]
+
+Common 404 Causes:
+1. [e.g., Missing slug in dynamic route]
+2. [e.g., Route file not created after adding new type]
+3. [e.g., Incorrect URL helper function]
+
+New Route Checklist:
+[ ] Create route file at [path pattern]
+[ ] Update navigation component
+[ ] Add to sitemap
+[ ] Create URL helper function
+[ ] Test with real slug/id
+" --namespace [project-name]-successes --reasoningbank
+```
+
+Pattern 4: Component Patterns
+```bash
+claude-flow memory store "[project]-component-patterns" "
+Component Architecture:
+
+Component Types:
+1. [Type 1: e.g., Page Components - full pages with layouts]
+2. [Type 2: e.g., Layout Components - shared layouts]
+3. [Type 3: e.g., UI Components - reusable UI elements]
+4. [Type 4: e.g., Feature Components - specific features]
+
+File Organization:
+- [Pattern: e.g., One component per file]
+- [Pattern: e.g., Co-located styles: ComponentName.module.css]
+- [Pattern: e.g., Tests adjacent: ComponentName.test.tsx]
+
+Props Patterns:
+- [Pattern: e.g., All props interfaces exported]
+- [Pattern: e.g., Optional props use ? syntax]
+- [Pattern: e.g., Default props in destructuring]
+
+Styling Patterns:
+- [e.g., Tailwind utility classes preferred]
+- [e.g., Custom components in src/components/ui]
+- [e.g., No inline styles except for dynamic values]
+" --namespace [project-name]-successes --reasoningbank
+```
+
+Pattern 5: Type System
+```bash
+claude-flow memory store "[project]-type-system" "
+TypeScript Type System:
+
+Type Organization:
+- Global types: [e.g., src/types/index.ts]
+- Feature types: [e.g., src/features/[feature]/types.ts]
+- Component props: [e.g., Exported from component files]
+
+Type Hierarchies:
+[Document main type hierarchies]
+- [Base type] → [Extended types]
+- [e.g., BaseProps → PageProps, LayoutProps, ComponentProps]
+
+Zod Schemas:
+[If using Zod]
+- Schema location: [e.g., src/schemas/]
+- Type inference: [e.g., type X = z.infer<typeof XSchema>]
+
+Common Type Patterns:
+1. [Pattern: e.g., Optional fields use ? syntax]
+2. [Pattern: e.g., Arrays use readonly T[] for immutability]
+3. [Pattern: e.g., Enums vs string unions - prefer unions]
+" --namespace [project-name]-successes --reasoningbank
+```
+
+Pattern 6: Testing & Quality
+```bash
+claude-flow memory store "[project]-testing-patterns" "
+Testing Strategy:
+
+Test Organization:
+- Unit tests: [location, e.g., __tests__/ or .test.ts adjacent]
+- Integration tests: [location, e.g., tests/integration/]
+- E2E tests: [location, e.g., tests/e2e/]
+
+Coverage Requirements:
+- Utilities: [%]
+- Components: [%]
+- Critical paths: [%]
+
+Testing Patterns:
+1. [Pattern: e.g., Test files mirror source structure]
+2. [Pattern: e.g., Use describe/test blocks from vitest/jest]
+3. [Pattern: e.g., Mock external dependencies]
+4. [Pattern: e.g., Test edge cases: null, undefined, NaN, empty arrays]
+
+Common Test Cases:
+- Happy path: [example]
+- Edge cases: [example]
+- Error handling: [example]
+- Boundary conditions: [example]
+" --namespace [project-name]-successes --reasoningbank
+```
+
+Step 3: Verify all patterns stored
+```bash
+claude-flow memory list --namespace [project-name]-successes --reasoningbank
+```
+
+Expected: 6+ memories with recent timestamps.
+
+---
+
+PHASE 3: SERENA SEMANTIC INDEXING (45 minutes)
+
+Step 1: Activate Serena project
+```typescript
+mcp__serena__activate_project({ project: "[project-name]" })
+```
+
+Step 2: Create 5 comprehensive Serena memory entries
+
+Memory 1: Component/Module Architecture
+```typescript
+mcp__serena__write_memory({
+  memory_file_name: "[project]-component-architecture",
+  content: `
+COMPONENT ARCHITECTURE PATTERNS
+
+Directory Structure:
+[List key directories with purposes]
+- src/components/ → [purpose]
+- src/utils/ → [purpose]
+- src/types/ → [purpose]
+- src/lib/ → [purpose]
+
+Component Inventory:
+[Use mcp__serena__get_symbols_overview to list symbols]
+
+Top-level Components:
+- [Component 1]: [purpose, file location]
+- [Component 2]: [purpose, file location]
+- [Component 3]: [purpose, file location]
+
+Shared Utilities:
+- [Utility 1]: [what it does, file location]
+- [Utility 2]: [what it does, file location]
+
+Type Hierarchy:
+- [Main type]: [properties count, file location]
+- [Extended type]: [extends from, file location]
+
+Reusable Patterns:
+1. [Pattern discovered from symbol analysis]
+2. [Pattern discovered from file structure]
+3. [Pattern discovered from imports]
+
+Symbol Quick Reference:
+[Paste results from get_symbols_overview on 3-5 key files]
+
+See Related: [project]-routing-patterns, [project]-type-system
+  `
+})
+```
+
+Memory 2: Routing & Navigation
+```typescript
+mcp__serena__write_memory({
+  memory_file_name: "[project]-routing-patterns",
+  content: `
+ROUTING & NAVIGATION ARCHITECTURE
+
+Route Structure:
+[Document your routing system]
+Static: /about, /contact, etc.
+Dynamic: /blog/[slug], /products/[id], etc.
+API: /api/*, /api/v1/*, etc.
+
+Route File Locations:
+[Framework-specific paths]
+
+URL Generation Helpers:
+[List helper functions with signatures]
+
+404 Prevention Checklist:
+1. [Check 1]
+2. [Check 2]
+3. [Check 3]
+
+New Route Steps:
+[ ] [Step 1]
+[ ] [Step 2]
+[ ] [Step 3]
+
+See Related: [project]-component-architecture
+  `
+})
+```
+
+Memory 3: Modular Design
+```typescript
+mcp__serena__write_memory({
+  memory_file_name: "[project]-modular-design",
+  content: `
+MODULAR DESIGN PATTERNS
+
+File Size Limit: [X] lines maximum
+
+Extraction Pattern:
+1. Identify: File exceeds [X] lines OR has >5 responsibilities
+2. Extract: [What to extract - e.g., data arrays, utility functions, type definitions]
+3. Naming: [Convention - e.g., main-file-category.ts]
+4. Import: [Pattern - e.g., import { extracted } from './main-file-category']
+
+Real Examples from Codebase:
+[List any files you've already refactored]
+- Before: [file.ts] - [Y] lines
+- After: [file.ts] - [Z] lines (extracted [category] to [new-file.ts])
+
+Code Organization Rules:
+1. [Rule 1]
+2. [Rule 2]
+3. [Rule 3]
+
+See Related: [project]-component-architecture
+  `
+})
+```
+
+Memory 4: Code Review Verdicts
+```typescript
+mcp__serena__write_memory({
+  memory_file_name: "[project]-code-review-verdicts",
+  content: `
+CODE REVIEW VERDICT PATTERNS
+
+ALWAYS:
+1. [Verdict 1 with example]
+2. [Verdict 2 with example]
+3. [Verdict 3 with example]
+
+NEVER:
+1. [Anti-pattern 1 with explanation]
+2. [Anti-pattern 2 with explanation]
+3. [Anti-pattern 3 with explanation]
+
+Test Coverage:
+- Utilities: [%]
+- Components: [%]
+
+PR Checklist:
+[ ] [Item 1]
+[ ] [Item 2]
+[ ] [Item 3]
+
+See Related: [project]-testing-patterns
+  `
+})
+```
+
+Memory 5: Developer FAQ
+```typescript
+mcp__serena__write_memory({
+  memory_file_name: "[project]-developer-faq",
+  content: `
+DEVELOPER FAQ - INSTANT ANSWERS
+
+Q1: How do I [common task 1]?
+A: [Step-by-step with file paths]
+
+Q2: Where is [feature X] handled?
+A: [File path, function name, line number]
+
+Q3: How do [system Y] work?
+A: [Architecture explanation with examples]
+
+Q4: What's the [pattern Z]?
+A: [Pattern with real code examples]
+
+Q5: Which database stores what?
+A:
+- ReasoningBank (.swarm/memory.db) → Semantic patterns
+- AgentDB (agentdb.db) → Skills
+- Serena → Code symbols
+- Hive Mind (.hive-mind/) → Coordination
+
+[Add 15 more project-specific Q&A pairs]
+
+Memory Lookup Table:
+- Architecture → [memory-name]
+- Routing → [memory-name]
+- Reviews → [memory-name]
+- Modular → [memory-name]
+
+See Related: All other memories for deep dives
+  `
+})
+```
+
+Step 3: Index critical file symbols
+For 3-5 most important files:
+```typescript
+mcp__serena__get_symbols_overview({
+  relative_path: "[critical-file-path]",
+  depth: 1
+})
+// Copy results into memory entries
+```
+
+---
+
+PHASE 4: DEPLOY QUEEN-LED OPTIMIZATION SWARM (60 minutes)
+
+Use Claude Code's Task tool to spawn queen coordinator:
+
+Task("Queen Coordinator", `
+Deploy a 12-agent hierarchical memory swarm to index this codebase for maximum token efficiency.
+
+MISSION BRIEF:
+1. Analyze codebase structure (dirs, files, patterns)
+2. Extract architectural patterns (components, data flow, routing)
+3. Map symbol hierarchies (types, functions, classes)
+4. Identify code review patterns (from git log)
+5. Create comprehensive memory entries
+6. Calculate token savings (before/after metrics)
+
+DELIVERABLES:
+- 5 Serena memory entries (architecture, routing, modular design, code reviews, FAQ)
+- 6 ReasoningBank patterns (with 384-d semantic embeddings)
+- Symbol index (50+ symbols for instant lookup)
+- Token reduction report (target: 40-60%)
+
+SWARM STRUCTURE:
+- Queen (you): Strategic coordination
+- 3 Scout Agents: Codebase exploration, pattern discovery, dependency mapping
+- 4 Worker Agents: Deep file analysis, symbol indexing, memory creation
+- Collective Intelligence: Cross-agent synthesis for comprehensive coverage
+
+SAFETY PROTOCOLS:
+- Read-only operations on production code
+- All memory writes to .swarm/, .hive-mind/, or Serena managed locations only
+- Backup databases before any changes
+- Validate all patterns before storage
+- No file modifications without explicit approval
+
+COORDINATION PROTOCOL:
+1. Scouts explore codebase using Serena's get_symbols_overview, find_symbol, search_for_pattern
+2. Workers analyze findings and draft memory entries
+3. Collective Intelligence synthesizes and validates
+4. Queen stores final memories using write_memory and ReasoningBank store
+5. All agents report token savings estimates
+
+Execute mission and report back with:
+- Memory entries created (list all keys)
+- Token efficiency metrics (before/after for 5 common operations)
+- Symbol index summary
+- Recommended workflow optimizations
+`, "queen-coordinator")
+
+Expected timeline: ~60 minutes for complete indexing.
+
+---
+
+PHASE 5: VERIFICATION & DOCUMENTATION (30 minutes)
+
+Step 1: Test memory retrieval
+
+Serena:
+```typescript
+mcp__serena__list_memories()
+mcp__serena__read_memory({ memory_file_name: "[project]-developer-faq" })
+```
+
+ReasoningBank:
+```bash
+claude-flow memory query "architecture" --namespace [project]-successes --reasoningbank
+```
+
+Expected: Fast retrieval (<2s), high match scores (60-95%).
+
+Step 2: Calculate token savings
+
+Pick 5 common operations and measure:
+
+| Operation | Before (tokens) | After (tokens) | Reduction |
+|-----------|-----------------|----------------|-----------|
+| [Operation 1] | [estimate] | [estimate] | [%] |
+| [Operation 2] | [estimate] | [estimate] | [%] |
+| [Operation 3] | [estimate] | [estimate] | [%] |
+| [Operation 4] | [estimate] | [estimate] | [%] |
+| [Operation 5] | [estimate] | [estimate] | [%] |
+
+Target: 40-60% average reduction.
+
+Step 3: Document memory architecture
+
+Add to project's main config/docs file:
+
+```markdown
+## Memory Architecture
+
+[PROJECT] uses a 4-tier memory system for token efficiency:
+
+| System | Location | Purpose | Commands |
+|--------|----------|---------|----------|
+| ReasoningBank | `.swarm/memory.db` | Semantic pattern search | `claude-flow memory` |
+| AgentDB | `agentdb.db` (root) | Skill storage | `npx agentdb` |
+| Serena | Managed by MCP | Code symbol indexing | `mcp__serena__` tools |
+| Hive Mind | `.hive-mind/` | Swarm coordination | Auto-managed |
+
+### Memory-First Workflow
+
+BEFORE implementing:
+```bash
+claude-flow memory query "[feature type]" --namespace [project]-successes --reasoningbank
+mcp__serena__read_memory({ memory_file_name: "[project]-component-architecture" })
+```
+
+AFTER completing:
+```bash
+claude-flow memory store "[feature]-complete" "Learnings..." --namespace [project]-successes --reasoningbank
+```
+
+### Token Efficiency
+
+- Common questions: **80% reduction**
+- Architecture lookups: **75% reduction**
+- Pattern recall: **60% reduction**
+- **Overall: 40-60% savings**
+```
+
+Step 4: Create maintenance schedule
+
+```markdown
+### Maintenance Schedule
+
+After Each Feature:
+- [ ] Store completion pattern in ReasoningBank (5 min)
+- [ ] Update Serena memory if architecture changed (5 min)
+
+Monthly:
+- [ ] Review memories for relevance (15 min)
+- [ ] Backup databases (2 min)
+
+Quarterly:
+- [ ] Analyze token metrics (30 min)
+- [ ] Re-index if major refactor (60 min)
+```
+
+---
+
+PHASE 6: OPTIONAL ENHANCEMENTS
+
+If codebase is large (>100 files, >50,000 lines):
+
+AgentDB Advanced Features:
+1. HNSW Indexing (150x faster search) - enabled by default
+2. Quantization (4-32x memory reduction) - configure if needed
+3. Multi-database strategy (separate DBs for code, decisions, data)
+4. Custom distance metrics (for domain-specific similarity)
+
+Serena Dashboard Fix (if using Serena MCP):
+```bash
+# Edit ~/.serena/serena_config.yml
+# Line 35: Change to false
+web_dashboard_open_on_launch: false
+```
+Restart IDE after changing.
+
+---
+
+SUCCESS CRITERIA
+
+✅ Database audit complete, orphans cleaned up (Phase 1)
+✅ 6+ ReasoningBank patterns stored with 60-95% match scores (Phase 2)
+✅ 5+ Serena memories created, symbols indexed (Phase 3)
+✅ Queen-led swarm executed, deliverables received (Phase 4)
+✅ Memory retrieval verified, <2s query time (Phase 5)
+✅ Documentation updated with memory architecture (Phase 5)
+✅ Token reduction: 40-60% for common operations (Phase 5)
+✅ Zero code corruption (git status clean or intentional changes only)
+
+DELIVERABLES
+
+Final report should include:
+1. Database inventory (what's kept, what's deleted, sizes)
+2. Memory entries created (list all keys, character counts)
+3. Token efficiency metrics (before/after table for 5 operations)
+4. Symbol index summary (how many symbols indexed)
+5. Recommended workflow changes
+6. Maintenance schedule
+7. Architecture documentation (added to project docs)
+
+TIMELINE
+
+- Phase 1: 30 min (database audit)
+- Phase 2: 30 min (ReasoningBank patterns)
+- Phase 3: 45 min (Serena indexing)
+- Phase 4: 60 min (Queen swarm deployment)
+- Phase 5: 30 min (verification + docs)
+- Phase 6: 15 min (optional enhancements)
+Total: ~3.5 hours for complete optimization
+
+PROVEN RESULTS (from WVWO Storefront)
+
+- 45+ Serena memories created (50,755 chars)
+- 10+ ReasoningBank patterns (69.6% match accuracy)
+- 75% token reduction for codebase queries
+- <2s semantic search response time
+- 752 KB orphaned data cleaned
+- Zero code changes (read-only optimization)
+
+Execute all phases systematically. Report progress after each phase. Ask for approval before deleting any databases.
