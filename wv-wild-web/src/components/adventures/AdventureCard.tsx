@@ -44,6 +44,22 @@ function getAdventureUrl(id: string, type?: string): string {
     slug = id.slice(0, -'-campground'.length);
   } else if (id.endsWith('-historic-area')) {
     slug = id.slice(0, -'-historic-area'.length);
+  } else if (id.endsWith('-state-park')) {
+    slug = id.slice(0, -'-state-park'.length);
+  } else if (id.endsWith('-wilderness')) {
+    slug = id.slice(0, -'-wilderness'.length);
+  } else if (id.endsWith('-battlefield')) {
+    slug = id.slice(0, -'-battlefield'.length);
+  } else if (id.endsWith('-river')) {
+    slug = id.slice(0, -'-river'.length);
+  } else if (id.endsWith('-cave')) {
+    slug = id.slice(0, -'-cave'.length);
+  } else if (id.endsWith('-trail')) {
+    slug = id.slice(0, -'-trail'.length);
+  } else if (id.endsWith('-resort')) {
+    slug = id.slice(0, -'-resort'.length);
+  } else if (id.endsWith('-mountain')) {
+    slug = id.slice(0, -'-mountain'.length);
   }
 
   switch (type) {
@@ -57,6 +73,22 @@ function getAdventureUrl(id: string, type?: string): string {
       return `/near/river/${slug}/`;
     case 'historic':
       return `/historic/${slug}/`;
+    case 'state-park':
+      return `/near/state-park/${slug}/`;
+    case 'backcountry':
+      return `/backcountry/${slug}/`;
+    case 'ski':
+      return `/near/ski/${slug}/`;
+    case 'cave':
+      return `/near/cave/${slug}/`;
+    case 'trail':
+      return `/near/trail/${slug}/`;
+    case 'climbing':
+      return `/near/climbing/${slug}/`;
+    case 'national-park':
+      return `/near/national-park/${slug}/`;
+    case 'resort':
+      return `/near/resort/${slug}/`;
     default:
       // Fallback to legacy /adventures/ path for unmigrated content
       return `/adventures/${id}/`;

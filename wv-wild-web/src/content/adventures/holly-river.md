@@ -23,8 +23,8 @@ gear:
   - blaze orange (deer season)
   - good boots (steep terrain)
   - topo map or GPS
-  - WV fishing license
-  - trout stamp
+  - WV fishing license (required)
+  - trout stamp (required for trout)
   - ultra-light tackle
 type: wma
 species:

@@ -17,6 +17,7 @@ suitability:
   - dog-friendly
   - wheelchair-accessible
 gear:
+  - WV fishing license (required)
   - camping gear
   - fishing rod
   - kayak

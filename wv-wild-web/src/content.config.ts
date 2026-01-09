@@ -132,7 +132,23 @@ const adventures = defineCollection({
         // SPEC-14: Extended to include 'river' type (T-032)
         // SPEC-15: Extended to include 'ski' type for ski resort templates
         // SPEC-21-A: Extended to include 'campground' type for campground pages
-        type: z.enum(['adventure', 'wma', 'lake', 'river', 'ski', 'campground', 'historic']).optional(),
+        // SPEC-24: Extended to include all destination types for dual-system architecture
+        type: z.enum([
+            'adventure',      // Generic adventures (legacy)
+            'wma',            // Wildlife Management Areas
+            'lake',           // Lakes and reservoirs
+            'river',          // Rivers and paddling
+            'ski',            // Ski resorts
+            'campground',     // Campgrounds
+            'historic',       // Historic sites
+            'state-park',     // State parks
+            'backcountry',    // Wilderness/backcountry areas
+            'cave',           // Caves and caverns
+            'trail',          // Hiking/biking trails
+            'climbing',       // Rock climbing areas
+            'national-park',  // National parks/NPS sites
+            'resort',         // Adventure resorts
+        ]).optional(),
 
         // SPEC-12: WMA-specific optional fields (zero breaking changes)
         acreage: z.number().int().positive().optional(),

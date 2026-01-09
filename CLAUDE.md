@@ -119,12 +119,82 @@ const relatedModules = import.meta.glob('../../../data/{otherType}/*.ts', { eage
 
 **To add a new destination:** Just create the data file. No route changes needed.
 
-### Adventures Hub Integration
+### 🚨 DUAL DATA SYSTEM ARCHITECTURE (CRITICAL)
 
-Content collection entries in `src/content/adventures/` feed the `/adventures/` hub with filtering. Each entry should:
-- Have correct `type` field (wma, lake, campground, etc.)
-- Include `gear` array for activity filtering (camping gear, fishing rod, etc.)
-- Link to the dedicated template page via `getAdventureUrl()`
+**There are TWO parallel data systems that BOTH must be updated for every destination:**
+
+| System | Location | Powers | Navigation Link |
+|--------|----------|--------|-----------------|
+| **Data Files** | `src/data/{type}/{slug}.ts` | Template pages (`/near/{type}/{slug}/`) | "Hunt Near Us" → `/near/` |
+| **Content Collection** | `src/content/adventures/{slug}.md` | Adventures hub (`/adventures/`) | "Adventures" → `/adventures/` |
+
+**BOTH systems are ACTIVE in the main navigation (Header.astro):**
+- `/adventures/` = "Adventures" link - browsable card grid with filtering
+- `/near/` = "Hunt Near Us" link - geographic destination listings
+
+**Why two systems exist:**
+- **Data files** (`src/data/`) provide structured TypeScript data for rich template pages with full cross-linking
+- **Content collection** (`src/content/adventures/`) provides markdown entries for the filterable Adventures hub
+
+**The template pages are shared:** Both systems link to the same destination pages (e.g., `/near/lake/sutton/`). The difference is HOW users discover them:
+- Via `/adventures/` card grid (needs content collection entry)
+- Via `/near/` listing page (needs entry in hardcoded array)
+- Via cross-links from related pages (needs data file)
+
+### ✅ COMPLETE DESTINATION CHECKLIST
+
+When adding ANY new destination, you MUST create/update ALL of these:
+
+| Step | File | Purpose | Missing = |
+|------|------|---------|-----------|
+| 1 | `src/data/{type}/{slug}.ts` | Template page data | 404 on `/near/{type}/{slug}/` |
+| 2 | `src/content/adventures/{slug}.md` | Adventures hub card | Not visible on `/adventures/` |
+| 3 | `src/pages/near/index.astro` | "Hunt Near Us" listing | Not visible on `/near/` |
+| 4 | `src/content.config.ts` | Type validation | Build errors |
+| 5 | `src/components/adventures/AdventureCard.tsx` | URL routing | 404 when clicking card |
+
+### Content Collection Entry Template
+
+Every destination needs a `.md` file in `src/content/adventures/`:
+
+```markdown
+---
+title: "Destination Name - Subtitle"
+description: "Brief description for SEO and card display"
+season:
+  - spring
+  - summer
+  - fall
+  - winter
+difficulty: easy  # easy, moderate, difficult
+location: "Location Name, County"
+coordinates:
+  lat: 38.0000
+  lng: -80.0000
+drive_time: "45 min"
+suitability:
+  - kid-friendly
+  - dog-friendly
+  - wheelchair-accessible
+gear:
+  - WV fishing license (required)  # REQUIRED for all lakes/rivers/campgrounds
+  - camping gear
+  - fishing rod
+type: lake  # MUST match: wma, lake, campground, river, historic, backcountry, ski, state-park
+images:
+  - src: /images/{type}/{slug}-hero.webp
+    alt: Descriptive alt text
+    caption: Optional caption
+kim_hook: "Kim's personal tip in her voice"
+---
+
+# Markdown content for the page body
+```
+
+**CRITICAL: Filename convention:**
+- Lakes: `{lake-name}-lake.md` → AdventureCard strips `-lake` suffix for URL
+- Campgrounds: `{name}-campground.md` → AdventureCard strips `-campground` suffix for URL
+- WMAs: `{name}-wma.md` → AdventureCard strips `-wma` suffix for URL
 
 ### 🚨 NEW DESTINATION TYPE MIGRATION CHECKLIST (CRITICAL)
 
@@ -141,13 +211,37 @@ When migrating content to dynamic routes OR adding a new destination type, you M
 
 **Current `getAdventureUrl()` supported types:**
 ```typescript
-case 'wma':       return `/near/wma/${slug}/`;
-case 'lake':      return `/near/lake/${slug}/`;
-case 'campground': return `/near/campground/${slug}/`;
-case 'river':     return `/near/river/${slug}/`;
-case 'historic':  return `/historic/${slug}/`;
+case 'wma':          return `/near/wma/${slug}/`;
+case 'lake':         return `/near/lake/${slug}/`;
+case 'campground':   return `/near/campground/${slug}/`;
+case 'river':        return `/near/river/${slug}/`;
+case 'historic':     return `/historic/${slug}/`;
+case 'state-park':   return `/near/state-park/${slug}/`;
+case 'backcountry':  return `/backcountry/${slug}/`;
+case 'ski':          return `/near/ski/${slug}/`;
+case 'cave':         return `/near/cave/${slug}/`;
+case 'trail':        return `/near/trail/${slug}/`;
+case 'climbing':     return `/near/climbing/${slug}/`;
+case 'national-park': return `/near/national-park/${slug}/`;
+case 'resort':       return `/near/resort/${slug}/`;
 // default falls back to /adventures/{id}/ (causes 404s!)
 ```
+
+**Filename suffix stripping (AdventureCard.tsx):**
+The card component strips these suffixes from filenames to generate slugs:
+- `-lake-wma` → WMA slug (e.g., `burnsville-lake-wma` → `burnsville`)
+- `-wma` → WMA slug
+- `-lake` → Lake slug
+- `-campground` → Campground slug
+- `-historic-area` → Historic slug
+- `-state-park` → State park slug
+- `-wilderness` → Backcountry slug
+- `-battlefield` → Historic slug
+- `-river` → River slug
+- `-cave` → Cave slug
+- `-trail` → Trail slug
+- `-resort` → Resort slug
+- `-mountain` → Ski slug (e.g., `snowshoe-mountain` → `snowshoe`)
 
 **Root cause of 404s:** The Adventures hub (`/adventures/`) uses `AdventureCard.tsx` which reads the content collection's `type` field. If the type isn't in the switch statement, it falls back to `/adventures/{id}/` which doesn't exist.
 
