@@ -133,6 +133,7 @@ const adventures = defineCollection({
         // SPEC-15: Extended to include 'ski' type for ski resort templates
         // SPEC-21-A: Extended to include 'campground' type for campground pages
         // SPEC-24: Extended to include all destination types for dual-system architecture
+        // SPEC-24-PR6: Added mountain-biking, scenic-byway, outfitter per competitive analysis
         type: z.enum([
             'adventure',      // Generic adventures (legacy)
             'wma',            // Wildlife Management Areas
@@ -148,6 +149,9 @@ const adventures = defineCollection({
             'climbing',       // Rock climbing areas
             'national-park',  // National parks/NPS sites
             'resort',         // Adventure resorts
+            'mountain-biking', // Mountain biking trails/parks
+            'scenic-byway',   // Scenic driving routes
+            'outfitter',      // Gear rental/guide services
         ]).optional(),
 
         // SPEC-12: WMA-specific optional fields (zero breaking changes)
