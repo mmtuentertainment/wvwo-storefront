@@ -17,7 +17,7 @@ suitability:
   - kid-friendly
   - dog-friendly
 gear:
-  - WV fishing license
+  - WV fishing license (required)
   - light tackle (6-8 lb test)
   - tube jigs
   - drop shot rigs

@@ -18,7 +18,7 @@ suitability:
   - dog-friendly
   - wheelchair-accessible
 gear:
-  - WV fishing license
+  - WV fishing license (required)
   - jigs with minnow trailers
   - tube jigs
   - blade baits

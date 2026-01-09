@@ -27,6 +27,7 @@ quickStats:
   - "Endangered Species Habitat"
 
 gear:
+  - WV fishing license (required)
   - kayak
   - fishing rod
   - PFD

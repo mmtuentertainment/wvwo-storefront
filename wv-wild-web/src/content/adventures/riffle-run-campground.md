@@ -16,6 +16,7 @@ suitability:
   - kid-friendly
   - dog-friendly
 gear:
+  - WV fishing license (required)
   - camping gear
   - fishing rod
   - waders
