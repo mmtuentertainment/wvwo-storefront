@@ -17,6 +17,9 @@
  */
 
 import type { LakeTemplatePropsEnriched } from '../../types/lake-enrichment';
+import { suttonFishSpecies } from './sutton-fish-species';
+import { suttonMarinas } from './sutton-marinas';
+import { suttonCampgrounds } from './sutton-campgrounds';
 
 /**
  * Complete lake data for Sutton Lake
@@ -88,151 +91,11 @@ export const suttonLakeData: LakeTemplatePropsEnriched = {
     },
   ],
 
-  // Fish Species with Regulations
-  fishSpecies: [
-    {
-      name: 'Walleye',
-      bestSeason: 'Fall and Winter',
-      regulations: 'SLOT LIMIT: All walleye 20-30 inches must be released immediately. Daily limit 2, only walleye under 20" OR one over 30" may be kept.',
-      tips: 'Deep jigging on points and ledges 40-60 feet. Blade baits in winter. Best fishing at dawn and dusk.',
-    },
-    {
-      name: 'Smallmouth Bass',
-      bestSeason: 'Spring and Fall',
-      regulations: 'Daily limit 6 (combined with largemouth and spotted bass). No minimum size.',
-      tips: 'Tube jigs on rocky structure. Finesse presentations in clear water conditions.',
-    },
-    {
-      name: 'Largemouth Bass',
-      bestSeason: 'Spring and Summer',
-      regulations: 'Daily limit 6 (combined with smallmouth and spotted bass). No minimum size.',
-      consumptionAdvisory: 'Limit to 1 meal per month for bass over 12 inches due to mercury content',
-      tips: 'Target laydowns and brush piles in upper lake coves. Texas-rigged worms effective.',
-    },
-    {
-      name: 'Spotted Bass',
-      bestSeason: 'Spring and Fall',
-      regulations: 'Daily limit 6 (combined with other bass species). No minimum size.',
-    },
-    {
-      name: 'Muskie',
-      bestSeason: 'Fall (September-November)',
-      regulations: 'Minimum 30 inches. Daily limit 1.',
-      tips: 'Tailwaters below dam. Large bucktails and jerkbaits. Heavy tackle required.',
-    },
-    {
-      name: 'Channel Catfish',
-      bestSeason: 'Summer',
-      regulations: 'Daily limit 30 (USACE lakes). No minimum size.',
-    },
-    {
-      name: 'Blue Catfish',
-      bestSeason: 'Summer',
-      regulations: 'Daily limit 2. Minimum 25 inches.',
-    },
-    {
-      name: 'Flathead Catfish',
-      bestSeason: 'Summer',
-      regulations: 'Daily limit 30. No minimum size.',
-    },
-    {
-      name: 'Crappie',
-      bestSeason: 'Spring',
-      regulations: 'Daily limit 30 (combined black and white). No minimum size.',
-      tips: 'Spawn in shallow coves around brush piles. Small jigs and live minnows.',
-    },
-    {
-      name: 'Trout (Tailwaters)',
-      bestSeason: 'Spring (stocked Feb-April) and Fall (October)',
-      regulations: 'Daily limit 6 combined species. No minimum size.',
-      notes: 'Rainbow, golden rainbow, brook, brown, and tiger trout stocked in Elk River tailwaters below dam',
-    },
-  ],
+  // Fish Species with Regulations (extracted to sutton-fish-species.ts)
+  fishSpecies: suttonFishSpecies,
 
-  // Marina & Boat Access
-  marinas: [
-    {
-      name: 'Sutton Lake Marina',
-      type: 'Full-service marina with rentals',
-      address: '1734 Bee Run Road, Sutton, WV 26601',
-      services: [
-        '230 boat slips (100 with water and electric)',
-        'Pontoon boat rentals (full/half day)',
-        'Jet ski rentals (Yamaha VX Waverunner)',
-        'Kayak and paddleboard rentals',
-        'Houseboat rentals (3, 4, or 7 days)',
-        'Pedal boats and Craig Cats',
-        'Four grades of ethanol-free marine gas',
-        'Pump-out station',
-        'Ship\'s store (pizza, ice cream, bait, supplies)',
-        'Marine mechanic and winterization services',
-        'Winter and summer boat storage',
-      ],
-      contact: '(304) 765-2120',
-      website: 'suttonlakemarina.com',
-      hours: 'Mid-April to mid-October: 9:00 AM - 6:00 PM Mon-Sat, Closed Sunday',
-      fees: 'Slip rentals: $25-$40 daily, $95-$150 weekly, $295-$490 monthly',
-      rentalDetails: {
-        deposit: '$300 refundable damage deposit for jet skis',
-        checkIn: '9:00 AM',
-        returnBy: '7:00 PM',
-        operatorAge: 21,
-        boaterSafetyCard: 'Required for operators born after Dec 31, 1986',
-        restrictions: 'No towing tubes/skiers behind rentals',
-      },
-    },
-    {
-      name: 'Bee Run Day Use Area Boat Ramp',
-      type: 'Public boat launch with beach',
-      address: '1734 Bee Run Road, Sutton, WV 26601',
-      services: [
-        'Wide concrete boat ramp',
-        'Large parking for trucks and trailers',
-        'Adjacent to Sutton Lake Marina',
-        'Swimming beach',
-        'Restrooms and showers',
-        'Picnic shelters',
-      ],
-      hours: 'Seasonal - closes when lake drops below 917 feet',
-      fees: '$3.00 day use per vehicle ($40 annual pass)',
-    },
-    {
-      name: 'South Abutment Boat Ramp',
-      type: 'Public boat launch behind dam',
-      services: [
-        'Boat ramp access',
-        'Swimming beach',
-        'Picnic shelter',
-        'Fishing pier',
-        'Access to tailwater fishing',
-      ],
-      hours: 'Seasonal',
-      fees: '$3.00 day use per vehicle',
-    },
-    {
-      name: 'Bakers Run Campground Boat Ramp',
-      type: 'Campground boat launch',
-      address: '441 Bakers Run Road, Sutton, WV 26601',
-      services: [
-        'Boat ramp with small dock',
-        'Parking for boat trailers',
-        'Extended no-wake zone nearby',
-      ],
-      hours: 'May 1 - September 30 (ramp closes below 910 feet)',
-      fees: '$3.00 day use or included with campground stay',
-    },
-    {
-      name: 'Gerald R. Freeman Campground Boat Ramp',
-      type: 'Campground boat launch with marina',
-      services: [
-        'Accessible boat ramps',
-        'Small marina with snack bar',
-        'Parking area',
-      ],
-      hours: 'April 18 - November 29 (ramp closes below 912 feet)',
-      fees: '$3.00 day use or included with campground stay',
-    },
-  ],
+  // Marina & Boat Access (extracted to sutton-marinas.ts)
+  marinas: suttonMarinas,
 
   // Swimming Section
   swimming: {
@@ -387,82 +250,10 @@ export const suttonLakeData: LakeTemplatePropsEnriched = {
     },
   ],
 
-  // Campgrounds (Cross-linked)
+  // Campgrounds (extracted to sutton-campgrounds.ts)
   // NOTE: Site counts match authoritative standalone campground data files
   // See: src/data/campgrounds/gerald-r-freeman.ts, bakers-run.ts, bee-run.ts
-  campgrounds: [
-    {
-      name: 'Gerald R. Freeman Campground',
-      slug: 'gerald-r-freeman',
-      operator: 'U.S. Army Corps of Engineers',
-      sites: 156,
-      siteTypes: [
-        '40 full hookup (50 amp)',
-        '30 full hookup (30 amp)',
-        '46 electric only (50 amp)',
-        '40 electric only (30 amp)',
-      ],
-      amenities: [
-        'Bathhouses with hot showers',
-        'Flush toilets',
-        'Dump stations',
-        'Playgrounds',
-        'Basketball courts',
-        'Boat ramp',
-        'Accessible facilities',
-      ],
-      fees: '$28-$46/night depending on site type',
-      season: 'April - November (varies by year)',
-      reservations: 'Recreation.gov or 1-877-444-6777',
-      policies: ['14-day limit per 30-day period', 'Quiet hours 10 PM - 6 AM', 'Limited cell service', 'Pets on leash'],
-      contact: '(304) 765-2816',
-    },
-    {
-      name: 'Bakers Run Campground',
-      slug: 'bakers-run',
-      operator: 'U.S. Army Corps of Engineers',
-      sites: 77,
-      siteTypes: [
-        '30 electric waterfront (30/50 amp)',
-        '35 electric standard (30/50 amp)',
-        '12 non-electric',
-      ],
-      amenities: [
-        'Bathhouses with hot showers',
-        'Flush toilets',
-        'Dump station',
-        'Playground',
-        'Boat ramp',
-        'Basketball and volleyball courts',
-        'Fire rings and picnic tables',
-      ],
-      fees: '$18-$34/night depending on site type',
-      season: 'May - September (varies by year)',
-      reservations: 'Recreation.gov',
-      policies: ['14-day limit per 30-day period', 'Pets on leash'],
-      contact: '(304) 765-2816',
-    },
-    {
-      name: 'Bee Run Campground',
-      slug: 'bee-run',
-      operator: 'U.S. Army Corps of Engineers',
-      sites: 12,
-      siteTypes: ['12 primitive sites (no hookups)'],
-      amenities: [
-        'Vault toilets',
-        'Fire rings',
-        'Picnic tables',
-        'NO electric hookups',
-        'NO potable water',
-        'NO showers',
-      ],
-      fees: '$10-$14/night',
-      season: 'Late May - Early December',
-      reservations: 'First-come, first-served (no reservations)',
-      policies: ['14-day limit per 30-day period', 'Bring your own drinking water'],
-      contact: '(304) 765-2816',
-    },
-  ],
+  campgrounds: suttonCampgrounds,
 
   // Gear Checklist
   gearList: [
@@ -531,7 +322,7 @@ export const suttonLakeData: LakeTemplatePropsEnriched = {
     marina: {
       name: 'Sutton Lake Marina',
       phone: '(304) 765-2120',
-      website: 'suttonlakemarina.com',
+      website: 'https://suttonlakemarina.com',
     },
     campground: {
       name: 'Gerald R. Freeman Campground',
