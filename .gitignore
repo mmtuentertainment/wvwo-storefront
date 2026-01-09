@@ -149,3 +149,6 @@ docs/swarm-memory/
 coverage/
 wv-wild-web/coverage/
 reports/
+
+# VSCode extension installers
+*.vsix
