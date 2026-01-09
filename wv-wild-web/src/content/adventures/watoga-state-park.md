@@ -25,10 +25,6 @@ gear:
 type: state-park
 acreage: 10100
 county: "Pocahontas County"
-images:
-  - src: /images/state-parks/watoga/hero-lake-lodge.jpg
-    alt: Watoga State Park lodge overlooking the lake with fall foliage
-    caption: West Virginia's largest state park - 10,100 acres of mountain recreation
 kim_hook: "This is the flagship - WV's largest state park with a full-service lodge, restaurant, and 18-hole golf course. Brooks Memorial Arboretum has 350+ tree species. If you're looking for a resort experience in the mountains, this is it."
 ---
 
@@ -78,7 +74,7 @@ The arboretum is a highlight - 350+ tree species on paved, accessible trails. Da
 
 ## Related Destinations
 
-- **[Holly River State Park](/near/state-park/holly-river/)** - Second largest WV state park nearby
+- **[Holly River State Park](https://wvstateparks.com/park/holly-river-state-park/)** - Second largest WV state park nearby
 - **[Cranberry Wilderness](/backcountry/cranberry/)** - Backcountry hiking 25 miles away
 
 ## Getting There
