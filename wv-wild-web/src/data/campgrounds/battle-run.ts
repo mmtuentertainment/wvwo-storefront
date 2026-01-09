@@ -45,7 +45,7 @@ IMPORTANT: Pets are strictly prohibited at Battle Run - no dogs, no exceptions. 
   managingAgency: 'U.S. Army Corps of Engineers (Huntington District)',
   recreationGovId: '233388',
   county: 'Nicholas County',
-  nearbyLake: 'summersville',
+  nearbyLake: 'Summersville Lake',
   quickHighlights: [
     '1,000-ft Swimming Beach',
     '30 Amp Electric Sites',
