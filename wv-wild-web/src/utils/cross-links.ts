@@ -176,3 +176,4 @@ export function getCrossLinkUrl(type: string, slug: string): string {
   const base = specialRoutes[type] || `/near/${type}/`;
   return `${base}${slug}/`;
 }
+
