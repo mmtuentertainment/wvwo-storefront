@@ -14,6 +14,7 @@ drive_time: "~45 min"
 suitability:
   - dog-friendly
 gear:
+  - WV fishing license (required)
   - tent
   - sleeping bag
   - camping stove
