@@ -125,7 +125,6 @@ export function groupNearbyByType<T extends DestinationRef>(
  * @returns Formatted string (e.g., "5 miles", "0.5 miles", "< 1 mile")
  */
 export function formatDistance(miles: number): string {
-  if (miles < 0.5) return '< 1 mile';
   if (miles < 1) return '< 1 mile';
   if (miles < 10) return `${miles.toFixed(1)} miles`;
   return `${Math.round(miles)} miles`;
