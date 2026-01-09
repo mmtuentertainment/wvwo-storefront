@@ -94,36 +94,48 @@ export function isValidGeoJSONPoint(pt: Feature<Point>): boolean {
 /**
  * Type guard for destinations with valid coordinates.
  * Validates presence, numeric types, and geographic ranges.
- * Supports both {lat, lng} and GeoJSON [lng, lat] formats.
+ * Pure function - does not mutate input.
  */
 export function hasCoordinates<T extends DestinationRef>(
   dest: T
 ): dest is T & { coordinates: Coordinates } {
-  // Check GeoJSON format first
-  if (dest.geoJson !== undefined) {
-    const [lng, lat] = dest.geoJson;
-    if (
+  // Check standard coordinates format
+  if (dest.coordinates !== undefined) {
+    const { lat, lng } = dest.coordinates;
+    return (
       typeof lat === 'number' &&
       typeof lng === 'number' &&
       lat >= -90 && lat <= 90 &&
       lng >= -180 && lng <= 180
-    ) {
-      // Normalize to coordinates format for consistent output
-      (dest as T & { coordinates: Coordinates }).coordinates = fromGeoJSON(dest.geoJson);
-      return true;
-    }
-    return false;
+    );
   }
+  return false;
+}
 
-  // Check standard coordinates format
-  if (dest.coordinates === undefined) return false;
-  const { lat, lng } = dest.coordinates;
+/**
+ * Type guard for destinations with valid GeoJSON coordinates.
+ */
+export function hasGeoJson<T extends DestinationRef>(
+  dest: T
+): dest is T & { geoJson: GeoJSONPosition } {
+  if (dest.geoJson === undefined) return false;
+  const [lng, lat] = dest.geoJson;
   return (
     typeof lat === 'number' &&
     typeof lng === 'number' &&
     lat >= -90 && lat <= 90 &&
     lng >= -180 && lng <= 180
   );
+}
+
+/**
+ * Get coordinates from a destination, supporting both formats.
+ * Returns null if no valid coordinates exist.
+ */
+export function getCoordinates(dest: DestinationRef): Coordinates | null {
+  if (hasCoordinates(dest)) return dest.coordinates;
+  if (hasGeoJson(dest)) return fromGeoJSON(dest.geoJson);
+  return null;
 }
 
 // ============================================================================
@@ -165,7 +177,10 @@ export function distanceKilometers(
 
 /**
  * Locate nearby destinations from an origin within a maximum radius.
- * Filters out destinations without coordinates using type guard.
+ * Supports both {lat, lng} and GeoJSON coordinate formats.
+ *
+ * NOTE: Excludes destinations at distance=0 (same location as origin).
+ * This prevents self-referencing when finding nearby destinations.
  *
  * @param origin - Reference coordinates to measure distances from
  * @param destinations - Candidate destinations to search
@@ -182,12 +197,18 @@ export function findNearbyDestinations<T extends DestinationRef>(
   const originPoint = toPoint(origin);
 
   return destinations
-    .filter(hasCoordinates)
-    .map((dest) => ({
-      ...dest,
-      distanceMiles: distance(originPoint, toPoint(dest.coordinates), { units: 'miles' }),
-    }))
-    .filter((dest) => dest.distanceMiles <= radiusMiles && dest.distanceMiles > 0)
+    .map((dest) => {
+      const coords = getCoordinates(dest);
+      if (!coords) return null;
+      return {
+        ...dest,
+        coordinates: coords,
+        distanceMiles: distance(originPoint, toPoint(coords), { units: 'miles' }),
+      };
+    })
+    .filter((dest): dest is NonNullable<typeof dest> =>
+      dest !== null && dest.distanceMiles <= radiusMiles && dest.distanceMiles > 0
+    )
     .sort((a, b) => a.distanceMiles - b.distanceMiles)
     .slice(0, limit);
 }
@@ -262,10 +283,18 @@ export function groupNearbyByType<T extends DestinationRef>(
  * Convert a numeric distance in miles into a human-friendly display string.
  * Handles singular/plural correctly (e.g., "1 mile" not "1.0 miles").
  *
- * @param miles - Distance in miles
- * @returns `"< 1 mile"` for distances less than 1, proper singular/plural for others
+ * @param miles - Distance in miles (must be non-negative finite number)
+ * @returns Formatted string, or throws for invalid input
+ * @throws Error if miles is negative, NaN, or Infinity
  */
 export function formatDistance(miles: number): string {
+  if (!Number.isFinite(miles)) {
+    throw new Error('Distance must be a finite number');
+  }
+  if (miles < 0) {
+    throw new Error('Distance cannot be negative');
+  }
+  if (miles === 0) return 'same location';
   if (miles < 1) return '< 1 mile';
   if (miles < 10) {
     const formatted = miles.toFixed(1);
