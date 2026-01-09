@@ -15,7 +15,16 @@ export interface DestinationRef {
   slug: string;
   name: string;
   type: string;
-  coordinates: Coordinates;
+  coordinates?: Coordinates;
+}
+
+/** Type guard for destinations with valid coordinates */
+export function hasCoordinates<T extends DestinationRef>(
+  dest: T
+): dest is T & { coordinates: Coordinates } {
+  return dest.coordinates !== undefined &&
+         typeof dest.coordinates.lat === 'number' &&
+         typeof dest.coordinates.lng === 'number';
 }
 
 /**
@@ -50,10 +59,7 @@ export function haversineDistance(point1: Coordinates, point2: Coordinates): num
 
 /**
  * Locate nearby destinations from an origin within a maximum radius.
- *
- * Maps each destination to include `distanceMiles` (miles from `origin`), filters out destinations
- * at the same coordinates, restricts to those within `radiusMiles`, sorts by ascending distance,
- * and returns up to `limit` results.
+ * Filters out destinations without coordinates using type guard.
  *
  * @param origin - Reference coordinates to measure distances from
  * @param destinations - Candidate destinations to search
@@ -66,8 +72,9 @@ export function findNearbyDestinations<T extends DestinationRef>(
   destinations: T[],
   radiusMiles = 30,
   limit = 5
-): Array<T & { distanceMiles: number }> {
+): Array<T & { coordinates: Coordinates; distanceMiles: number }> {
   return destinations
+    .filter(hasCoordinates)
     .map((dest) => ({
       ...dest,
       distanceMiles: haversineDistance(origin, dest.coordinates),
@@ -79,13 +86,14 @@ export function findNearbyDestinations<T extends DestinationRef>(
 
 /**
  * Locate nearby destinations of the specified types around an origin coordinate.
+ * Uses Set for O(1) type membership check.
  *
  * @param origin - Reference coordinates to measure distances from
  * @param destinations - Array of destination objects to search
  * @param types - Destination types to include (matching `destination.type`)
  * @param radiusMiles - Maximum distance in miles to include
  * @param limit - Maximum number of results to return
- * @returns An array of destinations augmented with `distanceMiles`, sorted by ascending distance and limited to `limit` items within `radiusMiles` of `origin`
+ * @returns An array of destinations augmented with `distanceMiles`, sorted by ascending distance
  */
 export function findNearbyByType<T extends DestinationRef>(
   origin: Coordinates,
@@ -93,8 +101,9 @@ export function findNearbyByType<T extends DestinationRef>(
   types: string[],
   radiusMiles = 30,
   limit = 5
-): Array<T & { distanceMiles: number }> {
-  const filtered = destinations.filter((d) => types.includes(d.type));
+): Array<T & { coordinates: Coordinates; distanceMiles: number }> {
+  const typeSet = new Set(types);
+  const filtered = destinations.filter((d) => typeSet.has(d.type));
   return findNearbyDestinations(origin, filtered, radiusMiles, limit);
 }
 
@@ -114,7 +123,7 @@ export function groupNearbyByType<T extends DestinationRef>(
   destinations: T[],
   radiusMiles = 30,
   limitPerType = 3
-): Record<string, Array<T & { distanceMiles: number }>> {
+): Record<string, Array<T & { coordinates: Coordinates; distanceMiles: number }>> {
   const nearby = findNearbyDestinations(origin, destinations, radiusMiles, 100);
 
   return nearby.reduce(
@@ -127,20 +136,27 @@ export function groupNearbyByType<T extends DestinationRef>(
       }
       return groups;
     },
-    {} as Record<string, Array<T & { distanceMiles: number }>>
+    {} as Record<string, Array<T & { coordinates: Coordinates; distanceMiles: number }>>
   );
 }
 
 /**
  * Convert a numeric distance in miles into a human-friendly display string.
+ * Handles singular/plural correctly (e.g., "1 mile" not "1.0 miles").
  *
  * @param miles - Distance in miles
- * @returns `"< 1 mile"` for distances less than 1 mile, `"{x.x} miles"` with one decimal for distances from 1 (inclusive) up to but less than 10, and a rounded integer miles string for distances 10 miles and above
+ * @returns `"< 1 mile"` for distances less than 1, proper singular/plural for others
  */
 export function formatDistance(miles: number): string {
   if (miles < 1) return '< 1 mile';
-  if (miles < 10) return `${miles.toFixed(1)} miles`;
-  return `${Math.round(miles)} miles`;
+  if (miles < 10) {
+    const formatted = miles.toFixed(1);
+    // Handle "1.0" -> "1 mile" (singular)
+    if (formatted === '1.0') return '1 mile';
+    return `${formatted} miles`;
+  }
+  const rounded = Math.round(miles);
+  return rounded === 1 ? '1 mile' : `${rounded} miles`;
 }
 
 /**

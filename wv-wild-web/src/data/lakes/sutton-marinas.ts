@@ -24,7 +24,7 @@ export const suttonMarinas: Marina[] = [
       'Winter and summer boat storage',
     ],
     contact: '(304) 765-2120',
-    website: 'suttonlakemarina.com',
+    website: 'https://suttonlakemarina.com',
     hours: 'Mid-April to mid-October: 9:00 AM - 6:00 PM Mon-Sat, Closed Sunday',
     fees: 'Slip rentals: $25-$40 daily, $95-$150 weekly, $295-$490 monthly',
     rentalDetails: {
