@@ -98,7 +98,7 @@ interface FishingSpot {
 }
 
 /** Marina with enrichment */
-interface Marina {
+export interface Marina {
   name: string;
   type: string;
   services: string[];
@@ -132,7 +132,7 @@ interface LakeSpecs {
 }
 
 /** Fish species information */
-interface FishSpecies {
+export interface FishSpecies {
   name: string;
   bestSeason?: string;
   regulations?: string;
@@ -197,7 +197,7 @@ interface CliffJumping {
 }
 
 /** Lake campground */
-interface LakeCampground {
+export interface LakeCampground {
   name: string;
   slug: string;
   operator: string;
