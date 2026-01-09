@@ -22,13 +22,19 @@ export interface DestinationRef {
   coordinates?: Coordinates;
 }
 
-/** Type guard for destinations with valid coordinates */
+/**
+ * Type guard for destinations with valid coordinates.
+ * Validates presence, numeric types, and geographic ranges.
+ */
 export function hasCoordinates<T extends DestinationRef>(
   dest: T
 ): dest is T & { coordinates: Coordinates } {
-  return dest.coordinates !== undefined &&
-         typeof dest.coordinates.lat === 'number' &&
-         typeof dest.coordinates.lng === 'number';
+  if (dest.coordinates === undefined) return false;
+  const { lat, lng } = dest.coordinates;
+  return typeof lat === 'number' &&
+         typeof lng === 'number' &&
+         lat >= -90 && lat <= 90 &&
+         lng >= -180 && lng <= 180;
 }
 
 /**
@@ -114,21 +120,27 @@ export function findNearbyByType<T extends DestinationRef>(
 /**
  * Group nearby destinations by type, with a per-type result limit.
  *
- * Considers destinations within `radiusMiles` of `origin` and returns up to `limitPerType` items for each destination `type`. Each returned item includes a `distanceMiles` property.
+ * Considers destinations within `radiusMiles` of `origin` and returns up to
+ * `limitPerType` items for each destination `type`. Each returned item
+ * includes a `distanceMiles` property.
  *
  * @param origin - Reference coordinates used to measure distance
  * @param destinations - Candidate destinations to consider
  * @param radiusMiles - Maximum distance in miles to include a destination
  * @param limitPerType - Maximum number of destinations to include per type
+ * @param maxSearchResults - Cap on total destinations searched before grouping.
+ *   Defaults to 100 to balance coverage with performance. Increase if you have
+ *   many destination types and need more results per type.
  * @returns A record mapping each destination `type` to an array of destinations augmented with `distanceMiles`
  */
 export function groupNearbyByType<T extends DestinationRef>(
   origin: Coordinates,
   destinations: T[],
   radiusMiles = 30,
-  limitPerType = 3
+  limitPerType = 3,
+  maxSearchResults = 100
 ): Record<string, Array<T & { coordinates: Coordinates; distanceMiles: number }>> {
-  const nearby = findNearbyDestinations(origin, destinations, radiusMiles, 100);
+  const nearby = findNearbyDestinations(origin, destinations, radiusMiles, maxSearchResults);
 
   return nearby.reduce(
     (groups, dest) => {
@@ -164,17 +176,33 @@ export function formatDistance(miles: number): string {
 }
 
 /**
+ * Types with schema entries but no route files yet.
+ * Returns null instead of generating broken links.
+ */
+const PENDING_ROUTE_TYPES = new Set([
+  'mountain-biking',
+  'scenic-byway',
+  'outfitter',
+]);
+
+/**
  * Generates a cross-link URL path for a destination.
  *
- * NOTE: Routes must exist for each type. New types added to content.config.ts
- * (mountain-biking, scenic-byway, outfitter) require corresponding route files
- * at src/pages/near/[type]/[slug].astro before use.
+ * Returns null for types without implemented routes to prevent broken links.
  *
  * @param type - Destination type used to select the route (e.g., `historic`, `backcountry`, or a generic type)
  * @param slug - Destination slug to append to the route
- * @returns The URL path for the destination, including the route and trailing slash
+ * @returns The URL path for the destination, or null if route doesn't exist yet
  */
-export function getCrossLinkUrl(type: string, slug: string): string {
+export function getCrossLinkUrl(type: string, slug: string): string | null {
+  // Guard against types without routes yet
+  if (PENDING_ROUTE_TYPES.has(type)) {
+    if (process.env.NODE_ENV === 'development') {
+      console.warn(`[cross-links] Route pending for type "${type}" - no link generated`);
+    }
+    return null;
+  }
+
   // Special cases for non-standard routes
   const specialRoutes: Record<string, string> = {
     historic: '/historic/',
