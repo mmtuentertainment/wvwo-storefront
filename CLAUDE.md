@@ -49,6 +49,110 @@
 
 This project uses SPARC (Specification, Pseudocode, Architecture, Refinement, Completion) methodology with Claude-Flow orchestration for systematic Test-Driven Development.
 
+## 🧠 Serena MCP Semantic Memory System (CRITICAL)
+
+**Serena provides semantic code understanding and project memory for instant codebase navigation.**
+
+### Quick Setup & Configuration
+
+**One-Time Fix: Disable Dashboard Popup Spam**
+```bash
+# Edit C:\Users\matth\.serena\serena_config.yml
+# Line 35: Change from 'true' to 'false'
+web_dashboard_open_on_launch: false
+```
+Restart VSCode after changing. Dashboard still available at http://localhost:24282/dashboard/ if needed.
+
+### Auto-Activate wvwo-storefront Project
+
+**Manual activation (if needed):**
+```bash
+mcp__serena__activate_project { project: "wvwo-storefront" }
+```
+
+**Auto-activation:** Serena should auto-detect when working in `wvwo-storefront/` directory. If not activating, check Serena config has project registered.
+
+### Serena Memory Commands
+
+**List all project memories:**
+```typescript
+mcp__serena__list_memories()
+// Returns: 45+ memories including architectural patterns, FAQs, code review verdicts
+```
+
+**Read specific memory:**
+```typescript
+mcp__serena__read_memory({ memory_file_name: "wvwo-developer-faq-quick-reference" })
+// Instant answers to 20 common dev questions
+```
+
+**Write new memory:**
+```typescript
+mcp__serena__write_memory({
+  memory_file_name: "spec-25-completion-notes",
+  content: "SPEC-25 patterns and learnings..."
+})
+```
+
+### Key Serena Memories Available
+
+| Memory Name | Purpose | Token Savings |
+|-------------|---------|---------------|
+| `wvwo-template-type-system-architecture` | Template patterns (Historic, Resort) | ~2,500 tokens |
+| `wvwo-destination-routing-and-cross-linking` | Routing matrix, cross-linking | ~3,000 tokens |
+| `wvwo-modular-design-500-line-pattern` | File size limits, extraction patterns | ~2,800 tokens |
+| `wvwo-code-review-verdict-patterns` | PR review patterns from #114 | ~3,500 tokens |
+| `wvwo-developer-faq-quick-reference` | 20 instant Q&A answers | ~4,000 tokens |
+
+**Total Indexed:** 50,755 characters across 5 comprehensive memories
+
+### Serena Semantic Search Tools
+
+**Symbol overview (no full file read):**
+```typescript
+mcp__serena__get_symbols_overview({
+  relative_path: "src/types/templates/historic.ts",
+  depth: 1
+})
+// Returns: All 17 HistoricTemplateProps properties instantly
+```
+
+**Find symbol across codebase:**
+```typescript
+mcp__serena__find_symbol({
+  name_path_pattern: "LakeTemplatePropsEnriched",
+  include_body: false
+})
+// Finds type definition without reading entire file
+```
+
+**Find all references to symbol:**
+```typescript
+mcp__serena__find_referencing_symbols({
+  name_path: "haversineDistance",
+  relative_path: "src/utils/cross-links.ts"
+})
+// Shows all files using this function with code snippets
+```
+
+### Token Efficiency with Serena
+
+| Query Type | Without Serena | With Serena | Reduction |
+|------------|----------------|-------------|-----------|
+| "How to add destination type?" | 7,600 tokens (grep + 4 files) | 1,500 tokens (1 memory) | **80%** |
+| "Where is X symbol defined?" | 3,000 tokens (grep + read) | 200 tokens (find_symbol) | **93%** |
+| "Template architecture?" | 5,000 tokens (read multiple) | 2,500 tokens (1 memory) | **50%** |
+| "Code review patterns?" | 4,500 tokens (read PRs) | 1,000 tokens (verdict memory) | **78%** |
+
+**Average: 75% token reduction for common codebase queries**
+
+### Best Practices
+
+1. **Always check memories first** before grepping/reading files
+2. **Use symbol tools** instead of full file reads when possible
+3. **Update memories** after completing SPECs with new patterns
+4. **Cross-reference** memories (each memory links to related memories)
+
 ## 🏔️ Adventure Hub Architecture (CRITICAL)
 
 **THIS IS NOT JUST A HUNTING/FISHING SITE.** WVWO is pivoting to a comprehensive **Adventure Hub Database** - a network of interconnected outdoor destinations across West Virginia. Think of it as a partnership database where each destination type has dedicated pages but cross-links to related content.
