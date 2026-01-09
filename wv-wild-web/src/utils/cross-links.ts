@@ -162,6 +162,10 @@ export function formatDistance(miles: number): string {
 /**
  * Generates a cross-link URL path for a destination.
  *
+ * NOTE: Routes must exist for each type. New types added to content.config.ts
+ * (mountain-biking, scenic-byway, outfitter) require corresponding route files
+ * at src/pages/near/[type]/[slug].astro before use.
+ *
  * @param type - Destination type used to select the route (e.g., `historic`, `backcountry`, or a generic type)
  * @param slug - Destination slug to append to the route
  * @returns The URL path for the destination, including the route and trailing slash
