@@ -72,7 +72,7 @@ The arboretum is a highlight - 350+ tree species on paved, accessible trails. Da
 
 ## Reservations
 
-- **Lodge & Cabins**: WVStateparks.com (up to 12 months in advance)
+- **Lodge & Cabins**: wvstateparks.com (up to 12 months in advance)
 - **Camping**: Recreation.gov (up to 6 months in advance)
 - **Park Office**: (304) 799-4087
 

@@ -48,10 +48,6 @@ species:
   - name: "Flathead Catfish"
     season: "Year-round"
     notes: "Trophy potential - 58-lb documented. Large live baits."
-images:
-  - src: /images/lakes/burnsville-lake-hero.webp
-    alt: Burnsville Lake with forested shoreline in Braxton County, WV
-    caption: State record muskie waters - 968 acres of central WV fishing
 kim_hook: "This is where Lucas King pulled the state record muskie - 51 pounds, 55.06 inches. The 15-inch walleye minimum is stricter than anywhere else in the state. And those crappie evenings around the brush piles? 40-60 fish is not unusual."
 ---
 

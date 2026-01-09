@@ -27,7 +27,7 @@ county: "Braxton County"
 species:
   - name: "White-tailed Deer"
     season: "Archery: Sept 27 - Dec 31 | Firearms: Nov 24 - Dec 7"
-    notes: "14-inch minimum outside antler spread requirement. Hunt ridges overlooking old fields."
+    notes: "Bucks require at least one antler 3 inches or longer. Hunt ridges overlooking old fields."
   - name: "Wild Turkey"
     season: "Spring: April 20 - May 24"
     notes: "Holly River and Elk River bottomlands hold roosting birds. Dawn sound-off around 6:15 AM."
@@ -66,7 +66,7 @@ Two major rivers - the Elk and Holly - flow through, with Sutton Lake at the hea
 
 | Species | Season | Notes |
 |---------|--------|-------|
-| White-tailed Deer | Sept 27 - Dec 31 (archery) | 14" minimum antler spread |
+| White-tailed Deer | Sept 27 - Dec 31 (archery) | Bucks: at least one antler 3" or longer |
 | Wild Turkey | April 20 - May 24 (spring) | 2 bearded birds |
 | Black Bear | Sept - Dec (check dates) | BG + Bear Damage stamps required |
 | Ruffed Grouse | Oct 18 - Feb 28 | Daily limit: 4 |
