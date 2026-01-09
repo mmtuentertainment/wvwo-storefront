@@ -2,70 +2,166 @@
  * Cross-Link Utilities for Adventure Hub
  * SPEC-24: Geographic proximity and related destination discovery
  *
- * Uses Haversine formula for accurate great-circle distance calculation.
- * Designed for cross-linking destinations within ~50 mile radius.
+ * Uses Turf.js (MIT License) for geospatial calculations.
+ * Supports hybrid coordinate formats:
+ * - Internal: GeoJSON standard [longitude, latitude] (satellite GPS format)
+ * - External: {lat, lng} object format (backward compatible with existing data)
  *
  * STATUS: Foundation utility for SPEC-24+ cross-linking features.
  * Integration planned for lake/campground/WMA template "Nearby Destinations" sections.
  * See CLAUDE.md "Cross-Linking Philosophy" for usage patterns.
+ *
+ * @see https://turfjs.org/ - Turf.js geospatial library
  */
 
+import { distance, point, booleanValid } from '@turf/turf';
+import type { Feature, Point, Position } from 'geojson';
+
+// ============================================================================
+// COORDINATE TYPES - Hybrid GPS/Satellite Format
+// ============================================================================
+
+/**
+ * Standard lat/lng coordinate format used in WVWO data files.
+ * This is the external-facing format for backward compatibility.
+ */
 export interface Coordinates {
   lat: number;
   lng: number;
 }
 
+/**
+ * GeoJSON Position format [longitude, latitude] - satellite GPS standard.
+ * Used internally by Turf.js for calculations.
+ */
+export type GeoJSONPosition = Position;
+
+/**
+ * Destination reference with optional coordinates.
+ * Coordinates can be provided in either format.
+ */
 export interface DestinationRef {
   slug: string;
   name: string;
   type: string;
+  /** Standard {lat, lng} format */
   coordinates?: Coordinates;
+  /** Alternative GeoJSON [lng, lat] format for satellite GPS compatibility */
+  geoJson?: GeoJSONPosition;
+}
+
+// ============================================================================
+// COORDINATE CONVERSION UTILITIES
+// ============================================================================
+
+/**
+ * Convert {lat, lng} to GeoJSON [longitude, latitude] format.
+ * GeoJSON uses [lng, lat] order (satellite GPS standard).
+ */
+export function toGeoJSON(coords: Coordinates): GeoJSONPosition {
+  return [coords.lng, coords.lat];
+}
+
+/**
+ * Convert GeoJSON [longitude, latitude] to {lat, lng} format.
+ */
+export function fromGeoJSON(position: GeoJSONPosition): Coordinates {
+  return { lat: position[1], lng: position[0] };
+}
+
+/**
+ * Create a Turf.js Point feature from coordinates.
+ * Accepts either {lat, lng} or [lng, lat] format.
+ */
+export function toPoint(coords: Coordinates | GeoJSONPosition): Feature<Point> {
+  if (Array.isArray(coords)) {
+    return point(coords);
+  }
+  return point(toGeoJSON(coords));
+}
+
+// ============================================================================
+// COORDINATE VALIDATION
+// ============================================================================
+
+/**
+ * Validate a GeoJSON Point feature using Turf.js.
+ */
+export function isValidGeoJSONPoint(pt: Feature<Point>): boolean {
+  return booleanValid(pt);
 }
 
 /**
  * Type guard for destinations with valid coordinates.
  * Validates presence, numeric types, and geographic ranges.
+ * Supports both {lat, lng} and GeoJSON [lng, lat] formats.
  */
 export function hasCoordinates<T extends DestinationRef>(
   dest: T
 ): dest is T & { coordinates: Coordinates } {
+  // Check GeoJSON format first
+  if (dest.geoJson !== undefined) {
+    const [lng, lat] = dest.geoJson;
+    if (
+      typeof lat === 'number' &&
+      typeof lng === 'number' &&
+      lat >= -90 && lat <= 90 &&
+      lng >= -180 && lng <= 180
+    ) {
+      // Normalize to coordinates format for consistent output
+      (dest as T & { coordinates: Coordinates }).coordinates = fromGeoJSON(dest.geoJson);
+      return true;
+    }
+    return false;
+  }
+
+  // Check standard coordinates format
   if (dest.coordinates === undefined) return false;
   const { lat, lng } = dest.coordinates;
-  return typeof lat === 'number' &&
-         typeof lng === 'number' &&
-         lat >= -90 && lat <= 90 &&
-         lng >= -180 && lng <= 180;
+  return (
+    typeof lat === 'number' &&
+    typeof lng === 'number' &&
+    lat >= -90 && lat <= 90 &&
+    lng >= -180 && lng <= 180
+  );
 }
 
-/**
- * Earth's radius in miles (mean radius)
- */
-const EARTH_RADIUS_MILES = 3958.8;
+// ============================================================================
+// DISTANCE CALCULATIONS (Turf.js powered)
+// ============================================================================
 
 /**
- * Compute the great-circle distance between two geographic coordinates.
+ * Compute the great-circle distance between two coordinates using Turf.js.
+ * Uses Haversine formula internally for accuracy.
  *
- * @param point1 - Origin coordinate (latitude/longitude).
- * @param point2 - Destination coordinate (latitude/longitude).
- * @returns The distance between the two coordinates in miles.
+ * @param point1 - Origin coordinate ({lat, lng} or [lng, lat])
+ * @param point2 - Destination coordinate ({lat, lng} or [lng, lat])
+ * @returns Distance in miles
  */
-export function haversineDistance(point1: Coordinates, point2: Coordinates): number {
-  const toRadians = (degrees: number) => (degrees * Math.PI) / 180;
-
-  const dLat = toRadians(point2.lat - point1.lat);
-  const dLng = toRadians(point2.lng - point1.lng);
-
-  const a =
-    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-    Math.cos(toRadians(point1.lat)) *
-      Math.cos(toRadians(point2.lat)) *
-      Math.sin(dLng / 2) *
-      Math.sin(dLng / 2);
-
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-
-  return EARTH_RADIUS_MILES * c;
+export function haversineDistance(
+  point1: Coordinates | GeoJSONPosition,
+  point2: Coordinates | GeoJSONPosition
+): number {
+  const from = toPoint(point1);
+  const to = toPoint(point2);
+  return distance(from, to, { units: 'miles' });
 }
+
+/**
+ * Calculate distance in kilometers (for international use).
+ */
+export function distanceKilometers(
+  point1: Coordinates | GeoJSONPosition,
+  point2: Coordinates | GeoJSONPosition
+): number {
+  const from = toPoint(point1);
+  const to = toPoint(point2);
+  return distance(from, to, { units: 'kilometers' });
+}
+
+// ============================================================================
+// NEARBY DESTINATION DISCOVERY
+// ============================================================================
 
 /**
  * Locate nearby destinations from an origin within a maximum radius.
@@ -75,19 +171,21 @@ export function haversineDistance(point1: Coordinates, point2: Coordinates): num
  * @param destinations - Candidate destinations to search
  * @param radiusMiles - Maximum distance in miles to include (default: 30)
  * @param limit - Maximum number of results to return (default: 5)
- * @returns An array of destinations augmented with `distanceMiles` (in miles), sorted by nearest first
+ * @returns An array of destinations augmented with `distanceMiles`, sorted by nearest first
  */
 export function findNearbyDestinations<T extends DestinationRef>(
-  origin: Coordinates,
+  origin: Coordinates | GeoJSONPosition,
   destinations: T[],
   radiusMiles = 30,
   limit = 5
 ): Array<T & { coordinates: Coordinates; distanceMiles: number }> {
+  const originPoint = toPoint(origin);
+
   return destinations
     .filter(hasCoordinates)
     .map((dest) => ({
       ...dest,
-      distanceMiles: haversineDistance(origin, dest.coordinates),
+      distanceMiles: distance(originPoint, toPoint(dest.coordinates), { units: 'miles' }),
     }))
     .filter((dest) => dest.distanceMiles <= radiusMiles && dest.distanceMiles > 0)
     .sort((a, b) => a.distanceMiles - b.distanceMiles)
@@ -106,7 +204,7 @@ export function findNearbyDestinations<T extends DestinationRef>(
  * @returns An array of destinations augmented with `distanceMiles`, sorted by ascending distance
  */
 export function findNearbyByType<T extends DestinationRef>(
-  origin: Coordinates,
+  origin: Coordinates | GeoJSONPosition,
   destinations: T[],
   types: string[],
   radiusMiles = 30,
@@ -134,7 +232,7 @@ export function findNearbyByType<T extends DestinationRef>(
  * @returns A record mapping each destination `type` to an array of destinations augmented with `distanceMiles`
  */
 export function groupNearbyByType<T extends DestinationRef>(
-  origin: Coordinates,
+  origin: Coordinates | GeoJSONPosition,
   destinations: T[],
   radiusMiles = 30,
   limitPerType = 3,
@@ -156,6 +254,10 @@ export function groupNearbyByType<T extends DestinationRef>(
   );
 }
 
+// ============================================================================
+// DISPLAY FORMATTING
+// ============================================================================
+
 /**
  * Convert a numeric distance in miles into a human-friendly display string.
  * Handles singular/plural correctly (e.g., "1 mile" not "1.0 miles").
@@ -174,6 +276,28 @@ export function formatDistance(miles: number): string {
   const rounded = Math.round(miles);
   return rounded === 1 ? '1 mile' : `${rounded} miles`;
 }
+
+/**
+ * Format coordinates for display in satellite GPS format.
+ * @example "38.6620°N, 80.6932°W"
+ */
+export function formatCoordinatesGPS(coords: Coordinates): string {
+  const latDir = coords.lat >= 0 ? 'N' : 'S';
+  const lngDir = coords.lng >= 0 ? 'E' : 'W';
+  return `${Math.abs(coords.lat).toFixed(4)}°${latDir}, ${Math.abs(coords.lng).toFixed(4)}°${lngDir}`;
+}
+
+/**
+ * Format coordinates for display in decimal format.
+ * @example "38.6620, -80.6932"
+ */
+export function formatCoordinatesDecimal(coords: Coordinates): string {
+  return `${coords.lat.toFixed(4)}, ${coords.lng.toFixed(4)}`;
+}
+
+// ============================================================================
+// URL GENERATION
+// ============================================================================
 
 /**
  * Types with schema entries but no route files yet.
@@ -212,4 +336,3 @@ export function getCrossLinkUrl(type: string, slug: string): string | null {
   const base = specialRoutes[type] || `/near/${type}/`;
   return `${base}${slug}/`;
 }
-
