@@ -93,27 +93,25 @@ export function isValidGeoJSONPoint(pt: Feature<Point>): boolean {
 
 /**
  * Type guard for destinations with valid coordinates.
- * Validates presence, numeric types, and geographic ranges.
+ * Validates presence, finiteness, and geographic ranges.
  * Pure function - does not mutate input.
  */
 export function hasCoordinates<T extends DestinationRef>(
   dest: T
 ): dest is T & { coordinates: Coordinates } {
-  // Check standard coordinates format
-  if (dest.coordinates !== undefined) {
-    const { lat, lng } = dest.coordinates;
-    return (
-      typeof lat === 'number' &&
-      typeof lng === 'number' &&
-      lat >= -90 && lat <= 90 &&
-      lng >= -180 && lng <= 180
-    );
-  }
-  return false;
+  if (dest.coordinates === undefined) return false;
+  const { lat, lng } = dest.coordinates;
+  return (
+    Number.isFinite(lat) &&
+    Number.isFinite(lng) &&
+    lat >= -90 && lat <= 90 &&
+    lng >= -180 && lng <= 180
+  );
 }
 
 /**
  * Type guard for destinations with valid GeoJSON coordinates.
+ * GeoJSON uses [longitude, latitude] order.
  */
 export function hasGeoJson<T extends DestinationRef>(
   dest: T
@@ -121,8 +119,8 @@ export function hasGeoJson<T extends DestinationRef>(
   if (dest.geoJson === undefined) return false;
   const [lng, lat] = dest.geoJson;
   return (
-    typeof lat === 'number' &&
-    typeof lng === 'number' &&
+    Number.isFinite(lat) &&
+    Number.isFinite(lng) &&
     lat >= -90 && lat <= 90 &&
     lng >= -180 && lng <= 180
   );
@@ -184,9 +182,10 @@ export function distanceKilometers(
  *
  * @param origin - Reference coordinates to measure distances from
  * @param destinations - Candidate destinations to search
- * @param radiusMiles - Maximum distance in miles to include (default: 30)
- * @param limit - Maximum number of results to return (default: 5)
+ * @param radiusMiles - Maximum distance in miles to include (default: 30, must be non-negative)
+ * @param limit - Maximum number of results to return (default: 5, must be non-negative integer)
  * @returns An array of destinations augmented with `distanceMiles`, sorted by nearest first
+ * @throws Error if radiusMiles or limit is not a finite number
  */
 export function findNearbyDestinations<T extends DestinationRef>(
   origin: Coordinates | GeoJSONPosition,
@@ -194,6 +193,16 @@ export function findNearbyDestinations<T extends DestinationRef>(
   radiusMiles = 30,
   limit = 5
 ): Array<T & { coordinates: Coordinates; distanceMiles: number }> {
+  // Validate inputs
+  if (!Number.isFinite(radiusMiles)) {
+    throw new Error('radiusMiles must be a finite number');
+  }
+  if (!Number.isFinite(limit)) {
+    throw new Error('limit must be a finite number');
+  }
+  const safeRadius = Math.max(0, radiusMiles);
+  const safeLimit = Math.max(0, Math.floor(limit));
+
   const originPoint = toPoint(origin);
 
   return destinations
@@ -207,10 +216,10 @@ export function findNearbyDestinations<T extends DestinationRef>(
       };
     })
     .filter((dest): dest is NonNullable<typeof dest> =>
-      dest !== null && dest.distanceMiles <= radiusMiles && dest.distanceMiles > 0
+      dest !== null && dest.distanceMiles <= safeRadius && dest.distanceMiles > 0
     )
     .sort((a, b) => a.distanceMiles - b.distanceMiles)
-    .slice(0, limit);
+    .slice(0, safeLimit);
 }
 
 /**
@@ -350,7 +359,8 @@ const PENDING_ROUTE_TYPES = new Set([
 export function getCrossLinkUrl(type: string, slug: string): string | null {
   // Guard against types without routes yet
   if (PENDING_ROUTE_TYPES.has(type)) {
-    if (process.env.NODE_ENV === 'development') {
+    // Use Vite-safe dev check (import.meta.env.DEV)
+    if (import.meta.env.DEV) {
       console.warn(`[cross-links] Route pending for type "${type}" - no link generated`);
     }
     return null;

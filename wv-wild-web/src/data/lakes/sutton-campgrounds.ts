@@ -1,82 +1,71 @@
 /**
- * Sutton Lake Campgrounds Data
- * SPEC-24: Extracted for modular design (500-line limit)
- * NOTE: Site counts match authoritative standalone campground data files
- * See: src/data/campgrounds/gerald-r-freeman.ts, bakers-run.ts, bee-run.ts
+ * Sutton Lake Campgrounds Summary
+ * SPEC-24: Derived from authoritative campground modules for modular design
+ *
+ * This file derives LakeCampground summaries from the canonical campground
+ * data files to prevent data drift between lake pages and campground pages.
+ *
+ * Authoritative sources:
+ * - src/data/campgrounds/gerald-r-freeman.ts
+ * - src/data/campgrounds/bakers-run.ts
+ * - src/data/campgrounds/bee-run.ts
  */
 
 import type { LakeCampground } from '../../types/lake-enrichment';
+import { geraldRFreemanCampgroundData } from '../campgrounds/gerald-r-freeman';
+import { bakersRunCampgroundData } from '../campgrounds/bakers-run';
+import { beeRunCampgroundData } from '../campgrounds/bee-run';
 
+/**
+ * Transform a CampgroundTemplateProps into a LakeCampground summary.
+ * Extracts key fields and formats them for lake page display.
+ */
+function deriveLakeCampground(
+  data: {
+    name: string;
+    totalSites: number;
+    managingAgency: string;
+    campsites: Array<{ name: string; count: number; fee: string }>;
+    amenities: Array<{ name: string; available: boolean }>;
+  },
+  slug: string,
+  overrides?: Partial<LakeCampground>
+): LakeCampground {
+  return {
+    name: data.name,
+    slug,
+    operator: data.managingAgency.replace(' (Huntington District)', ''),
+    sites: data.totalSites,
+    siteTypes: data.campsites.map((c) => `${c.count} ${c.name.toLowerCase()}`),
+    amenities: data.amenities.filter((a) => a.available).map((a) => a.name),
+    ...overrides,
+  };
+}
+
+/**
+ * Sutton Lake campground summaries derived from authoritative modules.
+ * Site counts and amenities automatically stay in sync with campground pages.
+ */
 export const suttonCampgrounds: LakeCampground[] = [
-  {
-    name: 'Gerald R. Freeman Campground',
-    slug: 'gerald-r-freeman',
-    operator: 'U.S. Army Corps of Engineers',
-    sites: 156,
-    siteTypes: [
-      '40 full hookup (50 amp)',
-      '30 full hookup (30 amp)',
-      '46 electric only (50 amp)',
-      '40 electric only (30 amp)',
-    ],
-    amenities: [
-      'Bathhouses with hot showers',
-      'Flush toilets',
-      'Dump stations',
-      'Playgrounds',
-      'Basketball courts',
-      'Boat ramp',
-      'Accessible facilities',
-    ],
+  deriveLakeCampground(geraldRFreemanCampgroundData, 'gerald-r-freeman', {
     fees: '$28-$46/night depending on site type',
     season: 'April - November (varies by year)',
     reservations: 'Recreation.gov or 1-877-444-6777',
     policies: ['14-day limit per 30-day period', 'Quiet hours 10 PM - 6 AM', 'Limited cell service', 'Pets on leash'],
     contact: '(304) 765-2816',
-  },
-  {
-    name: 'Bakers Run Campground',
-    slug: 'bakers-run',
-    operator: 'U.S. Army Corps of Engineers',
-    sites: 77,
-    siteTypes: [
-      '30 electric waterfront (30/50 amp)',
-      '35 electric standard (30/50 amp)',
-      '12 non-electric',
-    ],
-    amenities: [
-      'Bathhouses with hot showers',
-      'Flush toilets',
-      'Dump station',
-      'Playground',
-      'Boat ramp',
-      'Basketball and volleyball courts',
-      'Fire rings and picnic tables',
-    ],
+  }),
+  deriveLakeCampground(bakersRunCampgroundData, 'bakers-run', {
     fees: '$18-$34/night depending on site type',
     season: 'May - September (varies by year)',
     reservations: 'Recreation.gov',
     policies: ['14-day limit per 30-day period', 'Pets on leash'],
     contact: '(304) 765-2816',
-  },
-  {
-    name: 'Bee Run Campground',
-    slug: 'bee-run',
-    operator: 'U.S. Army Corps of Engineers',
-    sites: 12,
-    siteTypes: ['12 primitive sites (no hookups)'],
-    amenities: [
-      'Vault toilets',
-      'Fire rings',
-      'Picnic tables',
-      'NO electric hookups',
-      'NO potable water',
-      'NO showers',
-    ],
+  }),
+  deriveLakeCampground(beeRunCampgroundData, 'bee-run', {
     fees: '$10-$14/night',
     season: 'Late May - Early December',
     reservations: 'First-come, first-served (no reservations)',
     policies: ['14-day limit per 30-day period', 'Bring your own drinking water'],
     contact: '(304) 765-2816',
-  },
+  }),
 ];
