@@ -136,7 +136,7 @@ The Bee Run Day Use Area is right there with a boat ramp for lake access. Sutton
       name: 'Gerald R. Freeman Campground',
       distance: 'Approximately 10 miles',
       description: 'Full-service USACE campground on Sutton Lake with electric sites and full amenities.',
-      link: '/near/campground/gerald-freeman/',
+      link: '/near/campground/gerald-r-freeman/',
     },
     {
       name: 'Sutton Lake Marina',
