@@ -24,10 +24,11 @@ export interface DestinationRef {
 const EARTH_RADIUS_MILES = 3958.8;
 
 /**
- * Calculate distance between two points using Haversine formula
- * @param point1 First coordinate pair
- * @param point2 Second coordinate pair
- * @returns Distance in miles
+ * Compute the great-circle distance between two geographic coordinates.
+ *
+ * @param point1 - Origin coordinate (latitude/longitude).
+ * @param point2 - Destination coordinate (latitude/longitude).
+ * @returns The distance between the two coordinates in miles.
  */
 export function haversineDistance(point1: Coordinates, point2: Coordinates): number {
   const toRadians = (degrees: number) => (degrees * Math.PI) / 180;
@@ -48,12 +49,17 @@ export function haversineDistance(point1: Coordinates, point2: Coordinates): num
 }
 
 /**
- * Find nearby destinations within a given radius
- * @param origin The reference point coordinates
- * @param destinations Array of destinations to search
- * @param radiusMiles Maximum distance in miles (default: 30)
- * @param limit Maximum results to return (default: 5)
- * @returns Sorted array of nearby destinations with distances
+ * Locate nearby destinations from an origin within a maximum radius.
+ *
+ * Maps each destination to include `distanceMiles` (miles from `origin`), filters out destinations
+ * at the same coordinates, restricts to those within `radiusMiles`, sorts by ascending distance,
+ * and returns up to `limit` results.
+ *
+ * @param origin - Reference coordinates to measure distances from
+ * @param destinations - Candidate destinations to search
+ * @param radiusMiles - Maximum distance in miles to include (default: 30)
+ * @param limit - Maximum number of results to return (default: 5)
+ * @returns An array of destinations augmented with `distanceMiles` (in miles), sorted by nearest first
  */
 export function findNearbyDestinations<T extends DestinationRef>(
   origin: Coordinates,
@@ -72,12 +78,14 @@ export function findNearbyDestinations<T extends DestinationRef>(
 }
 
 /**
- * Find nearby destinations by type
- * @param origin The reference point coordinates
- * @param destinations Array of destinations to search
- * @param types Array of destination types to include
- * @param radiusMiles Maximum distance in miles
- * @param limit Maximum results to return
+ * Locate nearby destinations of the specified types around an origin coordinate.
+ *
+ * @param origin - Reference coordinates to measure distances from
+ * @param destinations - Array of destination objects to search
+ * @param types - Destination types to include (matching `destination.type`)
+ * @param radiusMiles - Maximum distance in miles to include
+ * @param limit - Maximum number of results to return
+ * @returns An array of destinations augmented with `distanceMiles`, sorted by ascending distance and limited to `limit` items within `radiusMiles` of `origin`
  */
 export function findNearbyByType<T extends DestinationRef>(
   origin: Coordinates,
@@ -91,11 +99,15 @@ export function findNearbyByType<T extends DestinationRef>(
 }
 
 /**
- * Group nearby destinations by type for cross-link sections
- * @param origin The reference point coordinates
- * @param destinations Array of all destinations
- * @param radiusMiles Maximum distance in miles
- * @param limitPerType Maximum results per type
+ * Group nearby destinations by type, with a per-type result limit.
+ *
+ * Considers destinations within `radiusMiles` of `origin` and returns up to `limitPerType` items for each destination `type`. Each returned item includes a `distanceMiles` property.
+ *
+ * @param origin - Reference coordinates used to measure distance
+ * @param destinations - Candidate destinations to consider
+ * @param radiusMiles - Maximum distance in miles to include a destination
+ * @param limitPerType - Maximum number of destinations to include per type
+ * @returns A record mapping each destination `type` to an array of destinations augmented with `distanceMiles`
  */
 export function groupNearbyByType<T extends DestinationRef>(
   origin: Coordinates,
@@ -120,9 +132,10 @@ export function groupNearbyByType<T extends DestinationRef>(
 }
 
 /**
- * Format distance for display
- * @param miles Distance in miles
- * @returns Formatted string (e.g., "5 miles", "0.5 miles", "< 1 mile")
+ * Convert a numeric distance in miles into a human-friendly display string.
+ *
+ * @param miles - Distance in miles
+ * @returns `"< 1 mile"` for distances less than 1 mile, `"{x.x} miles"` with one decimal for distances from 1 (inclusive) up to but less than 10, and a rounded integer miles string for distances 10 miles and above
  */
 export function formatDistance(miles: number): string {
   if (miles < 0.5) return '< 1 mile';
@@ -132,10 +145,11 @@ export function formatDistance(miles: number): string {
 }
 
 /**
- * Generate cross-link URL for a destination
- * @param type Destination type
- * @param slug Destination slug
- * @returns URL path
+ * Generates a cross-link URL path for a destination.
+ *
+ * @param type - Destination type used to select the route (e.g., `historic`, `backcountry`, or a generic type)
+ * @param slug - Destination slug to append to the route
+ * @returns The URL path for the destination, including the route and trailing slash
  */
 export function getCrossLinkUrl(type: string, slug: string): string {
   // Special cases for non-standard routes
