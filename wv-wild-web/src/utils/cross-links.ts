@@ -4,6 +4,10 @@
  *
  * Uses Haversine formula for accurate great-circle distance calculation.
  * Designed for cross-linking destinations within ~50 mile radius.
+ *
+ * STATUS: Foundation utility for SPEC-24+ cross-linking features.
+ * Integration planned for lake/campground/WMA template "Nearby Destinations" sections.
+ * See CLAUDE.md "Cross-Linking Philosophy" for usage patterns.
  */
 
 export interface Coordinates {

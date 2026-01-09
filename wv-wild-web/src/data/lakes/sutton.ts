@@ -322,7 +322,7 @@ export const suttonLakeData: LakeTemplatePropsEnriched = {
     marina: {
       name: 'Sutton Lake Marina',
       phone: '(304) 765-2120',
-      website: 'suttonlakemarina.com',
+      website: 'https://suttonlakemarina.com',
     },
     campground: {
       name: 'Gerald R. Freeman Campground',
