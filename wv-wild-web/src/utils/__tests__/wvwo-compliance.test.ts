@@ -167,7 +167,7 @@ describe('WVWO Compliance Validation', () => {
         { bg: '#FFF8E1', text: '#3E2723', name: 'Cream/Brown' }
       ];
 
-      badgeCombos.forEach(({ bg, text, name }) => {
+      badgeCombos.forEach(({ bg, text }) => {
         const contrast = calculateContrast(bg, text);
         expect(contrast).toBeGreaterThanOrEqual(4.5);
       });

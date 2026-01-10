@@ -11,7 +11,7 @@
  */
 
 import sharp from 'sharp';
-import { readdir, stat, mkdir } from 'fs/promises';
+import { stat, mkdir } from 'fs/promises';
 import { join, extname, basename } from 'path';
 import { existsSync } from 'fs';
 
@@ -149,7 +149,6 @@ function generateReport(results) {
   console.log('IMAGE OPTIMIZATION REPORT (T-029)');
   console.log('='.repeat(60));
 
-  let totalOriginal = 0;
   let totalOptimized = 0;
   let filesOverLimit = 0;
 

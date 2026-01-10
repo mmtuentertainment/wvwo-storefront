@@ -133,9 +133,11 @@ export const exampleRiverData: RiverTemplateProps = {
   /** Fishing details for river (REQUIRED if river has fishing opportunities) */
   fishing: {
     species: ['Smallmouth Bass', 'Rainbow Trout', 'Rock Bass', 'Muskie'],
-    techniques:
-      'Fly fishing in tailwater below dam. Spinning tackle with crankbaits and soft plastics in eddies. ' +
-      'Topwater action at dawn and dusk.',
+    techniques: [
+      'Fly fishing in tailwater below dam',
+      'Spinning tackle with crankbaits and soft plastics in eddies',
+      'Topwater action at dawn and dusk',
+    ],
     seasons:
       'Spring (April-May) for pre-spawn bass. Fall (September-October) for aggressive feeding. ' +
       'Tailwater trout fishing year-round below Summersville Dam.',
@@ -162,23 +164,29 @@ export const exampleRiverData: RiverTemplateProps = {
         'Shuttle services',
         'Lodging and camping',
       ],
-      contact: '(304) 469-2651',
-      website: 'https://aceraft.com',
-      pricing: '$75-$150 per person depending on section and day',
+      contact: {
+        phone: '(304) 469-2651',
+        website: 'https://aceraft.com',
+      },
+      priceRange: '$75-$150 per person depending on section and day',
     },
     {
       name: 'Rivers Whitewater Rafting',
       services: ['Commercial raft trips', 'Private trips', 'Photo packages', 'Equipment rental'],
-      contact: '(800) 879-7483',
-      website: 'https://www.riversresort.com',
-      pricing: '$89-$139 per person',
+      contact: {
+        phone: '(800) 879-7483',
+        website: 'https://www.riversresort.com',
+      },
+      priceRange: '$89-$139 per person',
     },
     {
       name: 'Class VI River Runners',
       services: ['Expert kayak trips', 'Private guide service', 'Custom expeditions'],
-      contact: '(304) 574-0704',
-      website: 'https://www.classsix.com',
-      pricing: 'Custom pricing for private trips',
+      contact: {
+        phone: '(304) 574-0704',
+        website: 'https://www.classsix.com',
+      },
+      priceRange: 'Custom pricing for private trips',
     },
   ],
 
@@ -190,36 +198,39 @@ export const exampleRiverData: RiverTemplateProps = {
   seasonalFlow: [
     {
       season: 'Spring (March-May)',
-      flowRate: 'Natural flows 500-2000 CFS',
-      conditions:
+      level: 'Variable',
+      cfsRange: '500-2000 CFS',
+      bestFor: ['Expert kayaking', 'Scouting'],
+      notes:
         'Snowmelt and spring rains create variable water levels. Lower sections runnable at most flows. ' +
-        'Upper Gauley requires 1200+ CFS for safe passage.',
-      accessibility: 'Expert kayakers only. No commercial rafting during spring.',
+        'Upper Gauley requires 1200+ CFS for safe passage. Expert kayakers only. No commercial rafting during spring.',
     },
     {
       season: 'Summer (June-August)',
-      flowRate: 'Low flows 100-400 CFS',
-      conditions:
+      level: 'Low',
+      cfsRange: '100-400 CFS',
+      bestFor: ['Fishing', 'Scouting'],
+      notes:
         'River barely runnable except after heavy rains. Exposed rocks and shallow sections. ' +
-        'Excellent time for scouting rapids and fishing.',
-      accessibility: 'Not recommended for whitewater - focus on fishing and scouting.',
+        'Excellent time for scouting rapids and fishing. Not recommended for whitewater.',
     },
     {
       season: 'Fall (September-October)',
-      flowRate: 'Dam releases 2000-3000 CFS',
-      conditions:
+      level: 'High',
+      cfsRange: '2000-3000 CFS (dam releases)',
+      bestFor: ['Commercial rafting', 'Expert kayaking', 'Fall foliage'],
+      notes:
         'Summersville Dam releases create 6 weeks of world-class whitewater. Peak fall foliage adds ' +
-        'stunning scenery. High water makes every rapid more challenging.',
-      accessibility:
-        'All levels welcome with commercial outfitters. Expert kayakers thrive at these flows.',
+        'stunning scenery. High water makes every rapid more challenging. All levels welcome with commercial outfitters.',
     },
     {
       season: 'Winter (November-February)',
-      flowRate: 'Low flows 150-500 CFS',
-      conditions:
+      level: 'Low',
+      cfsRange: '150-500 CFS',
+      bestFor: ['Ice climbing viewing'],
+      notes:
         'River drops back to base flows after dam releases end. Cold water temps (35-45°F). ' +
-        'Ice formations on canyon walls.',
-      accessibility: 'Expert kayakers only. Dry suit required. No commercial trips.',
+        'Ice formations on canyon walls. Expert kayakers only. Dry suit required. No commercial trips.',
     },
   ],
 
@@ -274,7 +285,7 @@ export const exampleRiverData: RiverTemplateProps = {
         'River knife',
         'First aid kit',
       ],
-      importance: 'critical',
+      important: true,
     },
     {
       category: 'Skill Requirements',
@@ -285,7 +296,7 @@ export const exampleRiverData: RiverTemplateProps = {
         'Ability to read and scout rapids',
         'Experience with remote wilderness rivers',
       ],
-      importance: 'critical',
+      important: true,
     },
     {
       category: 'Known Hazards',
@@ -297,7 +308,7 @@ export const exampleRiverData: RiverTemplateProps = {
         'Cold water (50-65°F even in fall)',
         'Rapidly changing water levels during releases',
       ],
-      importance: 'critical',
+      important: true,
     },
     {
       category: 'Emergency Contacts',
@@ -307,7 +318,7 @@ export const exampleRiverData: RiverTemplateProps = {
         'Summersville Dam: (304) 872-5809',
         'Nearest hospital: Plateau Medical Center, Oak Hill (25 miles)',
       ],
-      importance: 'high',
+      important: true,
     },
   ],
 
@@ -438,7 +449,7 @@ export const minimalRiverData: RiverTemplateProps = {
   rapids: [],
   fishing: {
     species: ['Smallmouth Bass'],
-    techniques: 'Spinning tackle with crankbaits',
+    techniques: ['Spinning tackle with crankbaits'],
     seasons: 'Spring and Fall',
     regulations: 'WV fishing license required',
   },
@@ -455,7 +466,7 @@ export const minimalRiverData: RiverTemplateProps = {
     {
       category: 'Required Equipment',
       items: ['PFD', 'Helmet'],
-      importance: 'critical',
+      important: true,
     },
   ],
   nearbyAttractions: [],

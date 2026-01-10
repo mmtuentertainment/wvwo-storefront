@@ -139,6 +139,7 @@ export const StatIconSchema = z.enum([
   'area',
   'circle',  // SPEC-11: For optional gear items
   'elevation',  // SPEC-13: For depth stats (lakes, caves)
+  'boat',  // SPEC-21: For boat access/ramps stats (lakes)
   'none',
 ]);
 

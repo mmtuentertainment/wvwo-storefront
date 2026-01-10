@@ -12,6 +12,7 @@
  */
 
 import type { LakeCampground } from '../../types/lake-enrichment';
+import type { CampgroundTemplateProps } from '../../types/adventure';
 import { geraldRFreemanCampgroundData } from '../campgrounds/gerald-r-freeman';
 import { bakersRunCampgroundData } from '../campgrounds/bakers-run';
 import { beeRunCampgroundData } from '../campgrounds/bee-run';
@@ -21,13 +22,7 @@ import { beeRunCampgroundData } from '../campgrounds/bee-run';
  * Extracts key fields and formats them for lake page display.
  */
 function deriveLakeCampground(
-  data: {
-    name: string;
-    totalSites: number;
-    managingAgency: string;
-    campsites: Array<{ name: string; count: number; fee: string }>;
-    amenities: Array<{ name: string; available: boolean }>;
-  },
+  data: CampgroundTemplateProps,
   slug: string,
   overrides?: Partial<LakeCampground>
 ): LakeCampground {

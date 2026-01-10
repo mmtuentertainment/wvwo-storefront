@@ -167,8 +167,8 @@ export const hollyRiverStatePark: StateParkTemplateProps = {
     county: 'Webster County',
     region: 'Mountain Lakes',
     coordinates: {
-      latitude: 38.6861,
-      longitude: -80.4103,
+      lat: 38.6861,
+      lng: -80.4103,
     },
     nearestTown: 'Hacker Valley (8 miles)',
     distanceFromCity: '2 hours from Charleston, 3.5 hours from Pittsburgh',
@@ -527,7 +527,7 @@ export const hollyRiverStatePark: StateParkTemplateProps = {
         type: 'hiking',
         name: 'Hiking',
         description: 'Over 40 miles of trails ranging from easy nature walks to challenging backcountry treks',
-        difficulty: 'easy-to-difficult',
+        difficulty: 'easy',
         season: ['spring', 'summer', 'fall'],
       },
       {
@@ -561,10 +561,10 @@ export const hollyRiverStatePark: StateParkTemplateProps = {
       {
         name: 'Tecumseh Falls Trail',
         slug: 'tecumseh-falls-trail',
-        distance: 1.6,
+        distance: '1.6 miles',
         difficulty: 'moderate',
         routeType: 'out-and-back',
-        elevationGain: 320,
+        elevationGain: '320 ft',
         description: 'Most popular trail leading to the spectacular 63-foot Tecumseh Falls. Moderate climb with stone steps and scenic overlooks.',
         trailhead: {
           name: 'Main Trailhead near Campground',
@@ -589,16 +589,16 @@ export const hollyRiverStatePark: StateParkTemplateProps = {
       {
         name: 'Potato Knob Trail',
         slug: 'potato-knob-trail',
-        distance: 8.2,
-        difficulty: 'difficult',
+        distance: '8.2 miles',
+        difficulty: 'challenging',
         routeType: 'loop',
-        elevationGain: 1200,
+        elevationGain: '1200 ft',
         description: 'Challenging backcountry loop climbing to scenic overlooks. Remote wilderness experience with minimal traffic.',
         trailhead: {
           name: 'Upper Parking Area',
           coordinates: {
-            latitude: 38.6850,
-            longitude: -80.4080,
+            lat: 38.6850,
+            lng: -80.4080,
           },
           parking: true,
           parkingCapacity: 15,
@@ -617,16 +617,16 @@ export const hollyRiverStatePark: StateParkTemplateProps = {
       {
         name: 'Reverie Trail',
         slug: 'reverie-trail',
-        distance: 2.8,
+        distance: '2.8 miles',
         difficulty: 'easy',
         routeType: 'loop',
-        elevationGain: 150,
+        elevationGain: '150 ft',
         description: 'Easy loop through hardwood forest along Holly River. Great for families and beginner hikers.',
         trailhead: {
           name: 'Campground Trailhead',
           coordinates: {
-            latitude: 38.6865,
-            longitude: -80.4100,
+            lat: 38.6865,
+            lng: -80.4100,
           },
           parking: true,
           parkingCapacity: 10,
@@ -645,10 +645,10 @@ export const hollyRiverStatePark: StateParkTemplateProps = {
       {
         name: 'Nature Trail',
         slug: 'nature-trail',
-        distance: 0.5,
+        distance: '0.5 miles',
         difficulty: 'easy',
         routeType: 'loop',
-        elevationGain: 30,
+        elevationGain: '30 ft',
         description: 'Short, accessible nature trail with interpretive signs. Suitable for all ages and abilities.',
         trailhead: {
           name: 'Visitor Parking',
@@ -810,7 +810,7 @@ export const hollyRiverStatePark: StateParkTemplateProps = {
   // ============================================================================
   emergencyContacts: [
     {
-      tier: 'immediate',
+      tier: 'primary',
       priority: 1,
       contacts: [
         {
@@ -828,7 +828,7 @@ export const hollyRiverStatePark: StateParkTemplateProps = {
       ],
     },
     {
-      tier: 'local',
+      tier: 'agency',
       priority: 2,
       contacts: [
         {

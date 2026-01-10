@@ -152,3 +152,4 @@ reports/
 
 # VSCode extension installers
 *.vsix
+*.txt

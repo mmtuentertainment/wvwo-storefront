@@ -171,8 +171,8 @@ export const watogaStatePark: StateParkTemplateProps = {
     county: 'Pocahontas County',
     region: 'Mountain Lakes',
     coordinates: {
-      latitude: 38.1167,
-      longitude: -80.1500,
+      lat: 38.1167,
+      lng: -80.1500,
     },
     nearestTown: 'Marlinton (8 miles)',
     distanceFromCity: '3 hours from Charleston, 4.5 hours from Washington DC',
@@ -572,6 +572,7 @@ export const watogaStatePark: StateParkTemplateProps = {
         name: 'Recreation Room',
         description: 'Indoor recreation room in lodge with board games, table tennis, pool table',
         fees: 'Free for lodge guests',
+        seasonal: false,
       },
     ],
   },
@@ -713,7 +714,7 @@ export const watogaStatePark: StateParkTemplateProps = {
         type: 'hiking',
         name: 'Mountain Hiking',
         description: 'Over 30 miles of trails including arboretum trails and backcountry routes',
-        difficulty: 'easy-to-difficult',
+        difficulty: 'easy',
         season: ['spring', 'summer', 'fall'],
       },
       {
@@ -734,16 +735,16 @@ export const watogaStatePark: StateParkTemplateProps = {
       {
         name: 'Arboretum Trail',
         slug: 'arboretum-trail',
-        distance: 1.2,
+        distance: '1.2 miles',
         difficulty: 'easy',
         routeType: 'loop',
-        elevationGain: 80,
+        elevationGain: '80 ft',
         description: 'Paved interpretive trail through Brooks Memorial Arboretum featuring 350+ tree species with educational signage.',
         trailhead: {
           name: 'Arboretum Parking',
           coordinates: {
-            latitude: 38.1175,
-            longitude: -80.1485,
+            lat: 38.1175,
+            lng: -80.1485,
           },
           parking: true,
           parkingCapacity: 40,
@@ -771,16 +772,16 @@ export const watogaStatePark: StateParkTemplateProps = {
       {
         name: 'Lake Trail',
         slug: 'lake-trail',
-        distance: 3.5,
+        distance: '3.5 miles',
         difficulty: 'easy',
         routeType: 'loop',
-        elevationGain: 120,
+        elevationGain: '120 ft',
         description: 'Scenic loop around Watoga Lake with views, fishing access, and wildlife observation opportunities.',
         trailhead: {
           name: 'Lodge Parking',
           coordinates: {
-            latitude: 38.1170,
-            longitude: -80.1495,
+            lat: 38.1170,
+            lng: -80.1495,
           },
           parking: true,
           parkingCapacity: 60,
@@ -799,16 +800,16 @@ export const watogaStatePark: StateParkTemplateProps = {
       {
         name: 'Jesse\'s Cove Trail',
         slug: 'jesses-cove-trail',
-        distance: 5.8,
+        distance: '5.8 miles',
         difficulty: 'moderate',
         routeType: 'out-and-back',
-        elevationGain: 650,
+        elevationGain: '650 ft',
         description: 'Popular trail climbing to scenic overlook with views of Greenbrier Valley.',
         trailhead: {
           name: 'Jesse\'s Cove Trailhead',
           coordinates: {
-            latitude: 38.1150,
-            longitude: -80.1520,
+            lat: 38.1150,
+            lng: -80.1520,
           },
           parking: true,
           parkingCapacity: 20,
@@ -979,7 +980,7 @@ export const watogaStatePark: StateParkTemplateProps = {
   // ============================================================================
   emergencyContacts: [
     {
-      tier: 'immediate',
+      tier: 'primary',
       priority: 1,
       contacts: [
         {
@@ -997,7 +998,7 @@ export const watogaStatePark: StateParkTemplateProps = {
       ],
     },
     {
-      tier: 'local',
+      tier: 'agency',
       priority: 2,
       contacts: [
         {

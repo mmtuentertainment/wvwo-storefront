@@ -57,10 +57,10 @@ describe('River Mock Factories', () => {
     it('should override properties when provided', () => {
       const fishing = createMockFishing({
         species: ['Trout'],
-        techniques: 'Fly fishing only',
+        techniques: ['Fly fishing only'],
       });
       expect(fishing.species).toEqual(['Trout']);
-      expect(fishing.techniques).toBe('Fly fishing only');
+      expect(fishing.techniques).toEqual(['Fly fishing only']);
     });
   });
 
@@ -75,11 +75,13 @@ describe('River Mock Factories', () => {
 
     it('should include optional fields when provided', () => {
       const outfitter = createMockOutfitter({
-        contact: '304-555-0100',
-        website: 'https://example.com',
+        contact: {
+          phone: '304-555-0100',
+          website: 'https://example.com',
+        },
       });
-      expect(outfitter.contact).toBe('304-555-0100');
-      expect(outfitter.website).toBe('https://example.com');
+      expect(outfitter.contact?.phone).toBe('304-555-0100');
+      expect(outfitter.contact?.website).toBe('https://example.com');
     });
   });
 
@@ -87,19 +89,20 @@ describe('River Mock Factories', () => {
     it('should create valid seasonal flow entry', () => {
       const flow = createMockSeasonalFlow();
       expect(flow).toHaveProperty('season');
-      expect(flow).toHaveProperty('flowRate');
-      expect(flow).toHaveProperty('conditions');
-      expect(flow).toHaveProperty('accessibility');
+      expect(flow).toHaveProperty('level');
+      expect(flow).toHaveProperty('cfsRange');
+      expect(flow).toHaveProperty('bestFor');
+      expect(flow).toHaveProperty('notes');
       expect(typeof flow.season).toBe('string');
     });
 
     it('should override properties when provided', () => {
       const flow = createMockSeasonalFlow({
         season: 'Winter',
-        flowRate: '500 CFS',
+        cfsRange: '500 CFS',
       });
       expect(flow.season).toBe('Winter');
-      expect(flow.flowRate).toBe('500 CFS');
+      expect(flow.cfsRange).toBe('500 CFS');
     });
   });
 
@@ -126,18 +129,18 @@ describe('River Mock Factories', () => {
       const safety = createMockSafety();
       expect(safety).toHaveProperty('category');
       expect(safety).toHaveProperty('items');
-      expect(safety).toHaveProperty('importance');
+      expect(safety).toHaveProperty('important');
       expect(Array.isArray(safety.items)).toBe(true);
       expect(safety.items.length).toBeGreaterThan(0);
     });
 
     it('should support all importance levels', () => {
-      const critical = createMockSafety({ importance: 'critical' });
-      const high = createMockSafety({ importance: 'high' });
-      const medium = createMockSafety({ importance: 'medium' });
-      expect(critical.importance).toBe('critical');
-      expect(high.importance).toBe('high');
-      expect(medium.importance).toBe('medium');
+      const critical = createMockSafety({ important: true });
+      const high = createMockSafety({ important: true });
+      const medium = createMockSafety({ important: false });
+      expect(critical.important).toBe(true);
+      expect(high.important).toBe(true);
+      expect(medium.important).toBe(false);
     });
   });
 

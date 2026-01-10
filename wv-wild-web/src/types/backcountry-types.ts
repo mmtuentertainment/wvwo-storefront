@@ -19,6 +19,7 @@ import {
   DifficultySchema,
   ThreatLevelSchema,
   type ThreatLevel,
+  type BackcountryTemplateProps,
 } from './backcountry-template-types';
 import {
   SeasonSchema,
