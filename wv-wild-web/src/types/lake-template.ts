@@ -164,3 +164,31 @@ export interface LakeTemplateProps {
   /** Optional geographic coordinates */
   coordinates?: Coordinates;
 }
+
+/**
+ * Zod schema for LakeTemplateProps validation.
+ * Enables runtime validation of lake data files.
+ */
+export const LakeTemplatePropsSchema = z.object({
+  // Hero section (required)
+  name: z.string().min(1),
+  image: z.string().min(1),
+  imageAlt: z.string().min(1),
+  tagline: z.string().min(1),
+  description: z.string().min(1),
+  stats: z.array(StatItemSchema).min(1).max(6),
+
+  // Content sections
+  fishingSpots: z.array(FishingSpotSchema).min(0).max(30),
+  marinas: z.array(MarinaSchema).min(0).max(20),
+  activities: z.array(ActivitySchema).min(0).max(30),
+  seasonalGuide: z.array(SeasonalGuideSchema).min(0).max(12),
+  regulations: z.array(RegulationSchema).min(0).max(30),
+  gearList: z.array(GearItemSchema).min(1).max(30),
+  relatedShop: z.array(RelatedCategorySchema).min(0).max(10),
+
+  // Optional metadata
+  difficulty: DifficultySchema.optional(),
+  bestSeason: SeasonSchema.optional(),
+  coordinates: CoordinatesSchema.optional(),
+});

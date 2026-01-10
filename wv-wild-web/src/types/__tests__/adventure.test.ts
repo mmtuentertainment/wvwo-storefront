@@ -273,6 +273,8 @@ describe('SPEC-11: StatIconSchema (circle icon addition)', () => {
       'location',
       'area',
       'circle',
+      'elevation',
+      'boat',
       'none',
     ];
 
@@ -295,6 +297,8 @@ describe('SPEC-11: StatIconSchema (circle icon addition)', () => {
         'location',
         'area',
         'circle',
+        'elevation',
+        'boat',
       ];
 
       icons.forEach((icon) => {
