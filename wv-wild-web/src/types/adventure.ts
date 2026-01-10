@@ -267,7 +267,7 @@ export const FeatureItemSchema = z.object({
   /** Optional Kim's personal tip (renders in font-hand) */
   kimNote: z.string().optional(),
   /** Optional icon from STAT_ICON_PATHS */
-  icon: z.enum(['distance', 'time', 'calendar', 'check', 'info', 'location', 'area', 'circle', 'none']).optional(),
+  icon: StatIconSchema.optional(),
 });
 
 export type FeatureItem = z.infer<typeof FeatureItemSchema>;
