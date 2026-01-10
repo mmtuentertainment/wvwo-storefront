@@ -1,5 +1,5 @@
 /**
- * Watoga State Park - Placeholder Data File
+ * Watoga State Park - Main Data File
  * SPEC-18 Phase 4: Realistic placeholder data following StateParkTemplateProps schema
  *
  * [PLACEHOLDER - Update in SPEC-66: Destination Watoga]
@@ -15,6 +15,11 @@
  * - Resort Park: Lodge with restaurant, 33 cabins, 18-hole golf course
  * - Facilities: Conference center, pool, boat rentals, extensive programming
  *
+ * This file has been modularized for SPEC-24 compliance:
+ * - watoga/facilities.ts: Lodging, camping, pools, visitor centers
+ * - watoga/activities.ts: Programs, events, recreational activities
+ * - watoga/trails.ts: Trail system and overlooks
+ *
  * @module data/state-parks/watoga-sp
  */
 
@@ -25,6 +30,11 @@ import {
   WV_STATE_PARKS_MANAGING_AGENCY,
 } from './shared-constants';
 
+// Import modular sections
+import { watogaFacilities } from './watoga/facilities';
+import { watogaActivitiesPrograms } from './watoga/activities';
+import { watogaTrails, watogaOverlooks } from './watoga/trails';
+
 export const watogaStatePark: StateParkTemplateProps = {
   // ============================================================================
   // HERO SECTION (Required)
@@ -32,7 +42,7 @@ export const watogaStatePark: StateParkTemplateProps = {
   hero: {
     name: 'Watoga State Park',
     heroImage: '/images/state-parks/watoga/hero-lake-lodge.jpg',
-    imagePosition: 'center',
+    imagePosition: 'center' as const,
     tagline: 'West Virginia\'s Flagship Resort Park',
     acreage: 10100,
     established: 1937,
@@ -63,38 +73,38 @@ export const watogaStatePark: StateParkTemplateProps = {
           endDate: 'Labor Day',
           hours: [
             {
-              day: 'monday',
+              day: 'monday' as const,
               open: '00:00',
               close: '23:59',
               notes: 'Full services - all facilities open',
             },
             {
-              day: 'tuesday',
+              day: 'tuesday' as const,
               open: '00:00',
               close: '23:59',
             },
             {
-              day: 'wednesday',
+              day: 'wednesday' as const,
               open: '00:00',
               close: '23:59',
             },
             {
-              day: 'thursday',
+              day: 'thursday' as const,
               open: '00:00',
               close: '23:59',
             },
             {
-              day: 'friday',
+              day: 'friday' as const,
               open: '00:00',
               close: '23:59',
             },
             {
-              day: 'saturday',
+              day: 'saturday' as const,
               open: '00:00',
               close: '23:59',
             },
             {
-              day: 'sunday',
+              day: 'sunday' as const,
               open: '00:00',
               close: '23:59',
             },
@@ -106,38 +116,38 @@ export const watogaStatePark: StateParkTemplateProps = {
           endDate: 'October 31',
           hours: [
             {
-              day: 'monday',
+              day: 'monday' as const,
               open: '00:00',
               close: '23:59',
               notes: 'Most facilities open - call for specific hours',
             },
             {
-              day: 'tuesday',
+              day: 'tuesday' as const,
               open: '00:00',
               close: '23:59',
             },
             {
-              day: 'wednesday',
+              day: 'wednesday' as const,
               open: '00:00',
               close: '23:59',
             },
             {
-              day: 'thursday',
+              day: 'thursday' as const,
               open: '00:00',
               close: '23:59',
             },
             {
-              day: 'friday',
+              day: 'friday' as const,
               open: '00:00',
               close: '23:59',
             },
             {
-              day: 'saturday',
+              day: 'saturday' as const,
               open: '00:00',
               close: '23:59',
             },
             {
-              day: 'sunday',
+              day: 'sunday' as const,
               open: '00:00',
               close: '23:59',
             },
@@ -266,585 +276,24 @@ export const watogaStatePark: StateParkTemplateProps = {
   },
 
   // ============================================================================
-  // FACILITIES SECTION (Resort Emphasis)
+  // FACILITIES SECTION (Imported from watoga/facilities.ts)
   // ============================================================================
-  facilities: {
-    lodging: {
-      lodges: [
-        {
-          name: 'Watoga Lake Lodge',
-          rooms: 30,
-          roomTypes: [
-            'Standard Room (2 double beds)',
-            'King Room',
-            'Accessible Room',
-          ],
-          amenities: [
-            'Full-service restaurant',
-            'Conference center',
-            'Wi-Fi in lodge',
-            'Daily housekeeping',
-            'Mini-refrigerator',
-            'Coffee maker',
-            'Cable TV',
-            'Climate control',
-            'Private bathrooms',
-            'Lake views (select rooms)',
-          ],
-          hasRestaurant: true,
-          hasConferenceFacilities: true,
-          description: 'Historic Watoga Lake Lodge offers comfortable rooms with modern amenities and stunning lake views. On-site restaurant serves breakfast, lunch, and dinner.',
-          bookingUrl: WV_STATE_PARKS_RESERVATION_URL,
-          priceRange: '$95-$150/night',
-          seasonalOperation: 'Year-round',
-        },
-      ],
-      cabins: [
-        {
-          cabinNumber: 'Standard Cabin 1-20',
-          name: 'Standard Cabins',
-          bedrooms: 2,
-          bathrooms: 1,
-          maxOccupancy: 6,
-          kitchenType: 'full',
-          hasFireplace: false,
-          petFriendly: false,
-          accessible: false,
-          seasonalAvailability: 'Year-round',
-          amenities: [
-            'Full kitchen',
-            'Electric heat',
-            'Hot water',
-            'Linens provided',
-            'Cookware',
-            'Private bathroom',
-            'Screened porch',
-          ],
-          hasPorch: true,
-          hasGrill: true,
-          priceRange: '$110-$165/night',
-          bookingUrl: WV_STATE_PARKS_RESERVATION_URL,
-        },
-        {
-          cabinNumber: 'Deluxe Cabin 21-28',
-          name: 'Deluxe Cabins',
-          bedrooms: 3,
-          bathrooms: 2,
-          maxOccupancy: 8,
-          kitchenType: 'full',
-          hasFireplace: true,
-          fireplaceType: 'gas',
-          petFriendly: false,
-          accessible: false,
-          seasonalAvailability: 'Year-round',
-          amenities: [
-            'Full kitchen',
-            'Gas fireplace',
-            'Two bathrooms',
-            'Electric heat',
-            'Hot water',
-            'Linens provided',
-            'Dishwasher',
-            'Microwave',
-            'Large screened porch',
-          ],
-          hasPorch: true,
-          hasGrill: true,
-          priceRange: '$135-$195/night',
-          bookingUrl: WV_STATE_PARKS_RESERVATION_URL,
-        },
-        {
-          cabinNumber: 'Pet-Friendly Cabin 29-31',
-          name: 'Pet-Friendly Cabins',
-          bedrooms: 2,
-          bathrooms: 1,
-          maxOccupancy: 6,
-          kitchenType: 'full',
-          hasFireplace: false,
-          petFriendly: true,
-          accessible: false,
-          seasonalAvailability: 'Year-round',
-          amenities: [
-            'Full kitchen',
-            'Pet-friendly (fee applies)',
-            'Fenced yard area',
-            'Electric heat',
-            'Hot water',
-            'Linens provided',
-          ],
-          hasPorch: true,
-          hasGrill: true,
-          priceRange: '$120-$175/night (plus $25 pet fee)',
-          bookingUrl: WV_STATE_PARKS_RESERVATION_URL,
-          description: 'Limited pet-friendly cabins available. Maximum 2 pets, additional fee applies. Pets must be leashed.',
-        },
-        {
-          cabinNumber: 'Accessible Cabin 32-33',
-          name: 'ADA Accessible Cabins',
-          bedrooms: 2,
-          bathrooms: 1,
-          maxOccupancy: 6,
-          kitchenType: 'full',
-          hasFireplace: false,
-          petFriendly: false,
-          accessible: true,
-          seasonalAvailability: 'Year-round',
-          amenities: [
-            'Wheelchair ramp',
-            'Wider doorways',
-            'Roll-in shower',
-            'Accessible kitchen',
-            'Grab bars',
-            'Lower light switches',
-            'Visual alarms',
-          ],
-          hasPorch: true,
-          hasGrill: true,
-          priceRange: '$110-$165/night',
-          bookingUrl: WV_STATE_PARKS_RESERVATION_URL,
-        },
-      ],
-    },
-
-    camping: {
-      campgrounds: [
-        {
-          name: 'Riverside Campground',
-          siteCount: 88,
-          hookupTypes: ['electric', 'water', 'sewer'],
-          bathhouse: true,
-          dumpStation: true,
-          maxRVLength: '45 feet',
-          season: 'April 1 - October 31',
-          amenities: [
-            'Full hookups available',
-            'Hot showers',
-            'Flush toilets',
-            'Laundry facilities',
-            'Camp store',
-            'Playground',
-            'Picnic tables',
-            'Fire rings',
-          ],
-          accessible: true,
-          accessibleSiteCount: 6,
-          fees: '$28-$38/night (full hookup), $25/night (electric only)',
-          bookingUrl: WV_STATE_PARKS_RESERVATION_URL,
-        },
-      ],
-    },
-
-    pools: [
-      {
-        type: 'outdoor',
-        name: 'Watoga Swimming Pool',
-        depth: '3-8 feet',
-        features: [
-          'Olympic-size pool',
-          'Diving board',
-          'Lap lanes',
-          'Shallow wading area',
-          'Sundeck',
-        ],
-        lifeguard: true,
-        seasonalOperation: 'Memorial Day - Labor Day',
-        fees: '$5/person, $15/family',
-        accessible: true,
-        accessibilityFeatures: [
-          'Pool lift',
-          'Accessible changing rooms',
-          'Nearby accessible parking',
-        ],
-      },
-    ],
-
-    visitorCenters: [
-      {
-        name: 'Brooks Memorial Arboretum Nature Center',
-        type: 'nature_center',
-        exhibits: [
-          'Tree species identification displays',
-          'Local forest ecology',
-          'Wildlife dioramas',
-          'Historic CCC exhibits',
-          'Seasonal wildflower displays',
-        ],
-        programs: [
-          'Guided arboretum walks',
-          'Tree identification workshops',
-          'Children\'s nature programs',
-        ],
-        staffed: true,
-        giftShop: false,
-        restrooms: true,
-        accessibility: 'Fully accessible facility',
-        contact: '304-799-4087',
-        admissionFee: 'Free',
-      },
-    ],
-
-    picnicAreas: [
-      {
-        type: 'pavilion',
-        name: 'Lakeside Pavilion',
-        shelterCount: 1,
-        capacity: 100,
-        reservable: true,
-        grills: true,
-        electricity: true,
-        amenities: [
-          'Lake views',
-          'Tables for 100',
-          'Nearby restrooms',
-          'Playground access',
-          'Beach access',
-        ],
-        accessible: true,
-        reservationUrl: WV_STATE_PARKS_RESERVATION_URL,
-        rentalFee: '$75/day',
-        nearParking: true,
-      },
-    ],
-
-    playgrounds: [
-      {
-        name: 'Campground Playground',
-        ageGroups: ['2-5 years', '5-12 years'],
-        equipment: [
-          'Swing sets',
-          'Slides',
-          'Climbing structure',
-          'Monkey bars',
-          'Spring riders',
-        ],
-        surfaceType: 'rubber',
-        shade: true,
-        accessibility: true,
-        accessibilityFeatures: [
-          'Accessible play equipment',
-          'Transfer platforms',
-          'Sensory play elements',
-        ],
-        nearRestrooms: true,
-        nearParking: true,
-      },
-    ],
-
-    otherAmenities: [
-      {
-        type: 'golf_course',
-        name: 'Watoga Golf Course',
-        description: '18-hole championship course designed by renowned architect. Par 72, 6,200 yards.',
-        fees: '$25-$45 per round (seasonal rates)',
-        seasonal: true,
-        season: 'April - October',
-        details: {
-          holes: '18',
-          par: '72',
-          yardage: '6,200',
-          cartRental: '$15',
-          clubRental: '$10',
-        },
-      },
-      {
-        type: 'equipment_rental',
-        name: 'Boat Rentals',
-        description: 'Paddleboat, kayak, and canoe rentals on Watoga Lake',
-        fees: '$10-$25/hour',
-        seasonal: true,
-        season: 'May - September',
-        details: {
-          paddleboats: '$15/hour',
-          kayaks: '$10/hour',
-          canoes: '$12/hour',
-        },
-      },
-      {
-        type: 'gift_shop',
-        name: 'Lodge Gift Shop',
-        description: 'Local crafts, camping supplies, WV souvenirs, and snacks',
-        fees: 'Varies',
-        seasonal: false,
-        season: 'Year-round',
-      },
-      {
-        type: 'game_room',
-        name: 'Recreation Room',
-        description: 'Indoor recreation room in lodge with board games, table tennis, pool table',
-        fees: 'Free for lodge guests',
-        seasonal: false,
-      },
-    ],
-  },
+  facilities: watogaFacilities,
 
   // ============================================================================
-  // ACTIVITIES & PROGRAMS (Extensive Programming)
+  // ACTIVITIES & PROGRAMS (Imported from watoga/activities.ts)
   // ============================================================================
-  activitiesPrograms: {
-    rangerPrograms: [
-      {
-        name: 'Arboretum Discovery Walk',
-        type: 'ranger_led',
-        description: 'Explore Brooks Memorial Arboretum with a naturalist. Learn to identify 350+ tree species and understand forest ecology.',
-        schedule: 'Daily at 10:00 AM, May through October',
-        duration: '1.5 hours',
-        ageGroup: 'All ages',
-        reservationRequired: false,
-        accessible: true,
-      },
-      {
-        name: 'Evening Wildlife Program',
-        type: 'ranger_led',
-        description: 'Learn about black bears, white-tailed deer, and other WV wildlife. Slide presentation and Q&A.',
-        schedule: 'Saturday evenings at 7:30 PM, June-August',
-        duration: '45 minutes',
-        ageGroup: 'All ages',
-        reservationRequired: false,
-        accessible: true,
-      },
-      {
-        name: 'Fly Fishing Workshop',
-        type: 'educational',
-        description: 'Hands-on fly fishing instruction covering casting, knots, and trout behavior. Equipment provided.',
-        schedule: 'Select Saturdays in May and September',
-        duration: '3 hours',
-        ageGroup: '12+',
-        reservationRequired: true,
-        accessible: false,
-        maxParticipants: 10,
-      },
-      {
-        name: 'Birding by Ear',
-        type: 'ranger_led',
-        description: 'Early morning bird walk focusing on identification by song. Bring binoculars.',
-        schedule: 'Sundays at 7:00 AM, May and June',
-        duration: '2 hours',
-        ageGroup: 'All ages',
-        reservationRequired: false,
-        accessible: false,
-      },
-    ],
-
-    educationalPrograms: [
-      {
-        name: 'Nature Photography Workshop',
-        topic: 'Outdoor Photography',
-        description: 'Learn composition, lighting, and camera settings for landscape and wildlife photography. Bring your camera.',
-        instructor: 'Professional nature photographer',
-        materialsProvided: false,
-        skillLevel: 'beginner',
-        cost: '$40/person',
-        schedule: 'Two weekends in June and September',
-      },
-      {
-        name: 'Tree Identification Class',
-        topic: 'Forest Botany',
-        description: 'Classroom and field instruction on identifying trees by leaves, bark, and form. Focus on Appalachian species.',
-        materialsProvided: true,
-        skillLevel: 'all',
-        cost: '$25/person',
-        schedule: 'Monthly, April-October',
-      },
-    ],
-
-    juniorRanger: {
-      name: 'Junior Ranger Program',
-      ageRange: '5-12 years',
-      activities: [
-        'Complete activity booklet',
-        'Attend ranger program',
-        'Arboretum scavenger hunt',
-        'Wildlife observation',
-        'Leave No Trace training',
-        'Fishing basics (optional)',
-      ],
-      badgeEligibility: true,
-      duration: 'Self-paced or 2-day guided program',
-      cost: 'Free (self-paced), $15 (guided program)',
-      description: 'Earn a Junior Ranger badge by exploring Watoga\'s forests, arboretum, and trails. Self-paced or join guided weekend program.',
-    },
-
-    specialEvents: [
-      {
-        name: 'Spring Wildflower Weekend',
-        date: 'Late April',
-        description: 'Guided wildflower hikes, photography walks, and botanical workshops celebrating Appalachian spring blooms.',
-        fees: 'Free programs, some workshops $15-$25',
-        registrationRequired: false,
-        eventType: 'Festival',
-      },
-      {
-        name: 'Watoga Lake Festival',
-        date: 'July 4th Weekend',
-        description: 'Family festival with live music, craft vendors, children\'s activities, fishing tournament, and fireworks.',
-        fees: 'Free admission',
-        registrationRequired: false,
-        eventType: 'Festival',
-      },
-    ],
-
-    recreationalActivities: [
-      {
-        type: 'golf',
-        name: 'Championship Golf',
-        description: '18-hole championship course, par 72. Cart and club rentals available.',
-        fees: '$25-$45 per round',
-      },
-      {
-        type: 'swimming',
-        name: 'Olympic Pool',
-        description: 'Olympic-size outdoor pool with diving board and lap lanes',
-        fees: '$5/person, $15/family',
-      },
-      {
-        type: 'boating',
-        name: 'Lake Boating',
-        description: 'Paddleboat, kayak, and canoe rentals on Watoga Lake',
-        equipment: 'Rentals available at boat dock',
-        fees: '$10-$25/hour',
-      },
-      {
-        type: 'fishing',
-        name: 'Lake and Stream Fishing',
-        description: 'Trout fishing in stocked lake and streams. Bass fishing in Watoga Lake.',
-        equipment: 'Bring your own or purchase at camp store',
-        season: ['spring', 'summer', 'fall'],
-      },
-      {
-        type: 'hiking',
-        name: 'Mountain Hiking',
-        description: 'Over 30 miles of trails including arboretum trails and backcountry routes',
-        difficulty: 'moderate',
-        season: ['spring', 'summer', 'fall'],
-      },
-      {
-        type: 'wildlife_viewing',
-        name: 'Wildlife Observation',
-        description: 'Black bears, deer, wild turkey, and over 200 bird species',
-        season: ['spring', 'summer', 'fall', 'winter'],
-      },
-    ],
-  },
+  activitiesPrograms: watogaActivitiesPrograms,
 
   // ============================================================================
-  // TRAIL SYSTEM
+  // TRAIL SYSTEM (Imported from watoga/trails.ts)
   // ============================================================================
-  trails: {
-    totalMileage: 32,
-    trails: [
-      {
-        name: 'Arboretum Trail',
-        slug: 'arboretum-trail',
-        distance: '1.2 miles',
-        difficulty: 'easy',
-        routeType: 'loop',
-        elevationGain: '80 ft',
-        description: 'Paved interpretive trail through Brooks Memorial Arboretum featuring 350+ tree species with educational signage.',
-        trailhead: {
-          name: 'Arboretum Parking',
-          coordinates: {
-            lat: 38.1175,
-            lng: -80.1485,
-          },
-          parking: true,
-          parkingCapacity: 40,
-        },
-        highlights: [
-          '350+ tree species',
-          'Interpretive signs',
-          'Paved surface',
-          'Benches throughout',
-        ],
-        surface: 'paved',
-        accessible: true,
-        accessibilityInfo: {
-          name: 'Arboretum Trail',
-          wheelchairAccessible: true,
-          surface: 'paved',
-          width: 60,
-          grade: '4%',
-          restingIntervals: 'Benches every 200 feet',
-          details: 'Fully paved, ADA-compliant trail with educational signage at accessible height',
-        },
-        dogsAllowed: true,
-        leashRequired: true,
-      },
-      {
-        name: 'Lake Trail',
-        slug: 'lake-trail',
-        distance: '3.5 miles',
-        difficulty: 'easy',
-        routeType: 'loop',
-        elevationGain: '120 ft',
-        description: 'Scenic loop around Watoga Lake with views, fishing access, and wildlife observation opportunities.',
-        trailhead: {
-          name: 'Lodge Parking',
-          coordinates: {
-            lat: 38.1170,
-            lng: -80.1495,
-          },
-          parking: true,
-          parkingCapacity: 60,
-        },
-        highlights: [
-          'Lake views',
-          'Fishing piers',
-          'Wildlife viewing',
-          'Gentle terrain',
-        ],
-        surface: 'natural',
-        accessible: false,
-        dogsAllowed: true,
-        leashRequired: true,
-      },
-      {
-        name: 'Jesse\'s Cove Trail',
-        slug: 'jesses-cove-trail',
-        distance: '5.8 miles',
-        difficulty: 'moderate',
-        routeType: 'out-and-back',
-        elevationGain: '650 ft',
-        description: 'Popular trail climbing to scenic overlook with views of Greenbrier Valley.',
-        trailhead: {
-          name: 'Jesse\'s Cove Trailhead',
-          coordinates: {
-            lat: 38.1150,
-            lng: -80.1520,
-          },
-          parking: true,
-          parkingCapacity: 20,
-        },
-        highlights: [
-          'Panoramic valley views',
-          'Mountain laurel in June',
-          'Wildlife sightings',
-          'Overlook platform',
-        ],
-        surface: 'natural',
-        accessible: false,
-        dogsAllowed: true,
-        leashRequired: true,
-      },
-    ],
-    trailMapUrl: 'https://wvstateparks.com/park/watoga-state-park/trail-map',
-  },
+  trails: watogaTrails,
 
   // ============================================================================
-  // SCENIC OVERLOOKS
+  // SCENIC OVERLOOKS (Imported from watoga/trails.ts)
   // ============================================================================
-  overlooks: {
-    overlooks: [
-      {
-        name: 'Jesse\'s Cove Overlook',
-        description: 'Panoramic views of Greenbrier Valley from observation platform',
-        accessible: false,
-        bestTimes: ['Sunrise', 'Fall foliage (mid-October)', 'Clear winter days'],
-        parkingAvailable: false,
-        distanceFromParking: '2.9 mile hike',
-        elevation: '3,200 feet',
-      },
-    ],
-  },
+  overlooks: watogaOverlooks,
 
   // ============================================================================
   // ACCESSIBILITY
@@ -980,38 +429,38 @@ export const watogaStatePark: StateParkTemplateProps = {
   // ============================================================================
   emergencyContacts: [
     {
-      tier: 'primary',
+      tier: 'primary' as const,
       priority: 1,
       contacts: [
         {
           name: 'Park Rangers',
           phone: '304-799-4087',
           available: '8:00 AM - 4:00 PM daily',
-          type: 'first-responder',
+          type: 'first-responder' as const,
         },
         {
           name: 'Pocahontas County 911',
           phone: '911',
           available: '24/7',
-          type: 'emergency-services',
+          type: 'emergency-services' as const,
         },
       ],
     },
     {
-      tier: 'agency',
+      tier: 'agency' as const,
       priority: 2,
       contacts: [
         {
           name: 'Pocahontas County Sheriff',
           phone: '304-799-4567',
           available: '24/7',
-          type: 'law-enforcement',
+          type: 'law-enforcement' as const,
         },
         {
           name: 'Pocahontas Memorial Hospital',
           phone: '304-799-7400',
           available: '24/7',
-          type: 'hospital',
+          type: 'hospital' as const,
           location: 'Buckeye, WV (15 miles)',
         },
       ],
@@ -1036,50 +485,50 @@ export const watogaStatePark: StateParkTemplateProps = {
     ],
     faqItems: [
       {
-        '@type': 'Question',
+        '@type': 'Question' as const,
         name: 'Does Watoga State Park have a lodge?',
         acceptedAnswer: {
-          '@type': 'Answer',
+          '@type': 'Answer' as const,
           text: 'Yes, Watoga Lake Lodge offers 30 comfortable rooms with modern amenities. The lodge features an on-site restaurant serving three meals daily, plus a gift shop and conference facilities.',
         },
       },
       {
-        '@type': 'Question',
+        '@type': 'Question' as const,
         name: 'What is Brooks Memorial Arboretum?',
         acceptedAnswer: {
-          '@type': 'Answer',
+          '@type': 'Answer' as const,
           text: 'Brooks Memorial Arboretum is a 350+ tree species collection at Watoga State Park with paved, accessible trails and educational signage. It\'s one of the finest arboretums in West Virginia.',
         },
       },
       {
-        '@type': 'Question',
+        '@type': 'Question' as const,
         name: 'Does Watoga have a golf course?',
         acceptedAnswer: {
-          '@type': 'Answer',
+          '@type': 'Answer' as const,
           text: 'Yes, Watoga features an 18-hole championship golf course (par 72, 6,200 yards) open April through October. Cart and club rentals available.',
         },
       },
       {
-        '@type': 'Question',
+        '@type': 'Question' as const,
         name: 'Are pets allowed at Watoga State Park?',
         acceptedAnswer: {
-          '@type': 'Answer',
+          '@type': 'Answer' as const,
           text: 'Pets are welcome in campgrounds, on trails, and in select pet-friendly cabins (additional fee applies). Pets not allowed in lodge rooms or restaurant.',
         },
       },
       {
-        '@type': 'Question',
+        '@type': 'Question' as const,
         name: 'How many cabins does Watoga State Park have?',
         acceptedAnswer: {
-          '@type': 'Answer',
+          '@type': 'Answer' as const,
           text: 'Watoga offers 33 rental cabins including standard, deluxe, pet-friendly, and ADA-accessible options. All cabins feature full kitchens and modern amenities.',
         },
       },
       {
-        '@type': 'Question',
+        '@type': 'Question' as const,
         name: 'Is Watoga State Park accessible for wheelchairs?',
         acceptedAnswer: {
-          '@type': 'Answer',
+          '@type': 'Answer' as const,
           text: 'Yes, the lodge, restaurant, arboretum trail, swimming pool, and select cabins are fully accessible. Beach wheelchairs available for lakefront access with 24-hour advance notice.',
         },
       },
