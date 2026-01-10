@@ -714,7 +714,7 @@ export const watogaStatePark: StateParkTemplateProps = {
         type: 'hiking',
         name: 'Mountain Hiking',
         description: 'Over 30 miles of trails including arboretum trails and backcountry routes',
-        difficulty: 'easy',
+        difficulty: 'moderate',
         season: ['spring', 'summer', 'fall'],
       },
       {
