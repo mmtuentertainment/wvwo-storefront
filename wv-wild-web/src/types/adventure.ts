@@ -185,6 +185,7 @@ export const STAT_ICON_PATHS: Record<StatIcon, string | null> = {
   circle: 'M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z',
   elevation:
     'M3 17l6-6 4 4 8-8m0 0v6m0-6h-6', // Arrow trending up - represents depth/elevation
+  boat: 'M3 12l3-3 3 3m-3-3v9m9-14l-3 3-3-3m3 3V5a2 2 0 012-2h2a2 2 0 012 2v2m0 6a2 2 0 01-2 2h-2a2 2 0 01-2-2m0 0V9', // Boat/sailing icon
   none: null,
 };
 
