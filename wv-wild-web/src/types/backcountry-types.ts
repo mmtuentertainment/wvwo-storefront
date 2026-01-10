@@ -16,25 +16,13 @@
 
 import { z } from 'astro/zod';
 import {
-  GearItemSchema,
-  RelatedCategorySchema,
-  CoordinatesSchema,
-  StatItemSchema,
   DifficultySchema,
-  SeasonSchema,
-  type GearItem,
-  type RelatedCategory,
-  type Coordinates,
-  type StatItem,
-  type Difficulty,
-  type Season,
-} from './adventure';
-import {
   ThreatLevelSchema,
   type ThreatLevel,
-  type BackcountryTemplateProps,
-  type TieredEmergencyContact,
 } from './backcountry-template-types';
+import {
+  SeasonSchema,
+} from './adventure';
 
 // ============================================================================
 // MOBILITY RATING (4 levels)
