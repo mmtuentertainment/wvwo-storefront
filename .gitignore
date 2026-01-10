@@ -152,3 +152,11 @@ reports/
 
 # VSCode extension installers
 *.vsix
+
+# Test output files
+test-output.txt
+ts-errors.txt
+ts6133-warnings.txt
+type-errors.txt
+**/test-output.txt
+**/*-errors.txt

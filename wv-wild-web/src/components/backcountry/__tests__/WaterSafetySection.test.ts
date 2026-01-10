@@ -101,18 +101,6 @@ describe('WaterSafetySection [P0]', () => {
 
   describe('Do Not Use Sources', () => {
     it('renders skull icon for toxic sources', () => {
-      const toxicSource: WaterSource = {
-        name: 'Red Creek (Lower Section)',
-        status: 'do-not-use',
-        reliability: 'year-round',
-        treatment: 'not-applicable',
-        warnings: ['AMD contamination', 'Historic mining area'],
-        amdDetails: {
-          contaminantType: 'amd',
-          visualIndicators: ['Orange water', 'Rust-colored rocks'],
-        },
-      };
-
       // WATER_STATUS_CONFIG should define skull icon for do-not-use
       const config = WATER_STATUS_CONFIG['do-not-use'];
       expect(config.icon).toBe('\u2620'); // Skull and crossbones

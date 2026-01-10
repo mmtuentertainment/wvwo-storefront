@@ -263,20 +263,27 @@ describe('SPEC-11: StatIconSchema (circle icon addition)', () => {
     expect(typeof STAT_ICON_PATHS.circle).toBe('string');
   });
 
-  describe('All predefined icons are valid', () => {
-    const icons: StatIcon[] = [
-      'distance',
-      'time',
-      'calendar',
-      'check',
-      'info',
-      'location',
-      'area',
-      'circle',
-      'none',
-    ];
+  // Single source of truth for all icons (prevents drift)
+  const ALL_ICONS: StatIcon[] = [
+    'distance',
+    'time',
+    'calendar',
+    'check',
+    'info',
+    'location',
+    'area',
+    'circle',
+    'elevation',
+    'boat',
+    'none',
+  ];
 
-    icons.forEach((icon) => {
+  const ICONS_WITH_PATH: Exclude<StatIcon, 'none'>[] = ALL_ICONS.filter(
+    (icon): icon is Exclude<StatIcon, 'none'> => icon !== 'none'
+  );
+
+  describe('All predefined icons are valid', () => {
+    ALL_ICONS.forEach((icon) => {
       it(`validates "${icon}" icon`, () => {
         const result = StatIconSchema.safeParse(icon);
         expect(result.success).toBe(true);
@@ -286,18 +293,7 @@ describe('SPEC-11: StatIconSchema (circle icon addition)', () => {
 
   describe('Icon paths mapping', () => {
     it('all icons except "none" have SVG paths', () => {
-      const icons: StatIcon[] = [
-        'distance',
-        'time',
-        'calendar',
-        'check',
-        'info',
-        'location',
-        'area',
-        'circle',
-      ];
-
-      icons.forEach((icon) => {
+      ICONS_WITH_PATH.forEach((icon) => {
         expect(STAT_ICON_PATHS[icon]).toBeTruthy();
         expect(typeof STAT_ICON_PATHS[icon]).toBe('string');
       });

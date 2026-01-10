@@ -22,7 +22,7 @@
  */
 
 /** Stat item icon types - must match StatIconSchema in adventure.ts */
-type StatIcon = 'location' | 'distance' | 'time' | 'calendar' | 'check' | 'info' | 'area' | 'circle' | 'elevation' | 'none';
+type StatIcon = 'location' | 'distance' | 'time' | 'calendar' | 'check' | 'info' | 'area' | 'circle' | 'elevation' | 'boat' | 'none';
 
 /** Difficulty levels */
 type Difficulty = 'easy' | 'moderate' | 'difficult' | 'expert';

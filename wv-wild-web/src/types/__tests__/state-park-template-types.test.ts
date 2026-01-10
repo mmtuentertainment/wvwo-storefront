@@ -61,7 +61,9 @@ const minimalValidTemplate = {
       allowed: true,
       restrictions: ['Fire pits only'],
     },
+    specialRestrictions: [],
   },
+  showRelatedShop: true,
 };
 
 // ============================================================================
@@ -110,6 +112,10 @@ describe('Optional Fields', () => {
               bathrooms: 1,
               maxOccupancy: 6,
               kitchenType: 'full' as const,
+              hasFireplace: false,
+              petFriendly: false,
+              accessible: false,
+              amenities: [],
             },
           ],
         },
@@ -129,6 +135,7 @@ describe('Optional Fields', () => {
           {
             name: 'Test Trail',
             length: 2.5,
+            distance: '2.5 miles',
             difficulty: 'moderate' as const,
             trailType: 'loop' as const,
           },
@@ -136,6 +143,7 @@ describe('Optional Fields', () => {
       },
       accessibility: {
         features: ['accessible_trail' as const],
+        advanceNoticeRequired: false,
       },
       reservations: {
         cabins: {
@@ -310,6 +318,10 @@ describe('FacilitiesSectionSchema', () => {
             bathrooms: 1,
             maxOccupancy: 6,
             kitchenType: 'full' as const,
+            hasFireplace: false,
+            petFriendly: false,
+            accessible: false,
+            amenities: [],
           },
         ],
         lodges: [
@@ -317,6 +329,8 @@ describe('FacilitiesSectionSchema', () => {
             name: 'Main Lodge',
             rooms: 54,
             amenities: ['Restaurant', 'Pool', 'WiFi'],
+            hasRestaurant: false,
+            hasConferenceFacilities: false,
           },
         ],
       },
@@ -334,6 +348,10 @@ describe('FacilitiesSectionSchema', () => {
             name: 'Main Campground',
             siteCount: 88,
             hookupTypes: ['electric' as const, 'water' as const],
+            bathhouse: false,
+            dumpStation: false,
+            accessible: false,
+            amenities: [],
           },
         ],
       },
@@ -555,6 +573,7 @@ describe('Type Guards', () => {
         ...minimalValidTemplate,
         accessibility: {
           features: ['accessible_trail', 'accessible_parking'],
+          advanceNoticeRequired: false,
         },
       };
 
@@ -659,6 +678,8 @@ describe('Type Guards', () => {
             {
               type: 'outdoor',
               lifeguard: true,
+              features: [],
+              accessible: false,
             },
           ],
         },
@@ -680,6 +701,9 @@ describe('Type Guards', () => {
               trailerParkingSpaces: 20,
               vehicleParkingSpaces: 40,
               launchFee: 'Free',
+              dockAvailable: false,
+              restrictions: [],
+              accessible: false,
             },
           ],
         },

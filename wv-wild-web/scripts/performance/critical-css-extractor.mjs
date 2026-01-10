@@ -10,7 +10,7 @@
  * - Verify Tailwind tree-shaking (3MB → 15KB)
  */
 
-import { readFile, writeFile, mkdir } from 'fs/promises';
+import { writeFile, mkdir } from 'fs/promises';
 import { join } from 'path';
 import { existsSync } from 'fs';
 
@@ -55,40 +55,6 @@ const CSS_CONFIG = {
 
   outputDir: 'src/styles/critical'
 };
-
-/**
- * Extract critical CSS rules from full stylesheet
- */
-function extractCriticalCSS(fullCSS, selectors) {
-  const criticalRules = [];
-  const lines = fullCSS.split('\n');
-
-  let inCriticalBlock = false;
-  let currentBlock = '';
-
-  for (const line of lines) {
-    // Check if line contains a critical selector
-    const isCritical = selectors.some(selector => {
-      return line.includes(selector) &&
-             (line.includes('{') || line.includes(','));
-    });
-
-    if (isCritical) {
-      inCriticalBlock = true;
-      currentBlock = line + '\n';
-    } else if (inCriticalBlock) {
-      currentBlock += line + '\n';
-
-      if (line.includes('}')) {
-        criticalRules.push(currentBlock);
-        currentBlock = '';
-        inCriticalBlock = false;
-      }
-    }
-  }
-
-  return criticalRules.join('');
-}
 
 /**
  * Generate inline critical CSS for a WMA page

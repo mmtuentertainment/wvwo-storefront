@@ -172,6 +172,7 @@ export function createMockStatePark(
         restrictions: ['Fire pits only', 'No ground fires'],
         firePits: true,
       },
+      specialRestrictions: [],
       ...regulations,
     },
     ...rest,
@@ -218,6 +219,7 @@ export function createMockCampground(overrides?: Partial<CampingFacility>): Camp
     dumpStation: true,
     accessible: true,
     accessibleSiteCount: 3,
+    amenities: [],
     ...overrides,
   };
 }

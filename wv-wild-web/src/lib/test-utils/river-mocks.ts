@@ -59,7 +59,7 @@ export function createMockRapid(overrides?: Partial<Rapid>): Rapid {
 export function createMockFishing(overrides?: Partial<RiverFishing>): RiverFishing {
   return {
     species: ['Smallmouth Bass', 'Rock Bass', 'Channel Catfish'],
-    techniques: 'Fly fishing, spinning, and bait casting work well in slower pools.',
+    techniques: ['Fly fishing', 'Spinning', 'Bait casting in slower pools'],
     seasons: 'Spring and Fall offer the best fishing. Summer can be productive early morning.',
     regulations: 'WV fishing license required. Follow statewide bass regulations and size limits.',
     catchAndRelease: 'Consider catch and release for smallmouth to maintain healthy populations.',
@@ -77,9 +77,11 @@ export function createMockOutfitter(overrides?: Partial<Outfitter>): Outfitter {
   return {
     name: 'Test River Outfitters',
     services: ['Guided full-day trips', 'Equipment rental', 'Shuttle service', 'Instruction'],
-    contact: '304-555-0100',
-    website: 'https://example.com',
-    pricing: '$125 per person for full-day guided trip. Equipment rental $50.',
+    contact: {
+      phone: '304-555-0100',
+      website: 'https://example.com',
+    },
+    priceRange: '$125 per person for full-day guided trip. Equipment rental $50.',
     ...overrides,
   };
 }
@@ -93,9 +95,10 @@ export function createMockOutfitter(overrides?: Partial<Outfitter>): Outfitter {
 export function createMockSeasonalFlow(overrides?: Partial<SeasonalFlow>): SeasonalFlow {
   return {
     season: 'Spring (March-May)',
-    flowRate: '1,500-2,500 CFS',
-    conditions: 'High water levels from snowmelt and spring rains create exciting conditions.',
-    accessibility: 'Suitable for intermediate to advanced paddlers. Guided trips recommended.',
+    level: 'High',
+    cfsRange: '1,500-2,500 CFS',
+    bestFor: ['Intermediate paddling', 'Advanced kayaking'],
+    notes: 'High water levels from snowmelt and spring rains create exciting conditions. Suitable for intermediate to advanced paddlers. Guided trips recommended.',
     ...overrides,
   };
 }
@@ -137,7 +140,7 @@ export function createMockSafety(overrides?: Partial<RiverSafety>): RiverSafety 
       'First aid kit',
       'Whistle for emergency signaling',
     ],
-    importance: 'critical',
+    important: true,
     ...overrides,
   };
 }
@@ -267,7 +270,7 @@ export function createMockRiverTemplate(
     ],
     seasonalFlow: [
       createMockSeasonalFlow({ season: 'Spring (Mar-May)' }),
-      createMockSeasonalFlow({ season: 'Summer (Jun-Aug)', flowRate: '800-1,200 CFS' }),
+      createMockSeasonalFlow({ season: 'Summer (Jun-Aug)', cfsRange: '800-1,200 CFS', level: 'Medium' }),
       createMockSeasonalFlow({ season: 'Fall (Sept-Oct)' }),
     ],
     accessPoints: [
@@ -276,11 +279,11 @@ export function createMockRiverTemplate(
       createMockAccessPoint({ name: 'Lower Landing', type: 'Take-out' }),
     ],
     safety: [
-      createMockSafety({ category: 'Required Equipment', importance: 'critical' }),
+      createMockSafety({ category: 'Required Equipment', important: true }),
       createMockSafety({
         category: 'Hazards',
         items: ['Strong currents', 'Undercut rocks', 'Strainers', 'Cold water'],
-        importance: 'high',
+        important: true,
       }),
     ],
     nearbyAttractions: [
