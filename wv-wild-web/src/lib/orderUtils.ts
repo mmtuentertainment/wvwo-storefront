@@ -7,6 +7,7 @@
 
 import { z } from 'zod';
 import type { CartItem, CartSummaryData } from '@/stores/cartStore';
+import { encrypt, decrypt, isCryptoAvailable } from './crypto';
 
 // ============================================================================
 // Types
@@ -204,16 +205,32 @@ export function createOrder(params: CreateOrderParams): OrderData {
 // ============================================================================
 
 const ORDER_STORAGE_KEY = 'wvwo_pending_order';
+const ORDER_ENCRYPTED_FLAG = 'wvwo_pending_order_encrypted';
 
 /**
  * Store order in sessionStorage for retrieval on confirmation page.
- * @returns true if stored successfully, false if storage failed
+ * PII is encrypted using AES-GCM when Web Crypto API is available.
+ *
+ * @returns Promise resolving to true if stored successfully, false if storage failed
+ *
+ * Security: GDPR Article 32 / CCPA compliance via encryption
  */
-export function storePendingOrder(order: OrderData): boolean {
+export async function storePendingOrder(order: OrderData): Promise<boolean> {
   if (typeof window === 'undefined') return false;
 
   try {
-    sessionStorage.setItem(ORDER_STORAGE_KEY, JSON.stringify(order));
+    if (isCryptoAvailable()) {
+      // Encrypt PII before storing (GDPR/CCPA compliance)
+      const encrypted = await encrypt(JSON.stringify(order));
+      sessionStorage.setItem(ORDER_STORAGE_KEY, encrypted);
+      sessionStorage.setItem(ORDER_ENCRYPTED_FLAG, 'true');
+    } else {
+      // Fallback for non-HTTPS contexts (local dev only)
+      // Production always uses HTTPS via Cloudflare
+      console.warn('[Order] Crypto unavailable - storing unencrypted (dev mode only)');
+      sessionStorage.setItem(ORDER_STORAGE_KEY, JSON.stringify(order));
+      sessionStorage.removeItem(ORDER_ENCRYPTED_FLAG);
+    }
     return true;
   } catch (error) {
     console.error('[Order] Failed to store order:', error);
@@ -223,27 +240,47 @@ export function storePendingOrder(order: OrderData): boolean {
 
 /**
  * Retrieve and validate pending order from sessionStorage.
- * @returns StorageResult with validated order data or typed error message
+ * Automatically decrypts if data was stored encrypted.
+ *
+ * @returns Promise resolving to StorageResult with validated order data or typed error message
  */
-export function getPendingOrder(): StorageResult<OrderData> {
+export async function getPendingOrder(): Promise<StorageResult<OrderData>> {
   if (typeof window === 'undefined') {
     return { success: false, error: 'Not in browser environment' };
   }
 
   try {
     const stored = sessionStorage.getItem(ORDER_STORAGE_KEY);
+    const isEncrypted = sessionStorage.getItem(ORDER_ENCRYPTED_FLAG) === 'true';
 
     if (!stored) {
       return { success: false, error: 'No pending order found' };
     }
 
-    const parsed = JSON.parse(stored);
+    // Decrypt if data was stored encrypted
+    let jsonData: string;
+    if (isEncrypted && isCryptoAvailable()) {
+      try {
+        jsonData = await decrypt(stored);
+      } catch (decryptError) {
+        // Decryption failed - key may have changed or data corrupted
+        console.error('[Order] Decryption failed:', decryptError);
+        sessionStorage.removeItem(ORDER_STORAGE_KEY);
+        sessionStorage.removeItem(ORDER_ENCRYPTED_FLAG);
+        return { success: false, error: 'Order data could not be decrypted' };
+      }
+    } else {
+      jsonData = stored;
+    }
+
+    const parsed = JSON.parse(jsonData);
     const validated = orderDataSchema.safeParse(parsed);
 
     if (!validated.success) {
       console.error('[Order] Invalid order data:', validated.error.issues);
       // Clear corrupted data to prevent repeated failures
       sessionStorage.removeItem(ORDER_STORAGE_KEY);
+      sessionStorage.removeItem(ORDER_ENCRYPTED_FLAG);
       return { success: false, error: 'Order data corrupted' };
     }
 
@@ -256,6 +293,8 @@ export function getPendingOrder(): StorageResult<OrderData> {
 
 /**
  * Clear pending order from sessionStorage.
+ * Also clears the encryption flag.
+ *
  * @returns true if cleared successfully, false if operation failed
  */
 export function clearPendingOrder(): boolean {
@@ -263,6 +302,7 @@ export function clearPendingOrder(): boolean {
 
   try {
     sessionStorage.removeItem(ORDER_STORAGE_KEY);
+    sessionStorage.removeItem(ORDER_ENCRYPTED_FLAG);
     return true;
   } catch (error) {
     console.error('[Order] Failed to clear order:', error);

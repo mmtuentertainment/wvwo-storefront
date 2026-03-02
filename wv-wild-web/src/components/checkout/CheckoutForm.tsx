@@ -148,8 +148,8 @@ export function CheckoutForm() {
 
     const order = createOrder(orderParams);
 
-    // Store order for confirmation page (returns boolean)
-    const stored = storePendingOrder(order);
+    // Store order for confirmation page (returns boolean, now async with encryption)
+    const stored = await storePendingOrder(order);
     if (!stored) {
       // Storage failed - warn user but don't block payment
       setStorageError(

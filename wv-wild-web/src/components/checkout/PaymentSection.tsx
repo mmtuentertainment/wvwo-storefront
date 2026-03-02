@@ -51,8 +51,8 @@ export function PaymentSection({
         );
       }
 
-      // Retrieve pending order from sessionStorage
-      const orderResult = getPendingOrder();
+      // Retrieve pending order from sessionStorage (now async with decryption)
+      const orderResult = await getPendingOrder();
       if (!orderResult.success) {
         throw new Error("Couldn't find your order. Please try refreshing the page.");
       }

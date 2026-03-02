@@ -31,13 +31,13 @@ const outdoorAreas = [
   },
   {
     name: "Stonewall Jackson Lake WMA",
-    slug: "stonewall-jackson",
+    slug: "wma/stonewall-jackson",
     type: "WMA",
     driveTime: "40 min",
     description: "Rolling hills and lake access near Weston. Popular for waterfowl and deer.",
     hunting: ["Deer", "Turkey", "Waterfowl"],
     fishing: ["Bass", "Musky", "Catfish"],
-    hasDetailPage: false
+    hasDetailPage: true
   },
   // Lakes & Recreation Areas
   {
@@ -131,12 +131,36 @@ const outdoorAreas = [
   },
   {
     name: "Stonewall Jackson Lake",
-    slug: "stonewall-jackson-lake",
+    slug: "lake/stonewall-jackson",
     type: "Lake",
     driveTime: "40 min",
     description: "2,650-acre state park lake. West Virginia's #1 bass fishery for 10+ years, plus trophy musky. Full-service marina with 370+ slips.",
     hunting: [],
     fishing: ["Largemouth Bass", "Musky", "Crappie", "Walleye", "Catfish"],
+    camping: true,
+    hasDetailPage: true
+  },
+  // Stonewall Resort State Park (SPEC-25)
+  {
+    name: "Stonewall Resort State Park",
+    slug: "state-park/stonewall-resort",
+    type: "State Park",
+    driveTime: "40 min",
+    description: "Premium 2,650-acre state park destination with golf, restaurants, lodging, and water sports on Stonewall Jackson Lake.",
+    hunting: [],
+    fishing: ["Largemouth Bass", "Musky", "Crappie", "Walleye", "Catfish"],
+    camping: true,
+    hasDetailPage: true
+  },
+  // Briar Point Campground (Lewis County)
+  {
+    name: "Briar Point Campground",
+    slug: "campground/briar-point",
+    type: "Campground",
+    driveTime: "~55 min",
+    description: "Scenic campground near Weston with electric sites, picnic areas, and access to hiking trails.",
+    hunting: [],
+    fishing: [],
     camping: true,
     hasDetailPage: true
   },

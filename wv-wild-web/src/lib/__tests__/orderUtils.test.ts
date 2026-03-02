@@ -277,40 +277,40 @@ describe('storePendingOrder', () => {
     sessionStorage.clear();
   });
 
-  it('returns true on successful store', () => {
+  it('returns true on successful store', async () => {
     const order = createMockOrder();
-    expect(storePendingOrder(order)).toBe(true);
+    expect(await storePendingOrder(order)).toBe(true);
   });
 
-  it('stores order retrievably', () => {
+  it('stores order retrievably', async () => {
     const order = createMockOrder();
-    storePendingOrder(order);
-    const result = getPendingOrder();
+    await storePendingOrder(order);
+    const result = await getPendingOrder();
     expect(result.success).toBe(true);
     if (result.success) {
       expect(result.data.id).toBe(order.id);
     }
   });
 
-  it('returns false when storage quota exceeded', () => {
+  it('returns false when storage quota exceeded', async () => {
     vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
       throw new DOMException('QuotaExceededError');
     });
 
     const order = createMockOrder();
-    expect(storePendingOrder(order)).toBe(false);
+    expect(await storePendingOrder(order)).toBe(false);
 
     vi.restoreAllMocks();
   });
 
-  it('overwrites existing order', () => {
+  it('overwrites existing order', async () => {
     const order1 = createMockOrder({ id: 'WVWO-2024-111111' });
     const order2 = createMockOrder({ id: 'WVWO-2024-222222' });
 
-    storePendingOrder(order1);
-    storePendingOrder(order2);
+    await storePendingOrder(order1);
+    await storePendingOrder(order2);
 
-    const result = getPendingOrder();
+    const result = await getPendingOrder();
     expect(result.success).toBe(true);
     if (result.success) {
       expect(result.data.id).toBe('WVWO-2024-222222');
@@ -323,18 +323,18 @@ describe('getPendingOrder', () => {
     sessionStorage.clear();
   });
 
-  it('returns error for empty storage', () => {
-    const result = getPendingOrder();
+  it('returns error for empty storage', async () => {
+    const result = await getPendingOrder();
     expect(result.success).toBe(false);
     if (!result.success) {
       expect(result.error).toBe('No pending order found');
     }
   });
 
-  it('returns validated order data on success', () => {
+  it('returns validated order data on success', async () => {
     const order = createMockOrder();
-    storePendingOrder(order);
-    const result = getPendingOrder();
+    await storePendingOrder(order);
+    const result = await getPendingOrder();
 
     expect(result.success).toBe(true);
     if (result.success) {
@@ -344,42 +344,44 @@ describe('getPendingOrder', () => {
     }
   });
 
-  it('returns error for corrupted data', () => {
+  it('returns error for corrupted data (unencrypted)', async () => {
+    // Direct sessionStorage write bypasses encryption, simulating corrupted data
     sessionStorage.setItem('wvwo_pending_order', '{"invalid": true}');
-    const result = getPendingOrder();
+    const result = await getPendingOrder();
     expect(result.success).toBe(false);
     if (!result.success) {
       expect(result.error).toBe('Order data corrupted');
     }
   });
 
-  it('returns error for invalid JSON', () => {
+  it('returns error for invalid JSON (unencrypted)', async () => {
+    // Direct sessionStorage write bypasses encryption
     sessionStorage.setItem('wvwo_pending_order', 'not json at all');
-    const result = getPendingOrder();
+    const result = await getPendingOrder();
     expect(result.success).toBe(false);
     if (!result.success) {
       expect(result.error).toBe('Storage access failed');
     }
   });
 
-  it('clears corrupted data from storage', () => {
+  it('clears corrupted data from storage', async () => {
     sessionStorage.setItem('wvwo_pending_order', '{"invalid": true}');
-    getPendingOrder();
+    await getPendingOrder();
     expect(sessionStorage.getItem('wvwo_pending_order')).toBeNull();
   });
 
-  it('validates order ID format', () => {
+  it('validates order ID format', async () => {
     const badOrder = createMockOrder({ id: 'INVALID-ID' });
     sessionStorage.setItem('wvwo_pending_order', JSON.stringify(badOrder));
-    const result = getPendingOrder();
+    const result = await getPendingOrder();
     expect(result.success).toBe(false);
   });
 
-  it('validates email format', () => {
+  it('validates email format', async () => {
     const badOrder = createMockOrder();
     badOrder.contact.email = 'not-an-email';
     sessionStorage.setItem('wvwo_pending_order', JSON.stringify(badOrder));
-    const result = getPendingOrder();
+    const result = await getPendingOrder();
     expect(result.success).toBe(false);
   });
 });
@@ -389,17 +391,17 @@ describe('clearPendingOrder', () => {
     sessionStorage.clear();
   });
 
-  it('returns true on successful clear', () => {
+  it('returns true on successful clear', async () => {
     const order = createMockOrder();
-    storePendingOrder(order);
+    await storePendingOrder(order);
     expect(clearPendingOrder()).toBe(true);
   });
 
-  it('removes order from storage', () => {
+  it('removes order from storage', async () => {
     const order = createMockOrder();
-    storePendingOrder(order);
+    await storePendingOrder(order);
     clearPendingOrder();
-    const result = getPendingOrder();
+    const result = await getPendingOrder();
     expect(result.success).toBe(false);
   });
 

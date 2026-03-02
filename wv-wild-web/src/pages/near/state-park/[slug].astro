@@ -1,0 +1,357 @@
+---
+/**
+ * State Park Page - Dynamic Route
+ * Creates dynamic routes for state park resort content
+ *
+ * Renders ResortTemplate with data from /src/data/state-parks/{slug}.ts
+ * Uses Vite's import.meta.glob() for auto-discovery of data files.
+ *
+ * To add a new state park: just add the .ts data file in /src/data/state-parks/
+ */
+
+import type { GetStaticPaths } from 'astro';
+import Layout from '../../../layouts/Layout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import EmailCapture from '../../../components/EmailCapture.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import SchemaBreadcrumb from '../../../components/seo/SchemaBreadcrumb.astro';
+import StateParkTemplate from '../../../components/templates/StateParkTemplate.astro';
+import type { StateParkTemplateProps } from '../../../types/templates/state-park';
+
+// Type for data modules
+type StateParkDataModule = {
+  [key: string]: StateParkTemplateProps;
+};
+
+interface Props {
+  stateParkData: StateParkTemplateProps;
+  slug: string;
+  relatedLakes: Array<{ slug: string; name: string }>;
+  relatedWMAs: Array<{ slug: string; name: string }>;
+  relatedCampgrounds: Array<{ slug: string; name: string }>;
+}
+
+// ============================================================================
+// STATIC PATH GENERATION WITH AUTO-DISCOVERY
+// ============================================================================
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  // AUTO-DISCOVER: Vite glob imports all .ts files in /src/data/state-parks/
+  const dataModules = import.meta.glob<StateParkDataModule>(
+    '../../../data/state-parks/*.ts',
+    { eager: true }
+  );
+
+  // Also discover lake data for cross-linking
+  const lakeModules = import.meta.glob<{ [key: string]: { name: string } }>(
+    '../../../data/lakes/*.ts',
+    { eager: true }
+  );
+
+  // Discover WMA data for cross-linking
+  const wmaModules = import.meta.glob<{ [key: string]: { name: string } }>(
+    '../../../data/wma/*.ts',
+    { eager: true }
+  );
+
+  // Discover campground data for cross-linking
+  const campgroundModules = import.meta.glob<{ [key: string]: { name: string } }>(
+    '../../../data/campgrounds/*.ts',
+    { eager: true }
+  );
+
+  // Build maps for cross-linking (simplified - can be enhanced with proximity matching)
+  type DestinationInfo = { slug: string; name: string };
+
+  const lakesMap = new Map<string, DestinationInfo>();
+  for (const [path, module] of Object.entries(lakeModules)) {
+    const filename = path.split('/').pop() ?? '';
+    if (filename.startsWith('_')) continue;
+    const slug = filename.replace('.ts', '');
+    const exportedData = Object.values(module).find(
+      (value): value is { name: string } =>
+        typeof value === 'object' && value !== null && 'name' in value
+    );
+    if (exportedData) {
+      lakesMap.set(slug, { slug, name: exportedData.name });
+    }
+  }
+
+  const wmasMap = new Map<string, DestinationInfo>();
+  for (const [path, module] of Object.entries(wmaModules)) {
+    const filename = path.split('/').pop() ?? '';
+    if (filename.startsWith('_')) continue;
+    const slug = filename.replace('.ts', '');
+    const exportedData = Object.values(module).find(
+      (value): value is { name: string } =>
+        typeof value === 'object' && value !== null && 'name' in value
+    );
+    if (exportedData) {
+      wmasMap.set(slug, { slug, name: exportedData.name });
+    }
+  }
+
+  const campgroundsMap = new Map<string, DestinationInfo>();
+  for (const [path, module] of Object.entries(campgroundModules)) {
+    const filename = path.split('/').pop() ?? '';
+    if (filename.startsWith('_')) continue;
+    const slug = filename.replace('.ts', '');
+    const exportedData = Object.values(module).find(
+      (value): value is { name: string } =>
+        typeof value === 'object' && value !== null && 'name' in value
+    );
+    if (exportedData) {
+      campgroundsMap.set(slug, { slug, name: exportedData.name });
+    }
+  }
+
+  const paths = [];
+
+  for (const [path, module] of Object.entries(dataModules)) {
+    const filename = path.split('/').pop() ?? '';
+    // Skip example/template files
+    if (filename.startsWith('_')) continue;
+
+    const slug = filename.replace('.ts', '');
+
+    // Find the exported data (look for *StatePark or *Data export)
+    const exportedData = Object.values(module).find(
+      (value): value is StateParkTemplateProps =>
+        typeof value === 'object' && value !== null && 'hero' in value
+    );
+
+    if (exportedData) {
+      // Build-time validation: log warnings for missing required fields
+      if (!exportedData.hero?.name) {
+        console.warn(`[State Park ${slug}] Missing required hero.name field`);
+      }
+      if (!exportedData.overview) {
+        console.warn(`[State Park ${slug}] Missing overview section`);
+      }
+
+      // Simple cross-linking: match by partial slug match (e.g., "stonewall-resort" matches "stonewall-jackson" lake)
+      const relatedLakes: DestinationInfo[] = [];
+      const relatedWMAs: DestinationInfo[] = [];
+      const relatedCampgrounds: DestinationInfo[] = [];
+
+      // For Stonewall Resort, link to Stonewall Jackson Lake
+      if (slug.includes('stonewall')) {
+        const stonewallLake = lakesMap.get('stonewall-jackson');
+        if (stonewallLake) relatedLakes.push(stonewallLake);
+
+        const stonewallWMA = wmasMap.get('stonewall-jackson');
+        if (stonewallWMA) relatedWMAs.push(stonewallWMA);
+      }
+
+      paths.push({
+        params: { slug },
+        props: {
+          stateParkData: exportedData,
+          slug,
+          relatedLakes,
+          relatedWMAs,
+          relatedCampgrounds,
+        },
+      });
+    } else {
+      console.warn(`[State Park ${slug}] No valid StateParkTemplateProps export found in ${path}`);
+    }
+  }
+
+  return paths;
+};
+
+// ============================================================================
+// PAGE PROPS
+// ============================================================================
+
+const { stateParkData, slug, relatedLakes, relatedWMAs, relatedCampgrounds } = Astro.props;
+
+// Guard against undefined stateParkData
+if (!stateParkData) {
+  throw new Error(`State park data not found for slug: ${slug}`);
+}
+
+// Derive amenity features from state park data
+const amenityFeatures: Array<{ "@type": string; name: string; value: boolean }> = [];
+
+// Extract facility names from nested facilities object structure
+const extractFacilityNames = (facilities: StateParkTemplateProps['facilities']): string[] => {
+  if (!facilities) return [];
+  const names: string[] = [];
+
+  // Helper to safely extract names
+  const safePush = (items: Array<{ name?: string; cabinNumber?: string }> | undefined, fallback: string) => {
+    if (!items) return;
+    items.forEach(item => {
+      if (item?.name) names.push(item.name);
+      else if (item?.cabinNumber) names.push(item.cabinNumber);
+      else names.push(fallback);
+    });
+  };
+
+  // Extract from lodging
+  safePush(facilities.lodging?.cabins as Array<{ name?: string; cabinNumber?: string }>, 'cabin');
+  safePush(facilities.lodging?.lodges as Array<{ name?: string }>, 'lodge');
+
+  // Extract from camping
+  safePush(facilities.camping?.campgrounds as Array<{ name?: string }>, 'campground');
+
+  // Extract from other arrays
+  safePush(facilities.picnicAreas as Array<{ name?: string }>, 'picnic');
+  safePush(facilities.visitorCenters as Array<{ name?: string }>, 'visitor center');
+  safePush(facilities.natureCenters as Array<{ name?: string }>, 'nature center');
+  safePush(facilities.boatLaunches as Array<{ name?: string }>, 'boat launch');
+  safePush(facilities.otherAmenities as Array<{ name?: string }>, 'amenity');
+
+  return names;
+};
+
+// Check facilities for specific features
+const facilityNames = extractFacilityNames(stateParkData.facilities)
+  .filter((name): name is string => typeof name === 'string')
+  .map(f => f.toLowerCase());
+
+if (facilityNames.some(name => name.includes('golf'))) {
+  amenityFeatures.push({ "@type": "LocationFeatureSpecification", name: "Golf Course", value: true });
+}
+if (facilityNames.some(name => name.includes('fishing'))) {
+  amenityFeatures.push({ "@type": "LocationFeatureSpecification", name: "Fishing", value: true });
+}
+if (facilityNames.some(name => name.includes('marina') || name.includes('boat'))) {
+  amenityFeatures.push({ "@type": "LocationFeatureSpecification", name: "Marina", value: true });
+}
+if (facilityNames.some(name => name.includes('swimming') || name.includes('pool'))) {
+  amenityFeatures.push({ "@type": "LocationFeatureSpecification", name: "Swimming", value: true });
+}
+if (facilityNames.some(name => name.includes('hiking') || name.includes('trail'))) {
+  amenityFeatures.push({ "@type": "LocationFeatureSpecification", name: "Hiking Trails", value: true });
+}
+if (facilityNames.some(name => name.includes('camping') || name.includes('campground'))) {
+  amenityFeatures.push({ "@type": "LocationFeatureSpecification", name: "Camping", value: true });
+}
+
+// Place schema for geographic SEO
+const placeSchema = {
+  "@context": "https://schema.org",
+  "@type": "Park",
+  "name": stateParkData.name,
+  "description": stateParkData.introduction,
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": stateParkData.location,
+    "addressRegion": "WV",
+    "addressCountry": "US",
+  },
+  "amenityFeature": amenityFeatures.length > 0 ? amenityFeatures : undefined,
+  "url": stateParkData.planning?.reservationUrl,
+};
+
+// Breadcrumb data
+const breadcrumbItems = [
+  { name: 'Home', url: '/' },
+  { name: 'Near Us', url: '/near/' },
+  { name: stateParkData.name, url: `/near/state-park/${slug}/` },
+];
+
+// Meta
+const pageTitle = `${stateParkData.name} | WV Wild Outdoors`;
+const metaDescription = stateParkData.introduction?.slice(0, 155) + '...' || '';
+---
+
+<Layout
+  title={pageTitle}
+  description={metaDescription}
+  additionalSchemas={[placeSchema]}
+>
+  <Header />
+  <Breadcrumb items={breadcrumbItems} />
+  <SchemaBreadcrumb items={breadcrumbItems} />
+
+  <StateParkTemplate park={stateParkData} />
+
+  {/* Cross-links section */}
+  {(relatedLakes.length > 0 || relatedWMAs.length > 0 || relatedCampgrounds.length > 0) && (
+    <section class="py-8 bg-white border-t border-brand-brown/15">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto text-center space-y-6">
+          {/* Cross-link to related lakes */}
+          {relatedLakes.length > 0 && (
+            <div>
+              <p class="text-brand-brown/60 mb-3 font-body">Explore nearby fishing:</p>
+              <div class="flex flex-wrap justify-center gap-4">
+                {relatedLakes.map((lake) => (
+                  <a
+                    href={`/near/lake/${lake.slug}/`}
+                    class="inline-flex items-center gap-2 text-sign-green font-bold hover:underline font-body"
+                  >
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                    </svg>
+                    {lake.name} Fishing Guide
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Cross-link to related WMAs */}
+          {relatedWMAs.length > 0 && (
+            <div>
+              <p class="text-brand-brown/60 mb-3 font-body">Explore nearby hunting:</p>
+              <div class="flex flex-wrap justify-center gap-4">
+                {relatedWMAs.map((wma) => (
+                  <a
+                    href={`/near/wma/${wma.slug}/`}
+                    class="inline-flex items-center gap-2 text-sign-green font-bold hover:underline font-body"
+                  >
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                    </svg>
+                    {wma.name} WMA
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Cross-link to related campgrounds */}
+          {relatedCampgrounds.length > 0 && (
+            <div>
+              <p class="text-brand-brown/60 mb-3 font-body">Need a place to camp?</p>
+              <div class="flex flex-wrap justify-center gap-4">
+                {relatedCampgrounds.map((campground) => (
+                  <a
+                    href={`/near/campground/${campground.slug}/`}
+                    class="inline-flex items-center gap-2 text-sign-green font-bold hover:underline font-body"
+                  >
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                    </svg>
+                    {campground.name}
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {/* Newsletter signup */}
+  <section class="py-12 md:py-16 bg-brand-cream">
+    <div class="container mx-auto px-4">
+      <div class="max-w-xl mx-auto">
+        <EmailCapture
+          variant="card"
+          heading="Get Adventure Updates"
+          subheading="New trails, seasonal highlights, and trip planning tips delivered to your inbox."
+        />
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>

@@ -1,7 +1,7 @@
 ---
 title: "Dolly Sods Wilderness"
 description: "17,371 acres of alpine wilderness in the Allegheny Highlands - West Virginia's crown jewel of backcountry. Windswept bogs, sub-arctic tundra, and some of the most remote terrain east of the Mississippi. Not for the unprepared, but absolutely worth the effort."
-type: adventure
+type: backcountry
 season:
   - spring
   - summer

@@ -179,6 +179,12 @@ export const WMATemplatePropsSchema = z.object({
   mapUrl: z.string().url().optional(),
   regulationsUrl: z.string().url().optional(),
 
+  // Cross-linking for Adventure Hub
+  nearbyLake: z.string().optional(),
+  nearbyCampgrounds: z.array(z.string()).optional(),
+  nearbyStateParks: z.array(z.string()).optional(),
+  nearbyRivers: z.array(z.string()).optional(),
+
   // Kim's personal message (renders in font-hand)
   kimsTake: z.string().optional(),
 });

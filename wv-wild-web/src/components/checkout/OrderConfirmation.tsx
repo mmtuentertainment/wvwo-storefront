@@ -58,8 +58,8 @@ export function OrderConfirmation() {
         }
       }
 
-      // Get order from sessionStorage with proper error handling
-      const result = getPendingOrder();
+      // Get order from sessionStorage with proper error handling (now async with decryption)
+      const result = await getPendingOrder();
 
       if (result.success) {
         setOrder(result.data);

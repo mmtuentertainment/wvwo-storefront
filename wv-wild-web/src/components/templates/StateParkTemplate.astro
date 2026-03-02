@@ -256,7 +256,7 @@ const canonicalUrl = `https://www.wvwildoutdoors.com/state-parks/${slugify(park.
     <!-- Section 3: Facilities -->
     {hasFacilities && park.facilities && (
       <div id="facilities">
-        <FacilitiesSection facilities={park.facilities} />
+        <FacilitiesSection facilities={park.facilities} parkName={park.hero.name} />
       </div>
     )}
 
@@ -763,7 +763,7 @@ const canonicalUrl = `https://www.wvwildoutdoors.com/state-parks/${slugify(park.
     /* Smooth focus states for accessibility */
     a:focus-visible,
     button:focus-visible {
-      outline: 2px solid theme('colors.brand-orange');
+      outline: 2px solid #FF6F00;
       outline-offset: 2px;
     }
 
